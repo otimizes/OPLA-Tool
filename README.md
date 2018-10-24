@@ -4,8 +4,7 @@
 
 This project was created from the project 
 ```sh
-
-https://github.com/JoaoChoma/marcelo-opla.git
+https://github.com/SBSE-UEM/OPLA-Tool-Spyke
 ```
 
 ## Requirements
