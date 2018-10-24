@@ -1,0 +1,20 @@
+package br.uem.din.metrics.concernDrivenMetrics.concernDiffusion;
+
+import br.uem.din.architectureEvolution.representation.Architecture;
+import br.uem.din.architectureEvolution.representation.Component;
+import br.uem.din.architectureEvolution.representation.Concern;
+
+public class CDACResult extends ConcernDiffusionResult<Component> {
+
+	public CDACResult(Concern concern, Architecture architecture) {
+		super(concern, architecture);
+	}
+
+	@Override
+	protected void loadElements(Architecture architecture) {
+		for (Component component : architecture.getComponents()) {
+			if (componentContainsConcern(component) || componentContaisConcernViaInterface(component))
+				getElements().add(component);
+		}
+	}
+}

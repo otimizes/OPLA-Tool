@@ -1,0 +1,19 @@
+Este projeto usa maven (http://maven.apache.org) para gerenciamento de dependências. A maioria dos jars foram encontrados na internet e estão 
+e configurados no pom.xml. Entretanto, algumas versões não foram encontradas 
+
+Para isso execute o arquivo buildDeps.sh
+
+Isso irá instalar as dependências em falta no seu reposotório mavem.
+
+Para compilar o projeto via linha de comando você pode usar:
+
+mvn install
+
+Para rodar somente os testes:
+
+mvn test
+
+Para gerar a cobertura do código:
+
+mvn cobertura:cobertura
+

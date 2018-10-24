@@ -1,0 +1,7 @@
+- Uma variabilidade irá estar associada somente a uma classe (03 Setembro 2013)
+
+- No Papyrus, não é possível adicionar um estereótipo por meio da interface visual em um pacote. Isso pode ser feito 
+fora da interface gráfica, entretanto, o esterótipo não é apresentado na representação visual. (04 Setembro 2013)
+
+- No momento o aninhamento de pacotes não é permitido devido a problemas no decoding que ainda não foram resolvidos.
+

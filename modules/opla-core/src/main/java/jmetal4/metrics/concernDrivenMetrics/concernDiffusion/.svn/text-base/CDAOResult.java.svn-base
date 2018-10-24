@@ -1,0 +1,52 @@
+package br.uem.din.metrics.concernDrivenMetrics.concernDiffusion;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import br.uem.din.architectureEvolution.representation.Architecture;
+import br.uem.din.architectureEvolution.representation.Component;
+import br.uem.din.architectureEvolution.representation.Concern;
+import br.uem.din.architectureEvolution.representation.Interface;
+import br.uem.din.architectureEvolution.representation.Operation;
+
+public class CDAOResult extends ConcernDiffusionResult<Operation> {
+
+	public CDAOResult(Concern concern, Architecture architecture) {
+		super(concern, architecture);
+	}
+
+	@Override
+	protected void loadElements(Architecture architecture) {
+		for (Component component : architecture.getComponents()) {
+			if (componentContainsConcern(component))
+				getElements().addAll(getAllOperationsOfAllInterfaces(component));
+			else
+				inspectInterfaces(component);
+		}
+	}
+
+	private Collection<Operation> getAllOperationsOfAllInterfaces(Component component) {
+		ArrayList<Operation> operations = new ArrayList<Operation>();  
+	
+		for (Interface i : component.getImplementedInterfaces()) 
+			operations.addAll(i.getOperations());
+		
+		return operations;
+	}
+	
+	private void inspectInterfaces(Component component) {
+		for (Interface i : component.getImplementedInterfaces()) {
+			if (interfaceContainsConcern(i))
+				getElements().addAll(i.getOperations());
+			else
+				inspectOperations(i);
+		}
+	}
+	
+	private void inspectOperations(Interface i) {
+		for (Operation operation : i.getOperations()) {
+			if (operation.containsConcern(getConcern()))
+				getElements().add(operation);
+		}
+	}
+}
