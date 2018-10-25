@@ -52,8 +52,8 @@ public class NSGAII extends Algorithm {
      *
      * @return a <code>SolutionSet</code> that is a set of non dominated
      * solutions as a result of the algorithm execution
-     * @throws JMException 
-     * @throws Exception 
+     * @throws JMException
+     * @throws Exception
      */
     public SolutionSet execute() throws JMException {
     	LOGGER.info("Iniciando Execução");

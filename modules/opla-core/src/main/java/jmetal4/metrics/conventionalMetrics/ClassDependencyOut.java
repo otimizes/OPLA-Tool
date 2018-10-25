@@ -4,7 +4,9 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Package;
 import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
+import arquitetura.representation.relationship.UsageRelationship;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,9 +57,21 @@ public class ClassDependencyOut {
                             depClasses.add(c);
                         }
                     }
+                    if (relationship instanceof RealizationRelationship) {
+                        RealizationRelationship dependency = (RealizationRelationship) relationship;
+                        if (dependency.getClient().equals(source) && (!(depClasses.contains(c)))) {
+                            depClasses.add(c);
+                        }
+                    }
+                    if (relationship instanceof UsageRelationship) {
+                        UsageRelationship dependency = (UsageRelationship) relationship;
+                        if (dependency.getClient().equals(source) && (!(depClasses.contains(c)))) {
+                            depClasses.add(c);
+                        }
+                    }
                 }
             }
-        }// end for classes
+        } // end for classes
 
         return depClasses.size();
     }

@@ -6,6 +6,7 @@ import arquitetura.representation.Package;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
+import arquitetura.representation.relationship.UsageRelationship;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +59,8 @@ public class ClassDependencyIn {
                         depClasses.add(c);
                     }
                 }
-                if (relationship instanceof RealizationRelationship) {
-                    RealizationRelationship dependency = (RealizationRelationship) relationship;
+                if (relationship instanceof UsageRelationship) {
+                    UsageRelationship dependency = (UsageRelationship) relationship;
                     if (dependency.getSupplier().equals(source) && (!(depClasses.contains(c)))) {
                         depClasses.add(c);
                     }

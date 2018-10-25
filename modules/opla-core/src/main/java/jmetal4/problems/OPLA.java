@@ -442,10 +442,10 @@ public class OPLA extends Problem {
         return sumLCCClass;
     }
 
-    private float evaluatePLAExtensibility(Architecture architecture) {
+    private double evaluatePLAExtensibility(Architecture architecture) {
     	LOGGER.info("evaluatePLAExtensibility()");
-        float ExtensibilityFitness = 0;
-        float Extensibility;
+        double ExtensibilityFitness = 0;
+        double Extensibility;
         ExtensPLA PLAExtens = new ExtensPLA(architecture);
         ExtensibilityFitness = PLAExtens.getValue();
         if (ExtensibilityFitness == 0)
