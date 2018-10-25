@@ -776,7 +776,7 @@ public class Principal extends AbstractPrincipalJFrame {
         ckClassCoupling.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 System.out.println("Class Coupling");
-                String metric = Metrics.ACOMP.getName();
+                String metric = Metrics.ACLASS.getName();
                 addToMetrics(ckClassCoupling, metric);
             }
         });
@@ -830,7 +830,7 @@ public class Principal extends AbstractPrincipalJFrame {
         ckCohesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 System.out.println("Cohesion");
-                String metric = Metrics.PLA_EXTENSIBILIY.getName();
+                String metric = Metrics.COE.getName();
                 addToMetrics(ckCohesion, metric);
             }
         });
