@@ -36,6 +36,7 @@ public class StartUpView extends javax.swing.JFrame {
             view.carregarPrincipal();
             view.setVisible(false);
         } catch (Exception ex) {
+            ex.printStackTrace();
             LOGGER.error(ex);
             AlertUtil.showMessage(AlertUtil.DEFAULT_ALERT_ERROR);
             System.exit(0);

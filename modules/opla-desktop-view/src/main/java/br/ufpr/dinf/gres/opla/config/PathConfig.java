@@ -10,6 +10,8 @@ public class PathConfig {
 
     private Path directoryToSaveModels;
 
+    private Path directoryToInteraction;
+
     private Path directoryToExportModels;
 
     private Path pathToProfileConcern;
@@ -37,6 +39,7 @@ public class PathConfig {
 
     public PathConfig(ApplicationYamlConfig applicationYaml) {
         this.directoryToSaveModels = Paths.get(applicationYaml.getDirectoryToExportModels());
+        this.directoryToInteraction = Paths.get(applicationYaml.getDirectoryToInteraction());
         this.directoryToExportModels = Paths.get(applicationYaml.getDirectoryToSaveModels());
         this.pahtToProfileSmarty = Paths.get(applicationYaml.getPathToProfile());
         this.pathToProfileConcern = Paths.get(applicationYaml.getPathToProfileConcern());
@@ -140,4 +143,21 @@ public class PathConfig {
     public void setPathLastOptimizationInput(Path lastOptimizationInput) {
         this.pathLastOptimizationInput = lastOptimizationInput;
     }
+
+    public Path getDirectoryToInteraction() {
+        return directoryToInteraction;
+    }
+
+    public void setDirectoryToInteraction(Path directoryToInteraction) {
+        this.directoryToInteraction = directoryToInteraction;
+    }
+
+    public Path getPahtToProfileSmarty() {
+        return pahtToProfileSmarty;
+    }
+
+    public void setPahtToProfileSmarty(Path pahtToProfileSmarty) {
+        this.pahtToProfileSmarty = pahtToProfileSmarty;
+    }
+
 }

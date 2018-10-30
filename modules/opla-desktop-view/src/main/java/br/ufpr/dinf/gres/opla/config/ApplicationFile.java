@@ -70,5 +70,7 @@ public class ApplicationFile {
 		String pathToProfileRelationships;
 
 		String pathToProfilePatterns;
+                
+                String directoryToInteraction;
 	}
 }

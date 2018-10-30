@@ -11,6 +11,7 @@ public class ApplicationYamlConfig {
 
     private String pathToTemplateModelsDirectory;
     private String directoryToSaveModels;
+    private String directoryToInteraction;
     private String directoryToExportModels;
     private String pathToProfile;
     private String pathToProfileConcern;
@@ -81,4 +82,14 @@ public class ApplicationYamlConfig {
     public void setPathLastOptimizationInput(String lastOptimizationInput) {
         this.pathLastOptimizationInput = lastOptimizationInput;
     }
+
+    public String getDirectoryToInteraction() {
+        return StringUtils.defaultString(directoryToInteraction);
+    }
+
+    public void setDirectoryToInteraction(String directoryToInteraction) {
+        this.directoryToInteraction = directoryToInteraction;
+    }
+    
+    
 }

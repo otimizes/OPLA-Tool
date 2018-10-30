@@ -111,6 +111,12 @@ public class ManagerApplicationConfig {
 		this.applicationYaml.setDirectoryToExportModels(newpath);
 		updateConfigurationFile();
 	}
+        
+        public void updatePathToInteraction(String newpath) throws IOException {
+		this.configurationFile.setDirectoryToInteraction(Paths.get(newpath));
+		this.applicationYaml.setDirectoryToInteraction(newpath);
+		updateConfigurationFile();
+	}
 
 	public void updatePathToSaveModels(String newpath) throws IOException {
 		this.configurationFile.setDirectoryToSaveModels(Paths.get(newpath));
