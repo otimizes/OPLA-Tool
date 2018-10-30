@@ -57,6 +57,9 @@ public class NSGAII {
             configs.activeLogs();
             configs.setDescription(description);
             configs.setInteractive(interactive);
+            configs.setInteractiveFunction((solutionSet, experiement, execution) -> {
+                System.out.println("Interagiu");
+            });
 
             // Se mutação estiver marcada, pega os operadores selecionados ,e seta a probabilidade de mutacao
             if (mutation) {

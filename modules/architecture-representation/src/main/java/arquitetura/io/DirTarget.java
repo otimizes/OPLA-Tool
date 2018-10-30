@@ -10,6 +10,8 @@ public class DirTarget {
 
     private String directoryToInteraction;
 
+    private String pathPapyrus;
+
     private String directoryToExportModels;
 
     private String pathLastOptimizationInput;
@@ -114,11 +116,20 @@ public class DirTarget {
         this.directoryToInteraction = directoryToInteraction;
     }
 
+    public String getPathPapyrus() {
+        return pathPapyrus;
+    }
+
+    public void setPathPapyrus(String pathPapyrus) {
+        this.pathPapyrus = pathPapyrus;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("directoryToSaveModels", directoryToSaveModels)
                 .append("directoryToInteraction", directoryToInteraction)
+                .append("pathPapyrus", pathPapyrus)
                 .append("directoryToExportModels", directoryToExportModels).append("pathToProfile", pathToProfile)
                 .append("pathLastOptimizationInput", pathLastOptimizationInput)
                 .append("pathToProfileConcern", pathToProfileConcern)
@@ -126,6 +137,5 @@ public class DirTarget {
                 .append("pathToProfileRelationships", pathToProfileRelationships)
                 .append("pathToProfilePatterns", pathToProfilePatterns).toString();
     }
-
 
 }

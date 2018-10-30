@@ -2,6 +2,7 @@ package jmetal4.experiments;
 
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.inf.opla.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
+import jmetal4.interactive.InteractiveFunction;
 import org.apache.commons.lang.WordUtils;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public abstract class ExperimentCommomConfigs {
     private OPLAConfigs oplaConfigs;
     private String[] patterns = null; //OPLA-Patterns....
     private String description;
+    private InteractiveFunction interactiveFunction;
     private Boolean interactive;
 
     private List<String> mutationOperators = new ArrayList<String>();
@@ -214,7 +216,12 @@ public abstract class ExperimentCommomConfigs {
     public void setInteractive(Boolean interactive) {
         this.interactive = interactive;
     }
-    
-    
-    
+
+    public InteractiveFunction getInteractiveFunction() {
+        return interactiveFunction;
+    }
+
+    public void setInteractiveFunction(InteractiveFunction interactiveFunction) {
+        this.interactiveFunction = interactiveFunction;
+    }
 }

@@ -29,7 +29,9 @@ import com.ufpr.br.opla.configuration.VolatileConfs;
 import com.ufpr.br.opla.gui.StartUp;
 import com.ufpr.br.opla.utils.MutationOperatorsSelected;
 import com.ufpr.br.opla.utils.Time;
+
 import java.awt.event.ActionEvent;
+
 import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.Metrics;
 import org.apache.commons.lang3.StringUtils;
@@ -106,7 +108,7 @@ public class Principal extends AbstractPrincipalJFrame {
         configureRelationshipsProfile();
         configureTemplates();
         configureLocaleToSaveModels();
-        configureLocaleToInteraction();
+        configureLocaleToInteractionPapyrus();
         configureLocaleToExportModels();
         copyBinHypervolume();
         configureLastInputArchitecture();
@@ -240,21 +242,16 @@ public class Principal extends AbstractPrincipalJFrame {
         }
     }
 
-    private void configureLocaleToInteraction() throws IOException {
+
+    private void configureLocaleToInteractionPapyrus() throws IOException {
         ckEnableInteraction.setSelected(true);
-        if (StringUtils.isNotBlank(config.getConfig().getDirectoryToInteraction().toString())) {
-            LOGGER.info("Interaction Directory is configured");
-            tfInteractionDirectory.setText(config.getConfig().getDirectoryToInteraction().toString());
-            config.updatePathToInteraction(tfInteractionDirectory.getText());
+        if (StringUtils.isNotBlank(config.getConfig().getPathPapyrus().toString())) {
+            LOGGER.info("Papyrus Directory is configured");
+            ckEnableInteraction1.setSelected(true);
+            tfInteractionDirectory1.setText(config.getConfig().getPathPapyrus().toString());
+            config.updatePathPapyurs(tfInteractionDirectory1.getText());
         } else {
-            try {
-                String pathTempDir = UserHome.getOplaUserHome() + Constants.OUTPUT_DIR + Constants.FILE_SEPARATOR;
-                tfInteractionDirectory.setText(pathTempDir);
-                config.updatePathToInteraction(tfInteractionDirectory.getText());
-            } catch (IOException ex) {
-                LOGGER.error("Interaction directory Config error: ", ex);
-                throw ex;
-            }
+            ckEnableInteraction1.setSelected(false);
         }
     }
 
@@ -322,11 +319,12 @@ public class Principal extends AbstractPrincipalJFrame {
         jLabel6 = new javax.swing.JLabel();
         btManipulationDirectory = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
-        tfInteractionDirectory = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        btManipulationDirectory2 = new javax.swing.JButton();
         btViewApplicationConfig = new javax.swing.JButton();
         ckEnableInteraction = new javax.swing.JCheckBox();
+        ckEnableInteraction1 = new javax.swing.JCheckBox();
+        jLabel19 = new javax.swing.JLabel();
+        tfInteractionDirectory1 = new javax.swing.JTextField();
+        btManipulationDirectory3 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         cbAlgothm = new javax.swing.JComboBox<>();
@@ -668,18 +666,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Interaction Directory", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
-
-        tfInteractionDirectory.setColumns(63);
-
-        jLabel18.setText("Directory:");
-
-        btManipulationDirectory2.setText("Select a Directory");
-        btManipulationDirectory2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btInteractionDirectoryActionPerformed(evt);
-            }
-        });
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User Interaction", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btViewApplicationConfig.setText("Visualize your application config file");
         btViewApplicationConfig.addActionListener(new java.awt.event.ActionListener() {
@@ -696,6 +683,25 @@ public class Principal extends AbstractPrincipalJFrame {
             }
         });
 
+        ckEnableInteraction1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        ckEnableInteraction1.setText("Enable to open Papyrus");
+        ckEnableInteraction1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckEnableInteraction1(evt);
+            }
+        });
+
+        jLabel19.setText("Papyrus:");
+
+        tfInteractionDirectory1.setColumns(63);
+
+        btManipulationDirectory3.setLabel("Select a File");
+        btManipulationDirectory3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btManipulationDirectory3btInteractionDirectoryActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -704,31 +710,35 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfInteractionDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btManipulationDirectory2)
-                        .addContainerGap(455, Short.MAX_VALUE))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btViewApplicationConfig)
-                            .addComponent(ckEnableInteraction))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addComponent(ckEnableInteraction)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ckEnableInteraction1)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(6, 6, 6)
+                        .addComponent(tfInteractionDirectory1, javax.swing.GroupLayout.PREFERRED_SIZE, 842, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btManipulationDirectory3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(452, Short.MAX_VALUE))))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfInteractionDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18)
-                    .addComponent(btManipulationDirectory2))
+                    .addComponent(ckEnableInteraction)
+                    .addComponent(ckEnableInteraction1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ckEnableInteraction)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(tfInteractionDirectory1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btManipulationDirectory3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btViewApplicationConfig)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -755,7 +765,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("General Configuration", jPanel1);
@@ -1344,7 +1354,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addGroup(panelScopeSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rbRandom)
                     .addComponent(rbElements))
-                .addContainerGap(711, Short.MAX_VALUE))
+                .addContainerGap(1178, Short.MAX_VALUE))
         );
         panelScopeSelectionLayout.setVerticalGroup(
             panelScopeSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1374,7 +1384,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelScopeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(454, Short.MAX_VALUE))
+                .addContainerGap(484, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Design Patterns", jPanel15);
@@ -1405,7 +1415,7 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -1442,7 +1452,7 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel26Layout.setVerticalGroup(
@@ -1607,7 +1617,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(panelResultObjetive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Results", jPanel18);
@@ -1630,7 +1640,7 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1502, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
@@ -1707,7 +1717,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(btHypervolume, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ckUseNormalization)
-                .addContainerGap(533, Short.MAX_VALUE))
+                .addContainerGap(1053, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1743,7 +1753,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Experiments", jPanel19);
@@ -1785,7 +1795,7 @@ public class Principal extends AbstractPrincipalJFrame {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Logs", jPanel24);
@@ -1909,10 +1919,10 @@ public class Principal extends AbstractPrincipalJFrame {
         updateRelationshipProfilePathYaml(path + System.getProperty("file.separator") + "relationships.profile.uml");
     }
 
-    private void btViewApplicationConfigActionPerformed(java.awt.event.ActionEvent evt) {                                                          
+    private void btViewApplicationConfigActionPerformed(java.awt.event.ActionEvent evt) {
         ApplicationYamlView applicationYamlView = new ApplicationYamlView(config);
         applicationYamlView.setVisible(true);
-    }                                                       
+    }
 
     private void ckCrossoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCrossoverActionPerformed
         enableCrossoverOption();
@@ -1922,14 +1932,10 @@ public class Principal extends AbstractPrincipalJFrame {
         optimizationRun();
     }//GEN-LAST:event_btRunActionPerformed
 
-    private void btInteractionDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btManipulationDirectory2ActionPerformed
-        FileSelectorForm form = new FileSelectorForm();
-        form.openSeletor(tfInteractionDirectory, JFileChooser.DIRECTORIES_ONLY);
-        updateInteractionPathYaml(tfInteractionDirectory.getText());
-    }//GEN-LAST:event_btManipulationDirectory2ActionPerformed
-
     private void ckEnableInteraction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckEnableInteraction
-        // TODO add your handling code here:
+        tfInteractionDirectory1.setEnabled(ckEnableInteraction.isSelected());
+        btManipulationDirectory3.setEnabled(ckEnableInteraction.isSelected());
+        ckEnableInteraction1.setEnabled(ckEnableInteraction.isSelected());
     }//GEN-LAST:event_ckEnableInteraction
 
     private void ckConventionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckConventionalActionPerformed
@@ -2056,6 +2062,24 @@ public class Principal extends AbstractPrincipalJFrame {
             MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.ADD_MANAGER_CLASS_MUTATION.getOperatorName());
     }//GEN-LAST:event_ckAddManagerClassMutationItemStateChanged
 
+    private void ckEnableInteraction1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckEnableInteraction1
+        if (tfInteractionDirectory1.getText() == null || tfInteractionDirectory1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "You need select a Papyrus Path");
+            ckEnableInteraction1.setSelected(false);
+        } else {
+            tfInteractionDirectory1.setEnabled(ckEnableInteraction1.isSelected());
+            btManipulationDirectory3.setEnabled(ckEnableInteraction1.isSelected());
+        }
+
+    }//GEN-LAST:event_ckEnableInteraction1
+
+    private void btManipulationDirectory3btInteractionDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btManipulationDirectory3btInteractionDirectoryActionPerformed
+        FileSelectorForm form = new FileSelectorForm();
+        form.openSeletor(tfInteractionDirectory1, JFileChooser.FILES_ONLY);
+        updatePapyrusPathYaml(tfInteractionDirectory1.getText());
+        ckEnableInteraction1.setSelected(tfInteractionDirectory1.getText() != null && !tfInteractionDirectory1.getText().isEmpty());
+    }//GEN-LAST:event_btManipulationDirectory3btInteractionDirectoryActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBrowserFeatureProfile;
     private javax.swing.JButton btBrowserPatternProfile;
@@ -2067,7 +2091,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JButton btGenerateChart;
     private javax.swing.JButton btHypervolume;
     private javax.swing.JButton btManipulationDirectory;
-    private javax.swing.JButton btManipulationDirectory2;
+    private javax.swing.JButton btManipulationDirectory3;
     private javax.swing.JButton btNonDomitedSolutions;
     private javax.swing.JButton btRun;
     private javax.swing.JButton btSelectObjective;
@@ -2088,6 +2112,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JCheckBox ckCrossover;
     private javax.swing.JCheckBox ckElegance;
     private javax.swing.JCheckBox ckEnableInteraction;
+    private javax.swing.JCheckBox ckEnableInteraction1;
     private javax.swing.JCheckBox ckFeature;
     private javax.swing.JCheckBox ckFeatureDifusion;
     private javax.swing.JCheckBox ckFeatureDriven;
@@ -2113,7 +2138,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -2174,7 +2199,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JTextField tfDescription;
     private javax.swing.JTextField tfFeatureProfile;
     private javax.swing.JTextField tfInputArchitecturePath;
-    private javax.swing.JTextField tfInteractionDirectory;
+    private javax.swing.JTextField tfInteractionDirectory1;
     private javax.swing.JTextField tfManipulationDirectory;
     private javax.swing.JTextField tfMaxEvaluations;
     private javax.swing.JTextField tfNumberRuns;
@@ -2213,6 +2238,16 @@ public class Principal extends AbstractPrincipalJFrame {
             AlertUtil.showMessage("Erro ao selecionar diretório");
         }
     }
+
+    private void updatePapyrusPathYaml(String path) {
+        try {
+            config.updatePathPapyurs(path);
+        } catch (IOException e) {
+            LOGGER.debug("Erro ao selecionar diretório", e);
+            AlertUtil.showMessage("Erro ao selecionar diretório");
+        }
+    }
+
 
     private void updateOutputPathYaml(String path) {
         try {

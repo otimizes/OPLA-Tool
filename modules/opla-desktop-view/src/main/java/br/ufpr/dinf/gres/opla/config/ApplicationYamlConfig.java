@@ -12,6 +12,7 @@ public class ApplicationYamlConfig {
     private String pathToTemplateModelsDirectory;
     private String directoryToSaveModels;
     private String directoryToInteraction;
+    private String pathPapyrus;
     private String directoryToExportModels;
     private String pathToProfile;
     private String pathToProfileConcern;
@@ -90,6 +91,15 @@ public class ApplicationYamlConfig {
     public void setDirectoryToInteraction(String directoryToInteraction) {
         this.directoryToInteraction = directoryToInteraction;
     }
+
+    public String getPathPapyrus() {
+        return StringUtils.defaultString(pathPapyrus);
+    }
+
+    public void setPathPapyrus(String pathPapyrus) {
+        this.pathPapyrus = pathPapyrus;
+    }
+    
     
     
 }

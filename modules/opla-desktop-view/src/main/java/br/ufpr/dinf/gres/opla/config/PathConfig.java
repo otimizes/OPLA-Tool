@@ -11,6 +11,8 @@ public class PathConfig {
     private Path directoryToSaveModels;
 
     private Path directoryToInteraction;
+    
+    private Path pathPapyrus;
 
     private Path directoryToExportModels;
 
@@ -39,6 +41,7 @@ public class PathConfig {
 
     public PathConfig(ApplicationYamlConfig applicationYaml) {
         this.directoryToSaveModels = Paths.get(applicationYaml.getDirectoryToExportModels());
+        this.pathPapyrus = Paths.get(applicationYaml.getPathPapyrus());
         this.directoryToInteraction = Paths.get(applicationYaml.getDirectoryToInteraction());
         this.directoryToExportModels = Paths.get(applicationYaml.getDirectoryToSaveModels());
         this.pahtToProfileSmarty = Paths.get(applicationYaml.getPathToProfile());
@@ -159,5 +162,15 @@ public class PathConfig {
     public void setPahtToProfileSmarty(Path pahtToProfileSmarty) {
         this.pahtToProfileSmarty = pahtToProfileSmarty;
     }
+
+    public Path getPathPapyrus() {
+        return pathPapyrus;
+    }
+
+    public void setPathPapyrus(Path pathPapyrus) {
+        this.pathPapyrus = pathPapyrus;
+    }
+    
+    
 
 }

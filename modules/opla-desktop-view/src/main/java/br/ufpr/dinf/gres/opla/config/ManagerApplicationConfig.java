@@ -117,6 +117,12 @@ public class ManagerApplicationConfig {
 		this.applicationYaml.setDirectoryToInteraction(newpath);
 		updateConfigurationFile();
 	}
+        
+        public void updatePathPapyurs(String newpath) throws IOException {
+		this.configurationFile.setPathPapyrus(Paths.get(newpath));
+		this.applicationYaml.setPathPapyrus(newpath);
+		updateConfigurationFile();
+	}
 
 	public void updatePathToSaveModels(String newpath) throws IOException {
 		this.configurationFile.setDirectoryToSaveModels(Paths.get(newpath));

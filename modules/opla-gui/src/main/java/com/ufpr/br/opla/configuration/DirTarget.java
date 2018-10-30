@@ -5,6 +5,7 @@ public class DirTarget {
 
     private String directoryToSaveModels;
     private String directoryToInteraction;
+    private String pathPapyrus;
     private String directoryToExportModels;
     private String pathToProfile;
     private String pathToProfileConcern;
@@ -92,5 +93,13 @@ public class DirTarget {
 
     public void setDirectoryToInteraction(String directoryToInteraction) {
         this.directoryToInteraction = directoryToInteraction;
+    }
+
+    public String getPathPapyrus() {
+        return pathPapyrus;
+    }
+
+    public void setPathPapyrus(String pathPapyrus) {
+        this.pathPapyrus = pathPapyrus;
     }
 }

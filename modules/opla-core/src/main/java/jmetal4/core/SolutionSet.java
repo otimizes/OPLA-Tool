@@ -38,8 +38,8 @@ import org.apache.log4j.Logger;
  * Class representing a SolutionSet (a set of solutions)
  */
 public class SolutionSet implements Serializable {
-	
-	private static final Logger LOGGER = Logger.getLogger(SolutionSet.class);
+
+    private static final Logger LOGGER = Logger.getLogger(SolutionSet.class);
 
     /**
      *
@@ -101,7 +101,7 @@ public class SolutionSet implements Serializable {
      */
     public Solution get(int i) {
         if (i >= solutionsList_.size()) {
-        	LOGGER.warn("Index out of Bound " + i);
+            LOGGER.warn("Index out of Bound " + i);
             throw new IndexOutOfBoundsException("Index out of Bound " + i);
         }
         return solutionsList_.get(i);
@@ -248,7 +248,7 @@ public class SolutionSet implements Serializable {
         File file = new File(path);
         file.getParentFile().mkdirs();
         try {
-        /* Open the file */
+            /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
@@ -263,7 +263,7 @@ public class SolutionSet implements Serializable {
                 // }
             }
 
-	    /* Close the file */
+            /* Close the file */
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -273,7 +273,7 @@ public class SolutionSet implements Serializable {
 
     public void printObjectivesTempToFile(String path) {
         try {
-        /* Open the file */
+            /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
@@ -285,7 +285,7 @@ public class SolutionSet implements Serializable {
                 // }
             }
 
-	    /* Close the file */
+            /* Close the file */
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -301,7 +301,7 @@ public class SolutionSet implements Serializable {
      */
     public void printVariablesToFile(String path) {
         try {
-	    /* Open the file */
+            /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
@@ -318,7 +318,7 @@ public class SolutionSet implements Serializable {
                 bw.newLine();
             }
 
-	    /* Close the file */
+            /* Close the file */
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -345,7 +345,7 @@ public class SolutionSet implements Serializable {
 
     public void printInformationToFile(String path) {
         try {
-	    /* Open the file */
+            /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
@@ -404,7 +404,7 @@ public class SolutionSet implements Serializable {
                 }
             }
 
-	    /* Close the file */
+            /* Close the file */
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -486,7 +486,7 @@ public class SolutionSet implements Serializable {
      * @return A matrix containing the objectives
      */
     public double[][] writeObjectivesToMatrix() {
-    	LOGGER.info("writeObjectivesToMatrix()");
+        LOGGER.info("writeObjectivesToMatrix()");
         if (this.size() == 0) {
             return null;
         }
@@ -502,7 +502,7 @@ public class SolutionSet implements Serializable {
 
     public void printTimeToFile(String path, int run, long time[], String pla) {
         try {
-	    /* Open the file */
+            /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
@@ -515,7 +515,7 @@ public class SolutionSet implements Serializable {
                 bw.newLine();
             }
 
-	    /* Close the file */
+            /* Close the file */
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -527,7 +527,7 @@ public class SolutionSet implements Serializable {
         MetricsEvaluation metrics = new MetricsEvaluation();
 
         try {
-	    /* Open the file */
+            /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
@@ -680,7 +680,7 @@ public class SolutionSet implements Serializable {
                 }
             }
 
-	    /* Close the file */
+            /* Close the file */
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -690,7 +690,7 @@ public class SolutionSet implements Serializable {
 
     public void printAllMetricsToFile(String path) {
         try {
-	    /* Open the file */
+            /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
@@ -710,7 +710,7 @@ public class SolutionSet implements Serializable {
                 }
             }
 
-	    /* Close the file */
+            /* Close the file */
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -720,7 +720,7 @@ public class SolutionSet implements Serializable {
 
     public void printDiscardedSolutionsToFile(int[] discardedSolutions, String path) {
         try {
-	    /* Open the file */
+            /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
@@ -734,7 +734,7 @@ public class SolutionSet implements Serializable {
                 bw.write("Run " + i + ":  " + discardedSolutions[i]);
                 bw.newLine();
             }
-	    /* Close the file */
+            /* Close the file */
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");

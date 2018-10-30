@@ -61,6 +61,8 @@ public class ApplicationFile {
 
 		String directoryToInteraction;
 
+		String pathPapyrus;
+
 		String directoryToExportModels;
 
 		String pathToProfile;
