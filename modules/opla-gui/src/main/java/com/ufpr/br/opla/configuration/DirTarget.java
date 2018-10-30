@@ -4,6 +4,7 @@ package com.ufpr.br.opla.configuration;
 public class DirTarget {
 
     private String directoryToSaveModels;
+    private String directoryToInteraction;
     private String directoryToExportModels;
     private String pathToProfile;
     private String pathToProfileConcern;
@@ -85,4 +86,11 @@ public class DirTarget {
         this.pathToProfilePatterns = pathToProfilePatterns;
     }
 
+    public String getDirectoryToInteraction() {
+        return directoryToInteraction;
+    }
+
+    public void setDirectoryToInteraction(String directoryToInteraction) {
+        this.directoryToInteraction = directoryToInteraction;
+    }
 }

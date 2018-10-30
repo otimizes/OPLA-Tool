@@ -8,6 +8,8 @@ public class DirTarget {
 
     private String directoryToSaveModels;
 
+    private String directoryToInteraction;
+
     private String directoryToExportModels;
 
     private String pathLastOptimizationInput;
@@ -104,10 +106,19 @@ public class DirTarget {
         this.pathLastOptimizationInput = pathLastOptimizationInput;
     }
 
+    public String getDirectoryToInteraction() {
+        return directoryToInteraction;
+    }
+
+    public void setDirectoryToInteraction(String directoryToInteraction) {
+        this.directoryToInteraction = directoryToInteraction;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("directoryToSaveModels", directoryToSaveModels)
+                .append("directoryToInteraction", directoryToInteraction)
                 .append("directoryToExportModels", directoryToExportModels).append("pathToProfile", pathToProfile)
                 .append("pathLastOptimizationInput", pathLastOptimizationInput)
                 .append("pathToProfileConcern", pathToProfileConcern)

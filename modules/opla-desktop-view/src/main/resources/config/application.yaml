@@ -1,6 +1,7 @@
 --- 
 pathToTemplateModelsDirectory: 
-directoryToSaveModels: 
+directoryToSaveModels:
+directoryToInteraction:
 directoryToExportModels: 
 pathToProfile: 
 pathToProfileConcern: 

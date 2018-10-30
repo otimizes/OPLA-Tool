@@ -1,6 +1,7 @@
 --- 
 pathToTemplateModelsDirectory: 
 directoryToSaveModels:
+directoryToInteraction:
 directoryToExportModels:
 pathLastOptimizationInput:
 pathToProfile: 

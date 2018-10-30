@@ -59,6 +59,8 @@ public class ApplicationFile {
 		
 		String directoryToSaveModels;
 
+		String directoryToInteraction;
+
 		String directoryToExportModels;
 
 		String pathToProfile;
@@ -70,7 +72,5 @@ public class ApplicationFile {
 		String pathToProfileRelationships;
 
 		String pathToProfilePatterns;
-                
-                String directoryToInteraction;
 	}
 }
