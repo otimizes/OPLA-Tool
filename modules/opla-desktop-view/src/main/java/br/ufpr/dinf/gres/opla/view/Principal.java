@@ -27,7 +27,11 @@ import com.ufpr.br.opla.algorithms.NSGAII;
 import com.ufpr.br.opla.algorithms.PAES;
 import com.ufpr.br.opla.configuration.VolatileConfs;
 import com.ufpr.br.opla.gui.StartUp;
+import com.ufpr.br.opla.utils.MutationOperatorsSelected;
 import com.ufpr.br.opla.utils.Time;
+import java.awt.event.ActionEvent;
+import jmetal4.experiments.FeatureMutationOperators;
+import jmetal4.experiments.Metrics;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
@@ -237,13 +241,14 @@ public class Principal extends AbstractPrincipalJFrame {
     }
 
     private void configureLocaleToInteraction() throws IOException {
+        ckEnableInteraction.setSelected(true);
         if (StringUtils.isNotBlank(config.getConfig().getDirectoryToInteraction().toString())) {
             LOGGER.info("Interaction Directory is configured");
             tfInteractionDirectory.setText(config.getConfig().getDirectoryToInteraction().toString());
             config.updatePathToInteraction(tfInteractionDirectory.getText());
         } else {
             try {
-                String pathTempDir = UserHome.getOplaUserHome() + Constants.TEMP_DIR + Constants.FILE_SEPARATOR;
+                String pathTempDir = UserHome.getOplaUserHome() + Constants.OUTPUT_DIR + Constants.FILE_SEPARATOR;
                 tfInteractionDirectory.setText(pathTempDir);
                 config.updatePathToInteraction(tfInteractionDirectory.getText());
             } catch (IOException ex) {
@@ -321,6 +326,7 @@ public class Principal extends AbstractPrincipalJFrame {
         jLabel18 = new javax.swing.JLabel();
         btManipulationDirectory2 = new javax.swing.JButton();
         btViewApplicationConfig = new javax.swing.JButton();
+        ckEnableInteraction = new javax.swing.JCheckBox();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         cbAlgothm = new javax.swing.JComboBox<>();
@@ -416,7 +422,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Profiles Configuration", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Profiles Configuration", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         panelCkProfiles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCkProfiles.setName("Profile Smart Configuration"); // NOI18N
@@ -588,7 +594,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Template Configuration", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Template Configuration", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tfTemplateDiretory.setColumns(63);
 
@@ -625,7 +631,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Manipulation Directory", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Manipulation Directory", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tfManipulationDirectory.setColumns(63);
 
@@ -662,7 +668,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Interaction Directory", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Interaction Directory", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tfInteractionDirectory.setColumns(63);
 
@@ -682,21 +688,33 @@ public class Principal extends AbstractPrincipalJFrame {
             }
         });
 
+        ckEnableInteraction.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        ckEnableInteraction.setText("Enable");
+        ckEnableInteraction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckEnableInteraction(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfInteractionDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btManipulationDirectory2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addComponent(btViewApplicationConfig)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfInteractionDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btManipulationDirectory2)
+                        .addContainerGap(455, Short.MAX_VALUE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btViewApplicationConfig)
+                            .addComponent(ckEnableInteraction))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -706,7 +724,9 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addComponent(tfInteractionDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18)
                     .addComponent(btManipulationDirectory2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ckEnableInteraction)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(btViewApplicationConfig)
                 .addContainerGap())
         );
@@ -735,12 +755,12 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("General Configuration", jPanel1);
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Settings", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel8.setName("Panel Settings"); // NOI18N
 
         tfNumberRuns.setColumns(10);
@@ -810,28 +830,78 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Objective Functions", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Objective Functions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel9.setName("Panel Objective Functions"); // NOI18N
 
         ckConventional.setText("Conventional");
+        ckConventional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckConventionalActionPerformed(evt);
+            }
+        });
 
         ckComponentCoupling.setText("Component Coupling");
+        ckComponentCoupling.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckComponentCouplingActionPerformed(evt);
+            }
+        });
 
         ckClassCoupling.setText("Class Coupling");
+        ckClassCoupling.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckClassCouplingActionPerformed(evt);
+            }
+        });
 
         ckSize.setText("Size");
+        ckSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckSizeActionPerformed(evt);
+            }
+        });
 
         ckFeatureDriven.setText("Feature Driven");
+        ckFeatureDriven.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckFeatureDrivenActionPerformed(evt);
+            }
+        });
 
         ckFeatureInterlacing.setText("Features Interlacing");
+        ckFeatureInterlacing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckFeatureInterlacingActionPerformed(evt);
+            }
+        });
 
         ckFeatureDifusion.setText("Features Diffusion");
+        ckFeatureDifusion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckFeatureDifusionActionPerformed(evt);
+            }
+        });
 
         ckPLAExtensibility.setText("PLA Extensibility");
+        ckPLAExtensibility.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckPLAExtensibilityActionPerformed(evt);
+            }
+        });
 
         ckCohesion.setText("Cohesion");
+        ckCohesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckCohesionActionPerformed(evt);
+            }
+        });
 
         ckElegance.setText("Elegance");
+        ckElegance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckEleganceActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -880,7 +950,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelOperators.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operators", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        panelOperators.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operators", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         panelOperatorOption.setName("Panel Operators Options"); // NOI18N
 
@@ -962,20 +1032,50 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap())
         );
 
-        panelMutations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mutation Operators", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        panelMutations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mutation Operators", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         panelMutations.setName("Panel Mutations Operators"); // NOI18N
 
         ckFeatureDrivenMutation.setText("Feature-driven Mutation");
+        ckFeatureDrivenMutation.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ckFeatureDrivenMutationItemStateChanged(evt);
+            }
+        });
 
         ckMoveMethodMutation.setText("Move Method Mutation");
+        ckMoveMethodMutation.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ckMoveMethodMutationItemStateChanged(evt);
+            }
+        });
 
         ckAddClassMutation.setText("Add Class Mutation");
+        ckAddClassMutation.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ckAddClassMutationItemStateChanged(evt);
+            }
+        });
 
         ckMoveOperationMutation.setText("Move Operation Mutation");
+        ckMoveOperationMutation.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ckMoveOperationMutationItemStateChanged(evt);
+            }
+        });
 
         ckAddManagerClassMutation.setText("Add Manager Class Mutation");
+        ckAddManagerClassMutation.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ckAddManagerClassMutationItemStateChanged(evt);
+            }
+        });
 
         ckMoveAttributeMutation.setText("Move Attribute Mutation");
+        ckMoveAttributeMutation.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ckMoveAttributeMutationItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelMutationsLayout = new javax.swing.GroupLayout(panelMutations);
         panelMutations.setLayout(panelMutationsLayout);
@@ -1012,7 +1112,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Input Architecture", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Input Architecture", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tfInputArchitecturePath.setColumns(50);
 
@@ -1078,7 +1178,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jPanel12Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btClean, btConfirme, btSelectPath});
 
-        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Output Directory", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Output Directory", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tfOutputDirectory.setColumns(50);
 
@@ -1180,14 +1280,29 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jTabbedPane1.addTab("Execution Configuration", jPanel7);
 
-        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Design Pattern Selection", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Design Pattern Selection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel16.setName("Panel Desig Patterns Selection"); // NOI18N
 
         ckMediator.setText("Mediator");
+        ckMediator.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckMediatorActionPerformed(evt);
+            }
+        });
 
         ckStrategy.setText("Strategy");
+        ckStrategy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckStrategyActionPerformed(evt);
+            }
+        });
 
         ckBridge.setText("Bridge");
+        ckBridge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckBridgeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -1213,7 +1328,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelScopeSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Scope Selection", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        panelScopeSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Scope Selection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         panelScopeSelection.setName("Panel Scope Selection"); // NOI18N
 
         rbRandom.setText("Random");
@@ -1264,7 +1379,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jTabbedPane1.addTab("Design Patterns", jPanel15);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Executions", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Executions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tbExecutions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1301,7 +1416,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap())
         );
 
-        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Runs", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Runs", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tbRuns.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1526,7 +1641,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Soluctions in the Seach Space", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Soluctions in the Seach Space", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btSelectObjective.setText("Select the Objective");
 
@@ -1556,7 +1671,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Euclidean Distance", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Euclidean Distance", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btEuclidianDistance.setText("Number Of Soluction Per Eucidean Distance");
 
@@ -1577,7 +1692,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hypervolume", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hypervolume", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btHypervolume.setText("Hypervolume");
 
@@ -1633,7 +1748,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jTabbedPane1.addTab("Experiments", jPanel19);
 
-        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Status", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Status", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         taLogStatus.setColumns(114);
         taLogStatus.setRows(25);
@@ -1813,6 +1928,134 @@ public class Principal extends AbstractPrincipalJFrame {
         updateInteractionPathYaml(tfInteractionDirectory.getText());
     }//GEN-LAST:event_btManipulationDirectory2ActionPerformed
 
+    private void ckEnableInteraction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckEnableInteraction
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ckEnableInteraction
+
+    private void ckConventionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckConventionalActionPerformed
+        System.out.println("Conventional");
+        String metric = Metrics.CONVENTIONAL.getName();
+        addToMetrics(ckConventional, metric);
+    }//GEN-LAST:event_ckConventionalActionPerformed
+
+    private void ckFeatureDrivenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckFeatureDrivenActionPerformed
+        System.out.println("Feature Driven");
+        String metric = Metrics.FEATURE_DRIVEN.getName();
+        addToMetrics(ckFeatureDriven, metric);
+    }//GEN-LAST:event_ckFeatureDrivenActionPerformed
+
+    private void ckComponentCouplingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckComponentCouplingActionPerformed
+        System.out.println("Component Coupling");
+        String metric = Metrics.ACOMP.getName();
+        addToMetrics(ckComponentCoupling, metric);
+    }//GEN-LAST:event_ckComponentCouplingActionPerformed
+
+    private void ckFeatureInterlacingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckFeatureInterlacingActionPerformed
+        System.out.println("Features Interlacing");
+        String metric = Metrics.EC.getName();
+        addToMetrics(ckFeatureInterlacing, metric);
+    }//GEN-LAST:event_ckFeatureInterlacingActionPerformed
+
+    private void ckClassCouplingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckClassCouplingActionPerformed
+        System.out.println("Class Coupling");
+        String metric = Metrics.ACLASS.getName();
+        addToMetrics(ckClassCoupling, metric);
+    }//GEN-LAST:event_ckClassCouplingActionPerformed
+
+    private void ckFeatureDifusionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckFeatureDifusionActionPerformed
+        System.out.println("Features Diffusion");
+        String metric = Metrics.DC.getName();
+        addToMetrics(ckFeatureDifusion, metric);
+    }//GEN-LAST:event_ckFeatureDifusionActionPerformed
+
+    private void ckSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckSizeActionPerformed
+        System.out.println("Tam");
+        String metric = Metrics.TAM.getName();
+        addToMetrics(ckSize, metric);
+    }//GEN-LAST:event_ckSizeActionPerformed
+
+    private void ckCohesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCohesionActionPerformed
+        System.out.println("Cohesion");
+        String metric = Metrics.COE.getName();
+        addToMetrics(ckCohesion, metric);
+    }//GEN-LAST:event_ckCohesionActionPerformed
+
+    private void ckPLAExtensibilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckPLAExtensibilityActionPerformed
+        System.out.println("PLA Extensibility");
+        String metric = Metrics.PLA_EXTENSIBILIY.getName();
+        addToMetrics(ckPLAExtensibility, metric);
+    }//GEN-LAST:event_ckPLAExtensibilityActionPerformed
+
+    private void ckEleganceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckEleganceActionPerformed
+        System.out.println("Elegance");
+        String metric = Metrics.ELEGANCE.getName();
+        addToMetrics(ckElegance, metric);
+    }//GEN-LAST:event_ckEleganceActionPerformed
+
+    private void ckMediatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckMediatorActionPerformed
+        enableAllRadioButons(panelScopeSelection, ckMediator.isSelected());
+        if (ckMediator.isSelected())
+            MutationOperatorsSelected.getSelectedPatternsToApply().add("Mediator");
+        else
+            MutationOperatorsSelected.getSelectedPatternsToApply().remove("Mediator");
+    }//GEN-LAST:event_ckMediatorActionPerformed
+
+    private void ckStrategyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckStrategyActionPerformed
+        if (ckStrategy.isSelected())
+            MutationOperatorsSelected.getSelectedPatternsToApply().add("Strategy");
+        else
+            MutationOperatorsSelected.getSelectedPatternsToApply().remove("Strategy");
+    }//GEN-LAST:event_ckStrategyActionPerformed
+
+    private void ckBridgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckBridgeActionPerformed
+        if (ckBridge.isSelected())
+            MutationOperatorsSelected.getSelectedPatternsToApply().add("Bridge");
+        else
+            MutationOperatorsSelected.getSelectedPatternsToApply().remove("Bridge");
+    }//GEN-LAST:event_ckBridgeActionPerformed
+
+    private void ckFeatureDrivenMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckFeatureDrivenMutationItemStateChanged
+        if (ckFeatureDrivenMutation.isSelected())
+            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.FEATURE_MUTATION.getOperatorName());
+        else
+            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.FEATURE_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckFeatureDrivenMutationItemStateChanged
+
+    private void ckMoveOperationMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMoveOperationMutationItemStateChanged
+        if (ckMoveOperationMutation.isSelected())
+            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
+        else
+            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckMoveOperationMutationItemStateChanged
+
+    private void ckMoveAttributeMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMoveAttributeMutationItemStateChanged
+        if (ckMoveOperationMutation.isSelected())
+            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
+        else
+            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckMoveAttributeMutationItemStateChanged
+
+    private void ckAddClassMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckAddClassMutationItemStateChanged
+        if (ckAddClassMutation.isSelected())
+            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.ADD_CLASS_MUTATION.getOperatorName());
+        else
+            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.ADD_CLASS_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckAddClassMutationItemStateChanged
+
+    private void ckMoveMethodMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMoveMethodMutationItemStateChanged
+        if (ckMoveMethodMutation.isSelected())
+            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.MOVE_METHOD_MUTATION.getOperatorName());
+        else
+            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.MOVE_METHOD_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckMoveMethodMutationItemStateChanged
+
+    private void ckAddManagerClassMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckAddManagerClassMutationItemStateChanged
+        if (ckAddManagerClassMutation.isSelected())
+            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.ADD_MANAGER_CLASS_MUTATION.getOperatorName());
+        else
+            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.ADD_MANAGER_CLASS_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckAddManagerClassMutationItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBrowserFeatureProfile;
     private javax.swing.JButton btBrowserPatternProfile;
@@ -1844,6 +2087,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JCheckBox ckConventional;
     private javax.swing.JCheckBox ckCrossover;
     private javax.swing.JCheckBox ckElegance;
+    private javax.swing.JCheckBox ckEnableInteraction;
     private javax.swing.JCheckBox ckFeature;
     private javax.swing.JCheckBox ckFeatureDifusion;
     private javax.swing.JCheckBox ckFeatureDriven;
@@ -2208,7 +2452,7 @@ public class Principal extends AbstractPrincipalJFrame {
             NSGAII nsgaii = new NSGAII();
             nsgaii.execute(cbAlgothm, ckMutation, jsMutation, tfInputArchitecturePath, tfNumberRuns,
                     tfPopulationSize, tfMaxEvaluations, ckCrossover, jsCrossover,
-                    tfDescription);
+                    tfDescription, ckEnableInteraction);
             JOptionPane.showMessageDialog(null, "Success execution NSGA-II, Finalizing....");
             Logger.getLogger().putLog(
                     String.format("Success execution NSGA-II, Finalizing...", Level.INFO, StartUp.class.getName()));

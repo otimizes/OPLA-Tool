@@ -11,7 +11,6 @@ import java.util.List;
 
 public abstract class ExperimentCommomConfigs {
 
-
     private boolean log = false;
     private LogLog logger; //Precisa para captar os logs na GUI.
     private String pathToDb;
@@ -23,10 +22,11 @@ public abstract class ExperimentCommomConfigs {
     private OPLAConfigs oplaConfigs;
     private String[] patterns = null; //OPLA-Patterns....
     private String description;
+    private Boolean interactive;
 
     private List<String> mutationOperators = new ArrayList<String>();
     private ElementsWithSameDesignPatternSelection applyStrategy;
-    
+
     public void activeLogs() {
         log = true;
     }
@@ -63,8 +63,9 @@ public abstract class ExperimentCommomConfigs {
     }
 
     protected void validateArgument(String arg, double probability) {
-        if (probability < 0 || probability > 1)
+        if (probability < 0 || probability > 1) {
             throw new IllegalArgumentException(arg + " must be a value between 0 and 1");
+        }
     }
 
     public double getCrossoverProbability() {
@@ -115,8 +116,9 @@ public abstract class ExperimentCommomConfigs {
      * @return String[]
      */
     public String[] getPatterns() {
-        if (patterns == null)
+        if (patterns == null) {
             return new String[]{"Strategy", "Bridge", "Mediator"};
+        }
         return patterns;
     }
 
@@ -128,8 +130,9 @@ public abstract class ExperimentCommomConfigs {
      * @param patternsList
      */
     public void setPatterns(String... patternsList) {
-        for (int i = 0; i < patternsList.length; i++)
+        for (int i = 0; i < patternsList.length; i++) {
             patternsList[i] = WordUtils.capitalize(patternsList[i].toLowerCase());
+        }
         this.patterns = patternsList;
 
         if (Collections.disjoint(Arrays.asList(this.patterns), Arrays.asList("Strategy", "Bridge", "Mediator"))) {
@@ -152,7 +155,8 @@ public abstract class ExperimentCommomConfigs {
     }
 
     /**
-     * If true execute log method NSGAII_OPLA_FeatMut.logInforamtions() or  PAES_OPLA_FeatMut.logInforamtions();
+     * If true execute log method NSGAII_OPLA_FeatMut.logInforamtions() or
+     * PAES_OPLA_FeatMut.logInforamtions();
      *
      * @return
      */
@@ -173,8 +177,9 @@ public abstract class ExperimentCommomConfigs {
     }
 
     protected void validateGreaterOrEqualOne(String arg, int numberOfRuns) {
-        if (numberOfRuns < 1)
+        if (numberOfRuns < 1) {
             throw new IllegalArgumentException(arg + " must be greater or equal 1");
+        }
     }
 
     public LogLog getLogger() {
@@ -198,9 +203,18 @@ public abstract class ExperimentCommomConfigs {
         this.description = description;
     }
 
-    
     public List<String> getObjectiveFuncions() {
-		return oplaConfigs.getSelectedObjectiveFunctions();
-	}
+        return oplaConfigs.getSelectedObjectiveFunctions();
+    }
 
+    public Boolean getInteractive() {
+        return interactive != null && interactive;
+    }
+
+    public void setInteractive(Boolean interactive) {
+        this.interactive = interactive;
+    }
+    
+    
+    
 }

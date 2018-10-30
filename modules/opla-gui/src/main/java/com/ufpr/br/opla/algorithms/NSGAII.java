@@ -24,25 +24,26 @@ public class NSGAII {
 
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(NSGAII.class);
 
+    @Deprecated
     public void execute(JComboBox comboAlgorithms, JCheckBox checkMutation, JTextField fieldMutationProb,
                         JTextArea fieldArchitectureInput, JTextField fieldNumberOfRuns, JTextField fieldPopulationSize,
                         JTextField fieldMaxEvaluations, JCheckBox checkCrossover, JTextField fieldCrossoverProbability,
                         String executionDescription) {
         execute(executionDescription, checkMutation.isSelected(), Double.parseDouble(fieldMutationProb.getText()),
                 fieldArchitectureInput.getText(), Integer.parseInt(fieldNumberOfRuns.getText()), Integer.parseInt(fieldPopulationSize.getText()),
-                Integer.parseInt(fieldMaxEvaluations.getText()), checkCrossover.isSelected(), Double.parseDouble(fieldCrossoverProbability.getText()));
+                Integer.parseInt(fieldMaxEvaluations.getText()), checkCrossover.isSelected(), Double.parseDouble(fieldCrossoverProbability.getText()), false);
 
     }
 
     public void execute(JComboBox<String> cbAlgothm, JCheckBox ckMutation, JSlider jsMutation, JTextField inputArchitecture, JTextField tfNumberRuns,
-                        JTextField tfPopulationSize, JTextField tfMaxEvaluations, JCheckBox ckCrossover, JSlider jsCrossover, JTextField tfDescription) {
+                        JTextField tfPopulationSize, JTextField tfMaxEvaluations, JCheckBox ckCrossover, JSlider jsCrossover, JTextField tfDescription, JCheckBox ckEnableInteraction) {
         execute(tfDescription.getText(), ckMutation.isSelected(), (double) jsMutation.getValue() / 10,
                 inputArchitecture.getText(), Integer.parseInt(tfNumberRuns.getText()), Integer.parseInt(tfPopulationSize.getText()),
-                Integer.parseInt(tfMaxEvaluations.getText()), ckCrossover.isSelected(), (double) (jsCrossover.getValue() / 10));
+                Integer.parseInt(tfMaxEvaluations.getText()), ckCrossover.isSelected(), (double) (jsCrossover.getValue() / 10), ckEnableInteraction.isSelected());
     }
 
     public void execute(String description, Boolean mutation, Double mutationProbability, String inputArchitecture, Integer numberRuns,
-                        Integer populationSize, Integer maxEvaluations, Boolean crossover, Double crossoverProbability) {
+                        Integer populationSize, Integer maxEvaluations, Boolean crossover, Double crossoverProbability, Boolean interactive) {
         try {
 
             LOGGER.info("set configuration path");
@@ -55,6 +56,7 @@ public class NSGAII {
             configs.setLogger(Logger.getLogger());
             configs.activeLogs();
             configs.setDescription(description);
+            configs.setInteractive(interactive);
 
             // Se mutação estiver marcada, pega os operadores selecionados ,e seta a probabilidade de mutacao
             if (mutation) {

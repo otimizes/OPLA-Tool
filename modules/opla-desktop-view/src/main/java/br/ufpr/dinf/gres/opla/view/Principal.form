@@ -80,7 +80,7 @@
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="62" max="32767" attributes="0"/>
+                      <EmptySpace pref="28" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -490,18 +490,25 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tfInteractionDirectory" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btManipulationDirectory2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="btViewApplicationConfig" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="tfInteractionDirectory" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btManipulationDirectory2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="455" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="btViewApplicationConfig" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ckEnableInteraction" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -514,7 +521,9 @@
                               <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btManipulationDirectory2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="28" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="ckEnableInteraction" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="26" max="32767" attributes="0"/>
                           <Component id="btViewApplicationConfig" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -537,7 +546,7 @@
                     <Property name="text" type="java.lang.String" value="Select a Directory"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btManipulationDirectory2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btInteractionDirectoryActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btViewApplicationConfig">
@@ -546,6 +555,17 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btViewApplicationConfigActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="ckEnableInteraction">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Enable"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckEnableInteraction"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -829,51 +849,81 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Conventional"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckConventionalActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckComponentCoupling">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Component Coupling"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckComponentCouplingActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckClassCoupling">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Class Coupling"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckClassCouplingActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckSize">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Size"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckSizeActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckFeatureDriven">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Feature Driven"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckFeatureDrivenActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckFeatureInterlacing">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Features Interlacing"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckFeatureInterlacingActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckFeatureDifusion">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Features Diffusion"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckFeatureDifusionActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckPLAExtensibility">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="PLA Extensibility"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckPLAExtensibilityActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckCohesion">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cohesion"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckCohesionActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckElegance">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Elegance"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckEleganceActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1064,31 +1114,49 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Feature-driven Mutation"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ckFeatureDrivenMutationItemStateChanged"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckMoveMethodMutation">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Move Method Mutation"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ckMoveMethodMutationItemStateChanged"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckAddClassMutation">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Add Class Mutation"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ckAddClassMutationItemStateChanged"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckMoveOperationMutation">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Move Operation Mutation"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ckMoveOperationMutationItemStateChanged"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckAddManagerClassMutation">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Add Manager Class Mutation"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ckAddManagerClassMutationItemStateChanged"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckMoveAttributeMutation">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Move Attribute Mutation"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ckMoveAttributeMutationItemStateChanged"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1344,16 +1412,25 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Mediator"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckMediatorActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckStrategy">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Strategy"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckStrategyActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckBridge">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Bridge"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckBridgeActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
