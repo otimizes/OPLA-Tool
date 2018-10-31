@@ -40,10 +40,10 @@ public class PathConfig {
     }
 
     public PathConfig(ApplicationYamlConfig applicationYaml) {
-        this.directoryToSaveModels = Paths.get(applicationYaml.getDirectoryToExportModels());
+        this.directoryToSaveModels = Paths.get(applicationYaml.getDirectoryToSaveModels());
         this.pathPapyrus = Paths.get(applicationYaml.getPathPapyrus());
         this.directoryToInteraction = Paths.get(applicationYaml.getDirectoryToInteraction());
-        this.directoryToExportModels = Paths.get(applicationYaml.getDirectoryToSaveModels());
+        this.directoryToExportModels = Paths.get(applicationYaml.getDirectoryToExportModels());
         this.pahtToProfileSmarty = Paths.get(applicationYaml.getPathToProfile());
         this.pathToProfileConcern = Paths.get(applicationYaml.getPathToProfileConcern());
         this.pathToProfilePatterns = Paths.get(applicationYaml.getPathToProfilePatterns());

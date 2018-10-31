@@ -667,5 +667,69 @@ public class OPLA extends Problem {
         ecFitness = sumCIBC + sumIIBC + sumOOBC;
         return ecFitness;
     }
+
+    public static Logger getLOGGER() {
+        return LOGGER;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public static int getContComp_() {
+        return contComp_;
+    }
+
+    public static void setContComp_(int contComp_) {
+        OPLA.contComp_ = contComp_;
+    }
+
+    public static int getContInt_() {
+        return contInt_;
+    }
+
+    public static void setContInt_(int contInt_) {
+        OPLA.contInt_ = contInt_;
+    }
+
+    public static int getContClass_() {
+        return contClass_;
+    }
+
+    public static void setContClass_(int contClass_) {
+        OPLA.contClass_ = contClass_;
+    }
+
+    public static int getContDiscardedSolutions_() {
+        return contDiscardedSolutions_;
+    }
+
+    public static void setContDiscardedSolutions_(int contDiscardedSolutions_) {
+        OPLA.contDiscardedSolutions_ = contDiscardedSolutions_;
+    }
+
+    public Architecture getArchitecture_() {
+        return architecture_;
+    }
+
+    public void setArchitecture_(Architecture architecture_) {
+        this.architecture_ = architecture_;
+    }
+
+    public List<String> getSelectedMetrics() {
+        return selectedMetrics;
+    }
+
+    public void setSelectedMetrics(List<String> selectedMetrics) {
+        this.selectedMetrics = selectedMetrics;
+    }
+
+    public ExperimentCommomConfigs getConfigs() {
+        return configs;
+    }
+
+    public void setConfigs(ExperimentCommomConfigs configs) {
+        this.configs = configs;
+    }
 }
 

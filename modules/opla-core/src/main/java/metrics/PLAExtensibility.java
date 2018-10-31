@@ -24,4 +24,10 @@ public class PLAExtensibility extends Metrics {
         this.plaExtensibility = plaExtensibility;
     }
 
+    @Override
+    public String toString() {
+        return "PLAExtensibility [" +
+                "plaExtensibility=" + plaExtensibility +
+                "]";
+    }
 }

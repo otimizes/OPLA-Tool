@@ -25,6 +25,7 @@ public abstract class ExperimentCommomConfigs {
     private String description;
     private InteractiveFunction interactiveFunction;
     private Boolean interactive;
+    public int maxInteractions;
 
     private List<String> mutationOperators = new ArrayList<String>();
     private ElementsWithSameDesignPatternSelection applyStrategy;
@@ -223,5 +224,29 @@ public abstract class ExperimentCommomConfigs {
 
     public void setInteractiveFunction(InteractiveFunction interactiveFunction) {
         this.interactiveFunction = interactiveFunction;
+    }
+
+    public void setLog(boolean log) {
+        this.log = log;
+    }
+
+    public int getMaxEvaluations() {
+        return maxEvaluations;
+    }
+
+    public int getMaxInteractions() {
+        return maxInteractions;
+    }
+
+    public void setMaxInteractions(int maxInteractions) {
+        this.maxInteractions = maxInteractions;
+    }
+
+    public ElementsWithSameDesignPatternSelection getApplyStrategy() {
+        return applyStrategy;
+    }
+
+    public void setApplyStrategy(ElementsWithSameDesignPatternSelection applyStrategy) {
+        this.applyStrategy = applyStrategy;
     }
 }

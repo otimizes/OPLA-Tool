@@ -43,4 +43,12 @@ public class Elegance extends Metrics {
         return this.nac + this.atmr + this.ec;
     }
 
+    @Override
+    public String toString() {
+        return "Elegance [" +
+                "nac=" + nac +
+                ", atmr=" + atmr +
+                ", ec=" + ec +
+                "]";
+    }
 }

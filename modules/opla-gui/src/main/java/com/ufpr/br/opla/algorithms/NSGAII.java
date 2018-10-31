@@ -32,19 +32,20 @@ public class NSGAII {
                         String executionDescription) {
         execute(executionDescription, checkMutation.isSelected(), Double.parseDouble(fieldMutationProb.getText()),
                 fieldArchitectureInput.getText(), Integer.parseInt(fieldNumberOfRuns.getText()), Integer.parseInt(fieldPopulationSize.getText()),
-                Integer.parseInt(fieldMaxEvaluations.getText()), checkCrossover.isSelected(), Double.parseDouble(fieldCrossoverProbability.getText()), false, null);
+                Integer.parseInt(fieldMaxEvaluations.getText()), checkCrossover.isSelected(), Double.parseDouble(fieldCrossoverProbability.getText()), false, null, null);
 
     }
 
     public void execute(JComboBox<String> cbAlgothm, JCheckBox ckMutation, JSlider jsMutation, JTextField inputArchitecture, JTextField tfNumberRuns,
-                        JTextField tfPopulationSize, JTextField tfMaxEvaluations, JCheckBox ckCrossover, JSlider jsCrossover, JTextField tfDescription, JCheckBox ckEnableInteraction, InteractiveFunction interactiveFunction) {
+                        JTextField tfPopulationSize, JTextField tfMaxEvaluations, JCheckBox ckCrossover, JSlider jsCrossover, JTextField tfDescription,
+                        JCheckBox ckEnableInteraction, JTextField tfMaxInteractions, InteractiveFunction interactiveFunction) {
         execute(tfDescription.getText(), ckMutation.isSelected(), (double) jsMutation.getValue() / 10,
                 inputArchitecture.getText(), Integer.parseInt(tfNumberRuns.getText()), Integer.parseInt(tfPopulationSize.getText()),
-                Integer.parseInt(tfMaxEvaluations.getText()), ckCrossover.isSelected(), (double) (jsCrossover.getValue() / 10), ckEnableInteraction.isSelected(), interactiveFunction);
+                Integer.parseInt(tfMaxEvaluations.getText()), ckCrossover.isSelected(), (double) (jsCrossover.getValue() / 10), ckEnableInteraction.isSelected(), Integer.parseInt(tfMaxInteractions.getText()), interactiveFunction);
     }
 
     public void execute(String description, Boolean mutation, Double mutationProbability, String inputArchitecture, Integer numberRuns,
-                        Integer populationSize, Integer maxEvaluations, Boolean crossover, Double crossoverProbability, Boolean interactive, InteractiveFunction interactiveFunction) {
+                        Integer populationSize, Integer maxEvaluations, Boolean crossover, Double crossoverProbability, Boolean interactive, Integer maxInteractions, InteractiveFunction interactiveFunction) {
         try {
 
             LOGGER.info("set configuration path");
@@ -59,6 +60,7 @@ public class NSGAII {
             configs.setDescription(description);
             configs.setInteractive(interactive);
             configs.setInteractiveFunction(interactiveFunction);
+            configs.setMaxInteractions(maxInteractions);
 
             // Se mutação estiver marcada, pega os operadores selecionados ,e seta a probabilidade de mutacao
             if (mutation) {

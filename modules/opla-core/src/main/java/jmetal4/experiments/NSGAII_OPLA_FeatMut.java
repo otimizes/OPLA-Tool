@@ -194,7 +194,7 @@ public class NSGAII_OPLA_FeatMut {
 
                 saveHypervolume(experiement.getId(), execution.getId(), resultFront, plaName);
 
-                if (this.configs.getInteractive())
+                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions())
                     this.configs.getInteractiveFunction().run(resultFront, execution);
             }
 

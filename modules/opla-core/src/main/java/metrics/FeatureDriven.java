@@ -114,4 +114,19 @@ public class FeatureDriven extends Metrics {
         this.cibClass = cibClass;
     }
 
+    @Override
+    public String toString() {
+        return "FeatureDriven [" +
+                "cdac=" + cdac +
+                ", cdai=" + cdai +
+                ", cdao=" + cdao +
+                ", cibc=" + cibc +
+                ", iibc=" + iibc +
+                ", oobc=" + oobc +
+                ", lcc=" + lcc +
+                ", lccClass=" + lccClass +
+                ", cdaClass=" + cdaClass +
+                ", cibClass=" + cibClass +
+                " ]";
+    }
 }
