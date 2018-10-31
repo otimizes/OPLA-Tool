@@ -385,11 +385,11 @@ public class GenerateArchitecture extends ArchitectureBase {
             System.exit(0);
         }
 
-        LOGGER.info("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget() + doc.getNewModelName()
+        LOGGER.info("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget() + System.getProperty("file.separator")  + doc.getNewModelName()
                 + "\n\n\n\n");
         if (this.logger != null)
             this.logger.putLog("Done. Architecture save into: " + ReaderConfig.getDirExportTarget()
-                    + doc.getNewModelName(), Level.INFO);
+                    + System.getProperty("file.separator")  + doc.getNewModelName(), Level.INFO);
 
     }
 

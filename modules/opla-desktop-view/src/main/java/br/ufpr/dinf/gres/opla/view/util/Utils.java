@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.opla.view.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -167,6 +168,19 @@ public class Utils {
             }
         } else {
             LOGGER.info("Banco de dados já configurado");
+        }
+    }
+
+    public static void executeCommand(String command) throws IOException {
+        Runtime.getRuntime().exec(command);
+    }
+
+    public static void executePapyrus(String location, String plas) {
+        try {
+            LOGGER.info(location + " --launcher.openFile " + plas);
+            Utils.executeCommand(location + " --launcher.openFile " + plas);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

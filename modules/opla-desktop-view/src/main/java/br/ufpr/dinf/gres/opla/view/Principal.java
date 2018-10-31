@@ -2489,7 +2489,6 @@ public class Principal extends AbstractPrincipalJFrame {
                     tfPopulationSize, tfMaxEvaluations, ckCrossover, jsCrossover,
                     tfDescription, ckEnableInteraction, (solutionSet, execution) -> {
                         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(config, solutionSet, execution);
-                        System.out.println("Interagiu");
                     });
             JOptionPane.showMessageDialog(null, "Success execution NSGA-II, Finalizing....");
             Logger.getLogger().putLog(

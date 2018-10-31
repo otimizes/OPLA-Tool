@@ -28,9 +28,9 @@ public class SaveAndMove extends XmiHelper {
         String targetDir = ReaderConfig.getDirTarget();
         String targetDirExport = ReaderConfig.getDirExportTarget();
 
-        String notationCopy = targetDir + originalModelName + ".notation";
-        String umlCopy = targetDir + originalModelName + ".uml";
-        String diCopy = targetDir + originalModelName + ".di";
+        String notationCopy = targetDir + System.getProperty("file.separator")  + originalModelName + ".notation";
+        String umlCopy = targetDir + System.getProperty("file.separator")  + originalModelName + ".uml";
+        String diCopy = targetDir + System.getProperty("file.separator")  + originalModelName + ".di";
 
         LOGGER.info("transformerFactory");
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -73,9 +73,9 @@ public class SaveAndMove extends XmiHelper {
         transformer.transform(sourceDi, resultDi);
 
         LOGGER.info("Moving Files");
-        FileUtils.moveFiles(notationCopy, targetDirExport + newModelName + ".notation");
-        FileUtils.moveFiles(umlCopy, targetDirExport + newModelName + ".uml");
-        FileUtils.moveFiles(diCopy, targetDirExport + newModelName + ".di");
+        FileUtils.moveFiles(notationCopy, targetDirExport + System.getProperty("file.separator")  + newModelName + ".notation");
+        FileUtils.moveFiles(umlCopy, targetDirExport + System.getProperty("file.separator")  + newModelName + ".uml");
+        FileUtils.moveFiles(diCopy, targetDirExport + System.getProperty("file.separator")  + newModelName + ".di");
 
     }
 

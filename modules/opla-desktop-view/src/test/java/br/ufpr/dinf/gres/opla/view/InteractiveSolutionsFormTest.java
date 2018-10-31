@@ -19,7 +19,7 @@ public class InteractiveSolutionsFormTest {
 
     private static MetricsPersistence mp;
 
-    @Test
+//    @Test
     public void main() {
 
         ManagerApplicationConfig managerApplicationConfig = new ManagerApplicationConfig();

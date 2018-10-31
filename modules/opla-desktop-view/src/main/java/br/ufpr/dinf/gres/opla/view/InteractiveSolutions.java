@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.opla.view;
 
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
+import br.ufpr.dinf.gres.opla.view.util.Utils;
 import jmetal4.core.SolutionSet;
 import results.Execution;
 import results.FunResults;
@@ -11,7 +12,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class InteractiveSolutions extends JDialog {
+    ManagerApplicationConfig config;
+    SolutionSet solutionSet;
+    Execution execution;
     public InteractiveSolutions(ManagerApplicationConfig config, SolutionSet solutionSet, Execution execution) {
+        this.config = config;
+        this.solutionSet = solutionSet;
+        this.execution = execution;
         setModal(true);
         setPreferredSize(new Dimension(600, 600));
         setLocationByPlatform(true);
@@ -95,6 +102,7 @@ public class InteractiveSolutions extends JDialog {
                 open = new JMenuItem("Open");
                 open.addActionListener(e -> {
                     System.out.println("open");
+                    Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), config.getApplicationYaml().getDirectoryToSaveModels() + "/" + nodeInfo.toString().concat(".di"));
                 });
                 add(open);
             }
