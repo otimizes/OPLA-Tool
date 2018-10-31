@@ -6,5 +6,5 @@ import results.Experiment;
 
 public interface InteractiveFunction {
 
-    void run(SolutionSet solutionSet, Experiment experiement, Execution execution);
+    void run(SolutionSet solutionSet, Execution execution);
 }

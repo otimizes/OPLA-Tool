@@ -13,6 +13,7 @@ import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.experiments.NSGAII_OPLA_FeatMutInitializer;
 import jmetal4.experiments.OPLAConfigs;
+import jmetal4.interactive.InteractiveFunction;
 
 import javax.swing.*;
 import java.util.List;
@@ -31,19 +32,19 @@ public class NSGAII {
                         String executionDescription) {
         execute(executionDescription, checkMutation.isSelected(), Double.parseDouble(fieldMutationProb.getText()),
                 fieldArchitectureInput.getText(), Integer.parseInt(fieldNumberOfRuns.getText()), Integer.parseInt(fieldPopulationSize.getText()),
-                Integer.parseInt(fieldMaxEvaluations.getText()), checkCrossover.isSelected(), Double.parseDouble(fieldCrossoverProbability.getText()), false);
+                Integer.parseInt(fieldMaxEvaluations.getText()), checkCrossover.isSelected(), Double.parseDouble(fieldCrossoverProbability.getText()), false, null);
 
     }
 
     public void execute(JComboBox<String> cbAlgothm, JCheckBox ckMutation, JSlider jsMutation, JTextField inputArchitecture, JTextField tfNumberRuns,
-                        JTextField tfPopulationSize, JTextField tfMaxEvaluations, JCheckBox ckCrossover, JSlider jsCrossover, JTextField tfDescription, JCheckBox ckEnableInteraction) {
+                        JTextField tfPopulationSize, JTextField tfMaxEvaluations, JCheckBox ckCrossover, JSlider jsCrossover, JTextField tfDescription, JCheckBox ckEnableInteraction, InteractiveFunction interactiveFunction) {
         execute(tfDescription.getText(), ckMutation.isSelected(), (double) jsMutation.getValue() / 10,
                 inputArchitecture.getText(), Integer.parseInt(tfNumberRuns.getText()), Integer.parseInt(tfPopulationSize.getText()),
-                Integer.parseInt(tfMaxEvaluations.getText()), ckCrossover.isSelected(), (double) (jsCrossover.getValue() / 10), ckEnableInteraction.isSelected());
+                Integer.parseInt(tfMaxEvaluations.getText()), ckCrossover.isSelected(), (double) (jsCrossover.getValue() / 10), ckEnableInteraction.isSelected(), interactiveFunction);
     }
 
     public void execute(String description, Boolean mutation, Double mutationProbability, String inputArchitecture, Integer numberRuns,
-                        Integer populationSize, Integer maxEvaluations, Boolean crossover, Double crossoverProbability, Boolean interactive) {
+                        Integer populationSize, Integer maxEvaluations, Boolean crossover, Double crossoverProbability, Boolean interactive, InteractiveFunction interactiveFunction) {
         try {
 
             LOGGER.info("set configuration path");
@@ -57,9 +58,7 @@ public class NSGAII {
             configs.activeLogs();
             configs.setDescription(description);
             configs.setInteractive(interactive);
-            configs.setInteractiveFunction((solutionSet, experiement, execution) -> {
-                System.out.println("Interagiu");
-            });
+            configs.setInteractiveFunction(interactiveFunction);
 
             // Se mutação estiver marcada, pega os operadores selecionados ,e seta a probabilidade de mutacao
             if (mutation) {

@@ -26,6 +26,20 @@ public class FunResults {
         this.id = Id.generateUniqueId();
     }
 
+    public FunResults(String id, String name, String solution_name, Execution execution, int isAll, Experiment experiement, String objectives) {
+        this.id = id;
+        this.name = name;
+        this.solution_name = solution_name;
+        this.execution = execution;
+        this.isAll = isAll;
+        this.experiement = experiement;
+        this.objectives = objectives;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getObjectives() {
         return objectives;
     }

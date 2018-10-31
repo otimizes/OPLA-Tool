@@ -97,5 +97,19 @@ public class AllMetrics {
         this.ec = ec;
     }
 
-
+    @Override
+    public String toString() {
+        return "AllMetrics{" +
+                "\nconventional=" + conventional +
+                ", \nelegance=" + elegance +
+                ", \nfeatureDriven=" + featureDriven +
+                ", \nplaExtensibility=" + plaExtensibility +
+                ", \nacomp=" + acomp +
+                ", \naclass=" + aclass +
+                ", \ntam=" + tam +
+                ", \ncoe=" + coe +
+                ", \ndc=" + dc +
+                ", \nec=" + ec +
+                "\n}";
+    }
 }

@@ -33,6 +33,26 @@ public class InfoResult {
         this.id = Id.generateUniqueId();
     }
 
+    public InfoResult(String id, int isAll, String name, Execution execution, String listOfConcerns, Integer numberOfPackages,
+                      Integer numberOfVariabilities, Integer numberOfClasses, Integer numberOfInterfaces, Integer numberOfDependencies,
+                      Integer numberOfAbstraction, Integer numberOfAssociations, Integer numberOfGeneralizations, Integer numberOfassociationsClass, Experiment experiement) {
+        this.id = id;
+        this.isAll = isAll;
+        this.name = name;
+        this.execution = execution;
+        this.listOfConcerns = listOfConcerns;
+        this.numberOfPackages = numberOfPackages;
+        this.numberOfVariabilities = numberOfVariabilities;
+        this.numberOfClasses = numberOfClasses;
+        this.numberOfInterfaces = numberOfInterfaces;
+        this.numberOfDependencies = numberOfDependencies;
+        this.numberOfAbstraction = numberOfAbstraction;
+        this.numberOfAssociations = numberOfAssociations;
+        this.numberOfGeneralizations = numberOfGeneralizations;
+        this.numberOfassociationsClass = numberOfassociationsClass;
+        this.experiement = experiement;
+    }
+
     public String getListOfConcerns() {
         return listOfConcerns;
     }
@@ -168,4 +188,22 @@ public class InfoResult {
         this.experiement = experiement;
     }
 
+    @Override
+    public String toString() {
+        return "InfoResult{" +
+                "\nid='" + id + '\'' +
+                ", \nisAll=" + isAll +
+                ", \nname='" + name + '\'' +
+                ", \nlistOfConcerns='" + listOfConcerns + '\'' +
+                ", \nnumberOfPackages=" + numberOfPackages +
+                ", \nnumberOfVariabilities=" + numberOfVariabilities +
+                ", \nnumberOfClasses=" + numberOfClasses +
+                ", \nnumberOfInterfaces=" + numberOfInterfaces +
+                ", \nnumberOfDependencies=" + numberOfDependencies +
+                ", \nnumberOfAbstraction=" + numberOfAbstraction +
+                ", \nnumberOfAssociations=" + numberOfAssociations +
+                ", \nnumberOfGeneralizations=" + numberOfGeneralizations +
+                ", \nnumberOfassociationsClass=" + numberOfassociationsClass +
+                "\n}";
+    }
 }

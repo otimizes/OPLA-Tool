@@ -195,7 +195,7 @@ public class NSGAII_OPLA_FeatMut {
                 saveHypervolume(experiement.getId(), execution.getId(), resultFront, plaName);
 
                 if (this.configs.getInteractive())
-                    this.configs.getInteractiveFunction().run(resultFront, experiement, execution);
+                    this.configs.getInteractiveFunction().run(resultFront, execution);
             }
 
             todasRuns = problem.removeDominadas(todasRuns);
