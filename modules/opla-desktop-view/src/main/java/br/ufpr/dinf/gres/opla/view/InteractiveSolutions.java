@@ -86,6 +86,7 @@ public class InteractiveSolutions extends JDialog {
     class PopUp extends JPopupMenu {
         JMenuItem details;
         JMenuItem open;
+        JMenuItem subjectiveAnalyse;
         public PopUp(JTree tree){
             DefaultMutableTreeNode node = (DefaultMutableTreeNode)
                     tree.getLastSelectedPathComponent();
@@ -109,6 +110,12 @@ public class InteractiveSolutions extends JDialog {
                 open.addActionListener(e -> {
                     LOGGER.info("Opened solution " + nodeInfo.toString());
                     Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + nodeInfo.toString().concat(".di"));
+                });
+                add(open);
+
+                subjectiveAnalyse = new JMenuItem("Subjective Analyse");
+                open.addActionListener(e -> {
+                    LOGGER.info("Subjective Analyse " + nodeInfo.toString());
                 });
                 add(open);
             }

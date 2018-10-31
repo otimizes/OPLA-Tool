@@ -419,6 +419,7 @@ public class Principal extends AbstractPrincipalJFrame {
         jPanel25 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         taLogStatus = new javax.swing.JTextArea();
+        jProgressBar = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -714,17 +715,16 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btViewApplicationConfig)
-                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel11Layout.createSequentialGroup()
-                            .addComponent(jLabel19)
-                            .addGap(6, 6, 6)
-                            .addComponent(tfInteractionDirectory1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btManipulationDirectory3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel11Layout.createSequentialGroup()
-                            .addComponent(ckEnableInteraction)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(ckEnableInteraction1))))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(6, 6, 6)
+                        .addComponent(tfInteractionDirectory1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btManipulationDirectory3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(ckEnableInteraction)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ckEnableInteraction1)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -1787,7 +1787,9 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel25Layout.setVerticalGroup(
@@ -1795,7 +1797,9 @@ public class Principal extends AbstractPrincipalJFrame {
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
@@ -1812,7 +1816,7 @@ public class Principal extends AbstractPrincipalJFrame {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Logs", jPanel24);
@@ -2188,6 +2192,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JProgressBar jProgressBar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -2451,7 +2456,7 @@ public class Principal extends AbstractPrincipalJFrame {
                             Logger.getLogger().putLog("Execution NSGAII...");
                             jTabbedPane1.setSelectedIndex(5);
                             btRun.setEnabled(false);
-//                            blockUITabs();
+                            jProgressBar.setIndeterminate(true);
                             executeNSGAII();
                             return 0;
                         }
@@ -2459,14 +2464,13 @@ public class Principal extends AbstractPrincipalJFrame {
                         @Override
                         protected void done() {
                             jLabel12.setText("Done");
-//                            progressBar.setIndeterminate(false);
+                            jProgressBar.setIndeterminate(false);
                             Logger.getLogger().putLog(String.format("Done NSGAII Execution at: %s", Time.timeNow().toString()));
                             db.Database.reloadContent();
                         }
                     };
 
                     sw.execute();
-//                    progressBar.setIndeterminate(true);
 
                 }
                 if ("PAES".equalsIgnoreCase(algoritmToRun)) {
@@ -2478,7 +2482,7 @@ public class Principal extends AbstractPrincipalJFrame {
                             Logger.getLogger().putLog("Execution PAES...");
                             jTabbedPane1.setSelectedIndex(5);
                             btRun.setEnabled(false);
-//                            blockUITabs();
+                            jProgressBar.setIndeterminate(true);
                             executePAES();
                             return 0;
                         }
@@ -2486,7 +2490,7 @@ public class Principal extends AbstractPrincipalJFrame {
                         @Override
                         protected void done() {
                             jLabel12.setText("Done");
-//                            progressBar.setIndeterminate(false);
+                            jProgressBar.setIndeterminate(false);
                             Logger.getLogger()
                                     .putLog(String.format("Done PAES Execution at: %s", Time.timeNow().toString()));
                             db.Database.reloadContent();

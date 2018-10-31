@@ -502,19 +502,17 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btViewApplicationConfig" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                      <Component id="tfInteractionDirectory1" min="-2" pref="693" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="btManipulationDirectory3" min="-2" pref="135" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="ckEnableInteraction" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="ckEnableInteraction1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                  <Component id="tfInteractionDirectory1" min="-2" pref="693" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btManipulationDirectory3" min="-2" pref="135" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="ckEnableInteraction" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="ckEnableInteraction1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -2170,7 +2168,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel25" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="197" max="32767" attributes="0"/>
+                      <EmptySpace pref="150" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2192,7 +2190,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane2" max="32767" attributes="0"/>
+                              <Component id="jProgressBar" max="32767" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -2202,7 +2203,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jProgressBar" pref="35" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2223,6 +2226,8 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JProgressBar" name="jProgressBar">
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
