@@ -244,7 +244,10 @@ public class Principal extends AbstractPrincipalJFrame {
 
 
     private void configureLocaleToInteractionPapyrus() throws IOException {
-        ckEnableInteraction.setSelected(true);
+        ckEnableInteraction.setSelected(false);
+        tfInteractionDirectory1.setEnabled(ckEnableInteraction.isSelected());
+        btManipulationDirectory3.setEnabled(ckEnableInteraction.isSelected());
+        ckEnableInteraction1.setEnabled(ckEnableInteraction.isSelected());
         if (StringUtils.isNotBlank(config.getConfig().getPathPapyrus().toString())) {
             LOGGER.info("Papyrus Directory is configured");
             ckEnableInteraction1.setSelected(true);

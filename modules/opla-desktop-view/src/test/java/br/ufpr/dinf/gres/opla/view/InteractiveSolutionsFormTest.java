@@ -3,6 +3,10 @@ package br.ufpr.dinf.gres.opla.view;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import database.Database;
 import exceptions.MissingConfigurationException;
+import jmetal4.core.Solution;
+import jmetal4.core.SolutionSet;
+import jmetal4.encodings.solutionType.ArchitectureSolutionType;
+import jmetal4.problems.OPLA;
 import org.junit.Test;
 import persistence.AllMetricsPersistenceDependency;
 import persistence.MetricsPersistence;
@@ -20,7 +24,7 @@ public class InteractiveSolutionsFormTest {
     private static MetricsPersistence mp;
 
 //    @Test
-    public void main() {
+    public void main() throws ClassNotFoundException {
 
         ManagerApplicationConfig managerApplicationConfig = new ManagerApplicationConfig();
 
@@ -88,7 +92,17 @@ public class InteractiveSolutionsFormTest {
                         experiement)
         ));
 
+        SolutionSet solutionSet = new SolutionSet();
+        Solution solution = new Solution();
+        solutionSet.getSolutionSet().add(solution);
+        solutionSet.get(0).setType(new ArchitectureSolutionType(new OPLA()));
+        ((OPLA) solutionSet.get(0).getType().problem_).setSelectedMetrics(Arrays.asList("featureDriven", "aclass"));
 
-        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, null, execution);
+        Solution solution2 = new Solution();
+        solutionSet.getSolutionSet().add(solution2);
+        solutionSet.get(1).setType(new ArchitectureSolutionType(new OPLA()));
+        ((OPLA) solutionSet.get(1).getType().problem_).setSelectedMetrics(Arrays.asList("featureDriven", "aclass", "coe"));
+
+        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, solutionSet, execution);
     }
 }

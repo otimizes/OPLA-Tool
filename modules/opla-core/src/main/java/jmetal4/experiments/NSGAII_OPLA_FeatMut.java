@@ -177,6 +177,9 @@ public class NSGAII_OPLA_FeatMut {
                 execution.setInfos(infoResults);
                 execution.setAllMetrics(allMetrics);
 
+                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions())
+                    this.configs.getInteractiveFunction().run(resultFront, execution);
+
                 ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
                 try {
                     persistence.persist(execution);
@@ -193,9 +196,6 @@ public class NSGAII_OPLA_FeatMut {
                 // execution.getId());
 
                 saveHypervolume(experiement.getId(), execution.getId(), resultFront, plaName);
-
-                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions())
-                    this.configs.getInteractiveFunction().run(resultFront, execution);
             }
 
             todasRuns = problem.removeDominadas(todasRuns);

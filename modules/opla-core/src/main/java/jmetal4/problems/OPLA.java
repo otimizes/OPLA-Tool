@@ -44,6 +44,9 @@ public class OPLA extends Problem {
     private List<String> selectedMetrics; // Vai vir da GUI
     private ExperimentCommomConfigs configs;
 
+    public OPLA() {
+    }
+
     public OPLA(String xmiFilePath, ExperimentCommomConfigs oplaConfig) throws Exception {
     	LOGGER.info("Setando configurações");
         this.configs = oplaConfig;
