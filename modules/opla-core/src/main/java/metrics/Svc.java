@@ -5,21 +5,21 @@ import results.Experiment;
 
 
 public class Svc extends Metrics {
-	
-	 private double svc;
 
-	    public Svc(String idSolution, Execution execution, Experiment experiement) {
-		super.setExecution(execution);
-		super.setExperiement(experiement);
-		super.setIdSolution(idSolution);
-	    }
+    private double svc;
 
-	    public double getSvc() {
-		return svc;
-	    }
+    public Svc(String idSolution, Execution execution, Experiment experiement) {
+        super.setExecution(execution);
+        super.setExperiement(experiement);
+        super.setIdSolution(idSolution);
+    }
 
-	    public void setSvc(double svc) {
-		this.svc = svc;
-	    }
+    public double getSvc() {
+        return svc;
+    }
+
+    public void setSvc(double svc) {
+        this.svc = svc;
+    }
 
 }

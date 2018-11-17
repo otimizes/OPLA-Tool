@@ -1,20 +1,14 @@
 package br.ufpr.dinf.gres.opla.view.enumerators;
 
+import br.ufpr.dinf.gres.opla.entity.metric.*;
+import br.ufpr.dinf.gres.persistence.dao.*;
 import org.apache.log4j.Logger;
 
-import br.ufpr.dinf.gres.opla.entity.metric.ConventionalMetric;
-import br.ufpr.dinf.gres.opla.entity.metric.EleganceMetric;
-import br.ufpr.dinf.gres.opla.entity.metric.FeatureDrivenMetric;
-import br.ufpr.dinf.gres.opla.entity.metric.PLAExtensibilityMetric;
 import br.ufpr.dinf.gres.opla.view.model.tablemodel.AbstractMetricTableModel;
 import br.ufpr.dinf.gres.opla.view.model.tablemodel.ConventionalMetricTableModel;
 import br.ufpr.dinf.gres.opla.view.model.tablemodel.EleganceMetricTableModel;
 import br.ufpr.dinf.gres.opla.view.model.tablemodel.FeatureMetricTableModel;
 import br.ufpr.dinf.gres.opla.view.model.tablemodel.PlaExtensibleMetricTableModel;
-import br.ufpr.dinf.gres.persistence.dao.ConventionalMetricDAO;
-import br.ufpr.dinf.gres.persistence.dao.EleganceMetricDAO;
-import br.ufpr.dinf.gres.persistence.dao.FeatureDrivenMetricDAO;
-import br.ufpr.dinf.gres.persistence.dao.PLAExtensibilityMetricDAO;
 import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
 
 /**
@@ -65,6 +59,18 @@ public enum Metric {
 		@SuppressWarnings("unchecked")
 		public GenericMetricDAO<EleganceMetric> getDAO() {
 			return new EleganceMetricDAO();
+		}
+
+		@Override
+		public EleganceMetricTableModel getTableModel() {
+			return new EleganceMetricTableModel();
+		}
+	},
+	AV {
+		@Override
+		@SuppressWarnings("unchecked")
+		public GenericMetricDAO<AvMetric> getDAO() {
+			return new AvMetricDAO();
 		}
 
 		@Override

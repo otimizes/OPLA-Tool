@@ -1,10 +1,7 @@
 package br.ufpr.dinf.gres.opla.util;
 
 import br.ufpr.dinf.gres.opla.entity.*;
-import br.ufpr.dinf.gres.opla.entity.metric.ConventionalMetric;
-import br.ufpr.dinf.gres.opla.entity.metric.EleganceMetric;
-import br.ufpr.dinf.gres.opla.entity.metric.FeatureDrivenMetric;
-import br.ufpr.dinf.gres.opla.entity.metric.PLAExtensibilityMetric;
+import br.ufpr.dinf.gres.opla.entity.metric.*;
 
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -45,6 +42,12 @@ public class JpaExporter {
         metadataSources.addAnnotatedClass(MapObjectiveName.class);
         metadataSources.addAnnotatedClass(Objective.class);
         metadataSources.addAnnotatedClass(PLAExtensibilityMetric.class);
+        metadataSources.addAnnotatedClass(AvMetric.class);
+        metadataSources.addAnnotatedClass(CbcsMetric.class);
+        metadataSources.addAnnotatedClass(SscMetric.class);
+        metadataSources.addAnnotatedClass(SvcMetric.class);
+        metadataSources.addAnnotatedClass(WocsclassMetric.class);
+        metadataSources.addAnnotatedClass(WocsinterfaceMetric.class);
 
         new File(OUTPUT).delete();
 
