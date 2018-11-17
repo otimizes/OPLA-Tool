@@ -834,7 +834,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="ckConventional" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -845,11 +845,21 @@
                           </Group>
                           <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ckElegance" min="-2" max="-2" attributes="0"/>
-                              <Component id="ckCohesion" min="-2" max="-2" attributes="0"/>
-                              <Component id="ckFeatureDifusion" min="-2" max="-2" attributes="0"/>
-                              <Component id="ckFeatureInterlacing" min="-2" max="-2" attributes="0"/>
-                              <Component id="ckFeatureDriven" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckFeatureDriven" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckFeatureInterlacing" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckFeatureDifusion" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckCohesion" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckElegance" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckLLC" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="ckAV" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckSSC" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckSVS" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckCBCS" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckWocsInterface" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckWocsClass" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -862,26 +872,36 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="ckConventional" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ckFeatureDriven" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckWocsClass" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="ckComponentCoupling" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ckFeatureInterlacing" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckWocsInterface" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="ckClassCoupling" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ckFeatureDifusion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckCBCS" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="ckSize" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ckCohesion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckSVS" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="ckPLAExtensibility" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ckElegance" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckSSC" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="ckAV" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ckLLC" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -967,6 +987,62 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckEleganceActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="ckWocsClass">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Wocsclass"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckWocsClassActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="ckWocsInterface">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Wocsinterface"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckWocsinterfaceActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="ckCBCS">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="CBCS"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckCBCSActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="ckSVS">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="SVS"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckSVSActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="ckSSC">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="SSC"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckSSCActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="ckAV">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="AV"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckAVActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="ckLLC">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="LLC"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckLLCActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1316,7 +1392,7 @@
                                   <Component id="tfOutputDirectory" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="48" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

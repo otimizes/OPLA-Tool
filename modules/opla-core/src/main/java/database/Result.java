@@ -133,6 +133,21 @@ public class Result {
                     allMetrics.getDc().add(buildDcMetrics(idSolution, execution, experiement, metrics, arch));
                 if (objectiveFuncs.contains("ec"))
                     allMetrics.getEc().add(buildEcMetrics(idSolution, execution, experiement, metrics, arch));
+                //addYni
+                if (objectiveFuncs.contains("wocsc"))
+                    allMetrics.getWocsclass().add(buildWocsclassMetrics(idSolution, execution, experiement, metrics, arch));
+                if (objectiveFuncs.contains("wocsi"))
+                    allMetrics.getWocsinterface().add(buildWocsinterfaceMetrics(idSolution, execution, experiement, metrics, arch));
+                if (objectiveFuncs.contains("cbcs"))
+                    allMetrics.getCbcs().add(buildCbcsMetrics(idSolution, execution, experiement, metrics, arch));
+                if (objectiveFuncs.contains("ssc"))
+                    allMetrics.getSsc().add(buildSscMetrics(idSolution, execution, experiement, metrics, arch));
+                if (objectiveFuncs.contains("svc"))
+                    allMetrics.getSvc().add(buildSvcMetrics(idSolution, execution, experiement, metrics, arch));
+                if (objectiveFuncs.contains("av"))
+                    allMetrics.getAv().add(buildAvMetrics(idSolution, execution, experiement, metrics, arch));
+
+                //addYni
             }
         }
 
@@ -264,5 +279,66 @@ public class Result {
 
         return ec;
     }
+
+    //addYni
+
+
+    private Wocsclass buildWocsclassMetrics(String idSolution, Execution execution,
+                                            Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+
+        Wocsclass wocsClass = new Wocsclass(idSolution, execution, experiement);
+        wocsClass.setWocsClass(metrics.evaluateWocsClass(arch));
+
+        return wocsClass;
+    }
+
+    private Wocsinterface buildWocsinterfaceMetrics(String idSolution, Execution execution,
+                                                    Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+
+        Wocsinterface wocsInterface = new Wocsinterface(idSolution, execution, experiement);
+        wocsInterface.setWocsInterface(metrics.evaluateWocsInterface(arch));
+
+        return wocsInterface;
+    }
+
+    private Cbcs buildCbcsMetrics(String idSolution, Execution execution,
+                                  Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+
+        Cbcs cBcs = new Cbcs(idSolution, execution, experiement);
+        cBcs.setCbcs(metrics.evaluateWocsInterface(arch));
+
+        return cBcs;
+    }
+
+    private Ssc buildSscMetrics(String idSolution, Execution execution,
+                                Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+
+        Ssc sSc = new Ssc(idSolution, execution, experiement);
+        sSc.setSsc(metrics.evaluateWocsInterface(arch));
+
+        return sSc;
+    }
+
+
+    private Svc buildSvcMetrics(String idSolution, Execution execution,
+                                Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+
+        Svc sVc = new Svc(idSolution, execution, experiement);
+        sVc.setSvc(metrics.evaluateWocsInterface(arch));
+
+        return sVc;
+    }
+
+
+    private Av buildAvMetrics(String idSolution, Execution execution,
+                              Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+
+        Av aV = new Av(idSolution, execution, experiement);
+        aV.setAv(metrics.evaluateWocsInterface(arch));
+
+        return aV;
+    }
+
+    //addYni
 
 }

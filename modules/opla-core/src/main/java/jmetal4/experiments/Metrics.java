@@ -11,7 +11,16 @@ public enum Metrics {
     TAM("tam"),
     COE("coe"),
     EC("ec"),
-    DC("dc");
+    DC("dc"),
+    // addYni
+    WOCSCLASS("wocsclass"),
+    WOCSINTER("wocsinterface"),
+    CBCS("cbcs"),
+    SVC("svc"),
+    SSC("ssc"),
+    AV("av"),
+    // addYni
+    LCC("lcc");
 
 
     private String name;

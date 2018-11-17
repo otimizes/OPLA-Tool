@@ -353,6 +353,13 @@ public class Principal extends AbstractPrincipalJFrame {
         ckPLAExtensibility = new javax.swing.JCheckBox();
         ckCohesion = new javax.swing.JCheckBox();
         ckElegance = new javax.swing.JCheckBox();
+        ckWocsClass = new javax.swing.JCheckBox();
+        ckWocsInterface = new javax.swing.JCheckBox();
+        ckCBCS = new javax.swing.JCheckBox();
+        ckSVS = new javax.swing.JCheckBox();
+        ckSSC = new javax.swing.JCheckBox();
+        ckAV = new javax.swing.JCheckBox();
+        ckLLC = new javax.swing.JCheckBox();
         panelOperators = new javax.swing.JPanel();
         panelOperatorOption = new javax.swing.JPanel();
         jsMutation = new javax.swing.JSlider();
@@ -933,6 +940,55 @@ public class Principal extends AbstractPrincipalJFrame {
             }
         });
 
+        ckWocsClass.setText("Wocsclass");
+        ckWocsClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckWocsClassActionPerformed(evt);
+            }
+        });
+
+        ckWocsInterface.setText("Wocsinterface");
+        ckWocsInterface.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckWocsinterfaceActionPerformed(evt);
+            }
+        });
+
+        ckCBCS.setText("CBCS");
+        ckCBCS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckCBCSActionPerformed(evt);
+            }
+        });
+
+        ckSVS.setText("SVS");
+        ckSVS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckSVSActionPerformed(evt);
+            }
+        });
+
+        ckSSC.setText("SSC");
+        ckSSC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckSSCActionPerformed(evt);
+            }
+        });
+
+        ckAV.setText("AV");
+        ckAV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckAVActionPerformed(evt);
+            }
+        });
+
+        ckLLC.setText("LLC");
+        ckLLC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckLLCActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -947,11 +1003,20 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addComponent(ckPLAExtensibility))
                 .addGap(100, 100, 100)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ckElegance)
-                    .addComponent(ckCohesion)
-                    .addComponent(ckFeatureDifusion)
+                    .addComponent(ckFeatureDriven)
                     .addComponent(ckFeatureInterlacing)
-                    .addComponent(ckFeatureDriven))
+                    .addComponent(ckFeatureDifusion)
+                    .addComponent(ckCohesion)
+                    .addComponent(ckElegance)
+                    .addComponent(ckLLC))
+                .addGap(92, 92, 92)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ckAV)
+                    .addComponent(ckSSC)
+                    .addComponent(ckSVS)
+                    .addComponent(ckCBCS)
+                    .addComponent(ckWocsInterface)
+                    .addComponent(ckWocsClass))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -960,23 +1025,32 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ckConventional)
-                    .addComponent(ckFeatureDriven))
+                    .addComponent(ckFeatureDriven)
+                    .addComponent(ckWocsClass))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ckComponentCoupling)
-                    .addComponent(ckFeatureInterlacing))
+                    .addComponent(ckFeatureInterlacing)
+                    .addComponent(ckWocsInterface))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ckClassCoupling)
-                    .addComponent(ckFeatureDifusion))
+                    .addComponent(ckFeatureDifusion)
+                    .addComponent(ckCBCS))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ckSize)
-                    .addComponent(ckCohesion))
+                    .addComponent(ckCohesion)
+                    .addComponent(ckSVS))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ckPLAExtensibility)
-                    .addComponent(ckElegance))
+                    .addComponent(ckElegance)
+                    .addComponent(ckSSC))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ckAV)
+                    .addComponent(ckLLC))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1233,7 +1307,7 @@ public class Principal extends AbstractPrincipalJFrame {
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfOutputDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2104,6 +2178,46 @@ public class Principal extends AbstractPrincipalJFrame {
         ckEnableInteraction1.setSelected(tfInteractionDirectory1.getText() != null && !tfInteractionDirectory1.getText().isEmpty());
     }//GEN-LAST:event_btManipulationDirectory3btInteractionDirectoryActionPerformed
 
+    private void ckWocsClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckWocsClassActionPerformed
+        System.out.println("WOCSCLASS");
+        final String metric = Metrics.WOCSCLASS.getName();
+        addToMetrics(ckWocsClass, metric);
+    }//GEN-LAST:event_ckWocsClassActionPerformed
+
+    private void ckWocsinterfaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckWocsinterfaceActionPerformed
+        System.out.println("WOCSINTER");
+        final String metric = Metrics.WOCSINTER.getName();
+        addToMetrics(ckWocsInterface, metric);
+    }//GEN-LAST:event_ckWocsinterfaceActionPerformed
+
+    private void ckCBCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCBCSActionPerformed
+        System.out.println("CBCS");
+        final String metric = Metrics.CBCS.getName();
+        addToMetrics(ckCBCS, metric);
+    }//GEN-LAST:event_ckCBCSActionPerformed
+
+    private void ckSVSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckSVSActionPerformed
+        System.out.println("SVC");
+        final String metric = Metrics.SVC.getName();
+        addToMetrics(ckSVS, metric);
+    }//GEN-LAST:event_ckSVSActionPerformed
+
+    private void ckSSCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckSSCActionPerformed
+        System.out.println("SSC");
+        final String metric = Metrics.SSC.getName();
+        addToMetrics(ckSSC, metric);
+    }//GEN-LAST:event_ckSSCActionPerformed
+
+    private void ckAVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAVActionPerformed
+        System.out.println("AV");
+        final String metric = Metrics.AV.getName();
+        addToMetrics(ckAV, metric);
+    }//GEN-LAST:event_ckAVActionPerformed
+
+    private void ckLLCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ckLLCActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBrowserFeatureProfile;
     private javax.swing.JButton btBrowserPatternProfile;
@@ -2126,9 +2240,11 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JComboBox<String> cbAlgothm;
     private javax.swing.JComboBox<String> cbObjectiveSoluction;
     private javax.swing.JComboBox<String> cbSolutionName;
+    private javax.swing.JCheckBox ckAV;
     private javax.swing.JCheckBox ckAddClassMutation;
     private javax.swing.JCheckBox ckAddManagerClassMutation;
     private javax.swing.JCheckBox ckBridge;
+    private javax.swing.JCheckBox ckCBCS;
     private javax.swing.JCheckBox ckClassCoupling;
     private javax.swing.JCheckBox ckCohesion;
     private javax.swing.JCheckBox ckComponentCoupling;
@@ -2142,6 +2258,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JCheckBox ckFeatureDriven;
     private javax.swing.JCheckBox ckFeatureDrivenMutation;
     private javax.swing.JCheckBox ckFeatureInterlacing;
+    private javax.swing.JCheckBox ckLLC;
     private javax.swing.JCheckBox ckMediator;
     private javax.swing.JCheckBox ckMoveAttributeMutation;
     private javax.swing.JCheckBox ckMoveMethodMutation;
@@ -2150,10 +2267,14 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JCheckBox ckPLAExtensibility;
     private javax.swing.JCheckBox ckPatterns;
     private javax.swing.JCheckBox ckRelationship;
+    private javax.swing.JCheckBox ckSSC;
+    private javax.swing.JCheckBox ckSVS;
     private javax.swing.JCheckBox ckSize;
     private javax.swing.JCheckBox ckSmarty;
     private javax.swing.JCheckBox ckStrategy;
     private javax.swing.JCheckBox ckUseNormalization;
+    private javax.swing.JCheckBox ckWocsClass;
+    private javax.swing.JCheckBox ckWocsInterface;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
