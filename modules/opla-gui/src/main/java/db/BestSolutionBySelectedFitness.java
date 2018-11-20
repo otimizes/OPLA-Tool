@@ -1,10 +1,7 @@
 package db;
 
 import br.ufpr.dinf.gres.loglog.Logger;
-import metrics.Conventional;
-import metrics.Elegance;
-import metrics.FeatureDriven;
-import metrics.PLAExtensibility;
+import metrics.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -32,6 +29,33 @@ public class BestSolutionBySelectedFitness {
     public static List<metrics.Metrics> calculateBestPlaExt(String experimentId) {
         return db.Database.getAllPLAExtMetricsForExperimentId(experimentId);
     }
+
+    //---addYni---
+
+    public static List<metrics.Metrics> calculateBestWocsC(String experimentId) {
+        return db.Database.getAllWocsCMetricsForExperimentId(experimentId);
+    }
+
+    public static List<metrics.Metrics> calculateBestWocsI(String experimentId) {
+        return db.Database.getAllWocsIMetricsForExperimentId(experimentId);
+    }
+
+    public static List<metrics.Metrics> calculateBestCbcs(String experimentId) {
+        return db.Database.getAllCbcsMetricsForExperimentId(experimentId);
+    }
+
+    public static List<metrics.Metrics> calculateBestSvc(String experimentId) {
+        return db.Database.getAllSvcMetricsForExperimentId(experimentId);
+    }
+
+    public static List<metrics.Metrics> calculateBestSsc(String experimentId) {
+        return db.Database.getAllSscMetricsForExperimentId(experimentId);
+    }
+
+    public static List<metrics.Metrics> calculateBestAv(String experimentId) {
+        return db.Database.getAllAvMetricsForExperimentId(experimentId);
+    }
+    //---addYni---
 
     public static void buildTable(JTable tableMinorFitnessValues, List<metrics.Metrics> map) {
 
@@ -119,6 +143,13 @@ public class BestSolutionBySelectedFitness {
             return ((FeatureDriven) f).evaluateMSIFitness();
         } else if (f instanceof PLAExtensibility) {
             return ((PLAExtensibility) f).getPlaExtensibility();
+        } else if (f instanceof Elegance) {
+            return ((Elegance) f).evaluateEleganceFitness();
+        }
+        //---addYni
+        else if (f instanceof Svc) {
+            return ((Svc) f).getSvc();
+            //---addYni
         } else if (f instanceof Elegance) {
             return ((Elegance) f).evaluateEleganceFitness();
         } else {

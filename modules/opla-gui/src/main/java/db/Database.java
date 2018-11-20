@@ -7,10 +7,7 @@ import com.ufpr.br.opla.configuration.VolatileConfs;
 import com.ufpr.br.opla.utils.MathUtils;
 import com.ufpr.br.opla.utils.Utils;
 import exceptions.MissingConfigurationException;
-import metrics.Conventional;
-import metrics.Elegance;
-import metrics.FeatureDriven;
-import metrics.PLAExtensibility;
+import metrics.*;
 import results.Execution;
 import results.Experiment;
 
@@ -335,6 +332,229 @@ public class Database {
         return listCons;
     }
 
+    //addYni
+
+    public static Wocsclass getWocsclassMetricsForSolution(String idSolution, String experimentId) {
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Wocsclass wocsc : exec.getAllMetrics().getWocsclass()) {
+                        if (wocsc.getIdSolution().equals(idSolution)) {
+                            return wocsc;
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+
+    }
+
+    public static Wocsinterface getWocsinterfaceMetricsForSolution(String idSolution, String experimentId) {
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Wocsinterface wocsi : exec.getAllMetrics().getWocsinterface()) {
+                        if (wocsi.getIdSolution().equals(idSolution)) {
+                            return wocsi;
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+
+    }
+
+    public static Cbcs getCbcsMetricsForSolution(String idSolution, String experimentId) {
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Cbcs cbcs : exec.getAllMetrics().getCbcs()) {
+                        if (cbcs.getIdSolution().equals(idSolution)) {
+                            return cbcs;
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+
+    }
+
+    public static Svc getSvcMetricsForSolution(String idSolution, String experimentId) {
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Svc svc : exec.getAllMetrics().getSvc()) {
+                        if (svc.getIdSolution().equals(idSolution)) {
+                            return svc;
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+
+    }
+
+    public static Ssc getSscMetricsForSolution(String idSolution, String experimentId) {
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Ssc ssc : exec.getAllMetrics().getSsc()) {
+                        if (ssc.getIdSolution().equals(idSolution)) {
+                            return ssc;
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+
+    }
+
+    public static Av getAvMetricsForSolution(String idSolution, String experimentId) {
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Av av : exec.getAllMetrics().getAv()) {
+                        if (av.getIdSolution().equals(idSolution)) {
+                            return av;
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+
+    }
+
+    //addYni
+    //addYni
+
+    public static List<metrics.Metrics> getAllWocsCMetricsForExperimentId(String experimentId) {
+        List<metrics.Metrics> listFd = new ArrayList<>();
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Wocsclass m : exec.getAllMetrics().getWocsclass()) {
+                        if (m.getIsAll() == 1) {
+                            listFd.add(m);
+                        }
+                    }
+                    return listFd;
+                }
+            }
+
+        }
+
+        return listFd;
+    }
+
+    public static List<metrics.Metrics> getAllWocsIMetricsForExperimentId(String experimentId) {
+        List<metrics.Metrics> listFd = new ArrayList<>();
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Wocsinterface m : exec.getAllMetrics().getWocsinterface()) {
+                        if (m.getIsAll() == 1) {
+                            listFd.add(m);
+                        }
+                    }
+                    return listFd;
+                }
+            }
+
+        }
+
+        return listFd;
+    }
+
+    public static List<metrics.Metrics> getAllCbcsMetricsForExperimentId(String experimentId) {
+        List<metrics.Metrics> listFd = new ArrayList<>();
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Cbcs m : exec.getAllMetrics().getCbcs()) {
+                        if (m.getIsAll() == 1) {
+                            listFd.add(m);
+                        }
+                    }
+                    return listFd;
+                }
+            }
+
+        }
+
+        return listFd;
+    }
+
+    public static List<metrics.Metrics> getAllSvcMetricsForExperimentId(String experimentId) {
+        List<metrics.Metrics> listFd = new ArrayList<>();
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Svc m : exec.getAllMetrics().getSvc()) {
+                        if (m.getIsAll() == 1) {
+                            listFd.add(m);
+                        }
+                    }
+                    return listFd;
+                }
+            }
+
+        }
+
+        return listFd;
+    }
+
+    public static List<metrics.Metrics> getAllSscMetricsForExperimentId(String experimentId) {
+        List<metrics.Metrics> listFd = new ArrayList<>();
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Ssc m : exec.getAllMetrics().getSsc()) {
+                        if (m.getIsAll() == 1) {
+                            listFd.add(m);
+                        }
+                    }
+                    return listFd;
+                }
+            }
+
+        }
+
+        return listFd;
+    }
+
+    public static List<metrics.Metrics> getAllAvMetricsForExperimentId(String experimentId) {
+        List<metrics.Metrics> listFd = new ArrayList<>();
+        for (Experiment exp : content) {
+            if (exp.getId().equals(experimentId)) {
+                for (Execution exec : exp.getExecutions()) {
+                    for (Av m : exec.getAllMetrics().getAv()) {
+                        if (m.getIsAll() == 1) {
+                            listFd.add(m);
+                        }
+                    }
+                    return listFd;
+                }
+            }
+
+        }
+
+        return listFd;
+    }
+
+    //addYni
+
     public static int getNumberOfFunctionForExperimentId(String experimentId) throws Exception {
         Statement statement = null;
         try {
@@ -532,6 +752,28 @@ public class Database {
                                         .get(listObjectivesValues.get("PLAExtensibility_" + idExecuton).size() - 1);
                                 last.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
                             }
+                        } else if (objectives[i].startsWith("svc")) {
+                            if (listObjectivesValues.get("svc_" + idExecuton) == null) {
+                                List<List<Double>> allValue = new ArrayList<>();
+                                List<Double> valueFuc = new ArrayList<>();
+                                valueFuc.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
+                                allValue.add(valueFuc);
+                                listObjectivesValues.put("svc_" + idExecuton, allValue);
+                            } else {
+                                List<Double> last = listObjectivesValues.get("svc_" + idExecuton).get(listObjectivesValues.get("svc_" + idExecuton).size() - 1);
+                                last.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
+                            }
+                        } else if (objectives[i].startsWith("ssc")) {
+                            if (listObjectivesValues.get("ssc_" + idExecuton) == null) {
+                                List<List<Double>> allValue = new ArrayList<>();
+                                List<Double> valueFuc = new ArrayList<>();
+                                valueFuc.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
+                                allValue.add(valueFuc);
+                                listObjectivesValues.put("ssc_" + idExecuton, allValue);
+                            } else {
+                                List<Double> last = listObjectivesValues.get("ssc_" + idExecuton).get(listObjectivesValues.get("ssc_" + idExecuton).size() - 1);
+                                last.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
+                            }
                         }
 
                     }
@@ -633,6 +875,22 @@ public class Database {
                                 content.get("PLAExtensibility").addAll(list.get(0));
                             }
                             break;
+                        //addYni
+                        case "ssc":
+                            if (content.get("ssc") == null) {
+                                content.put("ssc", list.get(0));
+                            } else {
+                                content.get("ssc").addAll(list.get(0));
+                            }
+                            break;
+                        case "svc":
+                            if (content.get("svc") == null) {
+                                content.put("svc", list.get(0));
+                            } else {
+                                content.get("svc").addAll(list.get(0));
+                            }
+                            break;
+                        //addYni
                     }
                 }
             }

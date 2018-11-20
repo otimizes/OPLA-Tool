@@ -9,8 +9,36 @@ import jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCComponentResult;
 import jmetal4.metrics.concernDrivenMetrics.concernDiffusion.*;
 import jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
 import jmetal4.metrics.conventionalMetrics.*;
+import jmetal4.metrics.newPlasMetrics.*;
 
 public class MetricsEvaluation {
+
+    //addYni
+    public float evaluateWocsClass(Architecture architecture) {
+        return new WocsClass(architecture).getResults();
+    }
+
+    public float evaluateWocsInterface(Architecture architecture) {
+        return new WocsInterface(architecture).getResults();
+    }
+
+    public float evaluateCbcs(Architecture architecture) {
+        return new CBCS(architecture).getResults();
+    }
+
+    public double evaluateSsc(Architecture architecture) {
+        return new SSC(architecture).getResults();
+    }
+
+    public double evaluateSvc(Architecture architecture) {
+        return new SVC(architecture).getResults();
+    }
+
+    public double evaluateAv(Architecture architecture) {
+        return new AV(architecture).getResults();
+    }
+
+    //addYni
 
     public double evaluateATMRElegance(Architecture architecture) {
         return new ATMRElegance(architecture).getResults();

@@ -56,7 +56,7 @@ public class NSGAII extends Algorithm {
      * @throws Exception
      */
     public SolutionSet execute() throws JMException {
-    	LOGGER.info("Iniciando Execução");
+        LOGGER.info("Iniciando Execução");
         int populationSize;
         int maxEvaluations;
         int evaluations;
@@ -92,7 +92,7 @@ public class NSGAII extends Algorithm {
         selectionOperator = operators_.get("selection");
 
         try {
-        	LOGGER.info("Criando População");
+            LOGGER.info("Criando População");
             // Create the initial solutionSet
             Solution newSolution;
             for (int i = 0; i < populationSize; i++) {
@@ -101,17 +101,17 @@ public class NSGAII extends Algorithm {
                 mutationOperator.execute(newSolution);
                 problem_.evaluate(newSolution);
 
-                // problem_.evaluateConstraints(newSolution);
+                problem_.evaluateConstraints(newSolution);
                 evaluations++;
                 population.add(newSolution);
             }
         } catch (Exception e) {
-        	LOGGER.error(e);
-        	throw new JMException(e.getMessage());
+            LOGGER.error(e);
+            throw new JMException(e.getMessage());
         }
 
         try {
-        	LOGGER.info("Iniciando evoluções");
+            LOGGER.info("Iniciando evoluções");
             // Generations
             while (evaluations < maxEvaluations) {
                 // Create the offSpring solutionSet
@@ -175,7 +175,7 @@ public class NSGAII extends Algorithm {
 
                 while ((remain > 0) && (remain >= front.size())) {
                     // Assign crowding distance to individuals
-                	 LOGGER.info("crowdingDistanceAssignment()");
+                    LOGGER.info("crowdingDistanceAssignment()");
                     distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
                     // Add the individuals of this front
                     for (int k = 0; k < front.size(); k++) {
@@ -188,7 +188,7 @@ public class NSGAII extends Algorithm {
                     // Obtain the next front
                     index++;
                     if (remain > 0) {
-                    	LOGGER.info("getSubfront()");
+                        LOGGER.info("getSubfront()");
                         front = ranking.getSubfront(index);
                     }
                 }
@@ -196,7 +196,7 @@ public class NSGAII extends Algorithm {
                 // Remain is less than front(index).size, insert only the best
                 // one
                 if (remain > 0) { // front contains individuals to insert
-                	LOGGER.info("crowdingDistanceAssignment()");
+                    LOGGER.info("crowdingDistanceAssignment()");
                     distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
                     front.sort(new CrowdingComparator());
                     for (int k = 0; k < remain; k++) {
@@ -220,8 +220,8 @@ public class NSGAII extends Algorithm {
                 }
             }
         } catch (Exception e) {
-        	LOGGER.error(e);
-        	throw new JMException(e.getMessage());
+            LOGGER.error(e);
+            throw new JMException(e.getMessage());
         }
 
         // Return as output parameter the required evaluations

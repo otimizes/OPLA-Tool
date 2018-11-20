@@ -13,6 +13,12 @@
 		<class>br.ufpr.dinf.gres.opla.entity.metric.EleganceMetric</class>
 		<class>br.ufpr.dinf.gres.opla.entity.metric.PLAExtensibilityMetric</class>
 		<class>br.ufpr.dinf.gres.opla.entity.metric.FeatureDrivenMetric</class>
+		<class>br.ufpr.dinf.gres.opla.entity.metric.WocsinterfaceMetric</class>
+		<class>br.ufpr.dinf.gres.opla.entity.metric.AvMetric</class>
+		<class>br.ufpr.dinf.gres.opla.entity.metric.CbcsMetric</class>
+		<class>br.ufpr.dinf.gres.opla.entity.metric.SscMetric</class>
+		<class>br.ufpr.dinf.gres.opla.entity.metric.SvcMetric</class>
+		<class>br.ufpr.dinf.gres.opla.entity.metric.WocsclassMetric</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect" />

@@ -2,6 +2,7 @@ package persistence;
 
 import database.Database;
 import exceptions.MissingConfigurationException;
+import jmetal4.metrics.newPlasMetrics.*;
 import metrics.*;
 import results.Execution;
 import results.Experiment;
@@ -60,6 +61,14 @@ public class MetricsPersistence {
         persisteFeatureDriven(execution.getAllMetrics().getFeatureDriven());
         persisteConventional(execution.getAllMetrics().getConventional());
         persistePlaExtensibility(execution.getAllMetrics().getPlaExtensibility());
+        //addYni
+        persisteWocsclass(execution.getAllMetrics().getWocsclass());
+        persisteWocsinterface(execution.getAllMetrics().getWocsinterface());
+        persisteCbcs(execution.getAllMetrics().getCbcs());
+        persisteSsc(execution.getAllMetrics().getSsc());
+        persisteSvc(execution.getAllMetrics().getSvc());
+        persisteAv(execution.getAllMetrics().getAv());
+        //addYni
     }
 
     public void persisteMetrics(AllMetrics allMetrics, List<String> list) {
@@ -71,7 +80,79 @@ public class MetricsPersistence {
             persisteConventional(allMetrics.getConventional());
         if (list.contains("PLAExtensibility"))
             persistePlaExtensibility(allMetrics.getPlaExtensibility());
+        //addYni
+        if (list.contains("wocsclass"))
+            persisteWocsclass(allMetrics.getWocsclass());
+        if (list.contains("wocsinterface"))
+            persisteWocsinterface(allMetrics.getWocsinterface());
+        if (list.contains("cbcs"))
+            persisteCbcs(allMetrics.getCbcs());
+        if (list.contains("ssc"))
+            persisteSsc(allMetrics.getSsc());
+        if (list.contains("svc"))
+            persisteSvc(allMetrics.getSvc());
+        if (list.contains("av"))
+            persisteAv(allMetrics.getAv());
+        //addYni
     }
+
+    //addYni
+    private void persisteWocsclass(List<Wocsclass> wocsC){
+        if (!wocsC.isEmpty()) {
+            for (Wocsclass wc : wocsC)
+                this.allMetricsPersistenceDependencies.getWocsclassPersistence().save(wc);
+        }
+
+        wocsC = null;
+    }
+
+    private void persisteWocsinterface(List<Wocsinterface> wocsI){
+        if (!wocsI.isEmpty()) {
+            for (Wocsinterface wi : wocsI)
+                this.allMetricsPersistenceDependencies.getWocsinterfacePersistence().save(wi);
+        }
+
+        wocsI = null;
+    }
+
+    private void persisteCbcs(List<Cbcs> cBcs){
+        if (!cBcs.isEmpty()) {
+            for (Cbcs cbcs : cBcs)
+                this.allMetricsPersistenceDependencies.getCbcsPersistence().save(cbcs);
+        }
+
+        cBcs = null;
+    }
+
+
+    private void persisteSsc(List<Ssc> sSc){
+        if (!sSc.isEmpty()) {
+            for (Ssc ssc : sSc)
+                this.allMetricsPersistenceDependencies.getSscPersistence().save(ssc);
+        }
+
+        sSc = null;
+    }
+
+    private void persisteSvc(List<Svc> sVc){
+        if (!sVc.isEmpty()) {
+            for (Svc svc : sVc)
+                this.allMetricsPersistenceDependencies.getSvcPersistence().save(svc);
+        }
+
+        sVc = null;
+    }
+
+    private void persisteAv(List<Av> aV){
+        if (!aV.isEmpty()) {
+            for (Av av : aV)
+                this.allMetricsPersistenceDependencies.getAvPersistence().save(av);
+        }
+
+        aV = null;
+    }
+
+    //addYni
 
     private void persistePlaExtensibility(List<PLAExtensibility> plaExt) {
         if (!plaExt.isEmpty()) {
