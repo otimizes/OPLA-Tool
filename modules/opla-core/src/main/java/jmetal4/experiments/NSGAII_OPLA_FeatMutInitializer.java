@@ -22,6 +22,7 @@ public class NSGAII_OPLA_FeatMutInitializer implements AlgorithmBase {
 			LOGGER.info("Finished");
 		} catch (Exception e) {
 			LOGGER.error(e);
+			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 
 		}
