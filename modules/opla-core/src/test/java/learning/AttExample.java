@@ -8,7 +8,7 @@ import weka.core.*;
  * @author FracPete
  */
 // https://waikato.github.io/weka-wiki/creating_arff_file/
-public class AttTest {
+public class AttExample {
     public static void main(String[] args) throws Exception {
         FastVector      atts;
         FastVector      attsRel;

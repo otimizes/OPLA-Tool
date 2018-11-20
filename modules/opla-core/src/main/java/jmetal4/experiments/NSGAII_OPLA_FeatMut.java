@@ -5,7 +5,6 @@ import br.ufpr.dinf.gres.loglog.Level;
 import database.Database;
 import database.Result;
 import exceptions.MissingConfigurationException;
-import javafx.scene.chart.XYChart;
 import jmetal4.core.Algorithm;
 import jmetal4.core.SolutionSet;
 import jmetal4.metaheuristics.nsgaII.NSGAII;
@@ -27,16 +26,14 @@ import results.FunResults;
 import results.InfoResult;
 import weka.clusterers.ClusterEvaluation;
 import weka.clusterers.SimpleKMeans;
-import weka.core.Instance;
 
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class NSGAII_OPLA_FeatMut {
 
@@ -170,6 +167,37 @@ public class NSGAII_OPLA_FeatMut {
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
+                // Clustering and Interactive
+                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions()) {
+                    ArffExecution arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
+                    SimpleKMeans kMeans = new SimpleKMeans();
+                    kMeans.setSeed(arffExecution.getObjectives().length);
+                    kMeans.setPreserveInstancesOrder(true);
+                    kMeans.setNumClusters(3);
+                    kMeans.buildClusterer(arffExecution.getDataWithoutClass());
+
+                    ClusterEvaluation clusterEvaluation = new ClusterEvaluation();
+                    clusterEvaluation.setClusterer(kMeans);
+                    clusterEvaluation.evaluateClusterer(arffExecution.getDataWithoutClass());
+
+                    System.out.println(clusterEvaluation.clusterResultsToString());
+
+                    int[] assignments = kMeans.getAssignments();
+                    ArrayList<Integer> toRemove = new ArrayList<>();
+                    for (int i = 0; i < assignments.length; i++) {
+                        System.out.println("Cluster " + assignments[i] + " -> " + kMeans.getClusterCentroids().get(assignments[i]) + " : " + arffExecution.getData().instance(i));
+                        if (assignments[i] >= 1) {
+                            toRemove.add(i);
+                        }
+                    }
+
+                    Collections.reverse(toRemove);
+                    toRemove.forEach(resultFront::remove);
+
+                    this.configs.getInteractiveFunction().run(resultFront, execution);
+                }
+                // Clustering and Interactive
+
                 execution.setTime(estimatedTime);
 
                 List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), execution,
@@ -179,31 +207,11 @@ public class NSGAII_OPLA_FeatMut {
                 AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), execution,
                         experiement, selectedObjectiveFunctions);
 
-
-                ArffExecution arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
-
-
-                SimpleKMeans kMeans = new SimpleKMeans();
-                kMeans.setSeed(arffExecution.getObjectives().length);
-//                kMeans.setPreserveInstancesOrder(true);
-//                kMeans.setNumClusters(2);
-                kMeans.buildClusterer(arffExecution.getDataWithoutClass());
-
-                ClusterEvaluation clusterEvaluation = new ClusterEvaluation();
-                clusterEvaluation.setClusterer(kMeans);
-                clusterEvaluation.evaluateClusterer(arffExecution.getDataWithoutClass());
-
-                System.out.println(clusterEvaluation.clusterResultsToString());
-
-
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
 
                 execution.setFuns(funResults);
                 execution.setInfos(infoResults);
                 execution.setAllMetrics(allMetrics);
-
-                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions())
-                    this.configs.getInteractiveFunction().run(resultFront, execution);
 
                 ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
                 try {

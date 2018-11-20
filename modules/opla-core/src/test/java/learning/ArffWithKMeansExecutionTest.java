@@ -5,7 +5,7 @@ import org.junit.Test;
 import weka.clusterers.ClusterEvaluation;
 import weka.clusterers.SimpleKMeans;
 
-public class ArffExecutionTest {
+public class ArffWithKMeansExecutionTest {
 
     @Test
     public void main() throws Exception {
@@ -21,15 +21,19 @@ public class ArffExecutionTest {
 
         SimpleKMeans kMeans = new SimpleKMeans();
         kMeans.setSeed(arffExecution.getObjectives().length-1);
-        kMeans.setPreserveInstancesOrder(false);
-        kMeans.setNumClusters(2);
-        kMeans.setMaxIterations(50);
+        kMeans.setPreserveInstancesOrder(true);
+        kMeans.setNumClusters(3);
         kMeans.buildClusterer(arffExecution.getDataWithoutClass());
 
         ClusterEvaluation clusterEvaluation = new ClusterEvaluation();
         clusterEvaluation.setClusterer(kMeans);
         clusterEvaluation.evaluateClusterer(arffExecution.getDataWithoutClass());
         System.out.println(clusterEvaluation.clusterResultsToString());
+
+        int[] assignments = kMeans.getAssignments();
+        for (int i = 0; i < assignments.length; i++) {
+            System.out.println("Cluster " + assignments[i] + " -> " + kMeans.getClusterCentroids().get(assignments[i]) + " : " + arffExecution.getData().instance(i));
+        }
 
         Assert.assertNotNull(clusterEvaluation.clusterResultsToString());
     }
