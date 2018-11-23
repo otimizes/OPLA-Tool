@@ -336,6 +336,10 @@ public class Solution implements Serializable {
         objective_temp_ = new double[numberOfObjectives];
     }
 
+    public void createObjective(int numberOfObjectives) {
+        objective_ = new double[numberOfObjectives];
+    }
+
     public void setObjectiveTemp(int i, double value) {
         objective_temp_[i] = value;
     } // setObjective
@@ -355,6 +359,10 @@ public class Solution implements Serializable {
         else
             return numberOfObjectives_;
     } // numberOfObjectives
+
+    public void setNumberOfObjectives(int numberOfObjectives_) {
+        this.numberOfObjectives_ = numberOfObjectives_;
+    }
 
     /**
      * Returns the number of decision variables of the solution.
