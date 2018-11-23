@@ -13,6 +13,7 @@ import results.InfoResult;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class ClusteringTest {
     //    [802, 36, 25], [752, 30, 26], [728, 26, 27], [40, 30, 24], [700, 40, 20], [400, 30, 25]
@@ -46,9 +47,8 @@ public class ClusteringTest {
         SolutionSet solutionSet = getSolutionSet(doubles);
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.OPTICS);
         SolutionSet run = clustering.run();
-
-        System.out.println(clustering.getClusterEvaluation().clusterResultsToString());
-//        assertNotNull(run);
+        // TODO Method to be implemented
+        assertNull(run);
     }
 
     private SolutionSet getSolutionSet(double[][] doubles) throws Exception {

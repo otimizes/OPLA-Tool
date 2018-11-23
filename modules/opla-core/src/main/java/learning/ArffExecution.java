@@ -7,6 +7,9 @@ import weka.core.Instances;
 
 import java.util.Arrays;
 
+/**
+ * Attribute-Relation File Format Object used in Machine Learnings presents in Weka
+ */
 public class ArffExecution {
 
     private FastVector atts;
@@ -16,10 +19,19 @@ public class ArffExecution {
     private int attrIndices;
     private double[][] objectives;
 
+    /**
+     * To use it, instantiate the class by passing a list of function values Objective
+     * @param objectives Function Values Objective
+     */
     public ArffExecution(double[][] objectives) {
         newInstance(objectives, null);
     }
 
+    /**
+     * To use it, instantiate the class by passing a list of function values Objective and descriptions for the same
+     * @param objectives Function Values Objective
+     * @param descOjectives Objectives Description
+     */
     public ArffExecution(double[][] objectives, String... descOjectives) {
         newInstance(objectives, descOjectives);
     }
@@ -112,6 +124,10 @@ public class ArffExecution {
         this.objectives = objectives;
     }
 
+    /**
+     * Used to get Instances withod last column that indentify the class of object
+     * @return Instances without class
+     */
     public Instances getDataWithoutClass() {
         Instances newIn = new Instances(this.getData());
         newIn.deleteAttributeAt(attrIndices);

@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author WmfSystem
+ * Class that encompasses the methods of clustering, such as K-Means, DBSCAN and OPTICS
+ */
 public class Clustering implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -19,12 +23,19 @@ public class Clustering implements Serializable {
     private ClusteringAlgorithms algorithm;
     private AbstractClusterer clusterer;
     private ArffExecution arffExecution;
-
-    private Integer numClusters = 3;
-    private Integer minPoints = 1;
-    private Double epsilon = 0.4;
     private List<Solution> filteredSolutions = new ArrayList<>();
     private Double indexToFilter;
+
+    /**
+     * K-Means Parameters
+     */
+    private Integer numClusters = 3;
+
+    /**
+     * DBSCAN and OPTICS Parameters
+     */
+    private Integer minPoints = 1;
+    private Double epsilon = 0.4;
 
     public Clustering() {
     }
@@ -35,6 +46,11 @@ public class Clustering implements Serializable {
         this.arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
     }
 
+    /**
+     * Execution Method
+     * @return Solution Set
+     * @throws Exception Default Exception
+     */
     public SolutionSet run() throws Exception {
         switch (algorithm) {
             case KMEANS:
@@ -47,6 +63,11 @@ public class Clustering implements Serializable {
         return null;
     }
 
+    /**
+     * K-Means Execution Method
+      * @return Solution Set
+     * @throws Exception Default Exception
+     */
     public SolutionSet kMeans() throws Exception {
         clusterer = new SimpleKMeans();
         getKMeans().setSeed(arffExecution.getObjectives().length);
@@ -63,17 +84,28 @@ public class Clustering implements Serializable {
         return getFilteredSolutionSet();
     }
 
+    /**
+     * DBSCAN Execution Method
+     * - Observations:
+     *      The only measure that changes the solution is as follows:
+     *      getDBSCAN().setOptions(new String[]{"-A", "weka.core.ManhattanDistance"});
+     * @return Solution Set
+     * @throws Exception
+     */
     public SolutionSet dbscan() throws Exception {
         clusterer = new DBSCAN();
         getDBSCAN().setMinPoints(getMinPoints());
         getDBSCAN().setEpsilon(getEpsilon());
-//        A unica que altera a solução é esta medida
-//        getDBSCAN().setOptions(new String[]{"-A", "weka.core.ManhattanDistance"});
         getDBSCAN().buildClusterer(arffExecution.getDataWithoutClass());
 
         return getFilteredSolutionSet();
     }
 
+    /**
+     * Method not completed, because in the current version of Weka, the OPTICS does not present results
+     * @return Nothing
+     * @throws Exception Default Exception
+     */
     public SolutionSet optics() throws Exception {
         clusterer = new OPTICS();
         getOPTICS().setShowGUI(false);
@@ -82,6 +114,11 @@ public class Clustering implements Serializable {
         return null;
     }
 
+    /**
+     * Filtered Solution Set by attribute indexToFilter
+      * @return Solution Set Filtered
+     * @throws Exception Default Exception
+     */
     private SolutionSet getFilteredSolutionSet() throws Exception {
         double[] assignments = getClusterEvaluation().getClusterAssignments();
         ArrayList<Integer> toRemove = new ArrayList<>();
@@ -99,7 +136,11 @@ public class Clustering implements Serializable {
         return resultFront;
     }
 
-
+    /**
+     * Cluster Evaluation Object for analysis of results
+     * @return Clustes Evaluation Objetc
+     * @throws Exception Default Exception
+     */
     public ClusterEvaluation getClusterEvaluation() throws Exception {
         ClusterEvaluation clusterEvaluation = new ClusterEvaluation();
         clusterEvaluation.setClusterer(clusterer);
@@ -107,14 +148,26 @@ public class Clustering implements Serializable {
         return clusterEvaluation;
     }
 
+    /**
+     * Cast the Clusterer to SimpleKMeans Object
+     * @return SimpleKMeans Object
+     */
     public SimpleKMeans getKMeans() {
         return ((SimpleKMeans) clusterer);
     }
 
+    /**
+     * Cast the Clusterer to DBSCAN Object
+     * @return DBSCAN Object
+     */
     public DBSCAN getDBSCAN() {
         return ((DBSCAN) clusterer);
     }
 
+    /**
+     * Cast the Clusterer to OPTICS Object
+     * @return OPTICS Object
+     */
     public OPTICS getOPTICS() {
         return ((OPTICS) clusterer);
     }
@@ -183,6 +236,11 @@ public class Clustering implements Serializable {
         this.filteredSolutions = filteredSolutions;
     }
 
+    /**
+     * Get Index to Filter
+     * Set by default: 1 -> K-Means, 2 -> DBSCAN and OPTICS
+     * @return Index to Filter Value
+     */
     public double getIndexToFilter() {
         if (indexToFilter == null) {
             switch (algorithm) {
