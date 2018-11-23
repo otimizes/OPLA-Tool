@@ -1,5 +1,6 @@
 package results;
 
+import jmetal4.core.Solution;
 import metrics.AllMetrics;
 import utils.Id;
 
@@ -80,6 +81,14 @@ public class Execution {
 
     public void setRuns(int runs) {
         this.runs = runs;
+    }
+
+    public Experiment getExperiment() {
+        return experiment;
+    }
+
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
     }
 
     // public List<FunResults> getObjectives() throws ClassNotFoundException,

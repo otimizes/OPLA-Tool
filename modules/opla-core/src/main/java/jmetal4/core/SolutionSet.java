@@ -51,6 +51,8 @@ public class SolutionSet implements Serializable {
      */
     protected List<Solution> solutionsList_;
 
+    protected List<Solution> filteredSolutions_;
+
     /**
      * Maximum size of the solution set
      */
@@ -746,5 +748,12 @@ public class SolutionSet implements Serializable {
         return this.solutionsList_;
     }
 
+    public List<Solution> getFilteredSolutions() {
+        return filteredSolutions_;
+    }
+
+    public void setFilteredSolutions(List<Solution> filteredSolutions_) {
+        this.filteredSolutions_ = filteredSolutions_;
+    }
 } // SolutionSet
 

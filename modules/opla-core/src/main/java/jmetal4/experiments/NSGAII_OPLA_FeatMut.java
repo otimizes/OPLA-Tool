@@ -6,6 +6,7 @@ import database.Database;
 import database.Result;
 import exceptions.MissingConfigurationException;
 import jmetal4.core.Algorithm;
+import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import jmetal4.metaheuristics.nsgaII.NSGAII;
 import jmetal4.operators.crossover.Crossover;
@@ -173,8 +174,19 @@ public class NSGAII_OPLA_FeatMut {
                         experiement);
                 AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), execution,
                         experiement, selectedObjectiveFunctions);
-
                 execution.setTime(estimatedTime);
+
+                // Clustering OBS: Needs to be a priori for filter the PLAs to save
+                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions()) {
+                    Clustering clustering = new Clustering(resultFront, this.clusteringAlgorithm);
+                    resultFront = clustering.run();
+                    for (int id : clustering.getIdsFilteredSolutions()) {
+                        funResults.remove(id);
+                        infoResults.remove(id);
+                        allMetrics.remove(id);
+                    }
+                }
+                // Clustering
 
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
 
@@ -182,21 +194,9 @@ public class NSGAII_OPLA_FeatMut {
                 execution.setInfos(infoResults);
                 execution.setAllMetrics(allMetrics);
 
-                // Clustering and Interactive
-                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions()) {
-                    Clustering clustering = new Clustering(resultFront, this.clusteringAlgorithm);
-                    resultFront = clustering.run();
-                    clustering.getIdsFilteredSolutions().forEach(id -> {
-                        funResults.remove(id);
-                        infoResults.remove(id);
-                        allMetrics.remove(id);
-                    });
-                    execution.setFuns(funResults);
-                    execution.setInfos(infoResults);
-                    execution.setAllMetrics(allMetrics);
-                    this.configs.getInteractiveFunction().run(resultFront, execution);
-                }
-                // Clustering and Interactive
+                // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
+                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions()) this.configs.getInteractiveFunction().run(resultFront, execution);
+                // Interactive
 
                 ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
                 try {

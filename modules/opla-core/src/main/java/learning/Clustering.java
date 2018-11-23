@@ -128,12 +128,12 @@ public class Clustering implements Serializable {
                 idsFilteredSolutions.add(i);
                 resultFront.get(i).setClusterId(assignments[i]);
                 filteredSolutions.add(resultFront.get(i));
-
             }
         }
 
         Collections.reverse(idsFilteredSolutions);
         idsFilteredSolutions.forEach(resultFront::remove);
+        resultFront.setFilteredSolutions(filteredSolutions);
         return resultFront;
     }
 
