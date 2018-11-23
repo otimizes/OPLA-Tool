@@ -14,6 +14,7 @@ import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.experiments.NSGAII_OPLA_FeatMutInitializer;
 import jmetal4.experiments.OPLAConfigs;
 import jmetal4.interactive.InteractiveFunction;
+import learning.ClusteringAlgorithms;
 
 import javax.swing.*;
 import java.util.List;
@@ -32,20 +33,21 @@ public class NSGAII {
                         String executionDescription) {
         execute(executionDescription, checkMutation.isSelected(), Double.parseDouble(fieldMutationProb.getText()),
                 fieldArchitectureInput.getText(), Integer.parseInt(fieldNumberOfRuns.getText()), Integer.parseInt(fieldPopulationSize.getText()),
-                Integer.parseInt(fieldMaxEvaluations.getText()), checkCrossover.isSelected(), Double.parseDouble(fieldCrossoverProbability.getText()), false, null, null);
+                Integer.parseInt(fieldMaxEvaluations.getText()), checkCrossover.isSelected(), Double.parseDouble(fieldCrossoverProbability.getText()), false, null, null, null);
 
     }
 
     public void execute(JComboBox<String> cbAlgothm, JCheckBox ckMutation, JSlider jsMutation, JTextField inputArchitecture, JTextField tfNumberRuns,
                         JTextField tfPopulationSize, JTextField tfMaxEvaluations, JCheckBox ckCrossover, JSlider jsCrossover, JTextField tfDescription,
-                        JCheckBox ckEnableInteraction, JTextField tfMaxInteractions, InteractiveFunction interactiveFunction) {
+                        JCheckBox ckEnableInteraction, JTextField tfMaxInteractions, JComboBox<String> clusteringAlgorithm, InteractiveFunction interactiveFunction) {
         execute(tfDescription.getText(), ckMutation.isSelected(), (double) jsMutation.getValue() / 10,
                 inputArchitecture.getText(), Integer.parseInt(tfNumberRuns.getText()), Integer.parseInt(tfPopulationSize.getText()),
-                Integer.parseInt(tfMaxEvaluations.getText()), ckCrossover.isSelected(), (double) (jsCrossover.getValue() / 10), ckEnableInteraction.isSelected(), Integer.parseInt(tfMaxInteractions.getText()), interactiveFunction);
+                Integer.parseInt(tfMaxEvaluations.getText()), ckCrossover.isSelected(), (double) (jsCrossover.getValue() / 10), ckEnableInteraction.isSelected(),
+                Integer.parseInt(tfMaxInteractions.getText()), clusteringAlgorithm.getSelectedItem() != null ? ClusteringAlgorithms.valueOf(clusteringAlgorithm.getSelectedItem().toString()) : ClusteringAlgorithms.KMEANS, interactiveFunction);
     }
 
     public void execute(String description, Boolean mutation, Double mutationProbability, String inputArchitecture, Integer numberRuns,
-                        Integer populationSize, Integer maxEvaluations, Boolean crossover, Double crossoverProbability, Boolean interactive, Integer maxInteractions, InteractiveFunction interactiveFunction) {
+                        Integer populationSize, Integer maxEvaluations, Boolean crossover, Double crossoverProbability, Boolean interactive, Integer maxInteractions, ClusteringAlgorithms clusteringAlgorithm, InteractiveFunction interactiveFunction) {
         try {
 
             LOGGER.info("set configuration path");
@@ -61,6 +63,7 @@ public class NSGAII {
             configs.setInteractive(interactive);
             configs.setInteractiveFunction(interactiveFunction);
             configs.setMaxInteractions(maxInteractions);
+            configs.setClusteringAlgorithm(clusteringAlgorithm);
 
             // Se mutação estiver marcada, pega os operadores selecionados ,e seta a probabilidade de mutacao
             if (mutation) {

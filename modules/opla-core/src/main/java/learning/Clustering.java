@@ -24,6 +24,7 @@ public class Clustering implements Serializable {
     private AbstractClusterer clusterer;
     private ArffExecution arffExecution;
     private List<Solution> filteredSolutions = new ArrayList<>();
+    private List<Integer> idsFilteredSolutions = new ArrayList<>();
     private Double indexToFilter;
 
     /**
@@ -121,18 +122,18 @@ public class Clustering implements Serializable {
      */
     private SolutionSet getFilteredSolutionSet() throws Exception {
         double[] assignments = getClusterEvaluation().getClusterAssignments();
-        ArrayList<Integer> toRemove = new ArrayList<>();
         for (int i = 0; i < getClusterEvaluation().getClusterAssignments().length; i++) {
             LOGGER.info("Cluster " + assignments[i] + " -> " + assignments[i] + " : " + arffExecution.getData().instance(i));
             if (assignments[i] >= getIndexToFilter()) {
-                toRemove.add(i);
+                idsFilteredSolutions.add(i);
                 resultFront.get(i).setClusterId(assignments[i]);
                 filteredSolutions.add(resultFront.get(i));
+
             }
         }
 
-        Collections.reverse(toRemove);
-        toRemove.forEach(resultFront::remove);
+        Collections.reverse(idsFilteredSolutions);
+        idsFilteredSolutions.forEach(resultFront::remove);
         return resultFront;
     }
 
@@ -256,5 +257,13 @@ public class Clustering implements Serializable {
 
     public void setIndexToFilter(double indexToFilter) {
         this.indexToFilter = indexToFilter;
+    }
+
+    public List<Integer> getIdsFilteredSolutions() {
+        return idsFilteredSolutions;
+    }
+
+    public void setIdsFilteredSolutions(List<Integer> idsFilteredSolutions) {
+        this.idsFilteredSolutions = idsFilteredSolutions;
     }
 }

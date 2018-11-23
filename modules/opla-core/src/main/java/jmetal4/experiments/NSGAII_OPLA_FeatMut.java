@@ -155,6 +155,7 @@ public class NSGAII_OPLA_FeatMut {
                 // Cria uma execução. Cada execução está ligada a um
                 // experiemento.
                 Execution execution = new Execution(experiement);
+                execution.setRuns(runs);
                 setDirToSaveOutput(experiement.getId(), execution.getId());
 
                 // Execute the Algorithm
@@ -166,16 +167,6 @@ public class NSGAII_OPLA_FeatMut {
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                // Clustering and Interactive
-                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions()) {
-                    Clustering clustering = new Clustering(resultFront, this.clusteringAlgorithm);
-                    resultFront = clustering.run();
-                    this.configs.getInteractiveFunction().run(resultFront, execution);
-                }
-                // Clustering and Interactive
-
-                execution.setTime(estimatedTime);
-
                 List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), execution,
                         experiement);
                 List<InfoResult> infoResults = result.getInformations(resultFront.getSolutionSet(), execution,
@@ -183,11 +174,29 @@ public class NSGAII_OPLA_FeatMut {
                 AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), execution,
                         experiement, selectedObjectiveFunctions);
 
+                execution.setTime(estimatedTime);
+
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
 
                 execution.setFuns(funResults);
                 execution.setInfos(infoResults);
                 execution.setAllMetrics(allMetrics);
+
+                // Clustering and Interactive
+                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions()) {
+                    Clustering clustering = new Clustering(resultFront, this.clusteringAlgorithm);
+                    resultFront = clustering.run();
+                    clustering.getIdsFilteredSolutions().forEach(id -> {
+                        funResults.remove(id);
+                        infoResults.remove(id);
+                        allMetrics.remove(id);
+                    });
+                    execution.setFuns(funResults);
+                    execution.setInfos(infoResults);
+                    execution.setAllMetrics(allMetrics);
+                    this.configs.getInteractiveFunction().run(resultFront, execution);
+                }
+                // Clustering and Interactive
 
                 ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
                 try {

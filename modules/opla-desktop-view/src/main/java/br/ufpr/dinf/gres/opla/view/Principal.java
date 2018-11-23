@@ -11,6 +11,7 @@ import br.ufpr.dinf.gres.opla.entity.metric.GenericMetric;
 import br.ufpr.dinf.gres.opla.view.enumerators.Metric;
 import br.ufpr.dinf.gres.opla.view.log.LogListener;
 import br.ufpr.dinf.gres.opla.view.model.combomodel.AlgorithmComboModel;
+import br.ufpr.dinf.gres.opla.view.model.combomodel.ClusteringAlgorithmComboModel;
 import br.ufpr.dinf.gres.opla.view.model.combomodel.ObjectiveNameComboModel;
 import br.ufpr.dinf.gres.opla.view.model.combomodel.SolutionNameComboModel;
 import br.ufpr.dinf.gres.opla.view.model.tablemodel.AbstractMetricTableModel;
@@ -89,6 +90,7 @@ public class Principal extends AbstractPrincipalJFrame {
     @SuppressWarnings("unchecked")
     private void defineModels() {
         this.cbAlgothm.setModel(new AlgorithmComboModel());
+        this.cbClusteringAlgorithm.setModel(new ClusteringAlgorithmComboModel());
         this.tbExperiments.setModel(tmExperiments);
         this.tbExecutions.setModel(tmExecExperiments);
         this.tbRuns.setModel(tmExecution);
@@ -248,6 +250,7 @@ public class Principal extends AbstractPrincipalJFrame {
         tfInteractionDirectory1.setEnabled(ckEnableInteraction.isSelected());
         btManipulationDirectory3.setEnabled(ckEnableInteraction.isSelected());
         ckEnableInteraction1.setEnabled(ckEnableInteraction.isSelected());
+        cbClusteringAlgorithm.setEnabled(ckEnableInteraction.isSelected());
         if (StringUtils.isNotBlank(config.getConfig().getPathPapyrus().toString())) {
             LOGGER.info("Papyrus Directory is configured");
             ckEnableInteraction1.setSelected(true);
@@ -386,6 +389,9 @@ public class Principal extends AbstractPrincipalJFrame {
         tfDescription = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         btRun = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
+        cbClusteringAlgorithm = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         ckMediator = new javax.swing.JCheckBox();
@@ -668,7 +674,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(tfManipulationDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btManipulationDirectory)
-                .addContainerGap(455, Short.MAX_VALUE))
+                .addContainerGap(548, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -777,13 +783,15 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("General Configuration", jPanel1);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel8.setMaximumSize(new java.awt.Dimension(32767, 300));
         jPanel8.setName("Panel Settings"); // NOI18N
+        jPanel8.setPreferredSize(new java.awt.Dimension(310, 200));
 
         tfNumberRuns.setColumns(10);
 
@@ -864,11 +872,13 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfArchiveSize1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Objective Functions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel9.setMaximumSize(new java.awt.Dimension(32767, 300));
         jPanel9.setName("Panel Objective Functions"); // NOI18N
+        jPanel9.setPreferredSize(new java.awt.Dimension(694, 200));
 
         ckConventional.setText("Conventional");
         ckConventional.addActionListener(new java.awt.event.ActionListener() {
@@ -1307,7 +1317,7 @@ public class Principal extends AbstractPrincipalJFrame {
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfOutputDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1332,6 +1342,42 @@ public class Principal extends AbstractPrincipalJFrame {
             }
         });
 
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Learning Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel10.setMaximumSize(new java.awt.Dimension(32767, 300));
+        jPanel10.setName("Panel Settings"); // NOI18N
+        jPanel10.setPreferredSize(new java.awt.Dimension(200, 99));
+
+        cbClusteringAlgorithm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbClusteringAlgorithmActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setText("Select Clustering Algorithm");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbClusteringAlgorithm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(0, 35, Short.MAX_VALUE)))
+                .addGap(8, 8, 8))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbClusteringAlgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1342,7 +1388,9 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1364,9 +1412,10 @@ public class Principal extends AbstractPrincipalJFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelOperators, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelMutations, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1379,7 +1428,7 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addComponent(tfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
                     .addComponent(btRun, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(124, 124, 124))
         );
 
         jTabbedPane1.addTab("Execution Configuration", jPanel7);
@@ -1448,7 +1497,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addGroup(panelScopeSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rbRandom)
                     .addComponent(rbElements))
-                .addContainerGap(1178, Short.MAX_VALUE))
+                .addContainerGap(1271, Short.MAX_VALUE))
         );
         panelScopeSelectionLayout.setVerticalGroup(
             panelScopeSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1478,7 +1527,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelScopeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(484, Short.MAX_VALUE))
+                .addContainerGap(571, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Design Patterns", jPanel15);
@@ -1509,7 +1558,7 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -1546,7 +1595,7 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel26Layout.setVerticalGroup(
@@ -1711,7 +1760,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(panelResultObjetive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Results", jPanel18);
@@ -1734,7 +1783,7 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1502, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1595, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
@@ -1811,7 +1860,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(btHypervolume, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ckUseNormalization)
-                .addContainerGap(1053, Short.MAX_VALUE))
+                .addContainerGap(1146, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1847,7 +1896,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(337, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Experiments", jPanel19);
@@ -1893,7 +1942,7 @@ public class Principal extends AbstractPrincipalJFrame {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Logs", jPanel24);
@@ -1933,10 +1982,6 @@ public class Principal extends AbstractPrincipalJFrame {
         loadObjetiveNames();
         loadMetricValue();
     }//GEN-LAST:event_cbSolutionNameActionPerformed
-
-    private void ckMutationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckMutationActionPerformed
-        enableMutationOption();
-    }//GEN-LAST:event_ckMutationActionPerformed
 
     private void tbExecutionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbExecutionsMouseClicked
         if (isDoubleClick(evt)) {
@@ -1983,29 +2028,6 @@ public class Principal extends AbstractPrincipalJFrame {
         updateManipulationPathYaml(tfManipulationDirectory.getText());
     }//GEN-LAST:event_btManipulationDirectoryActionPerformed
 
-    private void btSelectOutputDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelectOutputDirectoryActionPerformed
-        FileSelectorForm form = new FileSelectorForm();
-        form.openSeletor(tfOutputDirectory, JFileChooser.DIRECTORIES_ONLY);
-        updateOutputPathYaml(tfOutputDirectory.getText());
-    }//GEN-LAST:event_btSelectOutputDirectoryActionPerformed
-
-    private void btSelectPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelectPathActionPerformed
-        FileSelectorForm form = new FileSelectorForm();
-        form.openSeletor(tfInputArchitecturePath, JFileChooser.FILES_ONLY);
-    }//GEN-LAST:event_btSelectPathActionPerformed
-
-    private void btCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCleanActionPerformed
-        tfInputArchitecturePath.setText(StringUtils.EMPTY);
-    }//GEN-LAST:event_btCleanActionPerformed
-
-    private void btConfirmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmeActionPerformed
-        this.inputArchitecture = tfInputArchitecturePath.getText();
-        updatePathLastOptimizationInput(tfInputArchitecturePath.getText());
-        String path = tfInputArchitecturePath.getText().substring(0, tfInputArchitecturePath.getText().lastIndexOf(System.getProperty("file.separator")));
-        setProfilesToSpecificPath(path);
-        JOptionPane.showMessageDialog(this, "The profiles have been updated. Please check if they are correct!");
-    }//GEN-LAST:event_btConfirmeActionPerformed
-
     private void setProfilesToSpecificPath(String path) {
         tfSmartProfile.setText(path + System.getProperty("file.separator") + "smarty.profile.uml");
         updateSmartyProfilePathYaml(path + System.getProperty("file.separator") + "smarty.profile.uml");
@@ -2022,79 +2044,12 @@ public class Principal extends AbstractPrincipalJFrame {
         applicationYamlView.setVisible(true);
     }
 
-    private void ckCrossoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCrossoverActionPerformed
-        enableCrossoverOption();
-    }//GEN-LAST:event_ckCrossoverActionPerformed
-
-    private void btRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRunActionPerformed
-        optimizationRun();
-    }//GEN-LAST:event_btRunActionPerformed
-
     private void ckEnableInteraction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckEnableInteraction
         tfInteractionDirectory1.setEnabled(ckEnableInteraction.isSelected());
         btManipulationDirectory3.setEnabled(ckEnableInteraction.isSelected());
         ckEnableInteraction1.setEnabled(ckEnableInteraction.isSelected());
+        cbClusteringAlgorithm.setEnabled(ckEnableInteraction.isSelected());
     }//GEN-LAST:event_ckEnableInteraction
-
-    private void ckConventionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckConventionalActionPerformed
-        System.out.println("Conventional");
-        String metric = Metrics.CONVENTIONAL.getName();
-        addToMetrics(ckConventional, metric);
-    }//GEN-LAST:event_ckConventionalActionPerformed
-
-    private void ckFeatureDrivenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckFeatureDrivenActionPerformed
-        System.out.println("Feature Driven");
-        String metric = Metrics.FEATURE_DRIVEN.getName();
-        addToMetrics(ckFeatureDriven, metric);
-    }//GEN-LAST:event_ckFeatureDrivenActionPerformed
-
-    private void ckComponentCouplingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckComponentCouplingActionPerformed
-        System.out.println("Component Coupling");
-        String metric = Metrics.ACOMP.getName();
-        addToMetrics(ckComponentCoupling, metric);
-    }//GEN-LAST:event_ckComponentCouplingActionPerformed
-
-    private void ckFeatureInterlacingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckFeatureInterlacingActionPerformed
-        System.out.println("Features Interlacing");
-        String metric = Metrics.EC.getName();
-        addToMetrics(ckFeatureInterlacing, metric);
-    }//GEN-LAST:event_ckFeatureInterlacingActionPerformed
-
-    private void ckClassCouplingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckClassCouplingActionPerformed
-        System.out.println("Class Coupling");
-        String metric = Metrics.ACLASS.getName();
-        addToMetrics(ckClassCoupling, metric);
-    }//GEN-LAST:event_ckClassCouplingActionPerformed
-
-    private void ckFeatureDifusionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckFeatureDifusionActionPerformed
-        System.out.println("Features Diffusion");
-        String metric = Metrics.DC.getName();
-        addToMetrics(ckFeatureDifusion, metric);
-    }//GEN-LAST:event_ckFeatureDifusionActionPerformed
-
-    private void ckSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckSizeActionPerformed
-        System.out.println("Tam");
-        String metric = Metrics.TAM.getName();
-        addToMetrics(ckSize, metric);
-    }//GEN-LAST:event_ckSizeActionPerformed
-
-    private void ckCohesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCohesionActionPerformed
-        System.out.println("Cohesion");
-        String metric = Metrics.COE.getName();
-        addToMetrics(ckCohesion, metric);
-    }//GEN-LAST:event_ckCohesionActionPerformed
-
-    private void ckPLAExtensibilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckPLAExtensibilityActionPerformed
-        System.out.println("PLA Extensibility");
-        String metric = Metrics.PLA_EXTENSIBILIY.getName();
-        addToMetrics(ckPLAExtensibility, metric);
-    }//GEN-LAST:event_ckPLAExtensibilityActionPerformed
-
-    private void ckEleganceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckEleganceActionPerformed
-        System.out.println("Elegance");
-        String metric = Metrics.ELEGANCE.getName();
-        addToMetrics(ckElegance, metric);
-    }//GEN-LAST:event_ckEleganceActionPerformed
 
     private void ckMediatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckMediatorActionPerformed
         enableAllRadioButons(panelScopeSelection, ckMediator.isSelected());
@@ -2118,48 +2073,6 @@ public class Principal extends AbstractPrincipalJFrame {
             MutationOperatorsSelected.getSelectedPatternsToApply().remove("Bridge");
     }//GEN-LAST:event_ckBridgeActionPerformed
 
-    private void ckFeatureDrivenMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckFeatureDrivenMutationItemStateChanged
-        if (ckFeatureDrivenMutation.isSelected())
-            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.FEATURE_MUTATION.getOperatorName());
-        else
-            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.FEATURE_MUTATION.getOperatorName());
-    }//GEN-LAST:event_ckFeatureDrivenMutationItemStateChanged
-
-    private void ckMoveOperationMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMoveOperationMutationItemStateChanged
-        if (ckMoveOperationMutation.isSelected())
-            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
-        else
-            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
-    }//GEN-LAST:event_ckMoveOperationMutationItemStateChanged
-
-    private void ckMoveAttributeMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMoveAttributeMutationItemStateChanged
-        if (ckMoveOperationMutation.isSelected())
-            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
-        else
-            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
-    }//GEN-LAST:event_ckMoveAttributeMutationItemStateChanged
-
-    private void ckAddClassMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckAddClassMutationItemStateChanged
-        if (ckAddClassMutation.isSelected())
-            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.ADD_CLASS_MUTATION.getOperatorName());
-        else
-            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.ADD_CLASS_MUTATION.getOperatorName());
-    }//GEN-LAST:event_ckAddClassMutationItemStateChanged
-
-    private void ckMoveMethodMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMoveMethodMutationItemStateChanged
-        if (ckMoveMethodMutation.isSelected())
-            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.MOVE_METHOD_MUTATION.getOperatorName());
-        else
-            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.MOVE_METHOD_MUTATION.getOperatorName());
-    }//GEN-LAST:event_ckMoveMethodMutationItemStateChanged
-
-    private void ckAddManagerClassMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckAddManagerClassMutationItemStateChanged
-        if (ckAddManagerClassMutation.isSelected())
-            MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.ADD_MANAGER_CLASS_MUTATION.getOperatorName());
-        else
-            MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.ADD_MANAGER_CLASS_MUTATION.getOperatorName());
-    }//GEN-LAST:event_ckAddManagerClassMutationItemStateChanged
-
     private void ckEnableInteraction1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckEnableInteraction1
         if (tfInteractionDirectory1.getText() == null || tfInteractionDirectory1.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "You need select a Papyrus Path");
@@ -2178,35 +2091,90 @@ public class Principal extends AbstractPrincipalJFrame {
         ckEnableInteraction1.setSelected(tfInteractionDirectory1.getText() != null && !tfInteractionDirectory1.getText().isEmpty());
     }//GEN-LAST:event_btManipulationDirectory3btInteractionDirectoryActionPerformed
 
-    private void ckWocsClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckWocsClassActionPerformed
-        System.out.println("WOCSCLASS");
-        final String metric = Metrics.WOCSCLASS.getName();
-        addToMetrics(ckWocsClass, metric);
-    }//GEN-LAST:event_ckWocsClassActionPerformed
+    private void cbClusteringAlgorithmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClusteringAlgorithmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbClusteringAlgorithmActionPerformed
 
-    private void ckWocsinterfaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckWocsinterfaceActionPerformed
-        System.out.println("WOCSINTER");
-        final String metric = Metrics.WOCSINTER.getName();
-        addToMetrics(ckWocsInterface, metric);
-    }//GEN-LAST:event_ckWocsinterfaceActionPerformed
+    private void btRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRunActionPerformed
+        optimizationRun();
+    }//GEN-LAST:event_btRunActionPerformed
 
-    private void ckCBCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCBCSActionPerformed
-        System.out.println("CBCS");
-        final String metric = Metrics.CBCS.getName();
-        addToMetrics(ckCBCS, metric);
-    }//GEN-LAST:event_ckCBCSActionPerformed
+    private void btSelectOutputDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelectOutputDirectoryActionPerformed
+        FileSelectorForm form = new FileSelectorForm();
+        form.openSeletor(tfOutputDirectory, JFileChooser.DIRECTORIES_ONLY);
+        updateOutputPathYaml(tfOutputDirectory.getText());
+    }//GEN-LAST:event_btSelectOutputDirectoryActionPerformed
 
-    private void ckSVSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckSVSActionPerformed
-        System.out.println("SVC");
-        final String metric = Metrics.SVC.getName();
-        addToMetrics(ckSVS, metric);
-    }//GEN-LAST:event_ckSVSActionPerformed
+    private void btSelectPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelectPathActionPerformed
+        FileSelectorForm form = new FileSelectorForm();
+        form.openSeletor(tfInputArchitecturePath, JFileChooser.FILES_ONLY);
+    }//GEN-LAST:event_btSelectPathActionPerformed
 
-    private void ckSSCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckSSCActionPerformed
-        System.out.println("SSC");
-        final String metric = Metrics.SSC.getName();
-        addToMetrics(ckSSC, metric);
-    }//GEN-LAST:event_ckSSCActionPerformed
+    private void btCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCleanActionPerformed
+        tfInputArchitecturePath.setText(StringUtils.EMPTY);
+    }//GEN-LAST:event_btCleanActionPerformed
+
+    private void btConfirmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmeActionPerformed
+        this.inputArchitecture = tfInputArchitecturePath.getText();
+        updatePathLastOptimizationInput(tfInputArchitecturePath.getText());
+        String path = tfInputArchitecturePath.getText().substring(0, tfInputArchitecturePath.getText().lastIndexOf(System.getProperty("file.separator")));
+        setProfilesToSpecificPath(path);
+        JOptionPane.showMessageDialog(this, "The profiles have been updated. Please check if they are correct!");
+    }//GEN-LAST:event_btConfirmeActionPerformed
+
+    private void ckMoveAttributeMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMoveAttributeMutationItemStateChanged
+        if (ckMoveOperationMutation.isSelected())
+        MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
+        else
+        MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckMoveAttributeMutationItemStateChanged
+
+    private void ckAddManagerClassMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckAddManagerClassMutationItemStateChanged
+        if (ckAddManagerClassMutation.isSelected())
+        MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.ADD_MANAGER_CLASS_MUTATION.getOperatorName());
+        else
+        MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.ADD_MANAGER_CLASS_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckAddManagerClassMutationItemStateChanged
+
+    private void ckMoveOperationMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMoveOperationMutationItemStateChanged
+        if (ckMoveOperationMutation.isSelected())
+        MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
+        else
+        MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.MOVE_OPERATION_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckMoveOperationMutationItemStateChanged
+
+    private void ckAddClassMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckAddClassMutationItemStateChanged
+        if (ckAddClassMutation.isSelected())
+        MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.ADD_CLASS_MUTATION.getOperatorName());
+        else
+        MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.ADD_CLASS_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckAddClassMutationItemStateChanged
+
+    private void ckMoveMethodMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckMoveMethodMutationItemStateChanged
+        if (ckMoveMethodMutation.isSelected())
+        MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.MOVE_METHOD_MUTATION.getOperatorName());
+        else
+        MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.MOVE_METHOD_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckMoveMethodMutationItemStateChanged
+
+    private void ckFeatureDrivenMutationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckFeatureDrivenMutationItemStateChanged
+        if (ckFeatureDrivenMutation.isSelected())
+        MutationOperatorsSelected.getSelectedMutationOperators().add(FeatureMutationOperators.FEATURE_MUTATION.getOperatorName());
+        else
+        MutationOperatorsSelected.getSelectedMutationOperators().remove(FeatureMutationOperators.FEATURE_MUTATION.getOperatorName());
+    }//GEN-LAST:event_ckFeatureDrivenMutationItemStateChanged
+
+    private void ckCrossoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCrossoverActionPerformed
+        enableCrossoverOption();
+    }//GEN-LAST:event_ckCrossoverActionPerformed
+
+    private void ckMutationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckMutationActionPerformed
+        enableMutationOption();
+    }//GEN-LAST:event_ckMutationActionPerformed
+
+    private void ckLLCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ckLLCActionPerformed
 
     private void ckAVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAVActionPerformed
         System.out.println("AV");
@@ -2214,9 +2182,95 @@ public class Principal extends AbstractPrincipalJFrame {
         addToMetrics(ckAV, metric);
     }//GEN-LAST:event_ckAVActionPerformed
 
-    private void ckLLCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ckLLCActionPerformed
+    private void ckSSCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckSSCActionPerformed
+        System.out.println("SSC");
+        final String metric = Metrics.SSC.getName();
+        addToMetrics(ckSSC, metric);
+    }//GEN-LAST:event_ckSSCActionPerformed
+
+    private void ckSVSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckSVSActionPerformed
+        System.out.println("SVC");
+        final String metric = Metrics.SVC.getName();
+        addToMetrics(ckSVS, metric);
+    }//GEN-LAST:event_ckSVSActionPerformed
+
+    private void ckCBCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCBCSActionPerformed
+        System.out.println("CBCS");
+        final String metric = Metrics.CBCS.getName();
+        addToMetrics(ckCBCS, metric);
+    }//GEN-LAST:event_ckCBCSActionPerformed
+
+    private void ckWocsinterfaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckWocsinterfaceActionPerformed
+        System.out.println("WOCSINTER");
+        final String metric = Metrics.WOCSINTER.getName();
+        addToMetrics(ckWocsInterface, metric);
+    }//GEN-LAST:event_ckWocsinterfaceActionPerformed
+
+    private void ckWocsClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckWocsClassActionPerformed
+        System.out.println("WOCSCLASS");
+        final String metric = Metrics.WOCSCLASS.getName();
+        addToMetrics(ckWocsClass, metric);
+    }//GEN-LAST:event_ckWocsClassActionPerformed
+
+    private void ckEleganceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckEleganceActionPerformed
+        System.out.println("Elegance");
+        String metric = Metrics.ELEGANCE.getName();
+        addToMetrics(ckElegance, metric);
+    }//GEN-LAST:event_ckEleganceActionPerformed
+
+    private void ckCohesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCohesionActionPerformed
+        System.out.println("Cohesion");
+        String metric = Metrics.COE.getName();
+        addToMetrics(ckCohesion, metric);
+    }//GEN-LAST:event_ckCohesionActionPerformed
+
+    private void ckPLAExtensibilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckPLAExtensibilityActionPerformed
+        System.out.println("PLA Extensibility");
+        String metric = Metrics.PLA_EXTENSIBILIY.getName();
+        addToMetrics(ckPLAExtensibility, metric);
+    }//GEN-LAST:event_ckPLAExtensibilityActionPerformed
+
+    private void ckFeatureDifusionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckFeatureDifusionActionPerformed
+        System.out.println("Features Diffusion");
+        String metric = Metrics.DC.getName();
+        addToMetrics(ckFeatureDifusion, metric);
+    }//GEN-LAST:event_ckFeatureDifusionActionPerformed
+
+    private void ckFeatureInterlacingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckFeatureInterlacingActionPerformed
+        System.out.println("Features Interlacing");
+        String metric = Metrics.EC.getName();
+        addToMetrics(ckFeatureInterlacing, metric);
+    }//GEN-LAST:event_ckFeatureInterlacingActionPerformed
+
+    private void ckFeatureDrivenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckFeatureDrivenActionPerformed
+        System.out.println("Feature Driven");
+        String metric = Metrics.FEATURE_DRIVEN.getName();
+        addToMetrics(ckFeatureDriven, metric);
+    }//GEN-LAST:event_ckFeatureDrivenActionPerformed
+
+    private void ckSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckSizeActionPerformed
+        System.out.println("Tam");
+        String metric = Metrics.TAM.getName();
+        addToMetrics(ckSize, metric);
+    }//GEN-LAST:event_ckSizeActionPerformed
+
+    private void ckClassCouplingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckClassCouplingActionPerformed
+        System.out.println("Class Coupling");
+        String metric = Metrics.ACLASS.getName();
+        addToMetrics(ckClassCoupling, metric);
+    }//GEN-LAST:event_ckClassCouplingActionPerformed
+
+    private void ckComponentCouplingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckComponentCouplingActionPerformed
+        System.out.println("Component Coupling");
+        String metric = Metrics.ACOMP.getName();
+        addToMetrics(ckComponentCoupling, metric);
+    }//GEN-LAST:event_ckComponentCouplingActionPerformed
+
+    private void ckConventionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckConventionalActionPerformed
+        System.out.println("Conventional");
+        String metric = Metrics.CONVENTIONAL.getName();
+        addToMetrics(ckConventional, metric);
+    }//GEN-LAST:event_ckConventionalActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBrowserFeatureProfile;
@@ -2238,6 +2292,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JButton btTemplateDirectory;
     private javax.swing.JButton btViewApplicationConfig;
     private javax.swing.JComboBox<String> cbAlgothm;
+    private javax.swing.JComboBox<String> cbClusteringAlgorithm;
     private javax.swing.JComboBox<String> cbObjectiveSoluction;
     private javax.swing.JComboBox<String> cbSolutionName;
     private javax.swing.JCheckBox ckAV;
@@ -2286,6 +2341,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2293,6 +2349,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel14;
@@ -2634,7 +2691,7 @@ public class Principal extends AbstractPrincipalJFrame {
             NSGAII nsgaii = new NSGAII();
             nsgaii.execute(cbAlgothm, ckMutation, jsMutation, tfInputArchitecturePath, tfNumberRuns,
                     tfPopulationSize, tfMaxEvaluations, ckCrossover, jsCrossover,
-                    tfDescription, ckEnableInteraction, tfArchiveSize1, (solutionSet, execution) -> {
+                    tfDescription, ckEnableInteraction, tfArchiveSize1, cbClusteringAlgorithm, (solutionSet, execution) -> {
                         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(config, solutionSet, execution);
                     });
             JOptionPane.showMessageDialog(null, "Success execution NSGA-II, Finalizing....");

@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.opla.view;
 
+import arquitetura.representation.Architecture;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
 import jmetal4.core.SolutionSet;
@@ -55,7 +56,7 @@ public class InteractiveSolutions extends JDialog {
         setContentPane(panelMaster);
         for (int i = 0; i < execution.getFuns().size(); i++) {
             FunResults funResults = execution.getFuns().get(i);
-            DefaultMutableTreeNode elem = new DefaultMutableTreeNode(funResults.getSolution_name(), true);
+            DefaultMutableTreeNode elem = new DefaultMutableTreeNode("VAR_" + execution.getRuns() + "_" + (((Architecture) solutionSet.get(i).getDecisionVariables()[i]).getName()) + "-" + execution.getFuns().get(i).getId(), true);
             DefaultMutableTreeNode elem0 = new DefaultMutableTreeNode(i, true);
             elem.add(elem0);
 
