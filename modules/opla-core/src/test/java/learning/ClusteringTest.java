@@ -4,9 +4,6 @@ import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import jmetal4.encodings.solutionType.ArchitectureSolutionType;
 import jmetal4.problems.OPLA;
-
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import results.Execution;
 import results.Experiment;
@@ -15,8 +12,10 @@ import results.InfoResult;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+
 public class ClusteringTest {
-//    [802, 36, 25], [752, 30, 26], [728, 26, 27], [40, 30, 24], [700, 40, 20], [400, 30, 25]
+    //    [802, 36, 25], [752, 30, 26], [728, 26, 27], [40, 30, 24], [700, 40, 20], [400, 30, 25]
     private double[][] doubles = {{802, 36, 25}, {752, 30, 26}, {728, 26, 27}, {40, 30, 24}, {700, 40, 20}, {400, 30, 25}};
 
     @Test
@@ -26,7 +25,8 @@ public class ClusteringTest {
         SolutionSet run = clustering.run();
 
         System.out.println(clustering.getClusterEvaluation().clusterResultsToString());
-        assertNotNull(run);
+        assertEquals(4, clustering.getFilteredSolutions().size());
+        assertEquals(2, run.size());
     }
 
     @Test
@@ -35,8 +35,10 @@ public class ClusteringTest {
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.DBSCAN);
         SolutionSet run = clustering.run();
 
+
         System.out.println(clustering.getClusterEvaluation().clusterResultsToString());
-//        assertNotNull(run);
+        assertEquals(3, clustering.getFilteredSolutions().size());
+        assertEquals(3, run.size());
     }
 
     @Test

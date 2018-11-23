@@ -1,5 +1,6 @@
 package learning;
 
+import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import org.apache.log4j.Logger;
 import weka.clusterers.*;
@@ -7,6 +8,7 @@ import weka.clusterers.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Clustering implements Serializable {
 
@@ -19,6 +21,10 @@ public class Clustering implements Serializable {
     private ArffExecution arffExecution;
 
     private Integer numClusters = 3;
+    private Integer minPoints = 1;
+    private Double epsilon = 0.4;
+    private List<Solution> filteredSolutions = new ArrayList<>();
+    private Double indexToFilter;
 
     public Clustering() {
     }
@@ -54,31 +60,18 @@ public class Clustering implements Serializable {
 
         LOGGER.info(clusterEvaluation.clusterResultsToString());
 
-        int[] assignments = getKMeans().getAssignments();
-        ArrayList<Integer> toRemove = new ArrayList<>();
-        for (int i = 0; i < assignments.length; i++) {
-
-            LOGGER.info("Cluster " + assignments[i] + " -> " + getKMeans().getClusterCentroids().get(assignments[i]) + " : " + arffExecution.getData().instance(i));
-            if (assignments[i] >= 1) {
-                toRemove.add(i);
-            }
-        }
-
-        Collections.reverse(toRemove);
-        toRemove.forEach(resultFront::remove);
-        return resultFront;
+        return getFilteredSolutionSet();
     }
 
     public SolutionSet dbscan() throws Exception {
         clusterer = new DBSCAN();
-        getDBSCAN().setMinPoints(1);
-//        Config 1:
-        getDBSCAN().setEpsilon(0.4);
-        getDBSCAN().setMinPoints(1);
-        getDBSCAN().setOptions(new String[]{"-A", "weka.core.MinkowskiDistance"});
+        getDBSCAN().setMinPoints(getMinPoints());
+        getDBSCAN().setEpsilon(getEpsilon());
+//        A unica que altera a solução é esta medida
+//        getDBSCAN().setOptions(new String[]{"-A", "weka.core.ManhattanDistance"});
         getDBSCAN().buildClusterer(arffExecution.getDataWithoutClass());
 
-        return null;
+        return getFilteredSolutionSet();
     }
 
     public SolutionSet optics() throws Exception {
@@ -88,6 +81,24 @@ public class Clustering implements Serializable {
 
         return null;
     }
+
+    private SolutionSet getFilteredSolutionSet() throws Exception {
+        double[] assignments = getClusterEvaluation().getClusterAssignments();
+        ArrayList<Integer> toRemove = new ArrayList<>();
+        for (int i = 0; i < getClusterEvaluation().getClusterAssignments().length; i++) {
+            LOGGER.info("Cluster " + assignments[i] + " -> " + assignments[i] + " : " + arffExecution.getData().instance(i));
+            if (assignments[i] >= getIndexToFilter()) {
+                toRemove.add(i);
+                resultFront.get(i).setClusterId(assignments[i]);
+                filteredSolutions.add(resultFront.get(i));
+            }
+        }
+
+        Collections.reverse(toRemove);
+        toRemove.forEach(resultFront::remove);
+        return resultFront;
+    }
+
 
     public ClusterEvaluation getClusterEvaluation() throws Exception {
         ClusterEvaluation clusterEvaluation = new ClusterEvaluation();
@@ -146,5 +157,46 @@ public class Clustering implements Serializable {
 
     public void setNumClusters(Integer numClusters) {
         this.numClusters = numClusters;
+    }
+
+    public Integer getMinPoints() {
+        return minPoints;
+    }
+
+    public void setMinPoints(Integer minPoints) {
+        this.minPoints = minPoints;
+    }
+
+    public Double getEpsilon() {
+        return epsilon;
+    }
+
+    public void setEpsilon(Double epsilon) {
+        this.epsilon = epsilon;
+    }
+
+    public List<Solution> getFilteredSolutions() {
+        return filteredSolutions;
+    }
+
+    public void setFilteredSolutions(List<Solution> filteredSolutions) {
+        this.filteredSolutions = filteredSolutions;
+    }
+
+    public double getIndexToFilter() {
+        if (indexToFilter == null) {
+            switch (algorithm) {
+                case KMEANS:
+                    return 1;
+                case DBSCAN:
+                case OPTICS:
+                    return 2;
+            }
+        }
+        return indexToFilter;
+    }
+
+    public void setIndexToFilter(double indexToFilter) {
+        this.indexToFilter = indexToFilter;
     }
 }

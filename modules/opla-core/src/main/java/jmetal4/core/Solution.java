@@ -117,6 +117,11 @@ public class Solution implements Serializable {
     private double distanceToSolutionSet_;
 
     /**
+     * Stores the cluster realized by AbstractClustering Filter
+     */
+    private double clusterId_ = 0.0;
+
+    /**
      * Constructor.
      */
     public Solution() {
@@ -598,4 +603,12 @@ public class Solution implements Serializable {
             }
         return bits;
     } // getNumberOfBits
+
+    public double getClusterId() {
+        return clusterId_;
+    }
+
+    public void setClusterId(double clusterId_) {
+        this.clusterId_ = clusterId_;
+    }
 } // Solution
