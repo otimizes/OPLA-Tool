@@ -76,12 +76,6 @@ public class Clustering implements Serializable {
         getKMeans().setNumClusters(numClusters);
         getKMeans().buildClusterer(arffExecution.getDataWithoutClass());
 
-        ClusterEvaluation clusterEvaluation = new ClusterEvaluation();
-        clusterEvaluation.setClusterer(getKMeans());
-        clusterEvaluation.evaluateClusterer(arffExecution.getDataWithoutClass());
-
-        LOGGER.info(clusterEvaluation.clusterResultsToString());
-
         return getFilteredSolutionSet();
     }
 
@@ -121,6 +115,13 @@ public class Clustering implements Serializable {
      * @throws Exception Default Exception
      */
     private SolutionSet getFilteredSolutionSet() throws Exception {
+
+        ClusterEvaluation clusterEvaluation = new ClusterEvaluation();
+        clusterEvaluation.setClusterer(clusterer);
+        clusterEvaluation.evaluateClusterer(arffExecution.getDataWithoutClass());
+
+        LOGGER.info(clusterEvaluation.clusterResultsToString());
+
         double[] assignments = getClusterEvaluation().getClusterAssignments();
         for (int i = 0; i < getClusterEvaluation().getClusterAssignments().length; i++) {
             LOGGER.info("Cluster " + assignments[i] + " -> " + assignments[i] + " : " + arffExecution.getData().instance(i));
