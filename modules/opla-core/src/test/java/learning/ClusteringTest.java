@@ -16,6 +16,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class ClusteringTest {
+    //    Feature Driven, Class Coupling and Cohesion
+    // x <- c(802, 752, 728, 40, 700, 400)
+    // y <- c(36, 30, 26, 30, 40, 30)
+    // z <- c(25, 26, 27, 24, 20, 25)
+    // scatter3D(x, y, z, bty = "g", pch = 18, cex = 2, theta = 35, phi = 0, col = ramp.col(c("blue", "yellow", "red")) )
     //    [802, 36, 25], [752, 30, 26], [728, 26, 27], [40, 30, 24], [700, 40, 20], [400, 30, 25]
     private double[][] doubles = {{802, 36, 25}, {752, 30, 26}, {728, 26, 27}, {40, 30, 24}, {700, 40, 20}, {400, 30, 25}};
 
@@ -25,7 +30,6 @@ public class ClusteringTest {
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.KMEANS);
         SolutionSet run = clustering.run();
 
-        System.out.println(clustering.getClusterEvaluation().clusterResultsToString());
         assertEquals(4, clustering.getFilteredSolutions().size());
         assertEquals(2, run.size());
     }
@@ -36,8 +40,6 @@ public class ClusteringTest {
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.DBSCAN);
         SolutionSet run = clustering.run();
 
-
-        System.out.println(clustering.getClusterEvaluation().clusterResultsToString());
         assertEquals(3, clustering.getFilteredSolutions().size());
         assertEquals(3, run.size());
     }
