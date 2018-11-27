@@ -177,15 +177,16 @@ public class NSGAII_OPLA_FeatMut {
                 execution.setTime(estimatedTime);
 
                 // Clustering OBS: Needs to be a priori for filter the PLAs to save
-                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions()) {
-                    Clustering clustering = new Clustering(resultFront, this.clusteringAlgorithm);
-                    resultFront = clustering.run();
-                    for (int id : clustering.getIdsFilteredSolutions()) {
-                        funResults.remove(id);
-                        infoResults.remove(id);
-                        allMetrics.remove(id);
-                    }
-                }
+                // Comment to be adjusted
+//                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions()) {
+//                    Clustering clustering = new Clustering(resultFront, this.clusteringAlgorithm);
+//                    resultFront = clustering.run();
+//                    for (int id : clustering.getIdsFilteredSolutions()) {
+//                        funResults.remove(id);
+//                        infoResults.remove(id);
+//                        allMetrics.remove(id);
+//                    }
+//                }
                 // Clustering
 
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
