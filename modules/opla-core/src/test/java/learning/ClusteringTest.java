@@ -30,7 +30,6 @@ public class ClusteringTest {
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.KMEANS);
         SolutionSet run = clustering.run();
 
-        System.out.println(clustering.getClusterEvaluation().clusterResultsToString());
         assertEquals(4, clustering.getFilteredSolutions().size());
         assertEquals(2, run.size());
     }
@@ -41,8 +40,6 @@ public class ClusteringTest {
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.DBSCAN);
         SolutionSet run = clustering.run();
 
-
-        System.out.println(clustering.getClusterEvaluation().clusterResultsToString());
         assertEquals(3, clustering.getFilteredSolutions().size());
         assertEquals(3, run.size());
     }
