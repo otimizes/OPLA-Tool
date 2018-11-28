@@ -19,6 +19,7 @@ import jmetal4.problems.OPLA;
 import jmetal4.util.JMException;
 import learning.Clustering;
 import learning.ClusteringAlgorithms;
+import learning.Moment;
 import metrics.AllMetrics;
 import org.apache.log4j.Logger;
 import persistence.*;
@@ -177,16 +178,15 @@ public class NSGAII_OPLA_FeatMut {
                 execution.setTime(estimatedTime);
 
                 // Clustering OBS: Needs to be a priori for filter the PLAs to save
-                // Comment to be adjusted
-//                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions()) {
-//                    Clustering clustering = new Clustering(resultFront, this.clusteringAlgorithm);
-//                    resultFront = clustering.run();
-//                    for (int id : clustering.getIdsFilteredSolutions()) {
-//                        funResults.remove(id);
-//                        infoResults.remove(id);
-//                        allMetrics.remove(id);
-//                    }
-//                }
+                if (Moment.INTERACTIVE.equals(this.configs.getClusteringMoment()) || Moment.BOTH.equals(this.configs.getClusteringMoment())) {
+                    Clustering clustering = new Clustering(resultFront, this.clusteringAlgorithm);
+                    resultFront = clustering.run();
+                    for (int id : clustering.getIdsFilteredSolutions()) {
+                        funResults.remove(id);
+                        infoResults.remove(id);
+                        allMetrics.remove(id);
+                    }
+                }
                 // Clustering
 
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
@@ -196,7 +196,8 @@ public class NSGAII_OPLA_FeatMut {
                 execution.setAllMetrics(allMetrics);
 
                 // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
-                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions()) this.configs.getInteractiveFunction().run(resultFront, execution);
+                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions())
+                    this.configs.getInteractiveFunction().run(resultFront, execution);
                 // Interactive
 
                 ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
@@ -222,6 +223,16 @@ public class NSGAII_OPLA_FeatMut {
 
             this.configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
             List<FunResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
+
+            // Clustering OBS: Needs to be a priori for filter the PLAs to save
+            if (Moment.POSTERIORI.equals(this.configs.getClusteringMoment()) || Moment.BOTH.equals(this.configs.getClusteringMoment())) {
+                Clustering clustering = new Clustering(todasRuns, this.clusteringAlgorithm);
+                todasRuns = clustering.run();
+                for (int id : clustering.getIdsFilteredSolutions()) {
+                    funResults.remove(id);
+                }
+            }
+            // Clustering
 
             LOGGER.info("saveVariablesToFile()");
             todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
