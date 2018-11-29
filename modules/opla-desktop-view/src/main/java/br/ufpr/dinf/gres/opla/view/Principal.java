@@ -214,9 +214,9 @@ public class Principal extends AbstractPrincipalJFrame {
                 Path externalPathSimplesDi = Paths.get(UserHome.getPathToTemplates() + simplesDiPath);
                 Path externalPathSimplesNotation = Paths.get(UserHome.getPathToTemplates() + simplesNotationPath);
 
-                FileUtils.copy(Paths.get(uriTemplatesDir).resolve(simplesUmlPath), externalPathSimplesUml);
-                FileUtils.copy(Paths.get(uriTemplatesDir).resolve(simplesDiPath), externalPathSimplesDi);
-                FileUtils.copy(Paths.get(uriTemplatesDir).resolve(simplesNotationPath), externalPathSimplesNotation);
+                FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesUmlPath), externalPathSimplesUml);
+                FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesDiPath), externalPathSimplesDi);
+                FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesNotationPath), externalPathSimplesNotation);
 
                 tfTemplateDiretory.setText(UserHome.getPathToTemplates());
                 config.updatePathToTemplateFiles(tfTemplateDiretory.getText());

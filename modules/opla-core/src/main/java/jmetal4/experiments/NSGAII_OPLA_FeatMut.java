@@ -309,9 +309,11 @@ public class NSGAII_OPLA_FeatMut {
             mp = new MetricsPersistence(allMetricsPersistenceDependencies);
         } catch (ClassNotFoundException | MissingConfigurationException | SQLException e) {
             LOGGER.error(e);
+            e.printStackTrace();
             throw new RuntimeException();
         } catch (Exception e) {
             LOGGER.error(e);
+            e.printStackTrace();
             throw new RuntimeException();
         }
 

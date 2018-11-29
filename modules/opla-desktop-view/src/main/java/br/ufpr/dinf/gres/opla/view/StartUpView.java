@@ -31,17 +31,17 @@ public class StartUpView extends javax.swing.JFrame {
 
         try {
             setArgumentsMap(args);
+
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            StartUpView view = new StartUpView();
+            view.createPathOplaTool();
+            view.configureApplicationFile();
+            view.setPathDatabase();
+            view.configureDb();
+            view.carregarPrincipal();
             if (args.length > 0) executeCommandLineAlgorithm();
-            else {
-                UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-                StartUpView view = new StartUpView();
-                view.createPathOplaTool();
-                view.configureApplicationFile();
-                view.setPathDatabase();
-                view.configureDb();
-                view.carregarPrincipal();
+            else
                 view.setVisible(false);
-            }
         } catch (java.awt.HeadlessException ex) {
             executeCommandLineAlgorithm();
         } catch (Exception ex) {
@@ -72,7 +72,7 @@ public class StartUpView extends javax.swing.JFrame {
                         StartUpView.arguments.get("mutationOperators"),
                         StartUpView.arguments.get("patterns"),
                         StartUpView.arguments.get("objectiveFunctions")
-                        )
+                )
         );
     }
 
