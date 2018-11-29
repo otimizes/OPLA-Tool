@@ -27,7 +27,7 @@ public class ClusteringTest {
     @Test
     public void kMeans() throws Exception {
         SolutionSet solutionSet = getSolutionSet(doubles);
-        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.KMEANS);
+        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.KMEANS);
         SolutionSet run = clustering.run();
 
         assertEquals(4, clustering.getFilteredSolutions().size());
@@ -37,7 +37,7 @@ public class ClusteringTest {
     @Test
     public void dbscan() throws Exception {
         SolutionSet solutionSet = getSolutionSet(doubles);
-        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.DBSCAN);
+        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.DBSCAN);
         SolutionSet run = clustering.run();
 
         assertEquals(3, clustering.getFilteredSolutions().size());
@@ -47,7 +47,7 @@ public class ClusteringTest {
     @Test
     public void optics() throws Exception {
         SolutionSet solutionSet = getSolutionSet(doubles);
-        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.OPTICS);
+        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.OPTICS);
         SolutionSet run = clustering.run();
         // TODO Method to be implemented
         assertNull(run);

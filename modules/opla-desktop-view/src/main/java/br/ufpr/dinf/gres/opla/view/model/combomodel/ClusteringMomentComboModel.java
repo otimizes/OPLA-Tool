@@ -1,7 +1,6 @@
 package br.ufpr.dinf.gres.opla.view.model.combomodel;
 
 import br.ufpr.dinf.gres.opla.view.model.ComboModelBase;
-import learning.ClusteringAlgorithms;
 import learning.Moment;
 
 import java.util.Arrays;

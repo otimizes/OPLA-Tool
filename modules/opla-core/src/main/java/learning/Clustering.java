@@ -20,7 +20,7 @@ public class Clustering implements Serializable {
     private static final Logger LOGGER = Logger.getLogger(Clustering.class);
 
     private SolutionSet resultFront;
-    private ClusteringAlgorithms algorithm;
+    private ClusteringAlgorithm algorithm;
     private AbstractClusterer clusterer;
     private ArffExecution arffExecution;
     private List<Solution> filteredSolutions = new ArrayList<>();
@@ -41,7 +41,7 @@ public class Clustering implements Serializable {
     public Clustering() {
     }
 
-    public Clustering(SolutionSet resultFront, ClusteringAlgorithms algorithm) {
+    public Clustering(SolutionSet resultFront, ClusteringAlgorithm algorithm) {
         this.resultFront = resultFront;
         this.algorithm = algorithm;
         this.arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
@@ -182,11 +182,11 @@ public class Clustering implements Serializable {
         this.resultFront = resultFront;
     }
 
-    public ClusteringAlgorithms getAlgorithm() {
+    public ClusteringAlgorithm getAlgorithm() {
         return algorithm;
     }
 
-    public void setAlgorithm(ClusteringAlgorithms algorithm) {
+    public void setAlgorithm(ClusteringAlgorithm algorithm) {
         this.algorithm = algorithm;
     }
 

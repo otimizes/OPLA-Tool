@@ -5,6 +5,7 @@ import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.Logger;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
+import domain.AlgorithmExperiment;
 import br.ufpr.dinf.gres.opla.entity.Execution;
 import br.ufpr.dinf.gres.opla.entity.Experiment;
 import br.ufpr.dinf.gres.opla.entity.metric.GenericMetric;
@@ -27,8 +28,6 @@ import com.ufpr.br.opla.configuration.VolatileConfs;
 import com.ufpr.br.opla.gui.StartUp;
 import com.ufpr.br.opla.utils.MutationOperatorsSelected;
 import com.ufpr.br.opla.utils.Time;
-
-import java.awt.event.ActionEvent;
 
 import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.Metrics;
@@ -2115,7 +2114,8 @@ public class Principal extends AbstractPrincipalJFrame {
     }//GEN-LAST:event_btManipulationDirectory3btInteractionDirectoryActionPerformed
 
     private void cbClusteringAlgorithmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClusteringAlgorithmActionPerformed
-        if (cbClusteringAlgorithm.isEnabled() && cbClusteringAlgorithm.getSelectedIndex() < 0) cbClusteringAlgorithm.setSelectedIndex(0);
+        if (cbClusteringAlgorithm.isEnabled() && cbClusteringAlgorithm.getSelectedIndex() < 0)
+            cbClusteringAlgorithm.setSelectedIndex(0);
     }//GEN-LAST:event_cbClusteringAlgorithmActionPerformed
 
     private void btRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRunActionPerformed
@@ -2715,6 +2715,25 @@ public class Principal extends AbstractPrincipalJFrame {
         }
     }
 
+    public static void executeCommandLineAlgorithm(AlgorithmExperiment algorithmExperiment) {
+        try {
+            MutationOperatorsSelected.getSelectedMutationOperators().addAll(algorithmExperiment.getMutationOperators());
+            MutationOperatorsSelected.getSelectedPatternsToApply().addAll(algorithmExperiment.getPatterns());
+            VolatileConfs.getObjectiveFunctionSelected().addAll(algorithmExperiment.getObjectiveFunctions());
+            switch (algorithmExperiment.getAlgorithm()) {
+                case NSGAII:
+                    NSGAII nsgaii = new NSGAII();
+                    nsgaii.execute(algorithmExperiment);
+                    break;
+                case PAES:
+
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void executeNSGAII() {
         try {
             NSGAII nsgaii = new NSGAII();
@@ -2727,7 +2746,6 @@ public class Principal extends AbstractPrincipalJFrame {
             Logger.getLogger().putLog(
                     String.format("Success execution NSGA-II, Finalizing...", Level.INFO, StartUp.class.getName()));
             btRun.setEnabled(true);
-
 
         } catch (Exception e) {
             LOGGER.error(e);

@@ -3,7 +3,7 @@ package jmetal4.experiments;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.inf.opla.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
 import jmetal4.interactive.InteractiveFunction;
-import learning.ClusteringAlgorithms;
+import learning.ClusteringAlgorithm;
 import learning.Moment;
 import org.apache.commons.lang.WordUtils;
 
@@ -29,7 +29,7 @@ public abstract class ExperimentCommomConfigs {
     private Boolean interactive;
     public int maxInteractions;
     public Moment clusteringMoment;
-    public ClusteringAlgorithms clusteringAlgorithm;
+    public ClusteringAlgorithm clusteringAlgorithm;
 
     private List<String> mutationOperators = new ArrayList<String>();
     private ElementsWithSameDesignPatternSelection applyStrategy;
@@ -254,11 +254,11 @@ public abstract class ExperimentCommomConfigs {
         this.applyStrategy = applyStrategy;
     }
 
-    public ClusteringAlgorithms getClusteringAlgorithm() {
-        return clusteringAlgorithm != null ? clusteringAlgorithm : ClusteringAlgorithms.KMEANS;
+    public ClusteringAlgorithm getClusteringAlgorithm() {
+        return clusteringAlgorithm != null ? clusteringAlgorithm : ClusteringAlgorithm.KMEANS;
     }
 
-    public void setClusteringAlgorithm(ClusteringAlgorithms clusteringAlgorithm) {
+    public void setClusteringAlgorithm(ClusteringAlgorithm clusteringAlgorithm) {
         this.clusteringAlgorithm = clusteringAlgorithm;
     }
 
