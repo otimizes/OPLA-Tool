@@ -24,6 +24,13 @@
 			<version>3.9.3</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/optics_dbScan -->
+		<dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>optics_dbScan</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+
 		<dependency>
 			<artifactId>architecture-representation</artifactId>
 			<groupId>br.ufpr.dinf.gres</groupId>

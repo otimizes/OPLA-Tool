@@ -1,7 +1,5 @@
 package metrics;
 
-import jmetal4.metrics.newPlasMetrics.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,5 +166,24 @@ public class AllMetrics {
 
     public void setAv(List<Av> av) {
         this.av = av;
+    }
+
+    public void remove(Integer id) {
+        if (this.conventional.size() > id) this.conventional.remove(id);
+        if (this.elegance.size() > id) this.elegance.remove(id);
+        if (this.featureDriven.size() > id) this.featureDriven.remove(id);
+        if (this.plaExtensibility.size() > id) this.plaExtensibility.remove(id);
+        if (this.acomp.size() > id) this.acomp.remove(id);
+        if (this.aclass.size() > id) this.aclass.remove(id);
+        if (this.tam.size() > id) this.tam.remove(id);
+        if (this.coe.size() > id) this.coe.remove(id);
+        if (this.dc.size() > id) this.dc.remove(id);
+        if (this.ec.size() > id) this.ec.remove(id);
+        if (this.wocsc.size() > id) this.wocsc.remove(id);
+        if (this.wocsi.size() > id) this.wocsi.remove(id);
+        if (this.cbcs.size() > id) this.cbcs.remove(id);
+        if (this.svc.size() > id) this.svc.remove(id);
+        if (this.ssc.size() > id) this.ssc.remove(id);
+        if (this.av.size() > id) this.av.remove(id);
     }
 }

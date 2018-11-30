@@ -162,7 +162,7 @@ public class Utils {
                 String pathEmptyDbFile = Constants.PATH_EMPTY_DB + Constants.FILE_SEPARATOR + Constants.EMPTY_DB_NAME;
                 URI uri = ClassLoader.getSystemResource(pathEmptyDbFile).toURI();
                 arquitetura.io.FileUtils.createDirectory(Paths.get(UserHome.getOplaUserHome() + Constants.DB_DIR));
-                arquitetura.io.FileUtils.copy(Paths.get(uri), pathDb);
+                arquitetura.io.FileUtils.copy(Paths.get(uri.getSchemeSpecificPart()), pathDb);
             } catch (URISyntaxException e) {
                 LOGGER.info("Erro ao copiar arquivo de banco de dados", e);
             }

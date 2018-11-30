@@ -16,7 +16,9 @@ import jmetal4.operators.selection.Selection;
 import jmetal4.operators.selection.SelectionFactory;
 import jmetal4.problems.OPLA;
 import jmetal4.util.JMException;
-import learning.ArffExecution;
+import learning.Clustering;
+import learning.ClusteringAlgorithm;
+import learning.Moment;
 import metrics.AllMetrics;
 import org.apache.log4j.Logger;
 import persistence.*;
@@ -24,14 +26,10 @@ import results.Execution;
 import results.Experiment;
 import results.FunResults;
 import results.InfoResult;
-import weka.clusterers.ClusterEvaluation;
-import weka.clusterers.SimpleKMeans;
 
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,6 +48,7 @@ public class NSGAII_OPLA_FeatMut {
     private NSGAIIConfig configs;
     private String experiementId;
     private int numberObjectives;
+    private ClusteringAlgorithm clusteringAlgorithm;
 
     public NSGAII_OPLA_FeatMut(NSGAIIConfig config) {
         this.configs = config;
@@ -78,6 +77,7 @@ public class NSGAII_OPLA_FeatMut {
         crossoverProbability = this.configs.getCrossoverProbability();
         mutationProbability = this.configs.getMutationProbability();
         this.numberObjectives = this.configs.getOplaConfigs().getNumberOfObjectives();
+        this.clusteringAlgorithm = this.configs.getClusteringAlgorithm();
 
         String context = "OPLA";
 
@@ -156,6 +156,7 @@ public class NSGAII_OPLA_FeatMut {
                 // Cria uma execução. Cada execução está ligada a um
                 // experiemento.
                 Execution execution = new Execution(experiement);
+                execution.setRuns(runs);
                 setDirToSaveOutput(experiement.getId(), execution.getId());
 
                 // Execute the Algorithm
@@ -167,51 +168,36 @@ public class NSGAII_OPLA_FeatMut {
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                // Clustering and Interactive
-                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions()) {
-                    ArffExecution arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
-                    SimpleKMeans kMeans = new SimpleKMeans();
-                    kMeans.setSeed(arffExecution.getObjectives().length);
-                    kMeans.setPreserveInstancesOrder(true);
-                    kMeans.setNumClusters(3);
-                    kMeans.buildClusterer(arffExecution.getDataWithoutClass());
-
-                    ClusterEvaluation clusterEvaluation = new ClusterEvaluation();
-                    clusterEvaluation.setClusterer(kMeans);
-                    clusterEvaluation.evaluateClusterer(arffExecution.getDataWithoutClass());
-
-                    System.out.println(clusterEvaluation.clusterResultsToString());
-
-                    int[] assignments = kMeans.getAssignments();
-                    ArrayList<Integer> toRemove = new ArrayList<>();
-                    for (int i = 0; i < assignments.length; i++) {
-                        System.out.println("Cluster " + assignments[i] + " -> " + kMeans.getClusterCentroids().get(assignments[i]) + " : " + arffExecution.getData().instance(i));
-                        if (assignments[i] >= 1) {
-                            toRemove.add(i);
-                        }
-                    }
-
-                    Collections.reverse(toRemove);
-                    toRemove.forEach(resultFront::remove);
-
-                    this.configs.getInteractiveFunction().run(resultFront, execution);
-                }
-                // Clustering and Interactive
-
-                execution.setTime(estimatedTime);
-
                 List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), execution,
                         experiement);
                 List<InfoResult> infoResults = result.getInformations(resultFront.getSolutionSet(), execution,
                         experiement);
                 AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), execution,
                         experiement, selectedObjectiveFunctions);
+                execution.setTime(estimatedTime);
+
+                // Clustering OBS: Needs to be a priori for filter the PLAs to save
+                if (Moment.INTERACTIVE.equals(this.configs.getClusteringMoment()) || Moment.BOTH.equals(this.configs.getClusteringMoment())) {
+                    Clustering clustering = new Clustering(resultFront, this.clusteringAlgorithm);
+                    resultFront = clustering.run();
+                    for (int id : clustering.getIdsFilteredSolutions()) {
+                        funResults.remove(id);
+                        infoResults.remove(id);
+                        allMetrics.remove(id);
+                    }
+                }
+                // Clustering
 
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
 
                 execution.setFuns(funResults);
                 execution.setInfos(infoResults);
                 execution.setAllMetrics(allMetrics);
+
+                // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
+                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions())
+                    this.configs.getInteractiveFunction().run(resultFront, execution);
+                // Interactive
 
                 ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
                 try {
@@ -236,6 +222,16 @@ public class NSGAII_OPLA_FeatMut {
 
             this.configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
             List<FunResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
+
+            // Clustering OBS: Needs to be a priori for filter the PLAs to save
+            if (Moment.POSTERIORI.equals(this.configs.getClusteringMoment()) || Moment.BOTH.equals(this.configs.getClusteringMoment())) {
+                Clustering clustering = new Clustering(todasRuns, this.clusteringAlgorithm);
+                todasRuns = clustering.run();
+                for (int id : clustering.getIdsFilteredSolutions()) {
+                    funResults.remove(id);
+                }
+            }
+            // Clustering
 
             LOGGER.info("saveVariablesToFile()");
             todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
@@ -313,9 +309,11 @@ public class NSGAII_OPLA_FeatMut {
             mp = new MetricsPersistence(allMetricsPersistenceDependencies);
         } catch (ClassNotFoundException | MissingConfigurationException | SQLException e) {
             LOGGER.error(e);
+            e.printStackTrace();
             throw new RuntimeException();
         } catch (Exception e) {
             LOGGER.error(e);
+            e.printStackTrace();
             throw new RuntimeException();
         }
 

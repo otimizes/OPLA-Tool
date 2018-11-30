@@ -1,5 +1,6 @@
 package results;
 
+import jmetal4.core.Solution;
 import metrics.AllMetrics;
 import utils.Id;
 
@@ -16,6 +17,7 @@ public class Execution {
     private AllMetrics allMetrics;
     private Experiment experiment;
     private long time = 0l;
+    private int runs;
 
     public Execution(Experiment experiment) {
         setId(Id.generateUniqueId());
@@ -71,6 +73,22 @@ public class Execution {
 
     public void setAllMetrics(AllMetrics allMetrics) {
         this.allMetrics = allMetrics;
+    }
+
+    public int getRuns() {
+        return runs;
+    }
+
+    public void setRuns(int runs) {
+        this.runs = runs;
+    }
+
+    public Experiment getExperiment() {
+        return experiment;
+    }
+
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
     }
 
     // public List<FunResults> getObjectives() throws ClassNotFoundException,
