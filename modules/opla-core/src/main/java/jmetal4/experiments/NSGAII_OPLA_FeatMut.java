@@ -95,6 +95,7 @@ public class NSGAII_OPLA_FeatMut {
                 problem = new OPLA(xmiFilePath, this.configs);
             } catch (Exception e) {
                 LOGGER.error(e);
+                e.printStackTrace();
                 this.configs.getLogger()
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
                 throw new JMException("Ocorreu um erro durante geração de PLAs");

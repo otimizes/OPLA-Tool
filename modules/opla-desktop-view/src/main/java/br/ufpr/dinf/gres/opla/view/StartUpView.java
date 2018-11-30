@@ -9,6 +9,8 @@ import domain.AlgorithmExperiment;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,8 +35,9 @@ public class StartUpView extends javax.swing.JFrame {
         try {
             setArgumentsMap(args);
 
-            if (args.length > 0) {executeCommandLineAlgorithm();}
-            else {
+            if (args.length > 0) {
+                executeCommandLineAlgorithm();
+            } else {
                 UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
                 StartUpView view = new StartUpView();
                 StartUpView.initialConfiguration();
@@ -51,10 +54,19 @@ public class StartUpView extends javax.swing.JFrame {
         }
     }
 
-    private static void executeCommandLineAlgorithm(){
+    private static void executeCommandLineAlgorithm() {
+        Utils.createPathsOplaTool();
         StartUpView.initialConfiguration();
         ManagerApplicationConfig instance = ApplicationFile.getInstance();
-        Principal principal = new Principal();
+        try {
+            instance.configureDefaultLocaleToExportModels();
+            instance.updateDefaultPathToSaveModels();
+            instance.setProfilesToSpecificPath(StartUpView.arguments.get("inputArchitecture"));
+            instance.updateDefaultPathToTemplateFiles();
+            Principal.copyTemplates();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
         Principal.executeCommandLineAlgorithm(
                 new AlgorithmExperiment(StartUpView.arguments.get("algorithm"),
                         StartUpView.arguments.get("description"),
@@ -126,7 +138,7 @@ public class StartUpView extends javax.swing.JFrame {
     private javax.swing.JProgressBar loadProgressBar;
     // End of variables declaration//GEN-END:variables
 
-    private static void initialConfiguration(){
+    private static void initialConfiguration() {
         StartUpView.createPathOplaTool();
         StartUpView.configureApplicationFile();
         StartUpView.setPathDatabase();
@@ -134,18 +146,18 @@ public class StartUpView extends javax.swing.JFrame {
     }
 
     // @formatter:on
-    public static void configureApplicationFile() {
+    private static void configureApplicationFile() {
         ApplicationFile.getInstance();
     }
 
     /**
      * Cria diretório raiz da ferramentas
      */
-    public static void createPathOplaTool() {
+    private static void createPathOplaTool() {
         UserHome.createDefaultOplaPathIfDontExists();
     }
 
-    public static void setPathDatabase() {
+    private static void setPathDatabase() {
         database.Database.setPathToDB(UserHome.getPathToDb());
     }
 
@@ -155,7 +167,7 @@ public class StartUpView extends javax.swing.JFrame {
      *
      * @throws Exception
      */
-    public static void configureDb(){
+    private static void configureDb() {
         Utils.createDataBaseIfNotExists();
     }
 

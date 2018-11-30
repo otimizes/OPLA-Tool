@@ -5,7 +5,6 @@ import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.Logger;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
-import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import domain.AlgorithmExperiment;
 import br.ufpr.dinf.gres.opla.entity.Execution;
 import br.ufpr.dinf.gres.opla.entity.Experiment;
@@ -206,18 +205,7 @@ public class Principal extends AbstractPrincipalJFrame {
             tfTemplateDiretory.setText(config.getConfig().getPathToTemplateModelsDirectory().toString());
         } else {
             try {
-                URI uriTemplatesDir = ClassLoader.getSystemResource(Constants.TEMPLATES_DIR).toURI();
-                String simplesUmlPath = Constants.SIMPLES_UML_NAME;
-                String simplesDiPath = Constants.SIMPLES_DI_NAME;
-                String simplesNotationPath = Constants.SIMPLES_NOTATION_NAME;
-
-                Path externalPathSimplesUml = Paths.get(UserHome.getPathToTemplates() + simplesUmlPath);
-                Path externalPathSimplesDi = Paths.get(UserHome.getPathToTemplates() + simplesDiPath);
-                Path externalPathSimplesNotation = Paths.get(UserHome.getPathToTemplates() + simplesNotationPath);
-
-                FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesUmlPath), externalPathSimplesUml);
-                FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesDiPath), externalPathSimplesDi);
-                FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesNotationPath), externalPathSimplesNotation);
+                Principal.copyTemplates();
 
                 tfTemplateDiretory.setText(UserHome.getPathToTemplates());
                 config.updatePathToTemplateFiles(tfTemplateDiretory.getText());
@@ -228,6 +216,21 @@ public class Principal extends AbstractPrincipalJFrame {
         }
     }
 
+    public static void copyTemplates() throws URISyntaxException {
+        URI uriTemplatesDir = ClassLoader.getSystemResource(Constants.TEMPLATES_DIR).toURI();
+        String simplesUmlPath = Constants.SIMPLES_UML_NAME;
+        String simplesDiPath = Constants.SIMPLES_DI_NAME;
+        String simplesNotationPath = Constants.SIMPLES_NOTATION_NAME;
+
+        Path externalPathSimplesUml = Paths.get(UserHome.getPathToTemplates() + simplesUmlPath);
+        Path externalPathSimplesDi = Paths.get(UserHome.getPathToTemplates() + simplesDiPath);
+        Path externalPathSimplesNotation = Paths.get(UserHome.getPathToTemplates() + simplesNotationPath);
+
+        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesUmlPath), externalPathSimplesUml);
+        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesDiPath), externalPathSimplesDi);
+        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesNotationPath), externalPathSimplesNotation);
+    }
+
     private void configureLocaleToSaveModels() throws IOException {
         if (StringUtils.isNotBlank(config.getConfig().getDirectoryToSaveModels().toString())) {
             LOGGER.info("Manipulation Directory is configured");
@@ -235,15 +238,16 @@ public class Principal extends AbstractPrincipalJFrame {
             config.updatePathToSaveModels(tfManipulationDirectory.getText());
         } else {
             try {
-                String pathTempDir = UserHome.getOplaUserHome() + Constants.TEMP_DIR + Constants.FILE_SEPARATOR;
+                String pathTempDir = config.updateDefaultPathToSaveModels();
                 tfManipulationDirectory.setText(pathTempDir);
-                config.updatePathToSaveModels(tfManipulationDirectory.getText());
             } catch (IOException ex) {
                 LOGGER.error("Manipulation directory Config error: ", ex);
                 throw ex;
             }
         }
     }
+
+
 
 
     private void configureLocaleToInteractionPapyrus() throws IOException {
@@ -269,15 +273,16 @@ public class Principal extends AbstractPrincipalJFrame {
             config.updatePathToExportModels(tfOutputDirectory.getText());
         } else {
             try {
-                String path = UserHome.getOplaUserHome() + Constants.OUTPUT_DIR + Constants.FILE_SEPARATOR;
+                String path = config.configureDefaultLocaleToExportModels();
                 tfOutputDirectory.setText(path);
-                config.updatePathToExportModels(tfOutputDirectory.getText());
             } catch (IOException ex) {
                 LOGGER.error("Output directory Config error: ", ex);
                 throw ex;
             }
         }
     }
+
+
 
     /**
      * Copy hybervolume binary to oplatool bins directory if OS isn't Windows.
@@ -2053,13 +2058,17 @@ public class Principal extends AbstractPrincipalJFrame {
     }//GEN-LAST:event_btManipulationDirectoryActionPerformed
 
     private void setProfilesToSpecificPath(String path) {
+        updateProfilesConfig(path);
         tfSmartProfile.setText(path + System.getProperty("file.separator") + "smarty.profile.uml");
-        updateSmartyProfilePathYaml(path + System.getProperty("file.separator") + "smarty.profile.uml");
         tfFeatureProfile.setText(path + System.getProperty("file.separator") + "concerns.profile.uml");
-        updateFeatureProfilePathYaml(path + System.getProperty("file.separator") + "concerns.profile.uml");
         tfPatternProfile.setText(path + System.getProperty("file.separator") + "patterns.profile.uml");
-        updatePatternProfilePathYaml(path + System.getProperty("file.separator") + "patterns.profile.uml");
         tfRelationshipProfile.setText(path + System.getProperty("file.separator") + "relationships.profile.uml");
+    }
+
+    private void updateProfilesConfig(String path) {
+        updateSmartyProfilePathYaml(path + System.getProperty("file.separator") + "smarty.profile.uml");
+        updateFeatureProfilePathYaml(path + System.getProperty("file.separator") + "concerns.profile.uml");
+        updatePatternProfilePathYaml(path + System.getProperty("file.separator") + "patterns.profile.uml");
         updateRelationshipProfilePathYaml(path + System.getProperty("file.separator") + "relationships.profile.uml");
     }
 
