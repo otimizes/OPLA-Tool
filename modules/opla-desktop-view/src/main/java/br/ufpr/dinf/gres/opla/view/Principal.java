@@ -5,6 +5,7 @@ import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.Logger;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
+import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import domain.AlgorithmExperiment;
 import br.ufpr.dinf.gres.opla.entity.Execution;
 import br.ufpr.dinf.gres.opla.entity.Experiment;

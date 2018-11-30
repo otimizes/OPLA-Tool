@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.opla.view;
 
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
+import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.AlertUtil;
 import br.ufpr.dinf.gres.opla.view.util.UserHome;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
@@ -32,16 +33,14 @@ public class StartUpView extends javax.swing.JFrame {
         try {
             setArgumentsMap(args);
 
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-            StartUpView view = new StartUpView();
-            view.createPathOplaTool();
-            view.configureApplicationFile();
-            view.setPathDatabase();
-            view.configureDb();
-            view.carregarPrincipal();
-            if (args.length > 0) executeCommandLineAlgorithm();
-            else
+            if (args.length > 0) {executeCommandLineAlgorithm();}
+            else {
+                UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+                StartUpView view = new StartUpView();
+                StartUpView.initialConfiguration();
+                view.carregarPrincipal();
                 view.setVisible(false);
+            }
         } catch (java.awt.HeadlessException ex) {
             executeCommandLineAlgorithm();
         } catch (Exception ex) {
@@ -52,7 +51,10 @@ public class StartUpView extends javax.swing.JFrame {
         }
     }
 
-    private static void executeCommandLineAlgorithm() {
+    private static void executeCommandLineAlgorithm(){
+        StartUpView.initialConfiguration();
+        ManagerApplicationConfig instance = ApplicationFile.getInstance();
+        Principal principal = new Principal();
         Principal.executeCommandLineAlgorithm(
                 new AlgorithmExperiment(StartUpView.arguments.get("algorithm"),
                         StartUpView.arguments.get("description"),
@@ -124,19 +126,26 @@ public class StartUpView extends javax.swing.JFrame {
     private javax.swing.JProgressBar loadProgressBar;
     // End of variables declaration//GEN-END:variables
 
+    private static void initialConfiguration(){
+        StartUpView.createPathOplaTool();
+        StartUpView.configureApplicationFile();
+        StartUpView.setPathDatabase();
+        StartUpView.configureDb();
+    }
+
     // @formatter:on
-    private void configureApplicationFile() {
+    public static void configureApplicationFile() {
         ApplicationFile.getInstance();
     }
 
     /**
      * Cria diretório raiz da ferramentas
      */
-    private void createPathOplaTool() {
+    public static void createPathOplaTool() {
         UserHome.createDefaultOplaPathIfDontExists();
     }
 
-    private void setPathDatabase() {
+    public static void setPathDatabase() {
         database.Database.setPathToDB(UserHome.getPathToDb());
     }
 
@@ -146,7 +155,7 @@ public class StartUpView extends javax.swing.JFrame {
      *
      * @throws Exception
      */
-    private void configureDb() throws Exception {
+    public static void configureDb(){
         Utils.createDataBaseIfNotExists();
     }
 
