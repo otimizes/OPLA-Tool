@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.opla.view;
 
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
+import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.AlertUtil;
 import br.ufpr.dinf.gres.opla.view.util.UserHome;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
@@ -8,6 +9,8 @@ import domain.AlgorithmExperiment;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,16 +35,15 @@ public class StartUpView extends javax.swing.JFrame {
         try {
             setArgumentsMap(args);
 
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-            StartUpView view = new StartUpView();
-            view.createPathOplaTool();
-            view.configureApplicationFile();
-            view.setPathDatabase();
-            view.configureDb();
-            view.carregarPrincipal();
-            if (args.length > 0) executeCommandLineAlgorithm();
-            else
+            if (args.length > 0) {
+                executeCommandLineAlgorithm();
+            } else {
+                UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+                StartUpView view = new StartUpView();
+                StartUpView.initialConfiguration();
+                view.carregarPrincipal();
                 view.setVisible(false);
+            }
         } catch (java.awt.HeadlessException ex) {
             executeCommandLineAlgorithm();
         } catch (Exception ex) {
@@ -53,6 +55,18 @@ public class StartUpView extends javax.swing.JFrame {
     }
 
     private static void executeCommandLineAlgorithm() {
+        Utils.createPathsOplaTool();
+        StartUpView.initialConfiguration();
+        ManagerApplicationConfig instance = ApplicationFile.getInstance();
+        try {
+            instance.configureDefaultLocaleToExportModels();
+            instance.updateDefaultPathToSaveModels();
+            instance.setProfilesToSpecificPath(StartUpView.arguments.get("inputArchitecture"));
+            instance.updateDefaultPathToTemplateFiles();
+            Principal.copyTemplates();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
         Principal.executeCommandLineAlgorithm(
                 new AlgorithmExperiment(StartUpView.arguments.get("algorithm"),
                         StartUpView.arguments.get("description"),
@@ -124,19 +138,26 @@ public class StartUpView extends javax.swing.JFrame {
     private javax.swing.JProgressBar loadProgressBar;
     // End of variables declaration//GEN-END:variables
 
+    private static void initialConfiguration() {
+        StartUpView.createPathOplaTool();
+        StartUpView.configureApplicationFile();
+        StartUpView.setPathDatabase();
+        StartUpView.configureDb();
+    }
+
     // @formatter:on
-    private void configureApplicationFile() {
+    private static void configureApplicationFile() {
         ApplicationFile.getInstance();
     }
 
     /**
      * Cria diretório raiz da ferramentas
      */
-    private void createPathOplaTool() {
+    private static void createPathOplaTool() {
         UserHome.createDefaultOplaPathIfDontExists();
     }
 
-    private void setPathDatabase() {
+    private static void setPathDatabase() {
         database.Database.setPathToDB(UserHome.getPathToDb());
     }
 
@@ -146,7 +167,7 @@ public class StartUpView extends javax.swing.JFrame {
      *
      * @throws Exception
      */
-    private void configureDb() throws Exception {
+    private static void configureDb() {
         Utils.createDataBaseIfNotExists();
     }
 
