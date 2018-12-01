@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class Database {
     private static Connection connection = null;
@@ -63,6 +64,7 @@ public class Database {
             }
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
         }
 
@@ -91,6 +93,7 @@ public class Database {
             }
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
         }
 
@@ -115,11 +118,13 @@ public class Database {
             return r.getString("names");
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
         } finally {
             try {
                 statement.close();
             } catch (SQLException ex) {
+                ex.printStackTrace();
                 Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
             }
         }
@@ -145,11 +150,13 @@ public class Database {
             return r.getString("algorithm");
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
         } finally {
             try {
                 statement.close();
             } catch (SQLException ex) {
+                ex.printStackTrace();
                 Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
             }
         }
@@ -186,8 +193,10 @@ public class Database {
         try {
             content = results.Experiment.all();
         } catch (SQLException ex) {
+            ex.printStackTrace();
             Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
         }
     }
@@ -714,67 +723,20 @@ public class Database {
                     for (int i = 0; i < objectives.length; i++) {
 
                         if (!VolatileConfs.hypervolumeNormalized())
-                            values.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
+                            values.add(Double.parseDouble(ov[i]));
 
-                        if (objectives[i].startsWith("conventional")) {
-                            if (listObjectivesValues.get("conventional_" + idExecuton) == null) {
-                                List<List<Double>> allValue = new ArrayList<>();
-                                List<Double> valueFuc = new ArrayList<>();
-                                valueFuc.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
-                                allValue.add(valueFuc);
-                                listObjectivesValues.put("conventional_" + idExecuton, allValue);
-                            } else {
-                                List<Double> last = listObjectivesValues.get("conventional_" + idExecuton)
-                                        .get(listObjectivesValues.get("conventional_" + idExecuton).size() - 1);
-                                last.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
-                            }
-                        } else if (objectives[i].startsWith("featureDriven")) {
-                            if (listObjectivesValues.get("featureDriven_" + idExecuton) == null) {
-                                List<List<Double>> allValue = new ArrayList<>();
-                                List<Double> valueFuc = new ArrayList<>();
-                                valueFuc.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
-                                allValue.add(valueFuc);
-                                listObjectivesValues.put("featureDriven_" + idExecuton, allValue);
-                            } else {
-                                List<Double> last = listObjectivesValues.get("featureDriven_" + idExecuton)
-                                        .get(listObjectivesValues.get("featureDriven_" + idExecuton).size() - 1);
-                                last.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
-                            }
-                        } else if (objectives[i].startsWith("PLAExtensibility")) {
-                            if (listObjectivesValues.get("PLAExtensibility_" + idExecuton) == null) {
-                                List<List<Double>> allValue = new ArrayList<>();
-                                List<Double> valueFuc = new ArrayList<>();
-                                valueFuc.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
-                                allValue.add(valueFuc);
-                                listObjectivesValues.put("PLAExtensibility_" + idExecuton, allValue);
-                            } else {
-                                List<Double> last = listObjectivesValues.get("PLAExtensibility_" + idExecuton)
-                                        .get(listObjectivesValues.get("PLAExtensibility_" + idExecuton).size() - 1);
-                                last.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
-                            }
-                        } else if (objectives[i].startsWith("svc")) {
-                            if (listObjectivesValues.get("svc_" + idExecuton) == null) {
-                                List<List<Double>> allValue = new ArrayList<>();
-                                List<Double> valueFuc = new ArrayList<>();
-                                valueFuc.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
-                                allValue.add(valueFuc);
-                                listObjectivesValues.put("svc_" + idExecuton, allValue);
-                            } else {
-                                List<Double> last = listObjectivesValues.get("svc_" + idExecuton).get(listObjectivesValues.get("svc_" + idExecuton).size() - 1);
-                                last.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
-                            }
-                        } else if (objectives[i].startsWith("ssc")) {
-                            if (listObjectivesValues.get("ssc_" + idExecuton) == null) {
-                                List<List<Double>> allValue = new ArrayList<>();
-                                List<Double> valueFuc = new ArrayList<>();
-                                valueFuc.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
-                                allValue.add(valueFuc);
-                                listObjectivesValues.put("ssc_" + idExecuton, allValue);
-                            } else {
-                                List<Double> last = listObjectivesValues.get("ssc_" + idExecuton).get(listObjectivesValues.get("ssc_" + idExecuton).size() - 1);
-                                last.add(Double.valueOf(String.format("%.6f", Double.parseDouble(ov[i]))));
-                            }
+                        if (listObjectivesValues.get(objectives[i] + "_" + idExecuton) == null) {
+                            List<List<Double>> allValue = new ArrayList<>();
+                            List<Double> valueFuc = new ArrayList<>();
+                            valueFuc.add(Double.parseDouble(ov[i]));
+                            allValue.add(valueFuc);
+                            listObjectivesValues.put(objectives[i] + "_" + idExecuton, allValue);
+                        } else {
+                            List<Double> last = listObjectivesValues.get(objectives[i] + "_" + idExecuton)
+                                    .get(listObjectivesValues.get(objectives[i] + "_" + idExecuton).size() - 1);
+                            last.add(Double.parseDouble(ov[i]));
                         }
+
 
                     }
 
@@ -853,45 +815,12 @@ public class Database {
                 List<List<Double>> list = entry.getValue();
 
                 if (string.equalsIgnoreCase(objectives[i] + "_" + run)) {
-                    switch (objectives[i]) {
-                        case "conventional":
-                            if (content.get("conventional") == null) {
-                                content.put("conventional", list.get(0));
-                            } else {
-                                content.get("conventional").addAll(list.get(0));
-                            }
-                            break;
-                        case "featureDriven":
-                            if (content.get("featureDriven") == null) {
-                                content.put("featureDriven", list.get(0));
-                            } else {
-                                content.get("featureDriven").addAll(list.get(0));
-                            }
-                            break;
-                        case "PLAExtensibility":
-                            if (content.get("PLAExtensibility") == null) {
-                                content.put("PLAExtensibility", list.get(0));
-                            } else {
-                                content.get("PLAExtensibility").addAll(list.get(0));
-                            }
-                            break;
-                        //addYni
-                        case "ssc":
-                            if (content.get("ssc") == null) {
-                                content.put("ssc", list.get(0));
-                            } else {
-                                content.get("ssc").addAll(list.get(0));
-                            }
-                            break;
-                        case "svc":
-                            if (content.get("svc") == null) {
-                                content.put("svc", list.get(0));
-                            } else {
-                                content.get("svc").addAll(list.get(0));
-                            }
-                            break;
-                        //addYni
+                    if (content.get(objectives[i]) == null) {
+                        content.put(objectives[i], list.get(0));
+                    } else {
+                        content.get(objectives[i]).addAll(list.get(0));
                     }
+
                 }
             }
         }

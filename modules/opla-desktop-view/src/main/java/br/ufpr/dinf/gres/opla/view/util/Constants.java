@@ -11,9 +11,11 @@ public class Constants {
     public static final String FILE_SEPARATOR = FileSystems.getDefault().getSeparator();
 
     public static final String APPLICATION_YAML_NAME = "application.yaml";
+    public static final String GUI_SETTINGS = "guisettings.yml";
+    public static final String LOCAL_GUI_PATH = Constants.CONFIG_PATH + Constants.FILE_SEPARATOR + Constants.GUI_SETTINGS;
     public static final String CONFIG_PATH = "config";
     public static final String LOCAL_YAML_PATH = Constants.CONFIG_PATH + Constants.FILE_SEPARATOR + Constants.APPLICATION_YAML_NAME;
-    
+
 
     public static final String PATH_EMPTY_DB = "emptyDB";
     public static final String EMPTY_DB_NAME = "oplatool.db";
@@ -24,6 +26,7 @@ public class Constants {
     public static final String OUTPUT_DIR = "output";
     public static final String BINS_DIR = "bins";
     public static final String HYPERVOLUME_DIR = "hv";
+    public static final String HYPERVOLUME_TAR_GZ = "hv.tar.gz";
     public static final String DB_DIR = "db";
 
     public static final String PROFILE_SMART_NAME = "smarty.profile.uml";

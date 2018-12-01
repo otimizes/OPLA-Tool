@@ -24,39 +24,11 @@ public class MathUtils {
             Double max = findMaxValue(values);
             Double min = findMinValue(values);
 
-            if (objectives[i].equalsIgnoreCase("conventional")) {
+            if (objectives[i].equalsIgnoreCase(objectives[i])) {
                 //Normaliza valores para conventional
                 for (Entry<String, List<List<Double>>> entry : listObjectivesValues.entrySet()) {
                     String function = entry.getKey();
-                    if (function.startsWith("conventional")) {
-                        List<List<Double>> valuesConventional = entry.getValue();
-                        for (List<Double> list : valuesConventional) {
-                            for (int j = 0; j < list.size(); j++) {
-                                list.set(j, normalizeValue(min, max, list.get(j)));
-                            }
-                        }
-                    }
-                }
-            }
-            if (objectives[i].equalsIgnoreCase("PLAExtensibility")) {
-                //Normaliza valores para conventional
-                for (Entry<String, List<List<Double>>> entry : listObjectivesValues.entrySet()) {
-                    String function = entry.getKey();
-                    if (function.startsWith("PLAExtensibility")) {
-                        List<List<Double>> valuesConventional = entry.getValue();
-                        for (List<Double> list : valuesConventional) {
-                            for (int j = 0; j < list.size(); j++) {
-                                list.set(j, normalizeValue(min, max, list.get(j)));
-                            }
-                        }
-                    }
-                }
-            }
-            if (objectives[i].equalsIgnoreCase("featureDriven")) {
-                //Normaliza valores para conventional
-                for (Entry<String, List<List<Double>>> entry : listObjectivesValues.entrySet()) {
-                    String function = entry.getKey();
-                    if (function.startsWith("featureDriven")) {
+                    if (function.startsWith(objectives[i])) {
                         List<List<Double>> valuesConventional = entry.getValue();
                         for (List<Double> list : valuesConventional) {
                             for (int j = 0; j < list.size(); j++) {
@@ -73,7 +45,7 @@ public class MathUtils {
     }
 
     public static Double normalizeValue(Double minValue, Double maxValue, Double objectiveValue) {
-        return (objectiveValue - minValue) / (maxValue - minValue);
+        return (maxValue - minValue) != 0 ? (objectiveValue - minValue) / (maxValue - minValue) : 0;
     }
 
     public static Double findMaxValue(List<Double> numbers) {
@@ -109,7 +81,7 @@ public class MathUtils {
     /**
      * Desvio Padrão.
      *
-     * @param objetos
+     * @param values
      * @return
      */
     public static double stDev(List<Double> values) {
@@ -127,37 +99,13 @@ public class MathUtils {
     private static List<Double> mergeAllObjectiveOfAllRuns(HashMap<String, List<List<Double>>> listObjectivesValues, String name) {
         List<Double> allObjectiveRuns = new ArrayList<>();
         for (Entry<String, List<List<Double>>> entry : listObjectivesValues.entrySet()) {
-            switch (name) {
-                case "conventional":
-                    if (entry.getKey().startsWith("conventional")) {
-                        List<List<Double>> values = entry.getValue();
-                        for (List<Double> list : values) {
-                            for (Double double1 : list) {
-                                allObjectiveRuns.add(double1);
-                            }
-                        }
+            if (entry.getKey().startsWith(name)) {
+                List<List<Double>> values = entry.getValue();
+                for (List<Double> list : values) {
+                    for (Double double1 : list) {
+                        allObjectiveRuns.add(double1);
                     }
-                    break;
-                case "featureDriven":
-                    if (entry.getKey().startsWith("featureDriven")) {
-                        List<List<Double>> values = entry.getValue();
-                        for (List<Double> list : values) {
-                            for (Double double1 : list) {
-                                allObjectiveRuns.add(double1);
-                            }
-                        }
-                    }
-                    break;
-                case "PLAExtenxibiliy":
-                    if (entry.getKey().startsWith("PLAExtenxibiliy")) {
-                        List<List<Double>> values = entry.getValue();
-                        for (List<Double> list : values) {
-                            for (Double double1 : list) {
-                                allObjectiveRuns.add(double1);
-                            }
-                        }
-                    }
-                    break;
+                }
             }
         }
 

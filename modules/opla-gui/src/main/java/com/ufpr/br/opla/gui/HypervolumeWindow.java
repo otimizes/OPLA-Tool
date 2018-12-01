@@ -139,6 +139,7 @@ public class HypervolumeWindow extends javax.swing.JFrame {
                 model.addRow(row);
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
         }
     }

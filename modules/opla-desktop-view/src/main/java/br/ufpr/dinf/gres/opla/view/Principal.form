@@ -2101,6 +2101,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Non-Domited Solutions"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNonDomitedSolutionsActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -2242,11 +2245,17 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Select the Objective"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSelectObjectiveActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btGenerateChart">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Generate Chart"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btGenerateChartActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -2286,6 +2295,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Number Of Soluction Per Eucidean Distance"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btEuclidianDistanceActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -2330,11 +2342,17 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Hypervolume"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btHypervolumeActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckUseNormalization">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Use Normalization"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckUseNormalizationActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
