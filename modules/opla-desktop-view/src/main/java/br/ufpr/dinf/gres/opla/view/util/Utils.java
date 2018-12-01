@@ -1,25 +1,30 @@
 package br.ufpr.dinf.gres.opla.view.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
+import java.util.*;
+import java.util.zip.GZIPInputStream;
 
+import org.apache.commons.compress.archivers.ArchiveStreamFactory;
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
+import org.codehaus.plexus.archiver.tar.TarGZipUnArchiver;
+import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
+import org.hibernate.boot.archive.spi.ArchiveException;
+
+import static org.hibernate.internal.util.io.StreamCopier.BUFFER_SIZE;
 
 /**
  * @author elf
@@ -52,6 +57,29 @@ public class Utils {
             LOGGER.error(e);
             throw e;
         }
+    }
+
+    public static void unTargz(File file, String dest) {
+        final TarGZipUnArchiver ua = new TarGZipUnArchiver();
+        ConsoleLoggerManager manager = new ConsoleLoggerManager();
+        manager.initialize();
+        ua.enableLogging(manager.createLogger(1,"a"));
+        ua.setSourceFile(file);
+        ua.setDestDirectory(new File(dest));
+        ua.extract();
+    }
+
+    /**
+     * This method is used to get the tar file name from the gz file
+     * by removing the .gz part from the input file
+     *
+     * @param inputFile
+     * @param outputFolder
+     * @return
+     */
+    private static String getFileName(File inputFile, String outputFolder) {
+        return outputFolder + File.separator +
+                inputFile.getName().substring(0, inputFile.getName().lastIndexOf('.'));
     }
 
     public static void createPath(String uriPath) {

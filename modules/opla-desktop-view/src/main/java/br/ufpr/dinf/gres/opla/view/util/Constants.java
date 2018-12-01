@@ -24,6 +24,7 @@ public class Constants {
     public static final String OUTPUT_DIR = "output";
     public static final String BINS_DIR = "bins";
     public static final String HYPERVOLUME_DIR = "hv";
+    public static final String HYPERVOLUME_TAR_GZ = "hv.tar.gz";
     public static final String DB_DIR = "db";
 
     public static final String PROFILE_SMART_NAME = "smarty.profile.uml";

@@ -5,7 +5,6 @@ import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.Logger;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
-import domain.AlgorithmExperiment;
 import br.ufpr.dinf.gres.opla.entity.Execution;
 import br.ufpr.dinf.gres.opla.entity.Experiment;
 import br.ufpr.dinf.gres.opla.entity.metric.GenericMetric;
@@ -25,10 +24,11 @@ import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
 import com.ufpr.br.opla.algorithms.NSGAII;
 import com.ufpr.br.opla.algorithms.PAES;
 import com.ufpr.br.opla.configuration.VolatileConfs;
+import com.ufpr.br.opla.gui.HypervolumeWindow;
 import com.ufpr.br.opla.gui.StartUp;
 import com.ufpr.br.opla.utils.MutationOperatorsSelected;
 import com.ufpr.br.opla.utils.Time;
-
+import domain.AlgorithmExperiment;
 import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.Metrics;
 import learning.Moment;
@@ -44,9 +44,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Fernando
@@ -72,6 +70,8 @@ public class Principal extends AbstractPrincipalJFrame {
     private final ObjectiveDAO objectiveDAO;
     private final MapObjectivesDAO mapObjectivesDAO;
     private String inputArchitecture = StringUtils.EMPTY;
+    Locale locale = Locale.US;
+    ResourceBundle rb = ResourceBundle.getBundle("i18n", locale);
 
     public Principal() {
         initComponents();
@@ -248,8 +248,6 @@ public class Principal extends AbstractPrincipalJFrame {
     }
 
 
-
-
     private void configureLocaleToInteractionPapyrus() throws IOException {
         ckEnableInteraction.setSelected(false);
         tfInteractionDirectory1.setEnabled(ckEnableInteraction.isSelected());
@@ -283,7 +281,6 @@ public class Principal extends AbstractPrincipalJFrame {
     }
 
 
-
     /**
      * Copy hybervolume binary to oplatool bins directory if OS isn't Windows.
      *
@@ -292,10 +289,13 @@ public class Principal extends AbstractPrincipalJFrame {
     private void copyBinHypervolume() throws Exception {
         if (!OSUtils.isWindows()) {
             String target = UserHome.getOplaUserHome() + Constants.BINS_DIR;
-            Path path = Paths.get(target + Constants.FILE_SEPARATOR + Constants.HYPERVOLUME_DIR);
-            Utils.copy(Constants.HYPERVOLUME_DIR, path.toString());
+            Path path = Paths.get(target + Constants.FILE_SEPARATOR + Constants.HYPERVOLUME_TAR_GZ);
+            Utils.copy(Constants.HYPERVOLUME_TAR_GZ, path.toString());
+
+            Utils.unTargz(path.toFile(), target);
         }
     }
+
 
     // @formatter:off
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1826,8 +1826,18 @@ public class Principal extends AbstractPrincipalJFrame {
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Soluctions in the Seach Space", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btSelectObjective.setText("Select the Objective");
+        btSelectObjective.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSelectObjectiveActionPerformed(evt);
+            }
+        });
 
         btGenerateChart.setText("Generate Chart");
+        btGenerateChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGenerateChartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -1856,6 +1866,11 @@ public class Principal extends AbstractPrincipalJFrame {
         jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Euclidean Distance", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btEuclidianDistance.setText("Number Of Soluction Per Eucidean Distance");
+        btEuclidianDistance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEuclidianDistanceActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -1877,8 +1892,18 @@ public class Principal extends AbstractPrincipalJFrame {
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hypervolume", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btHypervolume.setText("Hypervolume");
+        btHypervolume.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btHypervolumeActionPerformed(evt);
+            }
+        });
 
         ckUseNormalization.setText("Use Normalization");
+        ckUseNormalization.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckUseNormalizationActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -2308,6 +2333,62 @@ public class Principal extends AbstractPrincipalJFrame {
     private void cbClusteringMomentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClusteringMomentActionPerformed
         cbClusteringAlgorithm.setEnabled(!Objects.equals(cbClusteringMoment.getSelectedItem(), Moment.NONE));
     }//GEN-LAST:event_cbClusteringMomentActionPerformed
+
+    private void btHypervolumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHypervolumeActionPerformed
+        try {
+            int[] selectedRows = tbExperiments.getSelectedRows();
+            String ids[] = new String[selectedRows.length];
+            String funcs = "";
+
+            for (int i = 0; i < selectedRows.length; i++) {
+                ids[i] = tbExperiments.getModel().getValueAt(selectedRows[i], 0).toString();
+                String functions = db.Database.getOrdenedObjectives(ids[i]);
+                if (funcs.isEmpty()) {
+                    funcs = functions;
+                } else if (!funcs.equalsIgnoreCase(functions)) {
+                    JOptionPane.showMessageDialog(null, rb.getString("notSameFunctions"));
+
+                    return;
+                }
+
+            }
+
+            HypervolumeWindow hyperPanel = new HypervolumeWindow();
+            hyperPanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            if (VolatileConfs.hypervolumeNormalized()) {
+                hyperPanel.setTitle("Hypervolume - Normalized");
+            } else {
+                hyperPanel.setTitle("Hypervolume - Non Normalized");
+            }
+            hyperPanel.pack();
+            hyperPanel.setResizable(false);
+            hyperPanel.setVisible(true);
+
+            hyperPanel.loadData(ids);
+        } catch (IOException ex) {
+            Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
+            JOptionPane.showMessageDialog(null, rb.getString("errorGenerateHypervolumeTable"));
+        }
+    }//GEN-LAST:event_btHypervolumeActionPerformed
+
+    private void btEuclidianDistanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEuclidianDistanceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btEuclidianDistanceActionPerformed
+
+    private void btGenerateChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGenerateChartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btGenerateChartActionPerformed
+
+    private void btSelectObjectiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelectObjectiveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSelectObjectiveActionPerformed
+
+    private void ckUseNormalizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckUseNormalizationActionPerformed
+        if (ckUseNormalization.isSelected())
+            VolatileConfs.enableHybervolumeNormalization();
+        else
+            VolatileConfs.disableHybervolumeNormalization();
+    }//GEN-LAST:event_ckUseNormalizationActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBrowserFeatureProfile;
