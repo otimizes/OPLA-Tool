@@ -1,30 +1,27 @@
 package br.ufpr.dinf.gres.opla.view.util;
 
-import java.io.*;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.WordUtils;
+import org.apache.log4j.Logger;
+import org.codehaus.plexus.archiver.tar.TarGZipUnArchiver;
+import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
-import java.util.zip.GZIPInputStream;
-
-import org.apache.commons.compress.archivers.ArchiveStreamFactory;
-import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
-import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
-import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.WordUtils;
-import org.apache.log4j.Logger;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
-import org.codehaus.plexus.archiver.tar.TarGZipUnArchiver;
-import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
-import org.hibernate.boot.archive.spi.ArchiveException;
-
-import static org.hibernate.internal.util.io.StreamCopier.BUFFER_SIZE;
+import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
 
 /**
  * @author elf
@@ -63,7 +60,7 @@ public class Utils {
         final TarGZipUnArchiver ua = new TarGZipUnArchiver();
         ConsoleLoggerManager manager = new ConsoleLoggerManager();
         manager.initialize();
-        ua.enableLogging(manager.createLogger(1,"a"));
+        ua.enableLogging(manager.createLogger(1, "a"));
         ua.setSourceFile(file);
         ua.setDestDirectory(new File(dest));
         ua.extract();
@@ -173,12 +170,26 @@ public class Utils {
             arquitetura.io.FileUtils.copy(Constants.LOCAL_YAML_PATH, pathApplicationYaml);
         }
 
+        Utils.copyFileGuiSettings();
+
         UserHome.createProfilesPath();
         UserHome.createTemplatePath();
         UserHome.createOutputPath();
         UserHome.createBinsHVPath();
         UserHome.createTempPath(); // Manipulation dir. apenas para uso intenro
 
+    }
+
+    public static void copyFileGuiSettings() {
+        Path target = Paths.get(UserHome.getOplaUserHome()).resolve(Constants.GUI_SETTINGS);
+        if (!Files.exists(target)) {
+            try {
+                URI uri = ClassLoader.getSystemResource(Constants.LOCAL_GUI_PATH).toURI();
+                arquitetura.io.FileUtils.copy(Paths.get(uri.getSchemeSpecificPart()), target);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void createDataBaseIfNotExists() {
@@ -193,9 +204,16 @@ public class Utils {
                 arquitetura.io.FileUtils.copy(Paths.get(uri.getSchemeSpecificPart()), pathDb);
             } catch (URISyntaxException e) {
                 LOGGER.info("Erro ao copiar arquivo de banco de dados", e);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         } else {
             LOGGER.info("Banco de dados já configurado");
+        }
+        try {
+            db.Database.setContent(results.Experiment.all());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

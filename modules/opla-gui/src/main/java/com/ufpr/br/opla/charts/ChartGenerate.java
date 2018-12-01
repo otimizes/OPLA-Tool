@@ -43,7 +43,7 @@ public class ChartGenerate {
                 one.add(new XYDataItem(list.get(1), list.get(0)));
             }
 
-            algo.put(entry.getValue(), one);
+            algo.put(entry.getValue() + " - " + entry.getKey(), one);
             g.setDataSet(algo);
         }
 

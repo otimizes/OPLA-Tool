@@ -45,7 +45,7 @@ public class MathUtils {
     }
 
     public static Double normalizeValue(Double minValue, Double maxValue, Double objectiveValue) {
-        return (objectiveValue - minValue) / (maxValue - minValue);
+        return (maxValue - minValue) != 0 ? (objectiveValue - minValue) / (maxValue - minValue) : 0;
     }
 
     public static Double findMaxValue(List<Double> numbers) {
@@ -81,7 +81,7 @@ public class MathUtils {
     /**
      * Desvio Padrão.
      *
-     * @param objetos
+     * @param values
      * @return
      */
     public static double stDev(List<Double> values) {
