@@ -63,6 +63,7 @@ public class ArffExecution {
             vals[objectives[0].length] = data.attribute(objectives[0].length).addStringValue(String.valueOf(i));
             data.add(new DenseInstance(1.0, vals));
         }
+        System.out.println("foi");
     }
 
     public FastVector getAtts() {

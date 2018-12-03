@@ -2,12 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ufpr.br.opla.utils;
+package utils;
+
+import jmetal4.core.Solution;
+import jmetal4.core.SolutionSet;
+import learning.Clustering;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 /**
  * @author elf
@@ -42,6 +47,47 @@ public class MathUtils {
 
         }
         return listObjectivesValues;
+    }
+
+    public static List<List<Double>> normalize(SolutionSet run) {
+        List<Double> mins = new ArrayList<>();
+        List<Double> maxs = new ArrayList<>();
+
+        run.getSolutionSet().forEach(r -> {
+            selectMinsMax(mins, maxs, r);
+        });
+
+        return getNormalizedByMinsMax(run, mins, maxs);
+    }
+
+    public static List<List<Double>> normalizeWithAllSolutions(SolutionSet resultFront) {
+        List<Double> mins = new ArrayList<>();
+        List<Double> maxs = new ArrayList<>();
+
+        resultFront.getAllSolutions().forEach(r -> {
+            selectMinsMax(mins, maxs, r);
+        });
+
+        return getNormalizedByMinsMax(resultFront, mins, maxs);
+    }
+
+    private static List<List<Double>> getNormalizedByMinsMax(SolutionSet resultFront, List<Double> mins, List<Double> maxs) {
+        return resultFront.getSolutionSet().stream().map(r -> {
+            List<Double> values = new ArrayList<>();
+            for (int i = 0; i < r.numberOfObjectives(); i++) {
+                values.add(i, (maxs.get(i) - mins.get(i)) == 0 ? 0 : (r.getObjective(i) - mins.get(i)) / (maxs.get(i) - mins.get(i)));
+            }
+            return values;
+        }).collect(Collectors.toList());
+    }
+
+    private static void selectMinsMax(List<Double> mins, List<Double> maxs, Solution r) {
+        for (int i = 0; i < r.numberOfObjectives(); i++) {
+            if (mins.size() < r.numberOfObjectives()) mins.add(i, Double.MAX_VALUE);
+            if (maxs.size() < r.numberOfObjectives()) maxs.add(i, Double.MIN_VALUE);
+            if (r.getObjective(i) > maxs.get(i)) maxs.set(i, r.getObjective(i));
+            if (r.getObjective(i) < mins.get(i)) mins.set(i, r.getObjective(i));
+        }
     }
 
     public static Double normalizeValue(Double minValue, Double maxValue, Double objectiveValue) {

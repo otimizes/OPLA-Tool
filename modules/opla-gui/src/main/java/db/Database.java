@@ -4,7 +4,7 @@ import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.Logger;
 import com.ufpr.br.opla.configuration.UserHome;
 import com.ufpr.br.opla.configuration.VolatileConfs;
-import com.ufpr.br.opla.utils.MathUtils;
+import utils.MathUtils;
 import com.ufpr.br.opla.utils.Utils;
 import exceptions.MissingConfigurationException;
 import metrics.*;
@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 public class Database {
     private static Connection connection = null;
