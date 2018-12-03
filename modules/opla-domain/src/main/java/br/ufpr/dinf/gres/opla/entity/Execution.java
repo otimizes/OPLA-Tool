@@ -37,6 +37,13 @@ public class Execution implements Serializable {
     @Column(name = "time")
     private Long time;
 
+    public Execution() {
+    }
+
+    public Execution(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

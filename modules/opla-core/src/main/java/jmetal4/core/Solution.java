@@ -122,6 +122,10 @@ public class Solution implements Serializable {
     private double clusterId_ = 0.0;
 
     /**
+     * Stores the exec id
+     */
+    private Long executionId_;
+    /**
      * Constructor.
      */
     public Solution() {
@@ -610,5 +614,13 @@ public class Solution implements Serializable {
 
     public void setClusterId(double clusterId_) {
         this.clusterId_ = clusterId_;
+    }
+
+    public Long getExecutionId() {
+        return executionId_;
+    }
+
+    public void setExecutionId(Long executionId_) {
+        this.executionId_ = executionId_;
     }
 } // Solution

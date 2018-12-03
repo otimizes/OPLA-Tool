@@ -3,6 +3,14 @@
 ### Added
 - Clustering Algorithm KMeans and Dbscan
 - Interactive package
+- Graphics, tables, hypervolume corrected in Result and Experiment Tabs
+- Internal Bloxpot
+- Maven Dependencies and configurations updated
+- Starting Clustering Module
+- Papyrus initial integration
+- JUnit initial tests
+- Jar generate Adjusts
+- Objective Functions implementation from João Version
 - Command Line experiment 
     -  Example: <b>java -jar</b> opla-desktop-view-1.0.0-SNAPSHOT-jar-with-dependencies.jar 
             <b>algorithm</b>=NSGAII <br>

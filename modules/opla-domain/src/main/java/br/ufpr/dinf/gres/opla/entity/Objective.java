@@ -35,6 +35,28 @@ public class Objective implements Serializable {
     @Column(name = "solution_name")
     private String solutionName;
 
+    public Objective() {
+    }
+
+    public Objective(Long id, Execution execution, String objectives, Integer isAll, Experiment experiment, String solutionName) {
+        this.id = id;
+        this.execution = execution;
+        this.objectives = objectives;
+        this.isAll = isAll;
+        this.experiment = experiment;
+        this.solutionName = solutionName;
+    }
+
+    public Objective(String id, String execution, String objectives, String isAll, String experiment, String solutionName) {
+        this.id = "".equals(id) ? null : Long.valueOf(id);
+        this.execution = "".equals(execution) ? null : new Execution(Long.valueOf(execution));
+        this.objectives = "".equals(objectives) ? null : objectives;
+        this.isAll = "".equals(isAll) ? null : Integer.valueOf(isAll);
+        this.experiment = "".equals(experiment) ? null : new Experiment(Long.valueOf(experiment));
+        this.solutionName = "".equals(solutionName) ? null : solutionName;
+    }
+
+
     public Long getId() {
         return id;
     }
