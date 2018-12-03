@@ -3029,6 +3029,7 @@ public class Principal extends AbstractPrincipalJFrame {
                             jProgressBar.setIndeterminate(false);
                             Logger.getLogger().putLog(String.format("Done NSGAII Execution at: %s", Time.timeNow().toString()));
                             db.Database.reloadContent();
+                            loadExecutionsData();
                         }
                     };
 
@@ -3056,6 +3057,7 @@ public class Principal extends AbstractPrincipalJFrame {
                             Logger.getLogger()
                                     .putLog(String.format("Done PAES Execution at: %s", Time.timeNow().toString()));
                             db.Database.reloadContent();
+                            loadExecutionsData();
                         }
                     };
 
