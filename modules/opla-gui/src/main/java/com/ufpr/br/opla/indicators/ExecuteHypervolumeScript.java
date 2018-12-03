@@ -36,7 +36,7 @@ public class ExecuteHypervolumeScript {
 
         Scanner sc = new Scanner(src);
         while (sc.hasNextLine())
-            values.add(Double.parseDouble(sc.nextLine()));
+            values.add(Double.valueOf(sc.nextLine()));
 
         return values;
     }

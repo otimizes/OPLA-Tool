@@ -16,8 +16,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author elf
@@ -150,7 +152,7 @@ public class HypervolumeWindow extends javax.swing.JFrame {
                 @Override
                 public void doubleClicked(MouseEvent mouseEvent) {
                     HypervolumeData hypervolumeData = hypers.get(tableHypervolume.getSelectedRow());
-                    JTextArea jta = new JTextArea(hypervolumeData.getValues().toString());
+                    JTextArea jta = new JTextArea(hypervolumeData.getValues().stream().map(v -> BigDecimal.valueOf(v).setScale(8, BigDecimal.ROUND_HALF_UP)).collect(Collectors.toList()).toString());
                     JScrollPane jsp = new JScrollPane(jta) {
                         @Override
                         public Dimension getPreferredSize() {

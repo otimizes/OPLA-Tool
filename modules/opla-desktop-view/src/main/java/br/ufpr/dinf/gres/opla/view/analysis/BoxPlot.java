@@ -7,6 +7,7 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DatasetRenderingOrder;
+import org.jfree.chart.renderer.category.BoxAndWhiskerRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.statistics.DefaultBoxAndWhiskerCategoryDataset;
@@ -22,7 +23,7 @@ import java.util.List;
 public class BoxPlot {
 
     private List<BoxPlotItem> items = new ArrayList<>();
-    private String title = "Default";
+    private String title = "BoxPlot";
     private String categoryAxys = "Type";
     private String numberAxis = "Value";
 
@@ -32,18 +33,19 @@ public class BoxPlot {
 
     public void display() {
         JFrame f = new JFrame(title);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         DefaultBoxAndWhiskerCategoryDataset boxData = new DefaultBoxAndWhiskerCategoryDataset();
         this.items.forEach(item -> boxData.add(item.getItems(), item.getRowKey(), item.getColumnKey()));
 
-        WBoxAndWhiskerRenderer boxRenderer = new WBoxAndWhiskerRenderer();
+        BoxAndWhiskerRenderer boxRenderer = new BoxAndWhiskerRenderer();
         boxRenderer.setWhiskerWidth(0.5);
         StandardCategoryToolTipGenerator standardCategoryToolTipGenerator = new StandardCategoryToolTipGenerator();
         DefaultCategoryDataset defaultCategoryDataset = new DefaultCategoryDataset();
         defaultCategoryDataset.setValue(boxData.getValue(0, 0).doubleValue(), boxData.getRowKey(0), boxData.getColumnKey(0));
         standardCategoryToolTipGenerator.generateToolTip(defaultCategoryDataset, 0, 0);
         boxRenderer.setToolTipGenerator(standardCategoryToolTipGenerator);
+        boxRenderer.setMeanVisible(false);
 
         DefaultCategoryDataset catData = new DefaultCategoryDataset();
 //        catData.addValue(boxData.getMeanValue(0, 0), "Median", boxData.getColumnKey(0));
@@ -59,7 +61,7 @@ public class BoxPlot {
         plot.setRenderer(1, lineRenderer);
         plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
 
-        JFreeChart chart = new JFreeChart("Test", JFreeChart.DEFAULT_TITLE_FONT, plot, true);
+        JFreeChart chart = new JFreeChart(title, JFreeChart.DEFAULT_TITLE_FONT, plot, true);
         f.add(new ChartPanel(chart) {
             @Override
             public Dimension getPreferredSize() {
@@ -86,4 +88,7 @@ public class BoxPlot {
     public void setTitle(String title) {
         this.title = title;
     }
+
+
+
 }
