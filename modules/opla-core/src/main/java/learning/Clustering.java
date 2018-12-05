@@ -7,9 +7,7 @@ import weka.clusterers.*;
 import weka.core.DistanceFunction;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author WmfSystem
@@ -18,7 +16,7 @@ import java.util.List;
 public class Clustering implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final Logger LOGGER = Logger.getLogger(Clustering.class);
+    public static final Logger LOGGER = Logger.getLogger(Clustering.class);
 
     private SolutionSet resultFront;
     private ClusteringAlgorithm algorithm;
@@ -128,13 +126,23 @@ public class Clustering implements Serializable {
      * @throws Exception Default Exception
      */
     private SolutionSet getFilteredSolutionSet() throws Exception {
-        LOGGER.info(getClusterEvaluation().clusterResultsToString());
+        if (clusterer instanceof SimpleKMeans) {
+            double maxValue = Double.MAX_VALUE;
+            getKMeans().getClusterCentroids().sort((o1, o2) -> {
+                double[] doubles1 = o1.toDoubleArray();
+                double[] doubles2 = o2.toDoubleArray();
+                return compareEuclidianDistance(doubles1, doubles2);
+            });
+        }
+
+
         double[] assignments = getClusterEvaluation().getClusterAssignments();
-        for (int i = 0; i < getClusterEvaluation().getClusterAssignments().length; i++) {
-//            LOGGER.info("Cluster " + assignments[i] + " -> " + assignments[i] + " : " + arffExecution.getData().instance(i));
+
+        for (int i = 0; i < assignments.length; i++) {
+            resultFront.get(i).setClusterId(assignments[i]);
             if (assignments[i] >= getIndexToFilter()) {
+                LOGGER.info("Cluster " + assignments[i] + " -> " + assignments[i] + " : " + arffExecution.getData().instance(i));
                 idsFilteredSolutions.add(i);
-                resultFront.get(i).setClusterId(assignments[i]);
                 filteredSolutions.add(resultFront.get(i));
             }
         }
@@ -142,7 +150,18 @@ public class Clustering implements Serializable {
         Collections.reverse(idsFilteredSolutions);
         idsFilteredSolutions.forEach(resultFront::remove);
         resultFront.setFilteredSolutions(filteredSolutions);
+        LOGGER.info(getClusterEvaluation().clusterResultsToString());
         return resultFront;
+    }
+
+    private int compareEuclidianDistance(double[] doubles1, double[] doubles2) {
+        Double dist1 = Math.sqrt(Math.pow(doubles1[0], 2));
+        Double dist2 = Math.sqrt(Math.pow(doubles2[0], 2));
+        for (int i = 1; i < doubles1.length; i++) {
+            dist1 = dist1 - Math.sqrt(Math.pow(doubles1[i], 2));
+            dist2 = dist2 - Math.sqrt(Math.pow(doubles2[i], 2));
+        }
+        return dist2.compareTo(dist1);
     }
 
     /**
@@ -227,6 +246,7 @@ public class Clustering implements Serializable {
     /**
      * https://stats.stackexchange.com/questions/55215/way-to-determine-best-number-of-clusters-weka
      * https://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a_data_set
+     *
      * @return number of clusters
      */
     public Integer getNumClusters() {

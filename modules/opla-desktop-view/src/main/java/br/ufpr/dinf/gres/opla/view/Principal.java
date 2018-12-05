@@ -30,7 +30,6 @@ import com.ufpr.br.opla.charts.EdBar;
 import com.ufpr.br.opla.charts.EdLine;
 import com.ufpr.br.opla.configuration.GuiFile;
 import com.ufpr.br.opla.configuration.VolatileConfs;
-import com.ufpr.br.opla.gui.GuiServices;
 import com.ufpr.br.opla.gui.HypervolumeWindow;
 import com.ufpr.br.opla.gui.SmallerFintnessValuesWindow;
 import com.ufpr.br.opla.gui.StartUp;
@@ -49,13 +48,10 @@ import org.apache.commons.lang3.StringUtils;
 import utils.RScriptOption;
 import utils.RScriptOptionElement;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
@@ -2561,12 +2557,7 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel21.add(new JLabel("Execution: " + experimentId + "\n"), "wrap");
             for (int i = 0; i < values.length; i++) {
                 JCheckBox box = new JCheckBox(values[i].toUpperCase());
-                box.setName(experimentId + "," + values[i] + "," + i); // id do
-                // experimemto,
-                // nome
-                // da
-                // funcao,
-                // indice
+                box.setName(experimentId + "," + values[i] + "," + i);
                 jPanel21.add(box, "span, grow");
             }
         }
@@ -2582,6 +2573,10 @@ public class Principal extends AbstractPrincipalJFrame {
     }//GEN-LAST:event_ckUseNormalizationActionPerformed
 
     private void btNonDomitedSolutionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNonDomitedSolutionsActionPerformed
+        getNonDominatedSolutionsByTable(tmExecution, tbRuns);
+    }//GEN-LAST:event_btNonDomitedSolutionsActionPerformed
+
+    private static void getNonDominatedSolutionsByTable(ExecutionTableModel tmExecution, JTable tbRuns) {
         SmallerFintnessValuesWindow sfvw = new SmallerFintnessValuesWindow();
 
         sfvw.setVisible(true);
@@ -2591,9 +2586,13 @@ public class Principal extends AbstractPrincipalJFrame {
         sfvw.setExperimentId(value.getExperiment().getId().toString());
         sfvw.enablePanelsObjectiveFunctions();
         sfvw.loadEds();
-    }//GEN-LAST:event_btNonDomitedSolutionsActionPerformed
+    }
 
     private void btBoxPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBoxPlotActionPerformed
+        generateBloxsplotBySelectedExperimentsInTable(tbExperiments);
+    }//GEN-LAST:event_btBoxPlotActionPerformed
+
+    private static void generateBloxsplotBySelectedExperimentsInTable(JTable tbExperiments) {
         try {
             int[] selectedRows = tbExperiments.getSelectedRows();
             String ids[] = new String[selectedRows.length];
@@ -2609,9 +2608,13 @@ public class Principal extends AbstractPrincipalJFrame {
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btBoxPlotActionPerformed
+    }
 
     private void cbRScriptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRScriptActionPerformed
+        executeScriptBySelectedExperimentsInTable(tbExperiments, cbRScript);
+    }//GEN-LAST:event_cbRScriptActionPerformed
+
+    private static void executeScriptBySelectedExperimentsInTable(JTable tbExperiments, JComboBox<String> cbRScript) {
         try {
             int[] selectedRows = tbExperiments.getSelectedRows();
             String ids[] = new String[selectedRows.length];
@@ -2645,7 +2648,7 @@ public class Principal extends AbstractPrincipalJFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_cbRScriptActionPerformed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBoxPlot;
@@ -3062,7 +3065,6 @@ public class Principal extends AbstractPrincipalJFrame {
                     };
 
                     sw2.execute();
-//                    progressBar.setIndeterminate(true);
                 }
 
             }

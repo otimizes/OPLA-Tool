@@ -2880,105 +2880,11 @@ public class StartUp extends javax.swing.JFrame {
     }// GEN-LAST:event_tableExp2KeyPressed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
-        panelFunctionExecutionsSelecteds.setLayout(new MigLayout());
 
-        for (Component comp : panelFunctionExecutionsSelecteds.getComponents()) {
-            if (comp instanceof JCheckBox) {
-                panelFunctionExecutionsSelecteds.remove((JCheckBox) comp);
-            }
-            if (comp instanceof JLabel) {
-                panelFunctionExecutionsSelecteds.remove((JLabel) comp);
-            }
-
-        }
-
-        int[] selectedRows = tableExp2.getSelectedRows();
-        HashMap<String, String[]> map = new HashMap<>();
-
-        for (int i = 0; i < selectedRows.length; i++) {
-            String experimentId = tableExp2.getModel().getValueAt(selectedRows[i], 0).toString();
-            map.put(experimentId, db.Database.getOrdenedObjectives(experimentId).split(" "));
-        }
-
-        // Validacao
-        if (selectedRows.length <= 1) {
-            JOptionPane.showMessageDialog(null, rb.getString("atLeastTwoExecution"));
-            return;
-        } else if (selectedRows.length > 5) {
-            JOptionPane.showMessageDialog(null, rb.getString("maxExecutions"));
-            return;
-        } else if (!Validators.selectedsExperimentsHasTheSameObjectiveFunctions(map)) {
-            JOptionPane.showMessageDialog(null, rb.getString("notSameFunctions"));
-            return;
-        }
-
-        for (Map.Entry<String, String[]> entry : map.entrySet()) {
-            String experimentId = entry.getKey();
-            String[] values = entry.getValue();
-            panelFunctionExecutionsSelecteds.add(new JLabel(""), "wrap");
-            panelFunctionExecutionsSelecteds.add(new JLabel("Execution: " + experimentId + "\n"), "wrap");
-            for (int i = 0; i < values.length; i++) {
-                JCheckBox box = new JCheckBox(values[i].toUpperCase());
-                box.setName(experimentId + "," + values[i] + "," + i); // id do
-                // experimemto,
-                // nome
-                // da
-                // funcao,
-                // indice
-                panelFunctionExecutionsSelecteds.add(box, "span, grow");
-            }
-        }
-
-        panelFunctionExecutionsSelecteds.updateUI();
 
     }// GEN-LAST:event_jButton2ActionPerformed
 
     private void btnGenerateChartActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenerateChartActionPerformed
-        String referenceExp = null;
-        List<JCheckBox> allChecks = new ArrayList<>();
-        List<JCheckBox> checkeds = new ArrayList<>();
-        HashMap<String, String> experimentToAlgorithmUsed = new HashMap<>();
-
-        for (Object comp : panelFunctionExecutionsSelecteds.getComponents()) {
-            if (comp instanceof JCheckBox) {
-                JCheckBox checkBox = ((JCheckBox) comp);
-                if (checkBox.isSelected()) {
-                    checkeds.add(checkBox);
-                }
-                allChecks.add(checkBox);
-            }
-        }
-
-        for (JCheckBox box : checkeds) {
-            String id = box.getName().split(",")[0]; // experimentID
-            referenceExp = id;
-            String algorithmUsed = db.Database.getAlgoritmUsedToExperimentId(id);
-            experimentToAlgorithmUsed.put(id, algorithmUsed);
-        }
-        if (Validators.hasMoreThatTwoFunctionsSelectedForSelectedExperiments(allChecks)) {
-            JOptionPane.showMessageDialog(null, rb.getString("onlyTwoFunctions"));
-        } else if (checkeds.isEmpty()) {
-            JOptionPane.showMessageDialog(null, rb.getString("atLeastTwoFunctionPerSelectedExperiment"));
-        } else if (Validators.validateCheckedsFunctions(allChecks)) {
-            JOptionPane.showMessageDialog(null, rb.getString("sameFunctions"));
-        } else {
-            String[] functions = new String[2]; // x,y Axis
-            int[] columns = new int[2]; // Quais colunas do arquivo deseja-se
-            // ler.
-
-            for (int i = 0; i < 2; i++) {
-                final String[] splited = checkeds.get(i).getName().split(",");
-                columns[i] = Integer.parseInt(splited[2]);
-                functions[i] = splited[1];
-            }
-
-            String outputDir = this.config.getConfig().getDirectoryToExportModels();
-            try {
-                ChartGenerate.generate(functions, experimentToAlgorithmUsed, columns, outputDir, referenceExp);
-            } catch (IOException ex) {
-                java.util.logging.Logger.getLogger(StartUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            }
-        }
 
     }// GEN-LAST:event_btnGenerateChartActionPerformed
 
@@ -2991,66 +2897,11 @@ public class StartUp extends javax.swing.JFrame {
 
     private void btnGenerateEdChartActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenerateEdChartActionPerformed
 
-        int[] selectedRows = tableExp2.getSelectedRows();
-        String ids[] = new String[selectedRows.length];
 
-        for (int i = 0; i < selectedRows.length; i++) {
-            ids[i] = tableExp2.getModel().getValueAt(selectedRows[i], 0).toString();
-        }
-
-        String name = db.Database.getPlaUsedToExperimentId(ids[0]);
-
-        if (selectedRows.length >= 1) {
-            String typeChart = GuiFile.getInstance().getEdChartType();
-            if ("bar".equalsIgnoreCase(typeChart)) {
-                EdBar edBar = new EdBar(ids, "Euclidean Distance (" + name + ")");
-                edBar.displayOnFrame();
-            } else if ("line".equals(typeChart)) {
-                EdLine edLine = new EdLine(ids, null);
-                edLine.displayOnFrame();
-            } else {
-                JOptionPane.showMessageDialog(null, rb.getString("confEdChartInvalid"));
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, rb.getString("atLeastOneExecution"));
-        }
     }// GEN-LAST:event_btnGenerateEdChartActionPerformed
 
     private void btnHypervolumeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHypervolumeActionPerformed
-        try {
-            int[] selectedRows = tableExp2.getSelectedRows();
-            String ids[] = new String[selectedRows.length];
-            String funcs = "";
 
-            for (int i = 0; i < selectedRows.length; i++) {
-                ids[i] = tableExp2.getModel().getValueAt(selectedRows[i], 0).toString();
-                String functions = db.Database.getOrdenedObjectives(ids[i]);
-                if (funcs.isEmpty()) {
-                    funcs = functions;
-                } else if (!funcs.equalsIgnoreCase(functions)) {
-                    JOptionPane.showMessageDialog(null, rb.getString("notSameFunctions"));
-
-                    return;
-                }
-
-            }
-
-            HypervolumeWindow hyperPanel = new HypervolumeWindow();
-            hyperPanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            if (VolatileConfs.hypervolumeNormalized()) {
-                hyperPanel.setTitle("Hypervolume - Normalized");
-            } else {
-                hyperPanel.setTitle("Hypervolume - Non Normalized");
-            }
-            hyperPanel.pack();
-            hyperPanel.setResizable(false);
-            hyperPanel.setVisible(true);
-
-            hyperPanel.loadData(ids);
-        } catch (IOException ex) {
-            Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
-            JOptionPane.showMessageDialog(null, rb.getString("errorGenerateHypervolumeTable"));
-        }
 
     }// GEN-LAST:event_btnHypervolumeActionPerformed
 
