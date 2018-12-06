@@ -103,6 +103,6 @@ public class InteractiveSolutionsFormTest {
         solutionSet.get(1).setType(new ArchitectureSolutionType(new OPLA()));
         ((OPLA) solutionSet.get(1).getType().problem_).setSelectedMetrics(Arrays.asList("featureDriven", "aclass", "coe"));
 
-        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, solutionSet, execution);
+        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, solutionSet);
     }
 }

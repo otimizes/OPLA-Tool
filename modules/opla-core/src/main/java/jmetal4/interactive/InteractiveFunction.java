@@ -9,5 +9,5 @@ import results.Experiment;
  */
 public interface InteractiveFunction {
 
-    void run(SolutionSet solutionSet, Execution execution);
+    SolutionSet run(SolutionSet solutionSet);
 }

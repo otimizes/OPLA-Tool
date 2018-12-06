@@ -704,4 +704,15 @@ public class Architecture extends Variable {
 		this.interfaces.addAll(interfaces);
 	}
 
+    @Override
+    public String toString() {
+        return "Architecture{" +
+                "packages=" + packages +
+                ", classes=" + classes +
+                ", interfaces=" + interfaces +
+                ", name='" + name + '\'' +
+                ", appliedPatterns=" + appliedPatterns +
+                ", relationshipHolder=" + relationshipHolder +
+                '}';
+    }
 }

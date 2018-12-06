@@ -120,6 +120,9 @@ public class NSGAII_OPLA_FeatMut {
             // Algorithm parameters
             algorithm.setInputParameter("populationSize", populationSize);
             algorithm.setInputParameter("maxEvaluations", maxEvaluations);
+            algorithm.setInputParameter("interactiveFunction", this.configs.getInteractiveFunction());
+            algorithm.setInputParameter("maxInteractions", this.configs.getMaxInteractions());
+            algorithm.setInputParameter("interactive", this.configs.getInteractive());
 
             // Mutation and Crossover
             parameters = new HashMap<String, Object>();
@@ -194,11 +197,6 @@ public class NSGAII_OPLA_FeatMut {
                 execution.setFuns(funResults);
                 execution.setInfos(infoResults);
                 execution.setAllMetrics(allMetrics);
-
-                // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
-                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions())
-                    this.configs.getInteractiveFunction().run(resultFront, execution);
-                // Interactive
 
                 ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
                 try {

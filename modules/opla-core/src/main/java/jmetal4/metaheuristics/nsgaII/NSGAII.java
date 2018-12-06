@@ -22,12 +22,14 @@
 package jmetal4.metaheuristics.nsgaII;
 
 import jmetal4.core.*;
+import jmetal4.interactive.InteractiveFunction;
 import jmetal4.qualityIndicator.QualityIndicator;
 import jmetal4.util.Distance;
 import jmetal4.util.JMException;
 import jmetal4.util.Ranking;
 import jmetal4.util.comparators.CrowdingComparator;
 import org.apache.log4j.Logger;
+import results.Execution;
 
 /**
  * This class implements the NSGA-II algorithm.
@@ -78,6 +80,10 @@ public class NSGAII extends Algorithm {
         // Read the parameters
         populationSize = ((Integer) getInputParameter("populationSize")).intValue();
         maxEvaluations = ((Integer) getInputParameter("maxEvaluations")).intValue();
+        int maxInteractions = ((Integer) getInputParameter("maxInteractions")).intValue();
+        Boolean interactive = ((Boolean) getInputParameter("interactive")).booleanValue();
+        InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
+        int currentInteraction = 0;
         indicators = (QualityIndicator) getInputParameter("indicators");
 
         // Initialize the variables
@@ -96,17 +102,20 @@ public class NSGAII extends Algorithm {
             // Create the initial solutionSet
             Solution newSolution;
             for (int i = 0; i < populationSize; i++) {
-                newSolution = new Solution(problem_);
-                // criar a diversidade na populacao inicial
-                mutationOperator.execute(newSolution);
-                problem_.evaluate(newSolution);
-
-                problem_.evaluateConstraints(newSolution);
+                newSolution = newRandomSolution(mutationOperator);
                 evaluations++;
                 population.add(newSolution);
             }
+            // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
+            if (interactive && currentInteraction < maxInteractions) {
+                population = interactiveFunction.run(population);
+                currentInteraction++;
+            }
+            // Interactive
+
         } catch (Exception e) {
             LOGGER.error(e);
+            e.printStackTrace();
             throw new JMException(e.getMessage());
         }
 
@@ -123,6 +132,10 @@ public class NSGAII extends Algorithm {
                         LOGGER.info("Origin INDIVIDUO: " + i + " evolucao: " + evaluations);
                         parents[0] = (Solution) selectionOperator.execute(population);
                         parents[1] = (Solution) selectionOperator.execute(population);
+
+                        if (parents[0].getEvaluation() >= 5 && parents[1].getEvaluation() >= 5) continue;
+                        else if (parents[0].getEvaluation() >= 5) parents[0] = newRandomSolution(mutationOperator);
+                        else if (parents[1].getEvaluation() >= 5) parents[1] = newRandomSolution(mutationOperator);
 
                         Object execute = crossoverOperator.execute(parents);
                         if (execute instanceof Solution) {
@@ -151,6 +164,13 @@ public class NSGAII extends Algorithm {
 
 
                         evaluations += 2;
+
+                        // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
+                        if (interactive && currentInteraction < maxInteractions) {
+                            offspringPopulation = interactiveFunction.run(offspringPopulation);
+                            currentInteraction++;
+                        }
+                        // Interactive
 
                     }
 
@@ -236,4 +256,15 @@ public class NSGAII extends Algorithm {
         return ranking.getSubfront(0);
         // return population;
     } // execute
+
+    private Solution newRandomSolution(Operator mutationOperator) throws Exception {
+        Solution newSolution;
+        newSolution = new Solution(problem_);
+        // criar a diversidade na populacao inicial
+        mutationOperator.execute(newSolution);
+        problem_.evaluate(newSolution);
+
+        problem_.evaluateConstraints(newSolution);
+        return newSolution;
+    }
 } // NSGA-II

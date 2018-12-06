@@ -2720,8 +2720,9 @@ public class Principal extends AbstractPrincipalJFrame {
             NSGAII nsgaii = new NSGAII();
             nsgaii.execute(cbAlgothm, ckMutation, jsMutation, tfInputArchitecturePath, tfNumberRuns,
                     tfPopulationSize, tfMaxEvaluations, ckCrossover, jsCrossover,
-                    tfDescription, ckEnableInteraction, tfArchiveSize1, cbClusteringAlgorithm, cbClusteringMoment, (solutionSet, execution) -> {
-                        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(config, solutionSet, execution);
+                    tfDescription, ckEnableInteraction, tfArchiveSize1, cbClusteringAlgorithm, cbClusteringMoment, (solutionSet) -> {
+                        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(config, solutionSet);
+                        return interactiveSolutions.solutionSet;
                     });
             JOptionPane.showMessageDialog(null, "Success execution NSGA-II, Finalizing....");
             Logger.getLogger().putLog(

@@ -77,8 +77,7 @@ public class StartUpView extends javax.swing.JFrame {
 								javax.swing.GroupLayout.PREFERRED_SIZE)));
 
 		pack();
-	}// </editor-fold>//GEN-END:initComponents
-
+	}// </edi
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JProgressBar loadProgressBar;
