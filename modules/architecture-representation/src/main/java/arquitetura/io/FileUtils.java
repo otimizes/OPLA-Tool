@@ -3,12 +3,13 @@ package arquitetura.io;
 import org.apache.log4j.Logger;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle               @               gmail.com>
  */
 public class FileUtils {
 
@@ -37,7 +38,11 @@ public class FileUtils {
     public static void copy(Path source, Path target) {
         try {
             LOGGER.info("Copiando de: " + source + " para " + target);
-            Files.copy(source, target);
+            URL url = null;
+            if (source.toString().contains("!")) {
+                url = new URL("jar:" + source.toString());
+                org.apache.commons.io.FileUtils.copyURLToFile(url, target.toFile());
+            } else Files.copy(source, target);
             LOGGER.info("Copia concluída com sucesso");
         } catch (IOException e) {
             LOGGER.info("Não foi possível copiar o arquivo: ", e);
@@ -47,7 +52,7 @@ public class FileUtils {
     public static void copy(String fileName, Path target) {
         try {
             Path source = Paths.get(fileName);
-            		
+
             LOGGER.info("Copiando de: " + fileName + " para " + target);
             Files.copy(source, target);
             LOGGER.info("Copia concluída com sucesso");

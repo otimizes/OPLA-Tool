@@ -770,5 +770,12 @@ public class SolutionSet implements Serializable {
     public void setFilteredSolutions(List<Solution> filteredSolutions_) {
         this.filteredSolutions_ = filteredSolutions_;
     }
+
+    public List<Solution> getAllSolutions() {
+        ArrayList<Solution> solutions = new ArrayList<>();
+        solutions.addAll(this.solutionsList_);
+        solutions.addAll(this.filteredSolutions_);
+        return solutions;
+    }
 } // SolutionSet
 

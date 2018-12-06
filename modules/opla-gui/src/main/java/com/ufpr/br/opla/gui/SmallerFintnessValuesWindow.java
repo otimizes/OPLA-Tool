@@ -535,7 +535,7 @@ public class SmallerFintnessValuesWindow extends javax.swing.JFrame {
     }// GEN-LAST:event_edTableMouseClicked
     // End of variables declaration//GEN-END:variables
 
-    void setExperimentId(String selectedExperiment) {
+    public void setExperimentId(String selectedExperiment) {
         this.selectedExperiment = selectedExperiment;
     }
 

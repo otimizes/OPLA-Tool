@@ -79,12 +79,6 @@ public class Solution implements Serializable {
     private boolean marked_;
 
     /**
-     * Stores the user's evaluation
-     */
-    private int evaluation;
-
-
-    /**
      * Stores the so called rank of the solution. Used in NSGA-II
      */
     private int rank_;
@@ -128,6 +122,10 @@ public class Solution implements Serializable {
      */
     private double clusterId_ = 0.0;
 
+    private int userEvaluation;
+
+    private Long executionId_;
+
     /**
      * Constructor.
      */
@@ -139,7 +137,6 @@ public class Solution implements Serializable {
         type_ = null;
         variable_ = null;
         objective_ = null;
-
     } // Solution
 
     /**
@@ -234,8 +231,6 @@ public class Solution implements Serializable {
         marked_ = solution.isMarked();
         rank_ = solution.getRank();
         location_ = solution.getLocation();
-        evaluation = solution.getEvaluation();
-
     } // Solution
 
     static public Solution getNewSolution(Problem problem) throws ClassNotFoundException {
@@ -328,17 +323,12 @@ public class Solution implements Serializable {
         fitness_ = fitness;
     } // setFitness
 
-
     /**
      * Sets the value of the i-th objective.
      *
      * @param i     The number identifying the objective.
      * @param value The value to be stored.
      */
-
-
-
-
     public void setObjective(int i, double value) {
         objective_[i] = value;
     } // setObjective
@@ -356,8 +346,16 @@ public class Solution implements Serializable {
         return objective_;
     }
 
-    public void setObjectives(double[] objective_) {
-        this.objective_ = objective_;
+    public Problem getProblem() {
+        return problem_;
+    }
+
+    public void setProblem(Problem problem_) {
+        this.problem_ = problem_;
+    }
+
+    public OPLA getOPLAProblem() {
+        return (OPLA) problem_;
     }
 
     public void createObjectiveTemp(int numberOfObjectives) {
@@ -497,14 +495,6 @@ public class Solution implements Serializable {
         this.rank_ = value;
     } // setRank
 
-    public int getEvaluation() {
-        return evaluation;
-    }
-
-    public void setEvaluation(int evaluation) {
-        this.evaluation = evaluation;
-    }
-
     /**
      * Gets the overall constraint violated by the solution. <b> REQUIRE </b>:
      * This method has to be invoked after calling
@@ -643,15 +633,19 @@ public class Solution implements Serializable {
         this.clusterId_ = clusterId_;
     }
 
-    public Problem getProblem() {
-        return problem_;
+    public int getEvaluation() {
+        return userEvaluation;
     }
 
-    public void setProblem(Problem problem) {
-        this.problem_ = problem_;
+    public void setEvaluation(int userEvaluation) {
+        this.userEvaluation = userEvaluation;
     }
 
-    public OPLA getOPLAProblem() {
-        return (OPLA) problem_;
+    public Long getExecutionId() {
+        return executionId_;
+    }
+
+    public void setExecutionId(Long executionId_) {
+        this.executionId_ = executionId_;
     }
 } // Solution

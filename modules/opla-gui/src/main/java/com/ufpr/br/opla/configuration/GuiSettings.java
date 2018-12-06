@@ -11,9 +11,9 @@ package com.ufpr.br.opla.configuration;
  */
 public class GuiSettings {
 
-    private int fontSize;
-    private String edChartType;
-    private String saveChartsAsPng;
+    private int fontSize = 13;
+    private String edChartType = "line";
+    private String saveChartsAsPng = "true";
 
     public int getFontSize() {
         return fontSize;

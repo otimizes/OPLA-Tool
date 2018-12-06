@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNull;
 
 public class ClusteringTest {
     //    Feature Driven, Class Coupling and Cohesion
+    //    install.packages("scatterplot3d")
     // x <- c(802, 752, 728, 40, 700, 400)
     // y <- c(36, 30, 26, 30, 40, 30)
     // z <- c(25, 26, 27, 24, 20, 25)
@@ -27,17 +28,7 @@ public class ClusteringTest {
     @Test
     public void kMeans() throws Exception {
         SolutionSet solutionSet = getSolutionSet(doubles);
-        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.KMEANS);
-        SolutionSet run = clustering.run();
-
-        assertEquals(4, clustering.getFilteredSolutions().size());
-        assertEquals(2, run.size());
-    }
-
-    @Test
-    public void dbscan() throws Exception {
-        SolutionSet solutionSet = getSolutionSet(doubles);
-        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.DBSCAN);
+        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.KMEANS);
         SolutionSet run = clustering.run();
 
         assertEquals(3, clustering.getFilteredSolutions().size());
@@ -45,9 +36,21 @@ public class ClusteringTest {
     }
 
     @Test
+    public void dbscan() throws Exception {
+        SolutionSet solutionSet = getSolutionSet(doubles);
+        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.DBSCAN);
+        clustering.setMinPoints(1);
+        clustering.setEpsilon(0.4);
+        SolutionSet run = clustering.run();
+
+        assertEquals(5, clustering.getFilteredSolutions().size());
+        assertEquals(1, run.size());
+    }
+
+    @Test
     public void optics() throws Exception {
         SolutionSet solutionSet = getSolutionSet(doubles);
-        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithms.OPTICS);
+        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.OPTICS);
         SolutionSet run = clustering.run();
         // TODO Method to be implemented
         assertNull(run);

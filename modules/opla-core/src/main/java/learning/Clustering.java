@@ -4,11 +4,10 @@ import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import org.apache.log4j.Logger;
 import weka.clusterers.*;
+import weka.core.DistanceFunction;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author WmfSystem
@@ -17,38 +16,44 @@ import java.util.List;
 public class Clustering implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final Logger LOGGER = Logger.getLogger(Clustering.class);
+    public static final Logger LOGGER = Logger.getLogger(Clustering.class);
 
     private SolutionSet resultFront;
-    private ClusteringAlgorithms algorithm;
+    private ClusteringAlgorithm algorithm;
     private AbstractClusterer clusterer;
     private ArffExecution arffExecution;
+    private DistanceFunction distanceFunction;
     private List<Solution> filteredSolutions = new ArrayList<>();
     private List<Integer> idsFilteredSolutions = new ArrayList<>();
-    private Double indexToFilter;
+    private Double indexToFilter = 1.0;
 
     /**
      * K-Means Parameters
      */
-    private Integer numClusters = 3;
+    private Integer numClusters;
 
     /**
      * DBSCAN and OPTICS Parameters
      */
-    private Integer minPoints = 1;
-    private Double epsilon = 0.4;
+    private Integer minPoints = 2;
+    private Double epsilon = 0.1;
 
     public Clustering() {
     }
 
-    public Clustering(SolutionSet resultFront, ClusteringAlgorithms algorithm) {
+    public Clustering(SolutionSet resultFront, ClusteringAlgorithm algorithm) {
         this.resultFront = resultFront;
         this.algorithm = algorithm;
         this.arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
     }
 
+    public Double np(Integer num) {
+        return (-Math.log(1 - num)) / num;
+    }
+
     /**
      * Execution Method
+     *
      * @return Solution Set
      * @throws Exception Default Exception
      */
@@ -66,14 +71,17 @@ public class Clustering implements Serializable {
 
     /**
      * K-Means Execution Method
-      * @return Solution Set
+     *
+     * @return Solution Set
      * @throws Exception Default Exception
      */
     public SolutionSet kMeans() throws Exception {
         clusterer = new SimpleKMeans();
         getKMeans().setSeed(arffExecution.getObjectives().length);
         getKMeans().setPreserveInstancesOrder(true);
-        getKMeans().setNumClusters(numClusters);
+        if (distanceFunction != null)
+            getKMeans().setDistanceFunction(distanceFunction);
+        getKMeans().setNumClusters(getNumClusters());
         getKMeans().buildClusterer(arffExecution.getDataWithoutClass());
 
         return getFilteredSolutionSet();
@@ -82,8 +90,9 @@ public class Clustering implements Serializable {
     /**
      * DBSCAN Execution Method
      * - Observations:
-     *      The only measure that changes the solution is as follows:
-     *      getDBSCAN().setOptions(new String[]{"-A", "weka.core.ManhattanDistance"});
+     * The only measure that changes the solution is as follows:
+     * getDBSCAN().setOptions(new String[]{"-A", "weka.core.ManhattanDistance"});
+     *
      * @return Solution Set
      * @throws Exception
      */
@@ -98,6 +107,7 @@ public class Clustering implements Serializable {
 
     /**
      * Method not completed, because in the current version of Weka, the OPTICS does not present results
+     *
      * @return Nothing
      * @throws Exception Default Exception
      */
@@ -111,23 +121,28 @@ public class Clustering implements Serializable {
 
     /**
      * Filtered Solution Set by attribute indexToFilter
-      * @return Solution Set Filtered
+     *
+     * @return Solution Set Filtered
      * @throws Exception Default Exception
      */
     private SolutionSet getFilteredSolutionSet() throws Exception {
+        if (clusterer instanceof SimpleKMeans) {
+            double maxValue = Double.MAX_VALUE;
+            getKMeans().getClusterCentroids().sort((o1, o2) -> {
+                double[] doubles1 = o1.toDoubleArray();
+                double[] doubles2 = o2.toDoubleArray();
+                return compareEuclidianDistance(doubles1, doubles2);
+            });
+        }
 
-        ClusterEvaluation clusterEvaluation = new ClusterEvaluation();
-        clusterEvaluation.setClusterer(clusterer);
-        clusterEvaluation.evaluateClusterer(arffExecution.getDataWithoutClass());
-
-        LOGGER.info(clusterEvaluation.clusterResultsToString());
 
         double[] assignments = getClusterEvaluation().getClusterAssignments();
-        for (int i = 0; i < getClusterEvaluation().getClusterAssignments().length; i++) {
-            LOGGER.info("Cluster " + assignments[i] + " -> " + assignments[i] + " : " + arffExecution.getData().instance(i));
+
+        for (int i = 0; i < assignments.length; i++) {
+            resultFront.get(i).setClusterId(assignments[i]);
             if (assignments[i] >= getIndexToFilter()) {
+                LOGGER.info("Cluster " + assignments[i] + " -> " + assignments[i] + " : " + arffExecution.getData().instance(i));
                 idsFilteredSolutions.add(i);
-                resultFront.get(i).setClusterId(assignments[i]);
                 filteredSolutions.add(resultFront.get(i));
             }
         }
@@ -135,11 +150,23 @@ public class Clustering implements Serializable {
         Collections.reverse(idsFilteredSolutions);
         idsFilteredSolutions.forEach(resultFront::remove);
         resultFront.setFilteredSolutions(filteredSolutions);
+        LOGGER.info(getClusterEvaluation().clusterResultsToString());
         return resultFront;
+    }
+
+    private int compareEuclidianDistance(double[] doubles1, double[] doubles2) {
+        Double dist1 = Math.sqrt(Math.pow(doubles1[0], 2));
+        Double dist2 = Math.sqrt(Math.pow(doubles2[0], 2));
+        for (int i = 1; i < doubles1.length; i++) {
+            dist1 = dist1 - Math.sqrt(Math.pow(doubles1[i], 2));
+            dist2 = dist2 - Math.sqrt(Math.pow(doubles2[i], 2));
+        }
+        return dist2.compareTo(dist1);
     }
 
     /**
      * Cluster Evaluation Object for analysis of results
+     *
      * @return Clustes Evaluation Objetc
      * @throws Exception Default Exception
      */
@@ -150,8 +177,16 @@ public class Clustering implements Serializable {
         return clusterEvaluation;
     }
 
+
+    public SilhouetteIndex getSilhouetteIndex() throws Exception {
+        SilhouetteIndex silhouetteIndex = new SilhouetteIndex();
+        silhouetteIndex.evaluate(this.getClusterer(), ((SimpleKMeans) this.getClusterer()).getClusterCentroids(), this.getArffExecution().getDataWithoutClass(), this.distanceFunction);
+        return silhouetteIndex;
+    }
+
     /**
      * Cast the Clusterer to SimpleKMeans Object
+     *
      * @return SimpleKMeans Object
      */
     public SimpleKMeans getKMeans() {
@@ -160,6 +195,7 @@ public class Clustering implements Serializable {
 
     /**
      * Cast the Clusterer to DBSCAN Object
+     *
      * @return DBSCAN Object
      */
     public DBSCAN getDBSCAN() {
@@ -168,6 +204,7 @@ public class Clustering implements Serializable {
 
     /**
      * Cast the Clusterer to OPTICS Object
+     *
      * @return OPTICS Object
      */
     public OPTICS getOPTICS() {
@@ -182,11 +219,11 @@ public class Clustering implements Serializable {
         this.resultFront = resultFront;
     }
 
-    public ClusteringAlgorithms getAlgorithm() {
+    public ClusteringAlgorithm getAlgorithm() {
         return algorithm;
     }
 
-    public void setAlgorithm(ClusteringAlgorithms algorithm) {
+    public void setAlgorithm(ClusteringAlgorithm algorithm) {
         this.algorithm = algorithm;
     }
 
@@ -206,8 +243,14 @@ public class Clustering implements Serializable {
         this.arffExecution = arffExecution;
     }
 
+    /**
+     * https://stats.stackexchange.com/questions/55215/way-to-determine-best-number-of-clusters-weka
+     * https://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a_data_set
+     *
+     * @return number of clusters
+     */
     public Integer getNumClusters() {
-        return numClusters;
+        return numClusters != null ? numClusters : Math.toIntExact(Math.round(Math.pow((resultFront.size() / 2), 0.6)));
     }
 
     public void setNumClusters(Integer numClusters) {
@@ -241,18 +284,10 @@ public class Clustering implements Serializable {
     /**
      * Get Index to Filter
      * Set by default: 1 -> K-Means, 2 -> DBSCAN and OPTICS
+     *
      * @return Index to Filter Value
      */
     public double getIndexToFilter() {
-        if (indexToFilter == null) {
-            switch (algorithm) {
-                case KMEANS:
-                    return 1;
-                case DBSCAN:
-                case OPTICS:
-                    return 2;
-            }
-        }
         return indexToFilter;
     }
 
@@ -266,5 +301,14 @@ public class Clustering implements Serializable {
 
     public void setIdsFilteredSolutions(List<Integer> idsFilteredSolutions) {
         this.idsFilteredSolutions = idsFilteredSolutions;
+    }
+
+
+    public DistanceFunction getDistanceFunction() {
+        return distanceFunction;
+    }
+
+    public void setDistanceFunction(DistanceFunction distanceFunction) {
+        this.distanceFunction = distanceFunction;
     }
 }

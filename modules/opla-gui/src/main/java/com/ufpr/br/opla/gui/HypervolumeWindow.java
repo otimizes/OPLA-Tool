@@ -9,11 +9,17 @@ import br.ufpr.dinf.gres.loglog.Logger;
 import com.ufpr.br.opla.indicators.HypervolumeData;
 import com.ufpr.br.opla.indicators.HypervolumeGenerateObjsData;
 import com.ufpr.br.opla.utils.GuiUtils;
+import org.bounce.event.DoubleClickListener;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author elf
@@ -138,7 +144,26 @@ public class HypervolumeWindow extends javax.swing.JFrame {
                 row[4] = hyper.getStDev();
                 model.addRow(row);
             }
+
+
+            JMenuItem details = new JMenuItem("Details");
+            add(details);
+            tableHypervolume.addMouseListener(new DoubleClickListener() {
+                @Override
+                public void doubleClicked(MouseEvent mouseEvent) {
+                    HypervolumeData hypervolumeData = hypers.get(tableHypervolume.getSelectedRow());
+                    JTextArea jta = new JTextArea(hypervolumeData.getValues().stream().map(v -> BigDecimal.valueOf(v).setScale(8, BigDecimal.ROUND_HALF_UP)).collect(Collectors.toList()).toString());
+                    JScrollPane jsp = new JScrollPane(jta) {
+                        @Override
+                        public Dimension getPreferredSize() {
+                            return new Dimension(700, 320);
+                        }
+                    };
+                    JOptionPane.showMessageDialog(null, jsp, hypervolumeData.getAlgorithm() + " - " + hypervolumeData.getIdExperiment(), JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
         }
     }

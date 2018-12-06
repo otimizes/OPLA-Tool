@@ -26,7 +26,7 @@ cd opla-tool
 ```
 - Download all projects:
 ```sh
-git clone https://github.com/OPLA-Tool-UEM/opla-tool.git
+git clone https://github.com/SBSE-UEM/OPLA-Tool.git
 ```
 - Compile
 ```sh

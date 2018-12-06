@@ -241,6 +241,7 @@ public class NSGAII extends Algorithm {
             }
         } catch (Exception e) {
             LOGGER.error(e);
+            e.printStackTrace();
             throw new JMException(e.getMessage());
         }
 

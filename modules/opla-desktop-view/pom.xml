@@ -68,7 +68,22 @@
 	        <artifactId>AbsoluteLayout</artifactId>
 	        <version>SNAPSHOT</version>
 	    </dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-archiver</artifactId>
+            <version>3.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-container-default</artifactId>
+            <version>1.7.1</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
