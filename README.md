@@ -30,7 +30,7 @@ git clone https://github.com/SBSE-UEM/OPLA-Tool.git
 ```
 - Compile
 ```sh
-mvn clean install
+mvn clean install Obs: If it is the first run, execute **mvn clean** first to install local dependencies
 ```
 - Open OPLA-Tool:
 ```sh
