@@ -126,6 +126,8 @@ public class Solution implements Serializable {
 
     private Long executionId_;
 
+    private Boolean clusterNoise_;
+
     /**
      * Constructor.
      */
@@ -647,5 +649,13 @@ public class Solution implements Serializable {
 
     public void setExecutionId(Long executionId_) {
         this.executionId_ = executionId_;
+    }
+
+    public Boolean getClusterNoise() {
+        return clusterNoise_ != null && clusterNoise_;
+    }
+
+    public void setClusterNoise(Boolean clusterNoise_) {
+        this.clusterNoise_ = clusterNoise_;
     }
 } // Solution

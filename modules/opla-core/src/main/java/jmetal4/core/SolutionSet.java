@@ -503,7 +503,7 @@ public class SolutionSet implements Serializable {
      * @return A matrix containing the objectives
      */
     public double[][] writeObjectivesToMatrix() {
-        LOGGER.info("writeObjectivesToMatrix()");
+//        LOGGER.info("writeObjectivesToMatrix()");
         if (this.size() == 0) {
             return null;
         }
@@ -761,6 +761,10 @@ public class SolutionSet implements Serializable {
 
     public List<Solution> getSolutionSet() {
         return this.solutionsList_;
+    }
+
+    public void setSolutionSet(List<Solution> solutionsList_) {
+        this.solutionsList_ = solutionsList_;
     }
 
     public List<Solution> getFilteredSolutions() {

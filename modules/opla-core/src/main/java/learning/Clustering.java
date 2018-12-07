@@ -1,5 +1,6 @@
 package learning;
 
+import com.rits.cloning.Cloner;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import org.apache.log4j.Logger;
@@ -8,6 +9,7 @@ import weka.core.DistanceFunction;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author WmfSystem
@@ -35,14 +37,14 @@ public class Clustering implements Serializable {
     /**
      * DBSCAN and OPTICS Parameters
      */
-    private Integer minPoints = 2;
-    private Double epsilon = 0.1;
+    private Double epsilon = 0.3;
+    private Integer minPoints = 3;
 
     public Clustering() {
     }
 
     public Clustering(SolutionSet resultFront, ClusteringAlgorithm algorithm) {
-        this.resultFront = resultFront;
+        this.resultFront = new Cloner().deepClone(resultFront);
         this.algorithm = algorithm;
         this.arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
     }
@@ -138,10 +140,20 @@ public class Clustering implements Serializable {
 
         double[] assignments = getClusterEvaluation().getClusterAssignments();
 
+        ArrayList<Solution> selected = new ArrayList<>();
         for (int i = 0; i < assignments.length; i++) {
             resultFront.get(i).setClusterId(assignments[i]);
-            if (assignments[i] >= getIndexToFilter()) {
-                LOGGER.info("Cluster " + assignments[i] + " -> " + assignments[i] + " : " + arffExecution.getData().instance(i));
+            LOGGER.info("Cluster " + assignments[i] + " : " + resultFront.get(i).getSolutionName() + "   ->   " + arffExecution.getData().instance(i) + (assignments[i] == -1 ? " (RUIDO)" : ""));
+            if (assignments[i] < getIndexToFilter() && assignments[i] >= 0) {
+                selected.add(resultFront.get(i));
+            }
+        }
+
+        for (int i = 0; i < this.resultFront.size(); i++) {
+            if (!selected.contains(this.resultFront.get(i))) {
+                if (assignments[i] == -1) {
+                    resultFront.get(i).setClusterNoise(true);
+                }
                 idsFilteredSolutions.add(i);
                 filteredSolutions.add(resultFront.get(i));
             }
@@ -150,7 +162,7 @@ public class Clustering implements Serializable {
         Collections.reverse(idsFilteredSolutions);
         idsFilteredSolutions.forEach(resultFront::remove);
         resultFront.setFilteredSolutions(filteredSolutions);
-        LOGGER.info(getClusterEvaluation().clusterResultsToString());
+//        LOGGER.info(getClusterEvaluation().clusterResultsToString());
         return resultFront;
     }
 

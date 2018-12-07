@@ -8,6 +8,8 @@ import br.ufpr.dinf.gres.opla.config.ApplicationFile;
 import br.ufpr.dinf.gres.opla.entity.Execution;
 import br.ufpr.dinf.gres.opla.entity.Experiment;
 import br.ufpr.dinf.gres.opla.entity.metric.GenericMetric;
+import br.ufpr.dinf.gres.opla.view.analysis.BoxPlot;
+import br.ufpr.dinf.gres.opla.view.analysis.BoxPlotItem;
 import br.ufpr.dinf.gres.opla.view.enumerators.Metric;
 import br.ufpr.dinf.gres.opla.view.log.LogListener;
 import br.ufpr.dinf.gres.opla.view.model.combomodel.*;
@@ -23,21 +25,37 @@ import br.ufpr.dinf.gres.persistence.dao.ObjectiveDAO;
 import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
 import com.ufpr.br.opla.algorithms.NSGAII;
 import com.ufpr.br.opla.algorithms.PAES;
+import com.ufpr.br.opla.charts.ChartGenerate;
+import com.ufpr.br.opla.charts.EdBar;
+import com.ufpr.br.opla.charts.EdLine;
+import com.ufpr.br.opla.configuration.GuiFile;
 import com.ufpr.br.opla.configuration.VolatileConfs;
+import com.ufpr.br.opla.gui.GuiServices;
+import com.ufpr.br.opla.gui.HypervolumeWindow;
+import com.ufpr.br.opla.gui.SmallerFintnessValuesWindow;
 import com.ufpr.br.opla.gui.StartUp;
+import com.ufpr.br.opla.indicators.HypervolumeData;
+import com.ufpr.br.opla.indicators.HypervolumeGenerateObjsData;
+import com.ufpr.br.opla.utils.GuiUtils;
 import com.ufpr.br.opla.utils.MutationOperatorsSelected;
 import com.ufpr.br.opla.utils.Time;
-
-import java.awt.event.ActionEvent;
-
+import com.ufpr.br.opla.utils.Validators;
+import domain.AlgorithmExperiment;
 import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.Metrics;
 import learning.Moment;
+import net.miginfocom.swing.MigLayout;
 import org.apache.commons.lang3.StringUtils;
+import utils.RScriptOption;
+import utils.RScriptOptionElement;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultCaret;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
@@ -45,9 +63,9 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Fernando
@@ -73,6 +91,8 @@ public class Principal extends AbstractPrincipalJFrame {
     private final ObjectiveDAO objectiveDAO;
     private final MapObjectivesDAO mapObjectivesDAO;
     private String inputArchitecture = StringUtils.EMPTY;
+    Locale locale = Locale.US;
+    ResourceBundle rb = ResourceBundle.getBundle("i18n", locale);
 
     public Principal() {
         initComponents();
@@ -90,6 +110,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private void defineModels() {
         this.cbAlgothm.setModel(new AlgorithmComboModel());
         this.cbClusteringAlgorithm.setModel(new ClusteringAlgorithmComboModel());
+        this.cbRScript.setModel(new RScriptComboModel());
         this.cbClusteringMoment.setModel(new ClusteringMomentComboModel());
         this.cbClusteringMoment.setSelectedItem(Moment.NONE);
         this.tbExperiments.setModel(tmExperiments);
@@ -125,6 +146,7 @@ public class Principal extends AbstractPrincipalJFrame {
         try {
             Utils.createPathsOplaTool();
             config = ApplicationFile.getInstance();
+            GuiUtils.fontSize(GuiFile.getInstance().getFontSize());
         } catch (Exception ex) {
             LOGGER.error(ex);
             AlertUtil.showMessage(AlertUtil.DEFAULT_ALERT_ERROR);
@@ -206,18 +228,7 @@ public class Principal extends AbstractPrincipalJFrame {
             tfTemplateDiretory.setText(config.getConfig().getPathToTemplateModelsDirectory().toString());
         } else {
             try {
-                URI uriTemplatesDir = ClassLoader.getSystemResource(Constants.TEMPLATES_DIR).toURI();
-                String simplesUmlPath = Constants.SIMPLES_UML_NAME;
-                String simplesDiPath = Constants.SIMPLES_DI_NAME;
-                String simplesNotationPath = Constants.SIMPLES_NOTATION_NAME;
-
-                Path externalPathSimplesUml = Paths.get(UserHome.getPathToTemplates() + simplesUmlPath);
-                Path externalPathSimplesDi = Paths.get(UserHome.getPathToTemplates() + simplesDiPath);
-                Path externalPathSimplesNotation = Paths.get(UserHome.getPathToTemplates() + simplesNotationPath);
-
-                FileUtils.copy(Paths.get(uriTemplatesDir).resolve(simplesUmlPath), externalPathSimplesUml);
-                FileUtils.copy(Paths.get(uriTemplatesDir).resolve(simplesDiPath), externalPathSimplesDi);
-                FileUtils.copy(Paths.get(uriTemplatesDir).resolve(simplesNotationPath), externalPathSimplesNotation);
+                Principal.copyTemplates();
 
                 tfTemplateDiretory.setText(UserHome.getPathToTemplates());
                 config.updatePathToTemplateFiles(tfTemplateDiretory.getText());
@@ -228,6 +239,21 @@ public class Principal extends AbstractPrincipalJFrame {
         }
     }
 
+    public static void copyTemplates() throws URISyntaxException {
+        URI uriTemplatesDir = ClassLoader.getSystemResource(Constants.TEMPLATES_DIR).toURI();
+        String simplesUmlPath = Constants.SIMPLES_UML_NAME;
+        String simplesDiPath = Constants.SIMPLES_DI_NAME;
+        String simplesNotationPath = Constants.SIMPLES_NOTATION_NAME;
+
+        Path externalPathSimplesUml = Paths.get(UserHome.getPathToTemplates() + simplesUmlPath);
+        Path externalPathSimplesDi = Paths.get(UserHome.getPathToTemplates() + simplesDiPath);
+        Path externalPathSimplesNotation = Paths.get(UserHome.getPathToTemplates() + simplesNotationPath);
+
+        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesUmlPath), externalPathSimplesUml);
+        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesDiPath), externalPathSimplesDi);
+        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesNotationPath), externalPathSimplesNotation);
+    }
+
     private void configureLocaleToSaveModels() throws IOException {
         if (StringUtils.isNotBlank(config.getConfig().getDirectoryToSaveModels().toString())) {
             LOGGER.info("Manipulation Directory is configured");
@@ -235,9 +261,8 @@ public class Principal extends AbstractPrincipalJFrame {
             config.updatePathToSaveModels(tfManipulationDirectory.getText());
         } else {
             try {
-                String pathTempDir = UserHome.getOplaUserHome() + Constants.TEMP_DIR + Constants.FILE_SEPARATOR;
+                String pathTempDir = config.updateDefaultPathToSaveModels();
                 tfManipulationDirectory.setText(pathTempDir);
-                config.updatePathToSaveModels(tfManipulationDirectory.getText());
             } catch (IOException ex) {
                 LOGGER.error("Manipulation directory Config error: ", ex);
                 throw ex;
@@ -269,15 +294,15 @@ public class Principal extends AbstractPrincipalJFrame {
             config.updatePathToExportModels(tfOutputDirectory.getText());
         } else {
             try {
-                String path = UserHome.getOplaUserHome() + Constants.OUTPUT_DIR + Constants.FILE_SEPARATOR;
+                String path = config.configureDefaultLocaleToExportModels();
                 tfOutputDirectory.setText(path);
-                config.updatePathToExportModels(tfOutputDirectory.getText());
             } catch (IOException ex) {
                 LOGGER.error("Output directory Config error: ", ex);
                 throw ex;
             }
         }
     }
+
 
     /**
      * Copy hybervolume binary to oplatool bins directory if OS isn't Windows.
@@ -287,10 +312,13 @@ public class Principal extends AbstractPrincipalJFrame {
     private void copyBinHypervolume() throws Exception {
         if (!OSUtils.isWindows()) {
             String target = UserHome.getOplaUserHome() + Constants.BINS_DIR;
-            Path path = Paths.get(target + Constants.FILE_SEPARATOR + Constants.HYPERVOLUME_DIR);
-            Utils.copy(Constants.HYPERVOLUME_DIR, path.toString());
+            Path path = Paths.get(target + Constants.FILE_SEPARATOR + Constants.HYPERVOLUME_TAR_GZ);
+            Utils.copy(Constants.HYPERVOLUME_TAR_GZ, path.toString());
+
+            Utils.unTargz(path.toFile(), target);
         }
     }
+
 
     // @formatter:off
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -434,6 +462,10 @@ public class Principal extends AbstractPrincipalJFrame {
         jPanel23 = new javax.swing.JPanel();
         btHypervolume = new javax.swing.JButton();
         ckUseNormalization = new javax.swing.JCheckBox();
+        jPanel27 = new javax.swing.JPanel();
+        btBoxPlot = new javax.swing.JButton();
+        cbRScript = new javax.swing.JComboBox<>();
+        jLabel18 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -1729,6 +1761,11 @@ public class Principal extends AbstractPrincipalJFrame {
         jScrollPane6.setViewportView(tbMetrics);
 
         btNonDomitedSolutions.setText("Non-Domited Solutions");
+        btNonDomitedSolutions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNonDomitedSolutionsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
         jPanel29.setLayout(jPanel29Layout);
@@ -1821,8 +1858,18 @@ public class Principal extends AbstractPrincipalJFrame {
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Soluctions in the Seach Space", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btSelectObjective.setText("Select the Objective");
+        btSelectObjective.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSelectObjectiveActionPerformed(evt);
+            }
+        });
 
         btGenerateChart.setText("Generate Chart");
+        btGenerateChart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGenerateChartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -1851,6 +1898,11 @@ public class Principal extends AbstractPrincipalJFrame {
         jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Euclidean Distance", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btEuclidianDistance.setText("Number Of Soluction Per Eucidean Distance");
+        btEuclidianDistance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEuclidianDistanceActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -1872,8 +1924,18 @@ public class Principal extends AbstractPrincipalJFrame {
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hypervolume", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btHypervolume.setText("Hypervolume");
+        btHypervolume.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btHypervolumeActionPerformed(evt);
+            }
+        });
 
         ckUseNormalization.setText("Use Normalization");
+        ckUseNormalization.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckUseNormalizationActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -1896,6 +1958,47 @@ public class Principal extends AbstractPrincipalJFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Others", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+
+        btBoxPlot.setText("BoxPlot");
+        btBoxPlot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBoxPlotActionPerformed(evt);
+            }
+        });
+
+        cbRScript.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbRScriptActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("R Script");
+
+        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
+        jPanel27.setLayout(jPanel27Layout);
+        jPanel27Layout.setHorizontalGroup(
+                jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel27Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btBoxPlot, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbRScript, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel18))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel27Layout.setVerticalGroup(
+                jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel27Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btBoxPlot)
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbRScript, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(61, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
@@ -1906,7 +2009,8 @@ public class Principal extends AbstractPrincipalJFrame {
                                         .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jPanel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap())
         );
         jPanel19Layout.setVerticalGroup(
@@ -1920,7 +2024,9 @@ public class Principal extends AbstractPrincipalJFrame {
                                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(337, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Experiments", jPanel19);
@@ -2053,13 +2159,17 @@ public class Principal extends AbstractPrincipalJFrame {
     }//GEN-LAST:event_btManipulationDirectoryActionPerformed
 
     private void setProfilesToSpecificPath(String path) {
+        updateProfilesConfig(path);
         tfSmartProfile.setText(path + System.getProperty("file.separator") + "smarty.profile.uml");
-        updateSmartyProfilePathYaml(path + System.getProperty("file.separator") + "smarty.profile.uml");
         tfFeatureProfile.setText(path + System.getProperty("file.separator") + "concerns.profile.uml");
-        updateFeatureProfilePathYaml(path + System.getProperty("file.separator") + "concerns.profile.uml");
         tfPatternProfile.setText(path + System.getProperty("file.separator") + "patterns.profile.uml");
-        updatePatternProfilePathYaml(path + System.getProperty("file.separator") + "patterns.profile.uml");
         tfRelationshipProfile.setText(path + System.getProperty("file.separator") + "relationships.profile.uml");
+    }
+
+    private void updateProfilesConfig(String path) {
+        updateSmartyProfilePathYaml(path + System.getProperty("file.separator") + "smarty.profile.uml");
+        updateFeatureProfilePathYaml(path + System.getProperty("file.separator") + "concerns.profile.uml");
+        updatePatternProfilePathYaml(path + System.getProperty("file.separator") + "patterns.profile.uml");
         updateRelationshipProfilePathYaml(path + System.getProperty("file.separator") + "relationships.profile.uml");
     }
 
@@ -2115,7 +2225,8 @@ public class Principal extends AbstractPrincipalJFrame {
     }//GEN-LAST:event_btManipulationDirectory3btInteractionDirectoryActionPerformed
 
     private void cbClusteringAlgorithmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClusteringAlgorithmActionPerformed
-        if (cbClusteringAlgorithm.isEnabled() && cbClusteringAlgorithm.getSelectedIndex() < 0) cbClusteringAlgorithm.setSelectedIndex(0);
+        if (cbClusteringAlgorithm.isEnabled() && cbClusteringAlgorithm.getSelectedIndex() < 0)
+            cbClusteringAlgorithm.setSelectedIndex(0);
     }//GEN-LAST:event_cbClusteringAlgorithmActionPerformed
 
     private void btRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRunActionPerformed
@@ -2299,7 +2410,245 @@ public class Principal extends AbstractPrincipalJFrame {
         cbClusteringAlgorithm.setEnabled(!Objects.equals(cbClusteringMoment.getSelectedItem(), Moment.NONE));
     }//GEN-LAST:event_cbClusteringMomentActionPerformed
 
+    private void btHypervolumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHypervolumeActionPerformed
+        try {
+            int[] selectedRows = tbExperiments.getSelectedRows();
+            String ids[] = new String[selectedRows.length];
+            String funcs = "";
+
+            for (int i = 0; i < selectedRows.length; i++) {
+                ids[i] = tbExperiments.getModel().getValueAt(selectedRows[i], 0).toString();
+                String functions = db.Database.getOrdenedObjectives(ids[i]);
+                if (funcs.isEmpty()) {
+                    funcs = functions;
+                } else if (!funcs.equalsIgnoreCase(functions)) {
+                    JOptionPane.showMessageDialog(null, rb.getString("notSameFunctions"));
+
+                    return;
+                }
+
+            }
+
+            HypervolumeWindow hyperPanel = new HypervolumeWindow();
+            hyperPanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            if (VolatileConfs.hypervolumeNormalized()) {
+                hyperPanel.setTitle("Hypervolume - Normalized");
+            } else {
+                hyperPanel.setTitle("Hypervolume - Non Normalized");
+            }
+            hyperPanel.pack();
+            hyperPanel.setResizable(false);
+            hyperPanel.setVisible(true);
+
+            hyperPanel.loadData(ids);
+        } catch (IOException ex) {
+            Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
+            JOptionPane.showMessageDialog(null, rb.getString("errorGenerateHypervolumeTable"));
+        }
+    }//GEN-LAST:event_btHypervolumeActionPerformed
+
+    private void btEuclidianDistanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEuclidianDistanceActionPerformed
+        int[] selectedRows = tbExperiments.getSelectedRows();
+        String ids[] = new String[selectedRows.length];
+
+        for (int i = 0; i < selectedRows.length; i++) {
+            ids[i] = tbExperiments.getModel().getValueAt(selectedRows[i], 0).toString();
+        }
+
+        String name = db.Database.getPlaUsedToExperimentId(ids[0]);
+
+        if (selectedRows.length >= 1) {
+            String typeChart = GuiFile.getInstance().getEdChartType();
+            if ("bar".equalsIgnoreCase(typeChart)) {
+                EdBar edBar = new EdBar(ids, "Euclidean Distance (" + name + ")");
+                edBar.displayOnFrame();
+            } else if ("line".equals(typeChart)) {
+                EdLine edLine = new EdLine(ids, null);
+                edLine.displayOnFrame();
+            } else {
+                JOptionPane.showMessageDialog(null, rb.getString("confEdChartInvalid"));
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, rb.getString("atLeastOneExecution"));
+        }
+    }//GEN-LAST:event_btEuclidianDistanceActionPerformed
+
+    private void btGenerateChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGenerateChartActionPerformed
+        String referenceExp = null;
+        List<JCheckBox> allChecks = new ArrayList<>();
+        List<JCheckBox> checkeds = new ArrayList<>();
+        HashMap<String, String> experimentToAlgorithmUsed = new HashMap<>();
+
+        for (Object comp : jPanel21.getComponents()) {
+            if (comp instanceof JCheckBox) {
+                JCheckBox checkBox = ((JCheckBox) comp);
+                if (checkBox.isSelected()) {
+                    checkeds.add(checkBox);
+                }
+                allChecks.add(checkBox);
+            }
+        }
+
+        for (JCheckBox box : checkeds) {
+            String id = box.getName().split(",")[0]; // experimentID
+            referenceExp = id;
+            String algorithmUsed = db.Database.getAlgoritmUsedToExperimentId(id);
+            experimentToAlgorithmUsed.put(id, algorithmUsed);
+        }
+        if (Validators.hasMoreThatTwoFunctionsSelectedForSelectedExperiments(allChecks)) {
+            JOptionPane.showMessageDialog(null, rb.getString("onlyTwoFunctions"));
+        } else if (checkeds.isEmpty()) {
+            JOptionPane.showMessageDialog(null, rb.getString("atLeastTwoFunctionPerSelectedExperiment"));
+        } else if (Validators.validateCheckedsFunctions(allChecks)) {
+            JOptionPane.showMessageDialog(null, rb.getString("sameFunctions"));
+        } else {
+            String[] functions = new String[2]; // x,y Axis
+            int[] columns = new int[2]; // Quais colunas do arquivo deseja-se
+            // ler.
+
+            for (int i = 0; i < 2; i++) {
+                final String[] splited = checkeds.get(i).getName().split(",");
+                columns[i] = Integer.parseInt(splited[2]);
+                functions[i] = splited[1];
+            }
+
+            String outputDir = this.config.getConfig().getDirectoryToExportModels().toString();
+            try {
+                ChartGenerate.generate(functions, experimentToAlgorithmUsed, columns, outputDir, referenceExp);
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(StartUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btGenerateChartActionPerformed
+
+    private void btSelectObjectiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelectObjectiveActionPerformed
+        jPanel21.setLayout(new MigLayout());
+
+        for (Component comp : jPanel21.getComponents()) {
+            if (comp instanceof JCheckBox) {
+                jPanel21.remove((JCheckBox) comp);
+            }
+            if (comp instanceof JLabel) {
+                jPanel21.remove((JLabel) comp);
+            }
+
+        }
+
+        int[] selectedRows = tbExperiments.getSelectedRows();
+        HashMap<String, String[]> map = new HashMap<>();
+
+        for (int i = 0; i < selectedRows.length; i++) {
+            String experimentId = tbExperiments.getModel().getValueAt(selectedRows[i], 0).toString();
+            map.put(experimentId, db.Database.getOrdenedObjectives(experimentId).split(" "));
+        }
+
+        // Validacao
+        if (selectedRows.length <= 1) {
+            JOptionPane.showMessageDialog(null, rb.getString("atLeastTwoExecution"));
+            return;
+        } else if (selectedRows.length > 5) {
+            JOptionPane.showMessageDialog(null, rb.getString("maxExecutions"));
+            return;
+        } else if (!Validators.selectedsExperimentsHasTheSameObjectiveFunctions(map)) {
+            JOptionPane.showMessageDialog(null, rb.getString("notSameFunctions"));
+            return;
+        }
+
+        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+            String experimentId = entry.getKey();
+            String[] values = entry.getValue();
+            jPanel21.add(new JLabel(""), "wrap");
+            jPanel21.add(new JLabel("Execution: " + experimentId + "\n"), "wrap");
+            for (int i = 0; i < values.length; i++) {
+                JCheckBox box = new JCheckBox(values[i].toUpperCase());
+                box.setName(experimentId + "," + values[i] + "," + i); // id do
+                // experimemto,
+                // nome
+                // da
+                // funcao,
+                // indice
+                jPanel21.add(box, "span, grow");
+            }
+        }
+
+        jPanel21.updateUI();
+    }//GEN-LAST:event_btSelectObjectiveActionPerformed
+
+    private void ckUseNormalizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckUseNormalizationActionPerformed
+        if (ckUseNormalization.isSelected())
+            VolatileConfs.enableHybervolumeNormalization();
+        else
+            VolatileConfs.disableHybervolumeNormalization();
+    }//GEN-LAST:event_ckUseNormalizationActionPerformed
+
+    private void btNonDomitedSolutionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNonDomitedSolutionsActionPerformed
+        SmallerFintnessValuesWindow sfvw = new SmallerFintnessValuesWindow();
+
+        sfvw.setVisible(true);
+        Execution value = tmExecution.getValue(tbRuns.getSelectedRow());
+        sfvw.setTitle("Execution " + value.getDescription());
+        sfvw.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        sfvw.setExperimentId(value.getExperiment().getId().toString());
+        sfvw.enablePanelsObjectiveFunctions();
+        sfvw.loadEds();
+    }//GEN-LAST:event_btNonDomitedSolutionsActionPerformed
+
+    private void btBoxPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBoxPlotActionPerformed
+        try {
+            int[] selectedRows = tbExperiments.getSelectedRows();
+            String ids[] = new String[selectedRows.length];
+            for (int i = 0; i < selectedRows.length; i++) {
+                ids[i] = tbExperiments.getModel().getValueAt(selectedRows[i], 0).toString();
+            }
+            Map<String, List<Double>> content = db.Database.getAllObjectivesForDominatedSolutions(ids);
+            List<HypervolumeData> hypers = HypervolumeGenerateObjsData.generate(content);
+            List<BoxPlotItem> collect = hypers.stream()
+                    .map(h -> new BoxPlotItem(h.getValues(), h.getAlgorithm(), h.getIdExperiment())).collect(Collectors.toList());
+            BoxPlot boxPlot = new BoxPlot(collect);
+            boxPlot.display();
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btBoxPlotActionPerformed
+
+    private void cbRScriptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRScriptActionPerformed
+        try {
+            int[] selectedRows = tbExperiments.getSelectedRows();
+            String ids[] = new String[selectedRows.length];
+            for (int i = 0; i < selectedRows.length; i++) {
+                ids[i] = tbExperiments.getModel().getValueAt(selectedRows[i], 0).toString();
+            }
+            Map<String, List<Double>> content = db.Database.getAllObjectivesForDominatedSolutions(ids);
+            List<HypervolumeData> hypervolumeData = HypervolumeGenerateObjsData.generate(content);
+            List<List<Double>> collect = hypervolumeData.stream().map(h -> h.getValues()).collect(Collectors.toList());
+            String result = ((RScriptOption) cbRScript.getSelectedItem()).getResult(new RScriptOptionElement(collect, UserHome.getOplaUserHome() + Constants.TEMP_DIR + Constants.FILE_SEPARATOR));
+
+            if (result != null) {
+                Component jta = null;
+                if (result.contains("oplatool")) {
+                    System.out.println(result);
+                    jta = new JLabel(new ImageIcon(result));
+                } else {
+                    jta = new JTextArea(result);
+                }
+
+
+                JScrollPane jsp = new JScrollPane(jta) {
+
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(700, 700);
+                    }
+                };
+                JOptionPane.showMessageDialog(null, jsp, ((RScriptOption) cbRScript.getSelectedItem()).getDescription(), JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_cbRScriptActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btBoxPlot;
     private javax.swing.JButton btBrowserFeatureProfile;
     private javax.swing.JButton btBrowserPatternProfile;
     private javax.swing.JButton btBrowserRelationshipProfile;
@@ -2322,6 +2671,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JComboBox<String> cbClusteringAlgorithm;
     private javax.swing.JComboBox<String> cbClusteringMoment;
     private javax.swing.JComboBox<String> cbObjectiveSoluction;
+    private javax.swing.JComboBox<String> cbRScript;
     private javax.swing.JComboBox<String> cbSolutionName;
     private javax.swing.JCheckBox ckAV;
     private javax.swing.JCheckBox ckAddClassMutation;
@@ -2367,6 +2717,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -2394,6 +2745,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -2677,6 +3029,7 @@ public class Principal extends AbstractPrincipalJFrame {
                             jProgressBar.setIndeterminate(false);
                             Logger.getLogger().putLog(String.format("Done NSGAII Execution at: %s", Time.timeNow().toString()));
                             db.Database.reloadContent();
+                            loadExecutionsData();
                         }
                     };
 
@@ -2704,6 +3057,7 @@ public class Principal extends AbstractPrincipalJFrame {
                             Logger.getLogger()
                                     .putLog(String.format("Done PAES Execution at: %s", Time.timeNow().toString()));
                             db.Database.reloadContent();
+                            loadExecutionsData();
                         }
                     };
 
@@ -2712,6 +3066,25 @@ public class Principal extends AbstractPrincipalJFrame {
                 }
 
             }
+        }
+    }
+
+    public static void executeCommandLineAlgorithm(AlgorithmExperiment algorithmExperiment) {
+        try {
+            MutationOperatorsSelected.getSelectedMutationOperators().addAll(algorithmExperiment.getMutationOperators());
+            MutationOperatorsSelected.getSelectedPatternsToApply().addAll(algorithmExperiment.getPatterns());
+            VolatileConfs.getObjectiveFunctionSelected().addAll(algorithmExperiment.getObjectiveFunctions());
+            switch (algorithmExperiment.getAlgorithm()) {
+                case NSGAII:
+                    NSGAII nsgaii = new NSGAII();
+                    nsgaii.execute(algorithmExperiment);
+                    break;
+                case PAES:
+
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -2728,7 +3101,6 @@ public class Principal extends AbstractPrincipalJFrame {
             Logger.getLogger().putLog(
                     String.format("Success execution NSGA-II, Finalizing...", Level.INFO, StartUp.class.getName()));
             btRun.setEnabled(true);
-
 
         } catch (Exception e) {
             LOGGER.error(e);
