@@ -31,6 +31,9 @@ import jmetal4.util.comparators.CrowdingComparator;
 import org.apache.log4j.Logger;
 import results.Execution;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * This class implements the NSGA-II algorithm.
  */
@@ -232,6 +235,22 @@ public class NSGAII extends Algorithm {
                 // by the algorithm to obtain a Pareto front with a hypervolNSGAume
                 // higher
                 // than the hypervolume of the true Pareto front.
+
+                if (interactive) {
+                    List<Solution> bestOfEvatuation = offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList());
+                    for (Solution solution : bestOfEvatuation) {
+                        if (!population.getSolutionSet().contains(solution)) {
+                            population.add(solution);
+                        }
+                    }
+                    for (int i = 0; i < population.getSolutionSet().size(); i++) {
+                        if (population.get(i).getEvaluation() == 1){
+                            population.remove(i);
+                        }
+                    }
+                }
+
+
                 if ((indicators != null) && (requiredEvaluations == 0)) {
                     double HV = indicators.getHypervolume(population);
                     if (HV >= (0.98 * indicators.getTrueParetoFrontHypervolume())) {
