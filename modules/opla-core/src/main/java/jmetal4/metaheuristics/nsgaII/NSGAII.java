@@ -258,7 +258,7 @@ public class NSGAII extends Algorithm {
 
         // Return the first non-dominated front
         LOGGER.info("Ranking()");
-        SolutionSet populationOriginal = new Cloner().deepClone(population);
+        SolutionSet populationOriginal = new Cloner().shallowClone(population);
         Ranking ranking = new Ranking(population);
 
         SolutionSet subfrontToReturn = ranking.getSubfront(0);
