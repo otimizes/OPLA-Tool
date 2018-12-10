@@ -29,7 +29,7 @@ public class InteractiveSolutions extends JDialog {
     JPanel jPanelSubjectiveAnalysis = new JPanel(layoutPanelSubjectiveAnalyse);
 
     public InteractiveSolutions(ManagerApplicationConfig config, SolutionSet solutionSet) {
-        solutionSet.saveVariablesToFile("TEMP_", LOGGER,true);
+//        solutionSet.saveVariablesToFile("TEMP_", LOGGER,true);
         this.config = config;
         this.solutionSet = solutionSet;
         setTitle("Architectures");
