@@ -284,7 +284,7 @@ public class NSGAII extends Algorithm {
             }
             return bestOfEvatuation;
         }
-        return null;
+        return new ArrayList<>();
     }
 
     private Solution newRandomSolution(Operator mutationOperator) throws Exception {
