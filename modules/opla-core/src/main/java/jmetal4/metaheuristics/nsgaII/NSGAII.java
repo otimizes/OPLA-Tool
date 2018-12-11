@@ -31,9 +31,7 @@ import jmetal4.util.Ranking;
 import jmetal4.util.comparators.CrowdingComparator;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -115,6 +113,7 @@ public class NSGAII extends Algorithm {
             // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
             if (interactive && currentInteraction < maxInteractions) {
                 population = interactiveFunction.run(population);
+                bestOfUserEvaluation.addAll(population.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
                 currentInteraction++;
             }
             // Interactive
@@ -174,6 +173,7 @@ public class NSGAII extends Algorithm {
                         // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
                         if (interactive && currentInteraction < maxInteractions) {
                             offspringPopulation = interactiveFunction.run(offspringPopulation);
+                            bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
                             currentInteraction++;
                         }
                         // Interactive
@@ -239,8 +239,6 @@ public class NSGAII extends Algorithm {
                 // higher
                 // than the hypervolume of the true Pareto front.
 
-                bestOfUserEvaluation.addAll(getBestPopulationByUserEvaluation(population, offspringPopulation, interactive));
-
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
                     double HV = indicators.getHypervolume(population);
@@ -266,25 +264,27 @@ public class NSGAII extends Algorithm {
 
         SolutionSet subfrontToReturn = ranking.getSubfront(0);
 
-        bestOfUserEvaluation.addAll(getBestPopulationByUserEvaluation(subfrontToReturn, populationOriginal, interactive));
+        removeRuim(subfrontToReturn, populationOriginal, interactive);
 
-        subfrontToReturn.getSolutionSet().addAll(bestOfUserEvaluation);
+        subfrontToReturn.setCapacity(subfrontToReturn.getCapacity() + bestOfUserEvaluation.size());
+        for (Solution solution : bestOfUserEvaluation) {
+            if (!subfrontToReturn.getSolutionSet().contains(solution)) {
+                subfrontToReturn.add(solution);
+            }
+        }
 
         return subfrontToReturn;
         // return population;
     } // execute
 
-    private List<Solution> getBestPopulationByUserEvaluation(SolutionSet population, SolutionSet original, Boolean interactive) {
+    private void removeRuim(SolutionSet population, SolutionSet original, Boolean interactive) {
         if (interactive) {
-            List<Solution> bestOfEvatuation = population.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList());
             for (int i = 0; i < population.getSolutionSet().size(); i++) {
-                if (population.get(i).getEvaluation() == 1){
+                if (population.get(i).getEvaluation() == 1) {
                     population.remove(i);
                 }
             }
-            return bestOfEvatuation;
         }
-        return new ArrayList<>();
     }
 
     private Solution newRandomSolution(Operator mutationOperator) throws Exception {

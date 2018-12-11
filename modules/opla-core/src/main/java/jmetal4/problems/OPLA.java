@@ -362,11 +362,14 @@ public class OPLA extends Problem {
             }
         }
 
-        collect.forEach(c -> {
-            if (!result.getSolutionSet().contains(c)) {
-                result.add(c);
-            }
-        });
+        if (collect != null) {
+            result.setCapacity(result.getCapacity() + collect.size());
+            collect.forEach(c -> {
+                if (!result.getSolutionSet().contains(c)) {
+                    result.add(c);
+                }
+            });
+        }
         return result;
     }
 
@@ -386,11 +389,14 @@ public class OPLA extends Problem {
             }
         }
 
-        collect.forEach(c -> {
-            if (!result.getSolutionSet().contains(c)) {
-                result.add(c);
-            }
-        });
+        if (collect != null) {
+            result.setCapacity(result.getCapacity() + collect.size());
+            collect.forEach(c -> {
+                if (!result.getSolutionSet().contains(c)) {
+                    result.add(c);
+                }
+            });
+        }
 
         return result;
     }

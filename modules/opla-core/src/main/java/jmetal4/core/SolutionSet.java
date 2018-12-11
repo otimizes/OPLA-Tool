@@ -94,6 +94,14 @@ public class SolutionSet implements Serializable {
         return true;
     } // add
 
+    public int getCapacity() {
+        return capacity_;
+    }
+
+    public void setCapacity(int capacity_) {
+        this.capacity_ = capacity_;
+    }
+
     /**
      * Returns the ith solution in the set.
      *
