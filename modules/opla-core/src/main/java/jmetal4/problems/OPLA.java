@@ -340,7 +340,7 @@ public class OPLA extends Problem {
                     // result.get(i).toString());
                     // System.out.println("[" + j + "] " +
                     // result.get(j).toString());
-                    if (result.get(i).getEvaluation() < 5)
+                    if (result.get(j).getEvaluation() < 5)
                         result.remove(j);
                     this.configs.getLogger().putLog("removido Dominada");
                     j = j - 1;
@@ -373,7 +373,7 @@ public class OPLA extends Problem {
             solucao = result.get(i).getDecisionVariables()[0].toString();
             for (int j = i + 1; j < result.size(); j++) {
                 if (solucao.equals(result.get(j).getDecisionVariables()[0].toString())) {
-                    if (result.get(i).getEvaluation() < 5)
+                    if (result.get(j).getEvaluation() < 5)
                         result.remove(j);
                     this.configs.getLogger().putLog("removido Repedita");
                 }
