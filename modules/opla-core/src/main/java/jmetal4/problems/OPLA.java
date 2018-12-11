@@ -130,7 +130,7 @@ public class OPLA extends Problem {
                 case "av":
                     fitnesses.add(new jmetal4.experiments.Fitness(evaluateAv((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                    //addYni
+                //addYni
                 case "lcc":
                     fitnesses.add(new jmetal4.experiments.Fitness(evaluateLCC((Architecture) solution.getDecisionVariables()[0])));
                     break;
@@ -340,8 +340,8 @@ public class OPLA extends Problem {
                     // result.get(i).toString());
                     // System.out.println("[" + j + "] " +
                     // result.get(j).toString());
-
-                    result.remove(j);
+                    if (result.get(i).getEvaluation() < 5)
+                        result.remove(j);
                     this.configs.getLogger().putLog("removido Dominada");
                     j = j - 1;
                 } else if (dominado) {
@@ -353,7 +353,8 @@ public class OPLA extends Problem {
                     // System.out.println("[" + j + "] " +
                     // result.get(j).toString());
 
-                    result.remove(i);
+                    if (result.get(i).getEvaluation() < 5)
+                        result.remove(i);
                     this.configs.getLogger().putLog("removido Dominada");
                     j = i;
                 }
@@ -372,7 +373,8 @@ public class OPLA extends Problem {
             solucao = result.get(i).getDecisionVariables()[0].toString();
             for (int j = i + 1; j < result.size(); j++) {
                 if (solucao.equals(result.get(j).getDecisionVariables()[0].toString())) {
-                    result.remove(j);
+                    if (result.get(i).getEvaluation() < 5)
+                        result.remove(j);
                     this.configs.getLogger().putLog("removido Repedita");
                 }
             }

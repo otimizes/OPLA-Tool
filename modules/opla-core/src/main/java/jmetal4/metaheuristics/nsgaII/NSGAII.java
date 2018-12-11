@@ -31,6 +31,8 @@ import jmetal4.util.Ranking;
 import jmetal4.util.comparators.CrowdingComparator;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,6 +90,7 @@ public class NSGAII extends Algorithm {
         InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
         int currentInteraction = 0;
         indicators = (QualityIndicator) getInputParameter("indicators");
+        HashSet<Solution> bestOfUserEvaluation = new HashSet<>();
 
         // Initialize the variables
         population = new SolutionSet(populationSize);
@@ -236,7 +239,7 @@ public class NSGAII extends Algorithm {
                 // higher
                 // than the hypervolume of the true Pareto front.
 
-                setPopulationByUserEvaluation(population, offspringPopulation, interactive);
+                bestOfUserEvaluation.addAll(getBestPopulationByUserEvaluation(population, offspringPopulation, interactive));
 
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
@@ -263,26 +266,25 @@ public class NSGAII extends Algorithm {
 
         SolutionSet subfrontToReturn = ranking.getSubfront(0);
 
-        setPopulationByUserEvaluation(subfrontToReturn, populationOriginal, interactive);
+        bestOfUserEvaluation.addAll(getBestPopulationByUserEvaluation(subfrontToReturn, populationOriginal, interactive));
+
+        subfrontToReturn.getSolutionSet().addAll(bestOfUserEvaluation);
 
         return subfrontToReturn;
         // return population;
     } // execute
 
-    private void setPopulationByUserEvaluation(SolutionSet population, SolutionSet original, Boolean interactive) {
+    private List<Solution> getBestPopulationByUserEvaluation(SolutionSet population, SolutionSet original, Boolean interactive) {
         if (interactive) {
-            List<Solution> bestOfEvatuation = original.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList());
-            for (Solution solution : bestOfEvatuation) {
-                if (!population.getSolutionSet().contains(solution)) {
-                    population.add(solution);
-                }
-            }
+            List<Solution> bestOfEvatuation = population.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList());
             for (int i = 0; i < population.getSolutionSet().size(); i++) {
                 if (population.get(i).getEvaluation() == 1){
                     population.remove(i);
                 }
             }
+            return bestOfEvatuation;
         }
+        return null;
     }
 
     private Solution newRandomSolution(Operator mutationOperator) throws Exception {
