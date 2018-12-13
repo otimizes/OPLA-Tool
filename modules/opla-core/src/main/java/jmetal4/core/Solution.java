@@ -433,6 +433,18 @@ public class Solution implements Serializable {
         return aux;
     }
 
+    public String toStringObjectives() {
+        String aux = "";
+
+        if (objective_ != null) {
+            for (int i = 0; i < objective_.length; i++) {
+                aux = aux + this.getObjective(i) + " ";
+            }
+        }
+
+        return aux;
+    }
+
     /**
      * Returns the decision variables of the solution.
      *

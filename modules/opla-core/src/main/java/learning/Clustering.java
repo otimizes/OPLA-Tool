@@ -6,6 +6,8 @@ import jmetal4.core.SolutionSet;
 import org.apache.log4j.Logger;
 import weka.clusterers.*;
 import weka.core.DistanceFunction;
+import weka.core.Instance;
+import weka.core.Instances;
 
 import java.io.Serializable;
 import java.util.*;
@@ -28,6 +30,10 @@ public class Clustering implements Serializable {
     private List<Solution> filteredSolutions = new ArrayList<>();
     private List<Integer> idsFilteredSolutions = new ArrayList<>();
     private Double indexToFilter = 1.0;
+    private List<Solution> allSolutions = new ArrayList<>();
+    private int numObjectives;
+    private double[] min;
+    private double[] max;
 
     /**
      * K-Means Parameters
@@ -47,6 +53,19 @@ public class Clustering implements Serializable {
         this.resultFront = new Cloner().deepClone(resultFront);
         this.algorithm = algorithm;
         this.arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
+        this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
+        min = new double[this.numObjectives];
+        max = new double[this.numObjectives];
+        for (int i = 0; i < numObjectives; i++) {
+            min[i] = Double.MAX_VALUE;
+            max[i] = Double.MIN_VALUE;
+        }
+        resultFront.getSolutionSet().forEach(r -> {
+            for (int i = 0; i < this.numObjectives; i++) {
+                if (r.getObjective(i) < min[i]) min[i] = r.getObjective(i);
+                if (r.getObjective(i) > max[i]) max[i] = r.getObjective(i);
+            }
+        });
     }
 
     public Double np(Integer num) {
@@ -121,6 +140,14 @@ public class Clustering implements Serializable {
         return null;
     }
 
+    private Double[] doubleArray(double[] doubles) {
+        Double[] d = {};
+        for (int i = 0; i < doubles.length; i++) {
+            d[i] = doubles[i];
+        }
+        return d;
+    }
+
     /**
      * Filtered Solution Set by attribute indexToFilter
      *
@@ -129,11 +156,10 @@ public class Clustering implements Serializable {
      */
     private SolutionSet getFilteredSolutionSet() throws Exception {
         if (clusterer instanceof SimpleKMeans) {
-            double maxValue = Double.MAX_VALUE;
             getKMeans().getClusterCentroids().sort((o1, o2) -> {
                 double[] doubles1 = o1.toDoubleArray();
                 double[] doubles2 = o2.toDoubleArray();
-                return compareEuclidianDistance(doubles1, doubles2);
+                return compareEuclidianDistance(doubles2, doubles1);
             });
         }
 
@@ -143,7 +169,8 @@ public class Clustering implements Serializable {
         ArrayList<Solution> selected = new ArrayList<>();
         for (int i = 0; i < assignments.length; i++) {
             resultFront.get(i).setClusterId(assignments[i]);
-            LOGGER.info("Cluster " + assignments[i] + " : " + resultFront.get(i).getSolutionName() + "   ->   " + arffExecution.getData().instance(i) + (assignments[i] == -1 ? " (RUIDO)" : ""));
+            allSolutions.add(resultFront.get(i));
+            System.out.println("Cluster " + assignments[i] + " : " + resultFront.get(i).getSolutionName() + "   ->   " + arffExecution.getData().instance(i) + (assignments[i] == -1 ? " (RUIDO)" : ""));
             if (assignments[i] < getIndexToFilter() && assignments[i] >= 0) {
                 selected.add(resultFront.get(i));
             }
@@ -167,13 +194,26 @@ public class Clustering implements Serializable {
     }
 
     private int compareEuclidianDistance(double[] doubles1, double[] doubles2) {
-        Double dist1 = Math.sqrt(Math.pow(doubles1[0], 2));
-        Double dist2 = Math.sqrt(Math.pow(doubles2[0], 2));
-        for (int i = 1; i < doubles1.length; i++) {
-            dist1 = dist1 - Math.sqrt(Math.pow(doubles1[i], 2));
-            dist2 = dist2 - Math.sqrt(Math.pow(doubles2[i], 2));
+        Double dist1 = 0.0;
+        Double dist2 = 0.0;
+        for (int i = 0; i < doubles1.length; i++) {
+            dist1 += Math.pow(doubles1[i] - min[i], 2);
+            dist2 += Math.pow(doubles2[i] - min[i], 2);
         }
         return dist2.compareTo(dist1);
+    }
+
+    public double euclidianDistance(double[] doubles1, double[] doubles2) {
+
+        Double somatorio = 0.0;
+        for (int i = 0; i < doubles1.length; i++) {
+            somatorio += Math.pow(doubles1[i] - doubles2[i], 2);
+        }
+        return Math.sqrt(somatorio);
+    }
+
+    public double euclidianDistance(Solution solution) {
+        return euclidianDistance(solution.getObjectives(), min);
     }
 
     /**
@@ -322,5 +362,78 @@ public class Clustering implements Serializable {
 
     public void setDistanceFunction(DistanceFunction distanceFunction) {
         this.distanceFunction = distanceFunction;
+    }
+
+    public List<Solution> getAllSolutions() {
+        return allSolutions;
+    }
+
+    public void setAllSolutions(List<Solution> allSolutions) {
+        this.allSolutions = allSolutions;
+    }
+
+    public List<Solution> getSolutionsByClusterWithMinObjective(int objectiveIndex) {
+        return getSolutionsByClusterId(getMinClusterByObjective(objectiveIndex));
+    }
+
+    public List<Solution> getSolutionsByClusterId(double clusterId) {
+        return allSolutions.stream().filter(s -> s.getClusterId() == clusterId).collect(Collectors.toList());
+    }
+
+    /**
+     * If SimpleKMeans, returns the min centroid value by objective index, else, in case of DBSCAN that dont have
+     * Centroid values, is verified the min value in the solutions
+     * On DBSCAN, the clusterId -1 indicates noise
+     *
+     * @param objectiveIndex Objective array index
+     * @return Min value by objective
+     */
+    public double getMinClusterByObjective(int objectiveIndex) {
+        double min = Double.MAX_VALUE;
+        double minCluster = 0.0;
+
+        if (clusterer instanceof SimpleKMeans) {
+            Instances clusterCentroids = getKMeans().getClusterCentroids();
+            for (int i = 0; i < clusterCentroids.size(); i++) {
+                Instance instance = clusterCentroids.get(i);
+                if (instance.toDoubleArray()[objectiveIndex] <= min) {
+                    min = instance.toDoubleArray()[objectiveIndex];
+                    minCluster = i;
+                }
+            }
+        } else {
+            for (Solution allSolution : allSolutions) {
+                if (allSolution.getObjective(objectiveIndex) <= min
+                        && allSolution.getClusterId() != -1) {
+                    min = allSolution.getObjective(objectiveIndex);
+                    minCluster = allSolution.getClusterId();
+                }
+            }
+        }
+        return minCluster;
+    }
+
+    public int getNumObjectives() {
+        return numObjectives;
+    }
+
+    public void setNumObjectives(int numObjectives) {
+        this.numObjectives = numObjectives;
+    }
+
+    public double[] getMin() {
+        return min;
+    }
+
+    public void setMin(double[] min) {
+        this.min = min;
+    }
+
+    public double[] getMax() {
+        return max;
+    }
+
+    public void setMax(double[] max) {
+        this.max = max;
     }
 }
