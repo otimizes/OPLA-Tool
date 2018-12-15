@@ -93,10 +93,8 @@ public class ClusteringExperimentTest {
         SolutionSet run = clustering.run();
 
 //        showMinPointEpsilonPossibilities(solutionSet);
-
-        getSolutionsByClusteringMinObjective(clustering);
-
-        rCommand(run);
+//        getSolutionsByClusteringMinObjective(clustering);
+//        rCommand(run);
     }
 
     @Test
@@ -108,9 +106,8 @@ public class ClusteringExperimentTest {
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.KMEANS);
         SolutionSet run = clustering.run();
 
-        getSolutionsByClusteringMinObjective(clustering);
-
-        rCommand(run);
+//        getSolutionsByClusteringMinObjective(clustering);
+//        rCommand(run);
     }
 
     @Test
@@ -133,10 +130,8 @@ public class ClusteringExperimentTest {
 
 
 //        showMinPointEpsilonPossibilities(solutionSet);
-
-        getSolutionsByClusteringMinObjective(clustering);
-
-        rCommand(run);
+//        getSolutionsByClusteringMinObjective(clustering);
+//        rCommand(run);
     }
 
     @Test
@@ -148,9 +143,8 @@ public class ClusteringExperimentTest {
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.KMEANS);
         SolutionSet run = clustering.run();
 
-        getSolutionsByClusteringMinObjective(clustering);
-
-        rCommand(run);
+//        getSolutionsByClusteringMinObjective(clustering);
+//        rCommand(run);
     }
 
     private SolutionSet getSolutionSetFromObjectiveList(List<Objective> objectives, String pla) {
