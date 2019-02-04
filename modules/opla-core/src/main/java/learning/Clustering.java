@@ -75,7 +75,7 @@ public class Clustering implements Serializable {
     /**
      * Execution Method
      *
-     * @return Solution Set
+     * @return Solution Set - Best performing cluster with another solutions (filteredSolutions)
      * @throws Exception Default Exception
      */
     public SolutionSet run() throws Exception {
@@ -170,7 +170,7 @@ public class Clustering implements Serializable {
         for (int i = 0; i < assignments.length; i++) {
             resultFront.get(i).setClusterId(assignments[i]);
             allSolutions.add(resultFront.get(i));
-            System.out.println("Cluster " + assignments[i] + " : " + resultFront.get(i).getSolutionName() + "   ->   " + arffExecution.getData().instance(i) + (assignments[i] == -1 ? " (RUIDO)" : ""));
+            LOGGER.info("Cluster " + assignments[i] + " : " + resultFront.get(i).getSolutionName() + "   ->   " + arffExecution.getData().instance(i) + (assignments[i] == -1 ? " (RUIDO)" : ""));
             if (assignments[i] < getIndexToFilter() && assignments[i] >= 0) {
                 selected.add(resultFront.get(i));
             }
@@ -301,7 +301,7 @@ public class Clustering implements Serializable {
      *
      * @return number of clusters
      */
-    public Integer getNumClusters() {
+    public int getNumClusters() {
         return numClusters != null ? numClusters : Math.toIntExact(Math.round(Math.pow((resultFront.size() / 2), 0.6)));
     }
 
@@ -328,6 +328,11 @@ public class Clustering implements Serializable {
     public List<Solution> getFilteredSolutions() {
         return filteredSolutions;
     }
+
+    public List<Solution> getBestPerformingCluster() {
+        return resultFront.getSolutionSet();
+    }
+
 
     public void setFilteredSolutions(List<Solution> filteredSolutions) {
         this.filteredSolutions = filteredSolutions;

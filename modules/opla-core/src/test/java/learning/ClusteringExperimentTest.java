@@ -16,11 +16,17 @@ import java.text.DecimalFormat;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
+import static org.junit.Assert.*;
 
 public class ClusteringExperimentTest {
 
     public static final Logger LOGGER = Logger.getLogger(ClusteringExperimentTest.class);
 
+    /**
+     * Generate R Commands to experiment
+     * @param run solutionSet
+     * @throws IOException
+     */
     private void rCommand(SolutionSet run) throws IOException {
 //        List<Double> hypervolume = calculateHypervolume(run);
 //        System.out.println(hypervolume.toString().replace("[", "hv = c(").replace("]", ")"));
@@ -33,18 +39,22 @@ public class ClusteringExperimentTest {
         System.out.println(listXYZ.get(1).toString().replace("[", "y = c(").replace("]", ")"));
         System.out.println(listXYZ.get(2).toString().replace("[", "z = c(").replace("]", ")"));
         System.out.println(("colors = c(" + listXYZ.get(0).stream().map(c -> "\"" + "blue" + "\",").collect(Collectors.joining()) + ")").replace(",)", ")"));
-        System.out.println("s3d = scatterplot3d(x, y, z, type = \"p\", angle = 10, pch = 1, main = \"scatterplot3d\", zlab=\"Feature Driven\", ylab=\"ACLASS\", xlab=\"COE\", color=colors)");
+        System.out.println("s3d = scatterplot3d(x, y, z, type = \"p\", angle = 10, pch = 1, main = \"scatterplot3d\", zlab=\"COE\", ylab=\"ACLASS\", xlab=\"FM\", color=colors)");
     }
 
+    /**
+     * Log of clustering min points
+     * @param clustering Clustered solution
+     */
     private void getSolutionsByClusteringMinObjective(Clustering clustering) {
 
         System.out.println();
         System.out.println("Cluster by min TradeOff");
-        clustering.getResultFront().getSolutionSet().forEach(solution -> {
-            System.out.print(solution.getSolutionName() + " - ");
-            System.out.print(solution.getObjective(0) + " ");
-            System.out.print(solution.getObjective(1) + " ");
-            System.out.print(solution.getObjective(2) + " - ");
+        clustering.getResultFront().getAllSolutions().stream().sorted(Comparator.comparing(Solution::getSolutionName)).forEach(solution -> {
+//            System.out.print(solution.getSolutionName() + " - ");
+//            System.out.print(solution.getObjective(0) + " ");
+//            System.out.print(solution.getObjective(1) + " ");
+//            System.out.print(solution.getObjective(2) + " - ");
             System.out.println(new DecimalFormat("#.##").format(clustering.euclidianDistance(solution)));
         });
 
@@ -71,7 +81,7 @@ public class ClusteringExperimentTest {
 
     @Before
     public void init() {
-//        Clustering.LOGGER.setLevel(Level.OFF);
+        Clustering.LOGGER.setLevel(Level.OFF);
     }
 
     @Test
@@ -80,7 +90,8 @@ public class ClusteringExperimentTest {
         List<Objective> objectives = getObjectivesFromFile("agm_objectives_27112018.csv");
         SolutionSet solutionSet = getSolutionSetFromObjectiveList(objectives, "agm");
 
-        rCommand(solutionSet);
+//        rCommand(solutionSet);
+        assertEquals(11, solutionSet.getSolutionSet().size());
     }
 
     @Test
@@ -95,6 +106,12 @@ public class ClusteringExperimentTest {
 //        showMinPointEpsilonPossibilities(solutionSet);
 //        getSolutionsByClusteringMinObjective(clustering);
 //        rCommand(run);
+
+        assertEquals(11, solutionSet.getSolutionSet().size());
+        assertEquals(clustering.getBestPerformingCluster(), run.getSolutionSet());
+        assertEquals(4, run.getSolutionSet().size());
+        assertEquals(7, run.getFilteredSolutions().size());
+        assertEquals(2, clustering.getNumClusters());
     }
 
     @Test
@@ -106,8 +123,15 @@ public class ClusteringExperimentTest {
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.KMEANS);
         SolutionSet run = clustering.run();
 
+//        showMinPointEpsilonPossibilities(solutionSet);
 //        getSolutionsByClusteringMinObjective(clustering);
 //        rCommand(run);
+
+        assertEquals(11, solutionSet.getSolutionSet().size());
+        assertEquals(clustering.getBestPerformingCluster(), run.getSolutionSet());
+        assertEquals(4, run.getSolutionSet().size());
+        assertEquals(7, run.getFilteredSolutions().size());
+        assertEquals(2, clustering.getNumClusters());
     }
 
     @Test
@@ -116,7 +140,9 @@ public class ClusteringExperimentTest {
         SolutionSet solutionSet = getSolutionSetFromObjectiveList(objectives, "bet");
 
         LOGGER.info("BET");
-        rCommand(solutionSet);
+//        rCommand(solutionSet);
+
+        assertEquals(17, solutionSet.getSolutionSet().size());
     }
 
     @Test
@@ -132,6 +158,12 @@ public class ClusteringExperimentTest {
 //        showMinPointEpsilonPossibilities(solutionSet);
 //        getSolutionsByClusteringMinObjective(clustering);
 //        rCommand(run);
+
+        assertEquals(17, solutionSet.getSolutionSet().size());
+        assertEquals(clustering.getBestPerformingCluster(), run.getSolutionSet());
+        assertEquals(9, run.getSolutionSet().size());
+        assertEquals(8, run.getFilteredSolutions().size());
+        assertEquals(2, clustering.getNumClusters());
     }
 
     @Test
@@ -143,8 +175,15 @@ public class ClusteringExperimentTest {
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.KMEANS);
         SolutionSet run = clustering.run();
 
+//        showMinPointEpsilonPossibilities(solutionSet);
 //        getSolutionsByClusteringMinObjective(clustering);
 //        rCommand(run);
+
+        assertEquals(17, solutionSet.getSolutionSet().size());
+        assertEquals(clustering.getBestPerformingCluster(), run.getSolutionSet());
+        assertEquals(9, run.getSolutionSet().size());
+        assertEquals(8, run.getFilteredSolutions().size());
+        assertEquals(2, clustering.getNumClusters());
     }
 
     private SolutionSet getSolutionSetFromObjectiveList(List<Objective> objectives, String pla) {
