@@ -148,6 +148,7 @@ public class ArchitectureBuilder {
 
         } catch (Exception e) {
             LOGGER.error(e);
+            e.printStackTrace();
             throw new RuntimeException();
         }
     }
