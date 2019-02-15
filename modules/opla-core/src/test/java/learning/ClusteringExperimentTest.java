@@ -27,7 +27,7 @@ public class ClusteringExperimentTest {
      * @param run solutionSet
      * @throws IOException
      */
-    private void rCommand(SolutionSet run) throws IOException {
+    public static void rCommand(SolutionSet run) throws IOException {
 //        List<Double> hypervolume = calculateHypervolume(run);
 //        System.out.println(hypervolume.toString().replace("[", "hv = c(").replace("]", ")"));
 //        System.out.println("shapiro.test(hv)");
@@ -231,7 +231,7 @@ public class ClusteringExperimentTest {
         return builder.toString();
     }
 
-    private List<List<Double>> getListXYZ(SolutionSet result) {
+    public static List<List<Double>> getListXYZ(SolutionSet result) {
         List<List<Double>> listXYZ = new ArrayList<>();
         listXYZ.add(new ArrayList<>());
         listXYZ.add(new ArrayList<>());
