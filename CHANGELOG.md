@@ -7,6 +7,7 @@
 - Internal Bloxpot
 - Maven Dependencies and configurations updated
 - Starting Clustering Module
+- Comment
 - Papyrus initial integration
 - JUnit initial tests
 - Jar generate Adjusts
