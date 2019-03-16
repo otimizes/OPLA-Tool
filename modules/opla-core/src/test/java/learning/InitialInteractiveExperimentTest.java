@@ -11,18 +11,16 @@ import jmetal4.encodings.solutionType.ArchitectureSolutionType;
 import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.problems.OPLA;
 import org.apache.log4j.Logger;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InitialInteractiveTest {
+public class InitialInteractiveExperimentTest {
 
 
-    public static final Logger LOGGER = Logger.getLogger(InitialInteractiveTest.class);
+    public static final Logger LOGGER = Logger.getLogger(InitialInteractiveExperimentTest.class);
 
     //    @Test
     public void countElements() throws Exception {
@@ -106,7 +104,7 @@ public class InitialInteractiveTest {
         SolutionSet solutionSet = new SolutionSet();
         solutionSet.setSolutionSet(collect);
 
-//        ClusteringExperimentTest.rCommand(solutionSet);
+        ClusteringExperimentTest.rCommand(solutionSet);
 
         OPLA opla = new OPLA();
 
@@ -122,19 +120,16 @@ public class InitialInteractiveTest {
     }
 
 /*
-
+ ** Script de geração dos gráficos 3D
+require(scatterplot3d)
 x = c(23.0, 28.0, 16.0, 12.0, 24.0, 23.0, 16.0, 12.0, 34.0, 28.0, 18.0)
 y = c(719.0, 752.0, 694.0, 676.0, 718.0, 712.0, 692.0, 674.0, 793.0, 747.0, 716.0)
 z = c(27.0, 26.0, 29.0, 30.0, 27.0, 28.0, 29.0, 30.0, 25.0, 26.0, 28.0)
-colors = c("blue","red","red","red","blue","blue","blue","blue","blue","blue","blue")
-s3d = scatterplot3d(x, y, z, type = "p", angle = 10, pch = 1, main = "Non Dominated (Blue) x Dominated (Red)", zlab="ACLASS", ylab="FM", xlab="COE", color=colors)
-
+colors = c("#56B4E9","#E69F00","#E69F00","#E69F00","red","red","red","red","red","red","red")
+shapes = c(19,15,15,15,17,17,17,17,17,17,17)
+s3d = scatterplot3d(x, y, z, type = "p", angle = 10, pch = shapes, main = "ExpCM and ExpAI solutions", zlab="ACLASS", ylab="FM", xlab="COE", color=colors)
+legend("right", legend = c("ExpCM Non-Dominated", "ExpAI Non-Dominated", "ExpAI Dominated"), col = c("red", "#56B4E9", "#E69F00"), pch = c(17, 19, 15), inset = -0.05, xpd = TRUE, horiz = FALSE)
  */
-
-    public static void main(String[] args) {
-        Date date = new Date();
-        System.out.println(date.getTime());
-    }
 }
 
 
