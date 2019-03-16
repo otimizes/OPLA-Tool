@@ -29,6 +29,9 @@ import jmetal4.util.Distance;
 import jmetal4.util.JMException;
 import jmetal4.util.Ranking;
 import jmetal4.util.comparators.CrowdingComparator;
+import learning.Clustering;
+import learning.ClusteringAlgorithm;
+import learning.Moment;
 import org.apache.log4j.Logger;
 
 import java.util.HashSet;
@@ -86,6 +89,9 @@ public class NSGAII extends Algorithm {
         int maxInteractions = ((Integer) getInputParameter("maxInteractions")).intValue();
         Boolean interactive = ((Boolean) getInputParameter("interactive")).booleanValue();
         InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
+        Moment clusteringMoment = ((Moment) getInputParameter("clusteringMoment"));
+        ClusteringAlgorithm clusteringAlgorithm = ((ClusteringAlgorithm) getInputParameter("clusteringAlgorithm"));
+
         int currentInteraction = 0;
         indicators = (QualityIndicator) getInputParameter("indicators");
         HashSet<Solution> bestOfUserEvaluation = new HashSet<>();
@@ -110,6 +116,12 @@ public class NSGAII extends Algorithm {
                 evaluations++;
                 population.add(newSolution);
             }
+
+            if (Moment.INTERACTIVE.equals(clusteringMoment) || Moment.BOTH.equals(clusteringMoment)) {
+                Clustering clustering = new Clustering(population, clusteringAlgorithm);
+                population = clustering.run();
+            }
+
             // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
             if (interactive && currentInteraction < maxInteractions) {
                 population = interactiveFunction.run(population);
@@ -170,13 +182,16 @@ public class NSGAII extends Algorithm {
 
                         evaluations += 2;
 
-                        // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
+                        if (Moment.INTERACTIVE.equals(clusteringMoment) || Moment.BOTH.equals(clusteringMoment)) {
+                            Clustering clustering = new Clustering(offspringPopulation, clusteringAlgorithm);
+                            offspringPopulation = clustering.run();
+                        }
+
                         if (interactive && currentInteraction < maxInteractions) {
                             offspringPopulation = interactiveFunction.run(offspringPopulation);
                             bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
                             currentInteraction++;
                         }
-                        // Interactive
 
                     }
 

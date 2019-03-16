@@ -123,6 +123,8 @@ public class NSGAII_OPLA_FeatMut {
             algorithm.setInputParameter("interactiveFunction", this.configs.getInteractiveFunction());
             algorithm.setInputParameter("maxInteractions", this.configs.getMaxInteractions());
             algorithm.setInputParameter("interactive", this.configs.getInteractive());
+            algorithm.setInputParameter("clusteringMoment", this.configs.getClusteringMoment());
+            algorithm.setInputParameter("clusteringAlgorithm", this.configs.getClusteringAlgorithm());
 
             // Mutation and Crossover
             parameters = new HashMap<String, Object>();
@@ -179,18 +181,6 @@ public class NSGAII_OPLA_FeatMut {
                 AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), execution,
                         experiement, selectedObjectiveFunctions);
                 execution.setTime(estimatedTime);
-
-                // Clustering OBS: Needs to be a priori for filter the PLAs to save
-                if (Moment.INTERACTIVE.equals(this.configs.getClusteringMoment()) || Moment.BOTH.equals(this.configs.getClusteringMoment())) {
-                    Clustering clustering = new Clustering(resultFront, this.clusteringAlgorithm);
-                    resultFront = clustering.run();
-                    for (int id : clustering.getIdsFilteredSolutions()) {
-                        funResults.remove(id);
-                        infoResults.remove(id);
-                        allMetrics.remove(id);
-                    }
-                }
-                // Clustering
 
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
 
