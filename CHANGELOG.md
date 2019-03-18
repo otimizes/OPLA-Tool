@@ -1,6 +1,7 @@
 # Changelog
 ## [1.0.0] - 2018-11-29
 ### Added
+- First Interaction
 - Clustering Algorithm KMeans and Dbscan
 - Interactive package
 - Graphics, tables, hypervolume corrected in Result and Experiment Tabs
