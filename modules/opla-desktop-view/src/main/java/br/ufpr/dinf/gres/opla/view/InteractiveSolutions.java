@@ -53,10 +53,11 @@ public class InteractiveSolutions extends JDialog {
         gridLayout.setRows(2);
         JTree tree = new JTree(root);
         tree.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        panelMaster.add(tree);
+        JScrollPane scroll = new JScrollPane(tree);
+        panelMaster.add(scroll);
         setContentPane(panelMaster);
         for (int i = 0; i < solutionSet.size(); i++) {
-            String plaName = "TEMP_" + i + solutionSet.get(i).getOPLAProblem().getArchitecture_().getName() + ".uml";
+            String plaName = "TEMP_" + i + solutionSet.get(i).getOPLAProblem().getArchitecture_().getName();
             DefaultMutableTreeNode elem = new DefaultMutableTreeNode(plaName, true);
             DefaultMutableTreeNode elem0 = new DefaultMutableTreeNode(i, true);
             elem.add(elem0);
@@ -94,19 +95,20 @@ public class InteractiveSolutions extends JDialog {
 
         jPanelSubjectiveAnalysis.removeAll();
 
-            JTextArea notas = new JTextArea();
-            notas.setText("5 - Excellent\n 4 - Good\n 3 - Regular\n 2 - Bad\n 1 - Very bad");
-            notas.setEditable(false);
-            jPanelSubjectiveAnalysis.add(notas);
-            JLabel label = new JLabel("Your Evaluation");
-            jPanelSubjectiveAnalysis.add(label);
-            JTextField jTextField = new JTextField();
-            jTextField.setColumns(5);
-            jPanelSubjectiveAnalysis.add(jTextField);
+        JTextArea notas = new JTextArea();
+        notas.setText("5 - Excellent\n 4 - Good\n 3 - Regular\n 2 - Bad\n 1 - Very bad");
+        notas.setEditable(false);
+        jPanelSubjectiveAnalysis.add(notas);
+        JLabel label = new JLabel("Your Evaluation");
+        jPanelSubjectiveAnalysis.add(label);
+        JTextField jTextField = new JTextField();
+        jTextField.setColumns(5);
+        jPanelSubjectiveAnalysis.add(jTextField);
 
-            JTextField teste = new JTextField();
-            teste.setColumns(10);
-          //  jPanelSubjectiveAnalysis.add(teste);
+        JTextField teste = new JTextField();
+        teste.setColumns(10);
+        //  jPanelSubjectiveAnalysis.add(teste);
+
 
 
         JButton apply = new JButton("Apply");
@@ -120,6 +122,8 @@ public class InteractiveSolutions extends JDialog {
 
                 int teste_valor = solutionSet.get(indexSolution).getEvaluation();
                 teste.setText(Integer.toString(teste_valor));
+
+                apply.setText("Saved");
             }
         });
 

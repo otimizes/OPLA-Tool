@@ -80,7 +80,7 @@ public abstract class AbstractPrincipalJFrame extends javax.swing.JFrame {
         Path target = Paths.get(UserHome.getOplaUserHome() + Constants.PROFILES_DIR + Constants.FILE_SEPARATOR + profileName);
         if (!Files.exists(target)) {
             URI uri = ClassLoader.getSystemResource(Constants.PROFILES_DIR).toURI();
-            Path pathProfile = Paths.get(uri).resolve(profileName);
+            Path pathProfile = Paths.get(uri.getSchemeSpecificPart()).resolve(profileName);
             arquitetura.io.FileUtils.copy(pathProfile, target);
             jTexField.setText(target.toString());
             LOGGER.info("new profile = " + profileName + " has configured");

@@ -117,19 +117,6 @@ public class NSGAII extends Algorithm {
                 population.add(newSolution);
             }
 
-            if (Moment.INTERACTIVE.equals(clusteringMoment) || Moment.BOTH.equals(clusteringMoment)) {
-                Clustering clustering = new Clustering(population, clusteringAlgorithm);
-                population = clustering.run();
-            }
-
-            // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
-            if (interactive && currentInteraction < maxInteractions) {
-                population = interactiveFunction.run(population);
-                bestOfUserEvaluation.addAll(population.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
-                currentInteraction++;
-            }
-            // Interactive
-
         } catch (Exception e) {
             LOGGER.error(e);
             e.printStackTrace();
@@ -181,17 +168,6 @@ public class NSGAII extends Algorithm {
 
 
                         evaluations += 2;
-
-                        if (Moment.INTERACTIVE.equals(clusteringMoment) || Moment.BOTH.equals(clusteringMoment)) {
-                            Clustering clustering = new Clustering(offspringPopulation, clusteringAlgorithm);
-                            offspringPopulation = clustering.run();
-                        }
-
-                        if (interactive && currentInteraction < maxInteractions) {
-                            offspringPopulation = interactiveFunction.run(offspringPopulation);
-                            bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
-                            currentInteraction++;
-                        }
 
                     }
 
@@ -254,6 +230,16 @@ public class NSGAII extends Algorithm {
                 // higher
                 // than the hypervolume of the true Pareto front.
 
+                if (Moment.INTERACTIVE.equals(clusteringMoment) || Moment.BOTH.equals(clusteringMoment)) {
+                    Clustering clustering = new Clustering(offspringPopulation, clusteringAlgorithm);
+                    offspringPopulation = clustering.run();
+                }
+
+                if ((evaluations / populationSize) >= 6 && interactive && currentInteraction < maxInteractions) {
+                    offspringPopulation = interactiveFunction.run(offspringPopulation);
+                    bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
+                    currentInteraction++;
+                }
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
                     double HV = indicators.getHypervolume(population);
