@@ -166,12 +166,8 @@ public class NSGAII extends Algorithm {
                             offspringPopulation.add(offSpring[0]);
                             offspringPopulation.add(offSpring[1]);
                         }
-
-
                         evaluations += 2;
-
                     }
-
                 }
 
                 // Create the solutionSet union of solutionSet and offSpring
