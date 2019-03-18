@@ -24,6 +24,7 @@
 package jmetal4.core;
 
 import jmetal4.encodings.variable.Binary;
+import jmetal4.problems.OPLA;
 
 import java.io.Serializable;
 
@@ -121,10 +122,12 @@ public class Solution implements Serializable {
      */
     private double clusterId_ = 0.0;
 
-    /**
-     * Stores the exec id
-     */
+    private int userEvaluation;
+
     private Long executionId_;
+
+    private Boolean clusterNoise_;
+
     /**
      * Constructor.
      */
@@ -341,6 +344,22 @@ public class Solution implements Serializable {
         return objective_[i];
     } // getObjective
 
+    public double[] getObjectives() {
+        return objective_;
+    }
+
+    public Problem getProblem() {
+        return problem_;
+    }
+
+    public void setProblem(Problem problem_) {
+        this.problem_ = problem_;
+    }
+
+    public OPLA getOPLAProblem() {
+        return (OPLA) problem_;
+    }
+
     public void createObjectiveTemp(int numberOfObjectives) {
         objective_temp_ = new double[numberOfObjectives];
     }
@@ -408,6 +427,18 @@ public class Solution implements Serializable {
         if (objective_temp_ != null) {
             for (int i = 0; i < objective_temp_.length; i++) {
                 aux = aux + this.getObjectiveTemp(i) + " ";
+            }
+        }
+
+        return aux;
+    }
+
+    public String toStringObjectives() {
+        String aux = "";
+
+        if (objective_ != null) {
+            for (int i = 0; i < objective_.length; i++) {
+                aux = aux + this.getObjective(i) + " ";
             }
         }
 
@@ -616,11 +647,27 @@ public class Solution implements Serializable {
         this.clusterId_ = clusterId_;
     }
 
+    public int getEvaluation() {
+        return userEvaluation;
+    }
+
+    public void setEvaluation(int userEvaluation) {
+        this.userEvaluation = userEvaluation;
+    }
+
     public Long getExecutionId() {
         return executionId_;
     }
 
     public void setExecutionId(Long executionId_) {
         this.executionId_ = executionId_;
+    }
+
+    public Boolean getClusterNoise() {
+        return clusterNoise_ != null && clusterNoise_;
+    }
+
+    public void setClusterNoise(Boolean clusterNoise_) {
+        this.clusterNoise_ = clusterNoise_;
     }
 } // Solution

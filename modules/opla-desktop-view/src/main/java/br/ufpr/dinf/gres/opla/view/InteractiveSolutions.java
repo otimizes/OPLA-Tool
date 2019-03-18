@@ -1,8 +1,11 @@
 package br.ufpr.dinf.gres.opla.view;
 
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
+import br.ufpr.dinf.gres.opla.view.util.Constants;
+import br.ufpr.dinf.gres.opla.view.util.UserHome;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
 import jmetal4.core.SolutionSet;
+import jmetal4.encodings.variable.Int;
 import jmetal4.problems.OPLA;
 import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
@@ -20,22 +23,21 @@ public class InteractiveSolutions extends JDialog {
     private static final Logger LOGGER = Logger.getLogger(InteractiveSolutions.class);
     private ManagerApplicationConfig config;
     SolutionSet solutionSet;
-    Execution execution;
     GridLayout gridLayout = new GridLayout();
     JPanel panelMaster = new JPanel(gridLayout);
     LayoutManager layoutPanelSubjectiveAnalyse = new MigLayout();
     JPanel jPanelSubjectiveAnalysis = new JPanel(layoutPanelSubjectiveAnalyse);
 
-    public InteractiveSolutions(ManagerApplicationConfig config, SolutionSet solutionSet, Execution execution) {
+    public InteractiveSolutions(ManagerApplicationConfig config, SolutionSet solutionSet) {
+//        solutionSet.saveVariablesToFile("TEMP_", LOGGER,true);
         this.config = config;
         this.solutionSet = solutionSet;
-        this.execution = execution;
         setTitle("Architectures");
         setModal(true);
         setPreferredSize(new Dimension(1000, 600));
         setLocationByPlatform(true);
 
-        paintTreeNode(solutionSet, execution);
+        paintTreeNode(solutionSet);
 
         getContentPane().revalidate();
         getContentPane().repaint();
@@ -46,29 +48,30 @@ public class InteractiveSolutions extends JDialog {
         setVisible(true);
     }
 
-    private void paintTreeNode(SolutionSet solutionSet, Execution execution) {
+    private void paintTreeNode(SolutionSet solutionSet) {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Solutions");
         gridLayout.setRows(2);
         JTree tree = new JTree(root);
         tree.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        panelMaster.add(tree);
+        JScrollPane scroll = new JScrollPane(tree);
+        panelMaster.add(scroll);
         setContentPane(panelMaster);
-        for (int i = 0; i < execution.getFuns().size(); i++) {
-            FunResults funResults = execution.getFuns().get(i);
-            DefaultMutableTreeNode elem = new DefaultMutableTreeNode(funResults.getSolution_name(), true);
+        for (int i = 0; i < solutionSet.size(); i++) {
+            String plaName = "TEMP_" + i + solutionSet.get(i).getOPLAProblem().getArchitecture_().getName();
+            DefaultMutableTreeNode elem = new DefaultMutableTreeNode(plaName, true);
             DefaultMutableTreeNode elem0 = new DefaultMutableTreeNode(i, true);
             elem.add(elem0);
 
-            DefaultMutableTreeNode elem1 = new DefaultMutableTreeNode("Id: " + funResults.getId(), true);
+            DefaultMutableTreeNode elem1 = new DefaultMutableTreeNode("Id: " + i, true);
             elem.add(elem1);
 
             String objectives = getObjectivesFormattedStr(i);
 
             DefaultMutableTreeNode elem2 = new DefaultMutableTreeNode(objectives, true);
             elem.add(elem2);
-            DefaultMutableTreeNode elem3 = new DefaultMutableTreeNode("Metrics: " + funResults.getExecution().getAllMetrics(), true);
+            DefaultMutableTreeNode elem3 = new DefaultMutableTreeNode("Metrics: " + solutionSet.get(i).getOPLAProblem().getSelectedMetrics().toString(), true);
             elem.add(elem3);
-            DefaultMutableTreeNode elem4 = new DefaultMutableTreeNode("Info: " + funResults.getExecution().getInfos().get(i), true);
+            DefaultMutableTreeNode elem4 = new DefaultMutableTreeNode("Info: " + solutionSet.get(i).getOPLAProblem().getArchitecture_().toString(), true);
             elem.add(elem4);
             root.add(elem);
         }
@@ -91,16 +94,39 @@ public class InteractiveSolutions extends JDialog {
     private JPanel bodyPanelFn(int indexSolution) {
 
         jPanelSubjectiveAnalysis.removeAll();
-        for (String metric : getSelectedMetrics(indexSolution)) {
-            JLabel label = new JLabel(metric + ": ");
-            jPanelSubjectiveAnalysis.add(label);
-            JTextField jTextField = new JTextField();
-            jTextField.setColumns(10);
-            jPanelSubjectiveAnalysis.add(jTextField);
-        }
+
+        JTextArea notas = new JTextArea();
+        notas.setText("5 - Excellent\n 4 - Good\n 3 - Regular\n 2 - Bad\n 1 - Very bad");
+        notas.setEditable(false);
+        jPanelSubjectiveAnalysis.add(notas);
+        JLabel label = new JLabel("Your Evaluation");
+        jPanelSubjectiveAnalysis.add(label);
+        JTextField jTextField = new JTextField();
+        jTextField.setColumns(5);
+        jPanelSubjectiveAnalysis.add(jTextField);
+
+        JTextField teste = new JTextField();
+        teste.setColumns(10);
+        //  jPanelSubjectiveAnalysis.add(teste);
+
+
 
         JButton apply = new JButton("Apply");
         jPanelSubjectiveAnalysis.add(apply);
+        apply.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int value = Integer.parseInt(jTextField.getText());
+                solutionSet.get(indexSolution).setEvaluation(value);
+
+                int teste_valor = solutionSet.get(indexSolution).getEvaluation();
+                teste.setText(Integer.toString(teste_valor));
+
+                apply.setText("Saved");
+            }
+        });
+
         jPanelSubjectiveAnalysis.repaint();
         jPanelSubjectiveAnalysis.setVisible(true);
         panelMaster.add(jPanelSubjectiveAnalysis);
@@ -113,10 +139,9 @@ public class InteractiveSolutions extends JDialog {
     }
 
     private String getObjectivesFormattedStr(int indexSolution) {
-        FunResults funResults = execution.getFuns().get(indexSolution);
         if (solutionSet == null) return "";
         StringBuilder objectives = new StringBuilder("Objectives: ");
-        String[] split = funResults.getObjectives().split("\\|");
+        double[] split = solutionSet.get(indexSolution).getObjectives();
         for (int i1 = 0; i1 < split.length; i1++) {
             objectives.append(getSelectedMetrics(indexSolution).get(i1)).append(" = ").append(split[i1]).append(", ");
         }
@@ -125,7 +150,7 @@ public class InteractiveSolutions extends JDialog {
     }
 
     private List<String> getSelectedMetrics(int indexSolution) {
-        return ((OPLA) solutionSet.get(indexSolution).getType().problem_).getSelectedMetrics();
+        return solutionSet.get(indexSolution).getOPLAProblem().getSelectedMetrics();
     }
 
     class PopUp extends JPopupMenu {
@@ -151,7 +176,7 @@ public class InteractiveSolutions extends JDialog {
             });
             add(details);
 
-            if (nodeInfo.toString().contains("VAR_")) {
+            if (nodeInfo.toString().contains("TEMP_")) {
                 open = new JMenuItem("Open");
                 open.addActionListener(e -> {
                     LOGGER.info("Opened solution " + nodeInfo.toString());

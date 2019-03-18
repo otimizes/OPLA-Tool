@@ -120,6 +120,12 @@ public class NSGAII_OPLA_FeatMut {
             // Algorithm parameters
             algorithm.setInputParameter("populationSize", populationSize);
             algorithm.setInputParameter("maxEvaluations", maxEvaluations);
+            algorithm.setInputParameter("interactiveFunction", this.configs.getInteractiveFunction());
+            algorithm.setInputParameter("maxInteractions", this.configs.getMaxInteractions());
+            algorithm.setInputParameter("firstInteraction", this.configs.getFirstInteraction());
+            algorithm.setInputParameter("interactive", this.configs.getInteractive());
+            algorithm.setInputParameter("clusteringMoment", this.configs.getClusteringMoment());
+            algorithm.setInputParameter("clusteringAlgorithm", this.configs.getClusteringAlgorithm());
 
             // Mutation and Crossover
             parameters = new HashMap<String, Object>();
@@ -177,28 +183,11 @@ public class NSGAII_OPLA_FeatMut {
                         experiement, selectedObjectiveFunctions);
                 execution.setTime(estimatedTime);
 
-                // Clustering OBS: Needs to be a priori for filter the PLAs to save
-                if (Moment.INTERACTIVE.equals(this.configs.getClusteringMoment()) || Moment.BOTH.equals(this.configs.getClusteringMoment())) {
-                    Clustering clustering = new Clustering(resultFront, this.clusteringAlgorithm);
-                    resultFront = clustering.run();
-                    for (int id : clustering.getIdsFilteredSolutions()) {
-                        funResults.remove(id);
-                        infoResults.remove(id);
-                        allMetrics.remove(id);
-                    }
-                }
-                // Clustering
-
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
 
                 execution.setFuns(funResults);
                 execution.setInfos(infoResults);
                 execution.setAllMetrics(allMetrics);
-
-                // Interactive OBS: Needs to be a posteriori for visualization of the PLAs on PAPYRUS
-                if (this.configs.getInteractive() && runs < this.configs.getMaxInteractions())
-                    this.configs.getInteractiveFunction().run(resultFront, execution);
-                // Interactive
 
                 ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
                 try {

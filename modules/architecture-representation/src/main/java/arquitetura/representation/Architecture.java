@@ -1,17 +1,5 @@
 package arquitetura.representation;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-
-import com.rits.cloning.Cloner;
-
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.flyweights.VariabilityFlyweight;
 import arquitetura.flyweights.VariantFlyweight;
@@ -21,14 +9,19 @@ import arquitetura.main.GenerateArchitecture;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
+import com.rits.cloning.Cloner;
 import jmetal4.core.Variable;
+import org.apache.log4j.Logger;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle               @               gmail.com>
  */
 public class Architecture extends Variable {
-	
-	private static Logger LOGGER = Logger.getLogger(Architecture.class);
+
+    private static Logger LOGGER = Logger.getLogger(Architecture.class);
     private static final long serialVersionUID = -7764906574709840088L;
     public static String ARCHITECTURE_TYPE = "arquitetura.representation.Architecture";
     private Cloner cloner;
@@ -72,7 +65,7 @@ public class Architecture extends Variable {
      * Retorna um Map imutável. É feito isso para garantir que nenhum modificação seja
      * feita diretamente na lista
      *
-     * @return Map<String, Concern>
+     * @return Map<String               ,                               Concern>
      */
     public List<Concern> getAllConcerns() {
         final List<Concern> concerns = new ArrayList<Concern>();
@@ -462,7 +455,7 @@ public class Architecture extends Variable {
     }
 
     public boolean removeRelationship(Relationship as) {
-    	LOGGER.info("removeRelationship()");
+        LOGGER.info("removeRelationship()");
         if (as == null) return false;
         if (relationshipHolder.removeRelationship(as)) {
             LOGGER.info("Relacionamento : " + as.getType() + " removido da arquitetura");
@@ -694,14 +687,85 @@ public class Architecture extends Variable {
         this.appliedPatterns = b;
     }
 
-	public void addAllClasses(Set<Class> classes) {
-		this.classes.clear();
-		this.classes.addAll(classes);
-	}
+    public void addAllClasses(Set<Class> classes) {
+        this.classes.clear();
+        this.classes.addAll(classes);
+    }
 
-	public void addAllInterfaces(Set<Interface> interfaces) {
-		this.interfaces.clear();
-		this.interfaces.addAll(interfaces);
-	}
+    public void addAllInterfaces(Set<Interface> interfaces) {
+        this.interfaces.clear();
+        this.interfaces.addAll(interfaces);
+    }
 
+    @Override
+    public String toString() {
+        return "Architecture{" +
+                "packages=" + packages +
+                ", classes=" + classes +
+                ", interfaces=" + interfaces +
+                ", name='" + name + '\'' +
+                ", appliedPatterns=" + appliedPatterns +
+                ", relationshipHolder=" + relationshipHolder +
+                '}';
+    }
+
+    public static Double median(List<Integer> values) {
+        List<Integer> sortedValues = values.stream().sorted().collect(Collectors.toList());
+        return sortedValues.size() % 2 == 0 ? (sortedValues.get((sortedValues.size() / 2) - 1) + sortedValues.get((sortedValues.size() / 2))) / 2 : Double.valueOf(sortedValues.get((int) Math.floor(sortedValues.size() / 2)));
+    }
+
+    public static Double mean(List<Integer> values) {
+        return (double) (values.stream().mapToInt(Integer::intValue).sum() / values.size());
+    }
+
+    public static Double sum(List<Integer> values) {
+        return (double) (values.stream().mapToInt(Integer::intValue).sum());
+    }
+
+
+    public String toDetailedString(boolean withAttrs) {
+
+
+        List<Integer> qtdAtributosPorClasse = new ArrayList<>();
+        List<Integer> qtdMetodosPorClasse = new ArrayList<>();
+        int qtdClassesSemAttr = 0;
+
+        for (Class aClass : getAllClasses()) {
+            if (aClass.getAllAttributes().size() != 0)
+                qtdAtributosPorClasse.add(aClass.getAllAttributes().size());
+            else
+                qtdClassesSemAttr++;
+            if (aClass.getAllMethods().size() != 0)
+                qtdMetodosPorClasse.add(aClass.getAllMethods().size());
+        }
+
+
+        StringBuilder str = new StringBuilder();
+        str.append("Packages: " + getAllPackages() +
+                ", qtdPackages: " + getAllPackages().size() +
+                ", qtdClasses: " + getAllClasses().size() +
+                ", qtdInterfaces: " + getAllInterfaces().size() +
+                ", qtdA: " + qtdClassesSemAttr +
+                ", \nqtdAggregation: " + getRelationshipHolder().getAllAgragations().size() +
+                ", \ngetAllCompositions: " + getRelationshipHolder().getAllCompositions().size() +
+                ", \ngetAllDependencies: " + getRelationshipHolder().getAllDependencies().size() +
+                ", \ngetAllAssociations: " + getRelationshipHolder().getAllAssociations().size() +
+                ", \ngetAllGeneralizations: " + getRelationshipHolder().getAllGeneralizations().size() +
+                ", \ngetAllRelationships: " + getRelationshipHolder().getAllRelationships().size() +
+                "\n");
+        if (withAttrs) {
+            str.append("    Classes: \n");
+            str.append(getAllClasses().stream().map(clazz -> {
+                return "       " + clazz.getName() +
+                        " \n           qtdAttributes: " + clazz.getAllAttributes().size() +
+                        " \n           qtdAbstractsMethods: " + clazz.getAllAbstractMethods().size() +
+                        " \n           qtdConcerns: " + clazz.getAllConcerns().size() +
+                        " \n           qtdAssociations: " + clazz.getAllAssociationClass().size() +
+                        " \n           qtdMethods: " + clazz.getAllMethods().size() +
+                        " \n           attributes: " + clazz.getAllAttributes().toString() +
+                        " \n           methods: " + clazz.getAllMethods().toString() + "\n";
+            }).collect(Collectors.joining()));
+        }
+        return str.toString();
+    }
 }

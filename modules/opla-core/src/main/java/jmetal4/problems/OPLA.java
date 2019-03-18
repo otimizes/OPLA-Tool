@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //criado por Thelma em agosto/2012
 public class OPLA extends Problem {
@@ -305,6 +306,7 @@ public class OPLA extends Problem {
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     public SolutionSet removeDominadas(SolutionSet result) {
+        List<Solution> collect = result.getSolutionSet().stream().filter(r -> r.getEvaluation() >= 5).collect(Collectors.toList());
         LOGGER.info("removeDominadas()");
         boolean dominador, dominado;
         double valor1 = 0;
@@ -360,11 +362,20 @@ public class OPLA extends Problem {
             }
         }
 
+        if (collect != null) {
+            result.setCapacity(result.getCapacity() + collect.size());
+            collect.forEach(c -> {
+                if (!result.getSolutionSet().contains(c)) {
+                    result.add(c);
+                }
+            });
+        }
         return result;
     }
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     public SolutionSet removeRepetidas(SolutionSet result) {
+        List<Solution> collect = result.getSolutionSet().stream().filter(r -> r.getEvaluation() >= 5).collect(Collectors.toList());
         LOGGER.info("removeRepetidas()");
         String solucao;
 
@@ -376,6 +387,15 @@ public class OPLA extends Problem {
                     this.configs.getLogger().putLog("removido Repedita");
                 }
             }
+        }
+
+        if (collect != null) {
+            result.setCapacity(result.getCapacity() + collect.size());
+            collect.forEach(c -> {
+                if (!result.getSolutionSet().contains(c)) {
+                    result.add(c);
+                }
+            });
         }
 
         return result;

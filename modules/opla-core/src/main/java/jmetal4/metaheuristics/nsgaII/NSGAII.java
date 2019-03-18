@@ -21,13 +21,21 @@
 
 package jmetal4.metaheuristics.nsgaII;
 
+import com.rits.cloning.Cloner;
 import jmetal4.core.*;
+import jmetal4.interactive.InteractiveFunction;
 import jmetal4.qualityIndicator.QualityIndicator;
 import jmetal4.util.Distance;
 import jmetal4.util.JMException;
 import jmetal4.util.Ranking;
 import jmetal4.util.comparators.CrowdingComparator;
+import learning.Clustering;
+import learning.ClusteringAlgorithm;
+import learning.Moment;
 import org.apache.log4j.Logger;
+
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 /**
  * This class implements the NSGA-II algorithm.
@@ -78,7 +86,16 @@ public class NSGAII extends Algorithm {
         // Read the parameters
         populationSize = ((Integer) getInputParameter("populationSize")).intValue();
         maxEvaluations = ((Integer) getInputParameter("maxEvaluations")).intValue();
+        int maxInteractions = ((Integer) getInputParameter("maxInteractions")).intValue();
+        int firstInteraction = ((Integer) getInputParameter("firstInteraction")).intValue();
+        Boolean interactive = ((Boolean) getInputParameter("interactive")).booleanValue();
+        InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
+        Moment clusteringMoment = ((Moment) getInputParameter("clusteringMoment"));
+        ClusteringAlgorithm clusteringAlgorithm = ((ClusteringAlgorithm) getInputParameter("clusteringAlgorithm"));
+
+        int currentInteraction = 0;
         indicators = (QualityIndicator) getInputParameter("indicators");
+        HashSet<Solution> bestOfUserEvaluation = new HashSet<>();
 
         // Initialize the variables
         population = new SolutionSet(populationSize);
@@ -96,15 +113,11 @@ public class NSGAII extends Algorithm {
             // Create the initial solutionSet
             Solution newSolution;
             for (int i = 0; i < populationSize; i++) {
-                newSolution = new Solution(problem_);
-                // criar a diversidade na populacao inicial
-                mutationOperator.execute(newSolution);
-                problem_.evaluate(newSolution);
-
-                problem_.evaluateConstraints(newSolution);
+                newSolution = newRandomSolution(mutationOperator);
                 evaluations++;
                 population.add(newSolution);
             }
+
         } catch (Exception e) {
             LOGGER.error(e);
             e.printStackTrace();
@@ -124,6 +137,10 @@ public class NSGAII extends Algorithm {
                         LOGGER.info("Origin INDIVIDUO: " + i + " evolucao: " + evaluations);
                         parents[0] = (Solution) selectionOperator.execute(population);
                         parents[1] = (Solution) selectionOperator.execute(population);
+
+                        if (parents[0].getEvaluation() >= 5 && parents[1].getEvaluation() >= 5) continue;
+                        else if (parents[0].getEvaluation() >= 5) parents[0] = newRandomSolution(mutationOperator);
+                        else if (parents[1].getEvaluation() >= 5) parents[1] = newRandomSolution(mutationOperator);
 
                         Object execute = crossoverOperator.execute(parents);
                         if (execute instanceof Solution) {
@@ -149,12 +166,8 @@ public class NSGAII extends Algorithm {
                             offspringPopulation.add(offSpring[0]);
                             offspringPopulation.add(offSpring[1]);
                         }
-
-
                         evaluations += 2;
-
                     }
-
                 }
 
                 // Create the solutionSet union of solutionSet and offSpring
@@ -213,6 +226,18 @@ public class NSGAII extends Algorithm {
                 // by the algorithm to obtain a Pareto front with a hypervolNSGAume
                 // higher
                 // than the hypervolume of the true Pareto front.
+
+                if (Moment.INTERACTIVE.equals(clusteringMoment) || Moment.BOTH.equals(clusteringMoment)) {
+                    Clustering clustering = new Clustering(offspringPopulation, clusteringAlgorithm);
+                    offspringPopulation = clustering.run();
+                }
+
+                if ((evaluations / populationSize) >= firstInteraction && interactive && currentInteraction < maxInteractions) {
+                    offspringPopulation = interactiveFunction.run(offspringPopulation);
+                    bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
+                    currentInteraction++;
+                }
+
                 if ((indicators != null) && (requiredEvaluations == 0)) {
                     double HV = indicators.getHypervolume(population);
                     if (HV >= (0.98 * indicators.getTrueParetoFrontHypervolume())) {
@@ -232,10 +257,42 @@ public class NSGAII extends Algorithm {
 
         // Return the first non-dominated front
         LOGGER.info("Ranking()");
+        SolutionSet populationOriginal = new Cloner().shallowClone(population);
         Ranking ranking = new Ranking(population);
 
+        SolutionSet subfrontToReturn = ranking.getSubfront(0);
 
-        return ranking.getSubfront(0);
+        removeRuim(subfrontToReturn, populationOriginal, interactive);
+
+        subfrontToReturn.setCapacity(subfrontToReturn.getCapacity() + bestOfUserEvaluation.size());
+        for (Solution solution : bestOfUserEvaluation) {
+            if (!subfrontToReturn.getSolutionSet().contains(solution)) {
+                subfrontToReturn.add(solution);
+            }
+        }
+
+        return subfrontToReturn;
         // return population;
     } // execute
+
+    private void removeRuim(SolutionSet population, SolutionSet original, Boolean interactive) {
+        if (interactive) {
+            for (int i = 0; i < population.getSolutionSet().size(); i++) {
+                if (population.get(i).getEvaluation() == 1) {
+                    population.remove(i);
+                }
+            }
+        }
+    }
+
+    private Solution newRandomSolution(Operator mutationOperator) throws Exception {
+        Solution newSolution;
+        newSolution = new Solution(problem_);
+        // criar a diversidade na populacao inicial
+        mutationOperator.execute(newSolution);
+        problem_.evaluate(newSolution);
+
+        problem_.evaluateConstraints(newSolution);
+        return newSolution;
+    }
 } // NSGA-II

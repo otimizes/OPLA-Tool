@@ -35,29 +35,29 @@ public class NSGAII {
                         String executionDescription) {
         execute(executionDescription, checkMutation.isSelected(), Double.parseDouble(fieldMutationProb.getText()),
                 fieldArchitectureInput.getText(), Integer.parseInt(fieldNumberOfRuns.getText()), Integer.parseInt(fieldPopulationSize.getText()),
-                Integer.parseInt(fieldMaxEvaluations.getText()), checkCrossover.isSelected(), Double.parseDouble(fieldCrossoverProbability.getText()), false, null, null, null, null);
+                Integer.parseInt(fieldMaxEvaluations.getText()), checkCrossover.isSelected(), Double.parseDouble(fieldCrossoverProbability.getText()), false, null, null, null, null, null);
 
     }
 
     public void execute(JComboBox<String> cbAlgothm, JCheckBox ckMutation, JSlider jsMutation, JTextField inputArchitecture, JTextField tfNumberRuns,
                         JTextField tfPopulationSize, JTextField tfMaxEvaluations, JCheckBox ckCrossover, JSlider jsCrossover, JTextField tfDescription,
-                        JCheckBox ckEnableInteraction, JTextField tfMaxInteractions, JComboBox<String> clusteringAlgorithm, JComboBox<String> clusteringMoment, InteractiveFunction interactiveFunction) {
+                        JCheckBox ckEnableInteraction, JTextField tfMaxInteractions, JTextField tfFirstInteraction, JComboBox<String> clusteringAlgorithm, JComboBox<String> clusteringMoment, InteractiveFunction interactiveFunction) {
         execute(tfDescription.getText(), ckMutation.isSelected(), (double) jsMutation.getValue() / 10,
                 inputArchitecture.getText(), Integer.parseInt(tfNumberRuns.getText()), Integer.parseInt(tfPopulationSize.getText()),
                 Integer.parseInt(tfMaxEvaluations.getText()), ckCrossover.isSelected(), (double) (jsCrossover.getValue() / 10), ckEnableInteraction.isSelected(),
-                Integer.parseInt(tfMaxInteractions.getText()), clusteringAlgorithm.getSelectedItem() != null ? ClusteringAlgorithm.valueOf(clusteringAlgorithm.getSelectedItem().toString()) : ClusteringAlgorithm.KMEANS, Moment.valueOf(clusteringMoment.getSelectedItem().toString()), interactiveFunction);
+                Integer.parseInt(tfMaxInteractions.getText()), Integer.parseInt(tfFirstInteraction.getText()), clusteringAlgorithm.getSelectedItem() != null ? ClusteringAlgorithm.valueOf(clusteringAlgorithm.getSelectedItem().toString()) : ClusteringAlgorithm.KMEANS, Moment.valueOf(clusteringMoment.getSelectedItem().toString()), interactiveFunction);
     }
 
     public void execute(AlgorithmExperiment algorithmExperiment) {
         execute(algorithmExperiment.getDescription(), algorithmExperiment.getMutation(),
                 algorithmExperiment.getMutationProbability(), algorithmExperiment.getInputArchitecture(), algorithmExperiment.getNumberRuns(),
                 algorithmExperiment.getPopulationSize(), algorithmExperiment.getMaxEvaluations(), algorithmExperiment.getCrossover(),
-                algorithmExperiment.getCrossoverProbability(), algorithmExperiment.getInteractive(), algorithmExperiment.getMaxInteractions(),
+                algorithmExperiment.getCrossoverProbability(), algorithmExperiment.getInteractive(), algorithmExperiment.getMaxInteractions(),algorithmExperiment.getMaxInteractions(),
                 algorithmExperiment.getClusteringAlgorithm(), algorithmExperiment.getClusteringMoment(), algorithmExperiment.getInteractiveFunction());
     }
 
     public void execute(String description, Boolean mutation, Double mutationProbability, String inputArchitecture, Integer numberRuns,
-                        Integer populationSize, Integer maxEvaluations, Boolean crossover, Double crossoverProbability, Boolean interactive, Integer maxInteractions, ClusteringAlgorithm clusteringAlgorithm, Moment clusteringMoment, InteractiveFunction interactiveFunction) {
+                        Integer populationSize, Integer maxEvaluations, Boolean crossover, Double crossoverProbability, Boolean interactive, Integer maxInteractions, Integer firstInteraction, ClusteringAlgorithm clusteringAlgorithm, Moment clusteringMoment, InteractiveFunction interactiveFunction) {
         try {
 
             LOGGER.info("set configuration path");
@@ -73,6 +73,7 @@ public class NSGAII {
             configs.setInteractive(interactive);
             configs.setInteractiveFunction(interactiveFunction);
             configs.setMaxInteractions(maxInteractions);
+            configs.setFirstInteraction(firstInteraction);
             configs.setClusteringMoment(clusteringMoment);
             configs.setClusteringAlgorithm(clusteringAlgorithm);
 

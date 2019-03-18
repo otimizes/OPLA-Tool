@@ -28,6 +28,7 @@ public abstract class ExperimentCommomConfigs {
     private InteractiveFunction interactiveFunction;
     private Boolean interactive;
     public int maxInteractions;
+    public int firstInteraction;
     public Moment clusteringMoment;
     public ClusteringAlgorithm clusteringAlgorithm;
 
@@ -244,6 +245,14 @@ public abstract class ExperimentCommomConfigs {
 
     public void setMaxInteractions(int maxInteractions) {
         this.maxInteractions = maxInteractions;
+    }
+
+    public int getFirstInteraction() {
+        return firstInteraction;
+    }
+
+    public void setFirstInteraction(int firstInteraction) {
+        this.firstInteraction = firstInteraction;
     }
 
     public ElementsWithSameDesignPatternSelection getApplyStrategy() {

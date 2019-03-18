@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 // https://www.programcreek.com/java-api-examples/?api=weka.clusterers.SimpleKMeans
-public class ClusteringExample extends Application {
+public class ClusteringGraphicsExperiment extends Application {
 
     private static final int NUMBER_OF_CLASSES = 3;
 

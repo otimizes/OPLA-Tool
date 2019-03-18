@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class ClusteringTest {
+    // Geração dos gráficos 3d
     //    Feature Driven, Class Coupling and Cohesion
     //    install.packages("scatterplot3d")
     // x <- c(802, 752, 728, 40, 700, 400)

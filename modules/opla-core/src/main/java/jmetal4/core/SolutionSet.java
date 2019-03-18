@@ -94,6 +94,14 @@ public class SolutionSet implements Serializable {
         return true;
     } // add
 
+    public int getCapacity() {
+        return capacity_;
+    }
+
+    public void setCapacity(int capacity_) {
+        this.capacity_ = capacity_;
+    }
+
     /**
      * Returns the ith solution in the set.
      *
@@ -345,6 +353,21 @@ public class SolutionSet implements Serializable {
         }
     }
 
+
+    public void saveVariablesToFile(String path, Logger logger, boolean generate) {
+        int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
+
+        if (logger != null)
+            logger.info("Number of solutions: " + solutionsList_.size());
+        for (int i = 0; i < solutionsList_.size(); i++) {
+            for (int j = 0; j < numberOfVariables; j++) {
+                Architecture arch = (Architecture) solutionsList_.get(i).getDecisionVariables()[j];
+                if (generate)
+                    arch.save(arch, path + i, "");
+            }
+        }
+    }
+
     public void printInformationToFile(String path) {
         try {
             /* Open the file */
@@ -488,7 +511,7 @@ public class SolutionSet implements Serializable {
      * @return A matrix containing the objectives
      */
     public double[][] writeObjectivesToMatrix() {
-        LOGGER.info("writeObjectivesToMatrix()");
+//        LOGGER.info("writeObjectivesToMatrix()");
         if (this.size() == 0) {
             return null;
         }
@@ -746,6 +769,10 @@ public class SolutionSet implements Serializable {
 
     public List<Solution> getSolutionSet() {
         return this.solutionsList_;
+    }
+
+    public void setSolutionSet(List<Solution> solutionsList_) {
+        this.solutionsList_ = solutionsList_;
     }
 
     public List<Solution> getFilteredSolutions() {

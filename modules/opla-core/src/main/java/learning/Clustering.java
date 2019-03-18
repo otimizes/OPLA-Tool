@@ -1,15 +1,17 @@
 package learning;
 
+import com.rits.cloning.Cloner;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import org.apache.log4j.Logger;
 import weka.clusterers.*;
 import weka.core.DistanceFunction;
+import weka.core.Instance;
+import weka.core.Instances;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author WmfSystem
@@ -18,7 +20,7 @@ import java.util.List;
 public class Clustering implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final Logger LOGGER = Logger.getLogger(Clustering.class);
+    public static final Logger LOGGER = Logger.getLogger(Clustering.class);
 
     private SolutionSet resultFront;
     private ClusteringAlgorithm algorithm;
@@ -28,6 +30,10 @@ public class Clustering implements Serializable {
     private List<Solution> filteredSolutions = new ArrayList<>();
     private List<Integer> idsFilteredSolutions = new ArrayList<>();
     private Double indexToFilter = 1.0;
+    private List<Solution> allSolutions = new ArrayList<>();
+    private int numObjectives;
+    private double[] min;
+    private double[] max;
 
     /**
      * K-Means Parameters
@@ -37,16 +43,29 @@ public class Clustering implements Serializable {
     /**
      * DBSCAN and OPTICS Parameters
      */
-    private Integer minPoints = 2;
-    private Double epsilon = 0.1;
+    private Double epsilon = 0.3;
+    private Integer minPoints = 3;
 
     public Clustering() {
     }
 
     public Clustering(SolutionSet resultFront, ClusteringAlgorithm algorithm) {
-        this.resultFront = resultFront;
+        this.resultFront = new Cloner().deepClone(resultFront);
         this.algorithm = algorithm;
         this.arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
+        this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
+        min = new double[this.numObjectives];
+        max = new double[this.numObjectives];
+        for (int i = 0; i < numObjectives; i++) {
+            min[i] = Double.MAX_VALUE;
+            max[i] = Double.MIN_VALUE;
+        }
+        resultFront.getSolutionSet().forEach(r -> {
+            for (int i = 0; i < this.numObjectives; i++) {
+                if (r.getObjective(i) < min[i]) min[i] = r.getObjective(i);
+                if (r.getObjective(i) > max[i]) max[i] = r.getObjective(i);
+            }
+        });
     }
 
     public Double np(Integer num) {
@@ -56,7 +75,7 @@ public class Clustering implements Serializable {
     /**
      * Execution Method
      *
-     * @return Solution Set
+     * @return Solution Set - Best performing cluster with another solutions (filteredSolutions)
      * @throws Exception Default Exception
      */
     public SolutionSet run() throws Exception {
@@ -121,6 +140,14 @@ public class Clustering implements Serializable {
         return null;
     }
 
+    private Double[] doubleArray(double[] doubles) {
+        Double[] d = {};
+        for (int i = 0; i < doubles.length; i++) {
+            d[i] = doubles[i];
+        }
+        return d;
+    }
+
     /**
      * Filtered Solution Set by attribute indexToFilter
      *
@@ -128,13 +155,33 @@ public class Clustering implements Serializable {
      * @throws Exception Default Exception
      */
     private SolutionSet getFilteredSolutionSet() throws Exception {
-        LOGGER.info(getClusterEvaluation().clusterResultsToString());
+        if (clusterer instanceof SimpleKMeans) {
+            getKMeans().getClusterCentroids().sort((o1, o2) -> {
+                double[] doubles1 = o1.toDoubleArray();
+                double[] doubles2 = o2.toDoubleArray();
+                return compareEuclidianDistance(doubles2, doubles1);
+            });
+        }
+
+
         double[] assignments = getClusterEvaluation().getClusterAssignments();
-        for (int i = 0; i < getClusterEvaluation().getClusterAssignments().length; i++) {
-//            LOGGER.info("Cluster " + assignments[i] + " -> " + assignments[i] + " : " + arffExecution.getData().instance(i));
-            if (assignments[i] >= getIndexToFilter()) {
+
+        ArrayList<Solution> selected = new ArrayList<>();
+        for (int i = 0; i < assignments.length; i++) {
+            resultFront.get(i).setClusterId(assignments[i]);
+            allSolutions.add(resultFront.get(i));
+            LOGGER.info("Cluster " + assignments[i] + " : " + resultFront.get(i).getSolutionName() + "   ->   " + arffExecution.getData().instance(i) + (assignments[i] == -1 ? " (RUIDO)" : ""));
+            if (assignments[i] < getIndexToFilter() && assignments[i] >= 0) {
+                selected.add(resultFront.get(i));
+            }
+        }
+
+        for (int i = 0; i < this.resultFront.size(); i++) {
+            if (!selected.contains(this.resultFront.get(i))) {
+                if (assignments[i] == -1) {
+                    resultFront.get(i).setClusterNoise(true);
+                }
                 idsFilteredSolutions.add(i);
-                resultFront.get(i).setClusterId(assignments[i]);
                 filteredSolutions.add(resultFront.get(i));
             }
         }
@@ -142,7 +189,31 @@ public class Clustering implements Serializable {
         Collections.reverse(idsFilteredSolutions);
         idsFilteredSolutions.forEach(resultFront::remove);
         resultFront.setFilteredSolutions(filteredSolutions);
+//        LOGGER.info(getClusterEvaluation().clusterResultsToString());
         return resultFront;
+    }
+
+    private int compareEuclidianDistance(double[] doubles1, double[] doubles2) {
+        Double dist1 = 0.0;
+        Double dist2 = 0.0;
+        for (int i = 0; i < doubles1.length; i++) {
+            dist1 += Math.pow(doubles1[i] - min[i], 2);
+            dist2 += Math.pow(doubles2[i] - min[i], 2);
+        }
+        return dist2.compareTo(dist1);
+    }
+
+    public double euclidianDistance(double[] doubles1, double[] doubles2) {
+
+        Double somatorio = 0.0;
+        for (int i = 0; i < doubles1.length; i++) {
+            somatorio += Math.pow(doubles1[i] - doubles2[i], 2);
+        }
+        return Math.sqrt(somatorio);
+    }
+
+    public double euclidianDistance(Solution solution) {
+        return euclidianDistance(solution.getObjectives(), min);
     }
 
     /**
@@ -227,9 +298,10 @@ public class Clustering implements Serializable {
     /**
      * https://stats.stackexchange.com/questions/55215/way-to-determine-best-number-of-clusters-weka
      * https://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a_data_set
+     *
      * @return number of clusters
      */
-    public Integer getNumClusters() {
+    public int getNumClusters() {
         return numClusters != null ? numClusters : Math.toIntExact(Math.round(Math.pow((resultFront.size() / 2), 0.6)));
     }
 
@@ -256,6 +328,11 @@ public class Clustering implements Serializable {
     public List<Solution> getFilteredSolutions() {
         return filteredSolutions;
     }
+
+    public List<Solution> getBestPerformingCluster() {
+        return resultFront.getSolutionSet();
+    }
+
 
     public void setFilteredSolutions(List<Solution> filteredSolutions) {
         this.filteredSolutions = filteredSolutions;
@@ -290,5 +367,78 @@ public class Clustering implements Serializable {
 
     public void setDistanceFunction(DistanceFunction distanceFunction) {
         this.distanceFunction = distanceFunction;
+    }
+
+    public List<Solution> getAllSolutions() {
+        return allSolutions;
+    }
+
+    public void setAllSolutions(List<Solution> allSolutions) {
+        this.allSolutions = allSolutions;
+    }
+
+    public List<Solution> getSolutionsByClusterWithMinObjective(int objectiveIndex) {
+        return getSolutionsByClusterId(getMinClusterByObjective(objectiveIndex));
+    }
+
+    public List<Solution> getSolutionsByClusterId(double clusterId) {
+        return allSolutions.stream().filter(s -> s.getClusterId() == clusterId).collect(Collectors.toList());
+    }
+
+    /**
+     * If SimpleKMeans, returns the min centroid value by objective index, else, in case of DBSCAN that dont have
+     * Centroid values, is verified the min value in the solutions
+     * On DBSCAN, the clusterId -1 indicates noise
+     *
+     * @param objectiveIndex Objective array index
+     * @return Min value by objective
+     */
+    public double getMinClusterByObjective(int objectiveIndex) {
+        double min = Double.MAX_VALUE;
+        double minCluster = 0.0;
+
+        if (clusterer instanceof SimpleKMeans) {
+            Instances clusterCentroids = getKMeans().getClusterCentroids();
+            for (int i = 0; i < clusterCentroids.size(); i++) {
+                Instance instance = clusterCentroids.get(i);
+                if (instance.toDoubleArray()[objectiveIndex] <= min) {
+                    min = instance.toDoubleArray()[objectiveIndex];
+                    minCluster = i;
+                }
+            }
+        } else {
+            for (Solution allSolution : allSolutions) {
+                if (allSolution.getObjective(objectiveIndex) <= min
+                        && allSolution.getClusterId() != -1) {
+                    min = allSolution.getObjective(objectiveIndex);
+                    minCluster = allSolution.getClusterId();
+                }
+            }
+        }
+        return minCluster;
+    }
+
+    public int getNumObjectives() {
+        return numObjectives;
+    }
+
+    public void setNumObjectives(int numObjectives) {
+        this.numObjectives = numObjectives;
+    }
+
+    public double[] getMin() {
+        return min;
+    }
+
+    public void setMin(double[] min) {
+        this.min = min;
+    }
+
+    public double[] getMax() {
+        return max;
+    }
+
+    public void setMax(double[] max) {
+        this.max = max;
     }
 }
