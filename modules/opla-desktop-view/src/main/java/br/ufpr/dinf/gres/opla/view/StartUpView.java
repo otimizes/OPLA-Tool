@@ -80,6 +80,7 @@ public class StartUpView extends javax.swing.JFrame {
                         StartUpView.arguments.get("crossoverProbability"),
                         StartUpView.arguments.get("interactive"),
                         StartUpView.arguments.get("maxInteractions"),
+                        StartUpView.arguments.get("firstInteraction"),
                         StartUpView.arguments.get("clusteringAlgorithm"),
                         StartUpView.arguments.get("clusteringMoment"),
                         StartUpView.arguments.get("interactiveFunction"),

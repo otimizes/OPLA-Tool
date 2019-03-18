@@ -122,6 +122,7 @@ public class NSGAII_OPLA_FeatMut {
             algorithm.setInputParameter("maxEvaluations", maxEvaluations);
             algorithm.setInputParameter("interactiveFunction", this.configs.getInteractiveFunction());
             algorithm.setInputParameter("maxInteractions", this.configs.getMaxInteractions());
+            algorithm.setInputParameter("firstInteraction", this.configs.getFirstInteraction());
             algorithm.setInputParameter("interactive", this.configs.getInteractive());
             algorithm.setInputParameter("clusteringMoment", this.configs.getClusteringMoment());
             algorithm.setInputParameter("clusteringAlgorithm", this.configs.getClusteringAlgorithm());

@@ -21,6 +21,7 @@ public class AlgorithmExperiment {
     private Double crossoverProbability;
     private Boolean interactive;
     private Integer maxInteractions;
+    private Integer firstInteraction;
     private ClusteringAlgorithm clusteringAlgorithm;
     private Moment clusteringMoment;
     private InteractiveFunction interactiveFunction;
@@ -33,7 +34,7 @@ public class AlgorithmExperiment {
 
     public AlgorithmExperiment(OptimizationAlgorithm algorithm, String description, Boolean mutation, Double mutationProbability,
                                String inputArchitecture, Integer numberRuns, Integer populationSize, Integer maxEvaluations, Boolean crossover,
-                               Double crossoverProbability, Boolean interactive, Integer maxInteractions, ClusteringAlgorithm clusteringAlgorithm,
+                               Double crossoverProbability, Boolean interactive, Integer maxInteractions, Integer firstInteraction, ClusteringAlgorithm clusteringAlgorithm,
                                Moment clusteringMoment, InteractiveFunction interactiveFunction) {
         this.algorithm = algorithm;
         this.description = description;
@@ -47,6 +48,7 @@ public class AlgorithmExperiment {
         this.crossoverProbability = crossoverProbability;
         this.interactive = interactive;
         this.maxInteractions = maxInteractions;
+        this.firstInteraction = firstInteraction;
         this.clusteringAlgorithm = clusteringAlgorithm;
         this.clusteringMoment = clusteringMoment;
         this.interactiveFunction = interactiveFunction;
@@ -54,7 +56,7 @@ public class AlgorithmExperiment {
 
     public AlgorithmExperiment(String algorithm, String description, String mutation, String mutationProbability,
                                String inputArchitecture, String numberRuns, String populationSize, String maxEvaluations,
-                               String crossover, String crossoverProbability, String interactive, String maxInteractions,
+                               String crossover, String crossoverProbability, String interactive, String maxInteractions, String firstInteraction,
                                String clusteringAlgorithm, String clusteringMoment, String interactiveFunction,
                                String mutationOperators, String patterns, String objectiveFunctions) {
         this.algorithm = OptimizationAlgorithm.valueOf(algorithm);
@@ -69,6 +71,7 @@ public class AlgorithmExperiment {
         this.crossoverProbability = Double.valueOf(crossoverProbability);
         this.interactive = false;
         this.maxInteractions = 5;
+        this.firstInteraction = 6;
         this.clusteringAlgorithm = ClusteringAlgorithm.valueOf(clusteringAlgorithm);
         this.clusteringMoment = Moment.valueOf(clusteringMoment);
         this.interactiveFunction = null;
@@ -172,6 +175,14 @@ public class AlgorithmExperiment {
 
     public void setMaxInteractions(Integer maxInteractions) {
         this.maxInteractions = maxInteractions;
+    }
+
+    public Integer getFirstInteraction() {
+        return firstInteraction;
+    }
+
+    public void setFirstInteraction(Integer firstInteraction) {
+        this.firstInteraction = firstInteraction;
     }
 
     public ClusteringAlgorithm getClusteringAlgorithm() {

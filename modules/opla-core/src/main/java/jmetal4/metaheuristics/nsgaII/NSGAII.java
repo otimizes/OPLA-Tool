@@ -87,6 +87,7 @@ public class NSGAII extends Algorithm {
         populationSize = ((Integer) getInputParameter("populationSize")).intValue();
         maxEvaluations = ((Integer) getInputParameter("maxEvaluations")).intValue();
         int maxInteractions = ((Integer) getInputParameter("maxInteractions")).intValue();
+        int firstInteraction = ((Integer) getInputParameter("firstInteraction")).intValue();
         Boolean interactive = ((Boolean) getInputParameter("interactive")).booleanValue();
         InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
         Moment clusteringMoment = ((Moment) getInputParameter("clusteringMoment"));
@@ -235,7 +236,7 @@ public class NSGAII extends Algorithm {
                     offspringPopulation = clustering.run();
                 }
 
-                if ((evaluations / populationSize) >= 6 && interactive && currentInteraction < maxInteractions) {
+                if ((evaluations / populationSize) >= firstInteraction && interactive && currentInteraction < maxInteractions) {
                     offspringPopulation = interactiveFunction.run(offspringPopulation);
                     bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
                     currentInteraction++;
