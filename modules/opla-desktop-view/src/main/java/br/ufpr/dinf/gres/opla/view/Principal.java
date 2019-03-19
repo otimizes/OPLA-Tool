@@ -398,10 +398,10 @@ public class Principal extends AbstractPrincipalJFrame {
         ckLLC = new javax.swing.JCheckBox();
         panelOperators = new javax.swing.JPanel();
         panelOperatorOption = new javax.swing.JPanel();
-        jsMutation = new javax.swing.JSlider();
         jsCrossover = new javax.swing.JSlider();
-        ckMutation = new javax.swing.JCheckBox();
+        jsMutation = new javax.swing.JSlider();
         ckCrossover = new javax.swing.JCheckBox();
+        ckMutation = new javax.swing.JCheckBox();
         panelMutations = new javax.swing.JPanel();
         ckFeatureDrivenMutation = new javax.swing.JCheckBox();
         ckMoveMethodMutation = new javax.swing.JCheckBox();
@@ -822,7 +822,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addContainerGap(362, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("General Configuration", jPanel1);
@@ -1120,12 +1120,16 @@ public class Principal extends AbstractPrincipalJFrame {
 
         panelOperatorOption.setName("Panel Operators Options"); // NOI18N
 
-        jsMutation.setMajorTickSpacing(10);
-        jsMutation.setMaximum(10);
-        jsMutation.setMinorTickSpacing(1);
-        jsMutation.setPaintLabels(true);
-        jsMutation.setPaintTicks(true);
-        jsMutation.setBorder(javax.swing.BorderFactory.createTitledBorder("Mutation Probability"));
+        javax.swing.GroupLayout panelOperatorOptionLayout = new javax.swing.GroupLayout(panelOperatorOption);
+        panelOperatorOption.setLayout(panelOperatorOptionLayout);
+        panelOperatorOptionLayout.setHorizontalGroup(
+            panelOperatorOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+        );
+        panelOperatorOptionLayout.setVerticalGroup(
+            panelOperatorOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         jsCrossover.setMajorTickSpacing(10);
         jsCrossover.setMaximum(10);
@@ -1135,12 +1139,12 @@ public class Principal extends AbstractPrincipalJFrame {
         jsCrossover.setSnapToTicks(true);
         jsCrossover.setBorder(javax.swing.BorderFactory.createTitledBorder("Crossover Probability"));
 
-        ckMutation.setText("Mutation");
-        ckMutation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ckMutationActionPerformed(evt);
-            }
-        });
+        jsMutation.setMajorTickSpacing(10);
+        jsMutation.setMaximum(10);
+        jsMutation.setMinorTickSpacing(1);
+        jsMutation.setPaintLabels(true);
+        jsMutation.setPaintTicks(true);
+        jsMutation.setBorder(javax.swing.BorderFactory.createTitledBorder("Mutation Probability"));
 
         ckCrossover.setText("Crossover");
         ckCrossover.addActionListener(new java.awt.event.ActionListener() {
@@ -1149,37 +1153,12 @@ public class Principal extends AbstractPrincipalJFrame {
             }
         });
 
-        javax.swing.GroupLayout panelOperatorOptionLayout = new javax.swing.GroupLayout(panelOperatorOption);
-        panelOperatorOption.setLayout(panelOperatorOptionLayout);
-        panelOperatorOptionLayout.setHorizontalGroup(
-            panelOperatorOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelOperatorOptionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelOperatorOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelOperatorOptionLayout.createSequentialGroup()
-                        .addComponent(ckMutation)
-                        .addGap(18, 18, 18)
-                        .addComponent(ckCrossover)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelOperatorOptionLayout.createSequentialGroup()
-                        .addComponent(jsMutation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jsCrossover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-        );
-        panelOperatorOptionLayout.setVerticalGroup(
-            panelOperatorOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelOperatorOptionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelOperatorOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ckMutation)
-                    .addComponent(ckCrossover))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelOperatorOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jsCrossover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jsMutation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        ckMutation.setText("Mutation");
+        ckMutation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckMutationActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelOperatorsLayout = new javax.swing.GroupLayout(panelOperators);
         panelOperators.setLayout(panelOperatorsLayout);
@@ -1187,13 +1166,33 @@ public class Principal extends AbstractPrincipalJFrame {
             panelOperatorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOperatorsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelOperatorOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelOperatorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOperatorsLayout.createSequentialGroup()
+                        .addComponent(ckMutation)
+                        .addGap(18, 18, 18)
+                        .addComponent(ckCrossover)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelOperatorsLayout.createSequentialGroup()
+                        .addGroup(panelOperatorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelOperatorOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelOperatorsLayout.createSequentialGroup()
+                                .addComponent(jsMutation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jsCrossover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panelOperatorsLayout.setVerticalGroup(
             panelOperatorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOperatorsLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(panelOperatorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ckMutation)
+                    .addComponent(ckCrossover))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelOperatorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jsMutation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jsCrossover, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOperatorOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -1501,7 +1500,7 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addComponent(tfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
                     .addComponent(btRun, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(124, 124, 124))
+                .addContainerGap(275, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Execution Configuration", jPanel7);
@@ -1600,7 +1599,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelScopeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(666, Short.MAX_VALUE))
+                .addContainerGap(787, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Design Patterns", jPanel15);
@@ -1838,7 +1837,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(panelResultObjetive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(349, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Results", jPanel18);
@@ -2043,7 +2042,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addContainerGap(333, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Experiments", jPanel19);
@@ -2089,7 +2088,7 @@ public class Principal extends AbstractPrincipalJFrame {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addContainerGap(449, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Logs", jPanel24);
