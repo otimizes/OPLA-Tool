@@ -11,32 +11,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
+import arquitetura.builders.AssociationClassRelationshipBuilder;
+import arquitetura.representation.*;
+import arquitetura.representation.Class;
+import arquitetura.representation.Package;
+import arquitetura.representation.relationship.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.helpers.UtilResources;
-import arquitetura.representation.Architecture;
-import arquitetura.representation.Attribute;
-import arquitetura.representation.Class;
-import arquitetura.representation.Concern;
-import arquitetura.representation.Element;
-import arquitetura.representation.Interface;
-import arquitetura.representation.Method;
-import arquitetura.representation.Package;
-import arquitetura.representation.Variability;
-import arquitetura.representation.Variant;
-import arquitetura.representation.VariationPoint;
-import arquitetura.representation.relationship.AssociationRelationship;
-import arquitetura.representation.relationship.GeneralizationRelationship;
-import arquitetura.representation.relationship.RealizationRelationship;
-import arquitetura.representation.relationship.Relationship;
 import jmetal4.core.Solution;
 import jmetal4.problems.OPLA;
 import jmetal4.util.Configuration;
 import jmetal4.util.JMException;
 import jmetal4.util.PseudoRandom;
+import org.eclipse.uml2.uml.AssociationClass;
 
 public class PLAFeatureMutation extends Mutation {
 
@@ -72,6 +64,12 @@ public class PLAFeatureMutation extends Mutation {
         String selectedOperator = operatorMap.get(r);
 
         if (selectedOperator.equals("featureMutation")) {
+            java.lang.reflect.Method featureMut = PLAFeatureMutation.class.getMethod(selectedOperator, double.class,
+                    Solution.class, String.class);
+            featureMut.invoke(this, probability, solution, scopeLevels);
+        }
+
+        if (selectedOperator.equals("featureModularization")) {
             java.lang.reflect.Method featureMut = PLAFeatureMutation.class.getMethod(selectedOperator, double.class,
                     Solution.class, String.class);
             featureMut.invoke(this, probability, solution, scopeLevels);
@@ -611,6 +609,107 @@ public class PLAFeatureMutation extends Mutation {
         }
     }
 
+    // --------------------------------------------------------------------------
+    public void featureModularization(double probability, Solution solution, String scope) throws JMException {
+        try {
+            if (PseudoRandom.randDouble() < probability) {
+                if (solution.getDecisionVariables()[0].getVariableType().toString()
+                        .equals("class " + Architecture.ARCHITECTURE_TYPE)) {
+
+                    final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
+
+                    for (Class c : arch.getAllClasses()) {
+                        Set<Concern> allConcerns = c.getAllConcerns();
+                        Package aPackage = arch.getAllPackages().stream().filter(p -> p.getAllClasses().contains(c)).findFirst().get();
+                        if (allConcerns.size() > 1) {
+                            Concern major = getMajorConcern(c);
+
+                            for (Concern concern: allConcerns.stream().filter(co -> !c.equals(major)).collect(Collectors.toList())) {
+                                Class newClass = findOrCreateClassWithConcernWithConcernName(aPackage, concern, c);
+
+                                for(Attribute attr: c.getAllAttributes()) {
+                                    if (attr.getAllConcerns().contains(concern)) {
+                                        newClass.getAllAttributes().add(attr);
+                                        c.getAllAttributes().remove(attr);
+                                    }
+                                }
+
+                                for (Method method : c.getAllMethods()) {
+                                    if (method.getAllConcerns().contains(concern)) {
+                                        newClass.getAllMethods().add(method);
+                                        c.getAllMethods().remove(method);
+                                    }
+                                }
+
+                                for (Method method : c.getAllAbstractMethods()) {
+                                    if (method.getAllConcerns().contains(concern)) {
+                                        newClass.getAllAbstractMethods().add(method);
+                                        c.getAllMethods().remove(method);
+                                    }
+                                }
+
+
+                                RelationshipsHolder relationshipsHolder = new RelationshipsHolder();
+                                AssociationRelationship associationRelationship = new AssociationRelationship(c, newClass);
+                                relationshipsHolder.addRelationship(associationRelationship);
+
+                                newClass.setRelationshipHolder(relationshipsHolder);
+
+//                                Em caso de anomalia, cria um novo RelationshipsHolder invertendo c <-> newClass e adiciona no c.setRelationShipHolder
+                                c.setRelationshipHolder(relationshipsHolder);
+
+                                arch.getAllClasses().add(newClass);
+
+                                if (searchForGeneralizations(c)) {
+                                    for (Relationship relationship : c.getRelationships()) {
+                                        if (relationship instanceof GeneralizationRelationship) {
+                                            GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+
+                                            RelationshipsHolder relationshipsHolderGeneralization = new RelationshipsHolder();
+                                            AssociationRelationship associationRelationshipGeneralization = new AssociationRelationship(newClass, generalization.getChild());
+                                            relationshipsHolderGeneralization.addRelationship(associationRelationshipGeneralization);
+
+                                            newClass.setRelationshipHolder(relationshipsHolderGeneralization);
+                                            // Em caso de anomalia, cria um novo RelationshipsHolder invertendo c <-> newClass e adiciona no c.setRelationShipHolder
+                                            ((Class) generalization.getChild()).setRelationshipHolder(relationshipsHolder);
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+
+
+                } else {
+                    Configuration.logger_.log(Level.SEVERE, "FeatureMutation.doMutation: invalid type. " + "{0}",
+                            solution.getDecisionVariables()[0].getVariableType());
+                    java.lang.Class<String> cls = java.lang.String.class;
+                    String name = cls.getName();
+                    throw new JMException("Exception in " + name + ".doMutation()");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Concern getMajorConcern(Class c) {
+        long count = 0;
+        Concern major = null;
+        for (Concern concern : c.getAllConcerns()) {
+            long count1 = c.getAllAttributes().stream().filter(attr -> attr.getAllConcerns().contains(concern)).count();
+            long count2 = c.getAllMethods().stream().filter(method -> method.getAllConcerns().contains(concern)).count();
+            long count3 = c.getAllAbstractMethods().stream().filter(method -> method.getAllConcerns().contains(concern)).count();
+            long ct = count1 + count2 + count3;
+            if (ct > count) {
+                count = ct;
+                major = concern;
+            }
+        }
+        return major;
+    }
+
     private List<Package> searchComponentsAssignedToConcern(Concern concern, List<Package> allComponents) {
         final List<Package> allComponentsAssignedToConcern = new ArrayList<Package>();
         for (Package component : allComponents) {
@@ -773,6 +872,22 @@ public class PLAFeatureMutation extends Mutation {
             classComp.moveMethodToClass(method, targetClass);
             createAssociation(architecture, targetClass, classComp);
         }
+    }
+
+    // add por ��dipo
+    private Class findOrCreateClassWithConcernWithConcernName(Package targetComp, Concern concern, arquitetura.representation.Class origin) throws ConcernNotFoundException {
+        Class targetClass = null;
+        for (Class cls : targetComp.getAllClasses()) {
+            if (cls.containsConcern(concern)) {
+                targetClass = cls;
+            }
+        }
+
+        if (targetClass == null) {
+            targetClass = targetComp.createClass("Class" + origin.getName() + concern.getName(), false);
+            targetClass.addConcern(concern.getName());
+        }
+        return targetClass;
     }
 
     // add por ��dipo
