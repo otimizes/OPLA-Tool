@@ -364,7 +364,7 @@ public class Principal extends AbstractPrincipalJFrame {
         btManipulationDirectory3 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        cbAlgothm = new javax.swing.JComboBox<>();
+        cbAlgothm = new javax.swing.JComboBox<String>();
         tfNumberRuns = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -374,10 +374,6 @@ public class Principal extends AbstractPrincipalJFrame {
         jLabel10 = new javax.swing.JLabel();
         tfArchiveSize = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        tfMaxInteractions = new javax.swing.JTextField();
-        jLabel22 = new javax.swing.JLabel();
-        tfFirstInteraction = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         ckConventional = new javax.swing.JCheckBox();
         ckComponentCoupling = new javax.swing.JCheckBox();
@@ -423,10 +419,16 @@ public class Principal extends AbstractPrincipalJFrame {
         jLabel14 = new javax.swing.JLabel();
         btRun = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
-        cbClusteringAlgorithm = new javax.swing.JComboBox<>();
+        cbClusteringAlgorithm = new javax.swing.JComboBox<String>();
         jLabel20 = new javax.swing.JLabel();
-        cbClusteringMoment = new javax.swing.JComboBox<>();
+        cbClusteringMoment = new javax.swing.JComboBox<String>();
         jLabel21 = new javax.swing.JLabel();
+        tfMaxInteractions = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        tfFirstInteraction = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        tfIntervalInteraction = new javax.swing.JTextField();
         jPanel15 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         ckMediator = new javax.swing.JCheckBox();
@@ -443,10 +445,10 @@ public class Principal extends AbstractPrincipalJFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tbRuns = new javax.swing.JTable();
         panelResultSolution = new javax.swing.JPanel();
-        cbSolutionName = new javax.swing.JComboBox<>();
+        cbSolutionName = new javax.swing.JComboBox<String>();
         lbSolution = new javax.swing.JLabel();
         panelResultObjetive = new javax.swing.JPanel();
-        cbObjectiveSoluction = new javax.swing.JComboBox<>();
+        cbObjectiveSoluction = new javax.swing.JComboBox<String>();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tbObjectiveSolution = new javax.swing.JTable();
@@ -468,7 +470,7 @@ public class Principal extends AbstractPrincipalJFrame {
         ckUseNormalization = new javax.swing.JCheckBox();
         jPanel27 = new javax.swing.JPanel();
         btBoxPlot = new javax.swing.JButton();
-        cbRScript = new javax.swing.JComboBox<>();
+        cbRScript = new javax.swing.JComboBox<String>();
         jLabel18 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
@@ -713,7 +715,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(tfManipulationDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btManipulationDirectory)
-                .addContainerGap(560, Short.MAX_VALUE))
+                .addContainerGap(572, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -822,7 +824,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addContainerGap(413, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("General Configuration", jPanel1);
@@ -850,16 +852,6 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jLabel11.setText("Archive Size:");
 
-        jLabel15.setText("Max  Interactions:");
-
-        tfMaxInteractions.setColumns(10);
-        tfMaxInteractions.setText("5");
-
-        jLabel22.setText("First Interaction:");
-
-        tfFirstInteraction.setColumns(10);
-        tfFirstInteraction.setText("6");
-
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -871,26 +863,18 @@ public class Principal extends AbstractPrincipalJFrame {
                         .addComponent(jLabel8)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfMaxInteractions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10)
                             .addComponent(jLabel11))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfArchiveSize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfPopulationSize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfMaxEvaluations, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfNumberRuns, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(cbAlgothm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfFirstInteraction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cbAlgothm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -916,15 +900,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfArchiveSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfMaxInteractions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfFirstInteraction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Objective Functions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -1113,7 +1089,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ckAV)
                     .addComponent(ckLLC))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         panelOperators.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operators", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -1170,8 +1146,7 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addGroup(panelOperatorsLayout.createSequentialGroup()
                         .addComponent(ckMutation)
                         .addGap(18, 18, 18)
-                        .addComponent(ckCrossover)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(ckCrossover))
                     .addGroup(panelOperatorsLayout.createSequentialGroup()
                         .addGroup(panelOperatorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panelOperatorOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1368,7 +1343,7 @@ public class Principal extends AbstractPrincipalJFrame {
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfOutputDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1393,7 +1368,7 @@ public class Principal extends AbstractPrincipalJFrame {
             }
         });
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Learning Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Learning Settings / Interaction", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel10.setMaximumSize(new java.awt.Dimension(32767, 300));
         jPanel10.setName("Panel Settings"); // NOI18N
         jPanel10.setPreferredSize(new java.awt.Dimension(200, 99));
@@ -1414,6 +1389,26 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jLabel21.setText("Clustering Moment");
 
+        tfMaxInteractions.setColumns(10);
+        tfMaxInteractions.setText("5");
+
+        jLabel15.setText("Max  Interactions:");
+
+        jLabel22.setText("First Interaction:");
+
+        tfFirstInteraction.setColumns(10);
+        tfFirstInteraction.setText("6");
+
+        jLabel23.setText("Interval:");
+
+        tfIntervalInteraction.setColumns(10);
+        tfIntervalInteraction.setText("1");
+        tfIntervalInteraction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfIntervalInteractionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -1426,14 +1421,25 @@ public class Principal extends AbstractPrincipalJFrame {
                             .addComponent(cbClusteringAlgorithm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jLabel20)
-                                .addGap(0, 37, Short.MAX_VALUE)))
+                                .addGap(0, 35, Short.MAX_VALUE)))
                         .addGap(8, 8, 8))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbClusteringMoment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jLabel21)
-                                .addGap(0, 87, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfIntervalInteraction, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(tfFirstInteraction, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(tfMaxInteractions, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel10Layout.setVerticalGroup(
@@ -1447,7 +1453,19 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbClusteringAlgorithm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(tfMaxInteractions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(tfFirstInteraction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(tfIntervalInteraction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -1460,7 +1478,7 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 1068, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -1500,7 +1518,7 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addComponent(tfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
                     .addComponent(btRun, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(345, Short.MAX_VALUE))
+                .addContainerGap(354, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Execution Configuration", jPanel7);
@@ -1569,7 +1587,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addGroup(panelScopeSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rbRandom)
                     .addComponent(rbElements))
-                .addContainerGap(1293, Short.MAX_VALUE))
+                .addContainerGap(1295, Short.MAX_VALUE))
         );
         panelScopeSelectionLayout.setVerticalGroup(
             panelScopeSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1837,7 +1855,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(panelResultObjetive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(369, Short.MAX_VALUE))
+                .addContainerGap(385, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Results", jPanel18);
@@ -1860,7 +1878,7 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1615, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1619, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
@@ -1962,7 +1980,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(btHypervolume, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ckUseNormalization)
-                .addContainerGap(1168, Short.MAX_VALUE))
+                .addContainerGap(1170, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2088,7 +2106,7 @@ public class Principal extends AbstractPrincipalJFrame {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(469, Short.MAX_VALUE))
+                .addContainerGap(473, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Logs", jPanel24);
@@ -2197,6 +2215,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private void ckEnableInteraction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckEnableInteraction
         tfMaxInteractions.setEnabled(ckEnableInteraction.isSelected());
         tfFirstInteraction.setEnabled(ckEnableInteraction.isSelected());
+        tfIntervalInteraction.setEnabled(ckEnableInteraction.isSelected());
         tfInteractionDirectory1.setEnabled(ckEnableInteraction.isSelected());
         btManipulationDirectory3.setEnabled(ckEnableInteraction.isSelected());
         ckEnableInteraction1.setEnabled(ckEnableInteraction.isSelected());
@@ -2665,6 +2684,10 @@ public class Principal extends AbstractPrincipalJFrame {
         }
     }//GEN-LAST:event_cbRScriptActionPerformed
 
+    private void tfIntervalInteractionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIntervalInteractionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfIntervalInteractionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBoxPlot;
     private javax.swing.JButton btBrowserFeatureProfile;
@@ -2741,6 +2764,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2805,6 +2829,7 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JTextField tfFirstInteraction;
     private javax.swing.JTextField tfInputArchitecturePath;
     private javax.swing.JTextField tfInteractionDirectory1;
+    private javax.swing.JTextField tfIntervalInteraction;
     private javax.swing.JTextField tfManipulationDirectory;
     private javax.swing.JTextField tfMaxEvaluations;
     private javax.swing.JTextField tfMaxInteractions;
@@ -3113,7 +3138,7 @@ public class Principal extends AbstractPrincipalJFrame {
             NSGAII nsgaii = new NSGAII();
             nsgaii.execute(cbAlgothm, ckMutation, jsMutation, tfInputArchitecturePath, tfNumberRuns,
                     tfPopulationSize, tfMaxEvaluations, ckCrossover, jsCrossover,
-                    tfDescription, ckEnableInteraction, tfMaxInteractions, tfFirstInteraction, cbClusteringAlgorithm, cbClusteringMoment, (solutionSet) -> {
+                    tfDescription, ckEnableInteraction, tfMaxInteractions, tfFirstInteraction, tfIntervalInteraction, cbClusteringAlgorithm, cbClusteringMoment, (solutionSet) -> {
                         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(config, solutionSet);
                         return interactiveSolutions.solutionSet;
                     });

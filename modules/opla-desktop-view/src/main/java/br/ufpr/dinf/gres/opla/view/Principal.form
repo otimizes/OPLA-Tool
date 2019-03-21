@@ -88,7 +88,7 @@
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel11" min="-2" pref="137" max="-2" attributes="0"/>
-                      <EmptySpace pref="382" max="32767" attributes="0"/>
+                      <EmptySpace pref="413" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -445,7 +445,7 @@
                           <Component id="tfManipulationDirectory" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btManipulationDirectory" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="560" max="32767" attributes="0"/>
+                          <EmptySpace pref="572" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -610,7 +610,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel9" pref="1064" max="32767" attributes="0"/>
+                              <Component id="jPanel9" pref="1068" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel10" min="-2" pref="257" max="-2" attributes="0"/>
                           </Group>
@@ -662,7 +662,7 @@
                           <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btRun" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="345" max="32767" attributes="0"/>
+                      <EmptySpace pref="354" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -697,18 +697,13 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="tfMaxInteractions" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="19" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="tfArchiveSize" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="tfPopulationSize" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -717,11 +712,6 @@
                                   </Group>
                               </Group>
                               <Component id="cbAlgothm" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="tfFirstInteraction" min="-2" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -754,17 +744,7 @@
                               <Component id="tfArchiveSize" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="tfMaxInteractions" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="tfFirstInteraction" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="81" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -823,28 +803,6 @@
                 <Component class="javax.swing.JLabel" name="jLabel11">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Archive Size:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel15">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Max  Interactions:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="tfMaxInteractions">
-                  <Properties>
-                    <Property name="columns" type="int" value="10"/>
-                    <Property name="text" type="java.lang.String" value="5"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel22">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="First Interaction:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="tfFirstInteraction">
-                  <Properties>
-                    <Property name="columns" type="int" value="10"/>
-                    <Property name="text" type="java.lang.String" value="6"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -939,7 +897,7 @@
                               <Component id="ckAV" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ckLLC" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="90" max="32767" attributes="0"/>
+                          <EmptySpace pref="83" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1104,7 +1062,6 @@
                                   <Component id="ckMutation" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="ckCrossover" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="223" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1425,7 +1382,7 @@
                                   <Component id="tfOutputDirectory" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="141" max="32767" attributes="0"/>
+                          <EmptySpace pref="165" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1487,7 +1444,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Learning Settings">
+                    <TitledBorder title="Learning Settings / Interaction">
                       <Font PropertyName="font" name="Tahoma" size="14" style="1"/>
                     </TitledBorder>
                   </Border>
@@ -1512,7 +1469,7 @@
                                       <Component id="cbClusteringAlgorithm" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="37" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="35" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
@@ -1522,8 +1479,22 @@
                                       <Component id="cbClusteringMoment" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="87" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="tfIntervalInteraction" alignment="1" pref="0" max="32767" attributes="0"/>
+                                      <Component id="tfFirstInteraction" pref="0" max="32767" attributes="0"/>
+                                      <Component id="tfMaxInteractions" pref="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -1542,7 +1513,22 @@
                           <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="cbClusteringAlgorithm" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="132" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfMaxInteractions" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfFirstInteraction" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfIntervalInteraction" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="46" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1585,6 +1571,42 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Clustering Moment"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfMaxInteractions">
+                  <Properties>
+                    <Property name="columns" type="int" value="10"/>
+                    <Property name="text" type="java.lang.String" value="5"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel15">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Max  Interactions:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel22">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="First Interaction:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfFirstInteraction">
+                  <Properties>
+                    <Property name="columns" type="int" value="10"/>
+                    <Property name="text" type="java.lang.String" value="6"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel23">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Interval:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfIntervalInteraction">
+                  <Properties>
+                    <Property name="columns" type="int" value="10"/>
+                    <Property name="text" type="java.lang.String" value="1"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfIntervalInteractionActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1713,7 +1735,7 @@
                               <Component id="rbRandom" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="rbElements" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="1293" max="32767" attributes="0"/>
+                          <EmptySpace pref="1295" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1789,7 +1811,7 @@
                       <Component id="panelResultObjetive" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel29" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="369" max="32767" attributes="0"/>
+                      <EmptySpace pref="385" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2185,7 +2207,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="1615" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="1619" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -2341,7 +2363,7 @@
                           <Component id="btHypervolume" min="-2" pref="290" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="ckUseNormalization" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="1168" max="32767" attributes="0"/>
+                          <EmptySpace pref="1170" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2474,7 +2496,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel25" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="469" max="32767" attributes="0"/>
+                      <EmptySpace pref="473" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

@@ -29,6 +29,7 @@ public abstract class ExperimentCommomConfigs {
     private Boolean interactive;
     public int maxInteractions;
     public int firstInteraction;
+    public int intervalInteraction;
     public Moment clusteringMoment;
     public ClusteringAlgorithm clusteringAlgorithm;
 
@@ -205,6 +206,14 @@ public abstract class ExperimentCommomConfigs {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getIntervalInteraction() {
+        return intervalInteraction;
+    }
+
+    public void setIntervalInteraction(Integer intervalInteraction) {
+        this.intervalInteraction = intervalInteraction;
     }
 
     public void setDescription(String description) {
