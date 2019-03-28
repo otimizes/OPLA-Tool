@@ -69,7 +69,7 @@ public class PLAFeatureMutation extends Mutation {
             featureMut.invoke(this, probability, solution, scopeLevels);
         }
 
-        if (selectedOperator.equals("featureModularization")) {
+        if (selectedOperator.equals("featureInteractionModularization")) {
             java.lang.reflect.Method featureMut = PLAFeatureMutation.class.getMethod(selectedOperator, double.class,
                     Solution.class, String.class);
             featureMut.invoke(this, probability, solution, scopeLevels);
@@ -609,8 +609,8 @@ public class PLAFeatureMutation extends Mutation {
         }
     }
 
-    // --------------------------------------------------------------------------
-    public void featureModularization(double probability, Solution solution, String scope) throws JMException {
+    // Luciane--------------------------------------------------------------------------
+    public void featureInteractionModularization(double probability, Solution solution, String scope) throws JMException {
         try {
             if (PseudoRandom.randDouble() < probability) {
                 if (solution.getDecisionVariables()[0].getVariableType().toString()
@@ -655,7 +655,7 @@ public class PLAFeatureMutation extends Mutation {
 
                                 newClass.setRelationshipHolder(relationshipsHolder);
 
-//                                Em caso de anomalia, cria um novo RelationshipsHolder invertendo c <-> newClass e adiciona no c.setRelationShipHolder
+//                              //  Em caso de anomalia, cria um novo RelationshipsHolder invertendo c <-> newClass e adiciona no c.setRelationShipHolder
                                 c.setRelationshipHolder(relationshipsHolder);
 
                                 arch.getAllClasses().add(newClass);
