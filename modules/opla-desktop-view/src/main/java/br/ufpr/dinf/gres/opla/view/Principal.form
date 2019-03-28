@@ -887,11 +887,9 @@
                               <Component id="ckCohesion" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="ckElegance" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="ckLLC" min="-2" max="-2" attributes="0"/>
-                              <Component id="ckCDA" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ckCIB" min="-2" max="-2" attributes="0"/>
                               <Component id="ckAV" min="-2" max="-2" attributes="0"/>
                               <Component id="ckSSC" min="-2" max="-2" attributes="0"/>
                               <Component id="ckSVS" min="-2" max="-2" attributes="0"/>
@@ -941,16 +939,7 @@
                               <Component id="ckAV" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ckLLC" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-<<<<<<< HEAD
                           <EmptySpace pref="83" max="32767" attributes="0"/>
-=======
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="ckCDA" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="ckCIB" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
->>>>>>> LCC Class
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1090,22 +1079,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckLLCActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="ckCDA">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="CDA"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckCDAActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JCheckBox" name="ckCIB">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="CIB"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckCIBActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
