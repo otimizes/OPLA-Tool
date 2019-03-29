@@ -128,7 +128,7 @@ z = c(27.0, 26.0, 29.0, 30.0, 27.0, 28.0, 29.0, 30.0, 25.0, 26.0, 28.0)
 colors = c("#56B4E9","#E69F00","#E69F00","#E69F00","red","red","red","red","red","red","red")
 shapes = c(19,15,15,15,17,17,17,17,17,17,17)
 s3d = scatterplot3d(x, y, z, type = "p", angle = 10, pch = shapes, main = "ExpCM and ExpAI solutions", zlab="ACLASS", ylab="FM", xlab="COE", color=colors)
-legend("right", legend = c("ExpCM Non-Dominated", "ExpAI Non-Dominated", "ExpAI Dominated"), col = c("red", "#56B4E9", "#E69F00"), pch = c(17, 19, 15), inset = -0.05, xpd = TRUE, horiz = FALSE)
+legend("right", legend = c("ExpAI Non-Dominated", "ExpCM Non-Dominated", "ExpCM Dominated"), col = c("red", "#56B4E9", "#E69F00"), pch = c(17, 19, 15), inset = -0.05, xpd = TRUE, horiz = FALSE)
  */
 }
 
