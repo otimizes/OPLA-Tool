@@ -11,7 +11,7 @@ https://github.com/SBSE-UEM/OPLA-Tool-Spyke
 Before to compile the code, you need to install the following softwares on your PC:
 - Java Development Kit (Version >= 6)
 - Git - http://git-scm.com
-- Maven - http://maven.apache.org
+- Maven - http://maven.apache.org (Version >= 3.5)
 
 ## How to Build
 This section show the step-by-step that you should follow to build the OPLA-Tool. 
@@ -36,6 +36,13 @@ mvn clean install Obs: If it is the first run, execute **mvn clean** first to in
 ```sh
 java -jar modules/opla-gui/target/opla-gui-1.0.0-SNAPSHOT-jar-with-dependencies
 ```
+
+## How to open the PLAs
+```sh
+Download and Install the Eclipse Papyrus Luna RS2: https://www.eclipse.org/papyrus/download.html
+Import the PLAs: https://www.youtube.com/watch?v=9mmPUagHjM8
+```
+
 
 ## How to import into eclipse IDE
 ```sh
