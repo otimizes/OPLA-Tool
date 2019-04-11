@@ -1,5 +1,7 @@
 # OPLA-Tool
 
+![OtimizesUEM](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/master/logo-grupo-pesquisa.png)
+
 ## Description
 
 This project was created from the project 
