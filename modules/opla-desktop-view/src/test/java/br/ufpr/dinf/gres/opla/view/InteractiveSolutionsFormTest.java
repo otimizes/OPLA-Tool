@@ -1,6 +1,8 @@
 package br.ufpr.dinf.gres.opla.view;
 
+import arquitetura.representation.Architecture;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
+import br.ufpr.dinf.gres.opla.entity.Objective;
 import database.Database;
 import exceptions.MissingConfigurationException;
 import jmetal4.core.Solution;
@@ -14,17 +16,21 @@ import results.Execution;
 import results.Experiment;
 import results.FunResults;
 import results.InfoResult;
+import utils.ExperimentTest;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class InteractiveSolutionsFormTest {
 
     private static MetricsPersistence mp;
 
-//    @Test
-    public void main() throws ClassNotFoundException {
+    @Test
+    public void main() throws ClassNotFoundException, IOException {
 
         ManagerApplicationConfig managerApplicationConfig = new ManagerApplicationConfig();
 
@@ -40,68 +46,38 @@ public class InteractiveSolutionsFormTest {
 
         Experiment experiement = mp.createExperimentOnDb("AGM", "NSGAII", "teste");
         Execution execution = new Execution(experiement);
+        execution.setFuns(new ArrayList<>());
+        execution.setInfos(new ArrayList<>());
 
-        execution.setFuns(Arrays.asList(new FunResults(
-                "1492913161",
-                "FUN_agm_1492913161",
-                "VAR_0_agm-1492913161",
-                execution,
-                0,
-                experiement,
-                ""
-        ), new FunResults(
-                "1492913122",
-                "FUN_agm_1492913122",
-                "VAR_0_agm-1492913122",
-                execution,
-                0,
-                experiement,
-                ""
-        )));
+        List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_27112018.csv");
+        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveList(objectives, "agm");
+        solutionSet.getSolutionSet().forEach(solution -> {
+            execution.getFuns().add(new FunResults(
+                    solution.getExecutionId().toString(),
+                    "FUN_" + solution.getSolutionName(),
+                    solution.getSolutionName(),
+                    execution,
+                    0,
+                    experiement,
+                    ""
+            ));
+            execution.getInfos().add(new InfoResult(solution.getExecutionId().toString(),
+                    1,
+                    "1",
+                    execution,
+                    "",
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    experiement));
+        });
 
-        execution.setInfos(Arrays.asList(
-                new InfoResult("1",
-                        1,
-                        "1",
-                        execution,
-                        "",
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        1,
-                        experiement),
-                new InfoResult("1",
-                        2,
-                        "2",
-                        execution,
-                        "",
-                        2,
-                        2,
-                        2,
-                        2,
-                        2,
-                        2,
-                        2,
-                        2,
-                        2,
-                        experiement)
-        ));
-
-        SolutionSet solutionSet = new SolutionSet();
-        Solution solution = new Solution();
-        solutionSet.getSolutionSet().add(solution);
-        solutionSet.get(0).setType(new ArchitectureSolutionType(new OPLA()));
-        ((OPLA) solutionSet.get(0).getType().problem_).setSelectedMetrics(Arrays.asList("featureDriven", "aclass"));
-
-        Solution solution2 = new Solution();
-        solutionSet.getSolutionSet().add(solution2);
-        solutionSet.get(1).setType(new ArchitectureSolutionType(new OPLA()));
-        ((OPLA) solutionSet.get(1).getType().problem_).setSelectedMetrics(Arrays.asList("featureDriven", "aclass", "coe"));
 
         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, solutionSet);
     }

@@ -29,9 +29,6 @@ import jmetal4.util.Distance;
 import jmetal4.util.JMException;
 import jmetal4.util.Ranking;
 import jmetal4.util.comparators.CrowdingComparator;
-import learning.Clustering;
-import learning.ClusteringAlgorithm;
-import learning.Moment;
 import org.apache.log4j.Logger;
 
 import java.util.HashSet;
@@ -90,8 +87,6 @@ public class NSGAII extends Algorithm {
         int firstInteraction = ((Integer) getInputParameter("firstInteraction")).intValue();
         Boolean interactive = ((Boolean) getInputParameter("interactive")).booleanValue();
         InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
-        Moment clusteringMoment = ((Moment) getInputParameter("clusteringMoment"));
-        ClusteringAlgorithm clusteringAlgorithm = ((ClusteringAlgorithm) getInputParameter("clusteringAlgorithm"));
 
         int currentInteraction = 0;
         indicators = (QualityIndicator) getInputParameter("indicators");
@@ -226,11 +221,6 @@ public class NSGAII extends Algorithm {
                 // by the algorithm to obtain a Pareto front with a hypervolNSGAume
                 // higher
                 // than the hypervolume of the true Pareto front.
-
-                if (Moment.INTERACTIVE.equals(clusteringMoment) || Moment.BOTH.equals(clusteringMoment)) {
-                    Clustering clustering = new Clustering(offspringPopulation, clusteringAlgorithm);
-                    offspringPopulation = clustering.run();
-                }
 
                 if ((evaluations / populationSize) >= firstInteraction && interactive && currentInteraction < maxInteractions) {
                     offspringPopulation = interactiveFunction.run(offspringPopulation);

@@ -51,7 +51,6 @@ public class SolutionSet implements Serializable {
      */
     protected List<Solution> solutionsList_;
 
-    protected List<Solution> filteredSolutions_;
 
     /**
      * Maximum size of the solution set
@@ -107,7 +106,7 @@ public class SolutionSet implements Serializable {
      *
      * @param i Position of the solution to obtain.
      * @return The <code>Solution</code> at the position i.
-     * @throws IndexOutOfBoundsException.
+     * @throws IndexOutOfBoundsException
      */
     public Solution get(int i) {
         if (i >= solutionsList_.size()) {
@@ -775,19 +774,5 @@ public class SolutionSet implements Serializable {
         this.solutionsList_ = solutionsList_;
     }
 
-    public List<Solution> getFilteredSolutions() {
-        return filteredSolutions_;
-    }
-
-    public void setFilteredSolutions(List<Solution> filteredSolutions_) {
-        this.filteredSolutions_ = filteredSolutions_;
-    }
-
-    public List<Solution> getAllSolutions() {
-        ArrayList<Solution> solutions = new ArrayList<>();
-        solutions.addAll(this.solutionsList_);
-        solutions.addAll(this.filteredSolutions_);
-        return solutions;
-    }
 } // SolutionSet
 

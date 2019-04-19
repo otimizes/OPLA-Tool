@@ -188,7 +188,6 @@ public class Clustering implements Serializable {
 
         Collections.reverse(idsFilteredSolutions);
         idsFilteredSolutions.forEach(resultFront::remove);
-        resultFront.setFilteredSolutions(filteredSolutions);
 //        LOGGER.info(getClusterEvaluation().clusterResultsToString());
         return resultFront;
     }

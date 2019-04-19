@@ -62,13 +62,13 @@
             <groupId>br.ufpr.dinf.gres</groupId>
             <artifactId>opla-persistence</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>3.5.3</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
 	</dependencies>
 	<build>
