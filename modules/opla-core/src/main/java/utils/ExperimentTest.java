@@ -1,6 +1,7 @@
 package utils;
 
 import arquitetura.representation.Architecture;
+import br.ufpr.dinf.gres.opla.entity.Experiment;
 import br.ufpr.dinf.gres.opla.entity.Objective;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
@@ -15,8 +16,38 @@ import java.util.*;
 
 public class ExperimentTest {
 
+    public static SolutionSet getSolutionSetFromObjectiveList(Experiment experiment, List<String> metrics, List<Objective> objectives) {
+        SolutionSet solutionSet = new SolutionSet();
+        Architecture architecture = new Architecture(experiment.getName());
+        objectives.forEach(objective -> {
+            if (objective.getExecution() != null) {
+                Solution solution = new Solution();
+                solution.createObjective(3);
+                String[] split = objective.getObjectives().split("\\|");
+                for (int i = 0; i < split.length; i++) {
+                    solution.setObjective(i, Double.parseDouble(split[i]));
+                }
 
-    public static SolutionSet getSolutionSetFromObjectiveList(List<Objective> objectives, String pla) {
+                try {
+                    solution.setType(new ArchitectureSolutionType(new OPLA()));
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                solution.setProblem(new OPLA());
+                solution.getOPLAProblem().setArchitecture_(architecture);
+                solution.getOPLAProblem().setSelectedMetrics(metrics);
+
+                solution.setSolutionName(objective.getSolutionName());
+                solution.setExecutionId(objective.getExecution() != null ? objective.getExecution().getId() : 0);
+                solution.setNumberOfObjectives(split.length);
+                solutionSet.getSolutionSet().add(solution);
+            }
+        });
+        return solutionSet;
+    }
+
+
+    public static SolutionSet getSolutionSetFromObjectiveListTest(List<Objective> objectives, String pla) {
         Long id = Objects.equals(pla, "agm") ? 7127396432L : 7837731112L;
         SolutionSet solutionSet = new SolutionSet();
         Architecture architecture = new Architecture("Teste");

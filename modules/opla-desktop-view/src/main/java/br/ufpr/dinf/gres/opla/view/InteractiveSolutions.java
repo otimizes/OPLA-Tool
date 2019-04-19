@@ -1,18 +1,12 @@
 package br.ufpr.dinf.gres.opla.view;
 
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
-import br.ufpr.dinf.gres.opla.view.util.Constants;
-import br.ufpr.dinf.gres.opla.view.util.UserHome;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
 import jmetal4.core.SolutionSet;
-import jmetal4.encodings.variable.Int;
-import jmetal4.problems.OPLA;
 import learning.Clustering;
 import learning.ClusteringAlgorithm;
 import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
-import results.Execution;
-import results.FunResults;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -23,8 +17,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class InteractiveSolutions extends JDialog {
 
@@ -36,11 +28,13 @@ public class InteractiveSolutions extends JDialog {
     LayoutManager layoutPanelSubjectiveAnalyse = new MigLayout();
     JPanel jPanelSubjectiveAnalysis = new JPanel(layoutPanelSubjectiveAnalyse);
     final JTextField field = new JTextField();
+    ClusteringAlgorithm clusteringAlgorithm;
 
-    public InteractiveSolutions(ManagerApplicationConfig config, SolutionSet solutionSet) {
+    public InteractiveSolutions(ManagerApplicationConfig config, ClusteringAlgorithm clusteringAlgorithm, SolutionSet solutionSet) {
 //        solutionSet.saveVariablesToFile("TEMP_", LOGGER,true);
         this.config = config;
         this.solutionSet = solutionSet;
+        this.clusteringAlgorithm = clusteringAlgorithm;
         setTitle("Architectures");
         setModal(true);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -49,18 +43,17 @@ public class InteractiveSolutions extends JDialog {
 
         try {
             paintTreeNode(solutionSet);
+            getContentPane().revalidate();
+            getContentPane().repaint();
+
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            pack();
+
+            setVisible(true);
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage());
         }
-
-        getContentPane().revalidate();
-        getContentPane().repaint();
-
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        pack();
-
-        setVisible(true);
     }
 
     public class MyTreeCellRenderer extends DefaultTreeCellRenderer {
@@ -95,13 +88,18 @@ public class InteractiveSolutions extends JDialog {
     }
 
     private void paintTreeNode(SolutionSet solutionSet) throws Exception {
+        if (solutionSet.size() == 0) throw new RuntimeException("At least 1 solution is required.");
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Solutions");
         gridLayout.setRows(1);
         gridLayout.setColumns(2);
         JTree tree = new JTree(root);
         tree.setCellRenderer(new MyTreeCellRenderer());
         field.addKeyListener(new KeyAdapter() {
-            @Override public void keyReleased(KeyEvent e) { update(); }
+            @Override
+            public void keyReleased(KeyEvent e) {
+                update();
+            }
+
             private void update() {
                 DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
                 model.nodeStructureChanged((TreeNode) model.getRoot());
@@ -111,8 +109,8 @@ public class InteractiveSolutions extends JDialog {
         JScrollPane scroll = new JScrollPane(tree);
         panelMaster.add(scroll);
         setContentPane(panelMaster);
-        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.DBSCAN);
-        SolutionSet run = clustering.run();
+        Clustering clustering = new Clustering(solutionSet, this.clusteringAlgorithm);
+        clustering.run();
 
         for (int i = 0; i < solutionSet.size(); i++) {
             String plaName = "TEMP_" + i + solutionSet.get(i).getOPLAProblem().getArchitecture_().getName();
@@ -174,7 +172,8 @@ public class InteractiveSolutions extends JDialog {
         JLabel label = new JLabel("Your Evaluation");
         jPanelSubjectiveAnalysis.add(label);
         JTextField jTextField = new JTextField();
-        if (solutionSet.get(indexSolution).getEvaluation() > 0) jTextField.setText(String.valueOf(solutionSet.get(indexSolution).getEvaluation()));
+        if (solutionSet.get(indexSolution).getEvaluation() > 0)
+            jTextField.setText(String.valueOf(solutionSet.get(indexSolution).getEvaluation()));
         jTextField.setColumns(5);
         jPanelSubjectiveAnalysis.add(jTextField);
 

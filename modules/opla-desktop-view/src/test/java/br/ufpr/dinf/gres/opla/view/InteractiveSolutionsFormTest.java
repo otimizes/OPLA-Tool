@@ -1,15 +1,11 @@
 package br.ufpr.dinf.gres.opla.view;
 
-import arquitetura.representation.Architecture;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.entity.Objective;
 import database.Database;
 import exceptions.MissingConfigurationException;
-import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
-import jmetal4.encodings.solutionType.ArchitectureSolutionType;
-import jmetal4.problems.OPLA;
-import org.junit.Test;
+import learning.ClusteringAlgorithm;
 import persistence.AllMetricsPersistenceDependency;
 import persistence.MetricsPersistence;
 import results.Execution;
@@ -18,19 +14,17 @@ import results.FunResults;
 import results.InfoResult;
 import utils.ExperimentTest;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class InteractiveSolutionsFormTest {
 
     private static MetricsPersistence mp;
 
-    @Test
+//    @Test
     public void main() throws ClassNotFoundException, IOException {
 
 //        Object[] options = {
@@ -57,7 +51,7 @@ public class InteractiveSolutionsFormTest {
         execution.setInfos(new ArrayList<>());
 
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_27112018.csv");
-        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveList(objectives, "agm");
+        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, "agm");
         solutionSet.getSolutionSet().forEach(solution -> {
             execution.getFuns().add(new FunResults(
                     solution.getExecutionId().toString(),
@@ -86,6 +80,6 @@ public class InteractiveSolutionsFormTest {
         });
 
 
-        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, solutionSet);
+        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.DBSCAN, solutionSet);
     }
 }

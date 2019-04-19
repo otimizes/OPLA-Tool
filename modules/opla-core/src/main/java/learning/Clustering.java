@@ -301,7 +301,9 @@ public class Clustering implements Serializable {
      * @return number of clusters
      */
     public int getNumClusters() {
-        return numClusters != null ? numClusters : Math.toIntExact(Math.round(Math.pow((resultFront.size() / 2), 0.6)));
+        int i = numClusters != null ? numClusters : Math.toIntExact(Math.round(Math.pow((resultFront.size() / 2), 0.6)));
+        if (i == 0) return 1;
+        return i;
     }
 
     public void setNumClusters(Integer numClusters) {

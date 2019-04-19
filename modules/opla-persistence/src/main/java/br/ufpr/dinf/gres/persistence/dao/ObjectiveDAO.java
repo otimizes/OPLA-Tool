@@ -52,6 +52,21 @@ public class ObjectiveDAO extends GenericDAOImpl<Objective> {
 
 	}
 
+	public List<Objective> findByExperiment(Experiment experiment) {
+		LOGGER.debug("List by Experiment " + getClazz().getSimpleName());
+		TypedQuery<Objective> query = getEntityManager().createQuery("SELECT o FROM Objective o WHERE o.experiment = :experiment", Objective.class);
+		query.setParameter("experiment", experiment);
+
+		try {
+			query.getResultList();
+		} catch (Exception e) {
+			System.out.println("First Attempt");
+		}
+		List<Objective> resultList = query.getResultList();
+		LOGGER.debug("Listing " + resultList.size() + " results");
+		return resultList;
+	}
+
 	public Long countAllSoluctions(Experiment experiment, Execution execution) {
 		LOGGER.debug("Counting All Solution for experiment:  " + experiment.getId());
 

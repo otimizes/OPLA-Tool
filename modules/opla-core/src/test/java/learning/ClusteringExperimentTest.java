@@ -89,7 +89,7 @@ public class ClusteringExperimentTest {
     public void agm() throws IOException {
         LOGGER.info("AGM");
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_27112018.csv");
-        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveList(objectives, "agm");
+        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, "agm");
 
 //        rCommand(solutionSet);
         assertEquals(11, solutionSet.getSolutionSet().size());
@@ -99,7 +99,7 @@ public class ClusteringExperimentTest {
     public void agmOnDBSCAN() throws Exception {
         LOGGER.info("AGM DBSCAN");
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_27112018.csv");
-        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveList(objectives, "agm");
+        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, "agm");
 
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.DBSCAN);
         SolutionSet run = clustering.run();
@@ -119,7 +119,7 @@ public class ClusteringExperimentTest {
     public void agmOnKMeans() throws Exception {
         LOGGER.info("AGM KMEANS");
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_27112018.csv");
-        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveList(objectives, "agm");
+        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, "agm");
 
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.KMEANS);
         SolutionSet run = clustering.run();
@@ -138,7 +138,7 @@ public class ClusteringExperimentTest {
     @Test
     public void bet() throws IOException {
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("bet_objectives_02122018.csv");
-        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveList(objectives, "bet");
+        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, "bet");
 
         LOGGER.info("BET");
 //        rCommand(solutionSet);
@@ -150,7 +150,7 @@ public class ClusteringExperimentTest {
     public void betOnDBSCAN() throws Exception {
         LOGGER.info("BET DBSCAN");
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("bet_objectives_02122018.csv");
-        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveList(objectives, "bet");
+        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, "bet");
 
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.DBSCAN);
         SolutionSet run = clustering.run();
@@ -171,7 +171,7 @@ public class ClusteringExperimentTest {
     public void betOnKMeans() throws Exception {
         LOGGER.info("BET KMEANS");
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("bet_objectives_02122018.csv");
-        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveList(objectives, "bet");
+        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, "bet");
 
         Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.KMEANS);
         SolutionSet run = clustering.run();

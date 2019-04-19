@@ -19,7 +19,7 @@ public class Objective implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "execution_id", nullable = false)
+    @JoinColumn(name = "execution_id")
     private Execution execution;
 
     @Column(name = "objectives", columnDefinition = "TEXT")
