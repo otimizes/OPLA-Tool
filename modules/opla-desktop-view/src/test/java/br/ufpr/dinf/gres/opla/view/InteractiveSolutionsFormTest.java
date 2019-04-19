@@ -18,6 +18,7 @@ import results.FunResults;
 import results.InfoResult;
 import utils.ExperimentTest;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -31,6 +32,12 @@ public class InteractiveSolutionsFormTest {
 
     @Test
     public void main() throws ClassNotFoundException, IOException {
+
+//        Object[] options = {
+//                "Close", "Visualize PLAs alternatives"
+//        };
+//        JOptionPane.showOptionDialog(null, "Success execution NSGA-II, Finalizing....", "End Optimization", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
 
         ManagerApplicationConfig managerApplicationConfig = new ManagerApplicationConfig();
 
