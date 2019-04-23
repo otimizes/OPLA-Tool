@@ -1,6 +1,8 @@
 package utils;
 
-import arquitetura.representation.Architecture;
+import arquitetura.representation.*;
+import arquitetura.representation.Class;
+import arquitetura.representation.Package;
 import br.ufpr.dinf.gres.opla.entity.Experiment;
 import br.ufpr.dinf.gres.opla.entity.Objective;
 import jmetal4.core.Solution;
@@ -10,9 +12,11 @@ import jmetal4.problems.OPLA;
 import learning.Clustering;
 import learning.ClusteringAlgorithm;
 import liquibase.util.csv.CSVReader;
+import org.apache.commons.lang.RandomStringUtils;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ExperimentTest {
 
@@ -47,10 +51,10 @@ public class ExperimentTest {
     }
 
 
-    public static SolutionSet getSolutionSetFromObjectiveListTest(List<Objective> objectives, String pla) {
-        Long id = Objects.equals(pla, "agm") ? 7127396432L : 7837731112L;
+    public static SolutionSet getSolutionSetFromObjectiveListTest(List<Objective> objectives, List<QtdElements> elements, Long id) {
         SolutionSet solutionSet = new SolutionSet();
         Architecture architecture = new Architecture("Teste");
+        AtomicInteger i = new AtomicInteger();
         objectives.forEach(objective -> {
             if (objective.getExecution() != null && Objects.equals(objective.getExecution().getId(), id)) {
                 Solution solution = new Solution();
@@ -72,11 +76,56 @@ public class ExperimentTest {
                 solution.setSolutionName(objective.getSolutionName());
                 solution.setExecutionId(objective.getExecution() != null ? objective.getExecution().getId() : 0);
                 solution.setNumberOfObjectives(3);
+
+
+                if (elements != null) {
+
+                    QtdElements qtdElements = elements.get(i.get());
+                    solution.getOPLAProblem().getArchitecture_().addAllClasses(generateRandomClass(qtdElements.classes));
+                    solution.getOPLAProblem().getArchitecture_().addAllInterfaces(generateRandomInterface(qtdElements.interfaces));
+                    solution.getOPLAProblem().getArchitecture_().addAllPackages(generateRandomPackage(qtdElements.packages));
+                }
+
                 solutionSet.getSolutionSet().add(solution);
+                i.getAndIncrement();
             }
         });
         return solutionSet;
     }
+
+    public static Set<Class> generateRandomClass(int classes) {
+        HashSet<Class> objects = new HashSet<>();
+        for (int j = 0; j < classes; j++) {
+            objects.add(new Class(null, RandomStringUtils.random(10),false,null));
+        }
+        return objects;
+    }
+
+    public static Set<Package> generateRandomPackage(int packages) {
+        HashSet<Package> objects = new HashSet<>();
+        for (int j = 0; j < packages; j++) {
+            objects.add(new Package(null,RandomStringUtils.random(10), null));
+        }
+        return objects;
+    }
+
+    public static Set<Concern> generateRandomConcern(int concerns) {
+        HashSet<Concern> objects = new HashSet<>();
+        for (int j = 0; j < concerns; j++) {
+            objects.add(new Concern(RandomStringUtils.random(10)));
+        }
+        return objects;
+    }
+
+    public static Set<Interface> generateRandomInterface(int interfaces) {
+        HashSet<Interface> objects = new HashSet<>();
+        for (int j = 0; j < interfaces; j++) {
+            objects.add(new Interface(null, RandomStringUtils.random(10)));
+        }
+        return objects;
+    }
+
+
 
     public static List<Objective> getObjectivesFromFile(String filename) throws IOException {
         File file = new File(Thread.currentThread().getContextClassLoader().getResource(filename).getFile());
@@ -87,6 +136,17 @@ public class ExperimentTest {
             objectives.add(new Objective(nextLine[0], nextLine[1], nextLine[2], nextLine[3], nextLine[4], nextLine[5]));
         }
         return objectives;
+    }
+
+    public static List<QtdElements> getElementsFromFile(String filename) throws IOException {
+        File file = new File(Thread.currentThread().getContextClassLoader().getResource(filename).getFile());
+        CSVReader reader = new CSVReader(new FileReader(file));
+        String[] nextLine;
+        List<QtdElements> objects= new ArrayList<>();
+        while ((nextLine = reader.readNext()) != null) {
+            objects.add(new QtdElements(nextLine[0], nextLine[1], nextLine[2], nextLine[3], nextLine[4], nextLine[5], nextLine[6]));
+        }
+        return objects;
     }
 
     public static String getNormalizedNewObjectivesOfClusteredSolutions(SolutionSet run) {

@@ -20,7 +20,7 @@ public class ArffWithKMeansExecutionTest {
         ArffExecution arffExecution = new ArffExecution(new double[][]{{802, 36, 25}, {752, 30, 26}, {728, 26, 27}, {40, 30, 24}, {700, 40, 20}, {400, 30, 25}});
 
         SimpleKMeans kMeans = new SimpleKMeans();
-        kMeans.setSeed(arffExecution.getObjectives().length - 1);
+        kMeans.setSeed(arffExecution.getAttributes().length - 1);
         kMeans.setPreserveInstancesOrder(true);
         kMeans.setNumClusters(3);
         kMeans.buildClusterer(arffExecution.getDataWithoutClass());

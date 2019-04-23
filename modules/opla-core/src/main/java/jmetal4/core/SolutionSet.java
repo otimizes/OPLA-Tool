@@ -524,6 +524,26 @@ public class SolutionSet implements Serializable {
         return objectives;
     } // writeObjectivesMatrix
 
+    /**
+     * Copies the objectives and Elements Number of the solution set to a matrix
+     *
+     * @return A matrix containing the objectives
+     */
+    public double[][] writeObjectivesAndElementsNumberToMatrix() {
+        double[][] doubles = writeObjectivesToMatrix();
+        for (int i = 0; i < doubles.length; i++) {
+            int length = doubles[i].length;
+            double[] doublesObj = new double[length + 4];
+            if (doubles[i].length >= 0) System.arraycopy(doubles[i], 0, doublesObj, 0, doubles[i].length);
+            doublesObj[length] = get(i).getOPLAProblem().getArchitecture_().getAllClasses().size();
+            doublesObj[length + 1] = get(i).getOPLAProblem().getArchitecture_().getAllConcerns().size();
+            doublesObj[length + 2] = get(i).getOPLAProblem().getArchitecture_().getAllInterfaces().size();
+            doublesObj[length + 3] = get(i).getOPLAProblem().getArchitecture_().getAllPackages().size();
+            doubles[i] = doublesObj;
+        }
+        return doubles;
+    } // writeObjectivesAndElementsNumberToMatrix
+
     public void printTimeToFile(String path, int run, long time[], String pla) {
         try {
             /* Open the file */

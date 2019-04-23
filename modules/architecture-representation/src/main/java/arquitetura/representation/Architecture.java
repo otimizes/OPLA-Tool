@@ -691,7 +691,10 @@ public class Architecture extends Variable {
         this.classes.clear();
         this.classes.addAll(classes);
     }
-
+    public void addAllPackages(Set<Package> packages) {
+        this.packages.clear();
+        this.packages.addAll(packages);
+    }
     public void addAllInterfaces(Set<Interface> interfaces) {
         this.interfaces.clear();
         this.interfaces.addAll(interfaces);

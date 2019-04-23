@@ -17,37 +17,37 @@ public class ArffExecution {
     private Instances data;
     private double[] vals;
     private int attrIndices;
-    private double[][] objectives;
+    private double[][] attributes;
 
     /**
      * To use it, instantiate the class by passing a list of function values Objective
-     * @param objectives Function Values Objective
+     * @param attributes Function Values Objective
      */
-    public ArffExecution(double[][] objectives) {
-        newInstance(objectives, null);
+    public ArffExecution(double[][] attributes) {
+        newInstance(attributes, null, null);
     }
 
     /**
      * To use it, instantiate the class by passing a list of function values Objective and descriptions for the same
-     * @param objectives Function Values Objective
+     * @param attributes Function Values Objective
      * @param descOjectives Objectives Description
      */
-    public ArffExecution(double[][] objectives, String... descOjectives) {
-        newInstance(objectives, descOjectives);
+    public ArffExecution(double[][] attributes, String[] classes, String[] descOjectives) {
+        newInstance(attributes, classes, descOjectives);
     }
 
-    private void newInstance(double[][] objectives, String[] descOjectives) {
-        attrIndices = objectives[0].length;
-        this.objectives = objectives;
+    private void newInstance(double[][] attributes, String[] classes, String[] descAttributes) {
+        attrIndices = attributes[0].length;
+        this.attributes = attributes;
         atts = new FastVector();
         attVals = new FastVector();
         // - numeric
-        if (descOjectives != null) {
-            for (String descOjective : descOjectives) {
+        if (descAttributes != null) {
+            for (String descOjective : descAttributes) {
                 atts.add(new Attribute(descOjective));
             }
         } else {
-            for (int j = 0; j < objectives[0].length; j++) {
+            for (int j = 0; j < attributes[0].length; j++) {
                 atts.addElement(new Attribute("obj" + (j + 1)));
             }
         }
@@ -55,12 +55,12 @@ public class ArffExecution {
         atts.addElement(new Attribute("execution", (FastVector) null));
         data = new Instances("MyRelation", atts, 0);
 
-        for (int i = 0; i < objectives.length; i++) {
+        for (int i = 0; i < attributes.length; i++) {
             vals = new double[data.numAttributes()];
-            for (int j = 0; j < objectives[0].length; j++) {
-                vals[j] = objectives[i][j];
+            for (int j = 0; j < attributes[0].length; j++) {
+                vals[j] = attributes[i][j];
             }
-            vals[objectives[0].length] = data.attribute(objectives[0].length).addStringValue(String.valueOf(i));
+            vals[attributes[0].length] = data.attribute(attributes[0].length).addStringValue(classes != null ? classes[i] : String.valueOf(i));
             data.add(new DenseInstance(1.0, vals));
         }
     }
@@ -116,12 +116,12 @@ public class ArffExecution {
         this.attrIndices = attrIndices;
     }
 
-    public double[][] getObjectives() {
-        return objectives;
+    public double[][] getAttributes() {
+        return attributes;
     }
 
-    public void setObjectives(double[][] objectives) {
-        this.objectives = objectives;
+    public void setAttributes(double[][] attributes) {
+        this.attributes = attributes;
     }
 
     /**

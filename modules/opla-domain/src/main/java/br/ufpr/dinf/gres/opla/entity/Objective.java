@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -34,6 +35,9 @@ public class Objective implements Serializable {
 
     @Column(name = "solution_name")
     private String solutionName;
+
+    @Transient
+    public List<Object> elements;
 
     public Objective() {
     }

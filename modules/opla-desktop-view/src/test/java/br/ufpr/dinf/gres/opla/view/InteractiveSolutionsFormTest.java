@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class InteractiveSolutionsFormTest {
 
@@ -51,7 +52,7 @@ public class InteractiveSolutionsFormTest {
         execution.setInfos(new ArrayList<>());
 
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_27112018.csv");
-        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, "agm");
+        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, null, 7127396432L);
         solutionSet.getSolutionSet().forEach(solution -> {
             execution.getFuns().add(new FunResults(
                     solution.getExecutionId().toString(),

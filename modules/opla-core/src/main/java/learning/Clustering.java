@@ -98,7 +98,7 @@ public class Clustering implements Serializable {
      */
     public SolutionSet kMeans() throws Exception {
         clusterer = new SimpleKMeans();
-        getKMeans().setSeed(arffExecution.getObjectives().length);
+        getKMeans().setSeed(arffExecution.getAttributes().length);
         getKMeans().setPreserveInstancesOrder(true);
         if (distanceFunction != null)
             getKMeans().setDistanceFunction(distanceFunction);
