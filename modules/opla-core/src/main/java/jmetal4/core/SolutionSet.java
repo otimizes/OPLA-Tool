@@ -31,6 +31,7 @@ import results.FunResults;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -544,6 +545,15 @@ public class SolutionSet implements Serializable {
         return doubles;
     } // writeObjectivesAndElementsNumberToMatrix
 
+    public double[][] writeObjectivesAndElementsNumberEvaluationToMatrix() {
+        double[][] doubles = writeObjectivesAndElementsNumberToMatrix();
+        for (int i = 0; i < doubles.length; i++) {
+            doubles[i] = Arrays.copyOf(doubles[i], doubles[i].length + 1);
+            doubles[i][doubles.length-1] = getSolutionSet().get(i).getEvaluation();
+        }
+        return doubles;
+    } // writeObjectivesAndElementsNumberToMatrix
+
     public void printTimeToFile(String path, int run, long time[], String pla) {
         try {
             /* Open the file */
@@ -792,6 +802,22 @@ public class SolutionSet implements Serializable {
 
     public void setSolutionSet(List<Solution> solutionsList_) {
         this.solutionsList_ = solutionsList_;
+    }
+
+    public double[] writeUserEvaluationsToMatrix() {
+        double[] doubles = new double[solutionsList_.size()];
+        for (int i = 0; i < solutionsList_.size(); i++) {
+            doubles[i] = (double) solutionsList_.get(i).getEvaluation();
+        }
+        return doubles;
+    }
+
+    public boolean hasUserEvaluation() {
+        double[] doubles = writeUserEvaluationsToMatrix();
+        for (double aDouble : doubles) {
+            if (aDouble > 0) return true;
+        }
+        return false;
     }
 
 } // SolutionSet

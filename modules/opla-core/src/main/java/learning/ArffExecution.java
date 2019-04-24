@@ -21,6 +21,7 @@ public class ArffExecution {
 
     /**
      * To use it, instantiate the class by passing a list of function values Objective
+     *
      * @param attributes Function Values Objective
      */
     public ArffExecution(double[][] attributes) {
@@ -29,14 +30,15 @@ public class ArffExecution {
 
     /**
      * To use it, instantiate the class by passing a list of function values Objective and descriptions for the same
-     * @param attributes Function Values Objective
+     *
+     * @param attributes    Function Values Objective
      * @param descOjectives Objectives Description
      */
-    public ArffExecution(double[][] attributes, String[] classes, String[] descOjectives) {
+    public ArffExecution(double[][] attributes, double[] classes, String[] descOjectives) {
         newInstance(attributes, classes, descOjectives);
     }
 
-    private void newInstance(double[][] attributes, String[] classes, String[] descAttributes) {
+    private void newInstance(double[][] attributes, double[] classes, String[] descAttributes) {
         attrIndices = attributes[0].length;
         this.attributes = attributes;
         atts = new FastVector();
@@ -52,7 +54,7 @@ public class ArffExecution {
             }
         }
         // - string
-        atts.addElement(new Attribute("execution", (FastVector) null));
+        atts.addElement(new Attribute("class", Arrays.asList("0", "1", "2", "3", "4", "5")));
         data = new Instances("MyRelation", atts, 0);
 
         for (int i = 0; i < attributes.length; i++) {
@@ -60,7 +62,10 @@ public class ArffExecution {
             for (int j = 0; j < attributes[0].length; j++) {
                 vals[j] = attributes[i][j];
             }
-            vals[attributes[0].length] = data.attribute(attributes[0].length).addStringValue(classes != null ? classes[i] : String.valueOf(i));
+            if (classes != null)
+                vals[attributes[0].length] = classes[i];
+            else
+                vals[attributes[0].length] = 0;
             data.add(new DenseInstance(1.0, vals));
         }
     }
@@ -126,10 +131,12 @@ public class ArffExecution {
 
     /**
      * Used to get Instances withod last column that indentify the class of object
+     *
      * @return Instances without class
      */
     public Instances getDataWithoutClass() {
         Instances newIn = new Instances(this.getData());
+        newIn.setClassIndex(-1);
         newIn.deleteAttributeAt(attrIndices);
         return newIn;
     }
