@@ -78,7 +78,7 @@ public class SubjectiveAnalyzeAlgorithm {
         System.out.println("Summary: " + eval.toSummaryString());
 
         for (int i = 0; i < arffExecution.getData().size(); i++) {
-            System.out.println(resultFront.get(i).getEvaluation() + " - " + mlp.classifyInstance(arffExecution.getData().get(i)));
+            System.out.println("Solution " + i + ": " + resultFront.get(i).getEvaluation() + " - " + mlp.classifyInstance(arffExecution.getData().get(i)));
         }
         return resultFront;
     }
