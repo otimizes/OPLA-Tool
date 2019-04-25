@@ -21,7 +21,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
 
     /*
         Na 1º interação, avaliei com nota máxima as soluções com melhor FM
-            - Com 1500 épocas, a rede se ajusta em torno de 100%
+            - Com 2000 épocas, a rede se ajusta em torno de 100%
         Na 2º interação, avaliei com nota máxima as soluções com pior FM
             - Como inverti totalmente o perfil de avaliação, a acurácia cai em torno de 75 a 80%
         Na 3 interação, avaliei com nota máxima as soluções com melhor ACLASS
@@ -76,7 +76,6 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         //        3º Interação SEM NOTAS
         SolutionSet solutionSet3b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 9613813659L);
         subjectiveAnalyzeAlgorithm.run(solutionSet3b);
-
     }
 
     /*

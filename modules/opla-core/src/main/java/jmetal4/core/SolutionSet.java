@@ -549,7 +549,7 @@ public class SolutionSet implements Serializable {
         double[][] doubles = writeObjectivesAndElementsNumberToMatrix();
         for (int i = 0; i < doubles.length; i++) {
             doubles[i] = Arrays.copyOf(doubles[i], doubles[i].length + 1);
-            doubles[i][doubles.length-1] = getSolutionSet().get(i).getEvaluation();
+            doubles[i][doubles[i].length-1] = getSolutionSet().get(i).getEvaluation();
         }
         return doubles;
     } // writeObjectivesAndElementsNumberToMatrix

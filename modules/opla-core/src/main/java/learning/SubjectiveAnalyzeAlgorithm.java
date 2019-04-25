@@ -53,8 +53,8 @@ public class SubjectiveAnalyzeAlgorithm {
     public SolutionSet MLP(SolutionSet solutionSet) throws Exception {
         if (mlp == null) {
             mlp = new MultilayerPerceptron();
-            mlp.setHiddenLayers(String.valueOf(Math.round(arffExecution.getAttrIndices() / 2)));
-            mlp.setTrainingTime(1500);
+            mlp.setHiddenLayers(String.valueOf(Math.round(arffExecution.getAttrIndices())));
+            mlp.setTrainingTime(2000);
         }
 
         if (solutionSet != null) {
