@@ -50,7 +50,10 @@ public class Clustering implements Serializable {
     }
 
     public Clustering(SolutionSet resultFront, ClusteringAlgorithm algorithm) {
-        this.resultFront = new Cloner().deepClone(resultFront);
+        this.resultFront = new SolutionSet(resultFront.getSolutionSet().size());
+        for (Solution solution : resultFront.getSolutionSet()) {
+            this.resultFront.add(solution);
+        }
         this.algorithm = algorithm;
         this.arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();

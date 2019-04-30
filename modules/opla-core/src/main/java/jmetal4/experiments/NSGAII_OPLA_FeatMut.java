@@ -213,16 +213,6 @@ public class NSGAII_OPLA_FeatMut {
             this.configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
             List<FunResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
 
-            // Clustering OBS: Needs to be a priori for filter the PLAs to save
-            if (Moment.POSTERIORI.equals(this.configs.getClusteringMoment()) || Moment.BOTH.equals(this.configs.getClusteringMoment())) {
-                Clustering clustering = new Clustering(todasRuns, this.clusteringAlgorithm);
-                todasRuns = clustering.run();
-                for (int id : clustering.getIdsFilteredSolutions()) {
-                    funResults.remove(id);
-                }
-            }
-            // Clustering
-
             LOGGER.info("saveVariablesToFile()");
             todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
 
