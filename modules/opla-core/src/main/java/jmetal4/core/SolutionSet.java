@@ -527,6 +527,7 @@ public class SolutionSet implements Serializable {
 
     /**
      * Copies the objectives and Elements Number of the solution set to a matrix
+     * objetivos, nrClasses, nrConcerns, nrInterfaces, nrPacotes
      *
      * @return A matrix containing the objectives
      */
@@ -818,6 +819,39 @@ public class SolutionSet implements Serializable {
             if (aDouble > 0) return true;
         }
         return false;
+    }
+
+    public Map<Double, Set<Integer>> getClusterIds() {
+        Map<Double, Set<Integer>> clusters = new HashMap<>();
+        for (Solution solution : solutionsList_) {
+            if (solution.getClusterId() != null) {
+                Set<Integer> clusterId = clusters.getOrDefault(solution.getClusterId(), new HashSet<>());
+                clusterId.add(solution.getEvaluation());
+            }
+        }
+        return clusters;
+    }
+
+    public int getMedia(Set<Integer> valores) {
+        if (valores == null) return 0;
+        if (valores.size() == 1) return valores.stream().findFirst().get();
+        int soma = 0;
+        for (Integer valore : valores) {
+            soma += valore;
+        }
+        return soma / valores.size();
+    }
+
+    public void distributeUserEvaluation(){
+        Map<Double, Set<Integer>> clusterIds = getClusterIds();
+        if (hasUserEvaluation() && clusterIds.size() > 0){
+            for (Solution solution : solutionsList_) {
+                if (solution.getEvaluation() == 0) {
+                    int media = Math.abs(getMedia(clusterIds.get(solution.getClusterId())));
+                    solution.setEvaluation(media);
+                }
+            }
+        }
     }
 
 } // SolutionSet

@@ -120,7 +120,7 @@ public class Solution implements Serializable {
     /**
      * Stores the cluster realized by AbstractClustering Filter
      */
-    private double clusterId_ = 0.0;
+    private Double clusterId_;
 
     private int userEvaluation;
 
@@ -639,11 +639,11 @@ public class Solution implements Serializable {
         return bits;
     } // getNumberOfBits
 
-    public double getClusterId() {
+    public Double getClusterId() {
         return clusterId_;
     }
 
-    public void setClusterId(double clusterId_) {
+    public void setClusterId(Double clusterId_) {
         this.clusterId_ = clusterId_;
     }
 

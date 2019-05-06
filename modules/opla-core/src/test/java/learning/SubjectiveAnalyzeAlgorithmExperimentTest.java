@@ -133,5 +133,29 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
 
     }
 
+//    ABORDAGEM VINICIUS
+@Test
+public void agmOnMLPKMeans() throws Exception {
+    LOGGER.info("AGM MLP");
+    List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_27112018.csv");
+    List<QtdElements> elements = ExperimentTest.getElementsFromFile("agm_elements_27112018.csv");
+
+    LOGGER.info("1º Interação COM NOTAS");
+    //        1º Interação COM NOTAS
+    SolutionSet solutionSet1 = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 7127396432L);
+
+    Clustering clustering = new Clustering(solutionSet1, ClusteringAlgorithm.KMEANS);
+    clustering.run();
+    solutionSet1.get(1).setEvaluation(4);
+    solutionSet1.get(3).setEvaluation(2);
+    solutionSet1.get(7).setEvaluation(3);
+
+    SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1, ClassifierAlgorithm.MLP_KMEANS);
+    subjectiveAnalyzeAlgorithm.setTrainingTime(2500);
+    subjectiveAnalyzeAlgorithm.run();
+}
+
+
+
 
 }

@@ -17,6 +17,7 @@ public class SubjectiveAnalyzeAlgorithm {
     private ArffExecution arffExecution;
     private int numObjectives;
     MultilayerPerceptron mlp;
+    private int trainingTime = 2500;
 
     public SubjectiveAnalyzeAlgorithm() {
     }
@@ -38,10 +39,15 @@ public class SubjectiveAnalyzeAlgorithm {
         switch (algorithm) {
             case MLP:
                 return MLP(solutionSet);
-            case FUZZY_KMEANS:
-                return null;
+            case MLP_KMEANS:
+                this.getResultFront().distributeUserEvaluation();
+                return MLP(solutionSet);
         }
         return null;
+    }
+
+    public SolutionSet run() throws Exception {
+        return run(null);
     }
 
     /**
@@ -54,7 +60,7 @@ public class SubjectiveAnalyzeAlgorithm {
         if (mlp == null) {
             mlp = new MultilayerPerceptron();
             mlp.setHiddenLayers(String.valueOf(Math.round(arffExecution.getAttrIndices())));
-            mlp.setTrainingTime(2000);
+            mlp.setTrainingTime(getTrainingTime());
         }
 
         if (solutionSet != null) {
@@ -78,7 +84,7 @@ public class SubjectiveAnalyzeAlgorithm {
         System.out.println("Summary: " + eval.toSummaryString());
 
         for (int i = 0; i < arffExecution.getData().size(); i++) {
-            System.out.println("Solution " + i + ": " + resultFront.get(i).getEvaluation() + " - " + mlp.classifyInstance(arffExecution.getData().get(i)));
+            System.out.println("Solution " + i + ": Expected: " + resultFront.get(i).getEvaluation() + " - Predicted: " + mlp.classifyInstance(arffExecution.getData().get(i)));
         }
         return resultFront;
     }
@@ -121,5 +127,22 @@ public class SubjectiveAnalyzeAlgorithm {
 
     public void setNumObjectives(int numObjectives) {
         this.numObjectives = numObjectives;
+    }
+
+
+    public MultilayerPerceptron getMlp() {
+        return mlp;
+    }
+
+    public void setMlp(MultilayerPerceptron mlp) {
+        this.mlp = mlp;
+    }
+
+    public int getTrainingTime() {
+        return trainingTime;
+    }
+
+    public void setTrainingTime(int trainingTime) {
+        this.trainingTime = trainingTime;
     }
 }
