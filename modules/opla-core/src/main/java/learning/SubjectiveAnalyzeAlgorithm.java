@@ -7,6 +7,8 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.DenseInstance;
 
+import java.util.Random;
+
 //https://stackoverflow.com/questions/28694971/using-neural-network-class-in-weka-in-java-code
 public class SubjectiveAnalyzeAlgorithm {
     private static final long serialVersionUID = 1L;
@@ -80,6 +82,7 @@ public class SubjectiveAnalyzeAlgorithm {
         mlp.buildClassifier(arffExecution.getData());
         Evaluation eval = new Evaluation(arffExecution.getData());
         eval.evaluateModel(mlp, arffExecution.getData());
+//        eval.crossValidateModel(mlp, arffExecution.getData(), 5, new Random(1));
         System.out.println("Error: " + eval.errorRate());
         System.out.println("Summary: " + eval.toSummaryString());
 
