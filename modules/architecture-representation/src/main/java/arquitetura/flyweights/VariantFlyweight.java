@@ -76,6 +76,9 @@ public class VariantFlyweight extends XmiHelper {
         return new ArrayList<Variant>(variants.values());
     }
 
+    public void setVariants(HashMap<String, Variant> variants) {
+        this.variants = variants;
+    }
 
     public void setArchitecture(Architecture architecture) {
         this.architecture = architecture;

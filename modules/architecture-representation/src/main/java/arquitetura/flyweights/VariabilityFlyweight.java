@@ -101,6 +101,10 @@ public class VariabilityFlyweight {
         return new ArrayList<Variability>(variabilities.values());
     }
 
+    public void setVariabilities(HashMap<String, Variability> variabilities) {
+        this.variabilities = variabilities;
+    }
+
     private boolean allowAddingVar(Map<String, String> a) {
         return "true".equalsIgnoreCase(a.get("allowAddingVar")) ? true : false;
     }

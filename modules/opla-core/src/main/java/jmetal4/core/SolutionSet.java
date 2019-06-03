@@ -27,6 +27,7 @@ import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import jmetal4.metrics.MetricsEvaluation;
 import jmetal4.util.Configuration;
+import org.apache.commons.lang.ArrayUtils;
 import results.FunResults;
 
 import java.io.*;
@@ -527,7 +528,8 @@ public class SolutionSet implements Serializable {
 
     /**
      * Copies the objectives and Elements Number of the solution set to a matrix
-     * objetivos, nrClasses, nrConcerns, nrInterfaces, nrPacotes
+     * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
+     * nrAbstractions, nrAgragations, nrAssociations, nrCompositions, nrDependencies, nrGeneralizations, nrRealizations, nrUsage
      *
      * @return A matrix containing the objectives
      */
@@ -535,16 +537,48 @@ public class SolutionSet implements Serializable {
         double[][] doubles = writeObjectivesToMatrix();
         for (int i = 0; i < doubles.length; i++) {
             int length = doubles[i].length;
-            double[] doublesObj = new double[length + 4];
+            double[] doublesObj = new double[length + 4 + 4 + 8];
             if (doubles[i].length >= 0) System.arraycopy(doubles[i], 0, doublesObj, 0, doubles[i].length);
             doublesObj[length] = get(i).getOPLAProblem().getArchitecture_().getAllClasses().size();
             doublesObj[length + 1] = get(i).getOPLAProblem().getArchitecture_().getAllConcerns().size();
             doublesObj[length + 2] = get(i).getOPLAProblem().getArchitecture_().getAllInterfaces().size();
             doublesObj[length + 3] = get(i).getOPLAProblem().getArchitecture_().getAllPackages().size();
+
+            doublesObj[length + 4] = get(i).getOPLAProblem().getArchitecture_().getAllVariationPoints().size();
+            doublesObj[length + 5] = get(i).getOPLAProblem().getArchitecture_().getAllVariants().size();
+            doublesObj[length + 6] = get(i).getOPLAProblem().getArchitecture_().getAllVariabilities().size();
+            doublesObj[length + 7] = get(i).getOPLAProblem().getArchitecture_().getAllConcerns().size();
+
+            doublesObj[length + 8] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAbstractions().size();
+            doublesObj[length + 9] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAgragations().size();
+            doublesObj[length + 10] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAssociations().size();
+            doublesObj[length + 11] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllCompositions().size();
+            doublesObj[length + 12] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllDependencies().size();
+            doublesObj[length + 13] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllGeneralizations().size();
+            doublesObj[length + 14] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllRealizations().size();
+            doublesObj[length + 15] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllUsage().size();
             doubles[i] = doublesObj;
         }
         return doubles;
     } // writeObjectivesAndElementsNumberToMatrix
+
+    /**
+     * Method to get a string of objectives and elements number. Used to create CSV files
+     * @param startFrom Number of objectives
+     * @return List of elements. If startFrom > 0, then specify the objectives number
+     */
+    public String toStringObjectivesAndElementsNumber(int startFrom) {
+        return Arrays.stream(writeObjectivesAndElementsNumberToMatrix()).map(p -> Arrays.asList(ArrayUtils.toObject(Arrays.copyOfRange(p, startFrom, p.length))).toString().replace("]", "\n").replace("[", "").replaceAll("\\.0", "").replaceAll(" ", "")).collect(Collectors.joining());
+    }
+
+    /**
+     * Create Create a list from objectives. Used to create CSV Files
+     * @param interaction Interaction Number
+     * @return List of objectives
+     */
+    public String toStringObjectives(String interaction) {
+        return Arrays.stream(writeObjectivesToMatrix()).map(p -> Arrays.asList(ArrayUtils.toObject(p)).toString().replace("]", interaction + ","+interaction+"\n").replace(",", "|").replace("[", interaction + "," + interaction +",").replaceAll("\\.0", "").replaceAll(" ", "")).collect(Collectors.joining());
+    }
 
     public double[][] writeObjectivesAndElementsNumberEvaluationToMatrix() {
         double[][] doubles = writeObjectivesAndElementsNumberToMatrix();

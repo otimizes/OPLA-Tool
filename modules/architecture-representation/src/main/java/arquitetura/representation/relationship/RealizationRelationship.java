@@ -30,6 +30,9 @@ public class RealizationRelationship extends Relationship {
         }
     }
 
+    public RealizationRelationship() {
+    }
+
     /**
      * @return the client
      */

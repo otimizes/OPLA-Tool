@@ -85,6 +85,7 @@ public class NSGAII extends Algorithm {
         maxEvaluations = ((Integer) getInputParameter("maxEvaluations")).intValue();
         int maxInteractions = ((Integer) getInputParameter("maxInteractions")).intValue();
         int firstInteraction = ((Integer) getInputParameter("firstInteraction")).intValue();
+        int intervalInteraction = ((Integer) getInputParameter("intervalInteraction")).intValue();
         Boolean interactive = ((Boolean) getInputParameter("interactive")).booleanValue();
         InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
 
@@ -222,10 +223,22 @@ public class NSGAII extends Algorithm {
                 // higher
                 // than the hypervolume of the true Pareto front.
 
-                if ((evaluations / populationSize) >= firstInteraction && interactive && currentInteraction < maxInteractions) {
+                int generation = evaluations / populationSize;
+                if (interactive && currentInteraction < maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
                     offspringPopulation = interactiveFunction.run(offspringPopulation);
                     bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
                     currentInteraction++;
+                }
+
+                if (interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction) {
+//                    MID MLP
+//                    System.out.println("Mid Interaction " + currentInteraction);
+//                    System.out.println("Interaction " + currentInteraction);
+//                    System.out.println("Elements:");
+//                    System.out.println(offspringPopulation.toStringObjectivesAndElementsNumber(3));
+//                    System.out.println("Objects:");
+//                    System.out.println(offspringPopulation.toStringObjectives(currentInteraction + "MID"));
+
                 }
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {

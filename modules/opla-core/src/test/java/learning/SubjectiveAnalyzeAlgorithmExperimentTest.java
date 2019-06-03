@@ -156,6 +156,55 @@ public void agmOnMLPKMeans() throws Exception {
 }
 
 
+    @Test
+    public void agmOnMLP2SemAlteracoesPerfilAvaliacao() throws Exception {
+        LOGGER.info("AGM MLP");
+        List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_03062019.csv");
+        List<QtdElements> elements = ExperimentTest.getElementsFromFile("agm_elements_03062019.csv");
+
+        LOGGER.info("1º Interação COM NOTAS");
+        //        1º Interação COM NOTAS
+        SolutionSet solutionSet1 = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 0L);
+        solutionSet1.getSolutionSet().forEach(s -> {
+            if (s.getObjective(0) >= 750) s.setEvaluation(5);
+            else s.setEvaluation((int) Math.abs(Math.random() * 5));
+        });
+
+        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1, ClassifierAlgorithm.MLP);
+        subjectiveAnalyzeAlgorithm.run(null);
+
+        LOGGER.info("1º Interação SEM NOTAS");
+        //        1º Interação SEM NOTAS
+        SolutionSet solutionSet1b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 11L);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+
+        LOGGER.info("2º Interação COM NOTAS");
+        //        2º Interação COM NOTAS
+        SolutionSet solutionSet2 = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 1L);
+        solutionSet2.getSolutionSet().forEach(s -> {
+            if (s.getObjective(0) >= 750) s.setEvaluation(5);
+            else s.setEvaluation((int) Math.abs(Math.random() * 5));
+        });
+        subjectiveAnalyzeAlgorithm.run(solutionSet2);
+
+        LOGGER.info("2º Interação SEM NOTAS");
+        //        2º Interação SEM NOTAS
+        SolutionSet solutionSet2b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 22L);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2b);
+
+        LOGGER.info("3º Interação COM NOTAS");
+        //        3º Interação COM NOTAS
+        SolutionSet solutionSet3 = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 2L);
+        solutionSet3.getSolutionSet().forEach(s -> {
+            if (s.getObjective(0) >= 750) s.setEvaluation(5);
+            else s.setEvaluation((int) Math.abs(Math.random() * 5));
+        });
+        subjectiveAnalyzeAlgorithm.run(solutionSet3);
+
+    }
+
+
+
 
 
 }

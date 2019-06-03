@@ -1,8 +1,13 @@
 package utils;
 
+import arquitetura.flyweights.VariabilityFlyweight;
+import arquitetura.flyweights.VariantFlyweight;
+import arquitetura.flyweights.VariationPointFlyweight;
+import arquitetura.io.ReaderConfig;
 import arquitetura.representation.*;
 import arquitetura.representation.Class;
 import arquitetura.representation.Package;
+import arquitetura.representation.relationship.*;
 import br.ufpr.dinf.gres.opla.entity.Experiment;
 import br.ufpr.dinf.gres.opla.entity.Objective;
 import jmetal4.core.Solution;
@@ -52,6 +57,16 @@ public class ExperimentTest {
 
 
     public static SolutionSet getSolutionSetFromObjectiveListTest(List<Objective> objectives, List<QtdElements> elements, Long id) {
+
+        File smarty = new File(Thread.currentThread().getContextClassLoader().getResource("smarty.profile.uml").getFile());
+        File concerns = new File(Thread.currentThread().getContextClassLoader().getResource("concerns.profile.uml").getFile());
+        File patterns = new File(Thread.currentThread().getContextClassLoader().getResource("patterns.profile.uml").getFile());
+        File relationships = new File(Thread.currentThread().getContextClassLoader().getResource("relationships.profile.uml").getFile());
+        ReaderConfig.setPathToProfileSMarty(smarty.toURI().getPath());
+        ReaderConfig.setPathToProfileConcerns(concerns.toURI().getPath());
+        ReaderConfig.setPathToProfilePatterns(patterns.toURI().getPath());
+        ReaderConfig.setPathProfileRelationship(relationships.toURI().getPath());
+
         SolutionSet solutionSet = new SolutionSet();
         Architecture architecture = new Architecture("Teste");
         AtomicInteger i = new AtomicInteger();
@@ -84,6 +99,62 @@ public class ExperimentTest {
                     solution.getOPLAProblem().getArchitecture_().addAllClasses(generateRandomClass(qtdElements.classes));
                     solution.getOPLAProblem().getArchitecture_().addAllInterfaces(generateRandomInterface(qtdElements.interfaces));
                     solution.getOPLAProblem().getArchitecture_().addAllPackages(generateRandomPackage(qtdElements.packages));
+                    VariationPointFlyweight.getInstance().setVariationPoints(generateVariationPoints(qtdElements.variationPoints));
+                    VariantFlyweight.getInstance().setVariants(generateVariant(qtdElements.variants));
+                    VariabilityFlyweight.getInstance().setVariabilities(generateVariabilities(qtdElements.variabilities));
+                    generateConcerns(qtdElements.concerns);
+
+                    for (int j = 0; j < qtdElements.realizations; j++) {
+                        solution.getOPLAProblem().architecture_.getRelationshipHolder().addRelationship(new RealizationRelationship());
+                    }
+                    for (int j = 0; j < qtdElements.generalizations; j++) {
+                        solution.getOPLAProblem().architecture_.getRelationshipHolder().addRelationship(new GeneralizationRelationship());
+                    }
+                    for (int j = 0; j < qtdElements.dependencies; j++) {
+                        solution.getOPLAProblem().architecture_.getRelationshipHolder().addRelationship(new DependencyRelationship());
+                    }
+                    for (int j = 0; j < qtdElements.agregations; j++) {
+                        AssociationRelationship associationRelationship = new AssociationRelationship();
+                        AssociationEnd associationEnd = new AssociationEnd();
+                        associationEnd.setAggregation("shared");
+                        AssociationEnd associationEnd2 = new AssociationEnd();
+                        associationEnd2.setAggregation("shared");
+                        associationRelationship.getParticipants().add(associationEnd);
+                        associationRelationship.getParticipants().add(associationEnd2);
+                        solution.getOPLAProblem().architecture_.getRelationshipHolder().addRelationship(associationRelationship);
+                    }
+                    for (int j = 0; j < qtdElements.compositions; j++) {
+                        AssociationRelationship associationRelationship = new AssociationRelationship();
+                        AssociationEnd associationEnd = new AssociationEnd();
+                        associationEnd.setAggregation("composite");
+                        AssociationEnd associationEnd2 = new AssociationEnd();
+                        associationEnd2.setAggregation("composite");
+                        associationRelationship.getParticipants().add(associationEnd);
+                        associationRelationship.getParticipants().add(associationEnd2);
+                        solution.getOPLAProblem().architecture_.getRelationshipHolder().addRelationship(associationRelationship);
+                    }
+                    int a = solution.getOPLAProblem().architecture_.getRelationshipHolder().getAllAssociations().size();
+                    if (a < qtdElements.associations) {
+                        for (int j = 0; j < qtdElements.associations - a; j++) {
+                            AssociationRelationship associationRelationship = new AssociationRelationship();
+                            AssociationEnd associationEnd = new AssociationEnd();
+                            associationEnd.setAggregation("none");
+                            AssociationEnd associationEnd2 = new AssociationEnd();
+                            associationEnd2.setAggregation("none");
+                            associationRelationship.getParticipants().add(associationEnd);
+                            associationRelationship.getParticipants().add(associationEnd2);
+                            solution.getOPLAProblem().architecture_.getRelationshipHolder().addRelationship(associationRelationship);
+                        }
+                    }
+                    for (int j = 0; j < qtdElements.abstractions; j++) {
+                        solution.getOPLAProblem().architecture_.getRelationshipHolder().addRelationship(new AbstractionRelationship());
+                    }
+                    for (int j = 0; j < qtdElements.usage; j++) {
+                        solution.getOPLAProblem().architecture_.getRelationshipHolder().addRelationship(new UsageRelationship());
+                    }
+
+
+
                 }
 
                 solutionSet.getSolutionSet().add(solution);
@@ -91,6 +162,39 @@ public class ExperimentTest {
             }
         });
         return solutionSet;
+    }
+
+    public static HashMap<String, VariationPoint> generateVariationPoints(int qtd) {
+        HashMap<String, VariationPoint> objects = new HashMap<>();
+        for (int j = 0; j < qtd; j++) {
+            objects.put(j + "", null);
+        }
+        return objects;
+    }
+
+    public static HashMap<String, Variant> generateVariant(int qtd) {
+        HashMap<String, Variant> objects = new HashMap<>();
+        for (int j = 0; j < qtd; j++) {
+            objects.put(j + "", null);
+        }
+        return objects;
+    }
+
+    public static HashMap<String, Variability> generateVariabilities(int qtd) {
+        HashMap<String, Variability> objects = new HashMap<>();
+        for (int j = 0; j < qtd; j++) {
+            objects.put(j + "", null);
+        }
+        return objects;
+    }
+
+    public static HashMap<String, Concern> generateConcerns(int qtd) {
+        HashMap<String, Concern> objects = new HashMap<String, Concern>();
+        for (int j = 0; j < qtd; j++) {
+            objects.put(j + "", null);
+            ConcernHolder.INSTANCE.getConcerns().put(j + "", null);
+        }
+        return objects;
     }
 
     public static Set<Class> generateRandomClass(int classes) {
@@ -144,7 +248,7 @@ public class ExperimentTest {
         String[] nextLine;
         List<QtdElements> objects= new ArrayList<>();
         while ((nextLine = reader.readNext()) != null) {
-            objects.add(new QtdElements(nextLine[0], nextLine[1], nextLine[2], nextLine[3], nextLine[4], nextLine[5], nextLine[6]));
+            objects.add(new QtdElements(nextLine));
         }
         return objects;
     }

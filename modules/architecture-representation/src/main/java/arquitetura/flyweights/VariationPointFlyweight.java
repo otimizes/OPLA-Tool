@@ -93,6 +93,10 @@ public class VariationPointFlyweight {
         return new ArrayList<VariationPoint>(variationPoints.values());
     }
 
+    public void setVariationPoints(HashMap<String, VariationPoint> variationPoints) {
+        this.variationPoints = variationPoints;
+    }
+
     public void resertVariationPoints() {
         this.variationPoints.clear();
     }
