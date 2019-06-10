@@ -1,6 +1,5 @@
 package learning;
 
-import com.rits.cloning.Cloner;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import org.apache.log4j.Logger;
@@ -10,7 +9,9 @@ import weka.core.Instance;
 import weka.core.Instances;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -45,6 +46,7 @@ public class Clustering implements Serializable {
      */
     private Double epsilon = 0.3;
     private Integer minPoints = 3;
+    private Integer maxIterations;
 
     public Clustering() {
     }
@@ -106,6 +108,8 @@ public class Clustering implements Serializable {
         if (distanceFunction != null)
             getKMeans().setDistanceFunction(distanceFunction);
         getKMeans().setNumClusters(getNumClusters());
+        if (maxIterations != null)
+            getKMeans().setMaxIterations(maxIterations);
         getKMeans().buildClusterer(arffExecution.getDataWithoutClass());
 
         return getFilteredSolutionSet();
@@ -444,5 +448,13 @@ public class Clustering implements Serializable {
 
     public void setMax(double[] max) {
         this.max = max;
+    }
+
+    public Integer getMaxIterations() {
+        return maxIterations;
+    }
+
+    public void setMaxIterations(Integer maxIterations) {
+        this.maxIterations = maxIterations;
     }
 }

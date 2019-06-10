@@ -18,6 +18,7 @@ public class ArffExecution {
     private double[] vals;
     private int attrIndices;
     private double[][] attributes;
+    private boolean binary = false;
 
     /**
      * To use it, instantiate the class by passing a list of function values Objective
@@ -54,7 +55,11 @@ public class ArffExecution {
             }
         }
         // - string
-        atts.addElement(new Attribute("class", Arrays.asList("0", "1", "2", "3", "4", "5")));
+        if (binary) {
+            atts.addElement(new Attribute("class"));
+        } else {
+            atts.addElement(new Attribute("class", Arrays.asList("0", "1", "2", "3", "4", "5")));
+        }
         data = new Instances("MyRelation", atts, 0);
 
         for (int i = 0; i < attributes.length; i++) {

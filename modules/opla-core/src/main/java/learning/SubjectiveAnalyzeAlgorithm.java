@@ -7,6 +7,7 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.DenseInstance;
 
+import java.util.Date;
 import java.util.Random;
 
 //https://stackoverflow.com/questions/28694971/using-neural-network-class-in-weka-in-java-code
@@ -18,17 +19,29 @@ public class SubjectiveAnalyzeAlgorithm {
     private ClassifierAlgorithm algorithm;
     private ArffExecution arffExecution;
     private int numObjectives;
-    MultilayerPerceptron mlp;
-    private int trainingTime = 2500;
+    private MultilayerPerceptron mlp;
+    private int trainingTime = 5000;
+    private DistributeUserEvaluation distributeUserEvaluation = DistributeUserEvaluation.ALL;
+    private EvaluationModel evaluationModel = EvaluationModel.CROSS_VALIDATION;
+    private double momentum = 0.2;
+    private double learningRate = 0.3;
+    private String hiddenLayers;
 
     public SubjectiveAnalyzeAlgorithm() {
     }
 
     public SubjectiveAnalyzeAlgorithm(SolutionSet resultFront, ClassifierAlgorithm algorithm) {
-        this.resultFront = new Cloner().deepClone(resultFront);
+        this.resultFront = resultFront;
         this.algorithm = algorithm;
+        distributeUserEvaluations(resultFront);
         this.arffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
+    }
+
+    private void distributeUserEvaluations(SolutionSet resultFront) {
+        if (ClassifierAlgorithm.CLUSTERING_MLP.equals(this.algorithm)) {
+            resultFront.distributeUserEvaluation(distributeUserEvaluation);
+        }
     }
 
     /**
@@ -38,14 +51,7 @@ public class SubjectiveAnalyzeAlgorithm {
      * @throws Exception Default Exception
      */
     public SolutionSet run(SolutionSet solutionSet) throws Exception {
-        switch (algorithm) {
-            case MLP:
-                return MLP(solutionSet);
-            case MLP_KMEANS:
-                this.getResultFront().distributeUserEvaluation();
-                return MLP(solutionSet);
-        }
-        return null;
+        return MLP(solutionSet);
     }
 
     public SolutionSet run() throws Exception {
@@ -59,19 +65,22 @@ public class SubjectiveAnalyzeAlgorithm {
      * @throws Exception Default Exception
      */
     public SolutionSet MLP(SolutionSet solutionSet) throws Exception {
+        long startsIn = new Date().getTime();
         if (mlp == null) {
             mlp = new MultilayerPerceptron();
-            mlp.setHiddenLayers(String.valueOf(Math.round(arffExecution.getAttrIndices())));
+            mlp.setHiddenLayers(getHiddenLayers());
             mlp.setTrainingTime(getTrainingTime());
+            mlp.setLearningRate(getLearningRate());
+            mlp.setMomentum(getMomentum());
         }
 
         if (solutionSet != null) {
-
             if (!solutionSet.hasUserEvaluation()) {
-
                 for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
                     solutionSet.get(i).setEvaluation((int) mlp.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
                 }
+            } else {
+                distributeUserEvaluations(solutionSet);
             }
             ArffExecution newArff = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(), solutionSet.writeUserEvaluationsToMatrix(), null);
             newArff.getData().setClassIndex(newArff.getAttrIndices());
@@ -81,14 +90,21 @@ public class SubjectiveAnalyzeAlgorithm {
         arffExecution.getData().setClassIndex(arffExecution.getAttrIndices());
         mlp.buildClassifier(arffExecution.getData());
         Evaluation eval = new Evaluation(arffExecution.getData());
-        eval.evaluateModel(mlp, arffExecution.getData());
-//        eval.crossValidateModel(mlp, arffExecution.getData(), 5, new Random(1));
+        switch (evaluationModel) {
+            case TRAINING_SET:
+                eval.evaluateModel(mlp, arffExecution.getData());
+                break;
+            case CROSS_VALIDATION:
+                eval.crossValidateModel(mlp, arffExecution.getData(), 5, new Random(1));
+                break;
+        }
         System.out.println("Error: " + eval.errorRate());
         System.out.println("Summary: " + eval.toSummaryString());
 
         for (int i = 0; i < arffExecution.getData().size(); i++) {
-            System.out.println("Solution " + i + ": Expected: " + resultFront.get(i).getEvaluation() + " - Predicted: " + mlp.classifyInstance(arffExecution.getData().get(i)));
+            System.out.println("Solution " + i + ": Expected: " + resultFront.get(i).getEvaluation() + " - Predicted: " + ((int) mlp.classifyInstance(arffExecution.getData().get(i))));
         }
+        System.out.println("Tempo: " + ((new Date().getTime() - startsIn) / 1000));
         return resultFront;
     }
 
@@ -147,5 +163,45 @@ public class SubjectiveAnalyzeAlgorithm {
 
     public void setTrainingTime(int trainingTime) {
         this.trainingTime = trainingTime;
+    }
+
+    public DistributeUserEvaluation getDistributeUserEvaluation() {
+        return distributeUserEvaluation;
+    }
+
+    public void setDistributeUserEvaluation(DistributeUserEvaluation distributeUserEvaluation) {
+        this.distributeUserEvaluation = distributeUserEvaluation;
+    }
+
+    public EvaluationModel getEvaluationModel() {
+        return evaluationModel;
+    }
+
+    public void setEvaluationModel(EvaluationModel evaluationModel) {
+        this.evaluationModel = evaluationModel;
+    }
+
+    public double getMomentum() {
+        return momentum;
+    }
+
+    public void setMomentum(double momentum) {
+        this.momentum = momentum;
+    }
+
+    public double getLearningRate() {
+        return learningRate;
+    }
+
+    public void setLearningRate(double learningRate) {
+        this.learningRate = learningRate;
+    }
+
+    public String getHiddenLayers() {
+        return hiddenLayers == null ? String.valueOf(Math.round(arffExecution.getAttrIndices())) : hiddenLayers;
+    }
+
+    public void setHiddenLayers(String hiddenLayers) {
+        this.hiddenLayers = hiddenLayers;
     }
 }

@@ -27,6 +27,7 @@ import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import jmetal4.metrics.MetricsEvaluation;
 import jmetal4.util.Configuration;
+import learning.DistributeUserEvaluation;
 import org.apache.commons.lang.ArrayUtils;
 import results.FunResults;
 
@@ -537,7 +538,7 @@ public class SolutionSet implements Serializable {
         double[][] doubles = writeObjectivesToMatrix();
         for (int i = 0; i < doubles.length; i++) {
             int length = doubles[i].length;
-            double[] doublesObj = new double[length + 4 + 4 + 8];
+            double[] doublesObj = new double[length + 4 + 4];
             if (doubles[i].length >= 0) System.arraycopy(doubles[i], 0, doublesObj, 0, doubles[i].length);
             doublesObj[length] = get(i).getOPLAProblem().getArchitecture_().getAllClasses().size();
             doublesObj[length + 1] = get(i).getOPLAProblem().getArchitecture_().getAllConcerns().size();
@@ -549,14 +550,14 @@ public class SolutionSet implements Serializable {
             doublesObj[length + 6] = get(i).getOPLAProblem().getArchitecture_().getAllVariabilities().size();
             doublesObj[length + 7] = get(i).getOPLAProblem().getArchitecture_().getAllConcerns().size();
 
-            doublesObj[length + 8] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAbstractions().size();
-            doublesObj[length + 9] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAgragations().size();
-            doublesObj[length + 10] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAssociations().size();
-            doublesObj[length + 11] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllCompositions().size();
-            doublesObj[length + 12] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllDependencies().size();
-            doublesObj[length + 13] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllGeneralizations().size();
-            doublesObj[length + 14] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllRealizations().size();
-            doublesObj[length + 15] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllUsage().size();
+//            doublesObj[length + 8] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAbstractions().size();
+//            doublesObj[length + 9] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAgragations().size();
+//            doublesObj[length + 10] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAssociations().size();
+//            doublesObj[length + 11] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllCompositions().size();
+//            doublesObj[length + 12] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllDependencies().size();
+//            doublesObj[length + 13] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllGeneralizations().size();
+//            doublesObj[length + 14] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllRealizations().size();
+//            doublesObj[length + 15] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllUsage().size();
             doubles[i] = doublesObj;
         }
         return doubles;
@@ -861,6 +862,7 @@ public class SolutionSet implements Serializable {
             if (solution.getClusterId() != null) {
                 Set<Integer> clusterId = clusters.getOrDefault(solution.getClusterId(), new HashSet<>());
                 clusterId.add(solution.getEvaluation());
+                clusters.put(solution.getClusterId(), clusterId);
             }
         }
         return clusters;
@@ -876,9 +878,12 @@ public class SolutionSet implements Serializable {
         return soma / valores.size();
     }
 
-    public void distributeUserEvaluation(){
+    public void distributeUserEvaluation(DistributeUserEvaluation distributeUserEvaluation){
+        if (DistributeUserEvaluation.NONE.equals(distributeUserEvaluation)) return;
         Map<Double, Set<Integer>> clusterIds = getClusterIds();
         if (hasUserEvaluation() && clusterIds.size() > 0){
+            List<Solution> solutionsList_ = this.solutionsList_;
+            if (DistributeUserEvaluation.MIDDLE.equals(distributeUserEvaluation)) solutionsList_ = solutionsList_.subList(0, Math.abs(solutionsList_.size() / 2));
             for (Solution solution : solutionsList_) {
                 if (solution.getEvaluation() == 0) {
                     int media = Math.abs(getMedia(clusterIds.get(solution.getClusterId())));
