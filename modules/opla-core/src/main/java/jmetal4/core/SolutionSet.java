@@ -880,6 +880,7 @@ public class SolutionSet implements Serializable {
     public int getMedia(Set<Integer> valores) {
         if (valores == null) return 0;
         valores = valores.stream().filter(v -> v > 0).collect(Collectors.toSet());
+        if (valores.size() == 0) return 0;
         if (valores.size() == 1) return valores.stream().findFirst().get();
         int soma = 0;
         for (Integer valore : valores) {

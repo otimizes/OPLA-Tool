@@ -29,6 +29,15 @@ public class SubjectiveAnalyzeAlgorithm {
     public SubjectiveAnalyzeAlgorithm() {
     }
 
+    public SubjectiveAnalyzeAlgorithm(SolutionSet resultFront, ClassifierAlgorithm algorithm, DistributeUserEvaluation distributeUserEvaluation) {
+        this.distributeUserEvaluation = distributeUserEvaluation;
+        this.resultFront = resultFront;
+        this.algorithm = algorithm;
+        distributeUserEvaluations(resultFront);
+        this.arffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
+        this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
+    }
+
     public SubjectiveAnalyzeAlgorithm(SolutionSet resultFront, ClassifierAlgorithm algorithm) {
         this.resultFront = resultFront;
         this.algorithm = algorithm;
