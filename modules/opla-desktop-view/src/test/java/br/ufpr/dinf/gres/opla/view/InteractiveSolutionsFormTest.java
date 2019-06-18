@@ -53,8 +53,8 @@ public class InteractiveSolutionsFormTest {
         execution.setFuns(new ArrayList<>());
         execution.setInfos(new ArrayList<>());
 
-        List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_27112018.csv");
-        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, null, 7127396432L);
+        List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_03062019.csv");
+        SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, null, 1L);
         solutionSet.getSolutionSet().forEach(solution -> {
             execution.getFuns().add(new FunResults(
                     solution.getExecutionId().toString(),
@@ -81,7 +81,7 @@ public class InteractiveSolutionsFormTest {
                     1,
                     experiement));
         });
-        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.DBSCAN, solutionSet);
+        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.KMEANS, solutionSet);
     }
 
 //    @Test

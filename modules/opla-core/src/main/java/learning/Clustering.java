@@ -313,6 +313,11 @@ public class Clustering implements Serializable {
         return i;
     }
 
+    public int getGeneratedClusters() throws Exception {
+        if (getClusterer() instanceof SimpleKMeans) return ((SimpleKMeans) getClusterer()).getNumClusters();
+        else return ((DBSCAN) getClusterer()).numberOfClusters();
+    }
+
     public void setNumClusters(Integer numClusters) {
         this.numClusters = numClusters;
     }
