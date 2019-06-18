@@ -29,6 +29,8 @@ import jmetal4.util.Distance;
 import jmetal4.util.JMException;
 import jmetal4.util.Ranking;
 import jmetal4.util.comparators.CrowdingComparator;
+import learning.ClassifierAlgorithm;
+import learning.SubjectiveAnalyzeAlgorithm;
 import org.apache.log4j.Logger;
 
 import java.util.HashSet;
@@ -79,6 +81,7 @@ public class NSGAII extends Algorithm {
         Operator selectionOperator;
 
         Distance distance = new Distance();
+        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
 
         // Read the parameters
         populationSize = ((Integer) getInputParameter("populationSize")).intValue();
@@ -226,19 +229,17 @@ public class NSGAII extends Algorithm {
                 int generation = evaluations / populationSize;
                 if (interactive && currentInteraction < maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
                     offspringPopulation = interactiveFunction.run(offspringPopulation);
+                    if (subjectiveAnalyzeAlgorithm == null) {
+                        subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(offspringPopulation, ClassifierAlgorithm.CLUSTERING_MLP);
+                        subjectiveAnalyzeAlgorithm.run(null);
+                    } else subjectiveAnalyzeAlgorithm.run(offspringPopulation);
                     bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
                     currentInteraction++;
                 }
 
+//              MID MLP
                 if (interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction) {
-//                    MID MLP
-//                    System.out.println("Mid Interaction " + currentInteraction);
-//                    System.out.println("Interaction " + currentInteraction);
-//                    System.out.println("Elements:");
-//                    System.out.println(offspringPopulation.toStringObjectivesAndElementsNumber(3));
-//                    System.out.println("Objects:");
-//                    System.out.println(offspringPopulation.toStringObjectives(currentInteraction + "MID"));
-
+                    subjectiveAnalyzeAlgorithm.run(offspringPopulation);
                 }
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {

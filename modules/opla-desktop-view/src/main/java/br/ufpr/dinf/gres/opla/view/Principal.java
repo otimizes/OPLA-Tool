@@ -113,7 +113,7 @@ public class Principal extends AbstractPrincipalJFrame {
         this.cbRScript.setModel(new RScriptComboModel());
         this.cbClusteringMoment.setModel(new ClusteringMomentComboModel());
         this.cbClusteringMoment.setSelectedItem(Moment.NONE);
-        this.cbClusteringAlgorithm.setSelectedItem(ClusteringAlgorithm.DBSCAN);
+        this.cbClusteringAlgorithm.setSelectedItem(ClusteringAlgorithm.KMEANS);
         this.tbExperiments.setModel(tmExperiments);
         this.tbExecutions.setModel(tmExecExperiments);
         this.tbRuns.setModel(tmExecution);
@@ -1392,19 +1392,24 @@ public class Principal extends AbstractPrincipalJFrame {
         jLabel21.setText("Clustering Moment");
 
         tfMaxInteractions.setColumns(10);
-        tfMaxInteractions.setText("5");
+        tfMaxInteractions.setText("3");
 
         jLabel15.setText("Max  Interactions:");
 
         jLabel22.setText("First Interaction:");
 
         tfFirstInteraction.setColumns(10);
-        tfFirstInteraction.setText("6");
+        tfFirstInteraction.setText("3");
+        tfFirstInteraction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfFirstInteractionActionPerformed(evt);
+            }
+        });
 
         jLabel23.setText("Interval:");
 
         tfIntervalInteraction.setColumns(10);
-        tfIntervalInteraction.setText("1");
+        tfIntervalInteraction.setText("3");
         tfIntervalInteraction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfIntervalInteractionActionPerformed(evt);
@@ -2700,6 +2705,10 @@ public class Principal extends AbstractPrincipalJFrame {
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_tbExperimentsMouseClicked
+
+    private void tfFirstInteractionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFirstInteractionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfFirstInteractionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBoxPlot;

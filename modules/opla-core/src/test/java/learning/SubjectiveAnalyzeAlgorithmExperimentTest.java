@@ -224,7 +224,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
      * @throws Exception
      */
     @Test
-    public void agmOnMLP2ComAlteracoesNoPerfilDeAvaliacao() throws Exception {
+    public void agmOnMLP2SemAlteracoesNoPerfilDeAvaliacao() throws Exception {
         LOGGER.info("AGM MLP");
         Clustering.LOGGER.setLevel(Level.OFF);
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_03062019.csv");
@@ -272,6 +272,59 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering3.getSolutionsByClusterWithMinObjective(0).get(0).setEvaluation(5);
         clustering3.getSolutionsByClusterWithMinObjective(0).get(1).setEvaluation(5);
         clustering3.getSolutionsByClusterWithMinObjective(0).get(2).setEvaluation(3);
+        subjectiveAnalyzeAlgorithm.run(solutionSet3);
+
+    }
+
+    @Test
+    public void agmOnMLP2ComAlteracoesNoPerfilDeAvaliacao() throws Exception {
+        LOGGER.info("AGM MLP");
+        Clustering.LOGGER.setLevel(Level.OFF);
+        List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_03062019.csv");
+        List<QtdElements> elements = ExperimentTest.getElementsFromFile("agm_elements_03062019.csv");
+
+        LOGGER.info("1º Interação COM NOTAS");
+        //        1º Interação COM NOTAS
+        SolutionSet solutionSet1 = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 0L);
+        Clustering clustering = new Clustering(solutionSet1, ClusteringAlgorithm.KMEANS);
+        clustering.setNumClusters(3);
+        clustering.run();
+        clustering.getSolutionsByClusterWithMinObjective(0).get(0).setEvaluation(5);
+        clustering.getSolutionsByClusterWithMinObjective(1).get(0).setEvaluation(3);
+        clustering.getSolutionsByClusterWithMinObjective(2).get(0).setEvaluation(2);
+        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1, ClassifierAlgorithm.CLUSTERING_MLP);
+        subjectiveAnalyzeAlgorithm.run(null);
+
+        LOGGER.info("1º Interação SEM NOTAS");
+        //        1º Interação SEM NOTAS
+        SolutionSet solutionSet1b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 11L);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+//
+        LOGGER.info("2º Interação COM NOTAS");
+        //        2º Interação COM NOTAS
+        SolutionSet solutionSet2 = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 1L);
+        Clustering clustering2 = new Clustering(solutionSet2, ClusteringAlgorithm.KMEANS);
+        clustering2.setNumClusters(3);
+        clustering2.run();
+        clustering2.getSolutionsByClusterWithMinObjective(1).get(0).setEvaluation(5);
+        clustering2.getSolutionsByClusterWithMinObjective(1).get(1).setEvaluation(4);
+        clustering2.getSolutionsByClusterWithMinObjective(1).get(2).setEvaluation(3);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2);
+
+        LOGGER.info("2º Interação SEM NOTAS");
+        //        2º Interação SEM NOTAS
+        SolutionSet solutionSet2b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 22L);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2b);
+
+        LOGGER.info("3º Interação COM NOTAS");
+        //        3º Interação COM NOTAS
+        SolutionSet solutionSet3 = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 2L);
+        Clustering clustering3 = new Clustering(solutionSet2, ClusteringAlgorithm.KMEANS);
+        clustering3.setNumClusters(3);
+        clustering3.run();
+        clustering3.getSolutionsByClusterWithMinObjective(2).get(0).setEvaluation(5);
+        clustering3.getSolutionsByClusterWithMinObjective(2).get(1).setEvaluation(5);
+        clustering3.getSolutionsByClusterWithMinObjective(2).get(2).setEvaluation(3);
         subjectiveAnalyzeAlgorithm.run(solutionSet3);
 
     }

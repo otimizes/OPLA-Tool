@@ -27,7 +27,7 @@ public class InteractiveSolutionsFormTest {
 
     private static MetricsPersistence mp;
 
-//    @Test
+    @Test
     public void main() throws ClassNotFoundException, IOException {
 
 //        Object[] options = {
@@ -48,7 +48,7 @@ public class InteractiveSolutionsFormTest {
             throw new RuntimeException();
         }
 
-        Experiment experiement = mp.createExperimentOnDb("AGM", "NSGAII", "teste");
+        Experiment experiement = mp.createExperimentOnDb("AGM", "NSGAII", "");
         Execution execution = new Execution(experiement);
         execution.setFuns(new ArrayList<>());
         execution.setInfos(new ArrayList<>());
@@ -105,7 +105,7 @@ public class InteractiveSolutionsFormTest {
             throw new RuntimeException();
         }
 
-        Experiment experiement = mp.createExperimentOnDb("AGM", "NSGAII", "teste");
+        Experiment experiement = mp.createExperimentOnDb("AGM", "NSGAII", "");
         Execution execution = new Execution(experiement);
         execution.setFuns(new ArrayList<>());
         execution.setInfos(new ArrayList<>());

@@ -9,18 +9,18 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
+import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InteractiveSolutions extends JDialog {
 
     private static final Logger LOGGER = Logger.getLogger(InteractiveSolutions.class);
+
+    public static final ThreadLocal<Integer> currentExecution = ThreadLocal.withInitial(() -> 0);
     private ManagerApplicationConfig config;
     SolutionSet solutionSet;
     GridLayout gridLayout = new GridLayout();
@@ -31,7 +31,7 @@ public class InteractiveSolutions extends JDialog {
     ClusteringAlgorithm clusteringAlgorithm;
 
     public InteractiveSolutions(ManagerApplicationConfig config, ClusteringAlgorithm clusteringAlgorithm, SolutionSet solutionSet) {
-//        solutionSet.saveVariablesToFile("TEMP_", LOGGER,true);
+        InteractiveSolutions.currentExecution.set(InteractiveSolutions.currentExecution.get() + 1);
         this.config = config;
         this.solutionSet = solutionSet;
         this.clusteringAlgorithm = clusteringAlgorithm;
@@ -90,6 +90,17 @@ public class InteractiveSolutions extends JDialog {
     private void paintTreeNode(SolutionSet solutionSet) throws Exception {
         if (solutionSet.size() == 0) throw new RuntimeException("At least 1 solution is required.");
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Solutions");
+        List<DefaultMutableTreeNode> objectNodes = new ArrayList<>();
+        DefaultMutableTreeNode objectNodeTradeoff = new DefaultMutableTreeNode("Trade-off");
+        objectNodes.add(objectNodeTradeoff);
+        root.add(objectNodeTradeoff);
+
+        solutionSet.get(0).getOPLAProblem().getSelectedMetrics().forEach(metric -> {
+            DefaultMutableTreeNode objMetric = new DefaultMutableTreeNode(metric);
+            objectNodes.add(objMetric);
+            root.add(objMetric);
+        });
+
         gridLayout.setRows(1);
         gridLayout.setColumns(2);
         JTree tree = new JTree(root);
@@ -110,40 +121,31 @@ public class InteractiveSolutions extends JDialog {
         panelMaster.add(scroll);
         setContentPane(panelMaster);
         Clustering clustering = new Clustering(solutionSet, this.clusteringAlgorithm);
+        clustering.setNumClusters(solutionSet.getSolutionSet().get(0).numberOfObjectives() + 1);
         clustering.run();
 
         for (int i = 0; i < solutionSet.size(); i++) {
-            String plaName = "TEMP_" + i + solutionSet.get(i).getOPLAProblem().getArchitecture_().getName();
-            DefaultMutableTreeNode elem = new DefaultMutableTreeNode(plaName, true);
-//            DefaultMutableTreeNode elem0 = new DefaultMutableTreeNode(i, true);
-//            elem.add(elem0);
 
-            DefaultMutableTreeNode elem1 = new DefaultMutableTreeNode("Id: " + i, false);
-            elem.add(elem1);
-
-            String objectives = getObjectivesFormattedStr(i);
-
-            DefaultMutableTreeNode elem2 = new DefaultMutableTreeNode(objectives, false);
-            elem.add(elem2);
-            DefaultMutableTreeNode elem3 = new DefaultMutableTreeNode("Metrics: " + solutionSet.get(i).getOPLAProblem().getSelectedMetrics().toString(), false);
-            elem.add(elem3);
-            DefaultMutableTreeNode elem4 = new DefaultMutableTreeNode("Info: " + solutionSet.get(i).getOPLAProblem().getArchitecture_().toString(), false);
-            elem.add(elem4);
             double clusterId = clustering.getAllSolutions().get(i).getClusterId();
             List bestClusters = new ArrayList();
             int finalI = i;
-            if (clustering.getBestPerformingCluster().stream().filter(e -> e.getSolutionName() == solutionSet.get(finalI).getSolutionName()).count() > 0) {
+            if (clustering.getBestPerformingCluster().stream().filter(e -> e.equals(solutionSet.get(finalI))).count() > 0) {
                 bestClusters.add("Trade-off");
+                DefaultMutableTreeNode elem = getDefaultMutableTreeNode(solutionSet, i);
+                objectNodes.get(0).add(elem);
             }
             for (int j = 0; j < solutionSet.get(i).numberOfObjectives(); j++) {
                 if (clustering.getMinClusterByObjective(j) == clusterId) {
                     bestClusters.add(solutionSet.get(i).getOPLAProblem().getSelectedMetrics().get(j));
+                    DefaultMutableTreeNode elem = getDefaultMutableTreeNode(solutionSet, i);
+                    objectNodes.get(j + 1).add(elem);
                 }
             }
             if (bestClusters.size() <= 0) bestClusters.add("(-1) noise");
             DefaultMutableTreeNode elem5 = new DefaultMutableTreeNode("Best Clusters: " + bestClusters.toString(), false);
+            DefaultMutableTreeNode elem = getDefaultMutableTreeNode(solutionSet, i);
             elem.add(elem5);
-            root.add(elem);
+//            root.add(elem);
         }
         int row = tree.getRowCount();
         while (row >= 0) {
@@ -159,6 +161,22 @@ public class InteractiveSolutions extends JDialog {
                 }
             }
         });
+    }
+
+    private DefaultMutableTreeNode getDefaultMutableTreeNode(SolutionSet solutionSet, int i) {
+        String plaName = "TEMP_" + i;
+        DefaultMutableTreeNode elem = new DefaultMutableTreeNode(plaName, true);
+
+        DefaultMutableTreeNode elem1 = new DefaultMutableTreeNode("Id: " + i, false);
+        elem.add(elem1);
+        String objectives = getObjectivesFormattedStr(i);
+        DefaultMutableTreeNode elem2 = new DefaultMutableTreeNode(objectives, false);
+        elem.add(elem2);
+        DefaultMutableTreeNode elem3 = new DefaultMutableTreeNode("Metrics: " + solutionSet.get(i).getOPLAProblem().getSelectedMetrics().toString(), false);
+        elem.add(elem3);
+        DefaultMutableTreeNode elem4 = new DefaultMutableTreeNode("Info: " + solutionSet.get(i).getOPLAProblem().getArchitecture_().toString(), false);
+        elem.add(elem4);
+        return elem;
     }
 
     private JPanel bodyPanelFn(int indexSolution) {
@@ -251,8 +269,10 @@ public class InteractiveSolutions extends JDialog {
             if (nodeInfo.toString().contains("TEMP_")) {
                 open = new JMenuItem("Open");
                 open.addActionListener(e -> {
+                    Integer id = Integer.valueOf(node.getFirstChild().toString().replace("Id: ", ""));
+                    solutionSet.saveVariableToFile(solutionSet.get(id), InteractiveSolutions.currentExecution.get() + "_" + nodeInfo.toString(), LOGGER, true);
                     LOGGER.info("Opened solution " + nodeInfo.toString());
-                    Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + nodeInfo.toString().concat(".di"));
+                    Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + InteractiveSolutions.currentExecution.get() + "_" + nodeInfo.toString().concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di"));
                 });
                 add(open);
 

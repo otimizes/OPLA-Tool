@@ -355,6 +355,15 @@ public class SolutionSet implements Serializable {
         }
     }
 
+    public void saveVariableToFile(Solution solution, String path, Logger logger, boolean generate) {
+        int numberOfVariables = solution.getDecisionVariables().length;
+
+            for (int j = 0; j < numberOfVariables; j++) {
+                Architecture arch = (Architecture) solution.getDecisionVariables()[j];
+                if (generate)
+                    arch.save(arch, path, "");
+            }
+    }
 
     public void saveVariablesToFile(String path, Logger logger, boolean generate) {
         int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;

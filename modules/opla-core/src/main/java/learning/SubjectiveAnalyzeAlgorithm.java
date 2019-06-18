@@ -1,6 +1,5 @@
 package learning;
 
-import com.rits.cloning.Cloner;
 import jmetal4.core.SolutionSet;
 import org.apache.log4j.Logger;
 import weka.classifiers.Evaluation;
