@@ -112,7 +112,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
      *
      * @throws Exception
      */
-    @Test
+//    @Test
     public void abordagem1SemAlteracoesNoPerfilDeAvaliacao() throws Exception {
         LOGGER.info("AGM MLP");
         Clustering.LOGGER.setLevel(Level.OFF);
@@ -168,7 +168,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
 
     }
 
-    @Test
+//    @Test
     public void abordagem1ComAlteracoesNoPerfilDeAvaliacao() throws Exception {
         LOGGER.info("AGM MLP");
         Clustering.LOGGER.setLevel(Level.OFF);
@@ -229,7 +229,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
      * O erro é pequeno pois são poucas soluções avaliadas, porém quando analisa os dados, nenhuma solução avaliada foi avaliada corretamente.
      * @throws Exception
      */
-    @Test
+//    @Test
     public void abordagem2SemAlteracoesNoPerfilDeAvaliacao() throws Exception {
         LOGGER.info("AGM MLP");
         Clustering.LOGGER.setLevel(Level.OFF);
@@ -285,7 +285,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
 
     }
 
-    @Test
+//    @Test
     public void abordagem2ComAlteracoesNoPerfilDeAvaliacao() throws Exception {
         LOGGER.info("AGM MLP");
         Clustering.LOGGER.setLevel(Level.OFF);
@@ -345,7 +345,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
      *
      * @throws Exception
      */
-    @Test
+//    @Test
     public void abordagem3SemAlteracoesNoPerfilDeAvaliacao() throws Exception {
         LOGGER.info("AGM MLP");
         Clustering.LOGGER.setLevel(Level.OFF);
@@ -402,7 +402,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
 
     }
 
-    @Test
+//    @Test
     public void abordagem3ComAlteracoesNoPerfilDeAvaliacao() throws Exception {
         LOGGER.info("AGM MLP");
         Clustering.LOGGER.setLevel(Level.OFF);

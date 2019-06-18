@@ -27,7 +27,7 @@ public class InteractiveSolutionsFormTest {
 
     private static MetricsPersistence mp;
 
-    @Test
+//    @Test
     public void main() throws ClassNotFoundException, IOException {
 
 //        Object[] options = {
