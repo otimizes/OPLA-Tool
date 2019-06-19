@@ -19,7 +19,7 @@ public class SubjectiveAnalyzeAlgorithm {
     private ArffExecution arffExecution;
     private int numObjectives;
     private MultilayerPerceptron mlp;
-    private int trainingTime = 5000;
+    private int trainingTime = 2500;
     private DistributeUserEvaluation distributeUserEvaluation = DistributeUserEvaluation.ALL;
     private EvaluationModel evaluationModel = EvaluationModel.CROSS_VALIDATION;
     private double momentum = 0.2;

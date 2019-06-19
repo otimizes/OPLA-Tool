@@ -32,84 +32,6 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
      * Execuções: 1
      * Interações: I: 3     M: 4    I: 6    M: 7    I: 9
      *
-     * Observações:
-     * Utilizar notas = 0 como entrada da rede desbalancea muito a matriz de pesos da rede, pois a rede precisa de muito mais gerações para se adaptar. 0 é um problema pois afeta o cálculo do gradiente.
-     *  É melhor utilizar só o espectro 1,2,3,4,5 da escala de likert.
-     *
-     * Nos testes anteriores a abordagem com 0 se saiu melhor pois são poucos dados e avaliei mais soluções. Neste caso considerei que o usuário avalie uma só por cluster (objetivo)
-     *
-     * Neste caso segui a ideia de ter um cluster por objetivo, pois utilizar a fórmula comumente utilizada na literatura pode gerar mais de 3 clusters o que faria que alguns clusters não seriam avaliados.
-     *
-     * Por mais que eu ache um algoritmo muito pesado, utilizei o crossvalidation para evitar o overfitting.
-     * --------------------------------------------------------
-     *    Tempo em segundos TrainingSet = 3 6 9 13 17
-     * Inicio: Error: 0.015
-     * Summary:
-     * Correctly Classified Instances         197               98.5    %
-     * Incorrectly Classified Instances         3                1.5    %
-     * Kappa statistic                          0.9661
-     * Mean absolute error                      0.0112
-     * Root mean squared error                  0.0693
-     * Relative absolute error                  7.3661 %
-     * Root relative squared error             25.4209 %
-     * Total Number of Instances              200
-     * Fim: Error: 0.111
-     * Summary:
-     * Correctly Classified Instances         889               88.9    %
-     * Incorrectly Classified Instances       111               11.1    %
-     * Kappa statistic                          0.8439
-     * Mean absolute error                      0.0597
-     * Root mean squared error                  0.1714
-     * Relative absolute error                 24.7619 %
-     * Root relative squared error             49.3775 %
-     * Total Number of Instances             1000
-     * ---------------------------------------------------------
-     *    Tempo em segundos CrossValidation5Folds = 17 32 48 65 79
-     * Inicio: Error: 0.015
-     * Summary:
-     * Correctly Classified Instances         197               98.5    %
-     * Incorrectly Classified Instances         3                1.5    %
-     * Kappa statistic                          0.9661
-     * Mean absolute error                      0.0119
-     * Root mean squared error                  0.072
-     * Relative absolute error                  7.7427 %
-     * Root relative squared error             26.4067 %
-     * Fim: Error: 0.134
-     * Summary:
-     * Correctly Classified Instances         866               86.6    %
-     * Incorrectly Classified Instances       134               13.4    %
-     * Kappa statistic                          0.8124
-     * Mean absolute error                      0.0607
-     * Root mean squared error                  0.1857
-     * Relative absolute error                 25.1426 %
-     * Root relative squared error             53.5015 %
-     * Total Number of Instances             1000
-     * Total Number of Instances              200
-     * -----------------------------------------------------------
-     *    Tempo em segundos CrossValidation10Folds = 32 66 94 138 170
-     * Inicio: Error: 0.015
-     * Summary:
-     * Correctly Classified Instances         197               98.5    %
-     * Incorrectly Classified Instances         3                1.5    %
-     * Kappa statistic                          0.9661
-     * Mean absolute error                      0.0118
-     * Root mean squared error                  0.0723
-     * Relative absolute error                  7.7181 %
-     * Root relative squared error             26.5106 %
-     * Total Number of Instances              200
-     * Fim: Error: 0.123
-     * Summary:
-     * Correctly Classified Instances         877               87.7    %
-     * Incorrectly Classified Instances       123               12.3    %
-     * Kappa statistic                          0.8277
-     * Mean absolute error                      0.0597
-     * Root mean squared error                  0.1834
-     * Relative absolute error                 24.7257 %
-     * Root relative squared error             52.8269 %
-     * Total Number of Instances             1000
-     *
-     *
-     *
      * @throws Exception
      */
 //    @Test
@@ -163,7 +85,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering3.getSolutionsByClusterId(0).get(0).setEvaluation(5);
         clustering3.getSolutionsByClusterId(1).get(0).setEvaluation(5);
         clustering3.getSolutionsByClusterId(2).get(0).setEvaluation(3);
-        clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(4);
+        clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(2);
         subjectiveAnalyzeAlgorithm.run(solutionSet3);
 
     }
@@ -280,7 +202,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering3.getSolutionsByClusterId(0).get(0).setEvaluation(5);
         clustering3.getSolutionsByClusterId(1).get(0).setEvaluation(5);
         clustering3.getSolutionsByClusterId(2).get(0).setEvaluation(3);
-        clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(4);
+        clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(2);
         subjectiveAnalyzeAlgorithm.run(solutionSet3);
 
     }
@@ -397,7 +319,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering3.getSolutionsByClusterId(0).get(0).setEvaluation(5);
         clustering3.getSolutionsByClusterId(1).get(0).setEvaluation(5);
         clustering3.getSolutionsByClusterId(2).get(0).setEvaluation(3);
-        clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(4);
+        clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(2);
         subjectiveAnalyzeAlgorithm.run(solutionSet3);
 
     }
