@@ -7,6 +7,7 @@ import database.Result;
 import exceptions.MissingConfigurationException;
 import jmetal4.core.Algorithm;
 import jmetal4.core.SolutionSet;
+import jmetal4.interactive.InteractiveFunction;
 import jmetal4.metaheuristics.nsgaII.NSGAII;
 import jmetal4.operators.crossover.Crossover;
 import jmetal4.operators.crossover.CrossoverFactory;
@@ -16,9 +17,7 @@ import jmetal4.operators.selection.Selection;
 import jmetal4.operators.selection.SelectionFactory;
 import jmetal4.problems.OPLA;
 import jmetal4.util.JMException;
-import learning.Clustering;
-import learning.ClusteringAlgorithm;
-import learning.Moment;
+import learning.*;
 import metrics.AllMetrics;
 import org.apache.log4j.Logger;
 import persistence.*;
@@ -216,6 +215,10 @@ public class NSGAII_OPLA_FeatMut {
 
             LOGGER.info("saveVariablesToFile()");
             todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
+
+            if (Moment.POSTERIORI.equals(this.configs.getClusteringMoment())) {
+                this.configs.getInteractiveFunction().run(todasRuns);
+            }
 
             mp.saveFunAll(funResults);
 

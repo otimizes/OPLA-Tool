@@ -112,7 +112,7 @@ public class Principal extends AbstractPrincipalJFrame {
         this.cbClusteringAlgorithm.setModel(new ClusteringAlgorithmComboModel());
         this.cbRScript.setModel(new RScriptComboModel());
         this.cbClusteringMoment.setModel(new ClusteringMomentComboModel());
-        this.cbClusteringMoment.setSelectedItem(Moment.NONE);
+        this.cbClusteringMoment.setSelectedItem(Moment.POSTERIORI);
         this.cbClusteringAlgorithm.setSelectedItem(ClusteringAlgorithm.KMEANS);
         this.tbExperiments.setModel(tmExperiments);
         this.tbExecutions.setModel(tmExecExperiments);

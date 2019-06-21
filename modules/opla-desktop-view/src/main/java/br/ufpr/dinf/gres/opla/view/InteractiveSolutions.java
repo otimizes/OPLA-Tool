@@ -14,6 +14,8 @@ import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -116,6 +118,8 @@ public class InteractiveSolutions extends JDialog {
     private void paintTreeNode(SolutionSet solutionSet) throws Exception {
         if (solutionSet.size() == 0) throw new RuntimeException("At least 1 solution is required.");
 
+        StringBuilder logInteraction = new StringBuilder();
+
         Clustering clustering = new Clustering(solutionSet, this.clusteringAlgorithm);
         clustering.setNumClusters(solutionSet.getSolutionSet().get(0).numberOfObjectives() + 1);
         clustering.run();
@@ -160,19 +164,24 @@ public class InteractiveSolutions extends JDialog {
         for (int i = 0; i < solutionSet.size(); i++) {
             String plaName = "TEMP_" + i + solutionSet.get(i).getOPLAProblem().getArchitecture_().getName();
             DefaultMutableTreeNode elem = new DefaultMutableTreeNode(plaName, true);
+            logInteraction.append(elem.toString() + "\n");
 //            DefaultMutableTreeNode elem0 = new DefaultMutableTreeNode(i, true);
 //            elem.add(elem0);
 
             DefaultMutableTreeNode elem1 = new DefaultMutableTreeNode("Id: " + i, false);
+            logInteraction.append(elem1.toString() + "\n");
             elem.add(elem1);
 
             String objectives = getObjectivesFormattedStr(i);
 
             DefaultMutableTreeNode elem2 = new DefaultMutableTreeNode(objectives, false);
+            logInteraction.append(elem2.toString() + "\n");
             elem.add(elem2);
             DefaultMutableTreeNode elem3 = new DefaultMutableTreeNode("Metrics: " + solutionSet.get(i).getOPLAProblem().getSelectedMetrics().toString(), false);
+            logInteraction.append(elem3.toString() + "\n");
             elem.add(elem3);
             DefaultMutableTreeNode elem4 = new DefaultMutableTreeNode("Info: " + solutionSet.get(i).getOPLAProblem().getArchitecture_().toString(), false);
+            logInteraction.append(elem4.toString() + "\n");
             elem.add(elem4);
             double clusterId = clustering.getAllSolutions().get(i).getClusterId();
             List bestClusters = new ArrayList();
@@ -187,11 +196,18 @@ public class InteractiveSolutions extends JDialog {
             }
             if (bestClusters.size() <= 0) bestClusters.add("(-1) noise");
             DefaultMutableTreeNode elem5 = new DefaultMutableTreeNode("Best Clusters: " + bestClusters.toString(), false);
+            logInteraction.append(elem5 + "\n");
             elem.add(elem5);
 
             objectNodes.get(solutionSet.get(i).getClusterId().intValue()).add(elem);
 //            root.add(elem);
         }
+
+        FileWriter fileWriter = new FileWriter(config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + "LogInteraction_" + InteractiveSolutions.currentExecution + ".txt");
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.print(logInteraction);
+        printWriter.close();
+
         int row = tree.getRowCount();
         while (row >= 0) {
             tree.expandRow(row);
@@ -244,7 +260,7 @@ public class InteractiveSolutions extends JDialog {
 
 
                 File f1Di = new File(fileOnAnalyses);
-                String replaceFileOnAnalyses = fileOnAnalyses.replace("_TEMP", "_Score_" + teste_valor);
+                String replaceFileOnAnalyses = fileOnAnalyses.replace("_TEMP", "_Score_" + teste_valor + "_PlaId").replaceFirst(solutionOnAnalyses.getOPLAProblem().getArchitecture_().getName(), "_Fitness_" + solutionOnAnalyses.toStringObjectives());
                 if (f1Di.exists()) {
                     new File(replaceFileOnAnalyses).delete();
                     new File(replaceFileOnAnalyses.replace(".di", ".uml")).delete();
@@ -261,7 +277,7 @@ public class InteractiveSolutions extends JDialog {
                     File f2Not = new File(replaceFileOnAnalyses.replace(".di", ".notation"));
                     f1Not.renameTo(f2Not);
                 } else {
-                    new Thread(() -> solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses.replace("_TEMP", "_Score_" + teste_valor), LOGGER, true)).start();
+                    new Thread(() -> solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses.replace("_TEMP", "_Score_" + teste_valor + "_PlaId").replaceFirst(solutionOnAnalyses.getOPLAProblem().getArchitecture_().getName(), "_Fitness_" + solutionOnAnalyses.toStringObjectives()), LOGGER, true)).start();
                 }
 
 
