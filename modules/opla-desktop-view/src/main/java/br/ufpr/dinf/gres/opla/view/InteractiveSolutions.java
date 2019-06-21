@@ -181,8 +181,11 @@ public class InteractiveSolutions extends JDialog {
             logInteraction.append(elem3.toString() + "\n");
             elem.add(elem3);
             DefaultMutableTreeNode elem4 = new DefaultMutableTreeNode("Info: " + solutionSet.get(i).getOPLAProblem().getArchitecture_().toString(), false);
-            logInteraction.append(elem4.toString() + "\n");
+            logInteraction.append("Info: " + solutionSet.get(i).getOPLAProblem().getArchitecture_().toDetailedString(true) + "\n");
             elem.add(elem4);
+            DefaultMutableTreeNode elem5 = new DefaultMutableTreeNode("Previous User Evaluation: " + solutionSet.get(i).getEvaluation(), false);
+            logInteraction.append(elem5.toString() + "\n");
+            elem.add(elem5);
             double clusterId = clustering.getAllSolutions().get(i).getClusterId();
             List bestClusters = new ArrayList();
             int finalI = i;
@@ -195,9 +198,9 @@ public class InteractiveSolutions extends JDialog {
                 }
             }
             if (bestClusters.size() <= 0) bestClusters.add("(-1) noise");
-            DefaultMutableTreeNode elem5 = new DefaultMutableTreeNode("Best Clusters: " + bestClusters.toString(), false);
-            logInteraction.append(elem5 + "\n");
-            elem.add(elem5);
+            DefaultMutableTreeNode elem6 = new DefaultMutableTreeNode("Best Clusters: " + bestClusters.toString(), false);
+            logInteraction.append(elem6 + "\n");
+            elem.add(elem6);
 
             objectNodes.get(solutionSet.get(i).getClusterId().intValue()).add(elem);
 //            root.add(elem);
@@ -336,32 +339,33 @@ public class InteractiveSolutions extends JDialog {
             add(details);
 
             if (nodeInfo.toString().contains("TEMP_")) {
-                open = new JMenuItem("Open");
+                open = new JMenuItem("Only view");
                 open.addActionListener(e -> {
-                    new Thread(() -> {
-                        Integer id = Integer.valueOf(node.getFirstChild().toString().replace("Id: ", ""));
-                        plaNameOnAnalyses = "Execution_" + InteractiveSolutions.currentExecution + "_" + nodeInfo.toString();
-                        solutionOnAnalyses = solutionSet.get(id);
-                        solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses, LOGGER, true);
-                        LOGGER.info("Opened solution " + nodeInfo.toString());
-                        fileOnAnalyses = config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di");
-                        Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), fileOnAnalyses);
-                    }).start();
-                    JOptionPane.showMessageDialog(this, "Please, wait to open the PLA on Papyrus.");
+                    openOnPapyrus(node, nodeInfo);
                 });
                 add(open);
 
                 subjectiveAnalyse = new JMenuItem("Subjective Analyse");
                 subjectiveAnalyse.addActionListener(e -> {
                     LOGGER.info("Subjective Analyse " + nodeInfo.toString());
-                    Integer id = Integer.valueOf(node.getFirstChild().toString().replace("Id: ", ""));
-                    plaNameOnAnalyses = "Execution_" + InteractiveSolutions.currentExecution + "_" + nodeInfo.toString();
-                    solutionOnAnalyses = solutionSet.get(id);
-                    fileOnAnalyses = config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di");
-                    subjectiveAnalyseFn(Integer.parseInt(((DefaultMutableTreeNode) node.getFirstChild()).getUserObject().toString().split(":")[1].trim()));
+                    new Thread(() -> {
+                        openOnPapyrus(node, nodeInfo);
+                        subjectiveAnalyseFn(Integer.parseInt(((DefaultMutableTreeNode) node.getFirstChild()).getUserObject().toString().split(":")[1].trim()));
+                    }).start();
+                    JOptionPane.showMessageDialog(this, "Please, wait to open the PLA on Papyrus.");
                 });
                 add(subjectiveAnalyse);
             }
+        }
+
+        private void openOnPapyrus(DefaultMutableTreeNode node, Object nodeInfo) {
+            Integer id = Integer.valueOf(node.getFirstChild().toString().replace("Id: ", ""));
+            plaNameOnAnalyses = "Interaction_" + InteractiveSolutions.currentExecution + "_" + nodeInfo.toString();
+            solutionOnAnalyses = solutionSet.get(id);
+            solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses, LOGGER, true);
+            LOGGER.info("Opened solution " + nodeInfo.toString());
+            fileOnAnalyses = config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di");
+            Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), fileOnAnalyses);
         }
 
         private void subjectiveAnalyseFn(int indexSolution) {

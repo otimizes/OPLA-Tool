@@ -183,6 +183,10 @@ public class NSGAII_OPLA_FeatMut {
                         experiement, selectedObjectiveFunctions);
                 execution.setTime(estimatedTime);
 
+                if (Moment.POSTERIORI.equals(this.configs.getClusteringMoment())) {
+                    this.configs.getInteractiveFunction().run(resultFront);
+                }
+
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
 
                 execution.setFuns(funResults);
@@ -213,11 +217,9 @@ public class NSGAII_OPLA_FeatMut {
             this.configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
             List<FunResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
 
-            LOGGER.info("saveVariablesToFile()");
-            todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
-
-            if (Moment.POSTERIORI.equals(this.configs.getClusteringMoment())) {
-                this.configs.getInteractiveFunction().run(todasRuns);
+            if (runsNumber > 1) {
+                LOGGER.info("saveVariablesToFile()");
+                todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
             }
 
             mp.saveFunAll(funResults);
