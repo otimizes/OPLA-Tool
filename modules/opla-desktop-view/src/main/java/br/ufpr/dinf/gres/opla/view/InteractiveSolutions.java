@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.opla.view;
 
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
+import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import learning.Clustering;
 import learning.ClusteringAlgorithm;
@@ -12,6 +13,7 @@ import javax.swing.*;
 import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +33,9 @@ public class InteractiveSolutions extends JDialog {
     JPanel jPanelSubjectiveAnalysis = new JPanel(layoutPanelSubjectiveAnalyse);
     final JTextField field = new JTextField();
     ClusteringAlgorithm clusteringAlgorithm;
+    String fileOnAnalyses;
+    String plaNameOnAnalyses;
+    Solution solutionOnAnalyses;
 
     public InteractiveSolutions(ManagerApplicationConfig config, ClusteringAlgorithm clusteringAlgorithm, SolutionSet solutionSet) {
         InteractiveSolutions.currentExecution++;
@@ -49,15 +54,12 @@ public class InteractiveSolutions extends JDialog {
             getContentPane().repaint();
 
             setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-            addWindowListener(new WindowAdapter()
-            {
-                public void windowClosed(WindowEvent e)
-                {
+            addWindowListener(new WindowAdapter() {
+                public void windowClosed(WindowEvent e) {
                     System.out.println("jdialog window closed event received");
                 }
 
-                public void windowClosing(WindowEvent e)
-                {
+                public void windowClosing(WindowEvent e) {
                     Map<Double, Set<Integer>> clusterIds = solutionSet.getClusterIds();
                     AtomicBoolean complete = new AtomicBoolean(true);
                     clusterIds.forEach((k, v) -> {
@@ -126,7 +128,8 @@ public class InteractiveSolutions extends JDialog {
 
             if (i == 0) str.append("Trade-off ");
             for (int j = 0; j < solutionSet.get(0).numberOfObjectives(); j++) {
-                if (clustering.getMinClusterByObjective(j) == i) str.append(solutionSet.get(0).getOPLAProblem().getSelectedMetrics().get(j)).append(" ");
+                if (clustering.getMinClusterByObjective(j) == i)
+                    str.append(solutionSet.get(0).getOPLAProblem().getSelectedMetrics().get(j)).append(" ");
             }
             if (str.length() <= 0) str.append("none");
             DefaultMutableTreeNode objMetric = new DefaultMutableTreeNode("Cluster " + i + ", Best Objects: " + str);
@@ -239,6 +242,29 @@ public class InteractiveSolutions extends JDialog {
                 int teste_valor = solutionSet.get(indexSolution).getEvaluation();
                 teste.setText(Integer.toString(teste_valor));
 
+
+                File f1Di = new File(fileOnAnalyses);
+                String replaceFileOnAnalyses = fileOnAnalyses.replace("_TEMP", "_Score_" + teste_valor);
+                if (f1Di.exists()) {
+                    new File(replaceFileOnAnalyses).delete();
+                    new File(replaceFileOnAnalyses.replace(".di", ".uml")).delete();
+                    new File(replaceFileOnAnalyses.replace(".di", ".notation")).delete();
+
+                    File f2Di = new File(replaceFileOnAnalyses);
+                    f1Di.renameTo(f2Di);
+
+                    File f1Uml = new File(fileOnAnalyses.replace(".di", ".uml"));
+                    File f2Uml = new File(replaceFileOnAnalyses.replace(".di", ".uml"));
+                    f1Uml.renameTo(f2Uml);
+
+                    File f1Not = new File(fileOnAnalyses.replace(".di", ".notation"));
+                    File f2Not = new File(replaceFileOnAnalyses.replace(".di", ".notation"));
+                    f1Not.renameTo(f2Not);
+                } else {
+                    new Thread(() -> solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses.replace("_TEMP", "_Score_" + teste_valor), LOGGER, true)).start();
+                }
+
+
                 apply.setText("Saved");
                 setTitle("Architectures");
             }
@@ -298,9 +324,12 @@ public class InteractiveSolutions extends JDialog {
                 open.addActionListener(e -> {
                     new Thread(() -> {
                         Integer id = Integer.valueOf(node.getFirstChild().toString().replace("Id: ", ""));
-                        solutionSet.saveVariableToFile(solutionSet.get(id), InteractiveSolutions.currentExecution + "_" + nodeInfo.toString(), LOGGER, true);
+                        plaNameOnAnalyses = "Execution_" + InteractiveSolutions.currentExecution + "_" + nodeInfo.toString();
+                        solutionOnAnalyses = solutionSet.get(id);
+                        solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses, LOGGER, true);
                         LOGGER.info("Opened solution " + nodeInfo.toString());
-                        Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + InteractiveSolutions.currentExecution + "_" + nodeInfo.toString().concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di"));
+                        fileOnAnalyses = config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di");
+                        Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), fileOnAnalyses);
                     }).start();
                     JOptionPane.showMessageDialog(this, "Please, wait to open the PLA on Papyrus.");
                 });
@@ -309,7 +338,10 @@ public class InteractiveSolutions extends JDialog {
                 subjectiveAnalyse = new JMenuItem("Subjective Analyse");
                 subjectiveAnalyse.addActionListener(e -> {
                     LOGGER.info("Subjective Analyse " + nodeInfo.toString());
-                    System.out.println(node.getDepth());
+                    Integer id = Integer.valueOf(node.getFirstChild().toString().replace("Id: ", ""));
+                    plaNameOnAnalyses = "Execution_" + InteractiveSolutions.currentExecution + "_" + nodeInfo.toString();
+                    solutionOnAnalyses = solutionSet.get(id);
+                    fileOnAnalyses = config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di");
                     subjectiveAnalyseFn(Integer.parseInt(((DefaultMutableTreeNode) node.getFirstChild()).getUserObject().toString().split(":")[1].trim()));
                 });
                 add(subjectiveAnalyse);
