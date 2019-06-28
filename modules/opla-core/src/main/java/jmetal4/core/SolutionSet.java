@@ -547,7 +547,7 @@ public class SolutionSet implements Serializable {
         double[][] doubles = writeObjectivesToMatrix();
         for (int i = 0; i < doubles.length; i++) {
             int length = doubles[i].length;
-            double[] doublesObj = new double[length + 4 + 4];
+            double[] doublesObj = new double[length + 4 + 3];
             if (doubles[i].length >= 0) System.arraycopy(doubles[i], 0, doublesObj, 0, doubles[i].length);
             doublesObj[length] = get(i).getOPLAProblem().getArchitecture_().getAllClasses().size();
             doublesObj[length + 1] = get(i).getOPLAProblem().getArchitecture_().getAllConcerns().size();
@@ -557,7 +557,7 @@ public class SolutionSet implements Serializable {
             doublesObj[length + 4] = get(i).getOPLAProblem().getArchitecture_().getAllVariationPoints().size();
             doublesObj[length + 5] = get(i).getOPLAProblem().getArchitecture_().getAllVariants().size();
             doublesObj[length + 6] = get(i).getOPLAProblem().getArchitecture_().getAllVariabilities().size();
-            doublesObj[length + 7] = get(i).getOPLAProblem().getArchitecture_().getAllConcerns().size();
+//            doublesObj[length + 7] = get(i).getOPLAProblem().getArchitecture_().getAllConcerns().size();
 
 //            doublesObj[length + 8] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAbstractions().size();
 //            doublesObj[length + 9] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAgragations().size();

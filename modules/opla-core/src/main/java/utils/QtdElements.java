@@ -51,16 +51,15 @@ public class QtdElements {
                 if (i == 4) this.variationPoints = Integer.parseInt(elements[i]);
                 if (i == 5) this.variants= Integer.parseInt(elements[i]);
                 if (i == 6) this.variabilities = Integer.parseInt(elements[i]);
-                if (i == 7) this.concerns = Integer.parseInt(elements[i]);
 
-                if (i == 8) this.abstractions = Integer.parseInt(elements[i]);
-                if (i == 9) this.agregations = Integer.parseInt(elements[i]);
-                if (i == 10) this.associations = Integer.parseInt(elements[i]);
-                if (i == 11) this.compositions = Integer.parseInt(elements[i]);
-                if (i == 12) this.dependencies = Integer.parseInt(elements[i]);
-                if (i == 13) this.generalizations = Integer.parseInt(elements[i]);
-                if (i == 14) this.realizations = Integer.parseInt(elements[i]);
-                if (i == 15) this.usage = Integer.parseInt(elements[i]);
+                if (i == 7) this.abstractions = Integer.parseInt(elements[i]);
+                if (i == 8) this.agregations = Integer.parseInt(elements[i]);
+                if (i == 9) this.associations = Integer.parseInt(elements[i]);
+                if (i == 10) this.compositions = Integer.parseInt(elements[i]);
+                if (i == 11) this.dependencies = Integer.parseInt(elements[i]);
+                if (i == 12) this.generalizations = Integer.parseInt(elements[i]);
+                if (i == 13) this.realizations = Integer.parseInt(elements[i]);
+                if (i == 14) this.usage = Integer.parseInt(elements[i]);
             } catch (RuntimeException e) {
                 e.printStackTrace();
             }
