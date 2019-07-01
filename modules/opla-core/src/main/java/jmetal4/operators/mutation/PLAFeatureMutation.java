@@ -622,8 +622,41 @@ public class PLAFeatureMutation extends Mutation {
                         Set<Concern> allConcerns = c.getAllConcerns();
                         Package aPackage = arch.getAllPackages().stream().filter(p -> p.getAllClasses().contains(c)).findFirst().get();
                         if (allConcerns.size() > 1) {
+
+                            // Identifico se contem subclasse
+                            boolean pci = c.getRelationships().stream().filter(r -> {
+                                if (r instanceof GeneralizationRelationship) {
+                                    Class child = (Class) ((GeneralizationRelationship) r).getChild();
+                                    return child != c;
+                                }
+                                return false;
+                            }).count() > 0;
+
+                            if (pci) {
+//                           Passo 1
+                                boolean homonimo = false;
+                                for (Attribute attribute : c.getAllAttributes()) {
+                                    int count = 0;
+                                    for (Relationship relationship : c.getRelationships()) {
+                                        if (relationship instanceof GeneralizationRelationship) {
+                                            Class child = (Class) ((GeneralizationRelationship) relationship).getChild();
+                                            long count1 = child.getAllAttributes().stream().filter(attr -> {
+                                                return attr.getName().equals(attribute.getName())
+                                                        && attr.getAllConcerns().toArray().toString().equals(attribute.getAllConcerns().toArray().toString());
+                                            }).count();
+                                            if (count1 > 0) count++;
+                                        }
+                                    }
+                                    if (count >= c.getRelationships().size()) homonimo = true;
+                                }
+                                if (homonimo) return;
+                            }
+
+
+                            // Passo 2
                             Concern major = getMajorConcern(c);
 
+//                            Passo 3
                             for (Concern concern: allConcerns.stream().filter(co -> !c.equals(major)).collect(Collectors.toList())) {
                                 Class newClass = findOrCreateClassWithConcernWithConcernName(aPackage, concern, c);
 
@@ -649,17 +682,17 @@ public class PLAFeatureMutation extends Mutation {
                                 }
 
 
+//                                Passo 4
                                 RelationshipsHolder relationshipsHolder = new RelationshipsHolder();
                                 AssociationRelationship associationRelationship = new AssociationRelationship(c, newClass);
                                 relationshipsHolder.addRelationship(associationRelationship);
-
-                                newClass.setRelationshipHolder(relationshipsHolder);
-
 //                              //  Em caso de anomalia, cria um novo RelationshipsHolder invertendo c <-> newClass e adiciona no c.setRelationShipHolder
                                 c.setRelationshipHolder(relationshipsHolder);
+                                newClass.setRelationshipHolder(relationshipsHolder);
 
                                 arch.getAllClasses().add(newClass);
 
+                                //                                Passo 6
                                 if (searchForGeneralizations(c)) {
                                     for (Relationship relationship : c.getRelationships()) {
                                         if (relationship instanceof GeneralizationRelationship) {
