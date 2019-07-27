@@ -4,22 +4,20 @@ import arquitetura.exceptions.*;
 import arquitetura.helpers.Strings;
 import arquitetura.helpers.UtilResources;
 import arquitetura.io.ReaderConfig;
-import arquitetura.representation.*;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Package;
+import arquitetura.representation.*;
 import arquitetura.representation.relationship.*;
-import arquitetura.touml.*;
 import arquitetura.touml.Method;
+import arquitetura.touml.*;
 import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class GenerateArchitecture extends ArchitectureBase {
 
@@ -149,7 +147,7 @@ public class GenerateArchitecture extends ArchitectureBase {
 
             Set<Package> packages = a.getAllPackages();
 
-            for (Class klass : a.getAllClasses()) {
+            for (Class klass : a.getAllClasses().stream().sorted(Comparator.comparing(Element::getNamespace)).collect(Collectors.toList())) {
 
                 List<arquitetura.touml.Attribute> attributesForClass = createAttributes(op, klass);
 
@@ -356,13 +354,13 @@ public class GenerateArchitecture extends ArchitectureBase {
             for (Variability variability : variabilities) {
                 try {
                     VariationPoint variationPointForVariability = variability.getVariationPoint();
-            /*
-             * Um Variabilidade pode estar ligada a uma classe que não
-		     * seja um ponto de variação, neste caso a chama do método
-		     * acima vai retornar null. Quando isso acontecer é usado o
-		     * método getOwnerClass() que retorna a classe que é dona da
-		     * variabilidade.
-		     */
+                    /*
+                     * Um Variabilidade pode estar ligada a uma classe que não
+                     * seja um ponto de variação, neste caso a chama do método
+                     * acima vai retornar null. Quando isso acontecer é usado o
+                     * método getOwnerClass() que retorna a classe que é dona da
+                     * variabilidade.
+                     */
                     if (variationPointForVariability == null) {
                         idOwner = a.findClassByName(variability.getOwnerClass()).get(0).getId();
                     } else {
@@ -385,11 +383,11 @@ public class GenerateArchitecture extends ArchitectureBase {
             System.exit(0);
         }
 
-        LOGGER.info("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget() + System.getProperty("file.separator")  + doc.getNewModelName()
+        LOGGER.info("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + doc.getNewModelName()
                 + "\n\n\n\n");
         if (this.logger != null)
             this.logger.putLog("Done. Architecture save into: " + ReaderConfig.getDirExportTarget()
-                    + System.getProperty("file.separator")  + doc.getNewModelName(), Level.INFO);
+                    + System.getProperty("file.separator") + doc.getNewModelName(), Level.INFO);
 
     }
 
@@ -399,7 +397,7 @@ public class GenerateArchitecture extends ArchitectureBase {
         buildPackage(op, packages.iterator().next());
 
         for (Package p : packages) {
-            op.forPackage().createPacakge(p).withClass(getOnlyInterfacesAndClasses(p)).build();
+            op.forPackage().createPacakge(p).withClass(getOnlyInterfacesAndClasses(p), p).build();
         }
     }
 
@@ -411,7 +409,7 @@ public class GenerateArchitecture extends ArchitectureBase {
             if (!p.getNestedPackages().isEmpty())
                 buildPackage(op, p);
             if (!packageCreated.contains(p.getId())) {
-                op.forPackage().createPacakge(p).withClass(getOnlyInterfacesAndClasses(p)).build();
+                op.forPackage().createPacakge(p).withClass(getOnlyInterfacesAndClasses(p), p).build();
                 packageCreated.add(p.getId());
             }
         }

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class PackageOperations extends XmiHelper {
 
@@ -44,7 +44,7 @@ public class PackageOperations extends XmiHelper {
                 pkg.setAttribute("name", pack.getName());
                 umlModelChild.appendChild(pkg);
 
-                notation.createXmiForPackageInNotationFile(pack.getId());
+                notation.createXmiForPackageInNotationFile(pack.getId(), pack);
             }
 
         });
@@ -69,9 +69,9 @@ public class PackageOperations extends XmiHelper {
      * @throws NodeNotFound
      * @throws InvalidMultiplictyForAssociationException
      */
-    public PackageOperations withClass(final List<String> ids) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+    public PackageOperations withClass(final List<String> ids, Package pack) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
         for (final String _id : ids)
-            move(_id, null);
+            move(_id, pack.getId());
         return this;
     }
 
@@ -105,7 +105,13 @@ public class PackageOperations extends XmiHelper {
 
                         public void useTransformation() {
                             packageToAdd.appendChild(classToMove);
-                            packageToAddNotation.appendChild(classToMoveNotation);
+                            int length = packageToAddNotation.getChildNodes().getLength();
+                            for (int i = 0; i < length; i++) {
+                                if (packageToAddNotation.getChildNodes().item(i).getAttributes().getNamedItem("type") != null && "7016".equals(packageToAddNotation.getChildNodes().item(i).getAttributes().getNamedItem("type").getNodeValue())) {
+                                    packageToAddNotation.getChildNodes().item(i).appendChild(classToMoveNotation);
+//                                    packageToAddNotation.appendChild(classToMoveNotation);
+                                }
+                            }
                         }
                     }
             );

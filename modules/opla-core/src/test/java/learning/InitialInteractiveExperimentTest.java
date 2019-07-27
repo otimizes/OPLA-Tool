@@ -11,6 +11,7 @@ import jmetal4.encodings.solutionType.ArchitectureSolutionType;
 import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.problems.OPLA;
 import org.apache.log4j.Logger;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -26,18 +27,7 @@ public class InitialInteractiveExperimentTest {
     public void countElements() throws Exception {
 
         List<String> xmis = Arrays.asList(
-                "/home/wmfsystem/workspace/plas/agm/agm.uml",
-                "/home/wmfsystem/workspace/plas/vinicius/2/sem_interacao/VAR_All_agm-6168413134.uml",
-                "/home/wmfsystem/workspace/plas/vinicius/2/sem_interacao/VAR_All_agm-7845213531.uml",
-                "/home/wmfsystem/workspace/plas/vinicius/2/sem_interacao/VAR_All_agm-9181131839.uml",
-                "/home/wmfsystem/workspace/plas/vinicius/2/sem_interacao/VAR_All_agm-9184713578.uml",
-                "/home/wmfsystem/workspace/plas/vinicius/2/experimento_choma/VAR_All_agm-1983211558.uml",
-                "/home/wmfsystem/workspace/plas/vinicius/2/experimento_choma/VAR_All_agm-2139224476.uml",
-                "/home/wmfsystem/workspace/plas/vinicius/2/experimento_choma/VAR_All_agm-4399228137.uml",
-                "/home/wmfsystem/workspace/plas/vinicius/2/experimento_choma/VAR_All_agm-5399919845.uml",
-                "/home/wmfsystem/workspace/plas/vinicius/2/experimento_choma/VAR_All_agm-6886372127.uml",
-                "/home/wmfsystem/workspace/plas/vinicius/2/experimento_choma/VAR_All_agm-7117618645.uml",
-                "/home/wmfsystem/workspace/plas/vinicius/2/experimento_choma/VAR_All_agm-7125411918.uml"
+                "/home/wmfsystem/IdeaProjects/OPLA-Tool/modules/opla-core/src/test/resources/agm/agm1.uml"
         );
 
 
@@ -62,7 +52,7 @@ public class InitialInteractiveExperimentTest {
     }
 
 
-//    @Test
+    //    @Test
     public void pfTrue() throws IOException {
 
         List<double[]> pfs = Arrays.asList(

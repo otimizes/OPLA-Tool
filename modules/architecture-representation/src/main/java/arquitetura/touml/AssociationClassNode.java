@@ -69,7 +69,7 @@ public class AssociationClassNode extends XmiHelper {
         ownedAttibute(nodeToAddOwnedAttributeForAssociationClass, idOwnedAttribute, associationEndDestination);
 
         try {
-            String idChildren = notation.createXmiForClassInNotationFile(this.idAssociation, null, "associationClass");
+            String idChildren = notation.createXmiForClassInNotationFile(this.idAssociation, null, "associationClass", null);
             String idEdge = elementXmiGenerator.createEgdeAssocationOnNotationFile(docNotation, newModelName, ownedEndElement, associationEndDestination, this.idAssociation);
             elementXmiGenerator.createEgdgeAssociationClassOnNotationFile(idChildren, idEdge);
         } catch (NullReferenceFoundException e) {
