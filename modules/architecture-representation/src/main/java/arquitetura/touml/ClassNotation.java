@@ -281,8 +281,8 @@ public class ClassNotation extends XmiHelper {
         layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandonUUID());
         layoutConstraint2.setAttribute("xmi:type", "notation:Bounds");
         layoutConstraint2.setAttribute("y", "10");
-        layoutConstraint2.setAttribute("width", String.valueOf(original.getElements().size() * 250)); //TODO ver uma maneira de criar conforme necessidade
-        xPackage += original.getElements().size() * 250 + 20;
+        layoutConstraint2.setAttribute("width", String.valueOf(original.getElements().size() * 300)); //TODO ver uma maneira de criar conforme necessidade
+        xPackage += original.getElements().size() * 300 + 20;
 
         int height = 1650;
 
