@@ -5,7 +5,10 @@ import arquitetura.exceptions.NodeNotFound;
 import arquitetura.exceptions.NullReferenceFoundException;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
+import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
+import arquitetura.representation.Interface;
+import arquitetura.representation.Method;
 import arquitetura.representation.Package;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,7 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * @author edipofederle<edipofederle @ gmail.com>
+ * @author edipofederle<edipofederle   @   gmail.com>
  */
 public class ClassNotation extends XmiHelper {
 
@@ -33,6 +36,7 @@ public class ClassNotation extends XmiHelper {
     public static int xElement = 1;
     public static int yElement = 1;
     public static int xPackage = 1;
+    public static int yPackage = 1;
     public static String lastNamespace = "";
 
 
@@ -171,21 +175,70 @@ public class ClassNotation extends XmiHelper {
         layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
         layoutConstraint.setAttribute("xmi:type", "notation:Bounds");
         layoutConstraint.setAttribute("y", String.valueOf(yElement));
-        System.out.println(lastNamespace);
+
         if (!lastNamespace.equals(aClass.getNamespace())) {
             lastNamespace = aClass.getNamespace();
-            yElement = 1;
-            xElement = 1;
-        } else if (aClass instanceof Class) {
-            yElement += 300;
-            if (yElement > 1200) {
-                xElement += 300;
+            if (aClass instanceof Class) {
                 yElement = 1;
+                xElement = 1;
+            } else {
+                yElement = 810;
+                xElement = 1;
+            }
+        } else {
+            yElement += getHeightClass(aClass) * 2;
+            if (aClass instanceof Class && yElement >= 800) {
+                xElement += 500;
+                yElement = 1;
+            }
+            if (aClass instanceof Interface && yElement >= 1500) {
+                xElement += 500;
+                yElement = 810;
             }
         }
         node.appendChild(layoutConstraint);
 
         return element;
+    }
+
+    private int getHeightClass(arquitetura.representation.Element aClass) {
+        int YClass = 100;
+        if (aClass instanceof Class) {
+            for (Attribute ignored : ((Class) aClass).getAllAttributes()) {
+                YClass += 10;
+            }
+            for (Method ignored : ((Class) aClass).getAllMethods()) {
+                YClass += 10;
+            }
+        } else {
+            for (Method ignored : ((Interface) aClass).getOperations()) {
+                YClass += 10;
+            }
+        }
+        return YClass;
+    }
+
+    private int getWidthClass(arquitetura.representation.Element aClass) {
+        int XClass = 1;
+        int i = 0;
+        int[] XClasss = new int[aClass instanceof Class ? ((Class) aClass).getAllAttributes().size() + ((Class) aClass).getAllMethods().size() : ((Interface) aClass).getOperations().size()];
+        if (aClass instanceof Class) {
+            for (Attribute allAttribute : ((Class) aClass).getAllAttributes()) {
+                XClasss[i] += (allAttribute.getType().length() + allAttribute.getAllConcerns().toString().length() + allAttribute.getVisibility().length() + allAttribute.getName().length());
+            }
+            for (Method method : ((Class) aClass).getAllMethods()) {
+                XClasss[i] += (method.getParameters().toString().length() + method.getAllConcerns().toString().length() + method.getReturnType().length() + method.getName().length());
+            }
+        } else {
+            for (Method operation : ((Interface) aClass).getOperations()) {
+                XClasss[i] += (operation.toString().length() + operation.getName().length() + operation.getAllConcerns().toString().length() + operation.getTypeElement().length()) ;
+            }
+        }
+
+        for (int classs : XClasss) {
+            if (classs > XClass) XClass = classs;
+        }
+        return XClass;
     }
 
     //TODO MOVER PAR PACKAGEOPERATIONS
@@ -228,18 +281,10 @@ public class ClassNotation extends XmiHelper {
         layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandonUUID());
         layoutConstraint2.setAttribute("xmi:type", "notation:Bounds");
         layoutConstraint2.setAttribute("y", "10");
-        layoutConstraint2.setAttribute("width", String.valueOf(original.getElements().size() * 150)); //TODO ver uma maneira de criar conforme necessidade
-        xPackage += original.getElements().size() * 150 + 20;
+        layoutConstraint2.setAttribute("width", String.valueOf(original.getElements().size() * 250)); //TODO ver uma maneira de criar conforme necessidade
+        xPackage += original.getElements().size() * 250 + 20;
 
-        int height = 1;
-
-        for (arquitetura.representation.Element element : original.getElements()) {
-            if (element instanceof Class) {
-                height += ((Class) element).getAllMethods().size() * 200 + ((Class) element).getAllAttributes().size() * 200;
-            }
-        }
-
-        if(height > 1200) height = 1250;
+        int height = 1650;
 
         layoutConstraint2.setAttribute("height", String.valueOf(height)); //TODO ver uma maneira de criar conforme necessidade
 //        layoutConstraint2.setAttribute("width", "450"); //TODO ver uma maneira de criar conforme necessidade

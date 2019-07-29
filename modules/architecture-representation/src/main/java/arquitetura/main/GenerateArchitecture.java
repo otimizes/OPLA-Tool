@@ -223,7 +223,7 @@ public class GenerateArchitecture extends ArchitectureBase {
                 // Variant Type
             }
 
-            for (Interface _interface : a.getAllInterfaces()) {
+            for (Interface _interface : a.getAllInterfaces().stream().sorted(Comparator.comparing(Element::getNamespace)).collect(Collectors.toList())) {
                 // Variation Point
                 VariationPoint variationPoint = _interface.getVariationPoint();
                 String variants = "";
