@@ -3,6 +3,7 @@ package arquitetura.touml;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.VariationPoint;
 import org.w3c.dom.Node;
 
 /**
@@ -20,12 +21,12 @@ public class NoteOperations extends XmiHelper {
 
     }
 
-    public NoteOperations createNote() {
+    public NoteOperations createNote(VariationPoint variationPointForVariability) {
         final NoteNode noteNode = new NoteNode(documentManager);
         this.id = UtilResources.getRandonUUID();
         arquitetura.touml.Document.executeTransformation(documentManager, new Transformation() {
             public void useTransformation() {
-                noteNode.createNote(id);
+                noteNode.createNote(id, variationPointForVariability);
             }
         });
 

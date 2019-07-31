@@ -58,7 +58,7 @@ public class InitialInteractiveExperimentTest {
     public void savePositionsUML2() throws Exception {
 
         List<String> xmis = Arrays.asList(
-                "/home/wmfsystem/workspace/plas/BeT/BeT.uml"
+                "/home/wmfsystem/IdeaProjects/OPLA-Tool/modules/opla-desktop-view/src/test/resources/agm/agm.uml"
         );
 
 

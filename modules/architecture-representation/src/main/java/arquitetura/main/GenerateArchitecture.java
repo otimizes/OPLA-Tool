@@ -367,7 +367,7 @@ public class GenerateArchitecture extends ArchitectureBase {
                         idOwner = variationPointForVariability.getVariationPointElement().getId();
                     }
 
-                    String idNote = op.forNote().createNote().build();
+                    String idNote = op.forNote().createNote(variationPointForVariability).build();
                     VariabilityStereotype var = new VariabilityStereotype(variability);
                     op.forNote().addVariability(idNote, var).build();
                     op.forClass().withId(idOwner).linkToNote(idNote);

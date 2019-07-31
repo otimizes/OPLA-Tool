@@ -43,6 +43,7 @@ public class GeneralizationNode extends XmiHelper {
         edges.setAttribute("type", "4002");
         edges.setAttribute("source", idSource);
         edges.setAttribute("target", idTarget);
+        edges.setAttribute("routing", "Rectilinear");
         edges.setAttribute("lineColor", "0");
 
         Element element = docNotation.createElement("element");

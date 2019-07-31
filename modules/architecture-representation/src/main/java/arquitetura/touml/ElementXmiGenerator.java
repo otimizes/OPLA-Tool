@@ -238,6 +238,7 @@ public class ElementXmiGenerator extends XmiHelper {
         edges.setAttribute("type", "4001");
         edges.setAttribute("source", idSource);
         edges.setAttribute("target", idTarget);
+        edges.setAttribute("routing", "Rectilinear");
         edges.setAttribute("lineColor", "0");
 
         //Aparecer nome no relacionamento
@@ -411,6 +412,7 @@ public class ElementXmiGenerator extends XmiHelper {
         edges.setAttribute("type", "4016");
         edges.setAttribute("source", idEdge);
         edges.setAttribute("target", idChildren);
+        edges.setAttribute("routing", "Rectilinear");
         edges.setAttribute("lineColor", "0");
 
         Element styles = this.documentManager.getDocNotation().createElement("styles");

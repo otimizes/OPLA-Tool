@@ -45,6 +45,7 @@ public class DependencyNode extends XmiHelper {
             Element edges = this.docNotation.createElement("edges");
             edges.setAttribute("xmi:type", "notation:Connector");
             edges.setAttribute("xmi:id", UtilResources.getRandonUUID());
+            edges.setAttribute("routing", "Rectilinear");
             if ("dependency".equalsIgnoreCase(type))
                 edges.setAttribute("type", "4008");
             if ("realization".equalsIgnoreCase(type))

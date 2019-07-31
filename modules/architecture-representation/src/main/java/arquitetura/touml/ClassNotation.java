@@ -36,7 +36,7 @@ public class ClassNotation extends XmiHelper {
     public static int xElement = 1;
     public static int yElement = 1;
     public static int xPackage = 1;
-    public static int yPackage = 1;
+    public static int yPackage = 10;
     public static String lastNamespace = "";
 
 
@@ -175,6 +175,7 @@ public class ClassNotation extends XmiHelper {
         layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
         layoutConstraint.setAttribute("xmi:type", "notation:Bounds");
         layoutConstraint.setAttribute("y", String.valueOf(yElement));
+        layoutConstraint.setAttribute("additionalInfo", aClass.getNamespace() + ":" + aClass.getName());
 
         if (!lastNamespace.equals(aClass.getNamespace())) {
             lastNamespace = aClass.getNamespace();
@@ -188,11 +189,11 @@ public class ClassNotation extends XmiHelper {
         } else {
             yElement += getHeightClass(aClass) * 2;
             if (aClass instanceof Class && yElement >= 800) {
-                xElement += 500;
+                xElement += 600;
                 yElement = 1;
             }
             if (aClass instanceof Interface && yElement >= 1500) {
-                xElement += 500;
+                xElement += 600;
                 yElement = 810;
             }
         }
@@ -280,15 +281,18 @@ public class ClassNotation extends XmiHelper {
         layoutConstraint2.setAttribute("x", String.valueOf(xPackage));
         layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandonUUID());
         layoutConstraint2.setAttribute("xmi:type", "notation:Bounds");
-        layoutConstraint2.setAttribute("y", "10");
+        layoutConstraint2.setAttribute("y", String.valueOf(yPackage));
         layoutConstraint2.setAttribute("width", String.valueOf(original.getElements().size() * 300)); //TODO ver uma maneira de criar conforme necessidade
-        xPackage += original.getElements().size() * 300 + 20;
+        xPackage += original.getElements().size() * 300 + 50;
 
         int height = 1650;
+        layoutConstraint2.setAttribute("height", String.valueOf(height));
 
-        layoutConstraint2.setAttribute("height", String.valueOf(height)); //TODO ver uma maneira de criar conforme necessidade
-//        layoutConstraint2.setAttribute("width", "450"); //TODO ver uma maneira de criar conforme necessidade
-//        layoutConstraint2.setAttribute("height", "630");
+        if (xPackage >= 6000) {
+            xPackage = 1;
+            yPackage += height + 50;
+        }
+
         nodeChildren.appendChild(layoutConstraint2);
 
         notatioChildren.appendChild(nodeChildren);
