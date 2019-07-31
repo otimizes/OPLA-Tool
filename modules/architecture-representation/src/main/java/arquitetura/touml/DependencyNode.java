@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle   @   gmail.com>
  */
 public class DependencyNode extends XmiHelper {
 
@@ -127,6 +127,11 @@ public class DependencyNode extends XmiHelper {
 
         } catch (Exception e) {
         }
+    }
+
+
+    private long random() {
+        return Math.round(Math.random() * 100);
     }
 
     private void createDependencyInUmlFile(String dependency) {
