@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public abstract class Element implements Serializable {
 
@@ -21,6 +21,7 @@ public abstract class Element implements Serializable {
     private String typeElement;
     private String namespace;
     private boolean belongsToGeneralization;
+    public String comments = "";
 
     public Element(String name, Variant variant, String typeElement, String namespace, String id) {
         setId(id);
@@ -82,7 +83,7 @@ public abstract class Element implements Serializable {
     /**
      * Retorna apenas os interesses pertencentes a este elemento.<br />
      *
-     * @return List<{@link Concern}>
+     * @return List<{ @ link   Concern }>
      */
     public Set<Concern> getOwnConcerns() {
         if (concerns == null || concerns.isEmpty())
@@ -157,6 +158,18 @@ public abstract class Element implements Serializable {
 
     public void setBelongsToGeneralization(boolean belongsToGeneralization) {
         this.belongsToGeneralization = belongsToGeneralization;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public boolean isFreeze() {
+        return this.comments != null && this.comments.contains("freeze");
     }
 
     @Override

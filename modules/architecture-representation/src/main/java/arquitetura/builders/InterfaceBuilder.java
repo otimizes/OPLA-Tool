@@ -5,8 +5,11 @@ import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
 import arquitetura.representation.PatternsOperations;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
+import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 
 import java.util.List;
 
@@ -29,6 +32,7 @@ public class InterfaceBuilder extends ElementBuilder<arquitetura.representation.
 
         List<Operation> elements = ((org.eclipse.uml2.uml.Class) modelElement).getOperations();
 
+        XmiHelper.setRecursiveOwnedComments(modelElement, interfacee);
         for (Operation operation : elements)
             interfacee.addExternalOperation(methodBuilder.create(operation));
 

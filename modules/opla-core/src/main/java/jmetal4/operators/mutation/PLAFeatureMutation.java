@@ -142,8 +142,8 @@ public class PLAFeatureMutation extends Mutation {
                         List<Class> ClassesComp = new ArrayList<Class>(
                                 randomObject(new ArrayList<Package>(arch.getAllPackages())).getAllClasses());
                         if (ClassesComp.size() > 1) {
-                            Class targetClass = randomObject(ClassesComp);
-                            Class sourceClass = randomObject(ClassesComp);
+                            final Class targetClass = getRandomClass(ClassesComp);
+                            final Class sourceClass = getRandomClass(ClassesComp);
                             // joao\
                             if (searchPatternsClass(targetClass) && searchPatternsClass(sourceClass)) {
                                 if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
@@ -159,10 +159,10 @@ public class PLAFeatureMutation extends Mutation {
                         ClassesComp.clear();
                     } else {
                         if ("allComponents".equals(scope)) {
-                            Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+                            Package sourceComp = getRandomPackage(arch);
                             List<Class> ClassesSourceComp = new ArrayList<Class>(sourceComp.getAllClasses());
                             if (ClassesSourceComp.size() >= 1) {
-                                Class sourceClass = randomObject(ClassesSourceComp);
+                                Class sourceClass = getRandomClass(ClassesSourceComp);
                                 // joao\
                                 if (searchPatternsClass(sourceClass)) {
                                     if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
@@ -170,13 +170,12 @@ public class PLAFeatureMutation extends Mutation {
                                             && (sourceClass.getAllMethods().size() > 1)
                                             && (!isVarPoint(arch, sourceClass)) && (!isVariant(arch, sourceClass))
                                             && (!isOptional(arch, sourceClass))) {
-                                        Package targetComp = randomObject(
-                                                new ArrayList<Package>(arch.getAllPackages()));
+                                        Package targetComp = getRandomPackage(arch);
                                         if (checkSameLayer(sourceComp, targetComp)) {
                                             List<Class> ClassesTargetComp = new ArrayList<Class>(
                                                     targetComp.getAllClasses());
                                             if (ClassesTargetComp.size() >= 1) {
-                                                Class targetClass = randomObject(ClassesTargetComp);
+                                                Class targetClass = getRandomClass(ClassesTargetComp);
                                                 if ((targetClass != null) && (!(targetClass.equals(sourceClass)))) {
                                                     moveAttribute(arch, targetClass, sourceClass);
                                                 }
@@ -225,13 +224,15 @@ public class PLAFeatureMutation extends Mutation {
         if (PseudoRandom.randDouble() < probability) {
             final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
             if ("sameComponent".equals(scope)) {
-                final Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+                Package sourceCompElem = getRandomPackage(arch);
+                final Package sourceComp = sourceCompElem;
                 List<Class> ClassesComp = new ArrayList<Class>(sourceComp.getAllClasses());
 
                 removeClassesInPatternStructureFromArray(ClassesComp);
                 if (ClassesComp.size() > 1) {
-                    final Class targetClass = randomObject(ClassesComp);
-                    final Class sourceClass = randomObject(ClassesComp);
+                    final Class targetClass = getRandomClass(ClassesComp);
+                    final Class sourceClass = getRandomClass(ClassesComp);
+
                     // joao\
                     if (searchPatternsClass(targetClass) && searchPatternsClass(sourceClass)) {
                         if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
@@ -247,23 +248,23 @@ public class PLAFeatureMutation extends Mutation {
                 ClassesComp.clear();
             } else {
                 if ("allComponents".equals(scope)) {
-                    final Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+                    final Package sourceComp = getRandomPackage(arch);
                     final List<Class> ClassesSourceComp = new ArrayList<Class>(sourceComp.getAllClasses());
                     removeClassesInPatternStructureFromArray(ClassesSourceComp);
                     if (ClassesSourceComp.size() >= 1) {
-                        final Class sourceClass = randomObject(ClassesSourceComp);
+                        final Class sourceClass = getRandomClass(ClassesSourceComp);
                         // joao\
                         if (searchPatternsClass(sourceClass)) {
                             if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
                                     && (sourceClass.getAllAttributes().size() > 1)
                                     && (sourceClass.getAllMethods().size() > 1) && (!isVarPoint(arch, sourceClass))
                                     && (!isVariant(arch, sourceClass)) && (!isOptional(arch, sourceClass))) {
-                                final Package targetComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+                                final Package targetComp = getRandomPackage(arch);
                                 if (checkSameLayer(sourceComp, targetComp)) {
                                     final List<Class> ClassesTargetComp = new ArrayList<Class>(
                                             targetComp.getAllClasses());
                                     if (ClassesTargetComp.size() >= 1) {
-                                        final Class targetClass = randomObject(ClassesTargetComp);
+                                        final Class targetClass = getRandomClass(ClassesTargetComp);
                                         if ((targetClass != null) && (!(targetClass.equals(sourceClass)))) {
                                             moveMethod(arch, targetClass, sourceClass, targetComp, sourceComp);
                                         }
@@ -302,8 +303,8 @@ public class PLAFeatureMutation extends Mutation {
                         .forName(Architecture.ARCHITECTURE_TYPE)) {
                     Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
 
-                    Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-                    Package targetComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+                    Package sourceComp = getRandomPackage(arch);
+                    Package targetComp = getRandomPackage(arch);
 
                     if (checkSameLayer(sourceComp, targetComp)) {
                         List<Interface> InterfacesSourceComp = new ArrayList<Interface>();
@@ -315,8 +316,8 @@ public class PLAFeatureMutation extends Mutation {
                         InterfacesTargetComp.addAll(targetComp.getImplementedInterfaces());
 
                         if ((InterfacesSourceComp.size() >= 1) && (InterfacesTargetComp.size() >= 1)) {
-                            Interface targetInterface = randomObject(InterfacesTargetComp);
-                            Interface sourceInterface = randomObject(InterfacesSourceComp);
+                            Interface targetInterface = getRandomInterface(InterfacesTargetComp);
+                            Interface sourceInterface = getRandomInterface(InterfacesSourceComp);
                             // joao\
                             if (searchPatternsInterface(targetInterface) && searchPatternsInterface(sourceInterface)) {
                                 if (targetInterface != sourceInterface) {
@@ -355,6 +356,14 @@ public class PLAFeatureMutation extends Mutation {
         }
     }
 
+    private Interface getRandomInterface(List<Interface> interfacesTargetComp) {
+        Interface targetInterface = randomObject(interfacesTargetComp);
+        while (targetInterface.isFreeze()) {
+            targetInterface = randomObject(interfacesTargetComp);
+        }
+        return targetInterface;
+    }
+
     // --------------------------------------------------------------------------
     // tem um metodo para excluir padroes da classe
     // creio que aqui pede deixar como esta
@@ -366,11 +375,13 @@ public class PLAFeatureMutation extends Mutation {
                         .forName(Architecture.ARCHITECTURE_TYPE)) {
                     Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
 
-                    Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+                    Package sourceComp = getRandomPackage(arch);
                     List<Class> classesPackage = new ArrayList<Class>(sourceComp.getAllClasses());
                     removeClassesInPatternStructureFromArray(classesPackage);
                     if (classesPackage.size() >= 1) {
-                        Class sourceClass = randomObject(classesPackage);
+                        Class sourceClassElem = getRandomClass(classesPackage);
+
+                        final Class sourceClass = sourceClassElem;
                         if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
                                 && (sourceClass.getAllAttributes().size() > 1)
                                 && (sourceClass.getAllMethods().size() > 1) && (!isVarPoint(arch, sourceClass))
@@ -386,8 +397,7 @@ public class PLAFeatureMutation extends Mutation {
                                                     sourceComp.createClass("Class" + OPLA.contClass_++, false));
                                         } else {
                                             if ("allComponents".equals(scope)) {
-                                                Package targetComp = randomObject(
-                                                        new ArrayList<Package>(arch.getAllPackages()));
+                                                Package targetComp = getRandomPackage(arch);
                                                 if (checkSameLayer(sourceComp, targetComp)) {
                                                     moveAttributeToNewClass(arch, sourceClass, AttributesClass,
                                                             targetComp.createClass("Class" + OPLA.contClass_++, false));
@@ -407,8 +417,7 @@ public class PLAFeatureMutation extends Mutation {
                                                     sourceComp.createClass("Class" + OPLA.contClass_++, false));
                                         } else {
                                             if ("allComponents".equals(scope)) {
-                                                Package targetComp = randomObject(
-                                                        new ArrayList<Package>(arch.getAllPackages()));
+                                                Package targetComp = getRandomPackage(arch);
                                                 if (checkSameLayer(sourceComp, targetComp)) {
                                                     moveMethodToNewClass(arch, sourceClass, MethodsClass,
                                                             targetComp.createClass("Class" + OPLA.contClass_++, false));
@@ -436,6 +445,15 @@ public class PLAFeatureMutation extends Mutation {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private Class getRandomClass(List<Class> classesPackage) {
+        Class sourceClassElem = randomObject(classesPackage);
+
+        while(sourceClassElem.isFreeze()) {
+            sourceClassElem = randomObject(classesPackage);
+        }
+        return sourceClassElem;
     }
 
     private void removeClassesInPatternStructureFromArray(List<Class> ClassesComp) {
@@ -510,14 +528,15 @@ public class PLAFeatureMutation extends Mutation {
                         .forName(Architecture.ARCHITECTURE_TYPE)) {
                     Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
 
-                    Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+                    Package sourceComp = getRandomPackage(arch);
+
                     List<Interface> InterfacesComp = new ArrayList<Interface>();
                     InterfacesComp.addAll(sourceComp.getImplementedInterfaces());
 
                     removeInterfacesInPatternStructureFromArray(InterfacesComp);
 
                     if (InterfacesComp.size() >= 1) {
-                        Interface sourceInterface = randomObject(InterfacesComp);
+                        Interface sourceInterface = getRandomInterface(InterfacesComp);
                         // joao\
                         if (searchPatternsInterface(sourceInterface)) {
                             List<Method> OpsInterface = new ArrayList<Method>();
@@ -561,6 +580,23 @@ public class PLAFeatureMutation extends Mutation {
         }
     }
 
+    private Package getRandomPackage(Architecture arch) {
+        Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+
+        while (sourceComp.isFreeze()) {
+            sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+        }
+        return sourceComp;
+    }
+
+    private Package getRandomPackage(List<Package> allComponents) {
+        Package selectedCompElem = randomObject(allComponents);
+        while(selectedCompElem.isFreeze()) {
+            selectedCompElem = randomObject(allComponents);
+        }
+        return selectedCompElem;
+    }
+
     // --------------------------------------------------------------------------
     public void featureMutation(double probability, Solution solution, String scope) throws JMException {
         try {
@@ -571,7 +607,7 @@ public class PLAFeatureMutation extends Mutation {
                     final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
                     final List<Package> allComponents = new ArrayList<Package>(arch.getAllPackages());
                     if (!allComponents.isEmpty()) {
-                        final Package selectedComp = randomObject(allComponents);
+                        final Package selectedComp = getRandomPackage(allComponents);
                         List<Concern> concernsSelectedComp = new ArrayList<Concern>(selectedComp.getAllConcerns());
                         if (concernsSelectedComp.size() > 1) { // = somente para
                             // testes
@@ -843,7 +879,7 @@ public class PLAFeatureMutation extends Mutation {
      * Retorna todas as classes que tiverem algum dos concerns presentes na
      * lista ownConcerns.
      *
-     * @param ownConcerns
+     * @param c
      * @param allClasses
      * @return
      */

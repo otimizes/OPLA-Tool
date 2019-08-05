@@ -54,7 +54,7 @@ public class InitialInteractiveExperimentTest {
         }
     }
 
-    @Test
+//    @Test
     public void savePositionsUML2() throws Exception {
 
         List<String> xmis = Arrays.asList(

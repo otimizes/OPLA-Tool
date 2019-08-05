@@ -4,11 +4,13 @@ import arquitetura.helpers.ModelElementHelper;
 import arquitetura.helpers.ModelHelper;
 import arquitetura.helpers.ModelHelperFactory;
 import arquitetura.helpers.XmiHelper;
-import arquitetura.representation.Architecture;
+import arquitetura.representation.*;
 import arquitetura.representation.Class;
-import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,7 @@ public class PackageBuilder extends ElementBuilder<Package> {
     public Package buildElement(NamedElement modelElement) {
         Package pkg = new Package(architecture.getRelationshipHolder(), name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
         pkg.getNestedPackages().addAll(getNestedPackages(modelElement));
+        XmiHelper.setRecursiveOwnedComments(modelElement, pkg);
         for (Class klass : getClasses(modelElement, pkg)) {
             pkg.addExternalClass(klass);
         }

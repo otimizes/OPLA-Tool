@@ -1,14 +1,21 @@
 package arquitetura.helpers;
 
 import arquitetura.exceptions.NodeIdNotFound;
+import arquitetura.representation.Class;
 import arquitetura.representation.Element;
+import arquitetura.representation.Interface;
 import arquitetura.representation.Variant;
 import com.google.common.base.Joiner;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.uml2.uml.Comment;
+import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.internal.impl.ClassImpl;
+import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -23,7 +30,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class XmiHelper {
 
@@ -255,6 +262,18 @@ public class XmiHelper {
         int randomNum = rn.nextInt(range) + 0;
         return Integer.toString(randomNum);
     }
+
+    public static void setRecursiveOwnedComments(NamedElement modelElement, Element element) {
+        EList<Comment> ownedComments = modelElement.getOwnedComments();
+        if (element instanceof Class || element instanceof Interface) {
+            EList<Comment> ownedCommentsPackage = ((ClassImpl) modelElement).getPackage().getOwnedComments();
+            ownedComments.addAll(ownedCommentsPackage);
+        }
+        for (Comment ownedComment : ownedComments) {
+            element.setComments(element.getComments() + "\n" + ownedComment.getBody());
+        }
+    }
+
 
     public String splitVariants(List<Variant> list) {
         return Joiner.on(", ").join(list);

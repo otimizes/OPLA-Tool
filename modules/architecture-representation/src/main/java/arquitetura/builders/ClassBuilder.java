@@ -6,6 +6,8 @@ import arquitetura.helpers.StereotypeHelper;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.*;
 import arquitetura.representation.Class;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Property;
@@ -52,6 +54,7 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
         packageName = packageName != null ? packageName : "";
 
         klass = new Class(architecture.getRelationshipHolder(), name, variantType, isAbstract, packageName, XmiHelper.getXmiId(modelElement));
+        XmiHelper.setRecursiveOwnedComments(modelElement, klass);
         for (Attribute a : getAttributes(modelElement)) {
             klass.addExternalAttribute(a);
         }
