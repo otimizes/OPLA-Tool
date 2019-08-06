@@ -298,4 +298,8 @@ public class Package extends Element {
         return RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this);
     }
 
+    @Override
+    public boolean isFreeze() {
+        return super.isFreeze();
+    }
 }

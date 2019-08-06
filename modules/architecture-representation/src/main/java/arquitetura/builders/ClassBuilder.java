@@ -55,12 +55,19 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 
         klass = new Class(architecture.getRelationshipHolder(), name, variantType, isAbstract, packageName, XmiHelper.getXmiId(modelElement));
         XmiHelper.setRecursiveOwnedComments(modelElement, klass);
-        for (Attribute a : getAttributes(modelElement)) {
-            klass.addExternalAttribute(a);
+        List<Property> allAttributesForAClass = modelHelper.getAllAttributesForAClass(modelElement);
+        for (Property attrNode : allAttributesForAClass) {
+            Attribute attr = attributeBuilder.create(attrNode);
+            klass.addExternalAttribute(attr);
+            XmiHelper.setRecursiveOwnedComments(attrNode, attr);
         }
 
-        for (Method m : getMethods(modelElement, klass)) {
-            klass.addExternalMethod(m);
+        List<Operation> allMethods = modelHelper.getAllMethods(modelElement);
+        for (Operation methodNode : allMethods) {
+            Method method = methodBuilder.create(methodNode);
+            klass.addExternalMethod(method);
+            XmiHelper.setRecursiveOwnedComments(methodNode, method);
+
         }
 
         klass.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));

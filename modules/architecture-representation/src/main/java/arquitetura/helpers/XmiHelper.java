@@ -1,10 +1,8 @@
 package arquitetura.helpers;
 
 import arquitetura.exceptions.NodeIdNotFound;
+import arquitetura.representation.*;
 import arquitetura.representation.Class;
-import arquitetura.representation.Element;
-import arquitetura.representation.Interface;
-import arquitetura.representation.Variant;
 import com.google.common.base.Joiner;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -15,7 +13,9 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
+import org.eclipse.uml2.uml.internal.impl.OperationImpl;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
+import org.eclipse.uml2.uml.internal.impl.PropertyImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -267,6 +267,15 @@ public class XmiHelper {
         EList<Comment> ownedComments = modelElement.getOwnedComments();
         if (element instanceof Class || element instanceof Interface) {
             EList<Comment> ownedCommentsPackage = ((ClassImpl) modelElement).getPackage().getOwnedComments();
+            ownedComments.addAll(ownedCommentsPackage);
+        }
+        if (element instanceof Attribute) {
+            EList<Comment> ownedCommentsPackage = ((PropertyImpl) modelElement).getClass_().getOwnedComments();
+            ownedComments.addAll(ownedCommentsPackage);
+        }
+
+        if (element instanceof Method) {
+            EList<Comment> ownedCommentsPackage = ((OperationImpl) modelElement).getClass_().getOwnedComments();
             ownedComments.addAll(ownedCommentsPackage);
         }
         for (Comment ownedComment : ownedComments) {

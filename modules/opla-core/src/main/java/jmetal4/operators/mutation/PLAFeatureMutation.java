@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -71,10 +72,20 @@ public class PLAFeatureMutation extends Mutation {
 
         String selectedOperator = operatorMap.get(r);
 
+        Set<Class> allClasses = ((Package) ((Architecture) solution.getDecisionVariables()[0]).getAllPackages().toArray()[2]).getAllClasses();
+        if (allClasses.size() <= 1) {
+            System.out.println(allClasses.size());
+        }
+
         if (selectedOperator.equals("featureMutation")) {
             java.lang.reflect.Method featureMut = PLAFeatureMutation.class.getMethod(selectedOperator, double.class,
                     Solution.class, String.class);
             featureMut.invoke(this, probability, solution, scopeLevels);
+        }
+
+        allClasses = ((Package) ((Architecture) solution.getDecisionVariables()[0]).getAllPackages().toArray()[2]).getAllClasses();
+        if (allClasses.size() <= 1) {
+            System.out.println(allClasses.size());
         }
 
         List<String> withScope = Arrays.asList("moveMethodMutation", "addClassMutation", "moveAttributeMutation");
@@ -84,11 +95,21 @@ public class PLAFeatureMutation extends Mutation {
             featureMut.invoke(this, probability, solution, scope);
         }
 
+        allClasses = ((Package) ((Architecture) solution.getDecisionVariables()[0]).getAllPackages().toArray()[2]).getAllClasses();
+        if (allClasses.size() <= 1) {
+            System.out.println(allClasses.size());
+        }
+
         List<String> withoutScope = Arrays.asList("moveOperationMutation", "addManagerClassMutation");
         if (withoutScope.contains(selectedOperator)) {
             java.lang.reflect.Method featureMut = PLAFeatureMutation.class.getMethod(selectedOperator, double.class,
                     Solution.class);
             featureMut.invoke(this, probability, solution);
+        }
+
+        allClasses = ((Package) ((Architecture) solution.getDecisionVariables()[0]).getAllPackages().toArray()[2]).getAllClasses();
+        if (allClasses.size() <= 1) {
+            System.out.println(allClasses.size());
         }
 
         withScope = null;
@@ -140,7 +161,7 @@ public class PLAFeatureMutation extends Mutation {
                     Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
                     if ("sameComponent".equals(scope)) {
                         List<Class> ClassesComp = new ArrayList<Class>(
-                                randomObject(new ArrayList<Package>(arch.getAllPackages())).getAllClasses());
+                                randomObject(new ArrayList<Package>(arch.getAllPackages())).getAllClasses().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                         if (ClassesComp.size() > 1) {
                             final Class targetClass = getRandomClass(ClassesComp);
                             final Class sourceClass = getRandomClass(ClassesComp);
@@ -160,7 +181,7 @@ public class PLAFeatureMutation extends Mutation {
                     } else {
                         if ("allComponents".equals(scope)) {
                             Package sourceComp = getRandomPackage(arch);
-                            List<Class> ClassesSourceComp = new ArrayList<Class>(sourceComp.getAllClasses());
+                            List<Class> ClassesSourceComp = new ArrayList<Class>(sourceComp.getAllClasses().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                             if (ClassesSourceComp.size() >= 1) {
                                 Class sourceClass = getRandomClass(ClassesSourceComp);
                                 // joao\
@@ -173,7 +194,7 @@ public class PLAFeatureMutation extends Mutation {
                                         Package targetComp = getRandomPackage(arch);
                                         if (checkSameLayer(sourceComp, targetComp)) {
                                             List<Class> ClassesTargetComp = new ArrayList<Class>(
-                                                    targetComp.getAllClasses());
+                                                    targetComp.getAllClasses().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                                             if (ClassesTargetComp.size() >= 1) {
                                                 Class targetClass = getRandomClass(ClassesTargetComp);
                                                 if ((targetClass != null) && (!(targetClass.equals(sourceClass)))) {
@@ -202,7 +223,7 @@ public class PLAFeatureMutation extends Mutation {
     }
 
     private void moveAttribute(Architecture arch, Class targetClass, Class sourceClass) throws JMException, Exception {
-        List<Attribute> attributesClass = new ArrayList<Attribute>(sourceClass.getAllAttributes());
+        List<Attribute> attributesClass = new ArrayList<Attribute>(sourceClass.getAllAttributes().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
         // joao\
         if (searchPatternsClass(targetClass) && searchPatternsClass(sourceClass)) {
             if (attributesClass.size() >= 1) {
@@ -226,7 +247,7 @@ public class PLAFeatureMutation extends Mutation {
             if ("sameComponent".equals(scope)) {
                 Package sourceCompElem = getRandomPackage(arch);
                 final Package sourceComp = sourceCompElem;
-                List<Class> ClassesComp = new ArrayList<Class>(sourceComp.getAllClasses());
+                List<Class> ClassesComp = new ArrayList<Class>(sourceComp.getAllClasses().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
 
                 removeClassesInPatternStructureFromArray(ClassesComp);
                 if (ClassesComp.size() > 1) {
@@ -249,7 +270,7 @@ public class PLAFeatureMutation extends Mutation {
             } else {
                 if ("allComponents".equals(scope)) {
                     final Package sourceComp = getRandomPackage(arch);
-                    final List<Class> ClassesSourceComp = new ArrayList<Class>(sourceComp.getAllClasses());
+                    final List<Class> ClassesSourceComp = new ArrayList<Class>(sourceComp.getAllClasses().stream().filter(i -> !i.isFreeze()).collect(Collectors.toList()));
                     removeClassesInPatternStructureFromArray(ClassesSourceComp);
                     if (ClassesSourceComp.size() >= 1) {
                         final Class sourceClass = getRandomClass(ClassesSourceComp);
@@ -262,7 +283,7 @@ public class PLAFeatureMutation extends Mutation {
                                 final Package targetComp = getRandomPackage(arch);
                                 if (checkSameLayer(sourceComp, targetComp)) {
                                     final List<Class> ClassesTargetComp = new ArrayList<Class>(
-                                            targetComp.getAllClasses());
+                                            targetComp.getAllClasses().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                                     if (ClassesTargetComp.size() >= 1) {
                                         final Class targetClass = getRandomClass(ClassesTargetComp);
                                         if ((targetClass != null) && (!(targetClass.equals(sourceClass)))) {
@@ -281,7 +302,7 @@ public class PLAFeatureMutation extends Mutation {
 
     private void moveMethod(Architecture arch, Class targetClass, Class sourceClass, Package targetComp,
                             Package sourceComp) {
-        final List<Method> MethodsClass = new ArrayList<Method>(sourceClass.getAllMethods());
+        final List<Method> MethodsClass = new ArrayList<Method>(sourceClass.getAllMethods().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
         if (MethodsClass.size() >= 1) {
             if (sourceClass.moveMethodToClass(randomObject(MethodsClass), targetClass)) {
                 // joao\
@@ -310,10 +331,10 @@ public class PLAFeatureMutation extends Mutation {
                         List<Interface> InterfacesSourceComp = new ArrayList<Interface>();
                         List<Interface> InterfacesTargetComp = new ArrayList<Interface>();
 
-                        InterfacesSourceComp.addAll(sourceComp.getImplementedInterfaces());
+                        InterfacesSourceComp.addAll(sourceComp.getImplementedInterfaces().stream().filter(i -> !i.isFreeze()).collect(Collectors.toList()));
                         removeInterfacesInPatternStructureFromArray(InterfacesSourceComp);
 
-                        InterfacesTargetComp.addAll(targetComp.getImplementedInterfaces());
+                        InterfacesTargetComp.addAll(targetComp.getImplementedInterfaces().stream().filter(i -> !i.isFreeze()).collect(Collectors.toList()));
 
                         if ((InterfacesSourceComp.size() >= 1) && (InterfacesTargetComp.size() >= 1)) {
                             Interface targetInterface = getRandomInterface(InterfacesTargetComp);
@@ -322,7 +343,7 @@ public class PLAFeatureMutation extends Mutation {
                             if (searchPatternsInterface(targetInterface) && searchPatternsInterface(sourceInterface)) {
                                 if (targetInterface != sourceInterface) {
                                     List<Method> OpsInterface = new ArrayList<Method>();
-                                    OpsInterface.addAll(sourceInterface.getOperations());
+                                    OpsInterface.addAll(sourceInterface.getOperations().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                                     if (OpsInterface.size() >= 1) {
                                         sourceInterface.moveOperationToInterface(randomObject(OpsInterface),
                                                 targetInterface);
@@ -356,14 +377,6 @@ public class PLAFeatureMutation extends Mutation {
         }
     }
 
-    private Interface getRandomInterface(List<Interface> interfacesTargetComp) {
-        Interface targetInterface = randomObject(interfacesTargetComp);
-        while (targetInterface.isFreeze()) {
-            targetInterface = randomObject(interfacesTargetComp);
-        }
-        return targetInterface;
-    }
-
     // --------------------------------------------------------------------------
     // tem um metodo para excluir padroes da classe
     // creio que aqui pede deixar como esta
@@ -376,7 +389,7 @@ public class PLAFeatureMutation extends Mutation {
                     Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
 
                     Package sourceComp = getRandomPackage(arch);
-                    List<Class> classesPackage = new ArrayList<Class>(sourceComp.getAllClasses());
+                    List<Class> classesPackage = new ArrayList<Class>(sourceComp.getAllClasses().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                     removeClassesInPatternStructureFromArray(classesPackage);
                     if (classesPackage.size() >= 1) {
                         Class sourceClassElem = getRandomClass(classesPackage);
@@ -390,7 +403,7 @@ public class PLAFeatureMutation extends Mutation {
                             if (searchPatternsClass(sourceClass)) {
                                 if (PseudoRandom.randInt(0, 1) == 0) { // attribute
                                     List<Attribute> AttributesClass = new ArrayList<Attribute>(
-                                            sourceClass.getAllAttributes());
+                                            sourceClass.getAllAttributes().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                                     if (AttributesClass.size() >= 1) {
                                         if ("sameComponent".equals(scope)) {
                                             moveAttributeToNewClass(arch, sourceClass, AttributesClass,
@@ -410,7 +423,7 @@ public class PLAFeatureMutation extends Mutation {
                             } else { // method
                                 // joao\
                                 if (searchPatternsClass(sourceClass)) {
-                                    List<Method> MethodsClass = new ArrayList<Method>(sourceClass.getAllMethods());
+                                    List<Method> MethodsClass = new ArrayList<Method>(sourceClass.getAllMethods().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                                     if (MethodsClass.size() >= 1) {
                                         if ("sameComponent".equals(scope)) {
                                             moveMethodToNewClass(arch, sourceClass, MethodsClass,
@@ -445,15 +458,6 @@ public class PLAFeatureMutation extends Mutation {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private Class getRandomClass(List<Class> classesPackage) {
-        Class sourceClassElem = randomObject(classesPackage);
-
-        while(sourceClassElem.isFreeze()) {
-            sourceClassElem = randomObject(classesPackage);
-        }
-        return sourceClassElem;
     }
 
     private void removeClassesInPatternStructureFromArray(List<Class> ClassesComp) {
@@ -531,7 +535,7 @@ public class PLAFeatureMutation extends Mutation {
                     Package sourceComp = getRandomPackage(arch);
 
                     List<Interface> InterfacesComp = new ArrayList<Interface>();
-                    InterfacesComp.addAll(sourceComp.getImplementedInterfaces());
+                    InterfacesComp.addAll(sourceComp.getImplementedInterfaces().stream().filter(i -> !i.isFreeze()).collect(Collectors.toList()));
 
                     removeInterfacesInPatternStructureFromArray(InterfacesComp);
 
@@ -540,7 +544,7 @@ public class PLAFeatureMutation extends Mutation {
                         // joao\
                         if (searchPatternsInterface(sourceInterface)) {
                             List<Method> OpsInterface = new ArrayList<Method>();
-                            OpsInterface.addAll(sourceInterface.getOperations());
+                            OpsInterface.addAll(sourceInterface.getOperations().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                             if (OpsInterface.size() >= 1) {
                                 Method op = randomObject(OpsInterface);
 
@@ -582,20 +586,36 @@ public class PLAFeatureMutation extends Mutation {
 
     private Package getRandomPackage(Architecture arch) {
         Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-
-        while (sourceComp.isFreeze()) {
-            sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-        }
+//        while (sourceComp.isFreeze()) {
+//            sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+//        }
         return sourceComp;
     }
 
     private Package getRandomPackage(List<Package> allComponents) {
         Package selectedCompElem = randomObject(allComponents);
-        while(selectedCompElem.isFreeze()) {
-            selectedCompElem = randomObject(allComponents);
-        }
+//        while (selectedCompElem.isFreeze()) {
+//            selectedCompElem = randomObject(allComponents);
+//        }
         return selectedCompElem;
     }
+
+    private Interface getRandomInterface(List<Interface> interfacesTargetComp) {
+        Interface targetInterface = randomObject(interfacesTargetComp);
+//        while (targetInterface.isFreeze()) {
+//            targetInterface = randomObject(interfacesTargetComp);
+//        }
+        return targetInterface;
+    }
+
+    private Class getRandomClass(List<Class> classesPackage) {
+        Class sourceClassElem = randomObject(classesPackage);
+//        while (sourceClassElem.isFreeze()) {
+//            sourceClassElem = randomObject(classesPackage);
+//        }
+        return sourceClassElem;
+    }
+
 
     // --------------------------------------------------------------------------
     public void featureMutation(double probability, Solution solution, String scope) throws JMException {
@@ -605,7 +625,7 @@ public class PLAFeatureMutation extends Mutation {
                         .equals("class " + Architecture.ARCHITECTURE_TYPE)) {
 
                     final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
-                    final List<Package> allComponents = new ArrayList<Package>(arch.getAllPackages());
+                    final List<Package> allComponents = new ArrayList<Package>(arch.getAllPackages().stream().filter(pk -> !pk.isFreeze()).collect(Collectors.toList()));
                     if (!allComponents.isEmpty()) {
                         final Package selectedComp = getRandomPackage(allComponents);
                         List<Concern> concernsSelectedComp = new ArrayList<Concern>(selectedComp.getAllConcerns());
@@ -625,7 +645,7 @@ public class PLAFeatureMutation extends Mutation {
                                             allComponentsAssignedOnlyToConcern.get(0), selectedConcern, arch);
                                 } else {
                                     modularizeConcernInComponent(allComponents,
-                                            randomObject(allComponentsAssignedOnlyToConcern), selectedConcern, arch);
+                                            getRandomPackage(allComponentsAssignedOnlyToConcern), selectedConcern, arch);
                                 }
                             }
                             allComponentsAssignedOnlyToConcern.clear();
@@ -642,6 +662,7 @@ public class PLAFeatureMutation extends Mutation {
                     throw new JMException("Exception in " + name + ".doMutation()");
                 }
             }
+            Set<Class> allClasses = ((Package) ((Architecture) solution.getDecisionVariables()[0]).getAllPackages().toArray()[2]).getAllClasses();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -655,7 +676,7 @@ public class PLAFeatureMutation extends Mutation {
                 allComponentsAssignedToConcern.add(component);
             }
         }
-        return allComponentsAssignedToConcern;
+        return allComponentsAssignedToConcern.stream().filter(pk -> !pk.isFreeze()).collect(Collectors.toList());
     }
 
     private Set<Concern> getNumberOfConcernsFor(Package pkg) {
@@ -674,12 +695,13 @@ public class PLAFeatureMutation extends Mutation {
     private void modularizeConcernInComponent(List<Package> allComponents, Package targetComponent, Concern concern,
                                               Architecture arch) {
         try {
+
             Iterator<Package> itrComp = allComponents.iterator();
             while (itrComp.hasNext()) {
                 Package comp = itrComp.next();
                 if (!comp.equals(targetComponent) && checkSameLayer(comp, targetComponent)) {
                     final Set<Interface> allInterfaces = new HashSet<Interface>(comp.getAllInterfaces());
-                    allInterfaces.addAll(comp.getImplementedInterfaces());
+                    allInterfaces.addAll(comp.getImplementedInterfaces().stream().filter(i -> !i.isFreeze()).collect(Collectors.toList()));
 
                     Iterator<Interface> itrInterface = allInterfaces.iterator();
                     while (itrInterface.hasNext()) {
@@ -691,7 +713,7 @@ public class PLAFeatureMutation extends Mutation {
                                 // TESTADO
                             } else if (!interfaceComp.getPatternsOperations().hasPatternApplied()) {
                                 List<Method> operationsInterfaceComp = new ArrayList<Method>(
-                                        interfaceComp.getOperations());
+                                        interfaceComp.getOperations().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                                 Iterator<Method> itrOperation = operationsInterfaceComp.iterator();
                                 while (itrOperation.hasNext()) {
                                     Method operation = itrOperation.next();
@@ -705,7 +727,7 @@ public class PLAFeatureMutation extends Mutation {
                     }
 
                     allInterfaces.clear();
-                    final List<Class> allClasses = new ArrayList<Class>(comp.getAllClasses());
+                    final List<Class> allClasses = new ArrayList<Class>(comp.getAllClasses().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                     Iterator<Class> ItrClass = allClasses.iterator();
                     while (ItrClass.hasNext()) {
                         Class classComp = ItrClass.next();
@@ -713,38 +735,17 @@ public class PLAFeatureMutation extends Mutation {
                         if (searchPatternsClass(classComp)) {
                             if (comp.getAllClasses().contains(classComp)) {
                                 if ((classComp.getOwnConcerns().size() == 1) && (classComp.containsConcern(concern))) {
-                                    if (!searchForGeneralizations(classComp)) // realiza
-                                    // a
-                                    // muta������������o
-                                    // em
-                                    // classe
-                                    // que
-                                    // n������oo
-                                    // est������o
-                                    // numa
-                                    // hierarquia
-                                    // de
-                                    // heran������a
-                                    {
+                                    if (!searchForGeneralizations(classComp)) {
                                         moveClassToComponent(classComp, targetComponent, comp, arch, concern);
                                     } else {
-                                        moveHierarchyToComponent(classComp, targetComponent, comp, arch, concern); // realiza
-                                        // a
-                                        // muta������������o
-                                        // em
-                                        // classes
-                                        // est������o
-                                        // numa
-                                        // hierarquia
-                                        // de
-                                        // herarquia
+                                        moveHierarchyToComponent(classComp, targetComponent, comp, arch, concern);
                                     }
                                 } else {
                                     if (!searchForGeneralizations(classComp)) {
                                         if (!isVarPointOfConcern(arch, classComp, concern)
                                                 && !isVariantOfConcern(arch, classComp, concern)) {
                                             final List<Attribute> attributesClassComp = new ArrayList<Attribute>(
-                                                    classComp.getAllAttributes());
+                                                    classComp.getAllAttributes().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                                             Iterator<Attribute> irtAttribute = attributesClassComp.iterator();
                                             while (irtAttribute.hasNext()) {
                                                 Attribute attribute = irtAttribute.next();
@@ -757,7 +758,7 @@ public class PLAFeatureMutation extends Mutation {
                                             attributesClassComp.clear();
                                             if (!classComp.getPatternsOperations().hasPatternApplied()) {
                                                 final List<Method> methodsClassComp = new ArrayList<Method>(
-                                                        classComp.getAllMethods());
+                                                        classComp.getAllMethods().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                                                 Iterator<Method> irtMethod = methodsClassComp.iterator();
                                                 while (irtMethod.hasNext()) {
                                                     Method method = irtMethod.next();
@@ -814,7 +815,7 @@ public class PLAFeatureMutation extends Mutation {
     // add por ��dipo
     private Class findOrCreateClassWithConcern(Package targetComp, Concern concern) throws ConcernNotFoundException {
         Class targetClass = null;
-        for (Class cls : targetComp.getAllClasses()) {
+        for (Class cls : targetComp.getAllClasses().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList())) {
             if (cls.containsConcern(concern)) {
                 targetClass = cls;
             }
@@ -838,7 +839,7 @@ public class PLAFeatureMutation extends Mutation {
             for (Element implementor : interfaceComp.getImplementors()) {
                 if (implementor instanceof Package) {
                     if (targetComp.getAllClasses().size() == 1) {
-                        final Class klass = targetComp.getAllClasses().iterator().next();
+                        final Class klass = targetComp.getAllClasses().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()).iterator().next();
                         for (Concern concern : klass.getOwnConcerns()) {
                             if (interfaceComp.containsConcern(concern)) {
                                 architecture.removeImplementedInterface(interfaceComp, sourceComp);
@@ -849,7 +850,7 @@ public class PLAFeatureMutation extends Mutation {
                         return;
                     } else if (targetComp.getAllClasses().size() > 1) {
                         final List<Class> targetClasses = allClassesWithConcerns(concernSelected,
-                                targetComp.getAllClasses());
+                                targetComp.getAllClasses()).stream().filter(c -> !c.isFreeze()).collect(Collectors.toList());
                         final Class klass = randonClass(targetClasses);
                         architecture.removeImplementedInterface(interfaceComp, sourceComp);
                         addExternalInterface(targetComp, architecture, interfaceComp);
@@ -858,7 +859,7 @@ public class PLAFeatureMutation extends Mutation {
                     } else {
                         // Busca na arquitetura como um todo
                         final List<Class> targetClasses = allClassesWithConcerns(concernSelected,
-                                architecture.getAllClasses());
+                                architecture.getAllClasses()).stream().filter(c -> !c.isFreeze()).collect(Collectors.toList());
                         final Class klass = randonClass(targetClasses);
                         architecture.removeImplementedInterface(interfaceComp, sourceComp);
                         addExternalInterface(targetComp, architecture, interfaceComp);
@@ -932,7 +933,7 @@ public class PLAFeatureMutation extends Mutation {
                  * adiciona targetInterface como sendo implemenda por klass.
                  */
                 if (targetComp.getAllClasses().size() == 1) {
-                    final Class klass = targetComp.getAllClasses().iterator().next();
+                    final Class klass = targetComp.getAllClasses().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()).iterator().next();
                     // joao
                     if (searchPatternsClass(klass)) {
                         for (Concern c : klass.getOwnConcerns()) {
@@ -960,7 +961,7 @@ public class PLAFeatureMutation extends Mutation {
                      * klass.
                      */
                 } else if (targetComp.getAllClasses().size() > 1) {
-                    final List<Class> targetClasses = allClassesWithConcerns(concern, targetComp.getAllClasses());
+                    final List<Class> targetClasses = allClassesWithConcerns(concern, targetComp.getAllClasses()).stream().filter(c -> !c.isFreeze()).collect(Collectors.toList());
                     final Class klass = randonClass(targetClasses);
                     // joao
                     if (searchPatternsClass(klass)) {
@@ -974,7 +975,7 @@ public class PLAFeatureMutation extends Mutation {
                      * Caso o pacote for vazio, faz um busca nas classes da
                      * arquitetura como um todo.
                      */
-                    final List<Class> targetClasses = allClassesWithConcerns(concern, architecture.getAllClasses());
+                    final List<Class> targetClasses = allClassesWithConcerns(concern, architecture.getAllClasses()).stream().filter(c -> !c.isFreeze()).collect(Collectors.toList());
                     final Class klass = randonClass(targetClasses);
                     if (searchPatternsClass(klass)) {
                         if (klass != null) {
@@ -1061,13 +1062,13 @@ public class PLAFeatureMutation extends Mutation {
 
     // ��dipo M��todo
     private Interface searchForInterfaceWithConcern(Concern concern, Package targetComp) {
-        for (Interface itf : targetComp.getImplementedInterfaces()) {
+        for (Interface itf : targetComp.getImplementedInterfaces().stream().filter(i -> !i.isFreeze()).collect(Collectors.toList())) {
             if (itf.containsConcern(concern)) {
                 return itf;
             }
         }
 
-        for (Interface itf : targetComp.getAllInterfaces()) {
+        for (Interface itf : targetComp.getAllInterfaces().stream().filter(i -> !i.isFreeze()).collect(Collectors.toList())) {
             if (itf.containsConcern(concern)) {
                 return itf;
             }
@@ -1190,17 +1191,11 @@ public class PLAFeatureMutation extends Mutation {
      * metodo que move a hierarquia de classes para um outro componente que esta
      * modularizando o interesse concern
      *
-     *
-     * @param classComp
-     *            - Classe selecionada
-     * @param targetComp
-     *            - Pacote destino
-     * @param sourceComp
-     *            - Pacote de origem
-     * @param architecture
-     *            - arquiteutra
-     * @param concern
-     *            - interesse sendo modularizado
+     * @param classComp    - Classe selecionada
+     * @param targetComp   - Pacote destino
+     * @param sourceComp   - Pacote de origem
+     * @param architecture - arquiteutra
+     * @param concern      - interesse sendo modularizado
      */
     private void moveHierarchyToComponent(Class classComp, Package targetComp, Package sourceComp,
                                           Architecture architecture, Concern concern) {
@@ -1209,6 +1204,7 @@ public class PLAFeatureMutation extends Mutation {
     }
 
     // EDIPO Identifica quem �� o parent para a classComp
+
     /**
      * Dado um {@link Element} retorna a {@link GeneralizationRelationship} no
      * qual o mesmo pertence.
