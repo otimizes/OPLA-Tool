@@ -1,6 +1,8 @@
 package jmetal4.experiments;
 
 import arquitetura.io.ReaderConfig;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
 import br.ufpr.dinf.gres.loglog.Level;
 import database.Database;
 import database.Result;
@@ -31,6 +33,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class NSGAII_OPLA_FeatMut {
 
@@ -99,6 +102,15 @@ public class NSGAII_OPLA_FeatMut {
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
+
+            Set<Class> allClasses = ((Architecture) problem.architecture_).getAllClasses();
+            allClasses.forEach(c -> {
+                if (c.getName().equalsIgnoreCase("PlayGameGUI")) {
+                    if (c.getAllMethods().size() > 1) {
+                        System.out.println("ops");
+                    }
+                }
+            });
 
             Experiment experiement = mp.createExperimentOnDb(plaName, "NSGAII", configs.getDescription());
             ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "NSGAII", configs);

@@ -72,10 +72,14 @@ public class PLAFeatureMutation extends Mutation {
 
         String selectedOperator = operatorMap.get(r);
 
-        Set<Class> allClasses = ((Package) ((Architecture) solution.getDecisionVariables()[0]).getAllPackages().toArray()[2]).getAllClasses();
-        if (allClasses.size() <= 1) {
-            System.out.println(allClasses.size());
-        }
+        Set<Class> allClasses = ((Architecture) solution.getDecisionVariables()[0]).getAllClasses();
+        allClasses.forEach(c -> {
+            if (c.getName().equalsIgnoreCase("PlayGameGUI")) {
+                if (c.getAllMethods().size() > 1) {
+                    System.out.println("ops");
+                }
+            }
+        });
 
         if (selectedOperator.equals("featureMutation")) {
             java.lang.reflect.Method featureMut = PLAFeatureMutation.class.getMethod(selectedOperator, double.class,
@@ -83,10 +87,14 @@ public class PLAFeatureMutation extends Mutation {
             featureMut.invoke(this, probability, solution, scopeLevels);
         }
 
-        allClasses = ((Package) ((Architecture) solution.getDecisionVariables()[0]).getAllPackages().toArray()[2]).getAllClasses();
-        if (allClasses.size() <= 1) {
-            System.out.println(allClasses.size());
-        }
+        allClasses = ((Architecture) solution.getDecisionVariables()[0]).getAllClasses();
+        allClasses.forEach(c -> {
+            if (c.getName().equalsIgnoreCase("PlayGameGUI")) {
+                if (c.getAllMethods().size() > 1) {
+                    System.out.println("ops");
+                }
+            }
+        });
 
         List<String> withScope = Arrays.asList("moveMethodMutation", "addClassMutation", "moveAttributeMutation");
         if (withScope.contains(selectedOperator)) {
@@ -95,10 +103,14 @@ public class PLAFeatureMutation extends Mutation {
             featureMut.invoke(this, probability, solution, scope);
         }
 
-        allClasses = ((Package) ((Architecture) solution.getDecisionVariables()[0]).getAllPackages().toArray()[2]).getAllClasses();
-        if (allClasses.size() <= 1) {
-            System.out.println(allClasses.size());
-        }
+        allClasses = ((Architecture) solution.getDecisionVariables()[0]).getAllClasses();
+        allClasses.forEach(c -> {
+            if (c.getName().equalsIgnoreCase("PlayGameGUI")) {
+                if (c.getAllMethods().size() > 1) {
+                    System.out.println("ops");
+                }
+            }
+        });
 
         List<String> withoutScope = Arrays.asList("moveOperationMutation", "addManagerClassMutation");
         if (withoutScope.contains(selectedOperator)) {
@@ -107,10 +119,14 @@ public class PLAFeatureMutation extends Mutation {
             featureMut.invoke(this, probability, solution);
         }
 
-        allClasses = ((Package) ((Architecture) solution.getDecisionVariables()[0]).getAllPackages().toArray()[2]).getAllClasses();
-        if (allClasses.size() <= 1) {
-            System.out.println(allClasses.size());
-        }
+        allClasses = ((Architecture) solution.getDecisionVariables()[0]).getAllClasses();
+        allClasses.forEach(c -> {
+            if (c.getName().equalsIgnoreCase("PlayGameGUI")) {
+                if (c.getAllMethods().size() > 1) {
+                    System.out.println("ops");
+                }
+            }
+        });
 
         withScope = null;
         withoutScope = null;
@@ -304,7 +320,7 @@ public class PLAFeatureMutation extends Mutation {
                             Package sourceComp) {
         final List<Method> MethodsClass = new ArrayList<Method>(sourceClass.getAllMethods().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
         if (MethodsClass.size() >= 1) {
-            if (sourceClass.moveMethodToClass(randomObject(MethodsClass), targetClass)) {
+            if (sourceClass.moveMethodToClass(getRandomMethod(MethodsClass), targetClass)) {
                 // joao\
                 if (searchPatternsClass(sourceClass)) {
                     createAssociation(arch, targetClass, sourceClass);
@@ -345,7 +361,7 @@ public class PLAFeatureMutation extends Mutation {
                                     List<Method> OpsInterface = new ArrayList<Method>();
                                     OpsInterface.addAll(sourceInterface.getOperations().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                                     if (OpsInterface.size() >= 1) {
-                                        sourceInterface.moveOperationToInterface(randomObject(OpsInterface),
+                                        sourceInterface.moveOperationToInterface(getRandomMethod(OpsInterface),
                                                 targetInterface);
                                         for (Element implementor : sourceInterface.getImplementors()) {
                                             if (implementor instanceof Package) {
@@ -484,7 +500,7 @@ public class PLAFeatureMutation extends Mutation {
             throws Exception {
         // joao\
         // if (searchPatternsClass(sourceClass)) {
-        Method targetMethod = randomObject(MethodsClass);
+        Method targetMethod = getRandomMethod(MethodsClass);
         sourceClass.moveMethodToClass(targetMethod, newClass);
         // if (targetMethod.isAbstract()) targetMethod.setAbstract(false);
         for (Concern con : targetMethod.getOwnConcerns()) {
@@ -546,7 +562,7 @@ public class PLAFeatureMutation extends Mutation {
                             List<Method> OpsInterface = new ArrayList<Method>();
                             OpsInterface.addAll(sourceInterface.getOperations().stream().filter(c -> !c.isFreeze()).collect(Collectors.toList()));
                             if (OpsInterface.size() >= 1) {
-                                Method op = randomObject(OpsInterface);
+                                Method op = getRandomMethod(OpsInterface);
 
                                 Package newComp = arch
                                         .createPackage("Package" + OPLA.contComp_ + getSuffix(sourceComp));
@@ -586,34 +602,42 @@ public class PLAFeatureMutation extends Mutation {
 
     private Package getRandomPackage(Architecture arch) {
         Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-//        while (sourceComp.isFreeze()) {
-//            sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-//        }
+        while (sourceComp.isFreeze()) {
+            sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+        }
         return sourceComp;
     }
 
     private Package getRandomPackage(List<Package> allComponents) {
         Package selectedCompElem = randomObject(allComponents);
-//        while (selectedCompElem.isFreeze()) {
-//            selectedCompElem = randomObject(allComponents);
-//        }
+        while (selectedCompElem.isFreeze()) {
+            selectedCompElem = randomObject(allComponents);
+        }
         return selectedCompElem;
     }
 
     private Interface getRandomInterface(List<Interface> interfacesTargetComp) {
         Interface targetInterface = randomObject(interfacesTargetComp);
-//        while (targetInterface.isFreeze()) {
-//            targetInterface = randomObject(interfacesTargetComp);
-//        }
+        while (targetInterface.isFreeze()) {
+            targetInterface = randomObject(interfacesTargetComp);
+        }
         return targetInterface;
     }
 
     private Class getRandomClass(List<Class> classesPackage) {
         Class sourceClassElem = randomObject(classesPackage);
-//        while (sourceClassElem.isFreeze()) {
-//            sourceClassElem = randomObject(classesPackage);
-//        }
+        while (sourceClassElem.isFreeze()) {
+            sourceClassElem = randomObject(classesPackage);
+        }
         return sourceClassElem;
+    }
+
+    private Method getRandomMethod(List<Method> MethodsClass) {
+        Method method = randomObject(MethodsClass);
+        while (method.isFreeze()) {
+            method = randomObject(MethodsClass);
+        }
+        return method;
     }
 
 
@@ -700,7 +724,7 @@ public class PLAFeatureMutation extends Mutation {
             while (itrComp.hasNext()) {
                 Package comp = itrComp.next();
                 if (!comp.equals(targetComponent) && checkSameLayer(comp, targetComponent)) {
-                    final Set<Interface> allInterfaces = new HashSet<Interface>(comp.getAllInterfaces());
+                    final Set<Interface> allInterfaces = new HashSet<Interface>(comp.getAllInterfaces().stream().filter(i -> !i.isFreeze()).collect(Collectors.toList()));
                     allInterfaces.addAll(comp.getImplementedInterfaces().stream().filter(i -> !i.isFreeze()).collect(Collectors.toList()));
 
                     Iterator<Interface> itrInterface = allInterfaces.iterator();

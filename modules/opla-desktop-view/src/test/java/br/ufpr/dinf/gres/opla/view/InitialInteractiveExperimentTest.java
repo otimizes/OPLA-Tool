@@ -28,7 +28,7 @@ public class InitialInteractiveExperimentTest {
     public void savePositionsUML() throws Exception {
 
         List<String> xmis = Arrays.asList(
-                "/home/wmfsystem/IdeaProjects/OPLA-Tool/modules/opla-desktop-view/src/test/resources/agm/agm.uml"
+                "/home/wmfsystem/oplatool/plas/agm/agm.uml"
         );
 
 
@@ -50,15 +50,15 @@ public class InitialInteractiveExperimentTest {
             System.out.println();
             architecture.save(architecture, "agm2", "2");
             System.out.println(architecture.getName());
-            Utils.executePapyrus("/home/wmfsystem/App/eclipse-modeling-kepler-SR2-linux-gtk-x86_64/eclipse/eclipse", "/home/wmfsystem/oplatool/output/agm2agm2.di");
+            Utils.executePapyrus("/home/wmfsystem/App/eclipse/eclipse", "/home/wmfsystem/oplatool/output/agm.di");
         }
     }
 
-//    @Test
+    @Test
     public void savePositionsUML2() throws Exception {
 
         List<String> xmis = Arrays.asList(
-                "/home/wmfsystem/IdeaProjects/OPLA-Tool/modules/opla-desktop-view/src/test/resources/agm/agm.uml"
+                "/home/wmfsystem/oplatool/plas/agm/agm.uml"
         );
 
 
@@ -80,7 +80,7 @@ public class InitialInteractiveExperimentTest {
             System.out.println();
             architecture.save(architecture, "agm2", "2");
             System.out.println(architecture.getName());
-            Utils.executePapyrus("/home/wmfsystem/App/eclipse-modeling-kepler-SR2-linux-gtk-x86_64/eclipse/eclipse", "/home/wmfsystem/oplatool/output/agm2agm2.di");
+            Utils.executePapyrus("/home/wmfsystem/App/eclipse/eclipse", "/home/wmfsystem/oplatool/output/agm2agm2.di");
         }
     }
 }

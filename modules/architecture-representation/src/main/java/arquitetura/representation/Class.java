@@ -128,6 +128,9 @@ public class Class extends Element {
      * -true se o método for movido com sucesso.
      */
     public boolean moveMethodToClass(Method method, arquitetura.representation.Class destinationKlass) {
+        if (method.getName().equalsIgnoreCase("addGame")) {
+            System.out.println("");
+        }
         if (!destinationKlass.addExternalMethod(method))
             return false;
 
