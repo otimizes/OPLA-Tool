@@ -1,9 +1,15 @@
 package br.ufpr.dinf.gres.opla.view;
 
+import arquitetura.representation.Architecture;
+import br.ufpr.dinf.gres.opla.config.ApplicationFile;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
+import jmetal4.core.Variable;
+import jmetal4.experiments.NSGAIIConfig;
+import jmetal4.experiments.OPLAConfigs;
+import jmetal4.problems.OPLA;
 import learning.Clustering;
 import learning.ClusteringAlgorithm;
 import net.miginfocom.swing.MigLayout;
@@ -16,10 +22,8 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class InteractiveSolutions extends JDialog {
@@ -258,31 +262,10 @@ public class InteractiveSolutions extends JDialog {
                 int value = Integer.parseInt(jTextField.getText());
                 solutionSet.get(indexSolution).setEvaluation(value);
 
-                int teste_valor = solutionSet.get(indexSolution).getEvaluation();
-                teste.setText(Integer.toString(teste_valor));
+                int testeValor = solutionSet.get(indexSolution).getEvaluation();
+                teste.setText(Integer.toString(testeValor));
 
-
-                File f1Di = new File(fileOnAnalyses);
-                String replaceFileOnAnalyses = fileOnAnalyses.replace("_TEMP", "_Score_" + teste_valor + "_PlaId").replaceFirst(solutionOnAnalyses.getOPLAProblem().getArchitecture_().getName(), "_Fitness_" + solutionOnAnalyses.toStringObjectives());
-                if (f1Di.exists()) {
-                    new File(replaceFileOnAnalyses).delete();
-                    new File(replaceFileOnAnalyses.replace(".di", ".uml")).delete();
-                    new File(replaceFileOnAnalyses.replace(".di", ".notation")).delete();
-
-                    File f2Di = new File(replaceFileOnAnalyses);
-                    f1Di.renameTo(f2Di);
-
-                    File f1Uml = new File(fileOnAnalyses.replace(".di", ".uml"));
-                    File f2Uml = new File(replaceFileOnAnalyses.replace(".di", ".uml"));
-                    f1Uml.renameTo(f2Uml);
-
-                    File f1Not = new File(fileOnAnalyses.replace(".di", ".notation"));
-                    File f2Not = new File(replaceFileOnAnalyses.replace(".di", ".notation"));
-                    f1Not.renameTo(f2Not);
-                } else {
-                    new Thread(() -> solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses.replace("_TEMP", "_Score_" + teste_valor + "_PlaId").replaceFirst(solutionOnAnalyses.getOPLAProblem().getArchitecture_().getName(), "_Fitness_" + solutionOnAnalyses.toStringObjectives()), LOGGER, true)).start();
-                }
-
+                applySavedFile(testeValor);
 
                 apply.setText("Saved");
                 setTitle("Architectures");
@@ -298,6 +281,45 @@ public class InteractiveSolutions extends JDialog {
         pack();
 
         return jPanelSubjectiveAnalysis;
+    }
+
+    private void applySavedFile(int teste_valor) {
+        File f1Di = new File(fileOnAnalyses);
+        String replaceFileOnAnalyses = fileOnAnalyses.replace("_TEMP", "_Score_" + teste_valor + "_PlaId")
+                .replaceFirst(solutionOnAnalyses.getOPLAProblem().getArchitecture_().getName(), "_Fitness_" + solutionOnAnalyses.toStringObjectives());
+        if (f1Di.exists()) {
+            new File(replaceFileOnAnalyses).delete();
+            new File(replaceFileOnAnalyses.replace(".di", ".uml")).delete();
+            new File(replaceFileOnAnalyses.replace(".di", ".notation")).delete();
+
+            File f2Di = new File(replaceFileOnAnalyses);
+            f1Di.renameTo(f2Di);
+
+            File f1Uml = new File(fileOnAnalyses.replace(".di", ".uml"));
+            File f2Uml = new File(replaceFileOnAnalyses.replace(".di", ".uml"));
+            f1Uml.renameTo(f2Uml);
+
+            File f1Not = new File(fileOnAnalyses.replace(".di", ".notation"));
+            File f2Not = new File(replaceFileOnAnalyses.replace(".di", ".notation"));
+            f1Not.renameTo(f2Not);
+        } else {
+            new Thread(() -> solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses
+                    .replace("_TEMP", "_Score_" + teste_valor + "_PlaId").replaceFirst(solutionOnAnalyses.getOPLAProblem()
+                            .getArchitecture_().getName(), "_Fitness_" + solutionOnAnalyses.toStringObjectives()), LOGGER, true)).start();
+        }
+
+
+        NSGAIIConfig configs = new NSGAIIConfig();
+        configs.setClusteringAlgorithm(ClusteringAlgorithm.KMEANS);
+        configs.setOplaConfigs(new OPLAConfigs(solutionSet.get(0).getOPLAProblem().getSelectedMetrics()));
+
+        try {
+            OPLA opla = new OPLA(replaceFileOnAnalyses.replace(".di", ".uml"), configs);
+            Architecture architecture_ = opla.getArchitecture_();
+            solutionOnAnalyses.setDecisionVariables(new Architecture[]{architecture_});
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private String getObjectivesFormattedStr(int indexSolution) {

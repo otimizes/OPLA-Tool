@@ -59,6 +59,12 @@ public class Info implements Serializable {
     @JoinColumn(name = "experiement_id", nullable = false)
     private Experiment experiement;
 
+    @Column(name = "user_evaluation")
+    private Integer userEvaluation;
+
+    @Column(name = "freeze_elements")
+    private String freezedElements;
+
     public Integer getId() {
         return id;
     }
@@ -169,6 +175,22 @@ public class Info implements Serializable {
 
     public void setExperiement(Experiment experiement) {
         this.experiement = experiement;
+    }
+
+    public Integer getUserEvaluation() {
+        return userEvaluation;
+    }
+
+    public void setUserEvaluation(Integer userEvaluation) {
+        this.userEvaluation = userEvaluation;
+    }
+
+    public String getFreezedElements() {
+        return freezedElements;
+    }
+
+    public void setFreezedElements(String freezedElements) {
+        this.freezedElements = freezedElements;
     }
 
     @Override

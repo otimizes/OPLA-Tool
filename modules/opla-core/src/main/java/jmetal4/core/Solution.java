@@ -23,6 +23,7 @@
 
 package jmetal4.core;
 
+import arquitetura.representation.Element;
 import jmetal4.encodings.variable.Binary;
 import jmetal4.problems.OPLA;
 
@@ -670,4 +671,6 @@ public class Solution implements Serializable {
     public void setClusterNoise(Boolean clusterNoise_) {
         this.clusterNoise_ = clusterNoise_;
     }
+
+
 } // Solution

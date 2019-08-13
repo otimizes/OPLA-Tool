@@ -28,7 +28,7 @@ public class Result {
      * Pass null to execution when are ALL results. So results belongs to
      * experiment and not to execution (run).
      * <p>
-     * See {@link ResultTest} for more details
+     * See {@link } for more details
      *
      * @param list
      * @param experiement
@@ -81,7 +81,8 @@ public class Result {
                 ir.setNumberOfGeneralizations(arch.getRelationshipHolder().getAllGeneralizations().size());
                 ir.setNumberOfAssociations(arch.getRelationshipHolder().getAllAssociationsRelationships().size());
                 ir.setNumberOfassociationsClass(arch.getRelationshipHolder().getAllAssociationsClass().size());
-
+                ir.setUserEvaluation(solutionsList.get(i).getEvaluation());
+                ir.setFreezedElements(arch.toStringFreezedElements());
                 infoResults.add(ir);
             }
         }

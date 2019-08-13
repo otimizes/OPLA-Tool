@@ -103,15 +103,6 @@ public class NSGAII_OPLA_FeatMut {
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
 
-            Set<Class> allClasses = ((Architecture) problem.architecture_).getAllClasses();
-            allClasses.forEach(c -> {
-                if (c.getName().equalsIgnoreCase("PlayGameGUI")) {
-                    if (c.getAllMethods().size() > 1) {
-                        System.out.println("ops");
-                    }
-                }
-            });
-
             Experiment experiement = mp.createExperimentOnDb(plaName, "NSGAII", configs.getDescription());
             ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "NSGAII", configs);
             conf.save();

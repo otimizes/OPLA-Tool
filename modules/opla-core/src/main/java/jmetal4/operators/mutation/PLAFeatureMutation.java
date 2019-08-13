@@ -72,29 +72,11 @@ public class PLAFeatureMutation extends Mutation {
 
         String selectedOperator = operatorMap.get(r);
 
-        Set<Class> allClasses = ((Architecture) solution.getDecisionVariables()[0]).getAllClasses();
-        allClasses.forEach(c -> {
-            if (c.getName().equalsIgnoreCase("PlayGameGUI")) {
-                if (c.getAllMethods().size() > 1) {
-                    System.out.println("ops");
-                }
-            }
-        });
-
         if (selectedOperator.equals("featureMutation")) {
             java.lang.reflect.Method featureMut = PLAFeatureMutation.class.getMethod(selectedOperator, double.class,
                     Solution.class, String.class);
             featureMut.invoke(this, probability, solution, scopeLevels);
         }
-
-        allClasses = ((Architecture) solution.getDecisionVariables()[0]).getAllClasses();
-        allClasses.forEach(c -> {
-            if (c.getName().equalsIgnoreCase("PlayGameGUI")) {
-                if (c.getAllMethods().size() > 1) {
-                    System.out.println("ops");
-                }
-            }
-        });
 
         List<String> withScope = Arrays.asList("moveMethodMutation", "addClassMutation", "moveAttributeMutation");
         if (withScope.contains(selectedOperator)) {
@@ -103,30 +85,12 @@ public class PLAFeatureMutation extends Mutation {
             featureMut.invoke(this, probability, solution, scope);
         }
 
-        allClasses = ((Architecture) solution.getDecisionVariables()[0]).getAllClasses();
-        allClasses.forEach(c -> {
-            if (c.getName().equalsIgnoreCase("PlayGameGUI")) {
-                if (c.getAllMethods().size() > 1) {
-                    System.out.println("ops");
-                }
-            }
-        });
-
         List<String> withoutScope = Arrays.asList("moveOperationMutation", "addManagerClassMutation");
         if (withoutScope.contains(selectedOperator)) {
             java.lang.reflect.Method featureMut = PLAFeatureMutation.class.getMethod(selectedOperator, double.class,
                     Solution.class);
             featureMut.invoke(this, probability, solution);
         }
-
-        allClasses = ((Architecture) solution.getDecisionVariables()[0]).getAllClasses();
-        allClasses.forEach(c -> {
-            if (c.getName().equalsIgnoreCase("PlayGameGUI")) {
-                if (c.getAllMethods().size() > 1) {
-                    System.out.println("ops");
-                }
-            }
-        });
 
         withScope = null;
         withoutScope = null;

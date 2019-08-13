@@ -771,4 +771,20 @@ public class Architecture extends Variable {
         }
         return str.toString();
     }
+
+    public List<Element> getFreezedElements() {
+        Set<Element> elements = new HashSet<>();
+        elements.addAll(classes.stream().filter(e -> {
+            elements.addAll(e.getAllMethods().stream().filter(Element::isFreeze).collect(Collectors.toSet()));
+            elements.addAll(e.getAllAttributes().stream().filter(Element::isFreeze).collect(Collectors.toSet()));
+            return e.isFreeze();
+        }).collect(Collectors.toList()));
+        elements.addAll(interfaces.stream().filter(Element::isFreeze).collect(Collectors.toSet()));
+        elements.addAll(packages.stream().filter(Element::isFreeze).collect(Collectors.toSet()));
+        return new ArrayList<>(elements);
+    }
+
+    public String toStringFreezedElements() {
+        return getFreezedElements().stream().map(e -> e.getTypeElement() + ":" + e.getName()).collect(Collectors.toList()).toString();
+    }
 }

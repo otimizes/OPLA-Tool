@@ -4,13 +4,17 @@ import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Package;
 import br.ufpr.dinf.gres.loglog.LogLog;
+import br.ufpr.dinf.gres.opla.config.ApplicationFile;
+import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import jmetal4.core.Variable;
 import jmetal4.encodings.solutionType.ArchitectureSolutionType;
 import jmetal4.experiments.NSGAIIConfig;
+import jmetal4.experiments.OPLAConfigs;
 import jmetal4.problems.OPLA;
+import learning.ClusteringAlgorithm;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -24,7 +28,7 @@ public class InitialInteractiveExperimentTest {
 
     public static final Logger LOGGER = Logger.getLogger(InitialInteractiveExperimentTest.class);
 
-//    @Test
+    //    @Test
     public void savePositionsUML() throws Exception {
 
         List<String> xmis = Arrays.asList(
@@ -72,15 +76,22 @@ public class InitialInteractiveExperimentTest {
             return null;
         }).collect(Collectors.toList());
 
+        ManagerApplicationConfig instance = ApplicationFile.getInstance();
+        NSGAIIConfig configs = new NSGAIIConfig();
+        configs.setPopulationSize(20);
+        configs.setClusteringAlgorithm(ClusteringAlgorithm.KMEANS);
+        configs.setNumberOfRuns(300);
+        configs.setOplaConfigs(new OPLAConfigs(Arrays.asList("COE", "ACLASS", "FM")));
+
+        OPLA opla = new OPLA("/home/wmfsystem/oplatool/plas/agm/agm.uml", configs);
         SolutionSet solutionSet = new SolutionSet();
-        Solution solution = new Solution();
+        solutionSet.setCapacity(1);
+        Solution solution = new Solution(opla);
+        solutionSet.add(solution);
 
 
-        for (Architecture architecture : arrayList) {
-            System.out.println();
-            architecture.save(architecture, "agm2", "2");
-            System.out.println(architecture.getName());
-            Utils.executePapyrus("/home/wmfsystem/App/eclipse/eclipse", "/home/wmfsystem/oplatool/output/agm2agm2.di");
-        }
+        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(instance, ClusteringAlgorithm.KMEANS, solutionSet);
+        System.out.println("fim");
+
     }
 }

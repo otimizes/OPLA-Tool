@@ -27,6 +27,8 @@ public class InfoResult {
     private Integer numberOfAssociations;
     private Integer numberOfGeneralizations;
     private Integer numberOfassociationsClass;
+    private Integer userEvaluation;
+    private String freezedElements;
     private Experiment experiement;
 
     public InfoResult() {
@@ -186,6 +188,22 @@ public class InfoResult {
 
     public void setExperiement(Experiment experiement) {
         this.experiement = experiement;
+    }
+
+    public Integer getUserEvaluation() {
+        return userEvaluation;
+    }
+
+    public void setUserEvaluation(Integer userEvaluation) {
+        this.userEvaluation = userEvaluation;
+    }
+
+    public String getFreezedElements() {
+        return freezedElements;
+    }
+
+    public void setFreezedElements(String freezedElements) {
+        this.freezedElements = freezedElements;
     }
 
     @Override
