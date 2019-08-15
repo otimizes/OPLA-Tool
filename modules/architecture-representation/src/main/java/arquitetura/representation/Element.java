@@ -45,6 +45,7 @@ public abstract class Element implements Serializable {
 
     /**
      * Generates Unique Integer Id according to the namespace:elementType:elementName
+     *
      * @return Unique Integer Id
      */
     public float getNumberId() {
@@ -97,7 +98,7 @@ public abstract class Element implements Serializable {
     /**
      * Retorna apenas os interesses pertencentes a este elemento.<br />
      *
-     * @return List<{ @ link   Concern }>
+     * @return List<{ @ link Concern }>
      */
     public Set<Concern> getOwnConcerns() {
         if (concerns == null || concerns.isEmpty())
@@ -184,6 +185,18 @@ public abstract class Element implements Serializable {
 
     public boolean isFreeze() {
         return this.comments != null && this.comments.contains("freeze");
+    }
+
+    public boolean unsetFreeze() {
+        this.comments.replaceAll("freeze", "");
+        return this.isFreeze();
+    }
+
+    public boolean setFreeze() {
+        if (!this.comments.contains("freeze")) {
+            this.comments += "freeze";
+        }
+        return isFreeze();
     }
 
     @Override

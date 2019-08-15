@@ -672,5 +672,12 @@ public class Solution implements Serializable {
         this.clusterNoise_ = clusterNoise_;
     }
 
+    public boolean containsArchitecturalEvaluation() {
+        for (Element element : getOPLAProblem().getArchitecture_().getElements()) {
+            if (element.isFreeze()) return true;
+        }
+        return false;
+    }
+
 
 } // Solution

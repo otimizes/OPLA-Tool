@@ -572,7 +572,7 @@ public class SolutionSet implements Serializable {
      * @return A matrix containing the objectives
      */
     public double[][] writeObjectivesAndArchitecturalElementsNumberToMatrix() {
-        double[][] doubles = reduceTreeDimensionalArray(getSolutionSet().stream().map(solution -> {
+        double[][] doubles = reduceTreeDimensionalArray(getArchitecturalSolutionsEvaluated().stream().map(solution -> {
             double[] objectives = solution.getObjectives();
             double[][] values = writeAllElementsFromSolution(solution);
             double[][] newValues = new double[values.length][];
@@ -589,6 +589,11 @@ public class SolutionSet implements Serializable {
         return doubles;
     }
 
+    public List<Solution> getArchitecturalSolutionsEvaluated() {
+        return getSolutionSet();
+//        return getSolutionSet().stream().filter(Solution::containsArchitecturalEvaluation).collect(Collectors.toList());
+    }
+
     /**
      * Copies the objectives and Elements Number of the solution set to a matrix
      * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
@@ -597,7 +602,7 @@ public class SolutionSet implements Serializable {
      * @return A matrix containing the objectives
      */
     public double[] writeArchitecturalEvaluationsToMatrix() {
-        double[][] doubles = getSolutionSet().stream().map(solution -> {
+        double[][] doubles = getArchitecturalSolutionsEvaluated().stream().map(solution -> {
             List<Element> allElementsFromSolution = getAllElementsFromSolution(solution);
             double[] objects = allElementsFromSolution.stream().mapToDouble(element -> element.isFreeze() ? 1.0 : 0.0).toArray();
             return objects;

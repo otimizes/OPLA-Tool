@@ -26,7 +26,7 @@ public class SubjectiveAnalyzeAlgorithm {
     private MultilayerPerceptron architecturalMLP;
     private int trainingTime = 2500;
     private DistributeUserEvaluation distributeUserEvaluation = DistributeUserEvaluation.ALL;
-    private EvaluationModel evaluationModel = EvaluationModel.CROSS_VALIDATION;
+    private EvaluationModel evaluationModel = EvaluationModel.TRAINING_SET;
     private double momentum = 0.2;
     private double learningRate = 0.3;
     private String hiddenLayers;
@@ -41,7 +41,7 @@ public class SubjectiveAnalyzeAlgorithm {
         this.algorithm = algorithm;
         distributeUserEvaluations(resultFront);
         this.subjectiveArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
-        this.architecturalArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
+        this.architecturalArffExecution = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
     }
 
@@ -49,7 +49,8 @@ public class SubjectiveAnalyzeAlgorithm {
         this.resultFront = resultFront;
         this.algorithm = algorithm;
         distributeUserEvaluations(resultFront);
-        this.subjectiveArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
+        this.subjectiveArffExecution = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null);
+        this.architecturalArffExecution = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
     }
 
@@ -113,7 +114,7 @@ public class SubjectiveAnalyzeAlgorithm {
         subjectiveMLP.buildClassifier(subjectiveArffExecution.getData());
         architecturalMLP.buildClassifier(architecturalArffExecution.getData());
         Evaluation subjectiveEval = new Evaluation(subjectiveArffExecution.getData());
-        Evaluation architectureEval = new Evaluation(subjectiveArffExecution.getData());
+        Evaluation architectureEval = new Evaluation(architecturalArffExecution.getData());
         switch (evaluationModel) {
             case TRAINING_SET:
                 subjectiveEval.evaluateModel(subjectiveMLP, subjectiveArffExecution.getData());
@@ -134,9 +135,6 @@ public class SubjectiveAnalyzeAlgorithm {
         System.out.println("----------------------------------------> Architectural Evaluation <----------------------------------------");
         System.out.println("Architecture Error: " + architectureEval.errorRate());
         System.out.println("Architecture Summary: " + architectureEval.toSummaryString());
-        for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
-            System.out.println("Solution " + i + ": Expected: " + resultFront.get(i).getEvaluation() + " - Predicted: " + ((int) subjectiveMLP.classifyInstance(subjectiveArffExecution.getData().get(i))));
-        }
         System.out.println("Tempo: " + ((new Date().getTime() - startsIn) / 1000));
         return resultFront;
     }

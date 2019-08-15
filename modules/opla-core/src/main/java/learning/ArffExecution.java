@@ -39,6 +39,17 @@ public class ArffExecution {
         newInstance(attributes, classes, descOjectives);
     }
 
+    /**
+     * To use it, instantiate the class by passing a list of function values Objective and descriptions for the same
+     *
+     * @param attributes    Function Values Objective
+     * @param descOjectives Objectives Description
+     */
+    public ArffExecution(double[][] attributes, double[] classes, String[] descOjectives, boolean binary) {
+        this.binary = binary;
+        newInstance(attributes, classes, descOjectives);
+    }
+
     private void newInstance(double[][] attributes, double[] classes, String[] descAttributes) {
         attrIndices = attributes[0].length;
         this.attributes = attributes;
@@ -56,7 +67,7 @@ public class ArffExecution {
         }
         // - string
         if (binary) {
-            atts.addElement(new Attribute("class"));
+            atts.addElement(new Attribute("class", Arrays.asList("0", "1")));
         } else {
             atts.addElement(new Attribute("class", Arrays.asList("0", "1", "2", "3", "4", "5")));
         }

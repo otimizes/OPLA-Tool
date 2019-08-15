@@ -6,6 +6,7 @@ import arquitetura.representation.Package;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
+import br.ufpr.dinf.gres.opla.entity.Objective;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
@@ -13,13 +14,18 @@ import jmetal4.core.Variable;
 import jmetal4.encodings.solutionType.ArchitectureSolutionType;
 import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.experiments.OPLAConfigs;
+import jmetal4.operators.mutation.PLAFeatureMutation;
 import jmetal4.problems.OPLA;
-import learning.ClusteringAlgorithm;
+import learning.*;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import utils.ExperimentTest;
+import utils.QtdElements;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +64,7 @@ public class InitialInteractiveExperimentTest {
         }
     }
 
-//    @Test
+    //    @Test
     public void savePositionsUML2() throws Exception {
 
         List<String> xmis = Arrays.asList(
@@ -120,18 +126,44 @@ public class InitialInteractiveExperimentTest {
         configs.setOplaConfigs(new OPLAConfigs(Arrays.asList("COE", "ACLASS", "FM")));
 
         SolutionSet solutionSet = new SolutionSet();
-        solutionSet.setCapacity(2);
+        int qtdSolutions = 20;
+        solutionSet.setCapacity(qtdSolutions);
 
-        OPLA opla = new OPLA("/home/wmfsystem/oplatool/plas/agm/agm.uml", configs);
-        Solution solution = new Solution(opla);
-        solutionSet.add(solution);
+        for (int i = 0; i < qtdSolutions; i++) {
+            OPLA opla = new OPLA("/home/wmfsystem/oplatool/plas/agm/agm.uml", configs);
+            opla.setSelectedMetrics(Arrays.asList("featureDriven", "coe", "aclass"));
+            HashMap<String, Object> parameters = new HashMap<>();
+            parameters.put("probability", 0.9);
+            Solution solution = new Solution(opla);
+            PLAFeatureMutation plaFeatureMutation = new PLAFeatureMutation(parameters, Arrays.asList("featureMutation", "moveMethodMutation", "addClassMutation", "moveAttributeMutation", "moveOperationMutation", "addManagerClassMutation"));
+            plaFeatureMutation.execute(solution);
+            opla.evaluate(solution);
+            opla.evaluateConstraints(solution);
+            solutionSet.add(solution);
+        }
 
-        OPLA opla2 = new OPLA("/home/wmfsystem/oplatool/plas/agm/agm.uml", configs);
-        Solution solution2 = new Solution(opla2);
-        solutionSet.add(solution2);
+        LOGGER.info("1º Interação COM NOTAS");
+        //        1º Interação COM NOTAS
+        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.KMEANS);
+        clustering.setNumClusters(4);
+        clustering.run();
+        clustering.getSolutionsByClusterId(0).get(0).setEvaluation(5);
+        clustering.getSolutionsByClusterId(0).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
+        clustering.getSolutionsByClusterId(1).get(0).setEvaluation(3);
+        clustering.getSolutionsByClusterId(1).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
+        clustering.getSolutionsByClusterId(2).get(0).setEvaluation(2);
+        clustering.getSolutionsByClusterId(2).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
+        clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
+        clustering.getSolutionsByClusterId(3).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
+        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet, ClassifierAlgorithm.CLUSTERING_MLP, DistributeUserEvaluation.MIDDLE);
+        subjectiveAnalyzeAlgorithm.run(null);
 
-        double[][] doubles = solutionSet.writeObjectivesAndArchitecturalElementsNumberToMatrix();
-        double[] doubles1 = solutionSet.writeArchitecturalEvaluationsToMatrix();
-        System.out.println("aqui");
+        LOGGER.info("1º Interação SEM NOTAS");
+//        //        1º Interação SEM NOTAS
+//        SolutionSet solutionSet1b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 11L);
+//        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+
+
+
     }
 }
