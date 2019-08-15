@@ -28,6 +28,7 @@ import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import jmetal4.metrics.MetricsEvaluation;
 import jmetal4.util.Configuration;
+import learning.ArchitecturalElementType;
 import learning.DistributeUserEvaluation;
 import org.apache.commons.lang.ArrayUtils;
 import results.FunResults;
@@ -588,6 +589,22 @@ public class SolutionSet implements Serializable {
         return doubles;
     }
 
+    /**
+     * Copies the objectives and Elements Number of the solution set to a matrix
+     * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
+     * nrAbstractions, nrAgragations, nrAssociations, nrCompositions, nrDependencies, nrGeneralizations, nrRealizations, nrUsage
+     *
+     * @return A matrix containing the objectives
+     */
+    public double[] writeArchitecturalEvaluationsToMatrix() {
+        double[][] doubles = getSolutionSet().stream().map(solution -> {
+            List<Element> allElementsFromSolution = getAllElementsFromSolution(solution);
+            double[] objects = allElementsFromSolution.stream().mapToDouble(element -> element.isFreeze() ? 1.0 : 0.0).toArray();
+            return objects;
+        }).toArray(double[][]::new);
+        return reduceBiDimensionalArray(doubles);
+    }
+
     public double[][] reduceTreeDimensionalArray(double[][][] treeDimensionalArray) {
         double[][] twoDimensionalArray = treeDimensionalArray[0];
         for (int i = 1; i < treeDimensionalArray.length; i++) {
@@ -596,14 +613,24 @@ public class SolutionSet implements Serializable {
         return twoDimensionalArray;
     }
 
+    public double[] reduceBiDimensionalArray(double[][] biDimensionalArray) {
+        double[] oneDimensionalArray = biDimensionalArray[0];
+        for (int i = 1; i < biDimensionalArray.length; i++) {
+            oneDimensionalArray = (double[]) ArrayUtils.addAll(oneDimensionalArray, biDimensionalArray[i]);
+        }
+        return oneDimensionalArray;
+    }
+
     public double[][] writeAllElementsFromSolution(Solution solution) {
         List<Element> allElementsFromSolution = getAllElementsFromSolution(solution);
         double[][] elements = allElementsFromSolution.stream().map(element -> {
-            double[] elm = new double[4];
-            elm[0] = element instanceof Package ? (double) ((Package) element).getAllClasses().size() : 0;
-            elm[1] = element instanceof Package ? (double) ((Package) element).getAllInterfaces().size() : 0;
-            elm[2] = element instanceof Class ? (double) ((Class) element).getAllAttributes().size() : 0;
-            elm[3] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() :
+            double[] elm = new double[6];
+            elm[0] = element.getNumberId();
+            elm[1] = ArchitecturalElementType.getTypeId(element.getTypeElement());
+            elm[2] = element instanceof Package ? (double) ((Package) element).getAllClasses().size() : 0;
+            elm[3] = element instanceof Package ? (double) ((Package) element).getAllInterfaces().size() : 0;
+            elm[4] = element instanceof Class ? (double) ((Class) element).getAllAttributes().size() : 0;
+            elm[5] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() :
                     element instanceof Interface ? (double) ((Interface) element).getOperations().size() : 0;
             return elm;
         }).toArray(double[][]::new);

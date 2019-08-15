@@ -1,8 +1,11 @@
 package arquitetura.representation;
 
 import arquitetura.exceptions.ConcernNotFoundException;
+import com.google.common.hash.HashCode;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
+import java.lang.annotation.ElementType;
 import java.util.*;
 
 /**
@@ -38,6 +41,17 @@ public abstract class Element implements Serializable {
      */
     public String getId() {
         return id;
+    }
+
+    /**
+     * Generates Unique Integer Id according to the namespace:elementType:elementName
+     * @return Unique Integer Id
+     */
+    public float getNumberId() {
+        int minValue = Integer.MIN_VALUE;
+        int maxValue = Integer.MAX_VALUE;
+        int numberId = HashCodeBuilder.reflectionHashCode(this.getNamespace() + ":" + this.getTypeElement() + ":" + this.getName(), true);
+        return (numberId - minValue) / (maxValue - minValue);
     }
 
     /**

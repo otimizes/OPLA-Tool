@@ -131,6 +131,7 @@ public class InitialInteractiveExperimentTest {
         solutionSet.add(solution2);
 
         double[][] doubles = solutionSet.writeObjectivesAndArchitecturalElementsNumberToMatrix();
+        double[] doubles1 = solutionSet.writeArchitecturalEvaluationsToMatrix();
         System.out.println("aqui");
     }
 }
