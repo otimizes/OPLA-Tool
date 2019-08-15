@@ -58,7 +58,7 @@ public class InitialInteractiveExperimentTest {
         }
     }
 
-    @Test
+//    @Test
     public void savePositionsUML2() throws Exception {
 
         List<String> xmis = Arrays.asList(
@@ -92,6 +92,45 @@ public class InitialInteractiveExperimentTest {
 
         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(instance, ClusteringAlgorithm.KMEANS, solutionSet);
         System.out.println("fim");
+    }
 
+    @Test
+    public void fnCore() throws Exception {
+
+        List<String> xmis = Arrays.asList(
+                "/home/wmfsystem/oplatool/plas/agm/agm.uml"
+        );
+
+
+        ArchitectureBuilder architectureBuilder = new ArchitectureBuilder();
+        List<Architecture> arrayList = xmis.stream().map(x -> {
+            try {
+                return architectureBuilder.create(x);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }).collect(Collectors.toList());
+
+        ManagerApplicationConfig instance = ApplicationFile.getInstance();
+        NSGAIIConfig configs = new NSGAIIConfig();
+        configs.setPopulationSize(20);
+        configs.setClusteringAlgorithm(ClusteringAlgorithm.KMEANS);
+        configs.setNumberOfRuns(300);
+        configs.setOplaConfigs(new OPLAConfigs(Arrays.asList("COE", "ACLASS", "FM")));
+
+        SolutionSet solutionSet = new SolutionSet();
+        solutionSet.setCapacity(2);
+
+        OPLA opla = new OPLA("/home/wmfsystem/oplatool/plas/agm/agm.uml", configs);
+        Solution solution = new Solution(opla);
+        solutionSet.add(solution);
+
+        OPLA opla2 = new OPLA("/home/wmfsystem/oplatool/plas/agm/agm.uml", configs);
+        Solution solution2 = new Solution(opla2);
+        solutionSet.add(solution2);
+
+        double[][] doubles = solutionSet.writeObjectivesAndArchitecturalElementsNumberToMatrix();
+        System.out.println("aqui");
     }
 }

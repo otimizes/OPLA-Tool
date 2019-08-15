@@ -21,8 +21,9 @@
 
 package jmetal4.core;
 
-import arquitetura.representation.Architecture;
-import arquitetura.representation.Concern;
+import arquitetura.representation.*;
+import arquitetura.representation.Class;
+import arquitetura.representation.Package;
 import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import jmetal4.metrics.MetricsEvaluation;
@@ -358,11 +359,11 @@ public class SolutionSet implements Serializable {
     public void saveVariableToFile(Solution solution, String path, Logger logger, boolean generate) {
         int numberOfVariables = solution.getDecisionVariables().length;
 
-            for (int j = 0; j < numberOfVariables; j++) {
-                Architecture arch = (Architecture) solution.getDecisionVariables()[j];
-                if (generate)
-                    arch.save(arch, path, "");
-            }
+        for (int j = 0; j < numberOfVariables; j++) {
+            Architecture arch = (Architecture) solution.getDecisionVariables()[j];
+            if (generate)
+                arch.save(arch, path, "");
+        }
     }
 
     public void saveVariablesToFile(String path, Logger logger, boolean generate) {
@@ -557,23 +558,78 @@ public class SolutionSet implements Serializable {
             doublesObj[length + 4] = get(i).getOPLAProblem().getArchitecture_().getAllVariationPoints().size();
             doublesObj[length + 5] = get(i).getOPLAProblem().getArchitecture_().getAllVariants().size();
             doublesObj[length + 6] = get(i).getOPLAProblem().getArchitecture_().getAllVariabilities().size();
-//            doublesObj[length + 7] = get(i).getOPLAProblem().getArchitecture_().getAllConcerns().size();
-
-//            doublesObj[length + 8] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAbstractions().size();
-//            doublesObj[length + 9] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAgragations().size();
-//            doublesObj[length + 10] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllAssociations().size();
-//            doublesObj[length + 11] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllCompositions().size();
-//            doublesObj[length + 12] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllDependencies().size();
-//            doublesObj[length + 13] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllGeneralizations().size();
-//            doublesObj[length + 14] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllRealizations().size();
-//            doublesObj[length + 15] = get(i).getOPLAProblem().getArchitecture_().getRelationshipHolder().getAllUsage().size();
             doubles[i] = doublesObj;
         }
         return doubles;
     } // writeObjectivesAndElementsNumberToMatrix
 
     /**
+     * Copies the objectives and Elements Number of the solution set to a matrix
+     * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
+     * nrAbstractions, nrAgragations, nrAssociations, nrCompositions, nrDependencies, nrGeneralizations, nrRealizations, nrUsage
+     *
+     * @return A matrix containing the objectives
+     */
+    public double[][] writeObjectivesAndArchitecturalElementsNumberToMatrix() {
+        double[][] doubles = reduceTreeDimensionalArray(getSolutionSet().stream().map(solution -> {
+            double[] objectives = solution.getObjectives();
+            double[][] values = writeAllElementsFromSolution(solution);
+            double[][] newValues = new double[values.length][];
+            int i = 0;
+            for (double[] value : values) {
+                double[] newArray = new double[objectives.length + value.length];
+                System.arraycopy(objectives, 0, newArray, 0, objectives.length);
+                System.arraycopy(value, 0, newArray, 0, value.length);
+                newValues[i] = newArray;
+                i++;
+            }
+            return newValues;
+        }).toArray(double[][][]::new));
+        return doubles;
+    }
+
+    public double[][] reduceTreeDimensionalArray(double[][][] treeDimensionalArray) {
+        double[][] twoDimensionalArray = treeDimensionalArray[0];
+        for (int i = 1; i < treeDimensionalArray.length; i++) {
+            twoDimensionalArray = (double[][]) ArrayUtils.addAll(twoDimensionalArray, treeDimensionalArray[i]);
+        }
+        return twoDimensionalArray;
+    }
+
+    public double[][] writeAllElementsFromSolution(Solution solution) {
+        List<Element> allElementsFromSolution = getAllElementsFromSolution(solution);
+        double[][] elements = allElementsFromSolution.stream().map(element -> {
+            double[] elm = new double[4];
+            elm[0] = element instanceof Package ? (double) ((Package) element).getAllClasses().size() : 0;
+            elm[1] = element instanceof Package ? (double) ((Package) element).getAllInterfaces().size() : 0;
+            elm[2] = element instanceof Class ? (double) ((Class) element).getAllAttributes().size() : 0;
+            elm[3] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() :
+                    element instanceof Interface ? (double) ((Interface) element).getOperations().size() : 0;
+            return elm;
+        }).toArray(double[][]::new);
+        return elements;
+    }
+
+    public List<Element> getAllElementsFromSolution(Solution solution) {
+        List<Element> elements = new ArrayList<>();
+        elements.addAll(solution.getOPLAProblem().getArchitecture_().getAllPackages());
+        elements.addAll(solution.getOPLAProblem().getArchitecture_().getAllClasses());
+        elements.addAll(solution.getOPLAProblem().getArchitecture_().getAllInterfaces());
+        for (Class allClass : solution.getOPLAProblem().getArchitecture_().getAllClasses()) {
+            elements.addAll(allClass.getAllAttributes());
+        }
+        for (Class allClass : solution.getOPLAProblem().getArchitecture_().getAllClasses()) {
+            elements.addAll(allClass.getAllMethods());
+        }
+        for (Interface allClass : solution.getOPLAProblem().getArchitecture_().getAllInterfaces()) {
+            elements.addAll(allClass.getOperations());
+        }
+        return elements;
+    }
+
+    /**
      * Method to get a string of objectives and elements number. Used to create CSV files
+     *
      * @param startFrom Number of objectives
      * @return List of elements. If startFrom > 0, then specify the objectives number
      */
@@ -583,18 +639,19 @@ public class SolutionSet implements Serializable {
 
     /**
      * Create Create a list from objectives. Used to create CSV Files
+     *
      * @param interaction Interaction Number
      * @return List of objectives
      */
     public String toStringObjectives(String interaction) {
-        return Arrays.stream(writeObjectivesToMatrix()).map(p -> Arrays.asList(ArrayUtils.toObject(p)).toString().replace("]", interaction + ","+interaction+"\n").replace(",", "|").replace("[", interaction + "," + interaction +",").replaceAll("\\.0", "").replaceAll(" ", "")).collect(Collectors.joining());
+        return Arrays.stream(writeObjectivesToMatrix()).map(p -> Arrays.asList(ArrayUtils.toObject(p)).toString().replace("]", interaction + "," + interaction + "\n").replace(",", "|").replace("[", interaction + "," + interaction + ",").replaceAll("\\.0", "").replaceAll(" ", "")).collect(Collectors.joining());
     }
 
     public double[][] writeObjectivesAndElementsNumberEvaluationToMatrix() {
         double[][] doubles = writeObjectivesAndElementsNumberToMatrix();
         for (int i = 0; i < doubles.length; i++) {
             doubles[i] = Arrays.copyOf(doubles[i], doubles[i].length + 1);
-            doubles[i][doubles[i].length-1] = getSolutionSet().get(i).getEvaluation();
+            doubles[i][doubles[i].length - 1] = getSolutionSet().get(i).getEvaluation();
         }
         return doubles;
     } // writeObjectivesAndElementsNumberToMatrix
@@ -889,12 +946,13 @@ public class SolutionSet implements Serializable {
         return soma / valores.size();
     }
 
-    public void distributeUserEvaluation(DistributeUserEvaluation distributeUserEvaluation){
+    public void distributeUserEvaluation(DistributeUserEvaluation distributeUserEvaluation) {
         if (DistributeUserEvaluation.NONE.equals(distributeUserEvaluation)) return;
         Map<Double, Set<Integer>> clusterIds = getClusterIds();
-        if (hasUserEvaluation() && clusterIds.size() > 0){
+        if (hasUserEvaluation() && clusterIds.size() > 0) {
             List<Solution> solutionsList_ = this.solutionsList_;
-            if (DistributeUserEvaluation.MIDDLE.equals(distributeUserEvaluation)) solutionsList_ = solutionsList_.subList(0, Math.abs(solutionsList_.size() / 2));
+            if (DistributeUserEvaluation.MIDDLE.equals(distributeUserEvaluation))
+                solutionsList_ = solutionsList_.subList(0, Math.abs(solutionsList_.size() / 2));
             for (Solution solution : solutionsList_) {
                 if (solution.getEvaluation() == 0) {
                     int media = Math.abs(getMedia(clusterIds.get(solution.getClusterId())));

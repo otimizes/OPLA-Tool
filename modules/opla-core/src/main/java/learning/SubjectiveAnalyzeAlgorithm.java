@@ -1,5 +1,7 @@
 package learning;
 
+import arquitetura.representation.Element;
+import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import org.apache.log4j.Logger;
 import weka.classifiers.Evaluation;
@@ -7,6 +9,7 @@ import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.DenseInstance;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 //https://stackoverflow.com/questions/28694971/using-neural-network-class-in-weka-in-java-code
@@ -16,15 +19,18 @@ public class SubjectiveAnalyzeAlgorithm {
 
     private SolutionSet resultFront;
     private ClassifierAlgorithm algorithm;
-    private ArffExecution arffExecution;
     private int numObjectives;
-    private MultilayerPerceptron mlp;
+    private ArffExecution subjectiveArffExecution;
+    private MultilayerPerceptron subjectiveMLP;
+    private ArffExecution architecturalArffExecution;
+    private MultilayerPerceptron architecturalMLP;
     private int trainingTime = 2500;
     private DistributeUserEvaluation distributeUserEvaluation = DistributeUserEvaluation.ALL;
     private EvaluationModel evaluationModel = EvaluationModel.CROSS_VALIDATION;
     private double momentum = 0.2;
     private double learningRate = 0.3;
     private String hiddenLayers;
+    private List<Element> evaluatedElements;
 
     public SubjectiveAnalyzeAlgorithm() {
     }
@@ -34,7 +40,8 @@ public class SubjectiveAnalyzeAlgorithm {
         this.resultFront = resultFront;
         this.algorithm = algorithm;
         distributeUserEvaluations(resultFront);
-        this.arffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
+        this.subjectiveArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
+        this.architecturalArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
     }
 
@@ -42,7 +49,7 @@ public class SubjectiveAnalyzeAlgorithm {
         this.resultFront = resultFront;
         this.algorithm = algorithm;
         distributeUserEvaluations(resultFront);
-        this.arffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
+        this.subjectiveArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
     }
 
@@ -74,18 +81,24 @@ public class SubjectiveAnalyzeAlgorithm {
      */
     public SolutionSet MLP(SolutionSet solutionSet) throws Exception {
         long startsIn = new Date().getTime();
-        if (mlp == null) {
-            mlp = new MultilayerPerceptron();
-            mlp.setHiddenLayers(getHiddenLayers());
-            mlp.setTrainingTime(getTrainingTime());
-            mlp.setLearningRate(getLearningRate());
-            mlp.setMomentum(getMomentum());
+        if (subjectiveMLP == null) {
+            subjectiveMLP = new MultilayerPerceptron();
+            subjectiveMLP.setHiddenLayers(getHiddenLayers());
+            subjectiveMLP.setTrainingTime(getTrainingTime());
+            subjectiveMLP.setLearningRate(getLearningRate());
+            subjectiveMLP.setMomentum(getMomentum());
+
+            architecturalMLP = new MultilayerPerceptron();
+            architecturalMLP.setHiddenLayers(getHiddenLayers());
+            architecturalMLP.setTrainingTime(getTrainingTime());
+            architecturalMLP.setLearningRate(getLearningRate());
+            architecturalMLP.setMomentum(getMomentum());
         }
 
         if (solutionSet != null) {
             if (!solutionSet.hasUserEvaluation()) {
                 for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
-                    solutionSet.get(i).setEvaluation((int) mlp.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
+                    solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
                 }
             } else {
                 distributeUserEvaluations(solutionSet);
@@ -93,24 +106,36 @@ public class SubjectiveAnalyzeAlgorithm {
             ArffExecution newArff = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(), solutionSet.writeUserEvaluationsToMatrix(), null);
             newArff.getData().setClassIndex(newArff.getAttrIndices());
             resultFront.getSolutionSet().addAll(solutionSet.getSolutionSet());
-            arffExecution.getData().addAll(newArff.getData());
+            subjectiveArffExecution.getData().addAll(newArff.getData());
         }
-        arffExecution.getData().setClassIndex(arffExecution.getAttrIndices());
-        mlp.buildClassifier(arffExecution.getData());
-        Evaluation eval = new Evaluation(arffExecution.getData());
+        subjectiveArffExecution.getData().setClassIndex(subjectiveArffExecution.getAttrIndices());
+        architecturalArffExecution.getData().setClassIndex(architecturalArffExecution.getAttrIndices());
+        subjectiveMLP.buildClassifier(subjectiveArffExecution.getData());
+        architecturalMLP.buildClassifier(architecturalArffExecution.getData());
+        Evaluation subjectiveEval = new Evaluation(subjectiveArffExecution.getData());
+        Evaluation architectureEval = new Evaluation(subjectiveArffExecution.getData());
         switch (evaluationModel) {
             case TRAINING_SET:
-                eval.evaluateModel(mlp, arffExecution.getData());
+                subjectiveEval.evaluateModel(subjectiveMLP, subjectiveArffExecution.getData());
+                architectureEval.evaluateModel(architecturalMLP, architecturalArffExecution.getData());
                 break;
             case CROSS_VALIDATION:
-                eval.crossValidateModel(mlp, arffExecution.getData(), 5, new Random(1));
+                subjectiveEval.crossValidateModel(subjectiveMLP, subjectiveArffExecution.getData(), 5, new Random(1));
+                architectureEval.crossValidateModel(architecturalMLP, architecturalArffExecution.getData(), 5, new Random(1));
                 break;
         }
-        System.out.println("Error: " + eval.errorRate());
-        System.out.println("Summary: " + eval.toSummaryString());
+        System.out.println("----------------------------------------> Subjective Evaluation <----------------------------------------");
+        System.out.println("Subjective Error: " + subjectiveEval.errorRate());
+        System.out.println("Subjective Summary: " + subjectiveEval.toSummaryString());
+        for (int i = 0; i < subjectiveArffExecution.getData().size(); i++) {
+            System.out.println("Solution " + i + ": Expected: " + resultFront.get(i).getEvaluation() + " - Predicted: " + ((int) subjectiveMLP.classifyInstance(subjectiveArffExecution.getData().get(i))));
+        }
 
-        for (int i = 0; i < arffExecution.getData().size(); i++) {
-            System.out.println("Solution " + i + ": Expected: " + resultFront.get(i).getEvaluation() + " - Predicted: " + ((int) mlp.classifyInstance(arffExecution.getData().get(i))));
+        System.out.println("----------------------------------------> Architectural Evaluation <----------------------------------------");
+        System.out.println("Architecture Error: " + architectureEval.errorRate());
+        System.out.println("Architecture Summary: " + architectureEval.toSummaryString());
+        for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
+            System.out.println("Solution " + i + ": Expected: " + resultFront.get(i).getEvaluation() + " - Predicted: " + ((int) subjectiveMLP.classifyInstance(subjectiveArffExecution.getData().get(i))));
         }
         System.out.println("Tempo: " + ((new Date().getTime() - startsIn) / 1000));
         return resultFront;
@@ -140,12 +165,12 @@ public class SubjectiveAnalyzeAlgorithm {
         this.algorithm = algorithm;
     }
 
-    public ArffExecution getArffExecution() {
-        return arffExecution;
+    public ArffExecution getSubjectiveArffExecution() {
+        return subjectiveArffExecution;
     }
 
-    public void setArffExecution(ArffExecution arffExecution) {
-        this.arffExecution = arffExecution;
+    public void setSubjectiveArffExecution(ArffExecution subjectiveArffExecution) {
+        this.subjectiveArffExecution = subjectiveArffExecution;
     }
 
     public int getNumObjectives() {
@@ -157,12 +182,12 @@ public class SubjectiveAnalyzeAlgorithm {
     }
 
 
-    public MultilayerPerceptron getMlp() {
-        return mlp;
+    public MultilayerPerceptron getSubjectiveMLP() {
+        return subjectiveMLP;
     }
 
-    public void setMlp(MultilayerPerceptron mlp) {
-        this.mlp = mlp;
+    public void setSubjectiveMLP(MultilayerPerceptron subjectiveMLP) {
+        this.subjectiveMLP = subjectiveMLP;
     }
 
     public int getTrainingTime() {
@@ -206,10 +231,34 @@ public class SubjectiveAnalyzeAlgorithm {
     }
 
     public String getHiddenLayers() {
-        return hiddenLayers == null ? String.valueOf(Math.round(arffExecution.getAttrIndices())) : hiddenLayers;
+        return hiddenLayers == null ? String.valueOf(Math.round(subjectiveArffExecution.getAttrIndices())) : hiddenLayers;
     }
 
     public void setHiddenLayers(String hiddenLayers) {
         this.hiddenLayers = hiddenLayers;
+    }
+
+    public ArffExecution getArchitecturalArffExecution() {
+        return architecturalArffExecution;
+    }
+
+    public void setArchitecturalArffExecution(ArffExecution architecturalArffExecution) {
+        this.architecturalArffExecution = architecturalArffExecution;
+    }
+
+    public MultilayerPerceptron getArchitecturalMLP() {
+        return architecturalMLP;
+    }
+
+    public void setArchitecturalMLP(MultilayerPerceptron architecturalMLP) {
+        this.architecturalMLP = architecturalMLP;
+    }
+
+    public List<Element> getEvaluatedElements() {
+        return evaluatedElements;
+    }
+
+    public void setEvaluatedElements(List<Element> evaluatedElements) {
+        this.evaluatedElements = evaluatedElements;
     }
 }
