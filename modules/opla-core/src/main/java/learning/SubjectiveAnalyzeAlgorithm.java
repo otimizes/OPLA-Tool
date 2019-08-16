@@ -3,6 +3,7 @@ package learning;
 import arquitetura.representation.Element;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.MultilayerPerceptron;
@@ -100,14 +101,23 @@ public class SubjectiveAnalyzeAlgorithm {
             if (!solutionSet.hasUserEvaluation()) {
                 for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
                     solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
+                    for (Element element : solutionSet.get(i).getOPLAProblem().getArchitecture_().getElements()) {
+                        double[] data = solutionSet.get(i).getObjectives();
+                        data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element));
+                        element.setFreeze(architecturalMLP.classifyInstance(new DenseInstance(1.0, data)));
+                    }
                 }
             } else {
                 distributeUserEvaluations(solutionSet);
             }
-            ArffExecution newArff = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(), solutionSet.writeUserEvaluationsToMatrix(), null);
-            newArff.getData().setClassIndex(newArff.getAttrIndices());
+            ArffExecution newArffSubjectiveMLP = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(), solutionSet.writeUserEvaluationsToMatrix(), null);
+            newArffSubjectiveMLP.getData().setClassIndex(newArffSubjectiveMLP.getAttrIndices());
             resultFront.getSolutionSet().addAll(solutionSet.getSolutionSet());
-            subjectiveArffExecution.getData().addAll(newArff.getData());
+            subjectiveArffExecution.getData().addAll(newArffSubjectiveMLP.getData());
+
+            ArffExecution newArffArchitectureMLP = new ArffExecution(solutionSet.writeObjectivesAndArchitecturalElementsNumberToMatrix(), solutionSet.writeArchitecturalEvaluationsToMatrix(), null);
+            newArffArchitectureMLP.getData().setClassIndex(newArffArchitectureMLP.getAttrIndices());
+            architecturalArffExecution.getData().addAll(newArffArchitectureMLP.getData());
         }
         subjectiveArffExecution.getData().setClassIndex(subjectiveArffExecution.getAttrIndices());
         architecturalArffExecution.getData().setClassIndex(architecturalArffExecution.getAttrIndices());
@@ -132,7 +142,7 @@ public class SubjectiveAnalyzeAlgorithm {
             System.out.println("Solution " + i + ": Expected: " + resultFront.get(i).getEvaluation() + " - Predicted: " + ((int) subjectiveMLP.classifyInstance(subjectiveArffExecution.getData().get(i))));
         }
 
-        System.out.println("----------------------------------------> Architectural Evaluation <----------------------------------------");
+        System.out.println("----------------------------------------> Architectural Evaluation <-------------------------------------");
         System.out.println("Architecture Error: " + architectureEval.errorRate());
         System.out.println("Architecture Summary: " + architectureEval.toSummaryString());
         System.out.println("Tempo: " + ((new Date().getTime() - startsIn) / 1000));

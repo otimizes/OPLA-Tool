@@ -199,6 +199,14 @@ public abstract class Element implements Serializable {
         return isFreeze();
     }
 
+    public boolean setFreeze(boolean bool) {
+        return bool ? setFreeze() : unsetFreeze();
+    }
+
+    public boolean setFreeze(double bool) {
+        return bool > 0 ? setFreeze() : unsetFreeze();
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
