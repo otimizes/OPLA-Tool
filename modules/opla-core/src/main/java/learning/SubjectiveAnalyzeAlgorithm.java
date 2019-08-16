@@ -92,7 +92,7 @@ public class SubjectiveAnalyzeAlgorithm {
             subjectiveMLP.setMomentum(getMomentum());
 
             architecturalMLP = new MultilayerPerceptron();
-            architecturalMLP.setHiddenLayers(getHiddenLayers());
+            architecturalMLP.setHiddenLayers(getArchitecturalMLPHiddenLayers());
             architecturalMLP.setTrainingTime(getTrainingTime());
             architecturalMLP.setLearningRate(getLearningRate());
             architecturalMLP.setMomentum(getMomentum());
@@ -152,10 +152,10 @@ public class SubjectiveAnalyzeAlgorithm {
         System.out.println("----------------------------------------> Architectural Evaluation <-------------------------------------");
         System.out.println("Architecture Error: " + architectureEval.errorRate());
         System.out.println("Architecture Summary: " + architectureEval.toSummaryString());
-        System.out.println("Tempo: " + ((new Date().getTime() - startsIn) / 1000));
 //        for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
 //            System.out.println("Solution " + i + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))));
 //        }
+        System.out.println("Tempo: " + ((new Date().getTime() - startsIn) / 1000));
         return resultFront;
     }
 
@@ -250,6 +250,10 @@ public class SubjectiveAnalyzeAlgorithm {
 
     public String getHiddenLayers() {
         return hiddenLayers == null ? String.valueOf(Math.round(subjectiveArffExecution.getAttrIndices())) : hiddenLayers;
+    }
+
+    public String getArchitecturalMLPHiddenLayers() {
+        return hiddenLayers == null ? String.valueOf(Math.round(architecturalArffExecution.getAttrIndices())) : hiddenLayers;
     }
 
     public void setHiddenLayers(String hiddenLayers) {

@@ -585,7 +585,7 @@ public class SolutionSet implements Serializable {
         for (double[] value : values) {
             double[] newArray = new double[objectives.length + value.length];
             System.arraycopy(objectives, 0, newArray, 0, objectives.length);
-            System.arraycopy(value, 0, newArray, 0, value.length);
+            System.arraycopy(value, 0, newArray, objectives.length, value.length);
             newValues[i] = newArray;
             i++;
         }
