@@ -42,6 +42,7 @@ public class InteractiveSolutions extends JDialog {
     String fileOnAnalyses;
     String plaNameOnAnalyses;
     Solution solutionOnAnalyses;
+    JProgressBar jProgressBar = new javax.swing.JProgressBar();
 
     public InteractiveSolutions(ManagerApplicationConfig config, ClusteringAlgorithm clusteringAlgorithm, SolutionSet solutionSet) {
         InteractiveSolutions.currentExecution++;
@@ -387,7 +388,12 @@ public class InteractiveSolutions extends JDialog {
             solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses, LOGGER, true);
             LOGGER.info("Opened solution " + nodeInfo.toString());
             fileOnAnalyses = config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di");
-            Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), fileOnAnalyses);
+            Process process = Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), fileOnAnalyses);
+            try {
+                process.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         private void subjectiveAnalyseFn(int indexSolution) {

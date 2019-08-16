@@ -34,13 +34,12 @@ public class InitialInteractiveExperimentTest {
 
     public static final Logger LOGGER = Logger.getLogger(InitialInteractiveExperimentTest.class);
 
-    //    @Test
+    @Test
     public void savePositionsUML() throws Exception {
 
         List<String> xmis = Arrays.asList(
                 "/home/wmfsystem/oplatool/plas/agm/agm.uml"
         );
-
 
         ArchitectureBuilder architectureBuilder = new ArchitectureBuilder();
         List<Architecture> arrayList = xmis.stream().map(x -> {
@@ -58,13 +57,16 @@ public class InitialInteractiveExperimentTest {
 
         for (Architecture architecture : arrayList) {
             System.out.println();
-            architecture.save(architecture, "agm2", "2");
+            String i = "2";
+            String path = "agm" + i;
+            architecture.save(architecture, path, i);
             System.out.println(architecture.getName());
-            Utils.executePapyrus("/home/wmfsystem/App/eclipse/eclipse", "/home/wmfsystem/oplatool/output/agm.di");
+            Process process = Utils.executePapyrus("/home/wmfsystem/App/eclipse/eclipse", "/home/wmfsystem/oplatool/output/" + path + path + ".di");
+            process.waitFor();
         }
     }
 
-    //    @Test
+        @Test
     public void savePositionsUML2() throws Exception {
 
         List<String> xmis = Arrays.asList(
@@ -94,7 +96,6 @@ public class InitialInteractiveExperimentTest {
         solutionSet.setCapacity(1);
         Solution solution = new Solution(opla);
         solutionSet.add(solution);
-
 
         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(instance, ClusteringAlgorithm.KMEANS, solutionSet);
         System.out.println("fim");
@@ -132,7 +133,6 @@ public class InitialInteractiveExperimentTest {
 
 
         System.out.println("aaaaa");
-
 
 
     }

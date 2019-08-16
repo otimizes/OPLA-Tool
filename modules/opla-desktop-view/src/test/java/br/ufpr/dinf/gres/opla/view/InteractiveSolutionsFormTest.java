@@ -84,7 +84,7 @@ public class InteractiveSolutionsFormTest {
         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.KMEANS, solutionSet);
     }
 
-//    @Test
+    @Test
     public void main2() throws ClassNotFoundException, IOException {
 
 //        Object[] options = {
