@@ -103,6 +103,41 @@ public class InitialInteractiveExperimentTest {
     @Test
     public void fnCore() throws Exception {
 
+        SolutionSet solutionSet1a = generateSolutionSet();
+
+        LOGGER.info("1º Interação COM NOTAS");
+        //        1º Interação COM NOTAS
+        Clustering clustering = new Clustering(solutionSet1a, ClusteringAlgorithm.KMEANS);
+        clustering.setNumClusters(4);
+        clustering.run();
+        clustering.getSolutionsByClusterId(0).get(0).setEvaluation(5);
+        clustering.getSolutionsByClusterId(0).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
+        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(0).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().getName());
+        clustering.getSolutionsByClusterId(1).get(0).setEvaluation(3);
+        clustering.getSolutionsByClusterId(1).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
+        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(1).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().getName());
+        clustering.getSolutionsByClusterId(2).get(0).setEvaluation(2);
+        clustering.getSolutionsByClusterId(2).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
+        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(2).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().getName());
+        clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
+        clustering.getSolutionsByClusterId(3).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
+        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(3).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().getName());
+        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1a, ClassifierAlgorithm.CLUSTERING_MLP, DistributeUserEvaluation.MIDDLE);
+        subjectiveAnalyzeAlgorithm.run(null);
+
+        LOGGER.info("1º Interação SEM NOTAS");
+//        //        1º Interação SEM NOTAS
+        SolutionSet solutionSet1b = generateSolutionSet();
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+
+
+        System.out.println("aaaaa");
+
+
+
+    }
+
+    private SolutionSet generateSolutionSet() throws Exception {
         List<String> xmis = Arrays.asList(
                 "/home/wmfsystem/oplatool/plas/agm/agm.uml"
         );
@@ -126,7 +161,7 @@ public class InitialInteractiveExperimentTest {
         configs.setOplaConfigs(new OPLAConfigs(Arrays.asList("COE", "ACLASS", "FM")));
 
         SolutionSet solutionSet = new SolutionSet();
-        int qtdSolutions = 20;
+        int qtdSolutions = 30;
         solutionSet.setCapacity(qtdSolutions);
 
         for (int i = 0; i < qtdSolutions; i++) {
@@ -141,29 +176,6 @@ public class InitialInteractiveExperimentTest {
             opla.evaluateConstraints(solution);
             solutionSet.add(solution);
         }
-
-        LOGGER.info("1º Interação COM NOTAS");
-        //        1º Interação COM NOTAS
-        Clustering clustering = new Clustering(solutionSet, ClusteringAlgorithm.KMEANS);
-        clustering.setNumClusters(4);
-        clustering.run();
-        clustering.getSolutionsByClusterId(0).get(0).setEvaluation(5);
-        clustering.getSolutionsByClusterId(0).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
-        clustering.getSolutionsByClusterId(1).get(0).setEvaluation(3);
-        clustering.getSolutionsByClusterId(1).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
-        clustering.getSolutionsByClusterId(2).get(0).setEvaluation(2);
-        clustering.getSolutionsByClusterId(2).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
-        clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        clustering.getSolutionsByClusterId(3).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
-        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet, ClassifierAlgorithm.CLUSTERING_MLP, DistributeUserEvaluation.MIDDLE);
-        subjectiveAnalyzeAlgorithm.run(null);
-
-        LOGGER.info("1º Interação SEM NOTAS");
-//        //        1º Interação SEM NOTAS
-//        SolutionSet solutionSet1b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 11L);
-//        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
-
-
-
+        return solutionSet;
     }
 }

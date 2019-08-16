@@ -6,6 +6,7 @@ import jmetal4.core.SolutionSet;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import weka.classifiers.Evaluation;
+import weka.classifiers.functions.LibSVM;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.DenseInstance;
 
@@ -104,7 +105,13 @@ public class SubjectiveAnalyzeAlgorithm {
                     for (Element element : solutionSet.get(i).getOPLAProblem().getArchitecture_().getElements()) {
                         double[] data = solutionSet.get(i).getObjectives();
                         data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element));
-                        element.setFreeze(architecturalMLP.classifyInstance(new DenseInstance(1.0, data)));
+                        data = ArrayUtils.addAll(data, new double[]{element.isFreeze() ? 1 : 0});
+                        DenseInstance denseInstance = new DenseInstance(1.0, data);
+                        denseInstance.setDataset(architecturalArffExecution.getData());
+                        element.setFreeze(architecturalMLP.classifyInstance(denseInstance));
+                        if (element.isFreeze()) {
+                            System.out.println("Congelou " + element.getName());
+                        }
                     }
                 }
             } else {
@@ -138,14 +145,17 @@ public class SubjectiveAnalyzeAlgorithm {
         System.out.println("----------------------------------------> Subjective Evaluation <----------------------------------------");
         System.out.println("Subjective Error: " + subjectiveEval.errorRate());
         System.out.println("Subjective Summary: " + subjectiveEval.toSummaryString());
-        for (int i = 0; i < subjectiveArffExecution.getData().size(); i++) {
-            System.out.println("Solution " + i + ": Expected: " + resultFront.get(i).getEvaluation() + " - Predicted: " + ((int) subjectiveMLP.classifyInstance(subjectiveArffExecution.getData().get(i))));
-        }
+//        for (int i = 0; i < subjectiveArffExecution.getData().size(); i++) {
+//            System.out.println("Solution " + i + ": Expected: " + resultFront.get(i).getEvaluation() + " - Predicted: " + ((int) subjectiveMLP.classifyInstance(subjectiveArffExecution.getData().get(i))));
+//        }
 
         System.out.println("----------------------------------------> Architectural Evaluation <-------------------------------------");
         System.out.println("Architecture Error: " + architectureEval.errorRate());
         System.out.println("Architecture Summary: " + architectureEval.toSummaryString());
         System.out.println("Tempo: " + ((new Date().getTime() - startsIn) / 1000));
+//        for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
+//            System.out.println("Solution " + i + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))));
+//        }
         return resultFront;
     }
 
@@ -252,14 +262,6 @@ public class SubjectiveAnalyzeAlgorithm {
 
     public void setArchitecturalArffExecution(ArffExecution architecturalArffExecution) {
         this.architecturalArffExecution = architecturalArffExecution;
-    }
-
-    public MultilayerPerceptron getArchitecturalMLP() {
-        return architecturalMLP;
-    }
-
-    public void setArchitecturalMLP(MultilayerPerceptron architecturalMLP) {
-        this.architecturalMLP = architecturalMLP;
     }
 
     public List<Element> getEvaluatedElements() {
