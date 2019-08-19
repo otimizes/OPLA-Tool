@@ -36,7 +36,6 @@ public class InitialInteractiveExperimentTest {
 
     @Test
     public void savePositionsUML() throws Exception {
-
         List<String> xmis = Arrays.asList(
                 "/home/wmfsystem/oplatool/plas/agm/agm.uml"
         );
@@ -66,13 +65,11 @@ public class InitialInteractiveExperimentTest {
         }
     }
 
-        @Test
+    @Test
     public void savePositionsUML2() throws Exception {
-
         List<String> xmis = Arrays.asList(
                 "/home/wmfsystem/oplatool/plas/agm/agm.uml"
         );
-
 
         ArchitectureBuilder architectureBuilder = new ArchitectureBuilder();
         List<Architecture> arrayList = xmis.stream().map(x -> {

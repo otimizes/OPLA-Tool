@@ -1,12 +1,10 @@
 package br.ufpr.dinf.gres.opla.view;
 
 import arquitetura.representation.Architecture;
-import br.ufpr.dinf.gres.opla.config.ApplicationFile;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
-import jmetal4.core.Variable;
 import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.experiments.OPLAConfigs;
 import jmetal4.problems.OPLA;
@@ -42,7 +40,11 @@ public class InteractiveSolutions extends JDialog {
     String fileOnAnalyses;
     String plaNameOnAnalyses;
     Solution solutionOnAnalyses;
-    JProgressBar jProgressBar = new javax.swing.JProgressBar();
+    JDialog dialog;
+    JProgressBar jProgressBar = new JProgressBar();
+
+    public InteractiveSolutions() {
+    }
 
     public InteractiveSolutions(ManagerApplicationConfig config, ClusteringAlgorithm clusteringAlgorithm, SolutionSet solutionSet) {
         InteractiveSolutions.currentExecution++;
@@ -372,10 +374,15 @@ public class InteractiveSolutions extends JDialog {
                 subjectiveAnalyse.addActionListener(e -> {
                     LOGGER.info("Subjective Analyse " + nodeInfo.toString());
                     new Thread(() -> {
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
                         openOnPapyrus(node, nodeInfo);
                         subjectiveAnalyseFn(Integer.parseInt(((DefaultMutableTreeNode) node.getFirstChild()).getUserObject().toString().split(":")[1].trim()));
                     }).start();
-                    JOptionPane.showMessageDialog(this, "Please, wait to open the PLA on Papyrus.");
+                    enableProgressOpen();
                 });
                 add(subjectiveAnalyse);
             }
@@ -383,14 +390,29 @@ public class InteractiveSolutions extends JDialog {
 
         private void openOnPapyrus(DefaultMutableTreeNode node, Object nodeInfo) {
             Integer id = Integer.valueOf(node.getFirstChild().toString().replace("Id: ", ""));
+            jProgressBar.setValue(20);
             plaNameOnAnalyses = "Interaction_" + InteractiveSolutions.currentExecution + "_" + nodeInfo.toString();
             solutionOnAnalyses = solutionSet.get(id);
+            jProgressBar.setValue(30);
             solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses, LOGGER, true);
+            jProgressBar.setValue(60);
             LOGGER.info("Opened solution " + nodeInfo.toString());
             fileOnAnalyses = config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di");
+            jProgressBar.setValue(80);
             Process process = Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), fileOnAnalyses);
             try {
-                process.waitFor();
+                new Thread(() -> {
+                    try {
+                        jProgressBar.setValue(90);
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    disableProgressOpen();
+                }).start();
+                if (process != null) {
+                    process.waitFor();
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -401,6 +423,27 @@ public class InteractiveSolutions extends JDialog {
             bodyPanelFn(indexSolution);
 
         }
+    }
+
+    private void enableProgressOpen() {
+        JFrame frame = new JFrame("Opening File...");
+        frame.setUndecorated(true);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setBounds(10, 10, 300, 100);
+        JOptionPane pane = new JOptionPane();
+        pane.setMessage("Wait for the file to open...");
+        jProgressBar = new JProgressBar(1, 100);
+//        jProgressBar.setIndeterminate(true);
+        pane.add(jProgressBar, 1);
+        dialog = pane.createDialog(frame, "Opening File...");
+        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        pane.remove(pane.getComponents()[2]);
+        dialog.setVisible(true);
+        dialog.dispose();
+    }
+
+    private void disableProgressOpen() {
+        dialog.setVisible(false);
     }
 
 }
