@@ -29,7 +29,7 @@ public class SubjectiveAnalyzeAlgorithm {
     private MultilayerPerceptron architecturalMLP;
     private int trainingTime = 2500;
     private DistributeUserEvaluation distributeUserEvaluation = DistributeUserEvaluation.ALL;
-    private EvaluationModel evaluationModel = EvaluationModel.TRAINING_SET;
+    private EvaluationModel evaluationModel = EvaluationModel.CROSS_VALIDATION;
     private double momentum = 0.2;
     private double learningRate = 0.3;
     private String hiddenLayers;

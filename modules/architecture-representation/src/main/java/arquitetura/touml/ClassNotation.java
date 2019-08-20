@@ -39,6 +39,13 @@ public class ClassNotation extends XmiHelper {
     public static int yPackage = 10;
     public static String lastNamespace = "";
 
+    public static void clearConfigurations() {
+        ClassNotation.xElement = 1;
+        ClassNotation.yElement = 1;
+        ClassNotation.xPackage = 1;
+        ClassNotation.lastNamespace = "";
+    }
+
 
     public ClassNotation(DocumentManager documentManager, Node notatioChildren) {
         this.documentManager = documentManager;

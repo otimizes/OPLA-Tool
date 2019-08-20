@@ -125,6 +125,8 @@ public class GenerateArchitecture extends ArchitectureBase {
 
     public void generate(Architecture a, String output) {
 
+        ClassNotation.clearConfigurations();
+
         getLogLog(); //para poder capturar logs na GUI.
 
         UtilResources.clearConsole();
