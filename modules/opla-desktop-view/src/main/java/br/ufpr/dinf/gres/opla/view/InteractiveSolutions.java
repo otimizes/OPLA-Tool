@@ -41,7 +41,7 @@ public class InteractiveSolutions extends JDialog {
     String plaNameOnAnalyses;
     Solution solutionOnAnalyses;
     JDialog dialog;
-    JProgressBar jProgressBar = new JProgressBar();
+    JProgressBar progressBar = new JProgressBar();
 
     public InteractiveSolutions() {
     }
@@ -54,7 +54,7 @@ public class InteractiveSolutions extends JDialog {
         setTitle("Architectures");
         setModal(true);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setPreferredSize(new Dimension(screenSize.width - 300, screenSize.height - 300));
+        setPreferredSize(new Dimension(screenSize.width - 500, screenSize.height - 300));
         setLocationByPlatform(true);
 
         try {
@@ -75,10 +75,11 @@ public class InteractiveSolutions extends JDialog {
                         if (v.stream().filter(vv -> vv > 0).count() <= 0) complete.set(false);
                     });
                     if (!complete.get()) {
-                        JOptionPane.showMessageDialog(e.getComponent(), "Please, evaluate one solution by cluster.");
+//                        JOptionPane.showMessageDialog(e.getComponent(), "Please, evaluate one solution by cluster.");
                     } else {
-                        dispose();
                     }
+                        dispose();
+                        setVisible(false);
                     System.out.println("jdialog window closing event received");
                 }
             });
@@ -390,20 +391,20 @@ public class InteractiveSolutions extends JDialog {
 
         private void openOnPapyrus(DefaultMutableTreeNode node, Object nodeInfo) {
             Integer id = Integer.valueOf(node.getFirstChild().toString().replace("Id: ", ""));
-            jProgressBar.setValue(20);
+            progressBar.setValue(20);
             plaNameOnAnalyses = "Interaction_" + InteractiveSolutions.currentExecution + "_" + nodeInfo.toString();
             solutionOnAnalyses = solutionSet.get(id);
-            jProgressBar.setValue(30);
+            progressBar.setValue(30);
             solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses, LOGGER, true);
-            jProgressBar.setValue(60);
+            progressBar.setValue(60);
             LOGGER.info("Opened solution " + nodeInfo.toString());
             fileOnAnalyses = config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di");
-            jProgressBar.setValue(80);
+            progressBar.setValue(80);
             Process process = Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), fileOnAnalyses);
             try {
                 new Thread(() -> {
                     try {
-                        jProgressBar.setValue(90);
+                        progressBar.setValue(90);
                         Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -426,24 +427,19 @@ public class InteractiveSolutions extends JDialog {
     }
 
     private void enableProgressOpen() {
-        JFrame frame = new JFrame("Opening File...");
-        frame.setUndecorated(true);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setBounds(10, 10, 300, 100);
-        JOptionPane pane = new JOptionPane();
-        pane.setMessage("Wait for the file to open...");
-        jProgressBar = new JProgressBar(1, 100);
-//        jProgressBar.setIndeterminate(true);
-        pane.add(jProgressBar, 1);
-        dialog = pane.createDialog(frame, "Opening File...");
-        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-        pane.remove(pane.getComponents()[2]);
+        dialog = new JDialog(this, "Opening File...");
+        progressBar = new JProgressBar(JProgressBar.HORIZONTAL);
+        dialog.setLayout(new FlowLayout(FlowLayout.CENTER));
+        dialog.setLocationRelativeTo(this);
+        dialog.setAlwaysOnTop(true);
+        dialog.add(progressBar);
+        dialog.setSize(300, 100);
         dialog.setVisible(true);
-        dialog.dispose();
     }
 
     private void disableProgressOpen() {
         dialog.setVisible(false);
+        dialog.dispose();
     }
 
 }

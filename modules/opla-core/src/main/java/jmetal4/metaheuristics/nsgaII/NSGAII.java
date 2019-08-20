@@ -231,8 +231,10 @@ public class NSGAII extends Algorithm {
                     offspringPopulation = interactiveFunction.run(offspringPopulation);
                     if (subjectiveAnalyzeAlgorithm == null) {
                         subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(offspringPopulation, ClassifierAlgorithm.CLUSTERING_MLP);
-                        subjectiveAnalyzeAlgorithm.run(null);
-                    } else subjectiveAnalyzeAlgorithm.run(offspringPopulation);
+                        subjectiveAnalyzeAlgorithm.addInteraction(null);
+                    } else {
+                        subjectiveAnalyzeAlgorithm.addInteraction(offspringPopulation);
+                    }
                     bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
                     // The score is set up to 0 because in future mutations the object can be modified and due to the score the modified solution is manteined imutable
                     for (Solution solution : offspringPopulation.getSolutionSet()) {
@@ -243,7 +245,16 @@ public class NSGAII extends Algorithm {
 
 //              MID MLP
                 if (interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction) {
-                    subjectiveAnalyzeAlgorithm.run(offspringPopulation);
+                    subjectiveAnalyzeAlgorithm.addInteraction(offspringPopulation);
+                }
+
+                if (interactive && subjectiveAnalyzeAlgorithm != null && !subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions) {
+                    subjectiveAnalyzeAlgorithm.run();
+                    subjectiveAnalyzeAlgorithm.setTrained(true);
+                }
+
+                if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
+                    subjectiveAnalyzeAlgorithm.evaluateSolutionSet(offspringPopulation);
                 }
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
