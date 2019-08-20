@@ -121,14 +121,16 @@ public class InitialInteractiveExperimentTest {
         clustering.getSolutionsByClusterId(3).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
         System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(3).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().getName());
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1a, ClassifierAlgorithm.CLUSTERING_MLP, DistributeUserEvaluation.MIDDLE);
-        subjectiveAnalyzeAlgorithm.run(null);
 
         LOGGER.info("1º Interação SEM NOTAS");
 //        //        1º Interação SEM NOTAS
         SolutionSet solutionSet1b = generateSolutionSet();
-        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
 
+        subjectiveAnalyzeAlgorithm.addInteraction(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.addInteraction(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.addInteraction(solutionSet1b);
 
+        subjectiveAnalyzeAlgorithm.run();
         System.out.println("aaaaa");
 
 
@@ -152,13 +154,13 @@ public class InitialInteractiveExperimentTest {
 
         ManagerApplicationConfig instance = ApplicationFile.getInstance();
         NSGAIIConfig configs = new NSGAIIConfig();
-        configs.setPopulationSize(20);
+        configs.setPopulationSize(200);
         configs.setClusteringAlgorithm(ClusteringAlgorithm.KMEANS);
-        configs.setNumberOfRuns(300);
+        configs.setNumberOfRuns(3000);
         configs.setOplaConfigs(new OPLAConfigs(Arrays.asList("COE", "ACLASS", "FM")));
 
         SolutionSet solutionSet = new SolutionSet();
-        int qtdSolutions = 30;
+        int qtdSolutions = 200;
         solutionSet.setCapacity(qtdSolutions);
 
         for (int i = 0; i < qtdSolutions; i++) {
@@ -175,4 +177,5 @@ public class InitialInteractiveExperimentTest {
         }
         return solutionSet;
     }
+
 }

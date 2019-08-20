@@ -31,6 +31,11 @@
 			<version>1.0.4</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.aparapi</groupId>
+			<artifactId>aparapi</artifactId>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/LibSVM -->
 		<dependency>
 			<groupId>nz.ac.waikato.cms.weka</groupId>

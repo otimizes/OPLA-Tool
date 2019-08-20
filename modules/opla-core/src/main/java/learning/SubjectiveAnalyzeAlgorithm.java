@@ -125,7 +125,24 @@ public class SubjectiveAnalyzeAlgorithm {
             resultFront.getSolutionSet().addAll(solutionSet.getSolutionSet());
             subjectiveArffExecution.getData().addAll(newArffSubjectiveMLP.getData());
 
-            ArffExecution newArffArchitectureMLP = new ArffExecution(solutionSet.writeObjectivesAndArchitecturalElementsNumberToMatrix(), solutionSet.writeArchitecturalEvaluationsToMatrix(), null);
+            double[][] architecturalElements = solutionSet.writeObjectivesAndArchitecturalElementsNumberToMatrix();
+            double[] architecturalElementsEvaluations = solutionSet.writeArchitecturalEvaluationsToMatrix();
+
+            ArrayList<double[]> newArchitecturalElements = new ArrayList<>();
+            ArrayList<Double> newArchitecturalElementsEvaluations = new ArrayList<>();
+
+            for (int i = 0; i < architecturalElements.length; i++) {
+                double evaluation = architecturalElementsEvaluations[i];
+                if (evaluation > 0) {
+                    newArchitecturalElements.add(architecturalElements[i]);
+                    newArchitecturalElementsEvaluations.add(architecturalElementsEvaluations[i]);
+                }
+            }
+
+            double[][] doubles1 = newArchitecturalElements.toArray(new double[0][]);
+            double[] doubles2 = newArchitecturalElementsEvaluations.stream().mapToDouble(Double::doubleValue).toArray();
+
+            ArffExecution newArffArchitectureMLP = new ArffExecution(doubles1, doubles2, null);
             newArffArchitectureMLP.getData().setClassIndex(newArffArchitectureMLP.getAttrIndices());
             architecturalArffExecution.getData().addAll(newArffArchitectureMLP.getData());
         }
@@ -139,7 +156,7 @@ public class SubjectiveAnalyzeAlgorithm {
         threadSubjectiveMLP.join();
         threadArchitecturalMLP.join();
 
-        System.out.println("Tempo: " + ((new Date().getTime() - startsIn) / 1000));
+        System.out.println("-------------->>>>>>>>> Tempo: " + ((new Date().getTime() - startsIn) / 1000));
         return resultFront;
     }
 
@@ -164,7 +181,7 @@ public class SubjectiveAnalyzeAlgorithm {
         LOGGER.info("MLP() buildArchitecturalMLP()");
         try {
             architecturalMLP.buildClassifier(architecturalArffExecution.getData());
-            LOGGER.info("MLP() Evaluation");
+            LOGGER.info("MLP() Evaluation Architectural");
             Evaluation architectureEval = new Evaluation(architecturalArffExecution.getData());
             switch (evaluationModel) {
                 case TRAINING_SET:
@@ -190,7 +207,7 @@ public class SubjectiveAnalyzeAlgorithm {
         LOGGER.info("MLP() buildSubjectiveMLP()");
         try {
             subjectiveMLP.buildClassifier(subjectiveArffExecution.getData());
-            LOGGER.info("MLP() Evaluation");
+            LOGGER.info("MLP() Evaluation Subjective");
             Evaluation subjectiveEval = new Evaluation(subjectiveArffExecution.getData());
             switch (evaluationModel) {
                 case TRAINING_SET:

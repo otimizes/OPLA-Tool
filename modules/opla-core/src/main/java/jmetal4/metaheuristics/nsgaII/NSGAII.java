@@ -231,9 +231,9 @@ public class NSGAII extends Algorithm {
                     offspringPopulation = interactiveFunction.run(offspringPopulation);
                     if (subjectiveAnalyzeAlgorithm == null) {
                         subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(offspringPopulation, ClassifierAlgorithm.CLUSTERING_MLP);
-                        subjectiveAnalyzeAlgorithm.addInteraction(null);
+                        subjectiveAnalyzeAlgorithm.run(null);
                     } else {
-                        subjectiveAnalyzeAlgorithm.addInteraction(offspringPopulation);
+                        subjectiveAnalyzeAlgorithm.run(offspringPopulation);
                     }
                     bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
                     // The score is set up to 0 because in future mutations the object can be modified and due to the score the modified solution is manteined imutable
@@ -245,7 +245,7 @@ public class NSGAII extends Algorithm {
 
 //              MID MLP
                 if (interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction) {
-                    subjectiveAnalyzeAlgorithm.addInteraction(offspringPopulation);
+                    subjectiveAnalyzeAlgorithm.run(offspringPopulation);
                 }
 
                 if (interactive && subjectiveAnalyzeAlgorithm != null && !subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions) {

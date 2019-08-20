@@ -4,6 +4,10 @@ import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Package;
 import br.ufpr.dinf.gres.loglog.LogLog;
+import com.aparapi.Kernel;
+import com.aparapi.device.Device;
+import com.aparapi.internal.kernel.KernelManager;
+import com.aparapi.internal.kernel.KernelPreferences;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import jmetal4.core.Variable;
@@ -22,6 +26,27 @@ public class InitialInteractiveExperimentTest {
 
 
     public static final Logger LOGGER = Logger.getLogger(InitialInteractiveExperimentTest.class);
+
+    @Test
+    public void gpuTest() {
+        KernelPreferences preferences = KernelManager.instance().getDefaultPreferences();
+        System.out.println("-- Devices in preferred order --");
+        for (Device device : preferences.getPreferredDevices(null)) {
+            System.out.println("----------");
+            System.out.println(device);
+        }
+
+        Kernel kernel = new Kernel() {
+            @Override
+            public void run() {
+                int gid = getGlobalId();//iteration counter
+                System.out.println("foi" + gid);
+            }
+        };
+
+        kernel.run();
+        System.out.println("auqi");
+    }
 
     //    @Test
     public void countElements() throws Exception {
