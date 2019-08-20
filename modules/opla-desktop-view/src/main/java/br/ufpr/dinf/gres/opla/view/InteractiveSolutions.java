@@ -78,8 +78,8 @@ public class InteractiveSolutions extends JDialog {
 //                        JOptionPane.showMessageDialog(e.getComponent(), "Please, evaluate one solution by cluster.");
                     } else {
                     }
-                        dispose();
-                        setVisible(false);
+                    dispose();
+                    setVisible(false);
                     System.out.println("jdialog window closing event received");
                 }
             });
@@ -401,22 +401,18 @@ public class InteractiveSolutions extends JDialog {
             fileOnAnalyses = config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di");
             progressBar.setValue(80);
             Process process = Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), fileOnAnalyses);
-            try {
-                new Thread(() -> {
-                    try {
-                        progressBar.setValue(90);
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    disableProgressOpen();
-                }).start();
-                if (process != null) {
-                    process.waitFor();
+            new Thread(() -> {
+                try {
+                    progressBar.setValue(90);
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+                disableProgressOpen();
+            }).start();
+//                if (process != null) {
+//                    process.waitFor();
+//                }
         }
 
         private void subjectiveAnalyseFn(int indexSolution) {

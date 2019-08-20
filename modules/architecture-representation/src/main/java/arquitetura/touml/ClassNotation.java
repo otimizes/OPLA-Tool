@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * @author edipofederle<edipofederle   @   gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ClassNotation extends XmiHelper {
 
@@ -40,10 +40,11 @@ public class ClassNotation extends XmiHelper {
     public static String lastNamespace = "";
 
     public static void clearConfigurations() {
-        ClassNotation.xElement = 1;
-        ClassNotation.yElement = 1;
-        ClassNotation.xPackage = 1;
-        ClassNotation.lastNamespace = "";
+        xElement = 1;
+        yElement = 1;
+        xPackage = 1;
+        yPackage = 10;
+        lastNamespace = "";
     }
 
 
@@ -239,7 +240,7 @@ public class ClassNotation extends XmiHelper {
             }
         } else {
             for (Method operation : ((Interface) aClass).getOperations()) {
-                XClasss[i] += (operation.toString().length() + operation.getName().length() + operation.getAllConcerns().toString().length() + operation.getTypeElement().length()) ;
+                XClasss[i] += (operation.toString().length() + operation.getName().length() + operation.getAllConcerns().toString().length() + operation.getTypeElement().length());
             }
         }
 
