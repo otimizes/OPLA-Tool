@@ -254,7 +254,7 @@ public class NSGAII extends Algorithm {
                 }
 
                 if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
-                    subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveMLP(offspringPopulation);
+                    subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(offspringPopulation);
                 }
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {

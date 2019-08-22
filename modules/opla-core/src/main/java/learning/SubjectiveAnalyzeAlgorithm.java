@@ -184,11 +184,25 @@ public class SubjectiveAnalyzeAlgorithm {
                 data = ArrayUtils.addAll(data, new double[]{element.isFreeze() ? 1 : 0});
                 DenseInstance denseInstance = new DenseInstance(1.0, data);
                 denseInstance.setDataset(architecturalArffExecution.getData());
-//                element.setFreeze(architecturalMLP.classifyInstance(denseInstance));
                 if (element.isFreeze()) {
                     System.out.println("->>>>> Congelou " + element.getName());
-                } else {
-//                    System.out.println("NC " + element.getName());
+                }
+
+            }
+        }
+    }
+
+    public void evaluateSolutionSetSubjectiveAndArchitecturalMLP(SolutionSet solutionSet) throws Exception {
+        for (int i = 0; i < solutionSet.getArchitecturalSolutionsEvaluated().size(); i++) {
+            for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElements()) {
+                double[] data = solutionSet.get(i).getObjectives();
+                data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element));
+                data = ArrayUtils.addAll(data, new double[]{element.isFreeze() ? 1 : 0});
+                DenseInstance denseInstance = new DenseInstance(1.0, data);
+                denseInstance.setDataset(architecturalArffExecution.getData());
+                element.setFreeze(architecturalMLP.classifyInstance(denseInstance));
+                if (element.isFreeze()) {
+                    System.out.println("->>>>> Congelou " + element.getName());
                 }
             }
         }
