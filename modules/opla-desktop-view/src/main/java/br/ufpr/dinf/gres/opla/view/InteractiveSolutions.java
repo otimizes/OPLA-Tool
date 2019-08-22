@@ -75,11 +75,11 @@ public class InteractiveSolutions extends JDialog {
                         if (v.stream().filter(vv -> vv > 0).count() <= 0) complete.set(false);
                     });
                     if (!complete.get()) {
-//                        JOptionPane.showMessageDialog(e.getComponent(), "Please, evaluate one solution by cluster.");
+                        JOptionPane.showMessageDialog(e.getComponent(), "Please, evaluate one solution by cluster.");
                     } else {
+                        dispose();
+                        setVisible(false);
                     }
-                    dispose();
-                    setVisible(false);
                     System.out.println("jdialog window closing event received");
                 }
             });
@@ -423,13 +423,13 @@ public class InteractiveSolutions extends JDialog {
     }
 
     private void enableProgressOpen() {
-        dialog = new JDialog(this, "Opening File...");
+        dialog = new JDialog(this, "Generating and opening File...");
         progressBar = new JProgressBar(JProgressBar.HORIZONTAL);
         dialog.setLayout(new FlowLayout(FlowLayout.CENTER));
         dialog.setLocationRelativeTo(this);
         dialog.setAlwaysOnTop(true);
         dialog.add(progressBar);
-        dialog.setSize(200, 70);
+        dialog.setSize(300, 70);
         dialog.setVisible(true);
     }
 
