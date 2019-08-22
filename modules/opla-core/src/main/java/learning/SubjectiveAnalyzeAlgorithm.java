@@ -1,12 +1,10 @@
 package learning;
 
 import arquitetura.representation.Element;
-import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import weka.classifiers.Evaluation;
-import weka.classifiers.functions.LibSVM;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.DenseInstance;
 
@@ -86,6 +84,7 @@ public class SubjectiveAnalyzeAlgorithm {
         for (SolutionSet interaction : interactions) {
             run(interaction);
         }
+        evaluateSolutionSetArchitecturalMLP(resultFront);
     }
 
     /**
@@ -115,7 +114,7 @@ public class SubjectiveAnalyzeAlgorithm {
         if (solutionSet != null) {
             if (!solutionSet.hasUserEvaluation()) {
                 LOGGER.info("MLP() hasUserEvaluation");
-                evaluateSolutionSet(solutionSet);
+                evaluateSolutionSetSubjectiveMLP(solutionSet);
             } else {
                 LOGGER.info("MLP() dontHasUserEvaluation");
                 distributeUserEvaluations(solutionSet);
@@ -125,24 +124,24 @@ public class SubjectiveAnalyzeAlgorithm {
             resultFront.getSolutionSet().addAll(solutionSet.getSolutionSet());
             subjectiveArffExecution.getData().addAll(newArffSubjectiveMLP.getData());
 
-            double[][] architecturalElements = solutionSet.writeObjectivesAndArchitecturalElementsNumberToMatrix();
-            double[] architecturalElementsEvaluations = solutionSet.writeArchitecturalEvaluationsToMatrix();
+//            double[][] architecturalElements = solutionSet.writeObjectivesAndArchitecturalElementsNumberToMatrix();
+//            double[] architecturalElementsEvaluations = solutionSet.writeArchitecturalEvaluationsToMatrix();
+//
+//            ArrayList<double[]> newArchitecturalElements = new ArrayList<>();
+//            ArrayList<Double> newArchitecturalElementsEvaluations = new ArrayList<>();
+//
+//            for (int i = 0; i < architecturalElements.length; i++) {
+//                double evaluation = architecturalElementsEvaluations[i];
+//                if (evaluation > 0) {
+//                    newArchitecturalElements.add(architecturalElements[i]);
+//                    newArchitecturalElementsEvaluations.add(architecturalElementsEvaluations[i]);
+//                }
+//            }
+//
+//            double[][] doubles1 = newArchitecturalElements.toArray(new double[0][]);
+//            double[] doubles2 = newArchitecturalElementsEvaluations.stream().mapToDouble(Double::doubleValue).toArray();
 
-            ArrayList<double[]> newArchitecturalElements = new ArrayList<>();
-            ArrayList<Double> newArchitecturalElementsEvaluations = new ArrayList<>();
-
-            for (int i = 0; i < architecturalElements.length; i++) {
-                double evaluation = architecturalElementsEvaluations[i];
-                if (evaluation > 0) {
-                    newArchitecturalElements.add(architecturalElements[i]);
-                    newArchitecturalElementsEvaluations.add(architecturalElementsEvaluations[i]);
-                }
-            }
-
-            double[][] doubles1 = newArchitecturalElements.toArray(new double[0][]);
-            double[] doubles2 = newArchitecturalElementsEvaluations.stream().mapToDouble(Double::doubleValue).toArray();
-
-            ArffExecution newArffArchitectureMLP = new ArffExecution(doubles1, doubles2, null);
+            ArffExecution newArffArchitectureMLP = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
             newArffArchitectureMLP.getData().setClassIndex(newArffArchitectureMLP.getAttrIndices());
             architecturalArffExecution.getData().addAll(newArffArchitectureMLP.getData());
         }
@@ -160,18 +159,25 @@ public class SubjectiveAnalyzeAlgorithm {
         return resultFront;
     }
 
-    public void evaluateSolutionSet(SolutionSet solutionSet) throws Exception {
+    public void evaluateSolutionSetSubjectiveMLP(SolutionSet solutionSet) throws Exception {
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
             solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
-            for (Element element : solutionSet.get(i).getOPLAProblem().getArchitecture_().getElements()) {
+        }
+    }
+
+    public void evaluateSolutionSetArchitecturalMLP(SolutionSet solutionSet) {
+        for (int i = 0; i < solutionSet.getArchitecturalSolutionsEvaluated().size(); i++) {
+            for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElements()) {
                 double[] data = solutionSet.get(i).getObjectives();
                 data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element));
                 data = ArrayUtils.addAll(data, new double[]{element.isFreeze() ? 1 : 0});
                 DenseInstance denseInstance = new DenseInstance(1.0, data);
                 denseInstance.setDataset(architecturalArffExecution.getData());
-                element.setFreeze(architecturalMLP.classifyInstance(denseInstance));
+//                element.setFreeze(architecturalMLP.classifyInstance(denseInstance));
                 if (element.isFreeze()) {
-                    System.out.println("Congelou " + element.getName());
+                    System.out.println("->>>>> Congelou " + element.getName());
+                } else {
+//                    System.out.println("NC " + element.getName());
                 }
             }
         }

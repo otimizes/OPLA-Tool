@@ -2,28 +2,19 @@ package br.ufpr.dinf.gres.opla.view;
 
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.representation.Architecture;
-import arquitetura.representation.Package;
-import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
-import br.ufpr.dinf.gres.opla.entity.Objective;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
-import jmetal4.core.Variable;
-import jmetal4.encodings.solutionType.ArchitectureSolutionType;
 import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.experiments.OPLAConfigs;
 import jmetal4.operators.mutation.PLAFeatureMutation;
 import jmetal4.problems.OPLA;
 import learning.*;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import utils.ExperimentTest;
-import utils.QtdElements;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -109,30 +100,32 @@ public class InitialInteractiveExperimentTest {
         clustering.setNumClusters(4);
         clustering.run();
         clustering.getSolutionsByClusterId(0).get(0).setEvaluation(5);
-        clustering.getSolutionsByClusterId(0).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
-        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(0).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().getName());
+        clustering.getSolutionsByClusterId(0).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().setFreeze();
         clustering.getSolutionsByClusterId(1).get(0).setEvaluation(3);
-        clustering.getSolutionsByClusterId(1).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
-        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(1).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().getName());
+        clustering.getSolutionsByClusterId(1).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().setFreeze();
         clustering.getSolutionsByClusterId(2).get(0).setEvaluation(2);
-        clustering.getSolutionsByClusterId(2).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
-        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(2).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().getName());
+        clustering.getSolutionsByClusterId(2).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().setFreeze();
         clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        clustering.getSolutionsByClusterId(3).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().setFreeze();
-        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(3).get(0).getOPLAProblem().getArchitecture_().getAllClasses().stream().findFirst().get().getName());
+        clustering.getSolutionsByClusterId(3).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().setFreeze();
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1a, ClassifierAlgorithm.CLUSTERING_MLP, DistributeUserEvaluation.MIDDLE);
 
         LOGGER.info("1º Interação SEM NOTAS");
 //        //        1º Interação SEM NOTAS
         SolutionSet solutionSet1b = generateSolutionSet();
 
-        subjectiveAnalyzeAlgorithm.addInteraction(solutionSet1b);
-        subjectiveAnalyzeAlgorithm.addInteraction(solutionSet1b);
-        subjectiveAnalyzeAlgorithm.addInteraction(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.run(null);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+
+        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(0).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().getName());
+        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(1).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().getName());
+        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(2).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().getName());
+        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(3).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().getName());
 
         subjectiveAnalyzeAlgorithm.run();
         System.out.println("aaaaa");
-
 
     }
 

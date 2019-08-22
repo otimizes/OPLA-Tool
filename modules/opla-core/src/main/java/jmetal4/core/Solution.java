@@ -23,6 +23,7 @@
 
 package jmetal4.core;
 
+import arquitetura.representation.Architecture;
 import arquitetura.representation.Element;
 import jmetal4.encodings.variable.Binary;
 import jmetal4.problems.OPLA;
@@ -673,10 +674,16 @@ public class Solution implements Serializable {
     }
 
     public boolean containsArchitecturalEvaluation() {
-        for (Element element : getOPLAProblem().getArchitecture_().getElements()) {
-            if (element.isFreeze()) return true;
+        for (Element element : getAlternativeArchitecture().getElements()) {
+            if (element.isFreeze()){
+                return true;
+            }
         }
         return false;
+    }
+
+    public Architecture getAlternativeArchitecture() {
+        return (Architecture) getDecisionVariables()[0];
     }
 
 

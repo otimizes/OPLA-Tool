@@ -551,14 +551,14 @@ public class SolutionSet implements Serializable {
             int length = doubles[i].length;
             double[] doublesObj = new double[length + 4 + 3];
             if (doubles[i].length >= 0) System.arraycopy(doubles[i], 0, doublesObj, 0, doubles[i].length);
-            doublesObj[length] = get(i).getOPLAProblem().getArchitecture_().getAllClasses().size();
-            doublesObj[length + 1] = get(i).getOPLAProblem().getArchitecture_().getAllConcerns().size();
-            doublesObj[length + 2] = get(i).getOPLAProblem().getArchitecture_().getAllInterfaces().size();
-            doublesObj[length + 3] = get(i).getOPLAProblem().getArchitecture_().getAllPackages().size();
+            doublesObj[length] = get(i).getAlternativeArchitecture().getAllClasses().size();
+            doublesObj[length + 1] = get(i).getAlternativeArchitecture().getAllConcerns().size();
+            doublesObj[length + 2] = get(i).getAlternativeArchitecture().getAllInterfaces().size();
+            doublesObj[length + 3] = get(i).getAlternativeArchitecture().getAllPackages().size();
 
-            doublesObj[length + 4] = get(i).getOPLAProblem().getArchitecture_().getAllVariationPoints().size();
-            doublesObj[length + 5] = get(i).getOPLAProblem().getArchitecture_().getAllVariants().size();
-            doublesObj[length + 6] = get(i).getOPLAProblem().getArchitecture_().getAllVariabilities().size();
+            doublesObj[length + 4] = get(i).getAlternativeArchitecture().getAllVariationPoints().size();
+            doublesObj[length + 5] = get(i).getAlternativeArchitecture().getAllVariants().size();
+            doublesObj[length + 6] = get(i).getAlternativeArchitecture().getAllVariabilities().size();
             doubles[i] = doublesObj;
         }
         return doubles;
@@ -572,7 +572,7 @@ public class SolutionSet implements Serializable {
      * @return A matrix containing the objectives
      */
     public double[][] writeObjectivesAndArchitecturalElementsNumberToMatrix() {
-        double[][] doubles = reduceTreeDimensionalArray(getSolutionSet().stream()
+        double[][] doubles = reduceTreeDimensionalArray(getArchitecturalSolutionsEvaluated().stream()
                 .map(this::writeObjectiveWithAllElementsFromSolution).toArray(double[][][]::new));
         return doubles;
     }
@@ -600,7 +600,7 @@ public class SolutionSet implements Serializable {
      * @return A matrix containing the objectives
      */
     public double[] writeArchitecturalEvaluationsToMatrix() {
-        double[][] doubles = getSolutionSet().stream().map(solution -> {
+        double[][] doubles = getArchitecturalSolutionsEvaluated().stream().map(solution -> {
             List<Element> allElementsFromSolution = getAllElementsFromSolution(solution);
             double[] objects = allElementsFromSolution.stream().mapToDouble(element -> element.isFreeze() ? 1.0 : 0.0).toArray();
             return objects;
@@ -644,16 +644,16 @@ public class SolutionSet implements Serializable {
 
     public List<Element> getAllElementsFromSolution(Solution solution) {
         List<Element> elements = new ArrayList<>();
-        elements.addAll(solution.getOPLAProblem().getArchitecture_().getAllPackages());
-        elements.addAll(solution.getOPLAProblem().getArchitecture_().getAllClasses());
-        elements.addAll(solution.getOPLAProblem().getArchitecture_().getAllInterfaces());
-        for (Class allClass : solution.getOPLAProblem().getArchitecture_().getAllClasses()) {
+        elements.addAll(solution.getAlternativeArchitecture().getAllPackages());
+        elements.addAll(solution.getAlternativeArchitecture().getAllClasses());
+        elements.addAll(solution.getAlternativeArchitecture().getAllInterfaces());
+        for (Class allClass : solution.getAlternativeArchitecture().getAllClasses()) {
             elements.addAll(allClass.getAllAttributes());
         }
-        for (Class allClass : solution.getOPLAProblem().getArchitecture_().getAllClasses()) {
+        for (Class allClass : solution.getAlternativeArchitecture().getAllClasses()) {
             elements.addAll(allClass.getAllMethods());
         }
-        for (Interface allClass : solution.getOPLAProblem().getArchitecture_().getAllInterfaces()) {
+        for (Interface allClass : solution.getAlternativeArchitecture().getAllInterfaces()) {
             elements.addAll(allClass.getOperations());
         }
         return elements;
@@ -986,7 +986,7 @@ public class SolutionSet implements Serializable {
     public List<Element> getArchitecturalElementsEvaluatedByClusterId(Double clusterId) {
         List<Element> elements = new ArrayList<>();
         List<List<Element>> collect = getArchitecturalSolutionsEvaluated().stream().filter(solution -> clusterId.equals(solution.getClusterId()))
-                .map(solution -> solution.getOPLAProblem().getArchitecture_().getElements().stream().filter(Element::isFreeze).collect(Collectors.toList())).collect(Collectors.toList());
+                .map(solution -> solution.getAlternativeArchitecture().getElements().stream().filter(Element::isFreeze).collect(Collectors.toList())).collect(Collectors.toList());
         for (List<Element> elementList : collect) {
             elements.addAll(elementList);
         }
@@ -1002,7 +1002,7 @@ public class SolutionSet implements Serializable {
                 solutionsList_ = solutionsList_.subList(0, Math.abs(solutionsList_.size() / 2));
             for (Solution solution : solutionsList_) {
                 if (solution.getEvaluation() == 0) {
-                    freezeArchitecturalElementsAccordingCluster(solution);
+//                    freezeArchitecturalElementsAccordingCluster(solution);
                     int media = Math.abs(getMedia(clusterIds.get(solution.getClusterId())));
                     solution.setEvaluation(media);
                 }
@@ -1012,7 +1012,7 @@ public class SolutionSet implements Serializable {
 
     private void freezeArchitecturalElementsAccordingCluster(Solution solution) {
         List<Element> architecturalElementsEvaluatedByClusterId = getArchitecturalElementsEvaluatedByClusterId(solution.getClusterId());
-        List<Element> collect = solution.getOPLAProblem().getArchitecture_().getElements().stream().filter(e -> e.getNumberId() == architecturalElementsEvaluatedByClusterId.get(0).getNumberId()).collect(Collectors.toList());
+        List<Element> collect = solution.getAlternativeArchitecture().getElements().stream().filter(e -> e.getNumberId() == architecturalElementsEvaluatedByClusterId.get(0).getNumberId()).collect(Collectors.toList());
         for (Element element : collect) {
             element.setFreeze();
         }
