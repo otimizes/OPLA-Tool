@@ -609,6 +609,7 @@ public class SolutionSet implements Serializable {
     }
 
     public double[][] reduceTreeDimensionalArray(double[][][] treeDimensionalArray) {
+        if (treeDimensionalArray.length <= 0) return new double[][]{};
         double[][] twoDimensionalArray = treeDimensionalArray[0];
         for (int i = 1; i < treeDimensionalArray.length; i++) {
             twoDimensionalArray = (double[][]) ArrayUtils.addAll(twoDimensionalArray, treeDimensionalArray[i]);
@@ -617,6 +618,7 @@ public class SolutionSet implements Serializable {
     }
 
     public double[] reduceBiDimensionalArray(double[][] biDimensionalArray) {
+        if (biDimensionalArray.length <= 0) return new double[]{};
         double[] oneDimensionalArray = biDimensionalArray[0];
         for (int i = 1; i < biDimensionalArray.length; i++) {
             oneDimensionalArray = (double[]) ArrayUtils.addAll(oneDimensionalArray, biDimensionalArray[i]);

@@ -51,6 +51,7 @@ public class ArffExecution {
     }
 
     private void newInstance(double[][] attributes, double[] classes, String[] descAttributes) {
+        if (attributes.length <= 0) return;
         attrIndices = attributes[0].length;
         this.attributes = attributes;
         atts = new FastVector();
