@@ -787,4 +787,14 @@ public class Architecture extends Variable {
     public String toStringFreezedElements() {
         return getFreezedElements().stream().map(e -> e.getTypeElement() + ":" + e.getName()).collect(Collectors.toList()).toString();
     }
+
+    public void addElement(Element element) {
+        if (element instanceof Class) {
+            addExternalClass((Class) element);
+        } else if (element instanceof Interface) {
+            addExternalInterface((Interface) element);
+        } else if (element instanceof Package) {
+            addPackage((Package) element);
+        }
+    }
 }

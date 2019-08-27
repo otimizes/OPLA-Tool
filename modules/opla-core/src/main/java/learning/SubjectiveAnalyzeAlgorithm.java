@@ -1,17 +1,17 @@
 package learning;
 
+import arquitetura.representation.Architecture;
 import arquitetura.representation.Element;
+import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
+import jmetal4.util.JMException;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.DenseInstance;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 //https://stackoverflow.com/questions/28694971/using-neural-network-class-in-weka-in-java-code
 public class SubjectiveAnalyzeAlgorithm {
@@ -180,8 +180,22 @@ public class SubjectiveAnalyzeAlgorithm {
         for (int i = 0; i < solutionSet.getArchitecturalSolutionsEvaluated().size(); i++) {
             for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElements()) {
                 double[] data = solutionSet.get(i).getObjectives();
-                data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element));
-                data = ArrayUtils.addAll(data, new double[]{element.isFreeze() ? 1 : 0});
+                data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element, solutionSet.get(i)));
+
+                Solution solution = solutionSet.get(i);
+                double[] objectives = new double[0];
+                try {
+                    objectives = solutionSet.generateSolutionFromElementsAndGetDoubles(element, solution);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                data = ArrayUtils.addAll(data, objectives);
+
+                data = ArrayUtils.addAll(data, new double[]{
+                        solutionSet.get(i).containsArchitecturalEvaluation() ? 1 : 0,
+                        element.isFreeze() ? 1 : 0
+                });
                 DenseInstance denseInstance = new DenseInstance(1.0, data);
                 denseInstance.setDataset(architecturalArffExecution.getData());
                 if (element.isFreeze()) {
@@ -192,11 +206,13 @@ public class SubjectiveAnalyzeAlgorithm {
         }
     }
 
+
+
     public void evaluateSolutionSetSubjectiveAndArchitecturalMLP(SolutionSet solutionSet) throws Exception {
         for (int i = 0; i < solutionSet.getArchitecturalSolutionsEvaluated().size(); i++) {
             for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElements()) {
                 double[] data = solutionSet.get(i).getObjectives();
-                data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element));
+                data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element, solutionSet.get(i)));
                 data = ArrayUtils.addAll(data, new double[]{element.isFreeze() ? 1 : 0});
                 DenseInstance denseInstance = new DenseInstance(1.0, data);
                 denseInstance.setDataset(architecturalArffExecution.getData());
