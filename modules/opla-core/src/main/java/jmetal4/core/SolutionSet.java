@@ -595,6 +595,8 @@ public class SolutionSet implements Serializable {
 
     public double[] generateSolutionFromElementsAndGetDoubles(Element element, Solution solution) throws ClassNotFoundException {
         Solution newSolution = new Solution(solution.getProblem());
+        newSolution.getOPLAProblem().getLOGGER().setLevel(org.apache.log4j.Level.OFF);
+        newSolution.getAlternativeArchitecture().getLOGGER().setLevel(org.apache.log4j.Level.OFF);
         Architecture architecture = new Architecture("agm");
         architecture.addElement(element);
         newSolution.setDecisionVariables(new Architecture[]{architecture});
@@ -604,6 +606,8 @@ public class SolutionSet implements Serializable {
         } catch (JMException e) {
             e.printStackTrace();
         }
+        newSolution.getOPLAProblem().getLOGGER().setLevel(org.apache.log4j.Level.ALL);
+        newSolution.getAlternativeArchitecture().getLOGGER().setLevel(org.apache.log4j.Level.ALL);
         return newSolution.getObjectives();
     }
 
@@ -648,11 +652,14 @@ public class SolutionSet implements Serializable {
     }
 
     public double[] writeCharacteristicsFromElement(Element element, Solution solution) {
-        double[] elm = new double[4];
+        double[] elm = new double[6];
         elm[0] = element.getNumberId();
         elm[1] = ArchitecturalElementType.getTypeId(element.getTypeElement());
         elm[2] = element instanceof Package ? (double) ((Package) element).getAllClasses().size() : 0;
         elm[3] = element instanceof Package ? (double) ((Package) element).getAllInterfaces().size() : 0;
+        elm[4] = element instanceof Class ? (double) ((Class) element).getAllAttributes().size() : 0;
+        elm[5] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() :
+                element instanceof Interface ? (double) ((Interface) element).getOperations().size() : 0;
         try {
             double[] doubles = generateSolutionFromElementsAndGetDoubles(element, solution);
             elm = ArrayUtils.addAll(elm, doubles);
@@ -663,9 +670,6 @@ public class SolutionSet implements Serializable {
                 solution.containsArchitecturalEvaluation() ? 1 : 0
         });
 
-//        elm[4] = element instanceof Class ? (double) ((Class) element).getAllAttributes().size() : 0;
-//        elm[5] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() :
-//                element instanceof Interface ? (double) ((Interface) element).getOperations().size() : 0;
         return elm;
     }
 
@@ -674,15 +678,15 @@ public class SolutionSet implements Serializable {
         elements.addAll(solution.getAlternativeArchitecture().getAllPackages());
         elements.addAll(solution.getAlternativeArchitecture().getAllClasses());
         elements.addAll(solution.getAlternativeArchitecture().getAllInterfaces());
-        for (Class allClass : solution.getAlternativeArchitecture().getAllClasses()) {
-            elements.addAll(allClass.getAllAttributes());
-        }
-        for (Class allClass : solution.getAlternativeArchitecture().getAllClasses()) {
-            elements.addAll(allClass.getAllMethods());
-        }
-        for (Interface allClass : solution.getAlternativeArchitecture().getAllInterfaces()) {
-            elements.addAll(allClass.getOperations());
-        }
+//        for (Class allClass : solution.getAlternativeArchitecture().getAllClasses()) {
+//            elements.addAll(allClass.getAllAttributes());
+//        }
+//        for (Class allClass : solution.getAlternativeArchitecture().getAllClasses()) {
+//            elements.addAll(allClass.getAllMethods());
+//        }
+//        for (Interface allClass : solution.getAlternativeArchitecture().getAllInterfaces()) {
+//            elements.addAll(allClass.getOperations());
+//        }
         return elements;
     }
 

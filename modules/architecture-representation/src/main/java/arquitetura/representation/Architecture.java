@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @author edipofederle<edipofederle               @               gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Architecture extends Variable {
 
@@ -65,7 +65,7 @@ public class Architecture extends Variable {
      * Retorna um Map imutável. É feito isso para garantir que nenhum modificação seja
      * feita diretamente na lista
      *
-     * @return Map<String               ,                               Concern>
+     * @return Map<String, Concern>
      */
     public List<Concern> getAllConcerns() {
         final List<Concern> concerns = new ArrayList<Concern>();
@@ -691,10 +691,12 @@ public class Architecture extends Variable {
         this.classes.clear();
         this.classes.addAll(classes);
     }
+
     public void addAllPackages(Set<Package> packages) {
         this.packages.clear();
         this.packages.addAll(packages);
     }
+
     public void addAllInterfaces(Set<Interface> interfaces) {
         this.interfaces.clear();
         this.interfaces.addAll(interfaces);
@@ -796,5 +798,9 @@ public class Architecture extends Variable {
         } else if (element instanceof Package) {
             addPackage((Package) element);
         }
+    }
+
+    public static Logger getLOGGER() {
+        return LOGGER;
     }
 }

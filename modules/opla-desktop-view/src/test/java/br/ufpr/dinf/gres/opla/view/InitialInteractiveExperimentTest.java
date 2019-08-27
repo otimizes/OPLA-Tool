@@ -124,7 +124,9 @@ public class InitialInteractiveExperimentTest {
         System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(2).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().getName());
         System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(3).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().getName());
 
-        subjectiveAnalyzeAlgorithm.run();
+
+        subjectiveAnalyzeAlgorithm.evaluateSolutionSetArchitecturalMLP(subjectiveAnalyzeAlgorithm.getResultFront());
+
         System.out.println("aaaaa");
 
     }

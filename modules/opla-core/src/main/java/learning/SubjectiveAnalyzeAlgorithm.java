@@ -84,7 +84,6 @@ public class SubjectiveAnalyzeAlgorithm {
         for (SolutionSet interaction : interactions) {
             run(interaction);
         }
-        evaluateSolutionSetArchitecturalMLP(resultFront);
     }
 
     /**
@@ -207,13 +206,27 @@ public class SubjectiveAnalyzeAlgorithm {
     }
 
 
-
     public void evaluateSolutionSetSubjectiveAndArchitecturalMLP(SolutionSet solutionSet) throws Exception {
         for (int i = 0; i < solutionSet.getArchitecturalSolutionsEvaluated().size(); i++) {
+            solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
             for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElements()) {
                 double[] data = solutionSet.get(i).getObjectives();
                 data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element, solutionSet.get(i)));
-                data = ArrayUtils.addAll(data, new double[]{element.isFreeze() ? 1 : 0});
+
+                Solution solution = solutionSet.get(i);
+                double[] objectives = new double[0];
+                try {
+                    objectives = solutionSet.generateSolutionFromElementsAndGetDoubles(element, solution);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                data = ArrayUtils.addAll(data, objectives);
+
+                data = ArrayUtils.addAll(data, new double[]{
+                        solutionSet.get(i).containsArchitecturalEvaluation() ? 1 : 0,
+                        element.isFreeze() ? 1 : 0
+                });
                 DenseInstance denseInstance = new DenseInstance(1.0, data);
                 denseInstance.setDataset(architecturalArffExecution.getData());
                 element.setFreeze(architecturalMLP.classifyInstance(denseInstance));
@@ -242,6 +255,7 @@ public class SubjectiveAnalyzeAlgorithm {
             System.out.println("----------------------------------------> Architectural Evaluation <-------------------------------------");
             System.out.println("Architecture Error: " + architectureEval.errorRate());
             System.out.println("Architecture Summary: " + architectureEval.toSummaryString());
+            evaluateSolutionSetArchitecturalMLP(resultFront);
 //        for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
 //            System.out.println("Solution " + i + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))));
 //        }
