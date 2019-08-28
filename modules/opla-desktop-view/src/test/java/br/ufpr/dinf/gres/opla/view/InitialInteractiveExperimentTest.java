@@ -2,6 +2,9 @@ package br.ufpr.dinf.gres.opla.view;
 
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
+import arquitetura.representation.Element;
+import arquitetura.representation.Package;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
@@ -93,39 +96,55 @@ public class InitialInteractiveExperimentTest {
     public void fnCore() throws Exception {
 
         SolutionSet solutionSet1a = generateSolutionSet();
+        SolutionSet solutionSet1b = generateSolutionSet();
 
-        LOGGER.info("1º Interação COM NOTAS");
-        //        1º Interação COM NOTAS
         Clustering clustering = new Clustering(solutionSet1a, ClusteringAlgorithm.KMEANS);
         clustering.setNumClusters(4);
         clustering.run();
         clustering.getSolutionsByClusterId(0).get(0).setEvaluation(5);
-        clustering.getSolutionsByClusterId(0).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().setFreeze();
+        for (Package allClass : clustering.getSolutionsByClusterId(0).get(0).getAlternativeArchitecture().getAllPackagesAllowedMofification()) {
+            if (allClass.getName().equals("GameBoardGUI")) {
+                allClass.setFreeze();
+                System.out.println("Deve congelar " + allClass.getName());
+            }
+        }
         clustering.getSolutionsByClusterId(1).get(0).setEvaluation(3);
-        clustering.getSolutionsByClusterId(1).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().setFreeze();
+        for (Package allClass : clustering.getSolutionsByClusterId(1).get(0).getAlternativeArchitecture().getAllPackages()) {
+            if (allClass.getName().equals("GameBoardGUI")) {
+                allClass.setFreeze();
+                System.out.println("Deve congelar " + allClass.getName());
+            }
+        }
         clustering.getSolutionsByClusterId(2).get(0).setEvaluation(2);
-        clustering.getSolutionsByClusterId(2).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().setFreeze();
+        for (Package allClass : clustering.getSolutionsByClusterId(2).get(0).getAlternativeArchitecture().getAllPackagesAllowedMofification()) {
+            if (allClass.getName().equals("GameBoardGUI")) {
+                allClass.setFreeze();
+                System.out.println("Deve congelar " + allClass.getName());
+            }
+        }
         clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        clustering.getSolutionsByClusterId(3).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().setFreeze();
-        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1a, ClassifierAlgorithm.CLUSTERING_MLP, DistributeUserEvaluation.MIDDLE);
+        for (Package allClass : clustering.getSolutionsByClusterId(3).get(0).getAlternativeArchitecture().getAllPackagesAllowedMofification()) {
+            if (allClass.getName().equals("GameBoardGUI")) {
+                allClass.setFreeze();
+                System.out.println("Deve congelar " + allClass.getName());
+            }
+        }
 
-        LOGGER.info("1º Interação SEM NOTAS");
-//        //        1º Interação SEM NOTAS
-        SolutionSet solutionSet1b = generateSolutionSet();
+
+        for (Solution solution : solutionSet1a.getSolutionSet()) {
+            for (Element freezedElement : solution.getAlternativeArchitecture().getFreezedElements()) {
+                if (freezedElement.isFreeze()) {
+                    System.out.println("freeze------------> " + freezedElement.getName());
+                }
+            }
+        }
+        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1a, ClassifierAlgorithm.CLUSTERING_MLP, DistributeUserEvaluation.MIDDLE);
 
         subjectiveAnalyzeAlgorithm.run(null);
         subjectiveAnalyzeAlgorithm.run(solutionSet1b);
         subjectiveAnalyzeAlgorithm.run(solutionSet1b);
         subjectiveAnalyzeAlgorithm.run(solutionSet1b);
         subjectiveAnalyzeAlgorithm.run(solutionSet1b);
-
-        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(0).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().getName());
-        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(1).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().getName());
-        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(2).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().getName());
-        System.out.println("Deve Congelar " + clustering.getSolutionsByClusterId(3).get(0).getAlternativeArchitecture().getAllClasses().stream().findFirst().get().getName());
-
-
-        subjectiveAnalyzeAlgorithm.evaluateSolutionSetArchitecturalMLP(subjectiveAnalyzeAlgorithm.getResultFront());
 
         System.out.println("aaaaa");
 

@@ -61,6 +61,29 @@ public class Architecture extends Variable {
         return elts;
     }
 
+    public List<Element> getElementsWithPackages() {
+        final List<Element> elts = new ArrayList<Element>();
+
+        for (Package p : getAllPackagesAllowedMofification()) {
+            elts.add(p);
+            for (Element element : p.getElements())
+                elts.add(element);
+        }
+
+        for (Class c : this.classes)
+            elts.add(c);
+        for (Interface i : this.interfaces)
+            elts.add(i);
+
+        return elts;
+    }
+
+    public List<Element> findElementByNumberId(Double idElem) {
+        List<Element> elementsWithPackages = getElementsWithPackages();
+        List<Element> collect = elementsWithPackages.stream().filter(e -> Double.valueOf(e.getNumberId()).equals(idElem)).collect(Collectors.toList());
+        return collect;
+    }
+
     /**
      * Retorna um Map imutável. É feito isso para garantir que nenhum modificação seja
      * feita diretamente na lista
@@ -85,6 +108,10 @@ public class Architecture extends Variable {
      */
     public Set<Package> getAllPackages() {
         return Collections.unmodifiableSet(this.packages);
+    }
+
+    public List<Package> getAllPackagesAllowedMofification() {
+        return new ArrayList<>(this.packages);
     }
 
     /**
@@ -775,15 +802,7 @@ public class Architecture extends Variable {
     }
 
     public List<Element> getFreezedElements() {
-        Set<Element> elements = new HashSet<>();
-        elements.addAll(classes.stream().filter(e -> {
-            elements.addAll(e.getAllMethods().stream().filter(Element::isFreeze).collect(Collectors.toSet()));
-            elements.addAll(e.getAllAttributes().stream().filter(Element::isFreeze).collect(Collectors.toSet()));
-            return e.isFreeze();
-        }).collect(Collectors.toList()));
-        elements.addAll(interfaces.stream().filter(Element::isFreeze).collect(Collectors.toSet()));
-        elements.addAll(packages.stream().filter(Element::isFreeze).collect(Collectors.toSet()));
-        return new ArrayList<>(elements);
+        return getElementsWithPackages().stream().filter(Element::isFreeze).collect(Collectors.toList());
     }
 
     public String toStringFreezedElements() {

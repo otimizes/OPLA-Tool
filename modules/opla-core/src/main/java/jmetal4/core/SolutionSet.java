@@ -1017,7 +1017,7 @@ public class SolutionSet implements Serializable {
     public List<Element> getArchitecturalElementsEvaluatedByClusterId(Double clusterId) {
         List<Element> elements = new ArrayList<>();
         List<List<Element>> collect = getArchitecturalSolutionsEvaluated().stream().filter(solution -> clusterId.equals(solution.getClusterId()))
-                .map(solution -> solution.getAlternativeArchitecture().getElements().stream().filter(Element::isFreeze).collect(Collectors.toList())).collect(Collectors.toList());
+                .map(solution -> solution.getAlternativeArchitecture().getElementsWithPackages().stream().filter(Element::isFreeze).collect(Collectors.toList())).collect(Collectors.toList());
         for (List<Element> elementList : collect) {
             elements.addAll(elementList);
         }
@@ -1043,10 +1043,19 @@ public class SolutionSet implements Serializable {
 
     private void freezeArchitecturalElementsAccordingCluster(Solution solution) {
         List<Element> architecturalElementsEvaluatedByClusterId = getArchitecturalElementsEvaluatedByClusterId(solution.getClusterId());
-        List<Element> collect = solution.getAlternativeArchitecture().getElements().stream().filter(e -> e.getNumberId() == architecturalElementsEvaluatedByClusterId.get(0).getNumberId()).collect(Collectors.toList());
+        List<Element> collect = solution.getAlternativeArchitecture().getElementsWithPackages().stream().filter(e -> e.getNumberId() == architecturalElementsEvaluatedByClusterId.get(0).getNumberId()).collect(Collectors.toList());
         for (Element element : collect) {
             element.setFreeze();
         }
+    }
+
+    public List<Element> findElementWithNumberId(Double id) {
+        List<List<Element>> collect = getSolutionSet().stream().map(s -> s.getAlternativeArchitecture().findElementByNumberId(id)).collect(Collectors.toList());
+        List<Element> objects = new ArrayList<>();
+        for (List<Element> elements : collect) {
+            objects.addAll(elements);
+        }
+        return objects;
     }
 
 } // SolutionSet

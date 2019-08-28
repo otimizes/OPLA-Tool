@@ -149,17 +149,19 @@ public class SubjectiveAnalyzeAlgorithm {
         }
         subjectiveArffExecution.getData().setClassIndex(subjectiveArffExecution.getAttrIndices());
         architecturalArffExecution.getData().setClassIndex(architecturalArffExecution.getAttrIndices());
-        Thread threadSubjectiveMLP = new Thread(this::buildSubjectiveMLP);
-        threadSubjectiveMLP.start();
-        Thread threadArchitecturalMLP = new Thread(this::buildArchitecturalMLP);
-        threadArchitecturalMLP.start();
-
-        try {
-            threadSubjectiveMLP.join();
-            threadArchitecturalMLP.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        this.buildSubjectiveMLP();
+        this.buildArchitecturalMLP();
+//        Thread threadSubjectiveMLP = new Thread(this::buildSubjectiveMLP);
+//        threadSubjectiveMLP.start();
+//        Thread threadArchitecturalMLP = new Thread(this::buildArchitecturalMLP);
+//        threadArchitecturalMLP.start();
+//
+//        try {
+//            threadSubjectiveMLP.join();
+//            threadArchitecturalMLP.join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         System.out.println("-------------->>>>>>>>> Tempo: " + ((new Date().getTime() - startsIn) / 1000));
         return resultFront;
@@ -175,41 +177,10 @@ public class SubjectiveAnalyzeAlgorithm {
         }
     }
 
-    public void evaluateSolutionSetArchitecturalMLP(SolutionSet solutionSet) {
-        for (int i = 0; i < solutionSet.getArchitecturalSolutionsEvaluated().size(); i++) {
-            for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElements()) {
-                double[] data = solutionSet.get(i).getObjectives();
-                data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element, solutionSet.get(i)));
-
-                Solution solution = solutionSet.get(i);
-                double[] objectives = new double[0];
-                try {
-                    objectives = solutionSet.generateSolutionFromElementsAndGetDoubles(element, solution);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                data = ArrayUtils.addAll(data, objectives);
-
-                data = ArrayUtils.addAll(data, new double[]{
-                        solutionSet.get(i).containsArchitecturalEvaluation() ? 1 : 0,
-                        element.isFreeze() ? 1 : 0
-                });
-                DenseInstance denseInstance = new DenseInstance(1.0, data);
-                denseInstance.setDataset(architecturalArffExecution.getData());
-                if (element.isFreeze()) {
-                    System.out.println("->>>>> Congelou " + element.getName());
-                }
-
-            }
-        }
-    }
-
-
     public void evaluateSolutionSetSubjectiveAndArchitecturalMLP(SolutionSet solutionSet) throws Exception {
         for (int i = 0; i < solutionSet.getArchitecturalSolutionsEvaluated().size(); i++) {
             solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
-            for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElements()) {
+            for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElementsWithPackages()) {
                 double[] data = solutionSet.get(i).getObjectives();
                 data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element, solutionSet.get(i)));
 
@@ -255,10 +226,10 @@ public class SubjectiveAnalyzeAlgorithm {
             System.out.println("----------------------------------------> Architectural Evaluation <-------------------------------------");
             System.out.println("Architecture Error: " + architectureEval.errorRate());
             System.out.println("Architecture Summary: " + architectureEval.toSummaryString());
-            evaluateSolutionSetArchitecturalMLP(resultFront);
-//        for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
-//            System.out.println("Solution " + i + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))));
-//        }
+            for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
+                List<Element> elementWithNumberId = getResultFront().findElementWithNumberId(architecturalArffExecution.getData().get(i).value(3));
+                System.out.println("Solution " + elementWithNumberId.get(0).getName() + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
