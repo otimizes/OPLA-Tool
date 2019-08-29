@@ -142,9 +142,9 @@ public class InitialInteractiveExperimentTest {
         }
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1a, ClassifierAlgorithm.CLUSTERING_MLP, DistributeUserEvaluation.MIDDLE);
 
-        subjectiveAnalyzeAlgorithm.run(null);
-        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
-        subjectiveAnalyzeAlgorithm.run(solutionSet1c);
+        subjectiveAnalyzeAlgorithm.run(null, false);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b, false);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1c, false);
 
         System.out.println("aaaaa");
 

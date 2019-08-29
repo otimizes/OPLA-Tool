@@ -1,5 +1,6 @@
 package learning;
 
+import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Element;
 import jmetal4.core.Solution;
@@ -11,6 +12,9 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.DenseInstance;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 //https://stackoverflow.com/questions/28694971/using-neural-network-class-in-weka-in-java-code
@@ -34,6 +38,7 @@ public class SubjectiveAnalyzeAlgorithm {
     private List<Element> evaluatedElements;
     private List<SolutionSet> interactions = new ArrayList<>();
     private boolean trained = false;
+    public static int currentEvaluation = 0;
 
     public SubjectiveAnalyzeAlgorithm() {
     }
@@ -70,9 +75,9 @@ public class SubjectiveAnalyzeAlgorithm {
      * @return Solution Set - Best performing cluster with another solutions (filteredSolutions)
      * @throws Exception Default Exception
      */
-    public SolutionSet run(SolutionSet solutionSet) {
+    public SolutionSet run(SolutionSet solutionSet, boolean middle) {
         try {
-            return MLP(solutionSet);
+            return MLP(solutionSet, middle);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,9 +85,9 @@ public class SubjectiveAnalyzeAlgorithm {
     }
 
     public void run() throws Exception {
-        run(null);
+        run(null, false);
         for (SolutionSet interaction : interactions) {
-            run(interaction);
+            run(interaction, false);
         }
     }
 
@@ -92,7 +97,8 @@ public class SubjectiveAnalyzeAlgorithm {
      * @return Solution Set
      * @throws Exception Default Exception
      */
-    public SolutionSet MLP(SolutionSet solutionSet) {
+    public SolutionSet MLP(SolutionSet solutionSet, boolean middle) {
+        currentEvaluation++;
         LOGGER.info("MLP()");
         long startsIn = new Date().getTime();
         if (subjectiveMLP == null) {
@@ -117,6 +123,8 @@ public class SubjectiveAnalyzeAlgorithm {
             } else {
                 LOGGER.info("MLP() hasUserEvaluation");
                 distributeUserEvaluations(solutionSet);
+            }
+            if (!middle) {
                 ArffExecution newArffArchitectureMLP = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
                 newArffArchitectureMLP.getData().setClassIndex(newArffArchitectureMLP.getAttrIndices());
                 architecturalArffExecution.getData().addAll(newArffArchitectureMLP.getData());
@@ -154,21 +162,36 @@ public class SubjectiveAnalyzeAlgorithm {
         Thread threadSubjectiveMLP = new Thread(this::buildSubjectiveMLP);
         threadSubjectiveMLP.start();
         Thread threadArchitecturalMLP = null;
-        if (solutionSet.hasUserEvaluation()) {
+        if (!middle) {
             threadArchitecturalMLP = new Thread(this::buildArchitecturalMLP);
             threadArchitecturalMLP.start();
         }
 
         try {
             threadSubjectiveMLP.join();
-            if (threadArchitecturalMLP != null)
+            if (threadArchitecturalMLP != null) {
                 threadArchitecturalMLP.join();
+                logMachineLearningModel();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         LOGGER.info("-------------->>>>>>>>> Tempo: " + ((new Date().getTime() - startsIn) / 1000));
         return resultFront;
+    }
+
+    private void logMachineLearningModel() {
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + "LogMachineLearningModel_" + currentEvaluation + ".arff");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.print(architecturalArffExecution.getData().toString());
+        printWriter.close();
     }
 
     public void evaluateSolutionSetSubjectiveMLP(SolutionSet solutionSet) {
@@ -227,16 +250,33 @@ public class SubjectiveAnalyzeAlgorithm {
                     break;
             }
 
-            LOGGER.info("----------------------------------------> Architectural Evaluation <-------------------------------------");
-            LOGGER.info("Architecture Error: " + architectureEval.errorRate());
-            LOGGER.info("Architecture Summary: " + architectureEval.toSummaryString());
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("----------------------------------------> Architectural Evaluation <------------------------------------- \n");
+            stringBuilder.append("Architecture Error: " + architectureEval.errorRate() + "\n");
+            stringBuilder.append("Architecture Summary: " + architectureEval.toSummaryString() + "\n");
             for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
                 List<Element> elementWithNumberId = getResultFront().findElementWithNumberId(architecturalArffExecution.getData().get(i).value(3));
-                LOGGER.info(elementWithNumberId.get(0).getTypeElement() + " " + elementWithNumberId.get(0).getName() + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))));
+                stringBuilder.append(elementWithNumberId.get(0).getTypeElement() + " " + elementWithNumberId.get(0).getName() + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))) + "\n");
             }
+            LOGGER.info(stringBuilder.toString());
+            logMachineLearningModelEvaluation(stringBuilder);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    private void logMachineLearningModelEvaluation(StringBuilder stringBuilder) {
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + "LogMachineLearningModelEvaluation_" + currentEvaluation + ".arff");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.print(stringBuilder);
+        printWriter.close();
     }
 
     private void buildSubjectiveMLP() {

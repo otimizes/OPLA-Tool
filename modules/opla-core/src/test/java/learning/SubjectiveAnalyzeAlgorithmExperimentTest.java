@@ -23,7 +23,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
 
     /**
      * Abordagem que generaliza as notas no cluster
-     *
+     * <p>
      * Primeira interação: 3
      * Intervalo de interações: 3
      * População: 200
@@ -52,12 +52,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering.getSolutionsByClusterId(2).get(0).setEvaluation(2);
         clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1, ClassifierAlgorithm.CLUSTERING_MLP);
-        subjectiveAnalyzeAlgorithm.run(null);
+        subjectiveAnalyzeAlgorithm.run(null, false);
 
         LOGGER.info("1º Interação SEM NOTAS");
         //        1º Interação SEM NOTAS
         SolutionSet solutionSet1b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 11L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b, true);
 //
         LOGGER.info("2º Interação COM NOTAS");
         //        2º Interação COM NOTAS
@@ -69,12 +69,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering2.getSolutionsByClusterId(1).get(0).setEvaluation(4);
         clustering2.getSolutionsByClusterId(2).get(0).setEvaluation(3);
         clustering2.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2, false);
 
         LOGGER.info("2º Interação SEM NOTAS");
         //        2º Interação SEM NOTAS
         SolutionSet solutionSet2b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 22L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2b, true);
 
         LOGGER.info("3º Interação COM NOTAS");
         //        3º Interação COM NOTAS
@@ -86,11 +86,11 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering3.getSolutionsByClusterId(1).get(0).setEvaluation(5);
         clustering3.getSolutionsByClusterId(2).get(0).setEvaluation(3);
         clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        subjectiveAnalyzeAlgorithm.run(solutionSet3);
+        subjectiveAnalyzeAlgorithm.run(solutionSet3, false);
 
     }
 
-//    @Test
+    //    @Test
     public void abordagem1ComAlteracoesNoPerfilDeAvaliacao() throws Exception {
         LOGGER.info("AGM MLP");
         Clustering.LOGGER.setLevel(Level.OFF);
@@ -108,12 +108,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering.getSolutionsByClusterId(2).get(0).setEvaluation(2);
         clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1, ClassifierAlgorithm.CLUSTERING_MLP);
-        subjectiveAnalyzeAlgorithm.run(null);
+        subjectiveAnalyzeAlgorithm.run(null, false);
 
         LOGGER.info("1º Interação SEM NOTAS");
         //        1º Interação SEM NOTAS
         SolutionSet solutionSet1b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 11L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b, true);
 //
         LOGGER.info("2º Interação COM NOTAS");
         //        2º Interação COM NOTAS
@@ -125,12 +125,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering2.getSolutionsByClusterId(1).get(0).setEvaluation(3);
         clustering2.getSolutionsByClusterId(2).get(0).setEvaluation(4);
         clustering2.getSolutionsByClusterId(3).get(0).setEvaluation(5);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2, false);
 
         LOGGER.info("2º Interação SEM NOTAS");
         //        2º Interação SEM NOTAS
         SolutionSet solutionSet2b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 22L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2b, true);
 
         LOGGER.info("3º Interação COM NOTAS");
         //        3º Interação COM NOTAS
@@ -142,13 +142,14 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering3.getSolutionsByClusterId(1).get(0).setEvaluation(3);
         clustering3.getSolutionsByClusterId(2).get(0).setEvaluation(2);
         clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        subjectiveAnalyzeAlgorithm.run(solutionSet3);
+        subjectiveAnalyzeAlgorithm.run(solutionSet3, false);
     }
 
     /**
      * Abordagem Sem generalização alguma das notas.
-     *
+     * <p>
      * O erro é pequeno pois são poucas soluções avaliadas, porém quando analisa os dados, nenhuma solução avaliada foi avaliada corretamente.
+     *
      * @throws Exception
      */
 //    @Test
@@ -169,12 +170,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering.getSolutionsByClusterId(2).get(0).setEvaluation(2);
         clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1, ClassifierAlgorithm.MLP);
-        subjectiveAnalyzeAlgorithm.run(null);
+        subjectiveAnalyzeAlgorithm.run(null, false);
 
         LOGGER.info("1º Interação SEM NOTAS");
         //        1º Interação SEM NOTAS
         SolutionSet solutionSet1b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 11L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b, true);
 //
         LOGGER.info("2º Interação COM NOTAS");
         //        2º Interação COM NOTAS
@@ -186,12 +187,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering2.getSolutionsByClusterId(1).get(0).setEvaluation(4);
         clustering2.getSolutionsByClusterId(2).get(0).setEvaluation(3);
         clustering2.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2, false);
 
         LOGGER.info("2º Interação SEM NOTAS");
         //        2º Interação SEM NOTAS
         SolutionSet solutionSet2b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 22L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2b, true);
 
         LOGGER.info("3º Interação COM NOTAS");
         //        3º Interação COM NOTAS
@@ -203,11 +204,11 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering3.getSolutionsByClusterId(1).get(0).setEvaluation(5);
         clustering3.getSolutionsByClusterId(2).get(0).setEvaluation(3);
         clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        subjectiveAnalyzeAlgorithm.run(solutionSet3);
+        subjectiveAnalyzeAlgorithm.run(solutionSet3, false);
 
     }
 
-//    @Test
+    //    @Test
     public void abordagem2ComAlteracoesNoPerfilDeAvaliacao() throws Exception {
         LOGGER.info("AGM MLP");
         Clustering.LOGGER.setLevel(Level.OFF);
@@ -225,12 +226,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering.getSolutionsByClusterId(2).get(0).setEvaluation(2);
         clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1, ClassifierAlgorithm.MLP);
-        subjectiveAnalyzeAlgorithm.run(null);
+        subjectiveAnalyzeAlgorithm.run(null, false);
 
         LOGGER.info("1º Interação SEM NOTAS");
         //        1º Interação SEM NOTAS
         SolutionSet solutionSet1b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 11L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b, true);
 //
         LOGGER.info("2º Interação COM NOTAS");
         //        2º Interação COM NOTAS
@@ -242,12 +243,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering2.getSolutionsByClusterId(1).get(0).setEvaluation(3);
         clustering2.getSolutionsByClusterId(2).get(0).setEvaluation(4);
         clustering2.getSolutionsByClusterId(3).get(0).setEvaluation(5);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2, false);
 
         LOGGER.info("2º Interação SEM NOTAS");
         //        2º Interação SEM NOTAS
         SolutionSet solutionSet2b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 22L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2b, true);
 
         LOGGER.info("3º Interação COM NOTAS");
         //        3º Interação COM NOTAS
@@ -259,7 +260,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering3.getSolutionsByClusterId(1).get(0).setEvaluation(3);
         clustering3.getSolutionsByClusterId(2).get(0).setEvaluation(2);
         clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        subjectiveAnalyzeAlgorithm.run(solutionSet3);
+        subjectiveAnalyzeAlgorithm.run(solutionSet3, false);
     }
 
     /**
@@ -286,12 +287,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1, ClassifierAlgorithm.CLUSTERING_MLP, DistributeUserEvaluation.MIDDLE);
         subjectiveAnalyzeAlgorithm.setDistributeUserEvaluation(DistributeUserEvaluation.MIDDLE);
-        subjectiveAnalyzeAlgorithm.run(null);
+        subjectiveAnalyzeAlgorithm.run(null, false);
 
         LOGGER.info("1º Interação SEM NOTAS");
         //        1º Interação SEM NOTAS
         SolutionSet solutionSet1b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 11L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b, false);
 //
         LOGGER.info("2º Interação COM NOTAS");
         //        2º Interação COM NOTAS
@@ -303,12 +304,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering2.getSolutionsByClusterId(1).get(0).setEvaluation(4);
         clustering2.getSolutionsByClusterId(2).get(0).setEvaluation(3);
         clustering2.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2, true);
 
         LOGGER.info("2º Interação SEM NOTAS");
         //        2º Interação SEM NOTAS
         SolutionSet solutionSet2b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 22L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2b, false);
 
         LOGGER.info("3º Interação COM NOTAS");
         //        3º Interação COM NOTAS
@@ -320,11 +321,11 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering3.getSolutionsByClusterId(1).get(0).setEvaluation(5);
         clustering3.getSolutionsByClusterId(2).get(0).setEvaluation(3);
         clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        subjectiveAnalyzeAlgorithm.run(solutionSet3);
+        subjectiveAnalyzeAlgorithm.run(solutionSet3, true);
 
     }
 
-//    @Test
+    //    @Test
     public void abordagem3ComAlteracoesNoPerfilDeAvaliacao() throws Exception {
         LOGGER.info("AGM MLP");
         Clustering.LOGGER.setLevel(Level.OFF);
@@ -342,12 +343,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering.getSolutionsByClusterId(2).get(0).setEvaluation(2);
         clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1, ClassifierAlgorithm.CLUSTERING_MLP, DistributeUserEvaluation.MIDDLE);
-        subjectiveAnalyzeAlgorithm.run(null);
+        subjectiveAnalyzeAlgorithm.run(null, false);
 
         LOGGER.info("1º Interação SEM NOTAS");
         //        1º Interação SEM NOTAS
         SolutionSet solutionSet1b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 11L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1b, true);
 //
         LOGGER.info("2º Interação COM NOTAS");
         //        2º Interação COM NOTAS
@@ -359,12 +360,12 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering2.getSolutionsByClusterId(1).get(0).setEvaluation(3);
         clustering2.getSolutionsByClusterId(2).get(0).setEvaluation(4);
         clustering2.getSolutionsByClusterId(3).get(0).setEvaluation(5);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2, false);
 
         LOGGER.info("2º Interação SEM NOTAS");
         //        2º Interação SEM NOTAS
         SolutionSet solutionSet2b = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, elements, 22L);
-        subjectiveAnalyzeAlgorithm.run(solutionSet2b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet2b, true);
 
         LOGGER.info("3º Interação COM NOTAS");
         //        3º Interação COM NOTAS
@@ -376,7 +377,7 @@ public class SubjectiveAnalyzeAlgorithmExperimentTest {
         clustering3.getSolutionsByClusterId(1).get(0).setEvaluation(3);
         clustering3.getSolutionsByClusterId(2).get(0).setEvaluation(2);
         clustering3.getSolutionsByClusterId(3).get(0).setEvaluation(2);
-        subjectiveAnalyzeAlgorithm.run(solutionSet3);
+        subjectiveAnalyzeAlgorithm.run(solutionSet3, false);
     }
 
 
