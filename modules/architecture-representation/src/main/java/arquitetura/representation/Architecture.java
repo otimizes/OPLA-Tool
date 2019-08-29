@@ -775,8 +775,6 @@ public class Architecture extends Variable {
 
 
     public String toDetailedString(boolean withAttrs) {
-
-
         List<Integer> qtdAtributosPorClasse = new ArrayList<>();
         List<Integer> qtdMetodosPorClasse = new ArrayList<>();
         int qtdClassesSemAttr = 0;
@@ -791,12 +789,15 @@ public class Architecture extends Variable {
         }
 
 
+        List<Element> freezedElements = getFreezedElements();
         StringBuilder str = new StringBuilder();
         str.append("Packages: " + getAllPackages() +
                 ", qtdPackages: " + getAllPackages().size() +
                 ", qtdClasses: " + getAllClasses().size() +
                 ", qtdInterfaces: " + getAllInterfaces().size() +
-                ", qtdA: " + qtdClassesSemAttr +
+                ", qtdClassesSemAttr: " + qtdClassesSemAttr +
+                ", qtdFreezedElements: " + freezedElements.size() +
+                ", \nfreezedElements: " + freezedElements.stream().map(s -> s.getName() + ":" + s.getTypeElement()).collect(Collectors.toList()) +
                 ", \nqtdAggregation: " + getRelationshipHolder().getAllAgragations().size() +
                 ", \ngetAllCompositions: " + getRelationshipHolder().getAllCompositions().size() +
                 ", \ngetAllDependencies: " + getRelationshipHolder().getAllDependencies().size() +
@@ -825,7 +826,7 @@ public class Architecture extends Variable {
     }
 
     public String toStringFreezedElements() {
-        return getFreezedElements().stream().map(e -> e.getTypeElement() + ":" + e.getName()).collect(Collectors.toList()).toString();
+        return getFreezedElements().stream().map(e -> e.getName() + ":" + e.getTypeElement()).collect(Collectors.toList()).toString();
     }
 
     public void addElement(Element element) {

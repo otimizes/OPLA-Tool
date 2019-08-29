@@ -149,21 +149,25 @@ public class SubjectiveAnalyzeAlgorithm {
         }
         subjectiveArffExecution.getData().setClassIndex(subjectiveArffExecution.getAttrIndices());
         architecturalArffExecution.getData().setClassIndex(architecturalArffExecution.getAttrIndices());
-        this.buildSubjectiveMLP();
-        this.buildArchitecturalMLP();
-//        Thread threadSubjectiveMLP = new Thread(this::buildSubjectiveMLP);
-//        threadSubjectiveMLP.start();
-//        Thread threadArchitecturalMLP = new Thread(this::buildArchitecturalMLP);
-//        threadArchitecturalMLP.start();
-//
-//        try {
-//            threadSubjectiveMLP.join();
-//            threadArchitecturalMLP.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+//        this.buildSubjectiveMLP();
+//        this.buildArchitecturalMLP();
+        Thread threadSubjectiveMLP = new Thread(this::buildSubjectiveMLP);
+        threadSubjectiveMLP.start();
+        Thread threadArchitecturalMLP = null;
+        if (solutionSet.hasUserEvaluation()) {
+            threadArchitecturalMLP = new Thread(this::buildArchitecturalMLP);
+            threadArchitecturalMLP.start();
+        }
 
-        System.out.println("-------------->>>>>>>>> Tempo: " + ((new Date().getTime() - startsIn) / 1000));
+        try {
+            threadSubjectiveMLP.join();
+            if (threadArchitecturalMLP != null)
+                threadArchitecturalMLP.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        LOGGER.info("-------------->>>>>>>>> Tempo: " + ((new Date().getTime() - startsIn) / 1000));
         return resultFront;
     }
 
@@ -202,7 +206,7 @@ public class SubjectiveAnalyzeAlgorithm {
                 denseInstance.setDataset(architecturalArffExecution.getData());
                 element.setFreeze(architecturalMLP.classifyInstance(denseInstance));
                 if (element.isFreeze()) {
-                    System.out.println("->>>>> Congelou " + element.getName());
+                    LOGGER.info("->>>>> Congelou " + element.getName());
                 }
             }
         }
@@ -223,12 +227,12 @@ public class SubjectiveAnalyzeAlgorithm {
                     break;
             }
 
-            System.out.println("----------------------------------------> Architectural Evaluation <-------------------------------------");
-            System.out.println("Architecture Error: " + architectureEval.errorRate());
-            System.out.println("Architecture Summary: " + architectureEval.toSummaryString());
+            LOGGER.info("----------------------------------------> Architectural Evaluation <-------------------------------------");
+            LOGGER.info("Architecture Error: " + architectureEval.errorRate());
+            LOGGER.info("Architecture Summary: " + architectureEval.toSummaryString());
             for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
                 List<Element> elementWithNumberId = getResultFront().findElementWithNumberId(architecturalArffExecution.getData().get(i).value(3));
-                System.out.println(elementWithNumberId.get(0).getTypeElement() + " " + elementWithNumberId.get(0).getName() + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))));
+                LOGGER.info(elementWithNumberId.get(0).getTypeElement() + " " + elementWithNumberId.get(0).getName() + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -249,9 +253,9 @@ public class SubjectiveAnalyzeAlgorithm {
                     subjectiveEval.crossValidateModel(subjectiveMLP, subjectiveArffExecution.getData(), 5, new Random(1));
                     break;
             }
-            System.out.println("----------------------------------------> Subjective Evaluation <----------------------------------------");
-            System.out.println("Subjective Error: " + subjectiveEval.errorRate());
-            System.out.println("Subjective Summary: " + subjectiveEval.toSummaryString());
+            LOGGER.info("----------------------------------------> Subjective Evaluation <----------------------------------------");
+            LOGGER.info("Subjective Error: " + subjectiveEval.errorRate());
+            LOGGER.info("Subjective Summary: " + subjectiveEval.toSummaryString());
 //        for (int i = 0; i < subjectiveArffExecution.getData().size(); i++) {
 //            System.out.println("Solution " + i + ": Expected: " + resultFront.get(i).getEvaluation() + " - Predicted: " + ((int) subjectiveMLP.classifyInstance(subjectiveArffExecution.getData().get(i))));
 //        }

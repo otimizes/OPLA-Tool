@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 import java.util.List;
@@ -33,6 +34,7 @@ public class InteractiveSolutions extends JDialog {
     SolutionSet solutionSet;
     GridLayout gridLayout = new GridLayout();
     JPanel panelMaster = new JPanel(gridLayout);
+    List<DefaultMutableTreeNode> objectNodes;
     LayoutManager layoutPanelSubjectiveAnalyse = new MigLayout();
     JPanel jPanelSubjectiveAnalysis = new JPanel(layoutPanelSubjectiveAnalyse);
     final JTextField field = new JTextField();
@@ -41,6 +43,8 @@ public class InteractiveSolutions extends JDialog {
     String plaNameOnAnalyses;
     Solution solutionOnAnalyses;
     JDialog dialog;
+    StringBuilder logInteraction;
+    Clustering clustering;
     JProgressBar progressBar = new JProgressBar();
 
     public InteractiveSolutions() {
@@ -58,7 +62,7 @@ public class InteractiveSolutions extends JDialog {
         setLocationByPlatform(true);
 
         try {
-            paintTreeNode(solutionSet);
+            paintTreeNode();
             getContentPane().revalidate();
             getContentPane().repaint();
 
@@ -74,12 +78,23 @@ public class InteractiveSolutions extends JDialog {
                     clusterIds.forEach((k, v) -> {
                         if (v.stream().filter(vv -> vv > 0).count() <= 0) complete.set(false);
                     });
-                    if (!complete.get()) {
-                        JOptionPane.showMessageDialog(e.getComponent(), "Please, evaluate one solution by cluster.");
-                    } else {
-                        dispose();
-                        setVisible(false);
+//                    if (!complete.get()) {
+//                        JOptionPane.showMessageDialog(e.getComponent(), "Please, evaluate one solution by cluster.");
+//                    } else {
+//                    }
+                    FileWriter fileWriter = null;
+                    try {
+                        fileWriter = new FileWriter(config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + "LogInteraction_" + InteractiveSolutions.currentExecution + ".txt");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
                     }
+                    paintNodesBySolutionSet(solutionSet);
+
+                    PrintWriter printWriter = new PrintWriter(fileWriter);
+                    printWriter.print(logInteraction);
+                    printWriter.close();
+                    dispose();
+                    setVisible(false);
                     System.out.println("jdialog window closing event received");
                 }
             });
@@ -123,18 +138,16 @@ public class InteractiveSolutions extends JDialog {
         }
     }
 
-    private void paintTreeNode(SolutionSet solutionSet) throws Exception {
+    private void paintTreeNode() throws Exception {
         if (solutionSet.size() == 0) throw new RuntimeException("At least 1 solution is required.");
 
-        StringBuilder logInteraction = new StringBuilder();
-
-        Clustering clustering = new Clustering(solutionSet, this.clusteringAlgorithm);
+        clustering = new Clustering(solutionSet, this.clusteringAlgorithm);
         clustering.setNumClusters(solutionSet.getSolutionSet().get(0).numberOfObjectives() + 1);
         clustering.run();
         int numClusters = clustering.getGeneratedClusters();
 
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Solutions");
-        List<DefaultMutableTreeNode> objectNodes = new ArrayList<>();
+        objectNodes = new ArrayList<>();
         for (int i = 0; i < numClusters; i++) {
             StringBuilder str = new StringBuilder();
 
@@ -169,6 +182,26 @@ public class InteractiveSolutions extends JDialog {
         panelMaster.add(scroll);
         setContentPane(panelMaster);
 
+        paintNodesBySolutionSet(solutionSet);
+
+        int row = tree.getRowCount();
+        while (row >= 0) {
+            tree.expandRow(row);
+            row--;
+        }
+
+        tree.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    PopUp menu = new PopUp(tree);
+                    menu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+    }
+
+    private void paintNodesBySolutionSet(SolutionSet solutionSet) {
+        logInteraction = new StringBuilder();
         for (int i = 0; i < solutionSet.size(); i++) {
             String plaName = "TEMP_" + i + solutionSet.get(i).getOPLAProblem().getArchitecture_().getName();
             DefaultMutableTreeNode elem = new DefaultMutableTreeNode(plaName, true);
@@ -189,7 +222,7 @@ public class InteractiveSolutions extends JDialog {
             logInteraction.append(elem3.toString() + "\n");
             elem.add(elem3);
             DefaultMutableTreeNode elem4 = new DefaultMutableTreeNode("Info: " + solutionSet.get(i).getOPLAProblem().getArchitecture_().toString(), false);
-            logInteraction.append("Info: " + solutionSet.get(i).getOPLAProblem().getArchitecture_().toDetailedString(true) + "\n");
+            logInteraction.append("Info: " + solutionSet.get(i).getAlternativeArchitecture().toDetailedString(true) + "\n");
             elem.add(elem4);
             DefaultMutableTreeNode elem5 = new DefaultMutableTreeNode("Previous User Evaluation: " + solutionSet.get(i).getEvaluation(), false);
             logInteraction.append(elem5.toString() + "\n");
@@ -213,26 +246,6 @@ public class InteractiveSolutions extends JDialog {
             objectNodes.get(solutionSet.get(i).getClusterId().intValue()).add(elem);
 //            root.add(elem);
         }
-
-        FileWriter fileWriter = new FileWriter(config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + "LogInteraction_" + InteractiveSolutions.currentExecution + ".txt");
-        PrintWriter printWriter = new PrintWriter(fileWriter);
-        printWriter.print(logInteraction);
-        printWriter.close();
-
-        int row = tree.getRowCount();
-        while (row >= 0) {
-            tree.expandRow(row);
-            row--;
-        }
-
-        tree.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                if (SwingUtilities.isRightMouseButton(e)) {
-                    PopUp menu = new PopUp(tree);
-                    menu.show(e.getComponent(), e.getX(), e.getY());
-                }
-            }
-        });
     }
 
 
