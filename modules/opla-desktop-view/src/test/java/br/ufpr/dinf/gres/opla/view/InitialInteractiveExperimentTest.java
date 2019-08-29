@@ -96,7 +96,9 @@ public class InitialInteractiveExperimentTest {
     public void fnCore() throws Exception {
 
         SolutionSet solutionSet1a = generateSolutionSet();
+//        solutionSet1a.get(0).getAlternativeArchitecture().getAllAtributtes();
         SolutionSet solutionSet1b = generateSolutionSet();
+        SolutionSet solutionSet1c = generateSolutionSet();
 
         Clustering clustering = new Clustering(solutionSet1a, ClusteringAlgorithm.KMEANS);
         clustering.setNumClusters(4);
@@ -142,9 +144,7 @@ public class InitialInteractiveExperimentTest {
 
         subjectiveAnalyzeAlgorithm.run(null);
         subjectiveAnalyzeAlgorithm.run(solutionSet1b);
-        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
-        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
-        subjectiveAnalyzeAlgorithm.run(solutionSet1b);
+        subjectiveAnalyzeAlgorithm.run(solutionSet1c);
 
         System.out.println("aaaaa");
 

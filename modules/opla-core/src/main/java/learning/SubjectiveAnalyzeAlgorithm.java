@@ -228,7 +228,7 @@ public class SubjectiveAnalyzeAlgorithm {
             System.out.println("Architecture Summary: " + architectureEval.toSummaryString());
             for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
                 List<Element> elementWithNumberId = getResultFront().findElementWithNumberId(architecturalArffExecution.getData().get(i).value(3));
-                System.out.println("Solution " + elementWithNumberId.get(0).getName() + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))));
+                System.out.println(elementWithNumberId.get(0).getTypeElement() + " " + elementWithNumberId.get(0).getName() + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))));
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -110,6 +110,25 @@ public class Architecture extends Variable {
         return Collections.unmodifiableSet(this.packages);
     }
 
+    public List<Attribute> getAllAtributtes() {
+        List<Attribute> attrs = new ArrayList<>();
+        for (Class allClass : this.getAllClasses()) {
+            attrs.addAll(allClass.getAllAttributes());
+        }
+        return attrs;
+    }
+
+    public List<Method> getAllMethods() {
+        List<Method> attrs = new ArrayList<>();
+        for (Class allClass : this.getAllClasses()) {
+            attrs.addAll(allClass.getAllMethods());
+        }
+        for (Interface allClass : this.getAllInterfaces()) {
+            attrs.addAll(allClass.getOperations());
+        }
+        return attrs;
+    }
+
     public List<Package> getAllPackagesAllowedMofification() {
         return new ArrayList<>(this.packages);
     }
