@@ -364,6 +364,7 @@ public class SolutionSet implements Serializable {
 
         for (int j = 0; j < numberOfVariables; j++) {
             Architecture arch = (Architecture) solution.getDecisionVariables()[j];
+            arch.setName(solution.getOPLAProblem().getArchitecture_().getName());
             if (generate)
                 arch.save(arch, path, "");
         }

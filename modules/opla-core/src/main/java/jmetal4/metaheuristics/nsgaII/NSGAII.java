@@ -21,6 +21,7 @@
 
 package jmetal4.metaheuristics.nsgaII;
 
+import arquitetura.representation.Element;
 import com.rits.cloning.Cloner;
 import jmetal4.core.*;
 import jmetal4.interactive.InteractiveFunction;
@@ -239,6 +240,10 @@ public class NSGAII extends Algorithm {
                     // The score is set up to 0 because in future mutations the object can be modified and due to the score the modified solution is manteined imutable
                     for (Solution solution : offspringPopulation.getSolutionSet()) {
                         solution.setEvaluation(0);
+//                        If you wish block replicated freezed solutions, uncomment this line
+//                        for (Element elementsWithPackage : solution.getAlternativeArchitecture().getElementsWithPackages()) {
+//                            elementsWithPackage.unsetFreeze();
+//                        }
                     }
                     currentInteraction++;
                 }

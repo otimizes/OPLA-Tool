@@ -128,6 +128,7 @@ public class SubjectiveAnalyzeAlgorithm {
                 ArffExecution newArffArchitectureMLP = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
                 newArffArchitectureMLP.getData().setClassIndex(newArffArchitectureMLP.getAttrIndices());
                 architecturalArffExecution.getData().addAll(newArffArchitectureMLP.getData());
+                System.out.println("aaaa");
             }
             ArffExecution newArffSubjectiveMLP = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(), solutionSet.writeUserEvaluationsToMatrix(), null);
             newArffSubjectiveMLP.getData().setClassIndex(newArffSubjectiveMLP.getAttrIndices());
@@ -205,6 +206,7 @@ public class SubjectiveAnalyzeAlgorithm {
     }
 
     public void evaluateSolutionSetSubjectiveAndArchitecturalMLP(SolutionSet solutionSet) throws Exception {
+        LOGGER.info("evaluateSolutionSetSubjectiveAndArchitecturalMLP()");
         for (int i = 0; i < solutionSet.getArchitecturalSolutionsEvaluated().size(); i++) {
             solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
             for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElementsWithPackages()) {
@@ -228,6 +230,7 @@ public class SubjectiveAnalyzeAlgorithm {
                 DenseInstance denseInstance = new DenseInstance(1.0, data);
                 denseInstance.setDataset(architecturalArffExecution.getData());
                 element.setFreeze(architecturalMLP.classifyInstance(denseInstance));
+                LOGGER.info(element.getName() + ":" + element.getTypeElement() + " was " + (element.isFreeze() ? " FREEZED" : " NOT FREEZED"));
                 if (element.isFreeze()) {
                     LOGGER.info("->>>>> Congelou " + element.getName());
                 }

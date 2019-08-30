@@ -188,7 +188,7 @@ public abstract class Element implements Serializable {
     }
 
     public boolean unsetFreeze() {
-        this.comments.replaceAll("freeze", "");
+        this.comments = this.comments.replaceAll("freeze", "");
         return this.isFreeze();
     }
 

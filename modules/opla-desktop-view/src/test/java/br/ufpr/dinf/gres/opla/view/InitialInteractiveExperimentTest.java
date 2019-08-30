@@ -140,6 +140,16 @@ public class InitialInteractiveExperimentTest {
                 }
             }
         }
+
+//        for (Solution solution : solutionSet1a.getSolutionSet()) {
+//            for (Element elementsWithPackage : solution.getAlternativeArchitecture().getElementsWithPackages()) {
+//                elementsWithPackage.unsetFreeze();
+//                if (elementsWithPackage.isFreeze()) {
+//                    System.out.println("CONGELADO " + elementsWithPackage.getName());
+//                }
+//            }
+//        }
+
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(solutionSet1a, ClassifierAlgorithm.CLUSTERING_MLP, DistributeUserEvaluation.MIDDLE);
 
         subjectiveAnalyzeAlgorithm.run(null, false);
