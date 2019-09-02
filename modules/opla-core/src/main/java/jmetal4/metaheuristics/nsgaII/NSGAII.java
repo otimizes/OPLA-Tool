@@ -228,6 +228,14 @@ public class NSGAII extends Algorithm {
                 // than the hypervolume of the true Pareto front.
 
                 int generation = evaluations / populationSize;
+                // The score is set up to 0 because in future mutations the object can be modified and due to the score the modified solution is manteined imutable
+                for (Solution solution : offspringPopulation.getSolutionSet()) {
+                    solution.setEvaluation(0);
+//                        If you wish block replicated freezed solutions, uncomment this line
+//                        for (Element elementsWithPackage : solution.getAlternativeArchitecture().getElementsWithPackages()) {
+//                            elementsWithPackage.unsetFreeze();
+//                        }
+                }
                 if (interactive && currentInteraction < maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
                     offspringPopulation = interactiveFunction.run(offspringPopulation);
                     if (subjectiveAnalyzeAlgorithm == null) {
@@ -237,14 +245,6 @@ public class NSGAII extends Algorithm {
                         subjectiveAnalyzeAlgorithm.run(offspringPopulation, false);
                     }
                     bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
-                    // The score is set up to 0 because in future mutations the object can be modified and due to the score the modified solution is manteined imutable
-                    for (Solution solution : offspringPopulation.getSolutionSet()) {
-                        solution.setEvaluation(0);
-//                        If you wish block replicated freezed solutions, uncomment this line
-//                        for (Element elementsWithPackage : solution.getAlternativeArchitecture().getElementsWithPackages()) {
-//                            elementsWithPackage.unsetFreeze();
-//                        }
-                    }
                     currentInteraction++;
                 }
 
@@ -292,6 +292,14 @@ public class NSGAII extends Algorithm {
         for (Solution solution : bestOfUserEvaluation) {
             if (!subfrontToReturn.getSolutionSet().contains(solution)) {
                 subfrontToReturn.add(solution);
+            }
+        }
+
+        if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
+            try {
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(subfrontToReturn);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 

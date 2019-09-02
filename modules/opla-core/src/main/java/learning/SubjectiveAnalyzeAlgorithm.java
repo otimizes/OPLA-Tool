@@ -254,7 +254,7 @@ public class SubjectiveAnalyzeAlgorithm {
             }
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("----------------------------------------> Architectural Evaluation <------------------------------------- \n");
+            stringBuilder.append("--> Architectural Evaluation <------------------------------------- \n");
             stringBuilder.append("Architecture Error: " + architectureEval.errorRate() + "\n");
             stringBuilder.append("Architecture Summary: " + architectureEval.toSummaryString() + "\n");
             for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
@@ -296,7 +296,7 @@ public class SubjectiveAnalyzeAlgorithm {
                     subjectiveEval.crossValidateModel(subjectiveMLP, subjectiveArffExecution.getData(), 5, new Random(1));
                     break;
             }
-            LOGGER.info("----------------------------------------> Subjective Evaluation <----------------------------------------");
+            LOGGER.info("--> Subjective Evaluation <----------------------------------------");
             LOGGER.info("Subjective Error: " + subjectiveEval.errorRate());
             LOGGER.info("Subjective Summary: " + subjectiveEval.toSummaryString());
 //        for (int i = 0; i < subjectiveArffExecution.getData().size(); i++) {
