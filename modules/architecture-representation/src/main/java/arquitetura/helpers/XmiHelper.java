@@ -274,7 +274,6 @@ public class XmiHelper {
                     Comment nownedComment = ownedElement.createOwnedComment();
                     nownedComment.setBody(ownedComment.getBody());
                 }
-                System.out.println("aui");
             }
 
         }
