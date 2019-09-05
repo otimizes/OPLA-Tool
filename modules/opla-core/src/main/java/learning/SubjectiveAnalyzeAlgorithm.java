@@ -205,10 +205,12 @@ public class SubjectiveAnalyzeAlgorithm {
         }
     }
 
-    public void evaluateSolutionSetSubjectiveAndArchitecturalMLP(SolutionSet solutionSet) throws Exception {
+    public void evaluateSolutionSetSubjectiveAndArchitecturalMLP(SolutionSet solutionSet, boolean subjective) throws Exception {
         LOGGER.info("evaluateSolutionSetSubjectiveAndArchitecturalMLP()");
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
-            solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
+            if (subjective) {
+                solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
+            }
             for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElementsWithPackages()) {
                 double[] data = solutionSet.get(i).getObjectives();
                 data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element, solutionSet.get(i)));

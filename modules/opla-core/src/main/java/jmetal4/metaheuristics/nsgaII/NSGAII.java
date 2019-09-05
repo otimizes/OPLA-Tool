@@ -259,7 +259,7 @@ public class NSGAII extends Algorithm {
                 }
 
                 if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
-                    subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(offspringPopulation);
+                    subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(offspringPopulation, true);
                 }
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
@@ -297,7 +297,7 @@ public class NSGAII extends Algorithm {
 
         if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
             try {
-                subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(subfrontToReturn);
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(subfrontToReturn, false);
             } catch (Exception e) {
                 e.printStackTrace();
             }

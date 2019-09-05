@@ -3,6 +3,7 @@ package arquitetura.helpers;
 import arquitetura.exceptions.NodeIdNotFound;
 import arquitetura.representation.*;
 import arquitetura.representation.Class;
+import arquitetura.representation.Package;
 import com.google.common.base.Joiner;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -28,9 +29,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 /**
- * @author edipofederle<edipofederle @ gmail.com>
+ * @author edipofederle<edipofederle               @               gmail.com>
  */
 public class XmiHelper {
 
@@ -265,6 +267,17 @@ public class XmiHelper {
 
     public static void setRecursiveOwnedComments(NamedElement modelElement, Element element) {
         EList<Comment> ownedComments = modelElement.getOwnedComments();
+        if (element instanceof Package) {
+            EList<org.eclipse.uml2.uml.Element> ownedElements = modelElement.getOwnedElements();
+            for (org.eclipse.uml2.uml.Element ownedElement : ownedElements) {
+                for (Comment ownedComment : ownedComments) {
+                    Comment nownedComment = ownedElement.createOwnedComment();
+                    nownedComment.setBody(ownedComment.getBody());
+                }
+                System.out.println("aui");
+            }
+
+        }
         if (element instanceof Class || element instanceof Interface) {
             EList<Comment> ownedCommentsPackage = ((ClassImpl) modelElement).getPackage().getOwnedComments();
             ownedComments.addAll(ownedCommentsPackage);

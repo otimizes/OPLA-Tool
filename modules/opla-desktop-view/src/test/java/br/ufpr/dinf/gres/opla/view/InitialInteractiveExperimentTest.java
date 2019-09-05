@@ -61,20 +61,6 @@ public class InitialInteractiveExperimentTest {
 
     @Test
     public void savePositionsUML2() throws Exception {
-        List<String> xmis = Arrays.asList(
-                "/home/wmfsystem/oplatool/plas/agm/agm.uml"
-        );
-
-        ArchitectureBuilder architectureBuilder = new ArchitectureBuilder();
-        List<Architecture> arrayList = xmis.stream().map(x -> {
-            try {
-                return architectureBuilder.create(x);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }).collect(Collectors.toList());
-
         ManagerApplicationConfig instance = ApplicationFile.getInstance();
         NSGAIIConfig configs = new NSGAIIConfig();
         configs.setPopulationSize(20);
@@ -87,12 +73,12 @@ public class InitialInteractiveExperimentTest {
         solutionSet.setCapacity(1);
         Solution solution = new Solution(opla);
         solutionSet.add(solution);
-
-        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(instance, ClusteringAlgorithm.KMEANS, solutionSet);
+        List<Element> freezedElements = solution.getAlternativeArchitecture().getFreezedElements();
+        //        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(instance, ClusteringAlgorithm.KMEANS, solutionSet);
         System.out.println("fim");
     }
 
-    @Test
+//    @Test
     public void fnCore() throws Exception {
 
         SolutionSet solutionSet1a = generateSolutionSet();
