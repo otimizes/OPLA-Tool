@@ -123,7 +123,7 @@ public class RelationshipsHolder {
         final List<AssociationRelationship> associations = getAllAssociations();
         final List<AssociationRelationship> compositions = new ArrayList<AssociationRelationship>();
         for (AssociationRelationship associationRelationship : associations) {
-            if ((associationRelationship.getParticipants().get(0).isComposite()) || (associationRelationship.getParticipants().get(1).isComposite())) {
+            if ((associationRelationship.getParticipants().get(0).isComposite()) || (associationRelationship.getParticipants().size() > 1 && associationRelationship.getParticipants().get(1).isComposite())) {
                 compositions.add(associationRelationship);
             }
         }
@@ -134,7 +134,7 @@ public class RelationshipsHolder {
         final List<AssociationRelationship> associations = getAllAssociations();
         final List<AssociationRelationship> agragation = new ArrayList<AssociationRelationship>();
         for (AssociationRelationship associationRelationship : associations) {
-            if ((associationRelationship.getParticipants().get(0).isAggregation()) || (associationRelationship.getParticipants().get(1).isAggregation())) {
+            if ((associationRelationship.getParticipants().get(0).isAggregation()) || (associationRelationship.getParticipants().size() > 1 && associationRelationship.getParticipants().get(1).isAggregation())) {
                 agragation.add(associationRelationship);
             }
         }
