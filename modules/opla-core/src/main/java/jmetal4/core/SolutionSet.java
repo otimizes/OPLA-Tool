@@ -623,7 +623,7 @@ public class SolutionSet implements Serializable {
     public double[] writeArchitecturalEvaluationsToMatrix() {
         double[][] doubles = getArchitecturalSolutionsEvaluated().stream().map(solution -> {
             List<Element> allElementsFromSolution = getAllElementsFromSolution(solution);
-            double[] objects = allElementsFromSolution.stream().mapToDouble(element -> element.isFreeze() ? 1.0 : 0.0).toArray();
+            double[] objects = allElementsFromSolution.stream().mapToDouble(element -> element.isFreezeByDM() ? 1.0 : 0.0).toArray();
             return objects;
         }).toArray(double[][]::new);
         return reduceBiDimensionalArray(doubles);
@@ -1019,7 +1019,7 @@ public class SolutionSet implements Serializable {
     public List<Element> getArchitecturalElementsEvaluatedByClusterId(Double clusterId) {
         List<Element> elements = new ArrayList<>();
         List<List<Element>> collect = getArchitecturalSolutionsEvaluated().stream().filter(solution -> clusterId.equals(solution.getClusterId()))
-                .map(solution -> solution.getAlternativeArchitecture().getElementsWithPackages().stream().filter(Element::isFreeze).collect(Collectors.toList())).collect(Collectors.toList());
+                .map(solution -> solution.getAlternativeArchitecture().getElementsWithPackages().stream().filter(Element::isFreezeByDM).collect(Collectors.toList())).collect(Collectors.toList());
         for (List<Element> elementList : collect) {
             elements.addAll(elementList);
         }
@@ -1035,7 +1035,7 @@ public class SolutionSet implements Serializable {
                 solutionsList_ = solutionsList_.subList(0, Math.abs(solutionsList_.size() / 2));
             for (Solution solution : solutionsList_) {
                 if (solution.getEvaluation() == 0) {
-//                    freezeArchitecturalElementsAccordingCluster(solution);
+                    freezeArchitecturalElementsAccordingCluster(solution);
                     int media = Math.abs(getMedia(clusterIds.get(solution.getClusterId())));
                     solution.setEvaluation(media);
                 }
@@ -1045,9 +1045,13 @@ public class SolutionSet implements Serializable {
 
     private void freezeArchitecturalElementsAccordingCluster(Solution solution) {
         List<Element> architecturalElementsEvaluatedByClusterId = getArchitecturalElementsEvaluatedByClusterId(solution.getClusterId());
-        List<Element> collect = solution.getAlternativeArchitecture().getElementsWithPackages().stream().filter(e -> e.getNumberId() == architecturalElementsEvaluatedByClusterId.get(0).getNumberId()).collect(Collectors.toList());
-        for (Element element : collect) {
-            element.setFreeze();
+        if (architecturalElementsEvaluatedByClusterId.size() > 0) {
+            List<Element> collect = solution.getAlternativeArchitecture().getElementsWithPackages().stream()
+                    .filter(e -> architecturalElementsEvaluatedByClusterId.stream().anyMatch(ee -> ee.totalyEquals(e))).collect(Collectors.toList());
+            for (Element element : collect) {
+                LOGGER.info("Freeze Architectural Element By Cluster: " + element.getName() + ":" + element.getTypeElement());
+                element.setFreezedByCluster();
+            }
         }
     }
 

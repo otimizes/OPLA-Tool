@@ -2,7 +2,6 @@ package br.ufpr.dinf.gres.opla.view;
 
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.representation.Architecture;
-import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 import arquitetura.representation.Package;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
@@ -92,28 +91,28 @@ public class InitialInteractiveExperimentTest {
         clustering.getSolutionsByClusterId(0).get(0).setEvaluation(5);
         for (Package allClass : clustering.getSolutionsByClusterId(0).get(0).getAlternativeArchitecture().getAllPackagesAllowedMofification()) {
             if (allClass.getName().equals("GameBoardGUI")) {
-                allClass.setFreeze();
+                allClass.setFreezeFromDM();
                 System.out.println("Deve congelar " + allClass.getName());
             }
         }
         clustering.getSolutionsByClusterId(1).get(0).setEvaluation(3);
         for (Package allClass : clustering.getSolutionsByClusterId(1).get(0).getAlternativeArchitecture().getAllPackages()) {
             if (allClass.getName().equals("GameBoardGUI")) {
-                allClass.setFreeze();
+                allClass.setFreezeFromDM();
                 System.out.println("Deve congelar " + allClass.getName());
             }
         }
         clustering.getSolutionsByClusterId(2).get(0).setEvaluation(2);
         for (Package allClass : clustering.getSolutionsByClusterId(2).get(0).getAlternativeArchitecture().getAllPackagesAllowedMofification()) {
             if (allClass.getName().equals("GameBoardGUI")) {
-                allClass.setFreeze();
+                allClass.setFreezeFromDM();
                 System.out.println("Deve congelar " + allClass.getName());
             }
         }
         clustering.getSolutionsByClusterId(3).get(0).setEvaluation(2);
         for (Package allClass : clustering.getSolutionsByClusterId(3).get(0).getAlternativeArchitecture().getAllPackagesAllowedMofification()) {
             if (allClass.getName().equals("GameBoardGUI")) {
-                allClass.setFreeze();
+                allClass.setFreezeFromDM();
                 System.out.println("Deve congelar " + allClass.getName());
             }
         }
@@ -121,7 +120,7 @@ public class InitialInteractiveExperimentTest {
 
         for (Solution solution : solutionSet1a.getSolutionSet()) {
             for (Element freezedElement : solution.getAlternativeArchitecture().getFreezedElements()) {
-                if (freezedElement.isFreeze()) {
+                if (freezedElement.isFreezeByDM()) {
                     System.out.println("freeze------------> " + freezedElement.getName());
                 }
             }

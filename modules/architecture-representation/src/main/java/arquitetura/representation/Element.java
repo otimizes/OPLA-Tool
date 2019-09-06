@@ -1,12 +1,14 @@
 package arquitetura.representation;
 
 import arquitetura.exceptions.ConcernNotFoundException;
-import com.google.common.hash.HashCode;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.eclipse.uml2.uml.Interface;
 
 import java.io.Serializable;
-import java.lang.annotation.ElementType;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static sun.plugin2.os.windows.SECURITY_ATTRIBUTES.size;
 
 /**
  * @author edipofederle<edipofederle @ gmail.com>
@@ -24,7 +26,8 @@ public abstract class Element implements Serializable {
     private String typeElement;
     private String namespace;
     private boolean belongsToGeneralization;
-    public String comments = "";
+    private String comments = "";
+    private boolean freezedByCluster = false;
 
     public Element(String name, Variant variant, String typeElement, String namespace, String id) {
         setId(id);
@@ -183,28 +186,44 @@ public abstract class Element implements Serializable {
         this.comments = comments;
     }
 
-    public boolean isFreeze() {
+    public boolean isFreezeByDM() {
         return this.comments != null && this.comments.contains("freeze");
     }
 
-    public boolean unsetFreeze() {
+    public boolean unsetFreezeFromDM() {
         this.comments = this.comments.replaceAll("freeze", "");
-        return this.isFreeze();
+        return this.isFreezeByDM();
     }
 
-    public boolean setFreeze() {
+    public boolean setFreezeFromDM() {
         if (!this.comments.contains("freeze")) {
             this.comments += "freeze";
         }
-        return isFreeze();
+        return isFreezeByDM();
     }
 
-    public boolean setFreeze(boolean bool) {
-        return bool ? setFreeze() : unsetFreeze();
+    public boolean setFreezeFromDM(boolean bool) {
+        return bool ? setFreezeFromDM() : unsetFreezeFromDM();
     }
 
-    public boolean setFreeze(double bool) {
-        return bool > 0 ? setFreeze() : unsetFreeze();
+    public boolean setFreezeFromDM(double bool) {
+        return bool > 0 ? setFreezeFromDM() : unsetFreezeFromDM();
+    }
+
+    public boolean isFreezedByCluster() {
+        return freezedByCluster;
+    }
+
+    public void setFreezedByCluster(boolean freezedByCluster) {
+        this.freezedByCluster = freezedByCluster;
+    }
+
+    public void setFreezedByCluster() {
+        this.freezedByCluster = true;
+    }
+
+    public boolean isTotalyFreezed() {
+        return this.isFreezeByDM() || this.isFreezedByCluster();
     }
 
     @Override
@@ -235,6 +254,25 @@ public abstract class Element implements Serializable {
         } else if (!namespace.equals(other.namespace))
             return false;
         return true;
+    }
+
+    public boolean totalyEquals(Element other) {
+        boolean isEquals = this.getNumberId() == other.getNumberId();
+        if (this instanceof Class && other instanceof Class) {
+            isEquals &= ((Class) this).getAllAttributes().equals(((Class) other).getAllAttributes());
+            isEquals &= ((Class) this).getAllMethods().equals(((Class) other).getAllMethods());
+        } else if (this instanceof Interface && other instanceof Interface) {
+            isEquals &= ((Interface) this).getOperations().equals(((Interface) other).getOperations());
+        } else if (this instanceof Package && other instanceof Package) {
+            Set<Element> collect = ((Package) this).getElements();
+            Set<Element> collect1 = ((Package) other).getElements();
+            if (collect.size() != collect1.size()) return false;
+            for (Element element : collect) {
+                isEquals &= element.totalyEquals(other);
+            }
+        }
+        return isEquals;
+
     }
 
 }

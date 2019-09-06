@@ -822,7 +822,7 @@ public class Architecture extends Variable {
     }
 
     public List<Element> getFreezedElements() {
-        return getElementsWithPackages().stream().filter(Element::isFreeze).collect(Collectors.toList());
+        return getElementsWithPackages().stream().filter(Element::isFreezeByDM).collect(Collectors.toList());
     }
 
     public String toStringFreezedElements() {

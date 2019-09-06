@@ -1,11 +1,9 @@
 package learning;
 
 import arquitetura.io.ReaderConfig;
-import arquitetura.representation.Architecture;
 import arquitetura.representation.Element;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
-import jmetal4.util.JMException;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import weka.classifiers.Evaluation;
@@ -128,38 +126,14 @@ public class SubjectiveAnalyzeAlgorithm {
                 ArffExecution newArffArchitectureMLP = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
                 newArffArchitectureMLP.getData().setClassIndex(newArffArchitectureMLP.getAttrIndices());
                 architecturalArffExecution.getData().addAll(newArffArchitectureMLP.getData());
-                System.out.println("aaaa");
             }
             ArffExecution newArffSubjectiveMLP = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(), solutionSet.writeUserEvaluationsToMatrix(), null);
             newArffSubjectiveMLP.getData().setClassIndex(newArffSubjectiveMLP.getAttrIndices());
             resultFront.getSolutionSet().addAll(solutionSet.getSolutionSet());
             subjectiveArffExecution.getData().addAll(newArffSubjectiveMLP.getData());
-
-//            double[][] architecturalElements = solutionSet.writeObjectivesAndArchitecturalElementsNumberToMatrix();
-//            double[] architecturalElementsEvaluations = solutionSet.writeArchitecturalEvaluationsToMatrix();
-//
-//            ArrayList<double[]> newArchitecturalElements = new ArrayList<>();
-//            ArrayList<Double> newArchitecturalElementsEvaluations = new ArrayList<>();
-//
-//            for (int i = 0; i < architecturalElements.length; i++) {
-//                double evaluation = architecturalElementsEvaluations[i];
-//                if (evaluation > 0) {
-//                    newArchitecturalElements.add(architecturalElements[i]);
-//                    newArchitecturalElementsEvaluations.add(architecturalElementsEvaluations[i]);
-//                }
-//            }
-//
-//            double[][] doubles1 = newArchitecturalElements.toArray(new double[0][]);
-//            double[] doubles2 = newArchitecturalElementsEvaluations.stream().mapToDouble(Double::doubleValue).toArray();
-
-//            ArffExecution newArffArchitectureMLP = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
-//            newArffArchitectureMLP.getData().setClassIndex(newArffArchitectureMLP.getAttrIndices());
-//            architecturalArffExecution.getData().addAll(newArffArchitectureMLP.getData());
         }
         subjectiveArffExecution.getData().setClassIndex(subjectiveArffExecution.getAttrIndices());
         architecturalArffExecution.getData().setClassIndex(architecturalArffExecution.getAttrIndices());
-//        this.buildSubjectiveMLP();
-//        this.buildArchitecturalMLP();
         Thread threadSubjectiveMLP = new Thread(this::buildSubjectiveMLP);
         threadSubjectiveMLP.start();
         Thread threadArchitecturalMLP = null;
@@ -227,13 +201,13 @@ public class SubjectiveAnalyzeAlgorithm {
 
                 data = ArrayUtils.addAll(data, new double[]{
                         solutionSet.get(i).containsArchitecturalEvaluation() ? 1 : 0,
-                        element.isFreeze() ? 1 : 0
+                        element.isFreezeByDM() ? 1 : 0
                 });
                 DenseInstance denseInstance = new DenseInstance(1.0, data);
                 denseInstance.setDataset(architecturalArffExecution.getData());
-                element.setFreeze(architecturalMLP.classifyInstance(denseInstance));
-                LOGGER.info(element.getName() + ":" + element.getTypeElement() + " was " + (element.isFreeze() ? " FREEZED" : " NOT FREEZED"));
-                if (element.isFreeze()) {
+                element.setFreezeFromDM(architecturalMLP.classifyInstance(denseInstance));
+                LOGGER.info(element.getName() + ":" + element.getTypeElement() + " was " + (element.isFreezeByDM() ? " FREEZED" : " NOT FREEZED"));
+                if (element.isFreezeByDM()) {
                     LOGGER.info("->>>>> Congelou " + element.getName());
                 }
             }

@@ -228,6 +228,7 @@ public class NSGAII extends Algorithm {
                 // than the hypervolume of the true Pareto front.
 
                 int generation = evaluations / populationSize;
+                LOGGER.info(">> GENERATION " + generation);
                 // The score is set up to 0 because in future mutations the object can be modified and due to the score the modified solution is manteined imutable
                 for (Solution solution : offspringPopulation.getSolutionSet()) {
                     solution.setEvaluation(0);

@@ -675,7 +675,7 @@ public class Solution implements Serializable {
 
     public boolean containsArchitecturalEvaluation() {
         for (Element element : getAlternativeArchitecture().getElementsWithPackages()) {
-            if (element.isFreeze()){
+            if (element.isFreezeByDM()){
                 return true;
             }
         }

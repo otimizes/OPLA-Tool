@@ -3,7 +3,6 @@ package arquitetura.representation;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.RelationshiopCommons;
 import arquitetura.representation.relationship.Relationship;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.util.HashSet;
@@ -299,7 +298,7 @@ public class Package extends Element {
     }
 
     @Override
-    public boolean isFreeze() {
-        return super.isFreeze();
+    public boolean isFreezeByDM() {
+        return super.isFreezeByDM();
     }
 }
