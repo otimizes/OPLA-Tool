@@ -130,6 +130,8 @@ public class Solution implements Serializable {
 
     private Boolean clusterNoise_;
 
+    public Boolean evaluatedByUser;
+
     /**
      * Constructor.
      */
@@ -686,5 +688,11 @@ public class Solution implements Serializable {
         return (Architecture) getDecisionVariables()[0];
     }
 
+    public Boolean getEvaluatedByUser() {
+        return evaluatedByUser != null && evaluatedByUser;
+    }
 
+    public void setEvaluatedByUser(Boolean evaluatedByUser) {
+        this.evaluatedByUser = evaluatedByUser;
+    }
 } // Solution

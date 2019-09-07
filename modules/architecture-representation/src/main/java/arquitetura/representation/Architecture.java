@@ -341,6 +341,7 @@ public class Architecture extends Variable {
     }
 
     public void removePackage(Package p) {
+        if (p.isTotalyFreezed()) return;
         /**
          * Remove qualquer relacionamento que os elementos do pacote
          * que esta sendo deletado possa ter.
@@ -374,6 +375,7 @@ public class Architecture extends Variable {
     }
 
     public void removeInterface(Interface interfacee) {
+        if (interfacee.isTotalyFreezed()) return;
         interfacee.removeInterfaceFromRequiredOrImplemented();
         relationshipHolder.removeRelatedRelationships(interfacee);
         if (removeInterfaceFromArch(interfacee)) {
@@ -383,16 +385,19 @@ public class Architecture extends Variable {
 
 
     private boolean removeInterfaceFromArch(Interface interfacee) {
-        if (this.interfaces.remove(interfacee))
-            return true;
-        for (Package p : this.packages) {
-            if (p.removeInterface(interfacee))
+        if (!interfacee.isTotalyFreezed()) {
+            if (this.interfaces.remove(interfacee))
                 return true;
+            for (Package p : this.packages) {
+                if (p.removeInterface(interfacee))
+                    return true;
+            }
         }
         return false;
     }
 
     public void removeClass(Element klass) {
+        if (klass.isTotalyFreezed()) return;
         relationshipHolder.removeRelatedRelationships(klass);
         if (this.classes.remove(klass))
             LOGGER.info("Classe " + klass.getName() + "(" + klass.getId() + ") removida da arquitetura");
@@ -535,13 +540,15 @@ public class Architecture extends Variable {
 
 
     public boolean addImplementedInterface(Interface supplier, Class client) {
-        if (!haveRelationship(supplier, client)) {
-            if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))) {
-                LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada na classe: " + client.getName());
-                return true;
-            } else {
-                LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada pela classe: " + client.getName());
-                return false;
+        if (!client.isTotalyFreezed()) {
+            if (!haveRelationship(supplier, client)) {
+                if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))) {
+                    LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada na classe: " + client.getName());
+                    return true;
+                } else {
+                    LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada pela classe: " + client.getName());
+                    return false;
+                }
             }
         }
         return false;
@@ -561,24 +568,28 @@ public class Architecture extends Variable {
     }
 
     public boolean addImplementedInterface(Interface supplier, Package client) {
-        if (!haveRelationship(supplier, client)) {
-            if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))) {
-                LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada ao pacote: " + client.getName());
-                return true;
-            } else {
-                LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada no pacote: " + client.getName());
-                return false;
+        if (!client.isTotalyFreezed()) {
+            if (!haveRelationship(supplier, client)) {
+                if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))) {
+                    LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada ao pacote: " + client.getName());
+                    return true;
+                } else {
+                    LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada no pacote: " + client.getName());
+                    return false;
+                }
             }
         }
         return false;
     }
 
     public void removeImplementedInterface(Interface inter, Package pacote) {
+        if (inter.isTotalyFreezed() || pacote.isTotalyFreezed()) return;
         pacote.removeImplementedInterface(inter);
         relationshipHolder.removeRelatedRelationships(inter);
     }
 
     public void removeImplementedInterface(Class foo, Interface inter) {
+        if (foo.isTotalyFreezed() || inter.isTotalyFreezed()) return;
         foo.removeImplementedInterface(inter);
         relationshipHolder.removeRelatedRelationships(inter);
     }
@@ -691,28 +702,31 @@ public class Architecture extends Variable {
     }
 
     public void removeRequiredInterface(Interface supplier, Package client) {
+        if (supplier.isTotalyFreezed() || client.isTotalyFreezed()) return;
         if (!client.removeRequiredInterface(supplier)) ;
         relationshipHolder.removeRelatedRelationships(supplier);
     }
 
     public void removeRequiredInterface(Interface supplier, Class client) {
+        if (supplier.isTotalyFreezed() || client.isTotalyFreezed()) return;
         if (!client.removeRequiredInterface(supplier)) ;
         relationshipHolder.removeRelatedRelationships(supplier);
     }
 
     public boolean removeOnlyElement(Element element) {
-        if (element instanceof Class) {
-            if (this.classes.remove(element)) {
-                LOGGER.info("Classe: " + element.getName() + " removida do pacote: " + this.getName());
-                return true;
-            }
-        } else if (element instanceof Interface) {
-            if (this.interfaces.remove(element)) {
-                LOGGER.info("Interface: " + element.getName() + " removida do pacote: " + this.getName());
-                return true;
+        if (!element.isTotalyFreezed()) {
+            if (element instanceof Class) {
+                if (this.classes.remove(element)) {
+                    LOGGER.info("Classe: " + element.getName() + " removida do pacote: " + this.getName());
+                    return true;
+                }
+            } else if (element instanceof Interface) {
+                if (this.interfaces.remove(element)) {
+                    LOGGER.info("Interface: " + element.getName() + " removida do pacote: " + this.getName());
+                    return true;
+                }
             }
         }
-
         return false;
     }
 

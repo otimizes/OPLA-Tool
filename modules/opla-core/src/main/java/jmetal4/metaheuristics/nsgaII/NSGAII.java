@@ -245,7 +245,7 @@ public class NSGAII extends Algorithm {
                     } else {
                         subjectiveAnalyzeAlgorithm.run(offspringPopulation, false);
                     }
-                    bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
+                    bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5 && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
                     currentInteraction++;
                 }
 

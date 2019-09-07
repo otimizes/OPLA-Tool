@@ -306,7 +306,7 @@ public class OPLA extends Problem {
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     public SolutionSet removeDominadas(SolutionSet result) {
-        List<Solution> collect = result.getSolutionSet().stream().filter(r -> r.getEvaluation() >= 5).collect(Collectors.toList());
+        List<Solution> collect = result.getSolutionSet().stream().filter(r -> r.getEvaluation() >= 5 || (r.containsArchitecturalEvaluation() && r.getEvaluatedByUser())).collect(Collectors.toList());
         LOGGER.info("removeDominadas()");
         boolean dominador, dominado;
         double valor1 = 0;
@@ -375,7 +375,7 @@ public class OPLA extends Problem {
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     public SolutionSet removeRepetidas(SolutionSet result) {
-        List<Solution> collect = result.getSolutionSet().stream().filter(r -> r.getEvaluation() >= 5).collect(Collectors.toList());
+        List<Solution> collect = result.getSolutionSet().stream().filter(r -> r.getEvaluation() >= 5 || (r.containsArchitecturalEvaluation() && r.getEvaluatedByUser())).collect(Collectors.toList());
         LOGGER.info("removeRepetidas()");
         String solucao;
 
@@ -505,6 +505,7 @@ public class OPLA extends Problem {
     }
 
     private void removeComponentRelationships(Package comp, Architecture architecture) {
+        if (comp.isTotalyFreezed()) return;
         LOGGER.info("removeComponentRelationships()");
         Relationship[] allInterElementRelationships = architecture.getRelationshipHolder().getAllRelationships()
                 .toArray(new Relationship[0]);
@@ -525,6 +526,7 @@ public class OPLA extends Problem {
     }
 
     private void removeClassRelationships(Class cls, Architecture architecture) {
+        if (cls.isTotalyFreezed()) return;
         LOGGER.info("removeClassRelationships()");
         List<Relationship> relationshipsCls = new ArrayList<Relationship>(cls.getRelationships());
         if (!relationshipsCls.isEmpty()) {

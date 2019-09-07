@@ -278,6 +278,7 @@ public class InteractiveSolutions extends JDialog {
 
                 int value = Integer.parseInt(jTextField.getText());
                 solutionSet.get(indexSolution).setEvaluation(value);
+                solutionSet.get(indexSolution).setEvaluatedByUser(true);
 
                 int testeValor = solutionSet.get(indexSolution).getEvaluation();
                 teste.setText(Integer.toString(testeValor));

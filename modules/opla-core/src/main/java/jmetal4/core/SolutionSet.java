@@ -1026,6 +1026,10 @@ public class SolutionSet implements Serializable {
         return elements;
     }
 
+    public List<Solution> getSolutionWithArchitecturalElementsEvaluatedByClusterId(Double clusterId) {
+        return getArchitecturalSolutionsEvaluated().stream().filter(solution -> clusterId.equals(solution.getClusterId())).collect(Collectors.toList());
+    }
+
     public void distributeUserEvaluation(DistributeUserEvaluation distributeUserEvaluation) {
         if (DistributeUserEvaluation.NONE.equals(distributeUserEvaluation)) return;
         Map<Double, Set<Integer>> clusterIds = getClusterIds();
@@ -1033,9 +1037,9 @@ public class SolutionSet implements Serializable {
             List<Solution> solutionsList_ = this.solutionsList_;
             if (DistributeUserEvaluation.MIDDLE.equals(distributeUserEvaluation))
                 solutionsList_ = solutionsList_.subList(0, Math.abs(solutionsList_.size() / 2));
-            for (Solution solution : solutionsList_) {
+            for (int i = 0; i < solutionsList_.size(); i++) {
+                Solution solution = solutionsList_.get(i);
                 if (solution.getEvaluation() == 0) {
-                    freezeArchitecturalElementsAccordingCluster(solution);
                     int media = Math.abs(getMedia(clusterIds.get(solution.getClusterId())));
                     solution.setEvaluation(media);
                 }
@@ -1043,14 +1047,28 @@ public class SolutionSet implements Serializable {
         }
     }
 
-    private void freezeArchitecturalElementsAccordingCluster(Solution solution) {
-        List<Element> architecturalElementsEvaluatedByClusterId = getArchitecturalElementsEvaluatedByClusterId(solution.getClusterId());
-        if (architecturalElementsEvaluatedByClusterId.size() > 0) {
-            List<Element> collect = solution.getAlternativeArchitecture().getElementsWithPackages().stream()
-                    .filter(e -> architecturalElementsEvaluatedByClusterId.stream().anyMatch(ee -> ee.totalyEquals(e))).collect(Collectors.toList());
-            for (Element element : collect) {
-                LOGGER.info("Freeze Architectural Element By Cluster: " + element.getName() + ":" + element.getTypeElement());
-                element.setFreezedByCluster();
+    private Solution freezeArchitecturalElementsAccordingCluster(Solution solution) {
+        if (!solution.containsArchitecturalEvaluation()) {
+            List<Solution> solutionWithArchitecturalElementsEvaluatedByClusterId = getSolutionWithArchitecturalElementsEvaluatedByClusterId(solution.getClusterId());
+            if (solutionWithArchitecturalElementsEvaluatedByClusterId.size() > 0) {
+                solution = solutionWithArchitecturalElementsEvaluatedByClusterId.get(0);
+            }
+        }
+        return solution;
+    }
+
+    private void freezeArchitecturalElementsAccordingSolution(Solution solution) {
+        List<Element> evaluatedElements = solution.getAlternativeArchitecture().getFreezedElements();
+        if (evaluatedElements.size() > 0) {
+            for (Solution sol : getSolutionSet()) {
+                List<Element> collect = sol.getAlternativeArchitecture().getElementsWithPackages().stream()
+                        .filter(e -> evaluatedElements.stream().anyMatch(ee -> ee.totalyEquals(e))).collect(Collectors.toList());
+                if (collect.size() > 0) {
+                    for (Element element : collect) {
+                        LOGGER.info("Freeze Architectural Element By Cluster: " + element.getName() + ":" + element.getTypeElement());
+                        element.setFreezedByCluster();
+                    }
+                }
             }
         }
     }
