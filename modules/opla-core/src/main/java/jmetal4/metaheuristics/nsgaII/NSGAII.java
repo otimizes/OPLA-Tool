@@ -138,9 +138,9 @@ public class NSGAII extends Algorithm {
                         parents[0] = (Solution) selectionOperator.execute(population);
                         parents[1] = (Solution) selectionOperator.execute(population);
 
-                        if (parents[0].getEvaluation() >= 5 && parents[1].getEvaluation() >= 5) continue;
-                        else if (parents[0].getEvaluation() >= 5) parents[0] = newRandomSolution(mutationOperator);
-                        else if (parents[1].getEvaluation() >= 5) parents[1] = newRandomSolution(mutationOperator);
+                        if (parents[0].getEvaluation() == 5 && parents[1].getEvaluation() == 5) continue;
+                        if (parents[0].getEvaluation() < 5) parents[0] = newRandomSolution(mutationOperator);
+                        if (parents[1].getEvaluation() < 5) parents[1] = newRandomSolution(mutationOperator);
 
                         Object execute = crossoverOperator.execute(parents);
                         if (execute instanceof Solution) {
