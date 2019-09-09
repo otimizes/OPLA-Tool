@@ -8,12 +8,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-import arquitetura.builders.AssociationClassRelationshipBuilder;
 import arquitetura.representation.*;
 import arquitetura.representation.Class;
 import arquitetura.representation.Package;
@@ -28,7 +26,6 @@ import jmetal4.problems.OPLA;
 import jmetal4.util.Configuration;
 import jmetal4.util.JMException;
 import jmetal4.util.PseudoRandom;
-import org.eclipse.uml2.uml.AssociationClass;
 
 public class PLAFeatureMutation extends Mutation {
 
@@ -97,6 +94,20 @@ public class PLAFeatureMutation extends Mutation {
     // m��todo para verificar se algum dos relacionamentos recebidos ��
     // generaliza����o
     private boolean searchForGeneralizations(Class cls) {
+        for (Relationship relationship : cls.getRelationships()) {
+            if (relationship instanceof GeneralizationRelationship) {
+                if (((GeneralizationRelationship) relationship).getChild().equals(cls)
+                        || ((GeneralizationRelationship) relationship).getParent().equals(cls)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    // --------------------------------------------------------------------------
+    // m��todo para verificar se algum dos relacionamentos recebidos ��
+    // generaliza����o
+    private boolean searchForGeneralizations(Interface cls) {
         for (Relationship relationship : cls.getRelationships()) {
             if (relationship instanceof GeneralizationRelationship) {
                 if (((GeneralizationRelationship) relationship).getChild().equals(cls)
@@ -618,99 +629,12 @@ public class PLAFeatureMutation extends Mutation {
 
                     final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
 
-                    for (Class c : arch.getAllClasses()) {
-                        Set<Concern> allConcerns = c.getAllConcerns();
-                        Package aPackage = arch.getAllPackages().stream().filter(p -> p.getAllClasses().contains(c)).findFirst().get();
-                        if (allConcerns.size() > 1) {
+                    for (Class c : arch.getAllModifiableClasses()) {
+                        applyToClass(arch, c);
+                    }
 
-                            // Identifico se contem subclasse
-                            boolean pci = c.getRelationships().stream().filter(r -> {
-                                if (r instanceof GeneralizationRelationship) {
-                                    Class child = (Class) ((GeneralizationRelationship) r).getChild();
-                                    return child != c;
-                                }
-                                return false;
-                            }).count() > 0;
-
-                            if (pci) {
-//                           Passo 1
-                                boolean homonimo = false;
-                                for (Attribute attribute : c.getAllAttributes()) {
-                                    int count = 0;
-                                    for (Relationship relationship : c.getRelationships()) {
-                                        if (relationship instanceof GeneralizationRelationship) {
-                                            Class child = (Class) ((GeneralizationRelationship) relationship).getChild();
-                                            long count1 = child.getAllAttributes().stream().filter(attr -> {
-                                                return attr.getName().equals(attribute.getName())
-                                                        && attr.getAllConcerns().toArray().toString().equals(attribute.getAllConcerns().toArray().toString());
-                                            }).count();
-                                            if (count1 > 0) count++;
-                                        }
-                                    }
-                                    if (count >= c.getRelationships().size()) homonimo = true;
-                                }
-                                if (homonimo) return;
-                            }
-
-
-                            // Passo 2
-                            Concern major = getMajorConcern(c);
-
-//                            Passo 3
-                            for (Concern concern: allConcerns.stream().filter(co -> !c.equals(major)).collect(Collectors.toList())) {
-                                Class newClass = findOrCreateClassWithConcernWithConcernName(aPackage, concern, c);
-
-                                for(Attribute attr: c.getAllAttributes()) {
-                                    if (attr.getAllConcerns().contains(concern)) {
-                                        newClass.getAllAttributes().add(attr);
-                                        c.getAllAttributes().remove(attr);
-                                    }
-                                }
-
-                                for (Method method : c.getAllMethods()) {
-                                    if (method.getAllConcerns().contains(concern)) {
-                                        newClass.getAllMethods().add(method);
-                                        c.getAllMethods().remove(method);
-                                    }
-                                }
-
-                                for (Method method : c.getAllAbstractMethods()) {
-                                    if (method.getAllConcerns().contains(concern)) {
-                                        newClass.getAllAbstractMethods().add(method);
-                                        c.getAllMethods().remove(method);
-                                    }
-                                }
-
-
-//                                Passo 4
-                                RelationshipsHolder relationshipsHolder = new RelationshipsHolder();
-                                AssociationRelationship associationRelationship = new AssociationRelationship(c, newClass);
-                                relationshipsHolder.addRelationship(associationRelationship);
-//                              //  Em caso de anomalia, cria um novo RelationshipsHolder invertendo c <-> newClass e adiciona no c.setRelationShipHolder
-                                c.setRelationshipHolder(relationshipsHolder);
-                                newClass.setRelationshipHolder(relationshipsHolder);
-
-                                arch.getAllClasses().add(newClass);
-
-                                //                                Passo 6
-                                if (searchForGeneralizations(c)) {
-                                    for (Relationship relationship : c.getRelationships()) {
-                                        if (relationship instanceof GeneralizationRelationship) {
-                                            GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-
-                                            RelationshipsHolder relationshipsHolderGeneralization = new RelationshipsHolder();
-                                            AssociationRelationship associationRelationshipGeneralization = new AssociationRelationship(newClass, generalization.getChild());
-                                            relationshipsHolderGeneralization.addRelationship(associationRelationshipGeneralization);
-
-                                            newClass.setRelationshipHolder(relationshipsHolderGeneralization);
-                                            // Em caso de anomalia, cria um novo RelationshipsHolder invertendo c <-> newClass e adiciona no c.setRelationShipHolder
-                                            ((Class) generalization.getChild()).setRelationshipHolder(relationshipsHolder);
-                                        }
-                                    }
-                                }
-
-                            }
-                        }
+                    for (Interface c : arch.getAllModifiableInterfaces()) {
+                        applyToInterface(arch, c);
                     }
 
 
@@ -727,6 +651,100 @@ public class PLAFeatureMutation extends Mutation {
         }
     }
 
+    private void applyToClass(Architecture arch, Class c) throws ConcernNotFoundException {
+        Set<Concern> allConcerns = c.getAllConcernsWithoutImplementedInterfaces();
+        if (allConcerns.size() > 1) {
+            List<Package> collect = arch.getAllPackages().stream().filter(p -> p.getAllClasses().contains(c)).collect(Collectors.toList());
+            Package aPackage = collect.size() > 0 ? collect.get(0) : null;
+            if (VerifyIfIsHomonimo(c)) return;
+
+            // Passo 2
+            Concern major = getMajorConcern(c);
+
+//                            Passo 3
+            for (Concern concern : allConcerns.stream().filter(co -> !co.equals(major)).collect(Collectors.toList())) {
+                Class newClass = findOrCreateClassWithConcernWithConcernName(aPackage, concern, c);
+                arch.addExternalClass(newClass);
+
+//                                Passo 4
+                RelationshipsHolder relationshipsHolder = new RelationshipsHolder();
+                AssociationRelationship associationRelationship = new AssociationRelationship(c, newClass);
+                relationshipsHolder.addRelationship(associationRelationship);
+                c.setRelationshipHolder(relationshipsHolder);
+                arch.addRelationship(associationRelationship);
+
+                RelationshipsHolder relationshipsHolder2 = new RelationshipsHolder();
+                AssociationRelationship associationRelationship2 = new AssociationRelationship(newClass, c);
+                relationshipsHolder2.addRelationship(associationRelationship2);
+                newClass.setRelationshipHolder(relationshipsHolder2);
+                arch.addRelationship(associationRelationship2);
+
+                applyToClass(arch, c);
+
+            }
+        }
+    }
+
+    private boolean VerifyIfIsHomonimo(Class c) {
+        // Identifico se contem subclasse
+        boolean pci = c.getRelationships().stream().filter(r -> {
+            if (r instanceof GeneralizationRelationship) {
+                Class child = (Class) ((GeneralizationRelationship) r).getChild();
+                return child != c;
+            }
+            return false;
+        }).count() > 0;
+
+        if (pci) {
+//                           Passo 1
+            boolean homonimo = false;
+            for (Attribute attribute : c.getAllAttributes()) {
+                int count = 0;
+                for (Relationship relationship : c.getRelationships()) {
+                    if (relationship instanceof GeneralizationRelationship) {
+                        Class child = (Class) ((GeneralizationRelationship) relationship).getChild();
+                        long count1 = child.getAllAttributes().stream().filter(attr -> attr.getName().equals(attribute.getName())).count();
+                        if (count1 > 0) count++;
+                    }
+                }
+                homonimo = count >= c.getGeneralizations().size();
+            }
+            if (homonimo) return true;
+        }
+        return false;
+    }
+
+    private void applyToInterface(Architecture arch, Interface c) throws ConcernNotFoundException {
+        Set<Concern> allConcerns = c.getAllConcerns();
+        if (allConcerns.size() > 1) {
+            List<Package> collect = arch.getAllPackages().stream().filter(p -> p.getAllInterfaces().contains(c)).collect(Collectors.toList());
+            Package aPackage = collect.size() > 0 ? collect.get(0) : null;
+
+            // Passo 2
+            Concern major = getMajorConcern(c);
+
+            for (Concern concern : allConcerns.stream().filter(co -> !co.equals(major)).collect(Collectors.toList())) {
+                Interface newClass = findOrCreateInterfaceWithConcernWithConcernName(aPackage, concern, c);
+                arch.addExternalInterface(newClass);
+
+//                                Passo 4
+                RelationshipsHolder relationshipsHolder = new RelationshipsHolder();
+                AssociationRelationship associationRelationship = new AssociationRelationship(c, newClass);
+                relationshipsHolder.addRelationship(associationRelationship);
+                c.setRelationshipHolder(relationshipsHolder);
+                arch.addRelationship(associationRelationship);
+
+                RelationshipsHolder relationshipsHolder2 = new RelationshipsHolder();
+                AssociationRelationship associationRelationship2 = new AssociationRelationship(newClass, c);
+                relationshipsHolder2.addRelationship(associationRelationship2);
+                newClass.setRelationshipHolder(relationshipsHolder2);
+                arch.addRelationship(associationRelationship2);
+                applyToInterface(arch, c);
+
+            }
+        }
+    }
+
     private Concern getMajorConcern(Class c) {
         long count = 0;
         Concern major = null;
@@ -735,7 +753,21 @@ public class PLAFeatureMutation extends Mutation {
             long count2 = c.getAllMethods().stream().filter(method -> method.getAllConcerns().contains(concern)).count();
             long count3 = c.getAllAbstractMethods().stream().filter(method -> method.getAllConcerns().contains(concern)).count();
             long ct = count1 + count2 + count3;
-            if (ct > count) {
+            if (ct >= count) {
+                count = ct;
+                major = concern;
+            }
+        }
+        return major;
+    }
+
+    private Concern getMajorConcern(Interface c) {
+        long count = 0;
+        Concern major = null;
+        for (Concern concern : c.getAllConcerns()) {
+            long count1 = c.getOperations().stream().filter(attr -> attr.getAllConcerns().contains(concern)).count();
+            long ct = count1;
+            if (ct >= count) {
                 count = ct;
                 major = concern;
             }
@@ -909,17 +941,39 @@ public class PLAFeatureMutation extends Mutation {
 
     // add por ��dipo
     private Class findOrCreateClassWithConcernWithConcernName(Package targetComp, Concern concern, arquitetura.representation.Class origin) throws ConcernNotFoundException {
-        Class targetClass = null;
-        for (Class cls : targetComp.getAllClasses()) {
-            if (cls.containsConcern(concern)) {
-                targetClass = cls;
-            }
-        }
+        origin.removeConcern(concern.getName());
+        Set<Attribute> attrs = origin.getAllAttributes().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+        Set<Method> methods = origin.getAllMethods().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+        Set<Method> absmethods = origin.getAllAbstractMethods().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
 
-        if (targetClass == null) {
-            targetClass = targetComp.createClass("Class" + origin.getName() + concern.getName(), false);
-            targetClass.addConcern(concern.getName());
+        Class targetClass = targetComp.createClass(origin.getName() + concern.getName(), false);
+        for (Attribute attr : attrs) {
+            targetClass.addExternalAttribute(attr);
+            origin.removeAttribute(attr);
         }
+        for (Method method : methods) {
+            targetClass.addExternalMethod(method);
+            origin.removeMethod(method);
+        }
+        for (Method method : absmethods) {
+            targetClass.addExternalMethod(method);
+            origin.removeMethod(method);
+        }
+        targetClass.addConcern(concern.getName());
+        return targetClass;
+    }
+
+    // add por ��dipo
+    private Interface findOrCreateInterfaceWithConcernWithConcernName(Package targetComp, Concern concern, arquitetura.representation.Interface origin) throws ConcernNotFoundException {
+        origin.removeConcern(concern.getName());
+        Set<Method> operations = origin.getOperations().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+
+        Interface targetClass = targetComp.createInterface(origin.getName() + concern.getName());
+        for (Method method : operations) {
+            targetClass.addExternalOperation(method);
+            origin.removeOperation(method);
+        }
+        targetClass.addConcern(concern.getName());
         return targetClass;
     }
 
@@ -1302,17 +1356,11 @@ public class PLAFeatureMutation extends Mutation {
      * metodo que move a hierarquia de classes para um outro componente que esta
      * modularizando o interesse concern
      *
-     *
-     * @param classComp
-     *            - Classe selecionada
-     * @param targetComp
-     *            - Pacote destino
-     * @param sourceComp
-     *            - Pacote de origem
-     * @param architecture
-     *            - arquiteutra
-     * @param concern
-     *            - interesse sendo modularizado
+     * @param classComp    - Classe selecionada
+     * @param targetComp   - Pacote destino
+     * @param sourceComp   - Pacote de origem
+     * @param architecture - arquiteutra
+     * @param concern      - interesse sendo modularizado
      */
     private void moveHierarchyToComponent(Class classComp, Package targetComp, Package sourceComp,
                                           Architecture architecture, Concern concern) {
@@ -1321,6 +1369,7 @@ public class PLAFeatureMutation extends Mutation {
     }
 
     // EDIPO Identifica quem �� o parent para a classComp
+
     /**
      * Dado um {@link Element} retorna a {@link GeneralizationRelationship} no
      * qual o mesmo pertence.
