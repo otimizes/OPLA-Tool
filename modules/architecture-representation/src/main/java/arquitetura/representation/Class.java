@@ -4,10 +4,7 @@ import arquitetura.exceptions.AttributeNotFoundException;
 import arquitetura.exceptions.MethodNotFoundException;
 import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.helpers.UtilResources;
-import arquitetura.representation.relationship.AssociationClassRelationship;
-import arquitetura.representation.relationship.MemberEnd;
-import arquitetura.representation.relationship.RelationshiopCommons;
-import arquitetura.representation.relationship.Relationship;
+import arquitetura.representation.relationship.*;
 import arquitetura.touml.Types.Type;
 import arquitetura.touml.VisibilityKind;
 import com.rits.cloning.Cloner;
@@ -15,6 +12,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author edipofederle<edipofederle@gmail.com>
@@ -308,6 +306,18 @@ public class Class extends Element {
         return Collections.unmodifiableSet(concerns);
     }
 
+
+    public Set<Concern> getAllConcernsWithoutImplementedInterfaces() {
+        Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());
+
+        for (Method method : getAllMethods())
+            concerns.addAll(method.getAllConcerns());
+        for (Attribute attribute : getAllAttributes())
+            concerns.addAll(attribute.getAllConcerns());
+
+        return concerns;
+    }
+
     public List<AssociationClassRelationship> getAllAssociationClass() {
         List<AssociationClassRelationship> associationsClasses = new ArrayList<AssociationClassRelationship>();
 
@@ -379,6 +389,10 @@ public class Class extends Element {
 
     public Set<Relationship> getRelationships() {
         return RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this);
+    }
+
+    public Set<Relationship> getGeneralizations() {
+        return getRelationships().stream().filter(r -> r instanceof GeneralizationRelationship).collect(Collectors.toSet());
     }
 
     public void setPatternOperations(PatternsOperations patternOperations) {

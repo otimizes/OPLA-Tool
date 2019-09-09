@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * @author edipofederle<edipofederle@gmail.com>
  */
-public abstract class Element implements Serializable {
+public abstract class Element implements Serializable{
 
     private static final long serialVersionUID = 4736685073967472613L;
 

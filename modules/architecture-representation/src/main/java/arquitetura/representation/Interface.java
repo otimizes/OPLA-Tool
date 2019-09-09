@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Interface extends Element {
 

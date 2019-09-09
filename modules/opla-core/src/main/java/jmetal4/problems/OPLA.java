@@ -404,14 +404,18 @@ public class OPLA extends Problem {
     // m��todo para verificar se algum dos relacionamentos recebidos ���
     // generaliza������o
     private boolean searchForGeneralizations(Class cls) { // ok
-        LOGGER.info("searchForGeneralizations()");
-        Collection<Relationship> Relationships = cls.getRelationships();
-        for (Relationship relationship : Relationships) {
-            if (relationship instanceof GeneralizationRelationship) {
-                GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-                if (generalization.getChild().equals(cls) || generalization.getParent().equals(cls))
-                    return true;
+        try {
+            LOGGER.info("searchForGeneralizations()");
+            Collection<Relationship> Relationships = cls.getRelationships();
+            for (Relationship relationship : Relationships) {
+                if (relationship instanceof GeneralizationRelationship) {
+                    GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+                    if (generalization.getChild().equals(cls) || generalization.getParent().equals(cls))
+                        return true;
+                }
             }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
         return false;
     }
