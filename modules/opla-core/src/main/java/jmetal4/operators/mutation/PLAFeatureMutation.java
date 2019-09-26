@@ -1,31 +1,25 @@
 package jmetal4.operators.mutation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
-
-import arquitetura.representation.*;
-import arquitetura.representation.Class;
-import arquitetura.representation.Package;
-import arquitetura.representation.relationship.*;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.helpers.UtilResources;
+import arquitetura.representation.Class;
+import arquitetura.representation.Package;
+import arquitetura.representation.*;
+import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
+import arquitetura.representation.relationship.Relationship;
 import jmetal4.core.Solution;
 import jmetal4.problems.OPLA;
 import jmetal4.util.Configuration;
 import jmetal4.util.JMException;
 import jmetal4.util.PseudoRandom;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.util.*;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class PLAFeatureMutation extends Mutation {
 
