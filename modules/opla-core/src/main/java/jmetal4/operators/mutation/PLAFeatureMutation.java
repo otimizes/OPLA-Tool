@@ -104,6 +104,7 @@ public class PLAFeatureMutation extends Mutation {
         }
         return false;
     }
+
     // --------------------------------------------------------------------------
     // m��todo para verificar se algum dos relacionamentos recebidos ��
     // generaliza����o
@@ -628,16 +629,14 @@ public class PLAFeatureMutation extends Mutation {
                         .equals("class " + Architecture.ARCHITECTURE_TYPE)) {
 
                     final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
-
-                    for (Class c : arch.getAllModifiableClasses()) {
-                        applyToClass(arch, c);
-                    }
-
-                    for (Interface c : arch.getAllModifiableInterfaces()) {
-                        applyToInterface(arch, c);
-                    }
-
-
+//                    for (Class c : arch.getAllModifiableClasses()) {
+//                        applyToClass(arch, c);
+//                    }
+//                    for (Interface c : arch.getAllModifiableInterfaces()) {
+//                        applyToInterface(arch, c);
+//                    }
+                    applyToClass(arch, randomObject(arch.getAllModifiableClasses()));
+                    applyToInterface(arch, randomObject(arch.getAllModifiableInterfaces()));
                 } else {
                     Configuration.logger_.log(Level.SEVERE, "FeatureMutation.doMutation: invalid type. " + "{0}",
                             solution.getDecisionVariables()[0].getVariableType());
@@ -1277,6 +1276,11 @@ public class PLAFeatureMutation extends Mutation {
             object = allObjects.get(key);
         }
         return object;
+    }
+
+    // -------------------------------------------------------------------------------------------------
+    public <T> T randomObject(Set<T> allObjects) {
+        return randomObject(new ArrayList<>(allObjects));
     }
 
     // -------------------------------------------------------------------------------------------------
