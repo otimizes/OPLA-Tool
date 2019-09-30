@@ -78,10 +78,9 @@ public class InteractiveSolutions extends JDialog {
                     clusterIds.forEach((k, v) -> {
                         if (v.stream().filter(vv -> vv > 0).count() <= 0) complete.set(false);
                     });
-//                    if (!complete.get()) {
-//                        JOptionPane.showMessageDialog(e.getComponent(), "Please, evaluate one solution by cluster.");
-//                    } else {
-//                    }
+                    if (!complete.get()) {
+                        JOptionPane.showMessageDialog(e.getComponent(), "Please, evaluate one solution by cluster.");
+                    } else {
                         FileWriter fileWriter = null;
                         try {
                             fileWriter = new FileWriter(config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + "LogInteraction_" + InteractiveSolutions.currentExecution + ".txt");
@@ -95,6 +94,7 @@ public class InteractiveSolutions extends JDialog {
                         printWriter.close();
                         dispose();
                         setVisible(false);
+                    }
                     System.out.println("jdialog window closing event received");
                 }
             });
