@@ -19,7 +19,7 @@ public class Interface extends Element {
     private static final long serialVersionUID = -1779316062511432020L;
 
     static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
-    private final Set<Method> operations = new HashSet<Method>();
+    private Set<Method> operations = new HashSet<Method>();
     private RelationshipsHolder relationshipHolder;
     private PatternsOperations patternsOperations;
 
@@ -69,6 +69,10 @@ public class Interface extends Element {
 
     public Set<Method> getOperations() {
         return Collections.unmodifiableSet(operations);
+    }
+
+    public Set<Method> getModifiableOperations() {
+        return operations;
     }
 
     public boolean removeOperation(Method operation) {
@@ -170,6 +174,15 @@ public class Interface extends Element {
         concerns.addAll(this.getOwnConcerns());
 
         return Collections.unmodifiableSet(concerns);
+    }
+
+    public Set<Concern> getAllModiableConcerns() {
+        Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());
+        for (Method operation : getOperations())
+            concerns.addAll(operation.getAllConcerns());
+        concerns.addAll(this.getOwnConcerns());
+
+        return concerns;
     }
 
     public List<DependencyRelationship> getDependencies() {

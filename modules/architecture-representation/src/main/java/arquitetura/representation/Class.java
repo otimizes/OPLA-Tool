@@ -79,6 +79,12 @@ public class Class extends Element {
         return Collections.unmodifiableSet(attributes);
     }
 
+    public Set<Attribute> getAllModifiableAttributes() {
+        if (attributes.isEmpty())
+            return Collections.emptySet();
+        return attributes;
+    }
+
     public boolean isAbstract() {
         return isAbstract;
     }
@@ -91,6 +97,12 @@ public class Class extends Element {
         if (methods.isEmpty())
             return Collections.emptySet();
         return Collections.unmodifiableSet(methods);
+    }
+
+    public Set<Method> getAllModifiableMethods() {
+        if (methods.isEmpty())
+            return Collections.emptySet();
+        return methods;
     }
 
     public Attribute findAttributeByName(String name) throws AttributeNotFoundException {
@@ -235,6 +247,15 @@ public class Class extends Element {
         List<Method> abstractMethods = new ArrayList<Method>();
 
         for (Method m : getAllMethods())
+            if (m.isAbstract())
+                abstractMethods.add(m);
+
+        return abstractMethods;
+    }
+    public List<Method> getAllModifiableAbstractMethods() {
+        List<Method> abstractMethods = new ArrayList<Method>();
+
+        for (Method m : getAllModifiableMethods())
             if (m.isAbstract())
                 abstractMethods.add(m);
 

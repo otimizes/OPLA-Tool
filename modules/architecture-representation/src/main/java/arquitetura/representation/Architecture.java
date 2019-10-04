@@ -678,8 +678,9 @@ public class Architecture extends Variable {
     public void addExternalClass(Class klass) {
         if (this.classes.add(klass))
             LOGGER.info("Classe: " + klass.getName() + " adicionado na arquitetura");
-        else
+        else {
             LOGGER.info("TENTOU adicionar a Classe: " + klass.getName() + " na arquitetura porém não consegiu");
+        }
     }
 
     public void removeRequiredInterface(Interface supplier, Package client) {
