@@ -675,7 +675,7 @@ public class PLAFeatureMutation extends Mutation {
                 newClass.setRelationshipHolder(relationshipsHolder2);
                 arch.addRelationship(associationRelationship2);
 
-                applyToClass(arch, c);
+//                applyToClass(arch, c);
 
             }
         }
@@ -739,7 +739,7 @@ public class PLAFeatureMutation extends Mutation {
                 relationshipsHolder2.addRelationship(associationRelationship2);
                 newClass.setRelationshipHolder(relationshipsHolder2);
                 arch.addRelationship(associationRelationship2);
-                applyToInterface(arch, c);
+//                applyToInterface(arch, c);
             }
         }
     }
