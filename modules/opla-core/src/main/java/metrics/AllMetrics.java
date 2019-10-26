@@ -1,5 +1,9 @@
 package metrics;
 
+import jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCC;
+import jmetal4.metrics.concernDrivenMetrics.concernDiffusion.CDAC;
+import jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.CIBC;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +25,9 @@ public class AllMetrics {
     private List<Svc> svc = new ArrayList<>(); //addYni
     private List<Ssc> ssc = new ArrayList<>(); //addYni
     private List<Av> av = new ArrayList<>(); //addYni
+    private List<LCC> lcc = new ArrayList<>();
+    private List<CIBC> cib = new ArrayList<>();
+    private List<CDAC> cda = new ArrayList<>();
 
 
     public List<Conventional> getConventional() {
@@ -164,6 +171,46 @@ public class AllMetrics {
         return av;
     }
 
+    public List<Wocsclass> getWocsc() {
+        return wocsc;
+    }
+
+    public void setWocsc(List<Wocsclass> wocsc) {
+        this.wocsc = wocsc;
+    }
+
+    public List<Wocsinterface> getWocsi() {
+        return wocsi;
+    }
+
+    public void setWocsi(List<Wocsinterface> wocsi) {
+        this.wocsi = wocsi;
+    }
+
+    public List<LCC> getLcc() {
+        return lcc;
+    }
+
+    public void setLcc(List<LCC> lcc) {
+        this.lcc = lcc;
+    }
+
+    public List<CIBC> getCib() {
+        return cib;
+    }
+
+    public void setCib(List<CIBC> cib) {
+        this.cib = cib;
+    }
+
+    public List<CDAC> getCda() {
+        return cda;
+    }
+
+    public void setCda(List<CDAC> cda) {
+        this.cda = cda;
+    }
+
     public void setAv(List<Av> av) {
         this.av = av;
     }
@@ -185,5 +232,8 @@ public class AllMetrics {
         if (this.svc.size() > id) this.svc.remove(id);
         if (this.ssc.size() > id) this.ssc.remove(id);
         if (this.av.size() > id) this.av.remove(id);
+        if (this.lcc.size() > id) this.lcc.remove(id);
+        if (this.cda.size() > id) this.cda.remove(id);
+        if (this.cib.size() > id) this.cib.remove(id);
     }
 }

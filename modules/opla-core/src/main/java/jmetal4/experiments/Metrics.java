@@ -20,7 +20,9 @@ public enum Metrics {
     SSC("ssc"),
     AV("av"),
     // addYni
-    LCC("lcc");
+    LCC("lcc"),
+    CDA("cda"),
+    CIB("cib");
 
 
     private String name;
