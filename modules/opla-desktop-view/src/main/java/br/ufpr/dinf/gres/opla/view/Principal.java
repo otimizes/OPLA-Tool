@@ -364,7 +364,7 @@ public class Principal extends AbstractPrincipalJFrame {
         btManipulationDirectory3 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        cbAlgothm = new javax.swing.JComboBox<>();
+        cbAlgothm = new javax.swing.JComboBox<String>();
         tfNumberRuns = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -396,6 +396,8 @@ public class Principal extends AbstractPrincipalJFrame {
         ckSSC = new javax.swing.JCheckBox();
         ckAV = new javax.swing.JCheckBox();
         ckLLC = new javax.swing.JCheckBox();
+        ckCDA = new javax.swing.JCheckBox();
+        ckCIB = new javax.swing.JCheckBox();
         panelOperators = new javax.swing.JPanel();
         panelOperatorOption = new javax.swing.JPanel();
         jsCrossover = new javax.swing.JSlider();
@@ -424,9 +426,9 @@ public class Principal extends AbstractPrincipalJFrame {
         jLabel14 = new javax.swing.JLabel();
         btRun = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
-        cbClusteringAlgorithm = new javax.swing.JComboBox<>();
+        cbClusteringAlgorithm = new javax.swing.JComboBox<String>();
         jLabel20 = new javax.swing.JLabel();
-        cbClusteringMoment = new javax.swing.JComboBox<>();
+        cbClusteringMoment = new javax.swing.JComboBox<String>();
         jLabel21 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
@@ -444,10 +446,10 @@ public class Principal extends AbstractPrincipalJFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tbRuns = new javax.swing.JTable();
         panelResultSolution = new javax.swing.JPanel();
-        cbSolutionName = new javax.swing.JComboBox<>();
+        cbSolutionName = new javax.swing.JComboBox<String>();
         lbSolution = new javax.swing.JLabel();
         panelResultObjetive = new javax.swing.JPanel();
-        cbObjectiveSoluction = new javax.swing.JComboBox<>();
+        cbObjectiveSoluction = new javax.swing.JComboBox<String>();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tbObjectiveSolution = new javax.swing.JTable();
@@ -469,7 +471,7 @@ public class Principal extends AbstractPrincipalJFrame {
         ckUseNormalization = new javax.swing.JCheckBox();
         jPanel27 = new javax.swing.JPanel();
         btBoxPlot = new javax.swing.JButton();
-        cbRScript = new javax.swing.JComboBox<>();
+        cbRScript = new javax.swing.JComboBox<String>();
         jLabel18 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
@@ -481,7 +483,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jPanel1.setMaximumSize(new java.awt.Dimension(2767, 2767));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Profiles Configuration", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Profiles Configuration", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         panelCkProfiles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCkProfiles.setName("Profile Smart Configuration"); // NOI18N
@@ -653,7 +655,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Template Configuration", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Template Configuration", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tfTemplateDiretory.setColumns(63);
 
@@ -690,7 +692,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Manipulation Directory", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Manipulation Directory", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tfManipulationDirectory.setColumns(63);
 
@@ -727,7 +729,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User Interaction", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User Interaction", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btViewApplicationConfig.setText("Visualize your application config file");
         btViewApplicationConfig.addActionListener(new java.awt.event.ActionListener() {
@@ -828,7 +830,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jTabbedPane1.addTab("General Configuration", jPanel1);
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Settings", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel8.setMaximumSize(new java.awt.Dimension(32767, 300));
         jPanel8.setName("Panel Settings"); // NOI18N
         jPanel8.setPreferredSize(new java.awt.Dimension(310, 200));
@@ -928,8 +930,13 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+<<<<<<< HEAD
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Objective Functions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel9.setMaximumSize(new java.awt.Dimension(32767, 300));
+=======
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Objective Functions", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel9.setMaximumSize(new java.awt.Dimension(1000, 300));
+>>>>>>> LCC Class
         jPanel9.setName("Panel Objective Functions"); // NOI18N
         jPanel9.setPreferredSize(new java.awt.Dimension(694, 200));
 
@@ -1052,6 +1059,20 @@ public class Principal extends AbstractPrincipalJFrame {
             }
         });
 
+        ckCDA.setText("CDA");
+        ckCDA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckCDAActionPerformed(evt);
+            }
+        });
+
+        ckCIB.setText("CIB");
+        ckCIB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckCIBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -1071,9 +1092,16 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addComponent(ckFeatureDifusion)
                     .addComponent(ckCohesion)
                     .addComponent(ckElegance)
+<<<<<<< HEAD
                     .addComponent(ckLLC))
                 .addGap(92, 92, 92)
+=======
+                    .addComponent(ckLLC)
+                    .addComponent(ckCDA))
+                .addGap(18, 18, 18)
+>>>>>>> LCC Class
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ckCIB)
                     .addComponent(ckAV)
                     .addComponent(ckSSC)
                     .addComponent(ckSVS)
@@ -1114,10 +1142,18 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ckAV)
                     .addComponent(ckLLC))
+<<<<<<< HEAD
                 .addContainerGap(83, Short.MAX_VALUE))
+=======
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ckCDA)
+                    .addComponent(ckCIB))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> LCC Class
         );
 
-        panelOperators.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operators", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        panelOperators.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operators", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         panelOperatorOption.setName("Panel Operators Options"); // NOI18N
 
@@ -1197,7 +1233,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap())
         );
 
-        panelMutations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mutation Operators", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        panelMutations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mutation Operators", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         panelMutations.setName("Panel Mutations Operators"); // NOI18N
 
         ckFeatureDrivenMutation.setText("Feature-driven Mutation");
@@ -1304,7 +1340,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Input Architecture", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Input Architecture", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tfInputArchitecturePath.setColumns(50);
 
@@ -1370,7 +1406,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jPanel12Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btClean, btConfirme, btSelectPath});
 
-        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Output Directory", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Output Directory", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tfOutputDirectory.setColumns(50);
 
@@ -1413,6 +1449,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jLabel14.setText("Set a description for this execuition: (Optional)");
 
+<<<<<<< HEAD
         btRun.setText("RUN");
         btRun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1421,6 +1458,9 @@ public class Principal extends AbstractPrincipalJFrame {
         });
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Learning Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+=======
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Learning Settings / Interaction", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+>>>>>>> LCC Class
         jPanel10.setMaximumSize(new java.awt.Dimension(32767, 300));
         jPanel10.setName("Panel Settings"); // NOI18N
         jPanel10.setPreferredSize(new java.awt.Dimension(200, 99));
@@ -1532,7 +1572,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jTabbedPane1.addTab("Execution Configuration", jPanel7);
 
-        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Design Pattern Selection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Design Pattern Selection", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel16.setName("Panel Desig Patterns Selection"); // NOI18N
 
         ckMediator.setText("Mediator");
@@ -1580,7 +1620,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelScopeSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Scope Selection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        panelScopeSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Scope Selection", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         panelScopeSelection.setName("Panel Scope Selection"); // NOI18N
 
         rbRandom.setText("Random");
@@ -1631,7 +1671,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jTabbedPane1.addTab("Design Patterns", jPanel15);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Executions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Executions", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tbExecutions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1668,7 +1708,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap())
         );
 
-        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Runs", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Runs", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tbRuns.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1898,7 +1938,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Soluctions in the Seach Space", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Soluctions in the Seach Space", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btSelectObjective.setText("Select the Objective");
         btSelectObjective.addActionListener(new java.awt.event.ActionListener() {
@@ -1938,7 +1978,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Euclidean Distance", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Euclidean Distance", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btEuclidianDistance.setText("Number Of Soluction Per Eucidean Distance");
         btEuclidianDistance.addActionListener(new java.awt.event.ActionListener() {
@@ -1964,7 +2004,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hypervolume", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hypervolume", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btHypervolume.setText("Hypervolume");
         btHypervolume.addActionListener(new java.awt.event.ActionListener() {
@@ -2001,7 +2041,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Others", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Others", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         btBoxPlot.setText("BoxPlot");
         btBoxPlot.addActionListener(new java.awt.event.ActionListener() {
@@ -2074,7 +2114,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         jTabbedPane1.addTab("Experiments", jPanel19);
 
-        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Status", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Status", 0, 0, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         taLogStatus.setColumns(114);
         taLogStatus.setRows(25);
@@ -2711,6 +2751,18 @@ public class Principal extends AbstractPrincipalJFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ckAddClassMutationActionPerformed
 
+    private void ckCDAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCDAActionPerformed
+        System.out.println("Feature Driven");
+        String metric = Metrics.CDA.getName();
+        addToMetrics(ckFeatureDriven, metric);
+    }//GEN-LAST:event_ckCDAActionPerformed
+
+    private void ckCIBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCIBActionPerformed
+        System.out.println("Feature Driven");
+        String metric = Metrics.CIB.getName();
+        addToMetrics(ckFeatureDriven, metric);
+    }//GEN-LAST:event_ckCIBActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBoxPlot;
     private javax.swing.JButton btBrowserFeatureProfile;
@@ -2742,6 +2794,8 @@ public class Principal extends AbstractPrincipalJFrame {
     private javax.swing.JCheckBox ckAddManagerClassMutation;
     private javax.swing.JCheckBox ckBridge;
     private javax.swing.JCheckBox ckCBCS;
+    private javax.swing.JCheckBox ckCDA;
+    private javax.swing.JCheckBox ckCIB;
     private javax.swing.JCheckBox ckClassCoupling;
     private javax.swing.JCheckBox ckCohesion;
     private javax.swing.JCheckBox ckComponentCoupling;
