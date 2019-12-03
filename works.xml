@@ -13,6 +13,8 @@
     Such an study integrated the K-Means++ and DBSCAN clustering algorithms in the MOA4PLA approach. 
     The results of the experiments were promising, since an appropriate grouping of the solutions can be quantitatively observed, 
     and also, qualitatively, the suitability of the solutions to the decision makers needs was verified.</abstract>
+    <paperlink>https://ieeexplore.ieee.org/document/8754394</paperlink>
+    <experimentalpackagelink>https://ieeexplore.ieee.org/document/8754394</experimentalpackagelink>
   </work>
   <work>
     <title>Towards the support of user preferences in search-based product line architecture design: an exploratory study</title>
@@ -34,4 +36,6 @@
     process enables the generation of PLAs that are in accordance with the architect's preferences. 
     Another significant contribution are the lessons learned on how to improve the interactive process.</abstract>
   </work> 
+  <paperlink>https://dl.acm.org/citation.cfm?id=3351993</paperlink>
+  <experimentalpackagelink>https://dl.acm.org/citation.cfm?id=3351993</experimentalpackagelink>
 </works>
