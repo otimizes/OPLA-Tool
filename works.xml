@@ -1,0 +1,35 @@
+<work>
+<title>Supporting decision makers in search-based product line architecture design using clustering<title>
+<author>Willian Marques Freire</author>
+<abstract>The Product Line Architecture (PLA) is one of the most important artifacts of a Software Product Line (SPL). 
+PLA design can be formulated as an optimization problem with many factors. In this context, the MOA4PLA approach was 
+proposed to optimize PLA design using search algorithms and metrics specific to the context. 
+MOA4PLA treats the PLA design as a multi-objective optimization problem. At the end of the search process several PLA design 
+alternatives are presented to the decision maker, difficulting the decision about which PLA alternative best fits with 
+his/her needs. In this sense, this work proposes the usage of clustering algorithms to group PLAs design alternatives, 
+according to their characteristics and assist the decision maker in the choice of one PLA design for the SPL. 
+For this purpose, an empirical study was carried out, involving quantitative and qualitative experiments. 
+Such an study integrated the K-Means++ and DBSCAN clustering algorithms in the MOA4PLA approach. 
+The results of the experiments were promising, since an appropriate grouping of the solutions can be quantitatively observed, 
+and also, qualitatively, the suitability of the solutions to the decision makers needs was verified.</abstract>
+</work>
+<work>
+<title>Towards the support of user preferences in search-based product line architecture design: an exploratory study<title>
+<author>Carlos Vinicius Bindewald</author>
+<abstract>Software Product Lines (SPLs) is a reuse approach in which a family of products is generalized in a 
+common architecture that can be adapted to different clients. The Product Line Architecture (PLA) is one of 
+the most important artifacts of a SPL. PLA design requires great human effort as it involves several factors 
+that are usually in conflict. To ease this task, PLA design can be formulated as an optimization problem with 
+many factors, i.e, as a multi-objective optimization problem. In this context, the MOA4PLA approach was proposed 
+to optimize PLA design using search algorithms and metrics specific to the context. This approach supported by 
+OPLA-Tool has already been used in several works demonstrating its applicability. However, MOA4PLA does not take 
+into account aspects that are subjective, such as the preferences of a particular Decision Maker (DM). To do so, 
+this paper presents a proposal to incorporate the user preferences in the optimization process performed by MOA4PLA,
+through an interactive process in which the DM subjectively evaluates the solutions in processing time. Thus, 
+the solutions generated can be better suited to the DM's needs or preferences. In order to allow the user interaction, 
+modifications were made in MOA4PLA and implemented in the OPLA-Tool. Aiming at an initial validation of the proposal, 
+an exploratory study was carried out, composed of two experiments: a qualitative and a quantitative. These experiments
+were realized with the participation of a software architect. Empirical results pointed out that the proposed interactive
+process enables the generation of PLAs that are in accordance with the architect's preferences. 
+Another significant contribution are the lessons learned on how to improve the interactive process.</abstract>
+</work>
