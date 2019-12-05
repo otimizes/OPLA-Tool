@@ -131,9 +131,15 @@ public class OPLA extends Problem {
                 case "av":
                     fitnesses.add(new jmetal4.experiments.Fitness(evaluateAv((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                    //addYni
+                //addYni
                 case "lcc":
                     fitnesses.add(new jmetal4.experiments.Fitness(evaluateLCC((Architecture) solution.getDecisionVariables()[0])));
+                    break;
+                case "cib":
+                    fitnesses.add(new jmetal4.experiments.Fitness(evaluateCIB((Architecture) solution.getDecisionVariables()[0])));
+                    break;
+                case "cda":
+                    fitnesses.add(new jmetal4.experiments.Fitness(evaluateCDA((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 default:
             }
@@ -164,31 +170,17 @@ public class OPLA extends Problem {
 
     private double evaluateMSIFitness(Architecture architecture) {
         LOGGER.info("evaluateMSIFitness()");
-        double sumCIBC = 0.0;
         double sumIIBC = 0.0;
         double sumOOBC = 0.0;
-        double sumCDAC = 0.0;
-        double sumCDAI = 0.0;
-        double sumCDAO = 0.0;
         double sumLCC = 0.0;
         double MSIFitness = 0.0;
-        double sumCDAClass = 0.0;
-        double sumCIBClass = 0.0;
         double sumLCCClass = 0.0;
+        double sumCIB = 0.0;
+        double sumCDA = 0.0;
 
         sumLCC = evaluateLCC(architecture);
 
         sumLCCClass = evaluateLCCClass(architecture);
-
-        CIBC cibc = new CIBC(architecture);
-        for (CIBCResult c : cibc.getResults().values()) {
-            sumCIBC += c.getInterlacedConcerns().size();
-        }
-
-        CIBClass cibclass = new CIBClass(architecture);
-        for (CIBClassResult c : cibclass.getResults().values()) {
-            sumCIBClass += c.getInterlacedConcerns().size();
-        }
 
         IIBC iibc = new IIBC(architecture);
         for (IIBCResult c : iibc.getResults().values()) {
@@ -200,6 +192,37 @@ public class OPLA extends Problem {
             sumOOBC += c.getInterlacedConcerns().size();
         }
 
+        sumCDA = evaluateCDA(architecture);
+        sumCIB = evaluateCIB(architecture);
+
+        MSIFitness = sumLCC + sumLCCClass + sumCDA + sumCIB + sumIIBC + sumOOBC;
+        return MSIFitness;
+    }
+
+    private double evaluateCIB(Architecture architecture) {
+        LOGGER.info("evaluateCIB()");
+        double sumCIBC = 0.0;
+        double sumCIBClass = 0.0;
+
+        CIBC cibc = new CIBC(architecture);
+        for (CIBCResult c : cibc.getResults().values()) {
+            sumCIBC += c.getInterlacedConcerns().size();
+        }
+
+        CIBClass cibclass = new CIBClass(architecture);
+        for (CIBClassResult c : cibclass.getResults().values()) {
+            sumCIBClass += c.getInterlacedConcerns().size();
+        }
+        return sumCIBC + sumCIBClass;
+    }
+
+
+    private double evaluateCDA(Architecture architecture) {
+        LOGGER.info("evaluateCDA()");
+        double sumCDAC = 0.0;
+        double sumCDAI = 0.0;
+        double sumCDAO = 0.0;
+        double sumCDAClass = 0.0;
         CDAC cdac = new CDAC(architecture);
         for (CDACResult c : cdac.getResults()) {
             sumCDAC += c.getElements().size();
@@ -219,11 +242,9 @@ public class OPLA extends Problem {
         for (CDAOResult c : cdao.getResults()) {
             sumCDAO += c.getElements().size();
         }
-
-        MSIFitness = sumLCC + sumLCCClass + sumCDAC + sumCDAClass + sumCDAI
-                + sumCDAO + sumCIBC + sumCIBClass + sumIIBC + sumOOBC;
-        return MSIFitness;
+        return sumCDAC + sumCDAClass + sumCDAI + sumCDAO;
     }
+
 
     private double evaluateLCC(Architecture architecture) {
         LOGGER.info("evaluateLCC()");
