@@ -306,7 +306,7 @@ public class OPLA extends Problem {
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     public SolutionSet removeDominadas(SolutionSet result) {
-        List<Solution> collect = result.getSolutionSet().stream().filter(r ->  (r.getEvaluation() >= 5)  || (r.containsArchitecturalEvaluation() && r.getEvaluatedByUser())).collect(Collectors.toList());
+        List<Solution> collect = result.getSolutionSet().stream().filter(r ->  (r.getEvaluation() >= 5)).collect(Collectors.toList());
         LOGGER.info("removeDominadas()");
         boolean dominador, dominado;
         double valor1 = 0;
@@ -375,7 +375,7 @@ public class OPLA extends Problem {
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     public SolutionSet removeRepetidas(SolutionSet result) {
-        List<Solution> collect = result.getSolutionSet().stream().filter(r -> (r.getEvaluation() >= 5) || (r.containsArchitecturalEvaluation() && r.getEvaluatedByUser())).collect(Collectors.toList());
+        List<Solution> collect = result.getSolutionSet().stream().filter(r -> (r.getEvaluation() >= 5)).collect(Collectors.toList());
         LOGGER.info("removeRepetidas()");
         String solucao;
 
