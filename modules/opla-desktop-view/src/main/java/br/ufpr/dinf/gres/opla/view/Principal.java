@@ -2756,13 +2756,13 @@ public class Principal extends AbstractPrincipalJFrame {
     private void ckCDAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCDAActionPerformed
         System.out.println("Feature Driven");
         String metric = Metrics.CDA.getName();
-        addToMetrics(ckFeatureDriven, metric);
+        addToMetrics(ckCDA, metric);
     }//GEN-LAST:event_ckCDAActionPerformed
 
     private void ckCIBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckCIBActionPerformed
         System.out.println("Feature Driven");
         String metric = Metrics.CIB.getName();
-        addToMetrics(ckFeatureDriven, metric);
+        addToMetrics(ckCIB, metric);
     }//GEN-LAST:event_ckCIBActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
