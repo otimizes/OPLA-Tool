@@ -1,5 +1,6 @@
 <works>
   <work>
+    <year>2019</year>
     <title>Supporting decision makers in search-based product line architecture design using clustering</title>
     <author>Willian Marques Freire</author>
     <abstract>The Product Line Architecture (PLA) is one of the most important artifacts of a Software Product Line (SPL). 
@@ -17,6 +18,7 @@
     <experimentalpackagelink>https://github.com/wmfsubmissions/experimental-packages-compsac.git</experimentalpackagelink>
   </work>
   <work>
+    <year>2019</year>
     <title>Towards the support of user preferences in search-based product line architecture design: an exploratory study</title>
     <author>Carlos Vinicius Bindewald</author>
     <abstract>Software Product Lines (SPLs) is a reuse approach in which a family of products is generalized in a 
@@ -39,6 +41,7 @@
     <experimentalpackagelink>https://mega.nz/##!cTISxaiQ!YSrv3TuK6OKD41dVO7bSp_wx2heZOUxjBNtyHsAXlAo</experimentalpackagelink>
   </work> 
   <work>
+    <year>2017</year>
     <title>A Approach to Optimize Software Product Line Design</title>
     <author>João Choma Neto</author>
     <abstract>
@@ -72,6 +75,7 @@ improvements identified during the steps of this work.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
+    <year>2017</year>
     <title>Expansion of an evaluation model of software product line architecture</title>
     <author>Yenisei Delgado Verdecia</author>
     <abstract>
@@ -104,6 +108,7 @@ let evaluate other architectural properties in the evaluation model of MOA4PLA.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
+    <year>2015</year>
     <title>Preservating the architectural style in the software product line design</title>
     <author>Thainá Mariani</author>
     <abstract>
@@ -128,6 +133,7 @@ improving some software metrics values.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
+    <year>2016</year>
     <title>An evaluation model to Search-based ALPS design</title>
     <author>Marcelo Carlos Benitez dos Santos</author>
     <abstract>
@@ -156,6 +162,7 @@ wants to prioritize it in the optimization process.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
+    <year>2014</year>
     <title>Use of patterns on Search-based software product line architecture design</title>
     <author>Giovani Guizzo</author>
     <abstract>
@@ -184,6 +191,7 @@ design patterns using the proposed operator contributes positively to the PLA de
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
+    <year>2014</year>
     <title>A tool to assist the search-based software product line architecture design</title>
     <author>Édipo Luis Féderle</author>
     <abstract>
@@ -209,7 +217,8 @@ butes to reduce the effort spent in the PLA design and improvement.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
-    <title>Adaptações em operadores de busca para otimização de projeto de arquitetura de linha de produto de software</title>
+    <year>2015</year>
+    <title>Search operator adaptations for software product line architecture design optimization</title>
     <author>Thais Santos Nepomuceno</author>
     <abstract>
     Software Product Line aims reuse and decrease development costs. One of the main
@@ -231,7 +240,8 @@ exists. In addition, other problems were identified in OPLA-Tool.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
-    <title>Implementação do Algoritmo NSGA-III Para Otimização de Projeto de Linha de Produto</title>
+    <year>2017</year>
+    <title>NSGA-III Algorithm Implementation for Product Line Design Optimization</title>
     <author>Pedro Barbiero</author>
     <abstract>
     Software Product Line (SPL) is a software reuse method shown to reduce the cost of software
@@ -257,7 +267,8 @@ NSGA-II. Future study cases for improving the OPLA-Tool were also noted.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
-    <title>Avaliação de projeto baseado em busca para arquitetura de linha de produto de software</title>
+    <year>2016</year>
+    <title>Search based design evaluation for software product line architecture</title>
     <author>Guilherme Conte Dias</author>
     <abstract>
     Software Product Line (LPS) is an approach that allows exploring the similarities among its
@@ -281,7 +292,8 @@ judgments are just like that were evaluated in this study.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
-    <title>Identificação de anomalias arquiteturais em projetos de linha de produto de software</title>
+    <year>2017</year>
+    <title>Identification of architectural anomalies in software product line design</title>
     <author>Eduardo Germano Perissatto</author>
     <abstract>
     In the Software Product Line (SPL) approach is developed a family of products for a given
@@ -303,7 +315,8 @@ Finally, guidelines were proposed to detect and remove the types of anomalies fo
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
-    <title>Avaliação de Aceitação de Tecnologia da Ferramenta OPLA-Tool</title>
+    <year>2018</year>
+    <title>OPLA-Tool Technology Acceptance Assessment</title>
     <author>Marcos Brunelli Francisco</author>
     <abstract>
     When performing a heuristic evaluation in a software system, focusing on its usability, it is
@@ -328,7 +341,8 @@ negative points.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
-    <title>Avaliação e proposta de melhoria da interação na ferramenta OPLA - Tool por meio da aplicação das Heurísticas de Usabilidade de Nielsen</title>
+    <year>2018</year>
+    <title>Evaluation and proposal of improvement of interaction in the OPLA-Tool through the application of Nielsen Usability Heuristics</title>
     <author>Hadyne Cristine Biazoto</author>
     <abstract>
     At first, only highly trained users were able to use a computer. Nowadays
@@ -347,7 +361,8 @@ improvements to the OPLA - Tool.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
-    <title>Priorizando características a serem modularizadas em arquitetura de linha de produto</title>
+    <year>2015</year>
+    <title>Prioritizing features to be modularized in product line architecture</title>
     <author>Diego Fernandes da Silva</author>
     <abstract>
     One of main Software Product Line's (SPL) artifacts, which is an approach for the
@@ -372,7 +387,8 @@ improvement in modularization of prioritized features.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
-    <title>Estudo e definição de políticas para gerenciamento de configuração de software para grupos de pesquisa</title>
+    <year>2017</year>
+    <title>Study and policy setting for research group software configuration management</title>
     <author>Felipe Fernandes da Silva</author>
     <abstract>
     In the software development there may be inadequate management of artifacts when it is
