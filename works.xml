@@ -156,8 +156,8 @@ wants to prioritize it in the optimization process.
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
-    <title>Giovani Guizzo</title>
-    <author>Use of patterns on Search-based software product line architecture design</author>
+    <title>Use of patterns on Search-based software product line architecture design</title>
+    <author>Giovani Guizzo</author>
     <abstract>
     Design patterns aim at improving the understanding and reuse of software architectures.
 In the search-based design they have been successfully applied by mutation operators in
