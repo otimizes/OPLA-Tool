@@ -3,6 +3,7 @@
     <year>2019</year>
     <title>Supporting decision makers in search-based product line architecture design using clustering</title>
     <author>Willian Marques Freire</author>
+    <git>http://github.com/wmfsystem</git>
     <abstract>The Product Line Architecture (PLA) is one of the most important artifacts of a Software Product Line (SPL). 
     PLA design can be formulated as an optimization problem with many factors. In this context, the MOA4PLA approach was 
     proposed to optimize PLA design using search algorithms and metrics specific to the context. 
