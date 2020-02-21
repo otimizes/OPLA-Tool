@@ -23,8 +23,8 @@ export class LogsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("----", window['EventSource'])
-    if (!!window['EventSource']) {
+    let enable = false;
+    if (!!window['EventSource'] && enable) {
       let source = new EventSource('http://localhost:8080/optimization-info/38');
       source.addEventListener('message', (e) => {
         if (e.data) {
@@ -41,6 +41,7 @@ export class LogsComponent implements OnInit {
 
       source.addEventListener('error', function (e) {
         if (e['readyState'] == EventSource.CLOSED) {
+          source.close();
           // Connection was closed.
         }
       }, false);

@@ -23,6 +23,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatCardModule} from "@angular/material/card";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatDividerModule} from "@angular/material/divider";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {MatDividerModule} from "@angular/material/divider";
     MatCardModule,
     MatSliderModule,
     FormsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

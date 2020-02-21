@@ -13,19 +13,19 @@
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Number of runs</mat-label>
-              <input matInput placeholder="30...">
+              <input matInput placeholder="30..." [(ngModel)]="optimizationDto.numberRuns" formControlName="numberRuns">
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Max evaluations</mat-label>
-              <input matInput placeholder="30000...">
+              <input matInput placeholder="30000..." [(ngModel)]="optimizationDto.maxEvaluations" formControlName="maxEvaluations">
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Population Size</mat-label>
-              <input matInput placeholder="200...">
+              <input matInput placeholder="200..." [(ngModel)]="optimizationDto.populationSize" formControlName="populationSize">
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Archive size</mat-label>
-              <input matInput placeholder="2...">
+              <input matInput placeholder="2..." [(ngModel)]="optimizationDto.archiveSize" formControlName="archiveSize">
             </mat-form-field>
           </div>
         </mat-card>
@@ -34,22 +34,22 @@
         <mat-card>
           <h5>Objective Functions</h5>
           <div class="operators-functions">
-            <mat-checkbox [formControl]="hideRequiredControl">Conventional</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Feature Driven</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Feature Interlacing</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Feature Diffusion</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Component Coupling</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Size</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">PLA Extensibility</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Cohesion</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Elegance</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">LLC</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Wocsclass</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Wocsinterface</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">CBCS</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">SVS</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">SSC</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">AV</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('conventional', $event.checked)">Conventional</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('featureDriven', $event.checked)">Feature Driven</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('featureInterlacing', $event.checked)">Feature Interlacing</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('featureDiffusion', $event.checked)">Feature Diffusion</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('comp', $event.checked)">Component Coupling</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('size', $event.checked)">Size</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('PLAExtensibility', $event.checked)">PLA Extensibility</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('coe', $event.checked)">Cohesion</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('elegance', $event.checked)">Elegance</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('llc', $event.checked)">LLC</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('wocsclass', $event.checked)">Wocsclass</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('wocsinterface', $event.checked)">Wocsinterface</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('cbcs', $event.checked)">CBCS</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('svc', $event.checked)">SVS</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('ssc', $event.checked)">SSC</mat-checkbox>
+            <mat-checkbox [formControl]="hideRequiredControl" (change)="changeObjFunction('av', $event.checked)">AV</mat-checkbox>
           </div>
         </mat-card>
       </mat-grid-tile>
@@ -69,7 +69,7 @@
             </mat-form-field>
             <mat-form-field>
               <mat-label>Select the clustering moment</mat-label>
-              <mat-select [(value)]="optimizationDto.clusteringMoment">
+              <mat-select [(value)]="optimizationDto.clusteringAlgorithm">
                 <mat-option value="KMEANS">KMEANS</mat-option>
                 <mat-option value="DBSCAN">DBSCAN</mat-option>
                 <mat-option value="OPTICS">OPTICS</mat-option>
@@ -77,15 +77,15 @@
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Max interactions</mat-label>
-              <input matInput placeholder="3...">
+              <input matInput placeholder="3..." [(ngModel)]="optimizationDto.maxInteractions" formControlName="maxInteractions">
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>First interaction</mat-label>
-              <input matInput placeholder="3...">
+              <input matInput placeholder="3..." [(ngModel)]="optimizationDto.firstInteraction" formControlName="firstInteraction">
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Interval</mat-label>
-              <input matInput placeholder="3...">
+              <input matInput placeholder="3..." [(ngModel)]="optimizationDto.intervalInteraction" formControlName="intervalInteraction">
             </mat-form-field>
           </div>
         </mat-card>
@@ -95,26 +95,26 @@
       <mat-grid-tile>
         <mat-card>
           <h5>Operators</h5>
-          <mat-checkbox [formControl]="hideRequiredControl">Mutation</mat-checkbox>&nbsp;
+          <mat-checkbox [formControl]="hideRequiredControl" [(ngModel)]="optimizationDto.mutation" formControlName="mutation">Mutation</mat-checkbox>&nbsp;
           <mat-slider
             [disabled]="false"
             [invert]="false"
             [max]="10"
             [min]="0"
-            formControlName="mutation"
+            formControlName="mutationProbability"
             [step]="1"
             [thumbLabel]="false"
             [(ngModel)]="optimizationDto.mutationProbability"
             [vertical]="false">
           </mat-slider>
           <br>
-          <mat-checkbox [formControl]="hideRequiredControl">Crossover</mat-checkbox>&nbsp;
+          <mat-checkbox [formControl]="hideRequiredControl" [(ngModel)]="optimizationDto.crossover" formControlName="crossover">Crossover</mat-checkbox>&nbsp;
           <mat-slider
             [disabled]="false"
             [invert]="false"
             [max]="10"
             [min]="0"
-            formControlName="crossover"
+            formControlName="crossoverProbability"
             [step]="1"
             [thumbLabel]="false"
             [(ngModel)]="optimizationDto.crossoverProbability"
@@ -126,12 +126,12 @@
         <mat-card>
           <h5>Mutation Operators</h5>
           <div class="operators-functions" style="margin: 20px;">
-            <mat-checkbox [formControl]="hideRequiredControl">Feature-driven Mutation</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Move Operation Mutation</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Move Method Mutation</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Add Manager ClassMutation</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Add Class Mutation</mat-checkbox>
-            <mat-checkbox [formControl]="hideRequiredControl">Move Attribute Mutation</mat-checkbox>
+            <mat-checkbox (change)="changeOperators('featureMutation', $event.checked)" [checked]="true">Feature-driven Mutation</mat-checkbox>
+            <mat-checkbox (change)="changeOperators('moveMethodMutation', $event.checked)" [checked]="true">Move Operation Mutation</mat-checkbox>
+            <mat-checkbox (change)="changeOperators('moveAttributeMutation', $event.checked)" [checked]="true">Move Method Mutation</mat-checkbox>
+            <mat-checkbox (change)="changeOperators('moveOperationMutation', $event.checked)" [checked]="true">Add Manager ClassMutation</mat-checkbox>
+            <mat-checkbox (change)="changeOperators('addClassMutation', $event.checked)" [checked]="true">Add Class Mutation</mat-checkbox>
+            <mat-checkbox (change)="changeOperators('addManagerClassMutation', $event.checked)" [checked]="true">Move Attribute Mutation</mat-checkbox>
           </div>
         </mat-card>
       </mat-grid-tile>
@@ -141,11 +141,11 @@
           <div>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Select the input PLA</mat-label>
-              <input matInput placeholder="/home/...">
+              <input matInput placeholder="/home/..." [(ngModel)]="optimizationDto.inputArchitecture" formControlName="inputArchitecture">
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
-              <mat-label>Change the input directory</mat-label>
-              <input matInput placeholder="/home/...">
+              <mat-label>Change the output directory</mat-label>
+              <input matInput placeholder="/home/..." [(ngModel)]="optimizationDto.outputDirectory" formControlName="outputDirectory">
             </mat-form-field>
           </div>
         </mat-card>

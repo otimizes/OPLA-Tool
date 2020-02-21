@@ -5,3 +5,7 @@
 .operators-functions mat-checkbox {
   margin: 20px;
 }
+
+.operators-functions .mat-checkbox-layout {
+  /*min-width: 150px;*/
+}

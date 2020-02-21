@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.stepper.selectedIndex = 5;
+    this.stepper.selectedIndex = 1;
   }
 
   ngOnInit() {
@@ -46,5 +46,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.logsFormGroup = this._formBuilder.group({
       logsCtrl: ['', Validators.required]
     });
+  }
+
+  run(optimizationDto:OptimizationDto) {
+    console.log(optimizationDto)
   }
 }

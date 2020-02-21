@@ -17,3 +17,31 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 100%;
   margin: 10px;
 }
+
+
+button[fixedVicButton] {
+  position: fixed;
+  bottom: 15px;
+  right: 20px;
+}
+
+button[fixedVicButton2] > .mat-button-wrapper{
+  padding: 0;
+}
+button[fixedVicButton2] {
+  position: fixed;
+  bottom: 22px;
+  right: 80px;
+  width: 35px;
+  height: 35px;
+}
+button[fixedVicButton3] > .mat-button-wrapper{
+  padding: 0;
+}
+button[fixedVicButton3] {
+  position: fixed;
+  bottom: 24px;
+  right: 120px;
+  width: 35px;
+  height: 35px;
+}

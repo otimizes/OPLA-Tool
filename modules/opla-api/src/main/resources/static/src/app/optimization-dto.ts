@@ -1,5 +1,6 @@
 export class OptimizationDto {
   algorithm: string = "NSGAII";
+  archiveSize: number;
   description: string;
   mutation: boolean;
   mutationProbability: number;
@@ -17,7 +18,8 @@ export class OptimizationDto {
   clusteringMoment: string = "POSTERIORI";
   mutationOperators: string[] = ["featureMutation","moveMethodMutation","addClassMutation","addManagerClassMutation","moveOperationMutation"];
   patterns: string[] = [];
-  objectiveFunctions: string[] = ["featureDriven","aclass","coe"];
+  objectiveFunctions: string[] = [];
+  outputDirectory: string;
 
   constructor() {}
 }
