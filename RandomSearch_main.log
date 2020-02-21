@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-01-15T16:44:56</date>
+  <millis>1579113896284</millis>
+  <sequence>0</sequence>
+  <logger>jMetal</logger>
+  <level>INFO</level>
+  <class>jmetal4.metaheuristics.randomSearch.RandomSearch_main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Total execution time: 357ms</message>
+</record>
+<record>
+  <date>2020-01-15T16:44:56</date>
+  <millis>1579113896290</millis>
+  <sequence>1</sequence>
+  <logger>jMetal</logger>
+  <level>INFO</level>
+  <class>jmetal4.metaheuristics.randomSearch.RandomSearch_main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Objectives values have been writen to file FUN</message>
+</record>
+</log>

@@ -6,7 +6,6 @@ package utils;
 
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
-import learning.Clustering;
 
 import java.util.ArrayList;
 import java.util.HashMap;

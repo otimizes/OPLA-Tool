@@ -1,0 +1,24 @@
+<div class="example-container">
+  <form [formGroup]="options">
+    <mat-grid-list cols="4" rowHeight="80px">
+      <mat-grid-tile>
+        <mat-checkbox [formControl]="hideRequiredControl">Mediator</mat-checkbox>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-checkbox [formControl]="hideRequiredControl">Strategy</mat-checkbox>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-checkbox [formControl]="hideRequiredControl">Bridge</mat-checkbox>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="1" rowHeight="80px">
+      <mat-grid-tile>
+        <mat-radio-group aria-label="Scope Selection">
+          <mat-radio-button value="1">Random</mat-radio-button> &nbsp;
+          <mat-radio-button value="2">Elements with same design pattern or none</mat-radio-button>
+        </mat-radio-group>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+  </form>
+</div>

@@ -1,0 +1,59 @@
+<router-outlet>
+</router-outlet>
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="generalFormGroup">
+    <form [formGroup]="generalFormGroup">
+      <ng-template matStepLabel>General Configuration</ng-template>
+      <app-general [optimizationDto]="optimizationDto"></app-general>
+      <div>
+<!--        <button mat-button matStepperNext>Next</button>-->
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="executionFormGroup">
+    <form [formGroup]="executionFormGroup">
+      <ng-template matStepLabel>Execution Configuration</ng-template>
+      <app-execution [optimizationDto]="optimizationDto"></app-execution>
+      <div>
+<!--        <button mat-button matStepperNext>Next</button>-->
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="patternFormGroup">
+    <form [formGroup]="patternFormGroup">
+      <ng-template matStepLabel>Design Patterns</ng-template>
+      <app-pattern></app-pattern>
+      <div>
+<!--        <button mat-button matStepperNext>Next</button>-->
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="resultsFormGroup">
+    <form [formGroup]="resultsFormGroup">
+      <ng-template matStepLabel>Results</ng-template>
+      <app-results></app-results>
+      <div>
+<!--        <button mat-button matStepperNext>Next</button>-->
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="experimentsFormGroup">
+    <form [formGroup]="experimentsFormGroup">
+      <ng-template matStepLabel>Experiments</ng-template>
+      <app-experiments></app-experiments>
+      <div>
+<!--        <button mat-button matStepperNext>Next</button>-->
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="logsFormGroup">
+    <form [formGroup]="logsFormGroup">
+      <ng-template matStepLabel>Logs</ng-template>
+      <app-logs></app-logs>
+      <div>
+<!--        <button mat-button matStepperNext>Next</button>-->
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

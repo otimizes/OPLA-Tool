@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.mat-card {
+  height: 90%;
+  width: 100%;
+  margin: 10px;
+}

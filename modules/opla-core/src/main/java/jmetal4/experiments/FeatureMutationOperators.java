@@ -1,5 +1,8 @@
 package jmetal4.experiments;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum FeatureMutationOperators {
 
     FEATURE_MUTATION("featureMutation"),
@@ -18,5 +21,13 @@ public enum FeatureMutationOperators {
 
     public String getOperatorName() {
         return name;
+    }
+
+    public static List<String> list() {
+        List<String> vs = new ArrayList<>();
+        for (FeatureMutationOperators value : values()) {
+            vs.add(value.getOperatorName());
+        }
+        return vs;
     }
 }

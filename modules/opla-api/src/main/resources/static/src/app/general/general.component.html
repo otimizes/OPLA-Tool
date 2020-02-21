@@ -1,0 +1,33 @@
+<div class="example-container">
+  <form [formGroup]="options">
+    <mat-grid-list cols="4" rowHeight="80px">
+      <mat-grid-tile>
+        <mat-checkbox [formControl]="hideRequiredControl">SMarty</mat-checkbox>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-checkbox [formControl]="hideRequiredControl">Feature</mat-checkbox>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-checkbox [formControl]="hideRequiredControl">Patterns</mat-checkbox>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-checkbox [formControl]="hideRequiredControl">Relationships</mat-checkbox>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="2" rowHeight="80px">
+      <mat-grid-tile>
+        <mat-form-field [floatLabel]="floatLabelControl.value">
+          <mat-label>Template Configuration</mat-label>
+          <input matInput placeholder="Directory: /home/...">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field [floatLabel]="floatLabelControl.value">
+          <mat-label>Manipulation Configuration</mat-label>
+          <input matInput placeholder="Directory: /home/...">
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+  </form>
+</div>
