@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.oplaapi;
 
+import arquitetura.config.PathConfig;
 import arquitetura.io.OPLAThreadScope;
 import arquitetura.io.ReaderConfig;
 import br.ufpr.dinf.gres.loglog.LogLog;
@@ -13,6 +14,7 @@ import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.experiments.NSGAII_OPLA_FeatMutInitializer;
 import jmetal4.experiments.OPLAConfigs;
+import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,10 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,6 +37,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @RestController
 public class OptimizationController {
@@ -46,6 +53,18 @@ public class OptimizationController {
     public String index() {
         return "OPLA-Tool";
     }
+
+    @GetMapping(value = "/download/{id}", produces = "application/zip")
+    public void zipFiles(@PathVariable String id, HttpServletResponse response) throws IOException {
+        PathConfig config = ApplicationFile.getInstance().getConfig();
+        String url = config.getDirectoryToExportModels().toString().concat(Constants.FILE_SEPARATOR + id);
+        //setting headers
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.addHeader("Content-Disposition", "attachment; filename=\"" + id + ".zip\"");
+        ZipFiles zipFiles = new ZipFiles();
+        zipFiles.zipDirectoryStream(new File(url), response.getOutputStream());
+    }
+
 
     @PostMapping(value = "/upload-pla")
     public ResponseEntity<List<String>> save(

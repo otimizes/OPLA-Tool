@@ -18,17 +18,25 @@ export class AppService {
 
   constructor(private http: HttpClient) {
     if (AppService.isRunning()) {
-      AppService.optimizationInfo = JSON.parse(localStorage.getItem("optimizationInfo"));
+      AppService.optimizationInfo = AppService.getOptimizationInfo()
       this.startEventListener(AppService.optimizationInfo);
     }
     if (AppService.getPLA()) {
-    console.log("dfdfsdfsdfs ", AppService.getPLA())
       AppService.onSelectPLA.emit(AppService.getPLA());
     }
   }
 
+  public static getOptimizationInfo(): OptimizationInfo {
+    return JSON.parse(localStorage.getItem("optimizationInfo"));
+  }
+
+  public static clearOptimizationInfo() {
+    localStorage.removeItem("optimizationInfo");
+    AppService.onOptimizationInfo.emit(null);
+  }
+
   public static isRunning() {
-    return localStorage.getItem("optimizationInfo") != null && JSON.parse(localStorage.getItem("optimizationInfo")).status === "RUNNING";
+    return localStorage.getItem("optimizationInfo") != null && this.getOptimizationInfo().status === "RUNNING";
   }
 
   public static setPLA(listOfFiles) {
@@ -67,7 +75,7 @@ export class AppService {
           source.close();
           e.stopImmediatePropagation();
           e.stopImmediatePropagation();
-          localStorage.clear();
+          localStorage.removeItem("optimizationInfo");
           // Connection was closed.
         }
       }, false);
@@ -96,6 +104,10 @@ export class AppService {
       .pipe(catchError(this.errorHandler));
   }
 
+  download(id): Observable<any> {
+    return this.http.get(`${AppService.baseUrl}/download/${id}`, {responseType: 'arraybuffer'});
+  }
+
   optimize(dto: OptimizationDto): Observable<OptimizationInfo> {
     return this.http.post<OptimizationInfo>(`${AppService.baseUrl}/optimize`, dto, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler), tap(data => {
@@ -118,7 +130,6 @@ export class AppService {
     let formData = new FormData();
     for (let filesKey in files) {
       if (files[filesKey] instanceof Blob) {
-        console.log(files[filesKey])
         formData.append("file", files[filesKey], files[filesKey]['webkitRelativePath']);
       }
     }

@@ -4,6 +4,7 @@ import {OptimizationDto} from "./optimization-dto";
 import {MatStepper} from "@angular/material/stepper";
 import {AppService} from "./app.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {OptimizationInfo} from "./optimization-info";
 
 @Component({
   selector: 'app-root',
@@ -21,11 +22,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   logsFormGroup: FormGroup;
   optimizationDto: OptimizationDto = new OptimizationDto();
   @ViewChild('stepper', {static: true}) stepper: MatStepper;
+  optimizationInfo: OptimizationInfo = AppService.getOptimizationInfo();
 
   constructor(private _formBuilder: FormBuilder, private service: AppService, private snackBar: MatSnackBar) {
     service.getDto().subscribe(dto => {
-      console.log("-->", dto)
       this.optimizationDto = dto
+    });
+
+    AppService.onOptimizationInfo.asObservable().subscribe(optimizationInfo => {
+      this.optimizationInfo = optimizationInfo;
     })
   }
 
@@ -59,8 +64,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   run(optimizationDto: OptimizationDto) {
-    console.log(optimizationDto);
-
     this.service.optimize(optimizationDto).subscribe(info => {
       this.snackBar.open("Optimization started", "Go to logs", {
         duration: 10000
@@ -68,5 +71,19 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.stepper.selectedIndex = 5
       })
     })
+  }
+
+  download(optimizationInfo: OptimizationInfo) {
+    this.service.download(optimizationInfo.hash).subscribe(result => {
+      this.snackBar.open("Your download started", null, {
+        duration: 2000
+      });
+      const blob = new Blob([result], {
+        type: 'application/zip'
+      });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+      AppService.clearOptimizationInfo();
+    });
   }
 }

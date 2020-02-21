@@ -2,6 +2,7 @@ import {AfterContentChecked, AfterViewInit, Component, Input, OnInit, ViewChild}
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {OptimizationDto} from "../optimization-dto";
 import {AppService} from "../app.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-execution',
@@ -16,9 +17,8 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
   floatLabelControl = new FormControl('auto');
   @Input() optimizationDto: OptimizationDto;
   @ViewChild('fileInput', {static: false}) fileInput;
-  plaFiles: string[] = ["asasds", "dkhdsklf"];
 
-  constructor(fb: FormBuilder, protected service: AppService) {
+  constructor(fb: FormBuilder, protected service: AppService,private snackBar: MatSnackBar) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,
@@ -103,6 +103,9 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
     this.service.uploadPLA(this.fileInput.nativeElement.files)
       .subscribe(res => {
         AppService.setPLA(res);
+        this.snackBar.open("The input PLA and the profiles were updated", null, {
+          duration: 2000
+        })
       })
   }
 

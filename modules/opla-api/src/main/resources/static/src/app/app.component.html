@@ -57,6 +57,10 @@
     </form>
   </mat-step>
 </mat-horizontal-stepper>
-<button fixedVicButton matTooltip="Optimize" [disabled]="isRunning()" color="primary" mat-fab aria-label="Optimize" (click)="run(optimizationDto)">
+<button fixedVicButton matTooltip="Optimize" *ngIf="!optimizationInfo || optimizationInfo.status != 'COMPLETE'" [disabled]="isRunning()" color="primary" mat-fab aria-label="Optimize" (click)="run(optimizationDto)">
   <mat-icon>cloud_done</mat-icon>
+</button>
+
+<button fixedVicButton matTooltip="Download" *ngIf="optimizationInfo != null && optimizationInfo.status == 'COMPLETE'" color="accent" mat-fab aria-label="Download" (click)="download(optimizationInfo)">
+  <mat-icon>cloud_download</mat-icon>
 </button>
