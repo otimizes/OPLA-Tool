@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.oplaapi.config;
+package arquitetura.config;
 
 import org.apache.log4j.Logger;
 

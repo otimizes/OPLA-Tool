@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.oplaapi.config;
+package arquitetura.config;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

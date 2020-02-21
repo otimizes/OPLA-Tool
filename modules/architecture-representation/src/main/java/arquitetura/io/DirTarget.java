@@ -25,7 +25,7 @@ public class DirTarget {
      * @return the directoryToSaveModels
      */
     public String getDirectoryToSaveModels() {
-        return directoryToSaveModels + OPLAThreadScope.hash.get() + "/";
+        return directoryToSaveModels;
     }
 
     /**
@@ -39,7 +39,7 @@ public class DirTarget {
      * @return the directoryToExportModels
      */
     public String getDirectoryToExportModels() {
-        return directoryToExportModels + OPLAThreadScope.hash.get() + "/";
+        return directoryToExportModels;
     }
 
     /**

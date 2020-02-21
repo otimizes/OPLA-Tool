@@ -1,13 +1,14 @@
 package br.ufpr.dinf.gres.oplaapi;
 
+import arquitetura.io.OPLAThreadScope;
 import arquitetura.io.ReaderConfig;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.LogLogData;
 import br.ufpr.dinf.gres.loglog.Logger;
-import br.ufpr.dinf.gres.oplaapi.config.ApplicationFile;
-import br.ufpr.dinf.gres.oplaapi.config.ApplicationYamlConfig;
-import br.ufpr.dinf.gres.oplaapi.util.Constants;
-import br.ufpr.dinf.gres.oplaapi.util.UserHome;
+import arquitetura.config.ApplicationFile;
+import arquitetura.config.ApplicationYamlConfig;
+import arquitetura.util.Constants;
+import arquitetura.util.UserHome;
 import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.experiments.NSGAII_OPLA_FeatMutInitializer;
@@ -15,7 +16,6 @@ import jmetal4.experiments.OPLAConfigs;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Flux;
@@ -116,6 +116,7 @@ public class OptimizationController {
     @PostMapping("/nsgaii")
     public Mono<OptimizationInfo> executeNSGAII(@RequestBody OptimizationDto optimizationDto) {
         Thread thread = new Thread(() -> {
+            OPLAThreadScope.setConfig(optimizationDto.getConfig());
             execute(optimizationDto);
         });
         id = Thread.currentThread().getId();

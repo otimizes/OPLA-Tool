@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.oplaapi.util;
+package arquitetura.util;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;

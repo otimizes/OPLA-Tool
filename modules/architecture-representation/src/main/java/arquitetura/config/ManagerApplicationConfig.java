@@ -1,7 +1,7 @@
-package br.ufpr.dinf.gres.oplaapi.config;
+package arquitetura.config;
 
-import br.ufpr.dinf.gres.oplaapi.util.Constants;
-import br.ufpr.dinf.gres.oplaapi.util.UserHome;
+import arquitetura.util.Constants;
+import arquitetura.util.UserHome;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.yaml.snakeyaml.DumperOptions;

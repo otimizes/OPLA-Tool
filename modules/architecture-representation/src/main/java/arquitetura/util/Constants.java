@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.oplaapi.util;
+package arquitetura.util;
 
 import java.nio.file.FileSystems;
 

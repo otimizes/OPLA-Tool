@@ -1,8 +1,7 @@
 package br.ufpr.dinf.gres.oplaapi;
 
-import br.ufpr.dinf.gres.oplaapi.config.ApplicationFile;
-import br.ufpr.dinf.gres.oplaapi.config.ApplicationYamlConfig;
-import jmetal4.experiments.FeatureMutationOperators;
+import arquitetura.config.ApplicationFile;
+import arquitetura.config.ApplicationYamlConfig;
 import jmetal4.interactive.InteractiveFunction;
 import learning.ClusteringAlgorithm;
 import learning.Moment;
@@ -16,7 +15,7 @@ public class OptimizationDto {
     private String description = "teste";
     private Boolean mutation = true;
     private Double mutationProbability = 0.9;
-    private String inputArchitecture = "/home/wmfsystem/oplatool/plas/agm/agm.uml";
+    private String inputArchitecture = "";
     private Integer numberRuns = 1;
     private Integer populationSize = 4;
     private Integer maxEvaluations = 30;

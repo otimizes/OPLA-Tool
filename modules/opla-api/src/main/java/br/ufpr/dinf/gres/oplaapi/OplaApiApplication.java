@@ -1,11 +1,11 @@
 package br.ufpr.dinf.gres.oplaapi;
 
 import arquitetura.io.FileUtils;
-import br.ufpr.dinf.gres.oplaapi.config.ApplicationFile;
-import br.ufpr.dinf.gres.oplaapi.config.ManagerApplicationConfig;
-import br.ufpr.dinf.gres.oplaapi.util.Constants;
-import br.ufpr.dinf.gres.oplaapi.util.UserHome;
-import br.ufpr.dinf.gres.oplaapi.util.Utils;
+import arquitetura.config.ApplicationFile;
+import arquitetura.config.ManagerApplicationConfig;
+import arquitetura.util.Constants;
+import arquitetura.util.UserHome;
+import arquitetura.util.Utils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

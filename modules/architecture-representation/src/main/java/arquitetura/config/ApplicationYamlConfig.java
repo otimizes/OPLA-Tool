@@ -1,5 +1,6 @@
-package br.ufpr.dinf.gres.oplaapi.config;
+package arquitetura.config;
 
+import arquitetura.io.OPLAThreadScope;
 import org.apache.commons.lang.StringUtils;
 
 /**
