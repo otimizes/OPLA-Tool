@@ -1,6 +1,9 @@
 package br.ufpr.dinf.gres.oplaapi;
 
+import arquitetura.io.FileUtils;
 import br.ufpr.dinf.gres.oplaapi.config.ApplicationFile;
+import br.ufpr.dinf.gres.oplaapi.config.ManagerApplicationConfig;
+import br.ufpr.dinf.gres.oplaapi.util.Constants;
 import br.ufpr.dinf.gres.oplaapi.util.UserHome;
 import br.ufpr.dinf.gres.oplaapi.util.Utils;
 import org.springframework.boot.SpringApplication;
@@ -8,6 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @SpringBootApplication
 public class OplaApiApplication {
@@ -23,11 +32,40 @@ public class OplaApiApplication {
     }
 
     public static void main(String[] args) {
-        OplaApiApplication.createPathOplaTool();
-        OplaApiApplication.configureApplicationFile();
-        OplaApiApplication.setPathDatabase();
-        OplaApiApplication.configureDb();
+        Utils.createPathsOplaTool();
+        initialConfiguration();
+        ManagerApplicationConfig instance = ApplicationFile.getInstance();
+        try {
+            instance.configureDefaultLocaleToExportModels();
+            instance.updateDefaultPathToSaveModels();
+            instance.updateDefaultPathToTemplateFiles();
+            copyTemplates();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
         SpringApplication.run(OplaApiApplication.class, args);
+    }
+
+    private static void initialConfiguration() {
+        createPathOplaTool();
+        configureApplicationFile();
+        setPathDatabase();
+        configureDb();
+    }
+
+    public static void copyTemplates() throws URISyntaxException {
+        URI uriTemplatesDir = ClassLoader.getSystemResource(Constants.TEMPLATES_DIR).toURI();
+        String simplesUmlPath = Constants.SIMPLES_UML_NAME;
+        String simplesDiPath = Constants.SIMPLES_DI_NAME;
+        String simplesNotationPath = Constants.SIMPLES_NOTATION_NAME;
+
+        Path externalPathSimplesUml = Paths.get(UserHome.getPathToTemplates() + simplesUmlPath);
+        Path externalPathSimplesDi = Paths.get(UserHome.getPathToTemplates() + simplesDiPath);
+        Path externalPathSimplesNotation = Paths.get(UserHome.getPathToTemplates() + simplesNotationPath);
+
+        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesUmlPath), externalPathSimplesUml);
+        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesDiPath), externalPathSimplesDi);
+        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesNotationPath), externalPathSimplesNotation);
     }
 
     /**

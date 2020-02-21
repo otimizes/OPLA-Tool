@@ -35,21 +35,7 @@ public class OptimizationController {
         return "OPLA-Tool";
     }
 
-    private class OptimizationStatus {
-        private Long percent;
 
-        OptimizationStatus(Long percent) {
-            this.percent = percent;
-        }
-
-        public Long getPercent() {
-            return percent;
-        }
-
-        public void setPercent(Long percent) {
-            this.percent = percent;
-        }
-    }
 
     @GetMapping(value = "/optimization-info/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<OptimizationInfo> optimizationInfo(@PathVariable Long id) {
@@ -65,6 +51,11 @@ public class OptimizationController {
     @GetMapping("/nsgaii-test")
     public OptimizationInfo executeNSGAII() {
         return executeNSGAII(new OptimizationDto());
+    }
+
+    @GetMapping("/config")
+    public OptimizationInfo executeNSGAII() {
+        return config.getApplicationYaml();
     }
 
     @PostMapping("/nsgaii")
