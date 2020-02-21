@@ -12,13 +12,13 @@ public class ApplicationYamlConfig {
     private String pathToTemplateModelsDirectory;
     private String directoryToSaveModels;
     private String directoryToInteraction;
+    private String pathLastOptimizationInput;
     private String pathPapyrus;
     private String directoryToExportModels;
     private String pathToProfile;
     private String pathToProfileConcern;
     private String pathToProfileRelationships;
     private String pathToProfilePatterns;
-    private String pathLastOptimizationInput;
 
     public String getPathToTemplateModelsDirectory() {
         return StringUtils.defaultString(pathToTemplateModelsDirectory);

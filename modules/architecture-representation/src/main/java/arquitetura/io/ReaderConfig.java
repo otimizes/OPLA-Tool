@@ -43,7 +43,7 @@ public class ReaderConfig {
         if (dirTarget != null) {
             return dirTarget;
         }
-        return dir.getDirectoryToSaveModels();
+        return OPLAThreadScope.directoryToSaveModels.get();
     }
 
     public static void setDirTarget(String path) {
@@ -60,7 +60,7 @@ public class ReaderConfig {
         if (dirExportTarget != null) {
             return dirExportTarget;
         }
-        return dir.getDirectoryToExportModels();
+        return OPLAThreadScope.directoryToExportModels.get();
     }
 
     public static void setDirExportTarget(String path) {
@@ -76,7 +76,7 @@ public class ReaderConfig {
         if (pathToProfileSMarty != null) {
             return pathToProfileSMarty;
         }
-        return dir.getPathToProfile();
+        return OPLAThreadScope.pathToProfile.get();
     }
 
     public static void setPathToProfileSMarty(String path) {
@@ -92,7 +92,7 @@ public class ReaderConfig {
         if (pathToProfileConcerns != null) {
             return pathToProfileConcerns;
         }
-        return dir.getPathToProfileConcern();
+        return OPLAThreadScope.pathToProfileConcern.get();
     }
 
     public static void setPathToProfileConcerns(String path) {
@@ -112,7 +112,7 @@ public class ReaderConfig {
         if (pathToTemplateModelsDirectory != null) {
             return pathToTemplateModelsDirectory;
         }
-        return dir.getPathToTemplateModelsDirectory();
+        return OPLAThreadScope.pathToTemplateModelsDirectory.get();
     }
 
     public static void setPathToTemplateModelsDirectory(String path) {
@@ -125,7 +125,7 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasSmartyProfile() {
-        return getPathToProfileSMarty().isEmpty() || getPathToProfileSMarty() == null ? false : true;
+        return OPLAThreadScope.pathToProfile.get().isEmpty() || getPathToProfileSMarty() == null ? false : true;
     }
 
     /**
@@ -134,7 +134,7 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasConcernsProfile() {
-        return getPathToProfileConcerns().isEmpty() || getPathToProfileConcerns() == null ? false : true;
+        return OPLAThreadScope.pathToProfileConcern.get().isEmpty() || getPathToProfileConcerns() == null ? false : true;
     }
 
     /**
@@ -143,17 +143,17 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasRelationsShipProfile() {
-        return getPathToProfileRelationships().isEmpty() || getPathToProfileRelationships() == null ? false : true;
+        return OPLAThreadScope.pathToProfileRelationships.get().isEmpty() || getPathToProfileRelationships() == null ? false : true;
     }
 
     public static boolean hasPatternsProfile() {
-        return getPathToProfilePatterns().isEmpty() || getPathToProfilePatterns() == null ? false : true;
+        return OPLAThreadScope.pathToProfilePatterns.get().isEmpty() || getPathToProfilePatterns() == null ? false : true;
     }
 
     public static String getPathToProfileRelationships() {
         if (pathToProfileRelationships != null)
             return pathToProfileRelationships;
-        return dir.getPathToProfileRelationships();
+        return OPLAThreadScope.pathToProfileRelationships.get();
     }
 
     public static void setPathProfileRelationship(String path) {
@@ -163,7 +163,7 @@ public class ReaderConfig {
     public static String getPathToProfilePatterns() {
         if (pathToProfilePatterns != null)
             return pathToProfilePatterns;
-        return dir.getPathToProfilePatterns();
+        return OPLAThreadScope.pathToProfilePatterns.get();
     }
 
     public static void setPathToProfilePatterns(String path) {

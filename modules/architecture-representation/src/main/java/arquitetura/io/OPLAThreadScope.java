@@ -16,4 +16,10 @@ public class OPLAThreadScope {
     public static ThreadLocal<String> pathToProfileConcern = new ThreadLocal<>();
     public static ThreadLocal<String> pathToProfileRelationships = new ThreadLocal<>();
     public static ThreadLocal<String> pathToProfilePatterns = new ThreadLocal<>();
+    public static ThreadLocal<String> pathToTemplateModelsDirectory = new ThreadLocal<>();
+    public static ThreadLocal<String> directoryToSaveModels = new ThreadLocal<>();
+    public static ThreadLocal<String> directoryToInteraction = new ThreadLocal<>();
+    public static ThreadLocal<String> pathLastOptimizationInput = new ThreadLocal<>();
+    public static ThreadLocal<String> pathPapyrus = new ThreadLocal<>();
+    public static ThreadLocal<String> directoryToExportModels = new ThreadLocal<>();
 }
