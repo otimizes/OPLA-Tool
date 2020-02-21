@@ -178,15 +178,6 @@ public class ReaderConfig {
         newPathToConfigurationFile = newPath;
     }
 
-    /**
-     * Default path is config/application.yaml If you need chance it, before
-     * call this method set the new path with
-     * <code>setNewPathToConfigurationFile</code> <br/>
-     * <br/>
-     * IMPORTANT: Only call this method once.
-     *
-     * @throws FileNotFoundException
-     */
     public static void load() {
         try {
             Yaml yaml = new Yaml();

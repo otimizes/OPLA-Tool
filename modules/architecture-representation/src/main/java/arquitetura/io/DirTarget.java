@@ -6,26 +6,16 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Deprecated
 public class DirTarget {
 
-    private String directoryToSaveModels;
-
-    private String directoryToInteraction;
-
-    private String pathPapyrus;
-
-    private String directoryToExportModels;
-
-    private String pathLastOptimizationInput;
-
-    private String pathToProfile;
-
-    private String pathToProfileConcern;
-
     private String pathToTemplateModelsDirectory;
-
+    private String directoryToSaveModels;
+    private String directoryToInteraction;
+    private String pathPapyrus;
+    private String directoryToExportModels;
+    private String pathToProfile;
+    private String pathToProfileConcern;
     private String pathToProfileRelationships;
-
     private String pathToProfilePatterns;
-
+    private String pathLastOptimizationInput;
     private Boolean smarty = true;
     private Boolean feature = true;
     private Boolean patterns = true;

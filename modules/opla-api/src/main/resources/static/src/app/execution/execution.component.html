@@ -167,16 +167,10 @@
           <div>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Select the input PLA</mat-label>
-<!--              <mat-select [(ngModel)]="optimizationDto.inputArchitecture"-->
-<!--                          formControlName="inputArchitecture">-->
-<!--                <option *ngFor="let plaFile of plaFiles" [value]="plaFile">-->
-<!--                  {{plaFile}}-->
-<!--                </option>-->
-<!--              </mat-select>-->
               <input matInput placeholder="/home/..." [(ngModel)]="optimizationDto.inputArchitecture"
                      formControlName="inputArchitecture">
               <input hidden (change)="onFileSelected()" #fileInput type="file" multiple directory webkitdirectory mozdirectory allowdirs id="file">
-              <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="selectPLA()">
+              <button matTooltip="Select the directory of the PLA" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="selectPLA()">
                 <mat-icon>attach_file</mat-icon>
               </button>
             </mat-form-field>
