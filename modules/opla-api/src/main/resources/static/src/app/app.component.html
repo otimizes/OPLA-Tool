@@ -2,65 +2,38 @@
 <!--</router-outlet>-->
 <mat-progress-bar mode="indeterminate" *ngIf="isRunning()"></mat-progress-bar>
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="generalFormGroup">
-    <form [formGroup]="generalFormGroup">
-      <ng-template matStepLabel>General Configuration</ng-template>
-      <app-general [optimizationDto]="optimizationDto"></app-general>
-      <div>
-<!--        <button mat-button matStepperNext>Next</button>-->
-      </div>
-    </form>
+  <mat-step>
+    <ng-template matStepLabel>General Configuration</ng-template>
+    <app-general [formGroup]="generalFormGroup" [optimizationDto]="optimizationDto"></app-general>
   </mat-step>
-  <mat-step [stepControl]="executionFormGroup">
-    <form [formGroup]="executionFormGroup">
-      <ng-template matStepLabel>Execution Configuration</ng-template>
-      <app-execution [optimizationDto]="optimizationDto"></app-execution>
-      <div>
-<!--        <button mat-button matStepperNext>Next</button>-->
-      </div>
-    </form>
+  <mat-step>
+    <ng-template matStepLabel>Execution Configuration</ng-template>
+    <app-execution [formGroup]="executionFormGroup" [optimizationDto]="optimizationDto"></app-execution>
   </mat-step>
-  <mat-step [stepControl]="patternFormGroup">
-    <form [formGroup]="patternFormGroup">
-      <ng-template matStepLabel>Design Patterns</ng-template>
-      <app-pattern></app-pattern>
-      <div>
-<!--        <button mat-button matStepperNext>Next</button>-->
-      </div>
-    </form>
+  <mat-step>
+    <ng-template matStepLabel>Design Patterns</ng-template>
+    <app-pattern [formGroup]="patternFormGroup" [optimizationDto]="optimizationDto"></app-pattern>
   </mat-step>
-  <mat-step [stepControl]="resultsFormGroup">
-    <form [formGroup]="resultsFormGroup">
-      <ng-template matStepLabel>Results</ng-template>
-      <app-results></app-results>
-      <div>
-<!--        <button mat-button matStepperNext>Next</button>-->
-      </div>
-    </form>
+  <mat-step>
+    <ng-template matStepLabel>Results</ng-template>
+    <app-results></app-results>
   </mat-step>
-  <mat-step [stepControl]="experimentsFormGroup">
-    <form [formGroup]="experimentsFormGroup">
-      <ng-template matStepLabel>Experiments</ng-template>
-      <app-experiments></app-experiments>
-      <div>
-<!--        <button mat-button matStepperNext>Next</button>-->
-      </div>
-    </form>
+  <mat-step>
+    <ng-template matStepLabel>Experiments</ng-template>
+    <app-experiments></app-experiments>
   </mat-step>
-  <mat-step [stepControl]="logsFormGroup">
-    <form [formGroup]="logsFormGroup">
-      <ng-template matStepLabel>Logs</ng-template>
-      <app-logs></app-logs>
-      <div>
-<!--        <button mat-button matStepperNext>Next</button>-->
-      </div>
-    </form>
+  <mat-step>
+    <ng-template matStepLabel>Logs</ng-template>
+    <app-logs></app-logs>
   </mat-step>
 </mat-horizontal-stepper>
-<button fixedVicButton matTooltip="Optimize" *ngIf="!optimizationInfo || optimizationInfo.status != 'COMPLETE'" [disabled]="isRunning()" color="primary" mat-fab aria-label="Optimize" (click)="run(optimizationDto)">
+
+<button fixedVicButton matTooltip="Optimize" *ngIf="!optimizationInfo || optimizationInfo.status != 'COMPLETE'"
+        [disabled]="isRunning()" color="primary" mat-fab aria-label="Optimize" (click)="run(optimizationDto)">
   <mat-icon>cloud_done</mat-icon>
 </button>
 
-<button fixedVicButton matTooltip="Download" *ngIf="optimizationInfo != null && optimizationInfo.status == 'COMPLETE'" color="accent" mat-fab aria-label="Download" (click)="download(optimizationInfo)">
+<button fixedVicButton matTooltip="Download" *ngIf="optimizationInfo != null && optimizationInfo.status == 'COMPLETE'"
+        color="accent" mat-fab aria-label="Download" (click)="download(optimizationInfo)">
   <mat-icon>cloud_download</mat-icon>
 </button>

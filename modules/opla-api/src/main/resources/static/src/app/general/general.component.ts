@@ -9,26 +9,13 @@ import {OptimizationDto} from "../optimization-dto";
 })
 export class GeneralComponent implements OnInit {
 
-  options: FormGroup;
+  @Input() formGroup: FormGroup;
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
   @Input("optimizationDto") optimizationDto: OptimizationDto;
 
   constructor(fb: FormBuilder) {
-    this.options = fb.group({
-      hideRequired: this.hideRequiredControl,
-      floatLabel: this.floatLabelControl,
-      pathToTemplateModelsDirectory: new FormControl(),
-      directoryToSaveModels: new FormControl(),
-      pathToProfileConcern: new FormControl(),
-      pathToProfile: new FormControl(),
-      pathToProfileRelationships: new FormControl(),
-      pathToProfilePatterns: new FormControl(),
-      smarty: new FormControl(),
-      feature: new FormControl(),
-      patterns: new FormControl(),
-      relationships: new FormControl()
-    });
+
   }
 
   ngOnInit() {

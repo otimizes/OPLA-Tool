@@ -9,16 +9,13 @@ import {OptimizationDto} from "../optimization-dto";
 })
 export class PatternComponent implements OnInit {
 
-  options: FormGroup;
+  @Input() formGroup: FormGroup;
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
   @Input() optimizationDto: OptimizationDto;
 
   constructor(fb: FormBuilder) {
-    this.options = fb.group({
-      hideRequired: this.hideRequiredControl,
-      floatLabel: this.floatLabelControl,
-    });
+
   }
 
   ngOnInit() {

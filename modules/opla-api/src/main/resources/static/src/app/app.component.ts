@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {OptimizationDto} from "./optimization-dto";
 import {MatStepper} from "@angular/material/stepper";
 import {AppService} from "./app.service";
@@ -24,7 +24,36 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('stepper', {static: true}) stepper: MatStepper;
   optimizationInfo: OptimizationInfo = AppService.getOptimizationInfo();
 
-  constructor(private _formBuilder: FormBuilder, private service: AppService, private snackBar: MatSnackBar) {
+  constructor(private _formBuilder: FormBuilder, private service: AppService, private snackBar: MatSnackBar, fb: FormBuilder) {
+    this.executionFormGroup = fb.group({
+      mutation: ['', Validators.compose([Validators.required])],
+      mutationProbability: ['', Validators.compose([Validators.required])],
+      crossover: new FormControl(),
+      crossoverProbability: new FormControl(),
+      numberRuns: ['', Validators.compose([Validators.required])],
+      maxEvaluations: ['', Validators.compose([Validators.required])],
+      populationSize: ['', Validators.compose([Validators.required])],
+      archiveSize: new FormControl(),
+      maxInteractions: new FormControl(),
+      firstInteraction: new FormControl(),
+      intervalInteraction: new FormControl(),
+      inputArchitecture: ['', Validators.compose([Validators.required])],
+      outputDirectory: ['', Validators.compose([Validators.required])]
+    });
+    this.generalFormGroup = fb.group({
+      pathToTemplateModelsDirectory: new FormControl(),
+      directoryToSaveModels: new FormControl(),
+      pathToProfileConcern: new FormControl(),
+      pathToProfile: new FormControl(),
+      pathToProfileRelationships: new FormControl(),
+      pathToProfilePatterns: new FormControl(),
+      smarty: new FormControl(),
+      feature: new FormControl(),
+      patterns: new FormControl(),
+      relationships: new FormControl()
+    });
+    this.patternFormGroup = fb.group({
+    });
     service.getDto().subscribe(dto => {
       this.optimizationDto = dto
     });
@@ -39,24 +68,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.generalFormGroup = this._formBuilder.group({
-      generalCtrl: ['', Validators.required]
-    });
-    this.executionFormGroup = this._formBuilder.group({
-      executionCtrl: ['', Validators.required]
-    });
-    this.patternFormGroup = this._formBuilder.group({
-      patternCtrl: ['', Validators.required]
-    });
-    this.resultsFormGroup = this._formBuilder.group({
-      resultsCtrl: ['', Validators.required]
-    });
-    this.experimentsFormGroup = this._formBuilder.group({
-      experimentsCtrl: ['', Validators.required]
-    });
-    this.logsFormGroup = this._formBuilder.group({
-      logsCtrl: ['', Validators.required]
-    });
   }
 
   isRunning() {

@@ -1,5 +1,5 @@
 <div class="example-container" *ngIf="optimizationDto">
-  <form [formGroup]="options">
+  <form [formGroup]="formGroup">
     <mat-grid-list cols="3" rowHeight="500px">
       <mat-grid-tile>
         <mat-card>
@@ -14,16 +14,25 @@
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Number of runs</mat-label>
               <input matInput placeholder="30..." [(ngModel)]="optimizationDto.numberRuns" formControlName="numberRuns">
+              <mat-error *ngIf="formGroup.get('numberRuns').hasError('required')">
+                Number of runs is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Max evaluations</mat-label>
               <input matInput placeholder="30000..." [(ngModel)]="optimizationDto.maxEvaluations"
                      formControlName="maxEvaluations">
+              <mat-error *ngIf="formGroup.get('maxEvaluations').hasError('required')">
+                Max evaluations is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Population Size</mat-label>
               <input matInput placeholder="200..." [(ngModel)]="optimizationDto.populationSize"
                      formControlName="populationSize">
+              <mat-error *ngIf="formGroup.get('populationSize').hasError('required')">
+                Population size is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Archive size</mat-label>
@@ -35,7 +44,12 @@
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-card>
-          <h5>Objective Functions</h5>
+          <h5>
+            Objective Functions
+            <mat-error style="font-weight: 400;" *ngIf="optimizationDto.objectiveFunctions.length <= 0">
+              At least one objective function is <strong>required</strong>
+            </mat-error>
+          </h5>
           <div class="operators-functions">
             <mat-checkbox (change)="changeObjFunction('conventional', $event.checked)">Conventional</mat-checkbox>
             <mat-checkbox (change)="changeObjFunction('featureDriven', $event.checked)">Feature Driven</mat-checkbox>
@@ -138,7 +152,12 @@
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-card>
-          <h5>Mutation Operators</h5>
+          <h5>
+            Mutation Operators
+            <mat-error style="font-weight: 400;" *ngIf="optimizationDto.mutationOperators.length <= 0">
+              At least one mutation operator is <strong>required</strong>
+            </mat-error>
+          </h5>
           <div class="operators-functions" style="margin: 20px;">
             <mat-checkbox (change)="changeOperators('featureMutation', $event.checked)" [checked]="true">Feature-driven
               Mutation
@@ -169,15 +188,23 @@
               <mat-label>Select the input PLA</mat-label>
               <input matInput placeholder="/home/..." [(ngModel)]="optimizationDto.inputArchitecture"
                      formControlName="inputArchitecture">
-              <input hidden (change)="onFileSelected()" #fileInput type="file" multiple directory webkitdirectory mozdirectory allowdirs id="file">
-              <button matTooltip="Select the directory of the PLA" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="selectPLA()">
+              <input hidden (change)="onFileSelected()" #fileInput type="file" multiple directory webkitdirectory
+                     mozdirectory allowdirs id="file">
+              <button matTooltip="Select the directory of the PLA" mat-button matSuffix mat-icon-button
+                      aria-label="Clear" (click)="selectPLA()">
                 <mat-icon>attach_file</mat-icon>
               </button>
+              <mat-error *ngIf="formGroup.get('inputArchitecture').hasError('required')">
+                The PLA is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
               <mat-label>Change the output directory</mat-label>
               <input matInput placeholder="/home/..." [(ngModel)]="optimizationDto.config.directoryToExportModels"
                      formControlName="outputDirectory">
+              <mat-error *ngIf="formGroup.get('outputDirectory').hasError('required')">
+                The output is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
           </div>
         </mat-card>

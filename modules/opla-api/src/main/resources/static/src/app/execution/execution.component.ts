@@ -1,5 +1,5 @@
-import {AfterContentChecked, AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {AfterContentChecked, AfterViewInit, Component, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {OptimizationDto} from "../optimization-dto";
 import {AppService} from "../app.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -11,31 +11,13 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class ExecutionComponent implements OnInit, AfterContentChecked {
 
-
-  options: FormGroup;
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto');
+  @Input() formGroup: FormGroup;
   @Input() optimizationDto: OptimizationDto;
   @ViewChild('fileInput', {static: false}) fileInput;
+  hideRequiredControl = new FormControl(false);
+  floatLabelControl = new FormControl('auto');
 
-  constructor(fb: FormBuilder, protected service: AppService,private snackBar: MatSnackBar) {
-    this.options = fb.group({
-      hideRequired: this.hideRequiredControl,
-      floatLabel: this.floatLabelControl,
-      mutation: new FormControl(),
-      mutationProbability: new FormControl(),
-      crossover: new FormControl(),
-      crossoverProbability: new FormControl(),
-      numberRuns: new FormControl(),
-      maxEvaluations: new FormControl(),
-      populationSize: new FormControl(),
-      archiveSize: new FormControl(),
-      maxInteractions: new FormControl(),
-      firstInteraction: new FormControl(),
-      intervalInteraction: new FormControl(),
-      inputArchitecture: new FormControl(),
-      outputDirectory: new FormControl()
-    });
+  constructor(fb: FormBuilder, protected service: AppService, private snackBar: MatSnackBar) {
     AppService.onSelectPLA.asObservable().subscribe(list => {
       this.selectProfiles(list);
       // this.plaFiles = list;
