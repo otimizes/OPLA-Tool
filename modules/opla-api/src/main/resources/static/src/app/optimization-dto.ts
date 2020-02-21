@@ -21,7 +21,7 @@ export class OptimizationDto {
   mutationOperators: string[] = ["featureMutation","moveMethodMutation","addClassMutation","addManagerClassMutation","moveOperationMutation"];
   patterns: string[] = [];
   objectiveFunctions: string[] = [];
-  config: Config;
+  config: Config = new Config();
 
   constructor() {}
 }

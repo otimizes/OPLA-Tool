@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   resultsFormGroup: FormGroup;
   experimentsFormGroup: FormGroup;
   logsFormGroup: FormGroup;
-  optimizationDto: OptimizationDto;
+  optimizationDto: OptimizationDto = new OptimizationDto();
   @ViewChild('stepper', {static: true}) stepper: MatStepper;
 
   constructor(private _formBuilder: FormBuilder, private service: AppService, private snackBar: MatSnackBar) {

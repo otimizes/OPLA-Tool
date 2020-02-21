@@ -1,9 +1,12 @@
 package br.ufpr.dinf.gres.oplaapi;
 
+import arquitetura.io.OPLAThreadScope;
+
 public class OptimizationInfo {
     public Long threadId;
     public String logs;
     public OptimizationInfoStatus status;
+    public String hash = OPLAThreadScope.hash.get();
 
     public OptimizationInfo() {
     }

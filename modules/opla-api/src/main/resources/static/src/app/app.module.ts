@@ -27,6 +27,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { DragDropDirectiveDirective } from './drag-drop-directive.directive';
+import {FileUploadInputFor, MatFileUploadModule} from "angular-material-fileupload";
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     PatternComponent,
     ResultsComponent,
     ExperimentsComponent,
-    LogsComponent
+    LogsComponent,
+    DragDropDirectiveDirective,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatTooltipModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatFileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,17 +6,27 @@ import br.ufpr.dinf.gres.loglog.LogLogData;
 import br.ufpr.dinf.gres.loglog.Logger;
 import br.ufpr.dinf.gres.oplaapi.config.ApplicationFile;
 import br.ufpr.dinf.gres.oplaapi.config.ApplicationYamlConfig;
+import br.ufpr.dinf.gres.oplaapi.util.Constants;
 import br.ufpr.dinf.gres.oplaapi.util.UserHome;
 import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.experiments.NSGAII_OPLA_FeatMutInitializer;
 import jmetal4.experiments.OPLAConfigs;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +45,34 @@ public class OptimizationController {
     @RequestMapping("/")
     public String index() {
         return "OPLA-Tool";
+    }
+
+    @PostMapping(value = "/upload-pla")
+    public ResponseEntity<List<String>> save(
+            @RequestParam("file") List<MultipartFile> files) {
+
+        String OUT_PATH = ApplicationFile.getInstance().getConfig().getDirectoryToExportModels().toString() + "/";
+        List<String> paths = new ArrayList<>();
+
+        try {
+            for (MultipartFile mf : files) {
+                byte[] bytes = mf.getBytes();
+                String s = OUT_PATH + mf.getOriginalFilename();
+                paths.add(s);
+                createPathIfNotExists(s.substring(0, s.lastIndexOf(Constants.FILE_SEPARATOR)));
+                Path path = Paths.get(s);
+                Files.write(path, bytes);
+            }
+
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return ResponseEntity.ok(paths);
+    }
+
+    private void createPathIfNotExists(String s) {
+        boolean mkdirs = new File(s).mkdirs();
     }
 
 

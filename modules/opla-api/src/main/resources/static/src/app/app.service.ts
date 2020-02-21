@@ -14,16 +14,30 @@ export class AppService {
   public static baseUrl = "http://localhost:8080";
   public static optimizationInfo: OptimizationInfo;
   public static onOptimizationInfo: EventEmitter<OptimizationInfo> = new EventEmitter<OptimizationInfo>();
+  public static onSelectPLA: EventEmitter<string[]> = new EventEmitter<string[]>();
 
   constructor(private http: HttpClient) {
     if (AppService.isRunning()) {
       AppService.optimizationInfo = JSON.parse(localStorage.getItem("optimizationInfo"));
       this.startEventListener(AppService.optimizationInfo);
     }
+    if (AppService.getPLA()) {
+    console.log("dfdfsdfsdfs ", AppService.getPLA())
+      AppService.onSelectPLA.emit(AppService.getPLA());
+    }
   }
 
   public static isRunning() {
     return localStorage.getItem("optimizationInfo") != null && JSON.parse(localStorage.getItem("optimizationInfo")).status === "RUNNING";
+  }
+
+  public static setPLA(listOfFiles) {
+    this.onSelectPLA.emit(listOfFiles);
+    localStorage.setItem("pla", JSON.stringify(listOfFiles));
+  }
+
+  public static getPLA() {
+    return JSON.parse(localStorage.getItem("pla"));
   }
 
   startEventListener(optimizationInfo: OptimizationInfo) {
@@ -87,5 +101,30 @@ export class AppService {
       .pipe(catchError(this.errorHandler), tap(data => {
         this.startEventListener(data);
       }));
+  }
+
+  getFormUrlEncoded(toConvert) {
+    const formBody = [];
+    for (const property in toConvert) {
+      const encodedKey = encodeURIComponent(property);
+      const encodedValue = encodeURIComponent(toConvert[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    return formBody.join('&');
+  }
+
+  uploadPLA(files: FileList): Observable<any> {
+
+    let formData = new FormData();
+    for (let filesKey in files) {
+      if (files[filesKey] instanceof Blob) {
+        console.log(files[filesKey])
+        formData.append("file", files[filesKey], files[filesKey]['webkitRelativePath']);
+      }
+    }
+
+    return this.http.post(`${AppService.baseUrl}/upload-pla`, formData, {
+      headers: new HttpHeaders({'enctype': 'multipart/form-data'})
+    });
   }
 }
