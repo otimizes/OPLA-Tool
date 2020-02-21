@@ -1,3 +1,5 @@
+import {Config} from "./config";
+
 export class OptimizationDto {
   algorithm: string = "NSGAII";
   archiveSize: number;
@@ -19,7 +21,7 @@ export class OptimizationDto {
   mutationOperators: string[] = ["featureMutation","moveMethodMutation","addClassMutation","addManagerClassMutation","moveOperationMutation"];
   patterns: string[] = [];
   objectiveFunctions: string[] = [];
-  outputDirectory: string;
+  config: Config;
 
   constructor() {}
 }

@@ -1,5 +1,7 @@
 package br.ufpr.dinf.gres.oplaapi;
 
+import br.ufpr.dinf.gres.oplaapi.config.ApplicationFile;
+import br.ufpr.dinf.gres.oplaapi.config.ApplicationYamlConfig;
 import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.interactive.InteractiveFunction;
 import learning.ClusteringAlgorithm;
@@ -29,7 +31,8 @@ public class OptimizationDto {
     private InteractiveFunction interactiveFunction;
     private List<String> mutationOperators = Arrays.asList("featureMutation", "moveMethodMutation", "moveAttributeMutation", "moveOperationMutation", "addClassMutation", "addManagerClassMutation");
     private List<String> patterns = new ArrayList<>();
-    private List<String> objectiveFunctions = Arrays.asList("featureDriven","aclass","coe");
+    private List<String> objectiveFunctions = new ArrayList<>();
+    public ApplicationYamlConfig config = ApplicationFile.getInstance().getApplicationYaml();
 
     public OptimizationDto() {
     }
@@ -192,5 +195,13 @@ public class OptimizationDto {
 
     public void setAlgorithm(String algorithm) {
         this.algorithm = algorithm;
+    }
+
+    public ApplicationYamlConfig getConfig() {
+        return config;
+    }
+
+    public void setConfig(ApplicationYamlConfig config) {
+        this.config = config;
     }
 }

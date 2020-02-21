@@ -1,6 +1,6 @@
-<router-outlet>
-</router-outlet>
-
+<!--<router-outlet>-->
+<!--</router-outlet>-->
+<mat-progress-bar mode="indeterminate" *ngIf="isRunning()"></mat-progress-bar>
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="generalFormGroup">
     <form [formGroup]="generalFormGroup">
@@ -57,6 +57,6 @@
     </form>
   </mat-step>
 </mat-horizontal-stepper>
-<button fixedVicButton matTooltip="Optimize" color="primary" mat-fab aria-label="Optimize" (click)="run(optimizationDto)">
+<button fixedVicButton matTooltip="Optimize" [disabled]="isRunning()" color="primary" mat-fab aria-label="Optimize" (click)="run(optimizationDto)">
   <mat-icon>cloud_done</mat-icon>
 </button>

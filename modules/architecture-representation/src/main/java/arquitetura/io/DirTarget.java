@@ -26,6 +26,11 @@ public class DirTarget {
 
     private String pathToProfilePatterns;
 
+    private Boolean smarty = true;
+    private Boolean feature = true;
+    private Boolean patterns = true;
+    private Boolean relationships = true;
+
     /**
      * @return the directoryToSaveModels
      */
@@ -122,6 +127,38 @@ public class DirTarget {
 
     public void setPathPapyrus(String pathPapyrus) {
         this.pathPapyrus = pathPapyrus;
+    }
+
+    public Boolean getSmarty() {
+        return smarty;
+    }
+
+    public void setSmarty(Boolean smarty) {
+        this.smarty = smarty;
+    }
+
+    public Boolean getFeature() {
+        return feature;
+    }
+
+    public void setFeature(Boolean feature) {
+        this.feature = feature;
+    }
+
+    public Boolean getPatterns() {
+        return patterns;
+    }
+
+    public void setPatterns(Boolean patterns) {
+        this.patterns = patterns;
+    }
+
+    public Boolean getRelationships() {
+        return relationships;
+    }
+
+    public void setRelationships(Boolean relationships) {
+        this.relationships = relationships;
     }
 
     @Override

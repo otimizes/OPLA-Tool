@@ -4,6 +4,8 @@ import arquitetura.io.ReaderConfig;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.LogLogData;
 import br.ufpr.dinf.gres.loglog.Logger;
+import br.ufpr.dinf.gres.oplaapi.config.ApplicationFile;
+import br.ufpr.dinf.gres.oplaapi.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.oplaapi.util.UserHome;
 import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.NSGAIIConfig;
@@ -27,7 +29,7 @@ public class OptimizationController {
 
 
     private static final LogLog VIEW_LOGGER = Logger.getLogger();
-    private static Map<Long, List<String>> lastLogs = new HashMap<>();
+    private static Map<Long, List<OptimizationInfo>> lastLogs = new HashMap<>();
     private Long id = null;
 
     @RequestMapping("/")
@@ -36,46 +38,61 @@ public class OptimizationController {
     }
 
 
-
     @GetMapping(value = "/optimization-info/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<OptimizationInfo> optimizationInfo(@PathVariable Long id) {
         return Flux.interval(Duration.ofMillis(500)).take(50).onBackpressureBuffer(50)
                 .map(str -> {
                     if (lastLogs.get(id) != null && !lastLogs.get(id).isEmpty()) {
-                        return new OptimizationInfo(id, lastLogs.get(id).remove(0));
+                        OptimizationInfo optimizationInfo = lastLogs.get(id).get(0);
+                        return OptimizationInfoStatus.COMPLETE.equals(optimizationInfo.status)
+                                ? optimizationInfo : lastLogs.get(id).remove(0);
                     }
-                    return new OptimizationInfo(id, "");
+                    return new OptimizationInfo(id, "", OptimizationInfoStatus.RUNNING);
                 });
     }
 
     @GetMapping("/nsgaii-test")
-    public OptimizationInfo executeNSGAII() {
+    public Mono<OptimizationInfo> executeNSGAII() {
         return executeNSGAII(new OptimizationDto());
     }
 
     @GetMapping("/config")
-    public OptimizationInfo executeNSGAII() {
-        return config.getApplicationYaml();
+    public Mono<ApplicationYamlConfig> config() {
+        return Mono.just(ApplicationFile.getInstance().getApplicationYaml()).subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping("/dto")
+    public Mono<OptimizationDto> dto() {
+        return Mono.just(new OptimizationDto()).subscribeOn(Schedulers.elastic());
+    }
+
+    @PostMapping("/optimize")
+    public Mono<OptimizationInfo> optimize(@RequestBody OptimizationDto optimizationDto) {
+        switch (optimizationDto.getAlgorithm()) {
+            case "NSGAII":
+                return executeNSGAII(optimizationDto);
+        }
+        return executeNSGAII(optimizationDto);
     }
 
     @PostMapping("/nsgaii")
-    public OptimizationInfo executeNSGAII(@RequestBody OptimizationDto optimizationDto) {
+    public Mono<OptimizationInfo> executeNSGAII(@RequestBody OptimizationDto optimizationDto) {
         Thread thread = new Thread(() -> {
             execute(optimizationDto);
         });
         id = Thread.currentThread().getId();
         thread.start();
-        return new OptimizationInfo(id);
+        return Mono.just(new OptimizationInfo(id, "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
     }
 
     public void execute(OptimizationDto optimizationDto) {
 
         Logger.addListener(() -> {
             String s = LogLogData.printLog();
-            if (lastLogs.get(id) != null && lastLogs.get(id).size() > 100) {
+            if (lastLogs.get(id) != null && lastLogs.get(id).size() >= 100) {
                 lastLogs.get(id).clear();
             }
-            lastLogs.computeIfAbsent(id, k -> new ArrayList<>()).add(s);
+            lastLogs.computeIfAbsent(id, k -> new ArrayList<>()).add(new OptimizationInfo(id, s, OptimizationInfoStatus.RUNNING));
         });
 
         LOGGER.info("set configuration path");
@@ -158,8 +175,16 @@ public class OptimizationController {
 
         // Executa
         LOGGER.info("Execução NSGAII");
-        nsgaii.run();
+        try {
+            nsgaii.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+            lastLogs.get(id).clear();
+            lastLogs.computeIfAbsent(id, k -> new ArrayList<>()).add(new OptimizationInfo(id, "ERROR", OptimizationInfoStatus.COMPLETE));
+        }
         LOGGER.info("Fim Execução NSGAII");
+        lastLogs.get(id).clear();
+        lastLogs.computeIfAbsent(id, k -> new ArrayList<>()).add(new OptimizationInfo(id, "Fin", OptimizationInfoStatus.COMPLETE));
     }
 
 }

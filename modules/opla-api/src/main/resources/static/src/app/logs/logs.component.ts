@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {OptimizationDto} from "../optimization-dto";
+import {AppService} from "../app.service";
 
 @Component({
   selector: 'app-logs',
@@ -20,33 +21,20 @@ export class LogsComponent implements OnInit {
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,
     });
+    AppService.onOptimizationInfo.asObservable().subscribe(value => {
+      if (value.status === "RUNNING") {
+        if (value.logs && value.logs !== "") {
+          this.logs += "\n" + value.logs;
+        } else {
+          if (!this.logs.includes(value.status + " Thread " + value.threadId)) {
+            this.logs += value.status + " Thread " + value.threadId;
+          }
+        }
+      }
+
+    })
   }
 
   ngOnInit() {
-    let enable = false;
-    if (!!window['EventSource'] && enable) {
-      let source = new EventSource('http://localhost:8080/optimization-info/38');
-      source.addEventListener('message', (e) => {
-        if (e.data) {
-          let json = JSON.parse(e.data);
-          if (json.logs != "") {
-            this.logs += "\n" + json.logs;
-          }
-        }
-      }, false);
-
-      source.addEventListener('open', function (e) {
-        // Connection was opened.
-      }, false);
-
-      source.addEventListener('error', function (e) {
-        if (e['readyState'] == EventSource.CLOSED) {
-          source.close();
-          // Connection was closed.
-        }
-      }, false);
-    } else {
-      // Result to xhr polling :(
-    }
   }
 }

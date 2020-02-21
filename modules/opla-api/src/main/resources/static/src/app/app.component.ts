@@ -2,6 +2,8 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {OptimizationDto} from "./optimization-dto";
 import {MatStepper} from "@angular/material/stepper";
+import {AppService} from "./app.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-root',
@@ -17,10 +19,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   resultsFormGroup: FormGroup;
   experimentsFormGroup: FormGroup;
   logsFormGroup: FormGroup;
-  optimizationDto: OptimizationDto = new OptimizationDto();
+  optimizationDto: OptimizationDto;
   @ViewChild('stepper', {static: true}) stepper: MatStepper;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private service: AppService, private snackBar: MatSnackBar) {
+    service.getDto().subscribe(dto => {
+      console.log("-->", dto)
+      this.optimizationDto = dto
+    })
   }
 
   ngAfterViewInit(): void {
@@ -48,7 +54,19 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
-  run(optimizationDto:OptimizationDto) {
-    console.log(optimizationDto)
+  isRunning() {
+    return AppService.isRunning();
+  }
+
+  run(optimizationDto: OptimizationDto) {
+    console.log(optimizationDto);
+
+    this.service.optimize(optimizationDto).subscribe(info => {
+      this.snackBar.open("Optimization started", "Go to logs", {
+        duration: 10000
+      }).onAction().subscribe(() => {
+        this.stepper.selectedIndex = 5
+      })
+    })
   }
 }
