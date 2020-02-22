@@ -240,7 +240,7 @@ public class Principal extends AbstractPrincipalJFrame {
     }
 
     public static void copyTemplates() throws URISyntaxException {
-        URI uriTemplatesDir = ClassLoader.getSystemResource(Constants.TEMPLATES_DIR).toURI();
+        URI uriTemplatesDir = ClassLoader.getSystemResource(arquitetura.util.Constants.BASE_RESOURCES + Constants.TEMPLATES_DIR).toURI();
         String simplesUmlPath = Constants.SIMPLES_UML_NAME;
         String simplesDiPath = Constants.SIMPLES_DI_NAME;
         String simplesNotationPath = Constants.SIMPLES_NOTATION_NAME;

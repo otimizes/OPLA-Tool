@@ -79,7 +79,7 @@ public abstract class AbstractPrincipalJFrame extends javax.swing.JFrame {
     protected void configureProfile(JTextField jTexField, Path path, String profileName) throws IOException, URISyntaxException {
         Path target = Paths.get(UserHome.getOplaUserHome() + Constants.PROFILES_DIR + Constants.FILE_SEPARATOR + profileName);
         if (!Files.exists(target)) {
-            URI uri = ClassLoader.getSystemResource(Constants.PROFILES_DIR).toURI();
+            URI uri = ClassLoader.getSystemResource(arquitetura.util.Constants.BASE_RESOURCES + Constants.PROFILES_DIR).toURI();
             Path pathProfile = Paths.get(uri.getSchemeSpecificPart()).resolve(profileName);
             arquitetura.io.FileUtils.copy(pathProfile, target);
             jTexField.setText(target.toString());

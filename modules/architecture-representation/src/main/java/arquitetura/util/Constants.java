@@ -9,6 +9,7 @@ public class Constants {
 
     public static final String USER_HOME = System.getProperty("user.home");
     public static final String FILE_SEPARATOR = FileSystems.getDefault().getSeparator();
+    public static String BASE_RESOURCES = "";
 
     public static final String APPLICATION_YAML_NAME = "application.yaml";
     public static final String GUI_SETTINGS = "guisettings.yml";

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -171,7 +173,7 @@ public class Utils {
         Path target = Paths.get(UserHome.getOplaUserHome()).resolve(Constants.GUI_SETTINGS);
         if (!Files.exists(target)) {
             try {
-                URI uri = ClassLoader.getSystemResource(Constants.LOCAL_GUI_PATH).toURI();
+                URI uri = ClassLoader.getSystemResource(Constants.BASE_RESOURCES + Constants.LOCAL_GUI_PATH).toURI();
                 arquitetura.io.FileUtils.copy(Paths.get(uri.getSchemeSpecificPart()), target);
             } catch (URISyntaxException e) {
                 e.printStackTrace();
@@ -186,7 +188,7 @@ public class Utils {
         if (!Files.exists(pathDb)) {
             try {
                 String pathEmptyDbFile = Constants.PATH_EMPTY_DB + Constants.FILE_SEPARATOR + Constants.EMPTY_DB_NAME;
-                URI uri = ClassLoader.getSystemResource(pathEmptyDbFile).toURI();
+                URI uri = ClassLoader.getSystemResource(Constants.BASE_RESOURCES + pathEmptyDbFile).toURI();
                 arquitetura.io.FileUtils.createDirectory(Paths.get(UserHome.getOplaUserHome() + Constants.DB_DIR));
                 arquitetura.io.FileUtils.copy(Paths.get(uri.getSchemeSpecificPart()), pathDb);
             } catch (URISyntaxException e) {
@@ -216,6 +218,7 @@ public class Utils {
             e.printStackTrace();
         }
     }
+
 
     // TODO Ajustar quando refatorar database
     // public static String generateFileName(String id) {

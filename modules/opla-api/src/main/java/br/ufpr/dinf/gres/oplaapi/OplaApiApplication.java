@@ -9,12 +9,15 @@ import arquitetura.util.Utils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.IOException;
+import java.net.JarURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -32,7 +35,13 @@ public class OplaApiApplication {
     }
 
     public static void main(String[] args) {
-
+        try {
+            if(OplaApiApplication.class.getResource("").openConnection() instanceof JarURLConnection) {
+                Constants.BASE_RESOURCES = "BOOT-INF/classes/";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Utils.createPathsOplaTool();
         initialConfiguration();
         ManagerApplicationConfig instance = ApplicationFile.getInstance();
@@ -55,11 +64,8 @@ public class OplaApiApplication {
     }
 
     public static void copyTemplates() throws URISyntaxException {
-        System.out.println("------------");
-        System.out.println(ClassLoader.getSystemClassLoader().getResource(""));
-        System.out.println( ClassLoader.getSystemResource(Constants.TEMPLATES_DIR));
-        System.out.println("------------");
-        URI uriTemplatesDir = ClassLoader.getSystemResource(Constants.TEMPLATES_DIR).toURI();
+        System.out.println("----------" + Constants.BASE_RESOURCES + Constants.TEMPLATES_DIR);
+        URI uriTemplatesDir = ClassLoader.getSystemResource(Constants.BASE_RESOURCES + Constants.TEMPLATES_DIR).toURI();
         String simplesUmlPath = Constants.SIMPLES_UML_NAME;
         String simplesDiPath = Constants.SIMPLES_DI_NAME;
         String simplesNotationPath = Constants.SIMPLES_NOTATION_NAME;
