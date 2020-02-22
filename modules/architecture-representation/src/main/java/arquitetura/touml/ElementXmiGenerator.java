@@ -171,7 +171,7 @@ public class ElementXmiGenerator extends XmiHelper {
         ownedAttribute.setAttribute("isUnique", "false");
         klass.appendChild(ownedAttribute);
 
-        if (Types.isCustomType(attribute.getType()) && !attribute.getType().equals("")) {
+        if (attribute.getType() != null && Types.isCustomType(attribute.getType()) && !attribute.getType().equals("")) {
             String id = findIdByName(attribute.getType(), a.getElements());
             if ("".equals(id)) LOGGER.warn("Type " + attribute.getType() + " not found");
             ownedAttribute.setAttribute("type", id);

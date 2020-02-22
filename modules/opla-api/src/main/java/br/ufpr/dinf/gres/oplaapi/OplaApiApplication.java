@@ -64,7 +64,6 @@ public class OplaApiApplication {
     }
 
     public static void copyTemplates() throws URISyntaxException {
-        System.out.println("----------" + Constants.BASE_RESOURCES + Constants.TEMPLATES_DIR);
         URI uriTemplatesDir = ClassLoader.getSystemResource(Constants.BASE_RESOURCES + Constants.TEMPLATES_DIR).toURI();
         String simplesUmlPath = Constants.SIMPLES_UML_NAME;
         String simplesDiPath = Constants.SIMPLES_DI_NAME;
