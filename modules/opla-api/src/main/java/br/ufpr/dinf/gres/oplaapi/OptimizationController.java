@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -50,8 +51,8 @@ public class OptimizationController {
     private Long id = null;
 
     @RequestMapping("/")
-    public String index() {
-        return "OPLA-Tool";
+    public ModelAndView index() {
+        return new ModelAndView("/static/dist/index.html");
     }
 
     @GetMapping(value = "/download/{id}", produces = "application/zip")
