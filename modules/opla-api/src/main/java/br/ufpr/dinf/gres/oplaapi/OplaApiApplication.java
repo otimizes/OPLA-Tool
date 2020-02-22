@@ -32,6 +32,7 @@ public class OplaApiApplication {
     }
 
     public static void main(String[] args) {
+
         Utils.createPathsOplaTool();
         initialConfiguration();
         ManagerApplicationConfig instance = ApplicationFile.getInstance();
@@ -54,6 +55,10 @@ public class OplaApiApplication {
     }
 
     public static void copyTemplates() throws URISyntaxException {
+        System.out.println("------------");
+        System.out.println(ClassLoader.getSystemClassLoader().getResource(""));
+        System.out.println( ClassLoader.getSystemResource(Constants.TEMPLATES_DIR));
+        System.out.println("------------");
         URI uriTemplatesDir = ClassLoader.getSystemResource(Constants.TEMPLATES_DIR).toURI();
         String simplesUmlPath = Constants.SIMPLES_UML_NAME;
         String simplesDiPath = Constants.SIMPLES_DI_NAME;
