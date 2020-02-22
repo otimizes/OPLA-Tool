@@ -1,20 +1,19 @@
 package br.ufpr.dinf.gres.oplaapi;
 
+import arquitetura.config.ApplicationFile;
+import arquitetura.config.ApplicationYamlConfig;
 import arquitetura.config.PathConfig;
 import arquitetura.io.OPLAThreadScope;
 import arquitetura.io.ReaderConfig;
+import arquitetura.util.Constants;
+import arquitetura.util.UserHome;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.LogLogData;
 import br.ufpr.dinf.gres.loglog.Logger;
-import arquitetura.config.ApplicationFile;
-import arquitetura.config.ApplicationYamlConfig;
-import arquitetura.util.Constants;
-import arquitetura.util.UserHome;
 import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.experiments.NSGAII_OPLA_FeatMutInitializer;
 import jmetal4.experiments.OPLAConfigs;
-import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +26,6 @@ import reactor.core.scheduler.Schedulers;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,8 +35,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 @RestController
 public class OptimizationController {
@@ -49,11 +44,6 @@ public class OptimizationController {
     private static final LogLog VIEW_LOGGER = Logger.getLogger();
     private static Map<Long, List<OptimizationInfo>> lastLogs = new HashMap<>();
     private Long id = null;
-
-    @RequestMapping("/")
-    public ModelAndView index() {
-        return new ModelAndView("/static/dist/index.html");
-    }
 
     @GetMapping(value = "/download/{id}", produces = "application/zip")
     public void zipFiles(@PathVariable String id, HttpServletResponse response) throws IOException {

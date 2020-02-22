@@ -1,5 +1,5 @@
 {
-  "name": "static",
+  "name": "project",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -22,9 +22,9 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "angular-material-fileupload": "^2.0.0",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.4.0",
+    "rxjs-compat": "^6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

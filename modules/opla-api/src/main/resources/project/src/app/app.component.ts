@@ -86,7 +86,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   download(optimizationInfo: OptimizationInfo) {
     this.service.download(optimizationInfo.hash).subscribe(result => {
-      this.snackBar.open("Your download started", null, {
+      this.snackBar.open("Your download is available", null, {
         duration: 2000
       });
       const blob = new Blob([result], {

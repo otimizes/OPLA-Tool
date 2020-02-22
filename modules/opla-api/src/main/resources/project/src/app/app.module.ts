@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {ExecutionComponent} from './execution/execution.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatButtonModule} from "@angular/material/button";
-import {MatHorizontalStepper, MatStepperModule} from "@angular/material/stepper";
+import {MatStepperModule} from "@angular/material/stepper";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -27,8 +27,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import { DragDropDirectiveDirective } from './drag-drop-directive.directive';
-import {FileUploadInputFor, MatFileUploadModule} from "angular-material-fileupload";
+import {DragDropDirectiveDirective} from './drag-drop-directive.directive';
 
 @NgModule({
   declarations: [
@@ -62,8 +61,7 @@ import {FileUploadInputFor, MatFileUploadModule} from "angular-material-fileuplo
     MatTooltipModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatProgressBarModule,
-    MatFileUploadModule
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
