@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.oplaapi;
 
 import arquitetura.config.ApplicationFile;
 import arquitetura.config.ApplicationYamlConfig;
+import domain.OptimizationAlgorithm;
 import jmetal4.interactive.InteractiveFunction;
 import learning.ClusteringAlgorithm;
 import learning.Moment;
@@ -11,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class OptimizationDto {
-    private String algorithm = "NSGAII";
+    private OptimizationAlgorithm algorithm = OptimizationAlgorithm.NSGAII;
     private String description = "teste";
     private Boolean mutation = true;
     private Double mutationProbability = 0.9;
@@ -25,6 +26,7 @@ public class OptimizationDto {
     private Integer maxInteractions = 0;
     private Integer firstInteraction = 0;
     private Integer intervalInteraction = 0;
+    private Integer archiveSize = 0;
     private ClusteringAlgorithm clusteringAlgorithm = ClusteringAlgorithm.KMEANS;
     private Moment clusteringMoment = Moment.NONE;
     private InteractiveFunction interactiveFunction;
@@ -188,11 +190,11 @@ public class OptimizationDto {
         this.objectiveFunctions = objectiveFunctions;
     }
 
-    public String getAlgorithm() {
+    public OptimizationAlgorithm getAlgorithm() {
         return algorithm;
     }
 
-    public void setAlgorithm(String algorithm) {
+    public void setAlgorithm(OptimizationAlgorithm algorithm) {
         this.algorithm = algorithm;
     }
 
@@ -202,5 +204,13 @@ public class OptimizationDto {
 
     public void setConfig(ApplicationYamlConfig config) {
         this.config = config;
+    }
+
+    public Integer getArchiveSize() {
+        return archiveSize;
+    }
+
+    public void setArchiveSize(Integer archiveSize) {
+        this.archiveSize = archiveSize;
     }
 }

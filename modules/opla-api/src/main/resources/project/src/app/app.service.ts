@@ -99,6 +99,11 @@ export class AppService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getOptimizationOptions(): Observable<any> {
+    return this.http.get<any>(`${AppService.baseUrl}/optimization-options`, {headers: this.createAuthorizationHeader()})
+      .pipe(catchError(this.errorHandler));
+  }
+
   getDto(): Observable<OptimizationDto> {
     return this.http.get<OptimizationDto>(`${AppService.baseUrl}/dto`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));

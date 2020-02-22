@@ -13,6 +13,7 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
 
   @Input() formGroup: FormGroup;
   @Input() optimizationDto: OptimizationDto;
+  @Input() optimizationOptions: any;
   @ViewChild('fileInput', {static: false}) fileInput;
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');

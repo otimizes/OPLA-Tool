@@ -9,6 +9,7 @@
               <mat-label>Select Algorithm which want use</mat-label>
               <mat-select [(value)]="optimizationDto.algorithm">
                 <mat-option value="NSGAII">NSGA II</mat-option>
+                <mat-option value="PAES">PAES</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field [floatLabel]="floatLabelControl.value">
@@ -133,6 +134,9 @@
             [(ngModel)]="optimizationDto.mutationProbability"
             [vertical]="false">
           </mat-slider>
+          <mat-error *ngIf="formGroup.get('mutation').hasError('required') || optimizationDto.mutationProbability <= 0">
+            The mutation is <strong>required</strong>
+          </mat-error>
           <br>
           <mat-checkbox [(ngModel)]="optimizationDto.crossover"
                         formControlName="crossover">Crossover

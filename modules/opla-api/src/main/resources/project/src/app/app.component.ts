@@ -23,6 +23,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   optimizationDto: OptimizationDto = new OptimizationDto();
   @ViewChild('stepper', {static: true}) stepper: MatStepper;
   optimizationInfo: OptimizationInfo = AppService.getOptimizationInfo();
+  optimizationOptions: any;
 
   constructor(private _formBuilder: FormBuilder, private service: AppService, private snackBar: MatSnackBar, fb: FormBuilder) {
     this.executionFormGroup = fb.group({
@@ -56,6 +57,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
     service.getDto().subscribe(dto => {
       this.optimizationDto = dto
+    });
+
+    this.service.getOptimizationOptions().subscribe(options => {
+      this.optimizationOptions = options;
     });
 
     AppService.onOptimizationInfo.asObservable().subscribe(optimizationInfo => {
