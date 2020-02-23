@@ -11,7 +11,7 @@ import {OptimizationInfo} from "../dto/optimization-info";
 })
 export class OptimizationService {
 
-  public static baseUrl = "http://localhost:8080";
+  public static baseUrl = "http://localhost:8080/api";
   public static optimizationInfo: OptimizationInfo;
   public static onOptimizationInfo: EventEmitter<OptimizationInfo> = new EventEmitter<OptimizationInfo>();
   public static onSelectPLA: EventEmitter<string[]> = new EventEmitter<string[]>();

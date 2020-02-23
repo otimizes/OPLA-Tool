@@ -1,7 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {OptimizationDto} from "../dto/optimization-dto";
-import {PersistenceService} from "../services/persistence.service";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-results',
@@ -15,7 +13,7 @@ export class ResultsComponent implements OnInit {
   columnsToDisplay = ['id', 'name', 'algorithm', 'createdAt', 'description'];
   expandedElement: any | null;
 
-  constructor(fb: FormBuilder, private service: PersistenceService) {
+  constructor(fb: FormBuilder) {
 
   }
 

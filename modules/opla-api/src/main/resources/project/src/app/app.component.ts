@@ -5,7 +5,7 @@ import {MatStepper} from "@angular/material/stepper";
 import {OptimizationService} from "./services/optimization.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {OptimizationInfo} from "./dto/optimization-info";
-import {PersistenceService} from "./services/persistence.service";
+import {ExperimentService} from "./services/experiment.service";
 
 @Component({
   selector: 'app-root',
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   experiments: any;
 
   constructor(private _formBuilder: FormBuilder, private optimizationService: OptimizationService,
-              private persistenceService: PersistenceService, private snackBar: MatSnackBar, fb: FormBuilder) {
+              private experimentService: ExperimentService, private snackBar: MatSnackBar, fb: FormBuilder) {
     this.executionFormGroup = fb.group({
       mutation: ['', Validators.compose([Validators.required])],
       mutationProbability: ['', Validators.compose([Validators.required])],
@@ -69,12 +69,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.optimizationInfo = optimizationInfo;
     });
 
-    this.persistenceService.getExperiments().subscribe(experiments => {
-      this.experiments = experiments;
+    this.experimentService.getAll().subscribe(experiments => {
+      this.experiments = experiments.values;
       for (let experiment of this.experiments) {
-        this.persistenceService.getExecutionsByExperiment(experiment.id).subscribe(executions => {
-          experiment.executions = executions;
-        })
+        // this.persistenceService.getExecutionsByExperiment(experiment.id).subscribe(executions => {
+        //   experiment.executions = executions;
+        // })
       }
     })
   }

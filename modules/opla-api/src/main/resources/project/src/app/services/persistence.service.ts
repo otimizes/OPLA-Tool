@@ -1,20 +1,20 @@
-import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {OptimizationDto} from "../dto/optimization-dto";
 import {catchError} from "rxjs/operators";
 import {OptimizationService} from "./optimization.service";
 
-@Injectable({
-  providedIn: 'root'
-})
 export class PersistenceService {
 
-  constructor(private http: HttpClient) {
+  protected collection = '';
+  protected http: HttpClient;
+
+  constructor(collection: string, http: HttpClient) {
+    this.collection = collection;
+    this.http = http;
   }
 
   errorHandler(error) {
-    return Promise.reject(error.json());
+    return Promise.reject(error && error.json ? error.json() : error);
   }
 
   createAuthorizationHeader(): HttpHeaders {
@@ -23,25 +23,35 @@ export class PersistenceService {
     });
   }
 
-  getExperiments(): Observable<any> {
-    return this.http.get<any>(`${OptimizationService.baseUrl}/persistence/experiments`, {headers: this.createAuthorizationHeader()})
+  post(obj): Observable<any> {
+    return this.http.post(`${OptimizationService.baseUrl}/${this.collection}/async`, obj, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
-  getExecutionsByExperiment(id: number): Observable<any> {
-    return this.http.get<any>(`${OptimizationService.baseUrl}/persistence/executions-by-experiment/${id}`, {headers: this.createAuthorizationHeader()})
+  put(obj): Observable<any> {
+    return this.http.post(`${OptimizationService.baseUrl}/${this.collection}/async`, obj, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
-  getNamesByExperiment(id: number): Observable<any> {
-    return this.http.get<any>(`${OptimizationService.baseUrl}/persistence/names-by-experiment/${id}`, {headers: this.createAuthorizationHeader()})
+
+  delete(id): Observable<any> {
+    return this.http.delete(`${OptimizationService.baseUrl}/${this.collection}/${id}`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
-  getNonDominatedSolutionNumberByExperiment(id: number): Observable<any> {
-    return this.http.get<any>(`${OptimizationService.baseUrl}/persistence/non-dominated-Solution-number-by-experiment/${id}`, {headers: this.createAuthorizationHeader()})
+
+  get(id): Observable<any> {
+    return this.http.get(`${OptimizationService.baseUrl}/${this.collection}/${id}`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
-  getNameSolutionsByExpExec(expId: number, execId: number,solutionName:string): Observable<any> {
-    return this.http.get<any>(`${OptimizationService.baseUrl}/persistence/objective-alues/${expId}/${execId}/${solutionName}`, {headers: this.createAuthorizationHeader()})
+
+  getAll(): Observable<any> {
+    return this.http.get(`${OptimizationService.baseUrl}/${this.collection}`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
+
+  count(): Observable<any> {
+    return this.http.get(`${OptimizationService.baseUrl}/${this.collection}/count`, {headers: this.createAuthorizationHeader()})
+      .pipe(catchError(this.errorHandler));
+  }
+
+
 }

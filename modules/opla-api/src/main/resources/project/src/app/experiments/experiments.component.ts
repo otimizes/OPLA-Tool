@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PersistenceService} from "../services/persistence.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -20,7 +19,7 @@ export class ExperimentsComponent implements OnInit {
   columnsToDisplay = ['id', 'name', 'algorithm', 'createdAt', 'description'];
   expandedElement: any | null;
 
-  constructor(private service: PersistenceService) {
+  constructor() {
 
   }
 

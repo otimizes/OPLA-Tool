@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/optimization/")
+@RequestMapping("/api/optimization")
 @EntityScan(basePackages = {
         "br.ufpr.dinf.gres.opla.entity"
 })
