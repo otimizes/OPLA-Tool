@@ -2,12 +2,15 @@ package jmetal4.experiments;
 
 import arquitetura.io.OPLAThreadScope;
 import arquitetura.io.ReaderConfig;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
 import br.ufpr.dinf.gres.loglog.Level;
 import database.Database;
 import database.Result;
 import exceptions.MissingConfigurationException;
 import jmetal4.core.Algorithm;
 import jmetal4.core.SolutionSet;
+import jmetal4.interactive.InteractiveFunction;
 import jmetal4.metaheuristics.nsgaII.NSGAII;
 import jmetal4.operators.crossover.Crossover;
 import jmetal4.operators.crossover.CrossoverFactory;
@@ -17,9 +20,7 @@ import jmetal4.operators.selection.Selection;
 import jmetal4.operators.selection.SelectionFactory;
 import jmetal4.problems.OPLA;
 import jmetal4.util.JMException;
-import learning.Clustering;
-import learning.ClusteringAlgorithm;
-import learning.Moment;
+import learning.*;
 import metrics.AllMetrics;
 import org.apache.log4j.Logger;
 import persistence.*;
@@ -33,6 +34,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class NSGAII_OPLA_FeatMut {
 
@@ -124,6 +126,7 @@ public class NSGAII_OPLA_FeatMut {
             algorithm.setInputParameter("interactiveFunction", this.configs.getInteractiveFunction());
             algorithm.setInputParameter("maxInteractions", this.configs.getMaxInteractions());
             algorithm.setInputParameter("firstInteraction", this.configs.getFirstInteraction());
+            algorithm.setInputParameter("intervalInteraction", this.configs.getIntervalInteraction());
             algorithm.setInputParameter("interactive", this.configs.getInteractive());
             algorithm.setInputParameter("clusteringMoment", this.configs.getClusteringMoment());
             algorithm.setInputParameter("clusteringAlgorithm", this.configs.getClusteringAlgorithm());
@@ -184,6 +187,10 @@ public class NSGAII_OPLA_FeatMut {
                         experiement, selectedObjectiveFunctions);
                 execution.setTime(estimatedTime);
 
+                if (Moment.POSTERIORI.equals(this.configs.getClusteringMoment())) {
+                    this.configs.getInteractiveFunction().run(resultFront);
+                }
+
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
 
                 execution.setFuns(funResults);
@@ -214,18 +221,10 @@ public class NSGAII_OPLA_FeatMut {
             this.configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
             List<FunResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
 
-            // Clustering OBS: Needs to be a priori for filter the PLAs to save
-            if (Moment.POSTERIORI.equals(this.configs.getClusteringMoment()) || Moment.BOTH.equals(this.configs.getClusteringMoment())) {
-                Clustering clustering = new Clustering(todasRuns, this.clusteringAlgorithm);
-                todasRuns = clustering.run();
-                for (int id : clustering.getIdsFilteredSolutions()) {
-                    funResults.remove(id);
-                }
+            if (runsNumber > 1) {
+                LOGGER.info("saveVariablesToFile()");
+                todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
             }
-            // Clustering
-
-            LOGGER.info("saveVariablesToFile()");
-            todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
 
             mp.saveFunAll(funResults);
 

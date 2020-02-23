@@ -21,6 +21,7 @@
 
 package jmetal4.metaheuristics.nsgaII;
 
+import arquitetura.representation.Element;
 import com.rits.cloning.Cloner;
 import jmetal4.core.*;
 import jmetal4.interactive.InteractiveFunction;
@@ -29,9 +30,8 @@ import jmetal4.util.Distance;
 import jmetal4.util.JMException;
 import jmetal4.util.Ranking;
 import jmetal4.util.comparators.CrowdingComparator;
-import learning.Clustering;
-import learning.ClusteringAlgorithm;
-import learning.Moment;
+import learning.ClassifierAlgorithm;
+import learning.SubjectiveAnalyzeAlgorithm;
 import org.apache.log4j.Logger;
 
 import java.util.HashSet;
@@ -82,16 +82,16 @@ public class NSGAII extends Algorithm {
         Operator selectionOperator;
 
         Distance distance = new Distance();
+        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
 
         // Read the parameters
         populationSize = ((Integer) getInputParameter("populationSize")).intValue();
         maxEvaluations = ((Integer) getInputParameter("maxEvaluations")).intValue();
         int maxInteractions = ((Integer) getInputParameter("maxInteractions")).intValue();
         int firstInteraction = ((Integer) getInputParameter("firstInteraction")).intValue();
+        int intervalInteraction = ((Integer) getInputParameter("intervalInteraction")).intValue();
         Boolean interactive = ((Boolean) getInputParameter("interactive")).booleanValue();
         InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
-        Moment clusteringMoment = ((Moment) getInputParameter("clusteringMoment"));
-        ClusteringAlgorithm clusteringAlgorithm = ((ClusteringAlgorithm) getInputParameter("clusteringAlgorithm"));
 
         int currentInteraction = 0;
         indicators = (QualityIndicator) getInputParameter("indicators");
@@ -137,10 +137,6 @@ public class NSGAII extends Algorithm {
                         LOGGER.info("Origin INDIVIDUO: " + i + " evolucao: " + evaluations);
                         parents[0] = (Solution) selectionOperator.execute(population);
                         parents[1] = (Solution) selectionOperator.execute(population);
-
-                        if (parents[0].getEvaluation() >= 5 && parents[1].getEvaluation() >= 5) continue;
-                        else if (parents[0].getEvaluation() >= 5) parents[0] = newRandomSolution(mutationOperator);
-                        else if (parents[1].getEvaluation() >= 5) parents[1] = newRandomSolution(mutationOperator);
 
                         Object execute = crossoverOperator.execute(parents);
                         if (execute instanceof Solution) {
@@ -227,15 +223,40 @@ public class NSGAII extends Algorithm {
                 // higher
                 // than the hypervolume of the true Pareto front.
 
-                if (Moment.INTERACTIVE.equals(clusteringMoment) || Moment.BOTH.equals(clusteringMoment)) {
-                    Clustering clustering = new Clustering(offspringPopulation, clusteringAlgorithm);
-                    offspringPopulation = clustering.run();
+                int generation = evaluations / populationSize;
+                LOGGER.info(">> GENERATION " + generation);
+                // The score is set up to 0 because in future mutations the object can be modified and due to the score the modified solution is manteined imutable
+                for (Solution solution : offspringPopulation.getSolutionSet()) {
+                    solution.setEvaluation(0);
+//                        If you wish block replicated freezed solutions, uncomment this line
+//                        for (Element elementsWithPackage : solution.getAlternativeArchitecture().getElementsWithPackages()) {
+//                            elementsWithPackage.unsetFreeze();
+//                        }
+                }
+                if (interactive && currentInteraction < maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
+                    offspringPopulation = interactiveFunction.run(offspringPopulation);
+                    if (subjectiveAnalyzeAlgorithm == null) {
+                        subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(offspringPopulation, ClassifierAlgorithm.CLUSTERING_MLP);
+                        subjectiveAnalyzeAlgorithm.run(null, false);
+                    } else {
+                        subjectiveAnalyzeAlgorithm.run(offspringPopulation, false);
+                    }
+                    bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5 && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
+                    currentInteraction++;
                 }
 
-                if ((evaluations / populationSize) >= firstInteraction && interactive && currentInteraction < maxInteractions) {
-                    offspringPopulation = interactiveFunction.run(offspringPopulation);
-                    bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> p.getEvaluation() >= 5).collect(Collectors.toList()));
-                    currentInteraction++;
+//              MID MLP
+                if (interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction) {
+                    subjectiveAnalyzeAlgorithm.run(offspringPopulation, true);
+                }
+
+                if (interactive && subjectiveAnalyzeAlgorithm != null && !subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions) {
+//                    subjectiveAnalyzeAlgorithm.run();
+                    subjectiveAnalyzeAlgorithm.setTrained(true);
+                }
+
+                if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
+                    subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(offspringPopulation, true);
                 }
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
@@ -268,6 +289,14 @@ public class NSGAII extends Algorithm {
         for (Solution solution : bestOfUserEvaluation) {
             if (!subfrontToReturn.getSolutionSet().contains(solution)) {
                 subfrontToReturn.add(solution);
+            }
+        }
+
+        if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
+            try {
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(subfrontToReturn, false);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 

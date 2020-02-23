@@ -31,6 +31,9 @@ public class UsageRelationship extends Relationship {
         super.setType(ElementsTypes.USAGE);
     }
 
+    public UsageRelationship() {
+    }
+
     public String getName() {
         return name;
     }

@@ -6,6 +6,8 @@ import arquitetura.helpers.StereotypeHelper;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.*;
 import arquitetura.representation.Class;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Property;
@@ -52,12 +54,20 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
         packageName = packageName != null ? packageName : "";
 
         klass = new Class(architecture.getRelationshipHolder(), name, variantType, isAbstract, packageName, XmiHelper.getXmiId(modelElement));
-        for (Attribute a : getAttributes(modelElement)) {
-            klass.addExternalAttribute(a);
+        XmiHelper.setRecursiveOwnedComments(modelElement, klass);
+        List<Property> allAttributesForAClass = modelHelper.getAllAttributesForAClass(modelElement);
+        for (Property attrNode : allAttributesForAClass) {
+            Attribute attr = attributeBuilder.create(attrNode);
+            klass.addExternalAttribute(attr);
+            XmiHelper.setRecursiveOwnedComments(attrNode, attr);
         }
 
-        for (Method m : getMethods(modelElement, klass)) {
-            klass.addExternalMethod(m);
+        List<Operation> allMethods = modelHelper.getAllMethods(modelElement);
+        for (Operation methodNode : allMethods) {
+            Method method = methodBuilder.create(methodNode);
+            klass.addExternalMethod(method);
+            XmiHelper.setRecursiveOwnedComments(methodNode, method);
+
         }
 
         klass.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));

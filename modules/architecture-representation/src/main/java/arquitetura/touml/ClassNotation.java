@@ -5,13 +5,18 @@ import arquitetura.exceptions.NodeNotFound;
 import arquitetura.exceptions.NullReferenceFoundException;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
+import arquitetura.representation.Attribute;
+import arquitetura.representation.Class;
+import arquitetura.representation.Interface;
+import arquitetura.representation.Method;
+import arquitetura.representation.Package;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ClassNotation extends XmiHelper {
 
@@ -28,6 +33,19 @@ public class ClassNotation extends XmiHelper {
     private Node notatioChildren;
     private Element notationBasicProperty;
     private DocumentManager documentManager;
+    public static int xElement = 1;
+    public static int yElement = 1;
+    public static int xPackage = 1;
+    public static int yPackage = 10;
+    public static String lastNamespace = "";
+
+    public static void clearConfigurations() {
+        xElement = 1;
+        yElement = 1;
+        xPackage = 1;
+        yPackage = 10;
+        lastNamespace = "";
+    }
 
 
     public ClassNotation(DocumentManager documentManager, Node notatioChildren) {
@@ -85,7 +103,7 @@ public class ClassNotation extends XmiHelper {
      * @param type      - "associationClass" se for para associationClass qualquer outra coisa para clas
      * @throws NullReferenceFoundException
      */
-    public String createXmiForClassInNotationFile(String id, String idPackage, String type) throws NullReferenceFoundException {
+    public String createXmiForClassInNotationFile(String id, String idPackage, String type, arquitetura.representation.Element aClass) throws NullReferenceFoundException {
 
         Element node = documentManager.getDocNotation().createElement("children");
         node.setAttribute("xmi:type", this.xmitype);
@@ -95,6 +113,7 @@ public class ClassNotation extends XmiHelper {
         node.setAttribute("fontName", this.fontName);
         node.setAttribute("fontHeight", this.fontHeight);
         node.setAttribute("lineColor", this.lineColor);
+
 
         Element notationDecoratioNode = documentManager.getDocNotation().createElement("children");
         notationDecoratioNode.setAttribute("xmi:type", "notation:DecorationNode");
@@ -112,11 +131,12 @@ public class ClassNotation extends XmiHelper {
 
         if ("associationClass".equalsIgnoreCase(type))
             klass.setAttribute("xmi:type", "uml:AssociationClass");
-        else
+        else {
             klass.setAttribute("xmi:type", "uml:Class");
+        }
 
-        this.notationBasicProperty = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE); //onde vai as props
-        createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE); //onde vai os methods
+        this.notationBasicProperty = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE, aClass); //onde vai as props
+        createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE, aClass); //onde vai os methods
         node.appendChild(klass);
 
         if ((idPackage != null) && !(idPackage.isEmpty())) {
@@ -131,7 +151,7 @@ public class ClassNotation extends XmiHelper {
     }
 
 
-    private Element createChildrenComportament(Document doc, Element node, String type) {
+    private Element createChildrenComportament(Document doc, Element node, String type, arquitetura.representation.Element aClass) {
         Element element = doc.createElement("children");
         element.setAttribute("xmi:type", "notation:BasicCompartment");
         element.setAttribute("xmi:id", UtilResources.getRandonUUID());
@@ -153,23 +173,85 @@ public class ClassNotation extends XmiHelper {
         notationFilteringStyle.setAttribute("xmi:id", UtilResources.getRandonUUID());
         element.appendChild(notationFilteringStyle);
 
-        Element notationBounds = doc.createElement("layoutConstraint");
-        notationBounds.setAttribute("xmi:type", "notation:Bounds");
-        notationBounds.setAttribute("xmi:id", UtilResources.getRandonUUID());
-        element.appendChild(notationBounds);
+//        Element notationBounds = doc.createElement("layoutConstraint");
+//        notationBounds.setAttribute("xmi:type", "notation:Bounds");
+//        notationBounds.setAttribute("xmi:id", UtilResources.getRandonUUID());
+//        element.appendChild(notationBounds);
 
         Element layoutConstraint = doc.createElement("layoutConstraint");
-        layoutConstraint.setAttribute("x", "10");
+        layoutConstraint.setAttribute("x", String.valueOf(xElement));
         layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
         layoutConstraint.setAttribute("xmi:type", "notation:Bounds");
-        layoutConstraint.setAttribute("y", "10");
+        layoutConstraint.setAttribute("y", String.valueOf(yElement));
+        layoutConstraint.setAttribute("additionalInfo", aClass.getNamespace() + ":" + aClass.getName());
+
+        if (!lastNamespace.equals(aClass.getNamespace())) {
+            lastNamespace = aClass.getNamespace();
+            if (aClass instanceof Class) {
+                yElement = 1;
+                xElement = 1;
+            } else {
+                yElement = 810;
+                xElement = 1;
+            }
+        } else {
+            yElement += getHeightClass(aClass) * 2;
+            if (aClass instanceof Class && yElement >= 800) {
+                xElement += 600;
+                yElement = 1;
+            }
+            if (aClass instanceof Interface && yElement >= 1500) {
+                xElement += 600;
+                yElement = 810;
+            }
+        }
         node.appendChild(layoutConstraint);
 
         return element;
     }
 
+    private int getHeightClass(arquitetura.representation.Element aClass) {
+        int YClass = 100;
+        if (aClass instanceof Class) {
+            for (Attribute ignored : ((Class) aClass).getAllAttributes()) {
+                YClass += 10;
+            }
+            for (Method ignored : ((Class) aClass).getAllMethods()) {
+                YClass += 10;
+            }
+        } else {
+            for (Method ignored : ((Interface) aClass).getOperations()) {
+                YClass += 10;
+            }
+        }
+        return YClass;
+    }
+
+    private int getWidthClass(arquitetura.representation.Element aClass) {
+        int XClass = 1;
+        int i = 0;
+        int[] XClasss = new int[aClass instanceof Class ? ((Class) aClass).getAllAttributes().size() + ((Class) aClass).getAllMethods().size() : ((Interface) aClass).getOperations().size()];
+        if (aClass instanceof Class) {
+            for (Attribute allAttribute : ((Class) aClass).getAllAttributes()) {
+                XClasss[i] += (allAttribute.getType().length() + allAttribute.getAllConcerns().toString().length() + allAttribute.getVisibility().length() + allAttribute.getName().length());
+            }
+            for (Method method : ((Class) aClass).getAllMethods()) {
+                XClasss[i] += (method.getParameters().toString().length() + method.getAllConcerns().toString().length() + method.getReturnType().length() + method.getName().length());
+            }
+        } else {
+            for (Method operation : ((Interface) aClass).getOperations()) {
+                XClasss[i] += (operation.toString().length() + operation.getName().length() + operation.getAllConcerns().toString().length() + operation.getTypeElement().length());
+            }
+        }
+
+        for (int classs : XClasss) {
+            if (classs > XClass) XClass = classs;
+        }
+        return XClass;
+    }
+
     //TODO MOVER PAR PACKAGEOPERATIONS
-    public void createXmiForPackageInNotationFile(String id) {
+    public void createXmiForPackageInNotationFile(String id, Package original) {
 
         Element nodeChildren = documentManager.getDocNotation().createElement("children");
         nodeChildren.setAttribute("xmi:type", this.xmitype);
@@ -204,12 +286,21 @@ public class ClassNotation extends XmiHelper {
 
         //TODO mover comum
         Element layoutConstraint2 = documentManager.getDocNotation().createElement("layoutConstraint");
-        layoutConstraint2.setAttribute("x", randomNum());
+        layoutConstraint2.setAttribute("x", String.valueOf(xPackage));
         layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandonUUID());
         layoutConstraint2.setAttribute("xmi:type", "notation:Bounds");
-        layoutConstraint2.setAttribute("y", randomNum());
-        layoutConstraint2.setAttribute("width", "450"); //TODO ver uma maneira de criar conforme necessidade
-        layoutConstraint2.setAttribute("height", "630"); //TODO ver uma maneira de criar conforme necessidade
+        layoutConstraint2.setAttribute("y", String.valueOf(yPackage));
+        layoutConstraint2.setAttribute("width", String.valueOf(original.getElements().size() * 300)); //TODO ver uma maneira de criar conforme necessidade
+        xPackage += original.getElements().size() * 300 + 50;
+
+        int height = 1650;
+        layoutConstraint2.setAttribute("height", String.valueOf(height));
+
+        if (xPackage >= 6000) {
+            xPackage = 1;
+            yPackage += height + 50;
+        }
+
         nodeChildren.appendChild(layoutConstraint2);
 
         notatioChildren.appendChild(nodeChildren);

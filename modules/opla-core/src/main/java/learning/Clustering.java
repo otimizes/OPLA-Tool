@@ -1,6 +1,5 @@
 package learning;
 
-import com.rits.cloning.Cloner;
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import org.apache.log4j.Logger;
@@ -10,7 +9,9 @@ import weka.core.Instance;
 import weka.core.Instances;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -45,12 +46,16 @@ public class Clustering implements Serializable {
      */
     private Double epsilon = 0.3;
     private Integer minPoints = 3;
+    private Integer maxIterations;
 
     public Clustering() {
     }
 
     public Clustering(SolutionSet resultFront, ClusteringAlgorithm algorithm) {
-        this.resultFront = new Cloner().deepClone(resultFront);
+        this.resultFront = new SolutionSet(resultFront.getSolutionSet().size());
+        for (Solution solution : resultFront.getSolutionSet()) {
+            this.resultFront.add(solution);
+        }
         this.algorithm = algorithm;
         this.arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
@@ -98,11 +103,13 @@ public class Clustering implements Serializable {
      */
     public SolutionSet kMeans() throws Exception {
         clusterer = new SimpleKMeans();
-        getKMeans().setSeed(arffExecution.getObjectives().length);
+        getKMeans().setSeed(arffExecution.getAttributes().length);
         getKMeans().setPreserveInstancesOrder(true);
         if (distanceFunction != null)
             getKMeans().setDistanceFunction(distanceFunction);
         getKMeans().setNumClusters(getNumClusters());
+        if (maxIterations != null)
+            getKMeans().setMaxIterations(maxIterations);
         getKMeans().buildClusterer(arffExecution.getDataWithoutClass());
 
         return getFilteredSolutionSet();
@@ -188,7 +195,6 @@ public class Clustering implements Serializable {
 
         Collections.reverse(idsFilteredSolutions);
         idsFilteredSolutions.forEach(resultFront::remove);
-        resultFront.setFilteredSolutions(filteredSolutions);
 //        LOGGER.info(getClusterEvaluation().clusterResultsToString());
         return resultFront;
     }
@@ -302,7 +308,14 @@ public class Clustering implements Serializable {
      * @return number of clusters
      */
     public int getNumClusters() {
-        return numClusters != null ? numClusters : Math.toIntExact(Math.round(Math.pow((resultFront.size() / 2), 0.6)));
+        int i = numClusters != null ? numClusters : Math.toIntExact(Math.round(Math.pow((resultFront.size() / 2), 0.6)));
+        if (i == 0) return 1;
+        return i;
+    }
+
+    public int getGeneratedClusters() throws Exception {
+        if (getClusterer() instanceof SimpleKMeans) return ((SimpleKMeans) getClusterer()).getNumClusters();
+        else return ((DBSCAN) getClusterer()).numberOfClusters();
     }
 
     public void setNumClusters(Integer numClusters) {
@@ -440,5 +453,13 @@ public class Clustering implements Serializable {
 
     public void setMax(double[] max) {
         this.max = max;
+    }
+
+    public Integer getMaxIterations() {
+        return maxIterations;
+    }
+
+    public void setMaxIterations(Integer maxIterations) {
+        this.maxIterations = maxIterations;
     }
 }

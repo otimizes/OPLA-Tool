@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class GeneralizationRelationship extends Relationship {
 
@@ -33,6 +33,9 @@ public class GeneralizationRelationship extends Relationship {
         this.relationshipHolder = relationshipHolder;
         setId(UtilResources.getRandonUUID());
         super.setType(ElementsTypes.GENERALIZATION);
+    }
+
+    public GeneralizationRelationship() {
     }
 
     /**

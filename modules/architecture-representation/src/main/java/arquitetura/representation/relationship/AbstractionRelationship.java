@@ -18,6 +18,9 @@ public class AbstractionRelationship extends Relationship {
         super.setType(ElementsTypes.ABSTRACTION);
     }
 
+    public AbstractionRelationship() {
+    }
+
     /**
      * @return the client
      */

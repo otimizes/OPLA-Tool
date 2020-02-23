@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @author edipofederle<edipofederle               @               gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Architecture extends Variable {
 
@@ -61,11 +61,34 @@ public class Architecture extends Variable {
         return elts;
     }
 
+    public List<Element> getElementsWithPackages() {
+        final List<Element> elts = new ArrayList<Element>();
+
+        for (Package p : getAllPackagesAllowedMofification()) {
+            elts.add(p);
+            for (Element element : p.getElements())
+                elts.add(element);
+        }
+
+        for (Class c : this.classes)
+            elts.add(c);
+        for (Interface i : this.interfaces)
+            elts.add(i);
+
+        return elts;
+    }
+
+    public List<Element> findElementByNumberId(Double idElem) {
+        List<Element> elementsWithPackages = getElementsWithPackages();
+        List<Element> collect = elementsWithPackages.stream().filter(e -> Double.valueOf(e.getNumberId()).equals(idElem)).collect(Collectors.toList());
+        return collect;
+    }
+
     /**
      * Retorna um Map imutável. É feito isso para garantir que nenhum modificação seja
      * feita diretamente na lista
      *
-     * @return Map<String               ,                               Concern>
+     * @return Map<String, Concern>
      */
     public List<Concern> getAllConcerns() {
         final List<Concern> concerns = new ArrayList<Concern>();
@@ -85,6 +108,29 @@ public class Architecture extends Variable {
      */
     public Set<Package> getAllPackages() {
         return Collections.unmodifiableSet(this.packages);
+    }
+
+    public List<Attribute> getAllAtributtes() {
+        List<Attribute> attrs = new ArrayList<>();
+        for (Class allClass : this.getAllClasses()) {
+            attrs.addAll(allClass.getAllAttributes());
+        }
+        return attrs;
+    }
+
+    public List<Method> getAllMethods() {
+        List<Method> attrs = new ArrayList<>();
+        for (Class allClass : this.getAllClasses()) {
+            attrs.addAll(allClass.getAllMethods());
+        }
+        for (Interface allClass : this.getAllInterfaces()) {
+            attrs.addAll(allClass.getOperations());
+        }
+        return attrs;
+    }
+
+    public List<Package> getAllPackagesAllowedMofification() {
+        return new ArrayList<>(this.packages);
     }
 
     /**
@@ -295,6 +341,7 @@ public class Architecture extends Variable {
     }
 
     public void removePackage(Package p) {
+        if (p.isTotalyFreezed()) return;
         /**
          * Remove qualquer relacionamento que os elementos do pacote
          * que esta sendo deletado possa ter.
@@ -328,6 +375,7 @@ public class Architecture extends Variable {
     }
 
     public void removeInterface(Interface interfacee) {
+        if (interfacee.isTotalyFreezed()) return;
         interfacee.removeInterfaceFromRequiredOrImplemented();
         relationshipHolder.removeRelatedRelationships(interfacee);
         if (removeInterfaceFromArch(interfacee)) {
@@ -337,16 +385,19 @@ public class Architecture extends Variable {
 
 
     private boolean removeInterfaceFromArch(Interface interfacee) {
-        if (this.interfaces.remove(interfacee))
-            return true;
-        for (Package p : this.packages) {
-            if (p.removeInterface(interfacee))
+        if (!interfacee.isTotalyFreezed()) {
+            if (this.interfaces.remove(interfacee))
                 return true;
+            for (Package p : this.packages) {
+                if (p.removeInterface(interfacee))
+                    return true;
+            }
         }
         return false;
     }
 
     public void removeClass(Element klass) {
+        if (klass.isTotalyFreezed()) return;
         relationshipHolder.removeRelatedRelationships(klass);
         if (this.classes.remove(klass))
             LOGGER.info("Classe " + klass.getName() + "(" + klass.getId() + ") removida da arquitetura");
@@ -489,13 +540,15 @@ public class Architecture extends Variable {
 
 
     public boolean addImplementedInterface(Interface supplier, Class client) {
-        if (!haveRelationship(supplier, client)) {
-            if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))) {
-                LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada na classe: " + client.getName());
-                return true;
-            } else {
-                LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada pela classe: " + client.getName());
-                return false;
+        if (!client.isTotalyFreezed()) {
+            if (!haveRelationship(supplier, client)) {
+                if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))) {
+                    LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada na classe: " + client.getName());
+                    return true;
+                } else {
+                    LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada pela classe: " + client.getName());
+                    return false;
+                }
             }
         }
         return false;
@@ -515,24 +568,28 @@ public class Architecture extends Variable {
     }
 
     public boolean addImplementedInterface(Interface supplier, Package client) {
-        if (!haveRelationship(supplier, client)) {
-            if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))) {
-                LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada ao pacote: " + client.getName());
-                return true;
-            } else {
-                LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada no pacote: " + client.getName());
-                return false;
+        if (!client.isTotalyFreezed()) {
+            if (!haveRelationship(supplier, client)) {
+                if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))) {
+                    LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada ao pacote: " + client.getName());
+                    return true;
+                } else {
+                    LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada no pacote: " + client.getName());
+                    return false;
+                }
             }
         }
         return false;
     }
 
     public void removeImplementedInterface(Interface inter, Package pacote) {
+        if (inter.isTotalyFreezed() || pacote.isTotalyFreezed()) return;
         pacote.removeImplementedInterface(inter);
         relationshipHolder.removeRelatedRelationships(inter);
     }
 
     public void removeImplementedInterface(Class foo, Interface inter) {
+        if (foo.isTotalyFreezed() || inter.isTotalyFreezed()) return;
         foo.removeImplementedInterface(inter);
         relationshipHolder.removeRelatedRelationships(inter);
     }
@@ -645,28 +702,31 @@ public class Architecture extends Variable {
     }
 
     public void removeRequiredInterface(Interface supplier, Package client) {
+        if (supplier.isTotalyFreezed() || client.isTotalyFreezed()) return;
         if (!client.removeRequiredInterface(supplier)) ;
         relationshipHolder.removeRelatedRelationships(supplier);
     }
 
     public void removeRequiredInterface(Interface supplier, Class client) {
+        if (supplier.isTotalyFreezed() || client.isTotalyFreezed()) return;
         if (!client.removeRequiredInterface(supplier)) ;
         relationshipHolder.removeRelatedRelationships(supplier);
     }
 
     public boolean removeOnlyElement(Element element) {
-        if (element instanceof Class) {
-            if (this.classes.remove(element)) {
-                LOGGER.info("Classe: " + element.getName() + " removida do pacote: " + this.getName());
-                return true;
-            }
-        } else if (element instanceof Interface) {
-            if (this.interfaces.remove(element)) {
-                LOGGER.info("Interface: " + element.getName() + " removida do pacote: " + this.getName());
-                return true;
+        if (!element.isTotalyFreezed()) {
+            if (element instanceof Class) {
+                if (this.classes.remove(element)) {
+                    LOGGER.info("Classe: " + element.getName() + " removida do pacote: " + this.getName());
+                    return true;
+                }
+            } else if (element instanceof Interface) {
+                if (this.interfaces.remove(element)) {
+                    LOGGER.info("Interface: " + element.getName() + " removida do pacote: " + this.getName());
+                    return true;
+                }
             }
         }
-
         return false;
     }
 
@@ -690,6 +750,11 @@ public class Architecture extends Variable {
     public void addAllClasses(Set<Class> classes) {
         this.classes.clear();
         this.classes.addAll(classes);
+    }
+
+    public void addAllPackages(Set<Package> packages) {
+        this.packages.clear();
+        this.packages.addAll(packages);
     }
 
     public void addAllInterfaces(Set<Interface> interfaces) {
@@ -724,8 +789,6 @@ public class Architecture extends Variable {
 
 
     public String toDetailedString(boolean withAttrs) {
-
-
         List<Integer> qtdAtributosPorClasse = new ArrayList<>();
         List<Integer> qtdMetodosPorClasse = new ArrayList<>();
         int qtdClassesSemAttr = 0;
@@ -740,12 +803,15 @@ public class Architecture extends Variable {
         }
 
 
+        List<Element> freezedElements = getFreezedElements();
         StringBuilder str = new StringBuilder();
         str.append("Packages: " + getAllPackages() +
                 ", qtdPackages: " + getAllPackages().size() +
                 ", qtdClasses: " + getAllClasses().size() +
                 ", qtdInterfaces: " + getAllInterfaces().size() +
-                ", qtdA: " + qtdClassesSemAttr +
+                ", qtdClassesSemAttr: " + qtdClassesSemAttr +
+                ", qtdFreezedElements: " + freezedElements.size() +
+                ", \nfreezedElements: " + freezedElements.stream().map(s -> s.getName() + ":" + s.getTypeElement()).collect(Collectors.toList()) +
                 ", \nqtdAggregation: " + getRelationshipHolder().getAllAgragations().size() +
                 ", \ngetAllCompositions: " + getRelationshipHolder().getAllCompositions().size() +
                 ", \ngetAllDependencies: " + getRelationshipHolder().getAllDependencies().size() +
@@ -767,5 +833,27 @@ public class Architecture extends Variable {
             }).collect(Collectors.joining()));
         }
         return str.toString();
+    }
+
+    public List<Element> getFreezedElements() {
+        return getElementsWithPackages().stream().filter(Element::isFreezeByDM).collect(Collectors.toList());
+    }
+
+    public String toStringFreezedElements() {
+        return getFreezedElements().stream().map(e -> e.getName() + ":" + e.getTypeElement()).collect(Collectors.toList()).toString();
+    }
+
+    public void addElement(Element element) {
+        if (element instanceof Class) {
+            addExternalClass((Class) element);
+        } else if (element instanceof Interface) {
+            addExternalInterface((Interface) element);
+        } else if (element instanceof Package) {
+            addPackage((Package) element);
+        }
+    }
+
+    public static Logger getLOGGER() {
+        return LOGGER;
     }
 }

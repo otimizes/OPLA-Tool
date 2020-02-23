@@ -28,6 +28,9 @@ public class AssociationRelationship extends Relationship {
 
     }
 
+    public AssociationRelationship() {
+    }
+
     public List<AssociationEnd> getParticipants() {
         return participants;
     }

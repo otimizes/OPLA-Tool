@@ -56,7 +56,6 @@ public class ArchitectureBuilder {
      *
      */
     public ArchitectureBuilder() {
-        System.out.println("FUUUUUUUUUUUUUUUUUUIIIIIIIIIII");
         // RelationshipHolder.clearLists();
     	LOGGER.info("Clean Relationships");
         ConcernHolder.INSTANCE.clear();

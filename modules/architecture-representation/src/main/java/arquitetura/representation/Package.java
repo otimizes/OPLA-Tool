@@ -3,7 +3,6 @@ package arquitetura.representation;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.RelationshiopCommons;
 import arquitetura.representation.relationship.Relationship;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.util.HashSet;
@@ -189,6 +188,7 @@ public class Package extends Element {
     }
 
     public void moveClassToPackage(Class klass, Package packageToMove) {
+        if (klass.isTotalyFreezed() || packageToMove.isTotalyFreezed()) return;
         packageToMove.addExternalClass(klass);
         this.classes.remove(klass);
         updateNamespace(klass, packageToMove.getName());
@@ -199,6 +199,7 @@ public class Package extends Element {
     }
 
     public boolean moveInterfaceToPackage(Interface inter, Package packageToMove) {
+        if (inter.isTotalyFreezed() || packageToMove.isTotalyFreezed()) return false;
         if (!interfaces.contains(inter)) return false;
         packageToMove.addExternalInterface(inter);
         this.interfaces.remove(inter);
@@ -215,31 +216,37 @@ public class Package extends Element {
     }
 
     public boolean removeClass(Element klass) {
-        getRelationshipHolder().removeRelatedRelationships(klass);
-        if (this.classes.remove(klass)) {
-            LOGGER.info("Classe: " + klass.getName() + " removida do pacote: " + this.getName());
-            return true;
+        if (!klass.isTotalyFreezed()) {
+            getRelationshipHolder().removeRelatedRelationships(klass);
+            if (this.classes.remove(klass)) {
+                LOGGER.info("Classe: " + klass.getName() + " removida do pacote: " + this.getName());
+                return true;
+            }
         }
         return false;
     }
 
     public boolean removeInterface(Element interfacee) {
-        ((Interface) interfacee).removeInterfaceFromRequiredOrImplemented();
-        getRelationshipHolder().removeRelatedRelationships(interfacee);
-        if (this.interfaces.remove(interfacee)) {
-            LOGGER.info("Interface: " + interfacee.getName() + " removida do pacote: " + this.getName());
-            return true;
+        if (!interfacee.isTotalyFreezed()) {
+            ((Interface) interfacee).removeInterfaceFromRequiredOrImplemented();
+            getRelationshipHolder().removeRelatedRelationships(interfacee);
+            if (this.interfaces.remove(interfacee)) {
+                LOGGER.info("Interface: " + interfacee.getName() + " removida do pacote: " + this.getName());
+                return true;
+            }
         }
         return false;
     }
 
     public boolean removeImplementedInterface(Interface interface_) {
+        if (interface_.isTotalyFreezed()) return false;
         if (!implementedInterfaces.contains(interface_)) return false;
         implementedInterfaces.remove(interface_);
         return true;
     }
 
     public boolean removeRequiredInterface(Interface supplier) {
+        if (supplier.isTotalyFreezed()) return false;
         if (!requiredInterfaces.contains(supplier)) return false;
         requiredInterfaces.remove(supplier);
         return true;
@@ -271,15 +278,17 @@ public class Package extends Element {
     }
 
     public boolean removeOnlyElement(Element element) {
-        if (element instanceof Class) {
-            if (this.classes.remove(element)) {
-                LOGGER.info("Classe: " + element.getName() + " removida do pacote: " + this.getName());
-                return true;
-            }
-        } else if (element instanceof Interface) {
-            if (this.interfaces.remove(element)) {
-                LOGGER.info("Interface: " + element.getName() + " removida do pacote: " + this.getName());
-                return true;
+        if (!element.isTotalyFreezed()) {
+            if (element instanceof Class) {
+                if (this.classes.remove(element)) {
+                    LOGGER.info("Classe: " + element.getName() + " removida do pacote: " + this.getName());
+                    return true;
+                }
+            } else if (element instanceof Interface) {
+                if (this.interfaces.remove(element)) {
+                    LOGGER.info("Interface: " + element.getName() + " removida do pacote: " + this.getName());
+                    return true;
+                }
             }
         }
 
@@ -298,4 +307,8 @@ public class Package extends Element {
         return RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this);
     }
 
+    @Override
+    public boolean isFreezeByDM() {
+        return super.isFreezeByDM();
+    }
 }

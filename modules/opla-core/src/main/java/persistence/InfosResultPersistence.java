@@ -31,7 +31,7 @@ public class InfosResultPersistence {
             executionId = fakeInfoResult.getExecution().getId();
 
         query.append("insert into infos(id, execution_id, name, list_of_concerns, number_of_packages, number_of_variabilities, number_of_interfaces, number_of_classes, number_of_dependencies,");
-        query.append(" number_of_abstractions, number_of_generalizations, number_of_associations, number_of_associations_class, is_all, experiement_id) values (");
+        query.append(" number_of_abstractions, number_of_generalizations, number_of_associations, number_of_associations_class, is_all, experiement_id, user_evaluation, freezed_elements) values (");
         query.append(fakeInfoResult.getId());
         query.append(",");
         query.append(executionId);
@@ -65,7 +65,11 @@ public class InfosResultPersistence {
         query.append(fakeInfoResult.getIsAll());
         query.append(",");
         query.append(fakeInfoResult.getExperiement().getId());
-        query.append(")");
+        query.append(",");
+        query.append(fakeInfoResult.getUserEvaluation());
+        query.append(",'");
+        query.append(fakeInfoResult.getFreezedElements());
+        query.append("')");
 
         Statement statement = connection.createStatement();
         statement.executeUpdate(query.toString());

@@ -62,6 +62,12 @@ public class Info implements Serializable {
     @JoinColumn(name = "experiement_id", nullable = false)
     private Experiment experiement;
 
+    @Column(name = "user_evaluation")
+    private Integer userEvaluation;
+
+    @Column(name = "freezed_elements")
+    private String freezedElements;
+
     public Integer getId() {
         return id;
     }
@@ -228,4 +234,23 @@ public class Info implements Serializable {
                 .append("isAll", isAll).append("experiement", experiement).toString();
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getUserEvaluation() {
+        return userEvaluation;
+    }
+
+    public void setUserEvaluation(Integer userEvaluation) {
+        this.userEvaluation = userEvaluation;
+    }
+
+    public String getFreezedElements() {
+        return freezedElements;
+    }
+
+    public void setFreezedElements(String freezedElements) {
+        this.freezedElements = freezedElements;
+    }
 }

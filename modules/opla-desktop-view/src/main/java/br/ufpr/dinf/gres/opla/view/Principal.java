@@ -7,6 +7,7 @@ import br.ufpr.dinf.gres.loglog.Logger;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
 import br.ufpr.dinf.gres.opla.entity.Execution;
 import br.ufpr.dinf.gres.opla.entity.Experiment;
+import br.ufpr.dinf.gres.opla.entity.Objective;
 import br.ufpr.dinf.gres.opla.entity.metric.GenericMetric;
 import br.ufpr.dinf.gres.opla.view.analysis.BoxPlot;
 import br.ufpr.dinf.gres.opla.view.analysis.BoxPlotItem;
@@ -30,7 +31,6 @@ import com.ufpr.br.opla.charts.EdBar;
 import com.ufpr.br.opla.charts.EdLine;
 import com.ufpr.br.opla.configuration.GuiFile;
 import com.ufpr.br.opla.configuration.VolatileConfs;
-import com.ufpr.br.opla.gui.GuiServices;
 import com.ufpr.br.opla.gui.HypervolumeWindow;
 import com.ufpr.br.opla.gui.SmallerFintnessValuesWindow;
 import com.ufpr.br.opla.gui.StartUp;
@@ -41,21 +41,21 @@ import com.ufpr.br.opla.utils.MutationOperatorsSelected;
 import com.ufpr.br.opla.utils.Time;
 import com.ufpr.br.opla.utils.Validators;
 import domain.AlgorithmExperiment;
+import jmetal4.core.SolutionSet;
 import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.Metrics;
+import learning.ClusteringAlgorithm;
 import learning.Moment;
 import net.miginfocom.swing.MigLayout;
 import org.apache.commons.lang3.StringUtils;
+import utils.ExperimentTest;
 import utils.RScriptOption;
 import utils.RScriptOptionElement;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
@@ -112,7 +112,8 @@ public class Principal extends AbstractPrincipalJFrame {
         this.cbClusteringAlgorithm.setModel(new ClusteringAlgorithmComboModel());
         this.cbRScript.setModel(new RScriptComboModel());
         this.cbClusteringMoment.setModel(new ClusteringMomentComboModel());
-        this.cbClusteringMoment.setSelectedItem(Moment.NONE);
+        this.cbClusteringMoment.setSelectedItem(Moment.POSTERIORI);
+        this.cbClusteringAlgorithm.setSelectedItem(ClusteringAlgorithm.KMEANS);
         this.tbExperiments.setModel(tmExperiments);
         this.tbExecutions.setModel(tmExecExperiments);
         this.tbRuns.setModel(tmExecution);
@@ -278,7 +279,6 @@ public class Principal extends AbstractPrincipalJFrame {
         tfInteractionDirectory1.setEnabled(ckEnableInteraction.isSelected());
         btManipulationDirectory3.setEnabled(ckEnableInteraction.isSelected());
         ckEnableInteraction1.setEnabled(ckEnableInteraction.isSelected());
-        cbClusteringAlgorithm.setEnabled(false);
         if (StringUtils.isNotBlank(config.getConfig().getPathPapyrus().toString())) {
             LOGGER.info("Papyrus Directory is configured");
             ckEnableInteraction1.setSelected(true);
@@ -715,7 +715,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(tfManipulationDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btManipulationDirectory)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1392,19 +1392,24 @@ public class Principal extends AbstractPrincipalJFrame {
         jLabel21.setText("Clustering Moment");
 
         tfMaxInteractions.setColumns(10);
-        tfMaxInteractions.setText("5");
+        tfMaxInteractions.setText("3");
 
         jLabel15.setText("Max  Interactions:");
 
         jLabel22.setText("First Interaction:");
 
         tfFirstInteraction.setColumns(10);
-        tfFirstInteraction.setText("6");
+        tfFirstInteraction.setText("3");
+        tfFirstInteraction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfFirstInteractionActionPerformed(evt);
+            }
+        });
 
         jLabel23.setText("Interval:");
 
         tfIntervalInteraction.setColumns(10);
-        tfIntervalInteraction.setText("1");
+        tfIntervalInteraction.setText("3");
         tfIntervalInteraction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfIntervalInteractionActionPerformed(evt);
@@ -1581,7 +1586,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addGroup(panelScopeSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rbRandom)
                     .addComponent(rbElements))
-                .addContainerGap(835, Short.MAX_VALUE))
+                .addContainerGap(844, Short.MAX_VALUE))
         );
         panelScopeSelectionLayout.setVerticalGroup(
             panelScopeSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1642,7 +1647,7 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -1679,7 +1684,7 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel26Layout.setVerticalGroup(
@@ -1802,7 +1807,7 @@ public class Principal extends AbstractPrincipalJFrame {
             .addGroup(jPanel29Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1166, Short.MAX_VALUE)
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addComponent(btNonDomitedSolutions)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1864,6 +1869,11 @@ public class Principal extends AbstractPrincipalJFrame {
 
             }
         ));
+        tbExperiments.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbExperimentsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbExperiments);
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
@@ -1872,7 +1882,7 @@ public class Principal extends AbstractPrincipalJFrame {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1157, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1166, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
@@ -1974,7 +1984,7 @@ public class Principal extends AbstractPrincipalJFrame {
                 .addComponent(btHypervolume, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ckUseNormalization)
-                .addContainerGap(710, Short.MAX_VALUE))
+                .addContainerGap(719, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2013,7 +2023,7 @@ public class Principal extends AbstractPrincipalJFrame {
                     .addComponent(btBoxPlot, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbRScript, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(810, Short.MAX_VALUE))
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2072,7 +2082,7 @@ public class Principal extends AbstractPrincipalJFrame {
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1141, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1150, Short.MAX_VALUE)
                     .addComponent(jProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -2438,7 +2448,6 @@ public class Principal extends AbstractPrincipalJFrame {
     }//GEN-LAST:event_ckConventionalActionPerformed
 
     private void cbClusteringMomentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClusteringMomentActionPerformed
-        cbClusteringAlgorithm.setEnabled(!Objects.equals(cbClusteringMoment.getSelectedItem(), Moment.NONE));
     }//GEN-LAST:event_cbClusteringMomentActionPerformed
 
     private void btHypervolumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHypervolumeActionPerformed
@@ -2681,6 +2690,25 @@ public class Principal extends AbstractPrincipalJFrame {
     private void tfIntervalInteractionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIntervalInteractionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfIntervalInteractionActionPerformed
+
+    private void tbExperimentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbExperimentsMouseClicked
+        if (isDoubleClick(evt)) {
+            Experiment experiment = tmExperiments.getValue(tbExperiments.getSelectedRow());
+            List<Objective> objectives = objectiveDAO.findByExperiment(experiment);
+            List<String> namesByExperiment = mapObjectivesDAO.findNamesByExperiment(experiment);
+            SolutionSet solutionSetFromObjectiveList = ExperimentTest.getSolutionSetFromObjectiveList(experiment, namesByExperiment, objectives);
+            tbExperiments.updateUI();
+
+            InteractiveSolutions interactiveSolutions = new InteractiveSolutions(config, ClusteringAlgorithm.valueOf(cbClusteringAlgorithm.getSelectedItem().toString()), solutionSetFromObjectiveList);
+
+            System.out.println("off");
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbExperimentsMouseClicked
+
+    private void tfFirstInteractionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFirstInteractionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfFirstInteractionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBoxPlot;
@@ -3133,7 +3161,7 @@ public class Principal extends AbstractPrincipalJFrame {
             nsgaii.execute(cbAlgothm, ckMutation, jsMutation, tfInputArchitecturePath, tfNumberRuns,
                     tfPopulationSize, tfMaxEvaluations, ckCrossover, jsCrossover,
                     tfDescription, ckEnableInteraction, tfMaxInteractions, tfFirstInteraction, tfIntervalInteraction, cbClusteringAlgorithm, cbClusteringMoment, (solutionSet) -> {
-                        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(config, solutionSet);
+                        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(config, ClusteringAlgorithm.valueOf(cbClusteringAlgorithm.getSelectedItem().toString()), solutionSet);
                         return interactiveSolutions.solutionSet;
                     });
             JOptionPane.showMessageDialog(null, "Success execution NSGA-II, Finalizing....");

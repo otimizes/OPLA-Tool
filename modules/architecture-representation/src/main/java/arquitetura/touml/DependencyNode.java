@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle   @   gmail.com>
  */
 public class DependencyNode extends XmiHelper {
 
@@ -45,6 +45,7 @@ public class DependencyNode extends XmiHelper {
             Element edges = this.docNotation.createElement("edges");
             edges.setAttribute("xmi:type", "notation:Connector");
             edges.setAttribute("xmi:id", UtilResources.getRandonUUID());
+            edges.setAttribute("routing", "Rectilinear");
             if ("dependency".equalsIgnoreCase(type))
                 edges.setAttribute("type", "4008");
             if ("realization".equalsIgnoreCase(type))
@@ -126,6 +127,11 @@ public class DependencyNode extends XmiHelper {
 
         } catch (Exception e) {
         }
+    }
+
+
+    private long random() {
+        return Math.round(Math.random() * 100);
     }
 
     private void createDependencyInUmlFile(String dependency) {

@@ -91,7 +91,7 @@ public class Execution {
         this.experiment = experiment;
     }
 
-    // public List<FunResults> getObjectives() throws ClassNotFoundException,
+    // public List<FunResults> getAttributes() throws ClassNotFoundException,
     // SQLException, MissingConfigurationException {
     // ResultSet r = null;
     // r =
@@ -104,7 +104,7 @@ public class Execution {
     // FunResults fun = new FunResults();
     // fun.setExecution(this);
     // fun.setExperiement(this.experiment);
-    // fun.setObjectives(r.getString("objectives"));
+    // fun.setAttributes(r.getString("objectives"));
     // fun.setIsAll(Integer.parseInt(r.getString("is_all")));
     //
     // funs.add(fun);

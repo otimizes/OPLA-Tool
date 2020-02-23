@@ -23,6 +23,8 @@
 
 package jmetal4.core;
 
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Element;
 import jmetal4.encodings.variable.Binary;
 import jmetal4.problems.OPLA;
 
@@ -120,13 +122,15 @@ public class Solution implements Serializable {
     /**
      * Stores the cluster realized by AbstractClustering Filter
      */
-    private double clusterId_ = 0.0;
+    private Double clusterId_;
 
     private int userEvaluation;
 
     private Long executionId_;
 
     private Boolean clusterNoise_;
+
+    public Boolean evaluatedByUser;
 
     /**
      * Constructor.
@@ -639,11 +643,11 @@ public class Solution implements Serializable {
         return bits;
     } // getNumberOfBits
 
-    public double getClusterId() {
+    public Double getClusterId() {
         return clusterId_;
     }
 
-    public void setClusterId(double clusterId_) {
+    public void setClusterId(Double clusterId_) {
         this.clusterId_ = clusterId_;
     }
 
@@ -669,5 +673,26 @@ public class Solution implements Serializable {
 
     public void setClusterNoise(Boolean clusterNoise_) {
         this.clusterNoise_ = clusterNoise_;
+    }
+
+    public boolean containsArchitecturalEvaluation() {
+        for (Element element : getAlternativeArchitecture().getElementsWithPackages()) {
+            if (element.isFreezeByDM()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Architecture getAlternativeArchitecture() {
+        return (Architecture) getDecisionVariables()[0];
+    }
+
+    public Boolean getEvaluatedByUser() {
+        return evaluatedByUser != null && evaluatedByUser;
+    }
+
+    public void setEvaluatedByUser(Boolean evaluatedByUser) {
+        this.evaluatedByUser = evaluatedByUser;
     }
 } // Solution

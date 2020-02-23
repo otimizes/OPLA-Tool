@@ -1,0 +1,12 @@
+!!br.ufpr.dinf.gres.opla.config.ApplicationYamlConfig {
+  directoryToExportModels: /home/wmfsystem/oplatool/output,
+  directoryToInteraction: '',
+  directoryToSaveModels: /home/wmfsystem/oplatool/temp,
+  pathLastOptimizationInput: /home/wmfsystem/workspace/plas/BeT/BeT.uml,
+  pathPapyrus: /home/wmfsystem/App/eclipse-modeling-kepler-SR2-linux-gtk-x86_64/eclipse/eclipse,
+  pathToProfile: /home/wmfsystem/workspace/plas/BeT/resources/smarty.profile.uml,
+  pathToProfileConcern: /home/wmfsystem/workspace/plas/BeT/resources/concerns.profile.uml,
+  pathToProfilePatterns: /home/wmfsystem/workspace/plas/BeT/resources/patterns.profile.uml,
+  pathToProfileRelationships: /home/wmfsystem/workspace/plas/BeT/resources/relationships.profile.uml,
+  pathToTemplateModelsDirectory: /home/wmfsystem/oplatool/templates/
+}

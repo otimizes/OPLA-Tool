@@ -63,7 +63,7 @@ public class MathUtils {
         List<Double> mins = new ArrayList<>();
         List<Double> maxs = new ArrayList<>();
 
-        resultFront.getAllSolutions().forEach(r -> {
+        resultFront.getSolutionSet().forEach(r -> {
             selectMinsMax(mins, maxs, r);
         });
 

@@ -1,14 +1,22 @@
 package arquitetura.helpers;
 
 import arquitetura.exceptions.NodeIdNotFound;
-import arquitetura.representation.Element;
-import arquitetura.representation.Variant;
+import arquitetura.representation.*;
+import arquitetura.representation.Class;
+import arquitetura.representation.Package;
 import com.google.common.base.Joiner;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.uml2.uml.Comment;
+import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.internal.impl.ClassImpl;
+import org.eclipse.uml2.uml.internal.impl.OperationImpl;
+import org.eclipse.uml2.uml.internal.impl.PackageImpl;
+import org.eclipse.uml2.uml.internal.impl.PropertyImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -21,9 +29,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle               @               gmail.com>
  */
 public class XmiHelper {
 
@@ -255,6 +264,37 @@ public class XmiHelper {
         int randomNum = rn.nextInt(range) + 0;
         return Integer.toString(randomNum);
     }
+
+    public static void setRecursiveOwnedComments(NamedElement modelElement, Element element) {
+        EList<Comment> ownedComments = modelElement.getOwnedComments();
+        if (element instanceof Package) {
+            EList<org.eclipse.uml2.uml.Element> ownedElements = modelElement.getOwnedElements();
+            for (org.eclipse.uml2.uml.Element ownedElement : ownedElements) {
+                for (Comment ownedComment : ownedComments) {
+                    Comment nownedComment = ownedElement.createOwnedComment();
+                    nownedComment.setBody(ownedComment.getBody());
+                }
+            }
+
+        }
+        if (element instanceof Class || element instanceof Interface) {
+            EList<Comment> ownedCommentsPackage = ((ClassImpl) modelElement).getPackage().getOwnedComments();
+            ownedComments.addAll(ownedCommentsPackage);
+        }
+        if (element instanceof Attribute) {
+            EList<Comment> ownedCommentsPackage = ((PropertyImpl) modelElement).getClass_().getOwnedComments();
+            ownedComments.addAll(ownedCommentsPackage);
+        }
+
+        if (element instanceof Method) {
+            EList<Comment> ownedCommentsPackage = ((OperationImpl) modelElement).getClass_().getOwnedComments();
+            ownedComments.addAll(ownedCommentsPackage);
+        }
+        for (Comment ownedComment : ownedComments) {
+            element.setComments(element.getComments() + "\n" + ownedComment.getBody());
+        }
+    }
+
 
     public String splitVariants(List<Variant> list) {
         return Joiner.on(", ").join(list);

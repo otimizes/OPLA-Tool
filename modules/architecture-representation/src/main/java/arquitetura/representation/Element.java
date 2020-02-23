@@ -1,12 +1,14 @@
 package arquitetura.representation;
 
 import arquitetura.exceptions.ConcernNotFoundException;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.eclipse.uml2.uml.Interface;
 
 import java.io.Serializable;
 import java.util.*;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public abstract class Element implements Serializable {
 
@@ -21,6 +23,8 @@ public abstract class Element implements Serializable {
     private String typeElement;
     private String namespace;
     private boolean belongsToGeneralization;
+    private String comments = "";
+    private boolean freezedByCluster = false;
 
     public Element(String name, Variant variant, String typeElement, String namespace, String id) {
         setId(id);
@@ -37,6 +41,18 @@ public abstract class Element implements Serializable {
      */
     public String getId() {
         return id;
+    }
+
+    /**
+     * Generates Unique Integer Id according to the namespace:elementType:elementName
+     *
+     * @return Unique Integer Id
+     */
+    public float getNumberId() {
+        int minValue = Integer.MIN_VALUE;
+        int maxValue = Integer.MAX_VALUE;
+        int numberId = HashCodeBuilder.reflectionHashCode(this.getNamespace() + ":" + this.getTypeElement() + ":" + this.getName(), true);
+        return (numberId - minValue) / (maxValue - minValue);
     }
 
     /**
@@ -82,7 +98,7 @@ public abstract class Element implements Serializable {
     /**
      * Retorna apenas os interesses pertencentes a este elemento.<br />
      *
-     * @return List<{@link Concern}>
+     * @return List<{ @ link Concern }>
      */
     public Set<Concern> getOwnConcerns() {
         if (concerns == null || concerns.isEmpty())
@@ -159,6 +175,54 @@ public abstract class Element implements Serializable {
         this.belongsToGeneralization = belongsToGeneralization;
     }
 
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public boolean isFreezeByDM() {
+        return this.comments != null && this.comments.contains("freeze");
+    }
+
+    public boolean unsetFreezeFromDM() {
+        this.comments = this.comments.replaceAll("freeze", "");
+        return this.isFreezeByDM();
+    }
+
+    public boolean setFreezeFromDM() {
+        if (!this.comments.contains("freeze")) {
+            this.comments += "freeze";
+        }
+        return isFreezeByDM();
+    }
+
+    public boolean setFreezeFromDM(boolean bool) {
+        return bool ? setFreezeFromDM() : unsetFreezeFromDM();
+    }
+
+    public boolean setFreezeFromDM(double bool) {
+        return bool > 0 ? setFreezeFromDM() : unsetFreezeFromDM();
+    }
+
+    public boolean isFreezedByCluster() {
+        return freezedByCluster;
+    }
+
+    public void setFreezedByCluster(boolean freezedByCluster) {
+        this.freezedByCluster = freezedByCluster;
+    }
+
+    public void setFreezedByCluster() {
+        this.freezedByCluster = true;
+    }
+
+    public boolean isTotalyFreezed() {
+        return this.isFreezeByDM() || this.isFreezedByCluster();
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -187,6 +251,25 @@ public abstract class Element implements Serializable {
         } else if (!namespace.equals(other.namespace))
             return false;
         return true;
+    }
+
+    public boolean totalyEquals(Element other) {
+        boolean isEquals = this.getNumberId() == other.getNumberId();
+        if (this instanceof Class && other instanceof Class) {
+            isEquals &= ((Class) this).getAllAttributes().equals(((Class) other).getAllAttributes());
+            isEquals &= ((Class) this).getAllMethods().equals(((Class) other).getAllMethods());
+        } else if (this instanceof Interface && other instanceof Interface) {
+            isEquals &= ((Interface) this).getOperations().equals(((Interface) other).getOperations());
+        } else if (this instanceof Package && other instanceof Package) {
+            Set<Element> collect = ((Package) this).getElements();
+            Set<Element> collect1 = ((Package) other).getElements();
+            if (collect.size() != collect1.size()) return false;
+            for (Element element : collect) {
+                isEquals &= element.totalyEquals(other);
+            }
+        }
+        return isEquals;
+
     }
 
 }
