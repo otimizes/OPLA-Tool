@@ -25,4 +25,13 @@ public class ExecutionDAO extends GenericDAOImpl<Execution> {
 		return query.getResultList();
 	}
 
+	public List<Execution> findByExperimentId(Long id) {
+
+		TypedQuery<Execution> query = getEntityManager()
+				.createQuery("SELECT o FROM Execution o where o.experiment.id = :id", Execution.class);
+		query.setParameter("id", id);
+
+		return query.getResultList();
+	}
+
 }

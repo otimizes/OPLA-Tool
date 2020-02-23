@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {OptimizationDto} from "../optimization-dto";
+import {OptimizationDto} from "../dto/optimization-dto";
+import {PersistenceService} from "../services/persistence.service";
 
 @Component({
   selector: 'app-results',
@@ -9,16 +10,13 @@ import {OptimizationDto} from "../optimization-dto";
 })
 export class ResultsComponent implements OnInit {
 
-  options: FormGroup;
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto');
-  @Input() optimizationDto: OptimizationDto;
 
-  constructor(fb: FormBuilder) {
-    this.options = fb.group({
-      hideRequired: this.hideRequiredControl,
-      floatLabel: this.floatLabelControl,
-    });
+  @Input() experiments = [];
+  columnsToDisplay = ['id', 'name', 'algorithm', 'createdAt', 'description'];
+  expandedElement: any | null;
+
+  constructor(fb: FormBuilder, private service: PersistenceService) {
+
   }
 
   ngOnInit() {

@@ -51,6 +51,10 @@ public class ExperimentConfiguration implements Serializable {
     @Column(name = "profiles_used")
     private String profilesUsed;
 
+    @ManyToOne
+    @JoinColumn(name = "experiment_id")
+    private Experiment experiment;
+
     public Integer getId() {
         return id;
     }
@@ -145,6 +149,14 @@ public class ExperimentConfiguration implements Serializable {
 
     public void setProfilesUsed(String profilesUsed) {
         this.profilesUsed = profilesUsed;
+    }
+
+    public Experiment getExperiment() {
+        return experiment;
+    }
+
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
     }
 
     @Override

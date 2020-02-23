@@ -122,6 +122,13 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <type>pom</type>
+                <version>2.2.4.RELEASE</version>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.0</version>
@@ -213,7 +220,7 @@
             <dependency>
                 <groupId>org.yaml</groupId>
                 <artifactId>snakeyaml</artifactId>
-                <version>1.18</version>
+                <version>1.25</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -303,6 +310,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-math3</artifactId>
                 <version>3.6.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.23</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

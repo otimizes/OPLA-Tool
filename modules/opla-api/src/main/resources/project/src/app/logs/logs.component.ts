@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {OptimizationDto} from "../optimization-dto";
-import {AppService} from "../app.service";
+import {OptimizationDto} from "../dto/optimization-dto";
+import {OptimizationService} from "../services/optimization.service";
 
 @Component({
   selector: 'app-logs',
@@ -21,7 +21,7 @@ export class LogsComponent implements OnInit {
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,
     });
-    AppService.onOptimizationInfo.asObservable().subscribe(value => {
+    OptimizationService.onOptimizationInfo.asObservable().subscribe(value => {
       if (value.status === "RUNNING") {
         if (value.logs && value.logs !== "") {
           this.logs += "\n" + value.logs;

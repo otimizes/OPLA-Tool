@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.opla.view;
 
+import arquitetura.io.OPLAThreadScope;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.AlertUtil;
@@ -25,6 +26,7 @@ public class StartUpView extends javax.swing.JFrame {
     private static Map<String, String> arguments = new HashMap<>();
 
     public StartUpView() {
+        OPLAThreadScope.setConfig(arquitetura.config.ApplicationFile.getInstance().getApplicationYaml());
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);

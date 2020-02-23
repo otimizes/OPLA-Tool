@@ -1,10 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {OptimizationDto} from "./optimization-dto";
+import {OptimizationDto} from "./dto/optimization-dto";
 import {MatStepper} from "@angular/material/stepper";
-import {AppService} from "./app.service";
+import {OptimizationService} from "./services/optimization.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {OptimizationInfo} from "./optimization-info";
+import {OptimizationInfo} from "./dto/optimization-info";
+import {PersistenceService} from "./services/persistence.service";
 
 @Component({
   selector: 'app-root',
@@ -22,10 +23,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   logsFormGroup: FormGroup;
   optimizationDto: OptimizationDto = new OptimizationDto();
   @ViewChild('stepper', {static: true}) stepper: MatStepper;
-  optimizationInfo: OptimizationInfo = AppService.getOptimizationInfo();
+  optimizationInfo: OptimizationInfo = OptimizationService.getOptimizationInfo();
   optimizationOptions: any;
+  experiments: any;
 
-  constructor(private _formBuilder: FormBuilder, private service: AppService, private snackBar: MatSnackBar, fb: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private optimizationService: OptimizationService,
+              private persistenceService: PersistenceService, private snackBar: MatSnackBar, fb: FormBuilder) {
     this.executionFormGroup = fb.group({
       mutation: ['', Validators.compose([Validators.required])],
       mutationProbability: ['', Validators.compose([Validators.required])],
@@ -53,34 +56,42 @@ export class AppComponent implements OnInit, AfterViewInit {
       patterns: new FormControl(),
       relationships: new FormControl()
     });
-    this.patternFormGroup = fb.group({
-    });
-    service.getDto().subscribe(dto => {
+    this.patternFormGroup = fb.group({});
+    optimizationService.getDto().subscribe(dto => {
       this.optimizationDto = dto
     });
 
-    this.service.getOptimizationOptions().subscribe(options => {
+    this.optimizationService.getOptimizationOptions().subscribe(options => {
       this.optimizationOptions = options;
     });
 
-    AppService.onOptimizationInfo.asObservable().subscribe(optimizationInfo => {
+    OptimizationService.onOptimizationInfo.asObservable().subscribe(optimizationInfo => {
       this.optimizationInfo = optimizationInfo;
+    });
+
+    this.persistenceService.getExperiments().subscribe(experiments => {
+      this.experiments = experiments;
+      for (let experiment of this.experiments) {
+        this.persistenceService.getExecutionsByExperiment(experiment.id).subscribe(executions => {
+          experiment.executions = executions;
+        })
+      }
     })
   }
 
   ngAfterViewInit(): void {
-    this.stepper.selectedIndex = 1;
+    this.stepper.selectedIndex = 4;
   }
 
   ngOnInit() {
   }
 
   isRunning() {
-    return AppService.isRunning();
+    return OptimizationService.isRunning();
   }
 
   run(optimizationDto: OptimizationDto) {
-    this.service.optimize(optimizationDto).subscribe(info => {
+    this.optimizationService.optimize(optimizationDto).subscribe(info => {
       this.snackBar.open("Optimization started", "Go to logs", {
         duration: 10000
       }).onAction().subscribe(() => {
@@ -90,7 +101,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   download(optimizationInfo: OptimizationInfo) {
-    this.service.download(optimizationInfo.hash).subscribe(result => {
+    this.optimizationService.download(optimizationInfo.hash).subscribe(result => {
       this.snackBar.open("Your download is available", null, {
         duration: 2000
       });
@@ -99,7 +110,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       });
       const url = window.URL.createObjectURL(blob);
       window.open(url);
-      AppService.clearOptimizationInfo();
+      OptimizationService.clearOptimizationInfo();
     });
   }
 }

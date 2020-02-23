@@ -1,5 +1,6 @@
 package arquitetura.io;
 
+import arquitetura.config.ApplicationFile;
 import arquitetura.config.ApplicationYamlConfig;
 
 import java.text.SimpleDateFormat;
@@ -15,7 +16,7 @@ public class OPLAThreadScope {
         return format.concat("-" + String.valueOf(Math.round(Math.random() * 10000)));
     });
 
-    public static ThreadLocal<ApplicationYamlConfig> config = new ThreadLocal<>();
+    public static ThreadLocal<ApplicationYamlConfig> config = ThreadLocal.withInitial(() -> ApplicationFile.getInstance().getApplicationYaml());
 
     public static void setConfig(ApplicationYamlConfig config) {
         config.setDirectoryToExportModels(config.getDirectoryToExportModels() + OPLAThreadScope.hash.get() + "/");

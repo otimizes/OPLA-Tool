@@ -27,7 +27,9 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import {DragDropDirectiveDirective} from './drag-drop-directive.directive';
+import {DragDropDirectiveDirective} from './directives/drag-drop-directive.directive';
+import {MatTableModule} from "@angular/material/table";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import {DragDropDirectiveDirective} from './drag-drop-directive.directive';
     MatTooltipModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTableModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

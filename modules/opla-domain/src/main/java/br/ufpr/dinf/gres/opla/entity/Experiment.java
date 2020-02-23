@@ -106,4 +106,7 @@ public class Experiment implements Serializable {
                 .toString();
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 }

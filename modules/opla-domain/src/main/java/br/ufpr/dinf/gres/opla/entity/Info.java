@@ -28,6 +28,9 @@ public class Info implements Serializable {
     @Column(name = "number_of_packages")
     private Integer numberOfPackages;
 
+    @Column(name = "number_of_classes")
+    private Integer numberOfClasses;
+
     @Column(name = "number_of_variabilities")
     private Integer numberOfVariabilities;
 
@@ -169,6 +172,14 @@ public class Info implements Serializable {
 
     public void setExperiement(Experiment experiement) {
         this.experiement = experiement;
+    }
+
+    public Integer getNumberOfClasses() {
+        return numberOfClasses;
+    }
+
+    public void setNumberOfClasses(Integer numberOfClasses) {
+        this.numberOfClasses = numberOfClasses;
     }
 
     @Override

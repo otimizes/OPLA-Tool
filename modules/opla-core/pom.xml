@@ -37,6 +37,10 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+		</dependency>
+		<dependency>
 			<artifactId>opla-patterns</artifactId>
 			<groupId>br.ufpr.dinf.gres</groupId>
 			<version>${project.version}</version>

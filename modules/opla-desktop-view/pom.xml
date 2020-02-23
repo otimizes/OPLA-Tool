@@ -41,6 +41,10 @@
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>br.ufpr.dinf.gres</groupId>
 			<artifactId>loglog</artifactId>
 		</dependency>

@@ -4,6 +4,11 @@ import arquitetura.config.ApplicationFile;
 import arquitetura.config.ApplicationYamlConfig;
 import arquitetura.config.PathConfig;
 import arquitetura.util.Constants;
+import br.ufpr.dinf.gres.oplaapi.dto.OptimizationDto;
+import br.ufpr.dinf.gres.oplaapi.dto.OptimizationInfo;
+import br.ufpr.dinf.gres.oplaapi.dto.OptimizationInfoStatus;
+import br.ufpr.dinf.gres.oplaapi.dto.OptimizationOptionsDTO;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/optimization/")
+@EntityScan(basePackages = {
+        "br.ufpr.dinf.gres.opla.entity"
+})
 public class OptimizationController {
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(OptimizationController.class);
 

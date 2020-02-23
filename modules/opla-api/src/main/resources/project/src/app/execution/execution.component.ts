@@ -1,7 +1,7 @@
-import {AfterContentChecked, AfterViewInit, Component, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {OptimizationDto} from "../optimization-dto";
-import {AppService} from "../app.service";
+import {AfterContentChecked, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {OptimizationDto} from "../dto/optimization-dto";
+import {OptimizationService} from "../services/optimization.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -18,8 +18,8 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
 
-  constructor(fb: FormBuilder, protected service: AppService, private snackBar: MatSnackBar) {
-    AppService.onSelectPLA.asObservable().subscribe(list => {
+  constructor(fb: FormBuilder, protected service: OptimizationService, private snackBar: MatSnackBar) {
+    OptimizationService.onSelectPLA.asObservable().subscribe(list => {
       this.selectProfiles(list);
       // this.plaFiles = list;
     });
@@ -85,7 +85,7 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
     // this.service.optimize(new OptimizationDto())
     this.service.uploadPLA(this.fileInput.nativeElement.files)
       .subscribe(res => {
-        AppService.setPLA(res);
+        OptimizationService.setPLA(res);
         this.snackBar.open("The input PLA and the profiles were updated", null, {
           duration: 2000
         })
@@ -97,8 +97,8 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked(): void {
-    if (AppService.getPLA()) {
-      this.selectProfiles(AppService.getPLA());
+    if (OptimizationService.getPLA()) {
+      this.selectProfiles(OptimizationService.getPLA());
     }
   }
 }

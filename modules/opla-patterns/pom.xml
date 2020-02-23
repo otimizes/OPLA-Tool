@@ -18,6 +18,10 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>br.ufpr.dinf.gres</groupId>
 			<artifactId>architecture-representation</artifactId>
 			<version>${project.version}</version>

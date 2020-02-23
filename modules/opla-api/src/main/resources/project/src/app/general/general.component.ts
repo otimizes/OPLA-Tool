@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {OptimizationDto} from "../optimization-dto";
+import {OptimizationDto} from "../dto/optimization-dto";
 
 @Component({
   selector: 'app-general',

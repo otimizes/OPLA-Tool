@@ -73,12 +73,12 @@ public class ObjectiveDAO extends GenericDAOImpl<Objective> {
 		return result;
 	}
 
-	public List<String> findNameSolution(Experiment experiment, Execution execution) {
-		LOGGER.debug("Listing name of soluctions by experiment = " + experiment.getId() + " and execution = "
-				+ execution.getId());
+	public List<String> findNameSolution(Long experiment, Long execution) {
+		LOGGER.debug("Listing name of soluctions by experiment = " + experiment + " and execution = "
+				+ execution);
 
 		TypedQuery<String> query = getEntityManager().createQuery(
-				"SELECT o.solutionName FROM Objective o WHERE o.experiment = :experiment AND (o.execution = :execution OR o.execution is empty)",
+				"SELECT o.solutionName FROM Objective o WHERE o.experiment = :experiment AND (o.execution.id = :execution OR o.execution.id is empty)",
 				String.class);
 		query.setParameter("experiment", experiment);
 		query.setParameter("execution", execution);
