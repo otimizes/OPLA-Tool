@@ -26,7 +26,7 @@ public class InfosResultPersistence {
     public void persistInfoDatas(InfoResult fakeInfoResult) throws SQLException {
         StringBuilder query = new StringBuilder();
 
-        String executionId = "''";
+        String executionId = "null";
         if (fakeInfoResult.getExecution() != null)
             executionId = fakeInfoResult.getExecution().getId();
 

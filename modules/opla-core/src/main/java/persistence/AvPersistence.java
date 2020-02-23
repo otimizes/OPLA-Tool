@@ -19,7 +19,7 @@ public class AvPersistence {
 
     public void save(Av aV) {
 
-	String executionID = "''";
+	String executionID = "null";
 	if (aV.getExecution() != null)
 	    executionID = aV.getExecution().getId();
 

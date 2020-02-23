@@ -27,7 +27,7 @@ public class FunsResultPersistence {
     public void persistFunsDatas(FunResults funs) throws SQLException {
         StringBuilder query = new StringBuilder();
 
-        String executionId = "''";
+        String executionId = "null";
         if (funs.getExecution() != null)
             executionId = funs.getExecution().getId();
 

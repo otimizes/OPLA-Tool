@@ -18,7 +18,7 @@ public class FeatureDrivenPersistence {
     }
 
     public void save(FeatureDriven fd) {
-        String executionID = "''";
+        String executionID = "null";
         if (fd.getExecution() != null)
             executionID = fd.getExecution().getId();
 

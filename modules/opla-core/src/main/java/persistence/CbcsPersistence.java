@@ -19,7 +19,7 @@ public class CbcsPersistence {
 
     public void save(Cbcs cBcs) {
 
-	String executionID = "''";
+	String executionID = "null";
 	if (cBcs.getExecution() != null)
 	    executionID = cBcs.getExecution().getId();
 

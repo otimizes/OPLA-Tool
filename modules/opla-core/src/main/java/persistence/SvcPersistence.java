@@ -19,7 +19,7 @@ public class SvcPersistence {
 
     public void save(Svc sVc) {
 
-	String executionID = "''";
+	String executionID = "null";
 	if (sVc.getExecution() != null)
 	    executionID = sVc.getExecution().getId();
 

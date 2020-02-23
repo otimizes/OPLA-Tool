@@ -19,7 +19,7 @@ public class SscPersistence {
 
     public void save(Ssc sSc) {
 
-	String executionID = "''";
+	String executionID = "null";
 	if (sSc.getExecution() != null)
 	    executionID = sSc.getExecution().getId();
 

@@ -19,7 +19,7 @@ public class Info implements Serializable {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "execution_id", nullable = false)
+    @JoinColumn(name = "execution_id")
     private Execution execution;
 
     @Column(name = "list_of_concerns", columnDefinition = "TEXT")

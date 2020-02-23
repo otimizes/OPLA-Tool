@@ -19,7 +19,7 @@ public class WocsinterfacePersistence {
 
     public void save(Wocsinterface wocsInterface) {
 
-	String executionID = "''";
+	String executionID = "null";
 	if (wocsInterface.getExecution() != null)
 	    executionID = wocsInterface.getExecution().getId();
 

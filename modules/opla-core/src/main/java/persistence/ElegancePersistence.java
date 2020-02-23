@@ -21,7 +21,7 @@ public class ElegancePersistence {
      */
     public void save(Elegance eleganceMetric) {
 
-        String executionID = "''";
+        String executionID = "null";
         if (eleganceMetric.getExecution() != null)
             executionID = eleganceMetric.getExecution().getId();
 

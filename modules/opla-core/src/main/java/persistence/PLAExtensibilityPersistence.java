@@ -19,7 +19,7 @@ public class PLAExtensibilityPersistence {
 
     public void save(PLAExtensibility plaExtensibility) {
 
-        String executionID = "''";
+        String executionID = "null";
         if (plaExtensibility.getExecution() != null)
             executionID = plaExtensibility.getExecution().getId();
 

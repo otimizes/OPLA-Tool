@@ -19,7 +19,7 @@ public class WocsclassPersistence {
 
     public void save(Wocsclass wocsClass) {
 
-	String executionID = "''";
+	String executionID = "null";
 	if (wocsClass.getExecution() != null)
 	    executionID = wocsClass.getExecution().getId();
 

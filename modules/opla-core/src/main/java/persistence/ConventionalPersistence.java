@@ -19,7 +19,7 @@ public class ConventionalPersistence {
 
     public void save(Conventional conventional) {
 
-        String executionID = "''";
+        String executionID = "null";
         if (conventional.getExecution() != null)
             executionID = conventional.getExecution().getId();
 
