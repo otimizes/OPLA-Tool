@@ -25,7 +25,7 @@ public class SvcPersistence {
 
 	StringBuilder query = new StringBuilder();
 
-	query.append("insert into SvcMetrics (sVc, execution_id, is_all, experiement_id, id_solution) values (");
+	query.append("insert into SvcMetrics (sVc, execution_id, is_all, experiment_id, id_solution) values (");
 	query.append(sVc.getSvc());
 	query.append(",");
 	query.append(executionID);

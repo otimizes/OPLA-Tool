@@ -24,11 +24,15 @@ public class Experiment implements Serializable {
     @Column(name = "algorithm", nullable = false)
     private String algorithm;
 
+
     @Column(name = "created_at")
     private String createdAt;
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+
+    @Column(name = "hash")
+    private String hash;
 
     public Experiment() {
     }
@@ -108,5 +112,13 @@ public class Experiment implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 }

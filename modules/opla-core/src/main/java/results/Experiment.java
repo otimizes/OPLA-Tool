@@ -6,6 +6,7 @@
 
 package results;
 
+import arquitetura.io.OPLAThreadScope;
 import database.Database;
 import metrics.*;
 import utils.Id;
@@ -29,6 +30,7 @@ public class Experiment {
     private String description;
     private String algorithm;
     private String createdAt;
+    private String hash;
     private Collection<Execution> executions;
 
     /**
@@ -46,6 +48,15 @@ public class Experiment {
         this.createdAt = setCreatedAt();
     }
 
+    public Experiment(String name, String algorithm, String description, String hash) throws Exception {
+        this.name = name;
+        this.algorithm = algorithm;
+        this.description = description;
+        this.id = givenId();
+        this.hash = hash;
+        this.createdAt = setCreatedAt();
+    }
+
     /**
      * Return all Experiments.<br/>
      * </br>
@@ -60,7 +71,7 @@ public class Experiment {
      */
     public static List<Experiment> all() throws SQLException, Exception {
 
-        String attrs[] = {"id", "name", "algorithm", "created_at", "description"};
+        String attrs[] = {"id", "name", "algorithm", "created_at", "description", "hash"};
         List<Experiment> experiements = new ArrayList<Experiment>();
         ResultSet r = null;
         Connection connection = Database.getConnection();
@@ -75,6 +86,7 @@ public class Experiment {
             exp.setCreatedAt(r.getString(attrs[3]));
             exp.setExecutions(execs);
             exp.setDescription(r.getString(attrs[4]));
+            exp.setHash(r.getString(attrs[5]));
             experiements.add(exp);
         }
         r.close();
@@ -368,7 +380,7 @@ public class Experiment {
 
     private String makeQuery() {
         StringBuilder sb = new StringBuilder();
-        sb.append("insert into experiments (id, name, algorithm, description, created_at) ");
+        sb.append("insert into experiments (id, name, algorithm, description, created_at, hash) ");
         sb.append("values (");
         sb.append(this.id);
         sb.append(",'");
@@ -379,6 +391,8 @@ public class Experiment {
         sb.append(this.description);
         sb.append("','");
         sb.append(this.getCreatedAt());
+        sb.append("','");
+        sb.append(this.hash);
         sb.append("')");
         return sb.toString();
     }
@@ -414,4 +428,11 @@ public class Experiment {
         this.executions = execs;
     }
 
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
 }

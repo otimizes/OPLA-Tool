@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {OptimizationService} from "../services/optimization.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-experiments',
@@ -19,12 +21,25 @@ export class ExperimentsComponent implements OnInit {
   columnsToDisplay = ['id', 'name', 'algorithm', 'createdAt', 'description'];
   expandedElement: any | null;
 
-  constructor() {
+  constructor(private optimizationService: OptimizationService, private snackBar: MatSnackBar) {
 
   }
 
   ngOnInit() {
 
+  }
+
+  download(hash) {
+    this.optimizationService.download(hash).subscribe(result => {
+      this.snackBar.open("Your download is available", null, {
+        duration: 2000
+      });
+      const blob = new Blob([result], {
+        type: 'application/zip'
+      });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
   }
 
 }

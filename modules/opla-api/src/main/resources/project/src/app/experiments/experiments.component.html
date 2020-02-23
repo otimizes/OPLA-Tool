@@ -18,7 +18,7 @@
         </div>
         <div class="example-element-description">
           {{element.description}}
-          <span class="example-element-description-attribution"> -- OPLA-Tool </span>
+          <span (click)="download(element.hash)" class="example-element-description-attribution"> Download {{element.hash}} </span>
         </div>
       </div>
     </td>

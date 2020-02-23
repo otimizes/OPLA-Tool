@@ -1,5 +1,6 @@
 package jmetal4.experiments;
 
+import arquitetura.io.OPLAThreadScope;
 import arquitetura.io.ReaderConfig;
 import br.ufpr.dinf.gres.loglog.Level;
 import database.Database;
@@ -80,7 +81,7 @@ public class PAES_OPLA_FeatMut {
                 this.configs.getLogger().putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
 
-            Experiment experiement = mp.createExperimentOnDb(plaName, "PAES", configs.getDescription());
+            Experiment experiement = mp.createExperimentOnDb(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "PAES", configs);
             conf.save();
 

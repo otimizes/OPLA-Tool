@@ -33,23 +33,23 @@ import java.util.List;
 @EntityScan(basePackages = {
         "br.ufpr.dinf.gres.opla.entity"
 })
-public class OptimizationController {
-    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(OptimizationController.class);
+public class OptimizationResource {
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(OptimizationResource.class);
 
 
     private final OptimizationService optimizationService;
 
-    public OptimizationController(OptimizationService optimizationService) {
+    public OptimizationResource(OptimizationService optimizationService) {
         this.optimizationService = optimizationService;
     }
 
-    @GetMapping(value = "/download/{id}", produces = "application/zip")
-    public void zipFiles(@PathVariable String id, HttpServletResponse response) throws IOException {
+    @GetMapping(value = "/download/{hash}", produces = "application/zip")
+    public void zipFiles(@PathVariable String hash, HttpServletResponse response) throws IOException {
         PathConfig config = ApplicationFile.getInstance().getConfig();
-        String url = config.getDirectoryToExportModels().toString().concat(Constants.FILE_SEPARATOR + id);
+        String url = config.getDirectoryToExportModels().toString().concat(Constants.FILE_SEPARATOR + hash);
         //setting headers
         response.setStatus(HttpServletResponse.SC_OK);
-        response.addHeader("Content-Disposition", "attachment; filename=\"" + id + ".zip\"");
+        response.addHeader("Content-Disposition", "attachment; filename=\"" + hash + ".zip\"");
         ZipFiles zipFiles = new ZipFiles();
         zipFiles.zipDirectoryStream(new File(url), response.getOutputStream());
     }

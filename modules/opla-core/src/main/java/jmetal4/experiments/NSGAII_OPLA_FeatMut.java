@@ -1,5 +1,6 @@
 package jmetal4.experiments;
 
+import arquitetura.io.OPLAThreadScope;
 import arquitetura.io.ReaderConfig;
 import br.ufpr.dinf.gres.loglog.Level;
 import database.Database;
@@ -101,7 +102,7 @@ public class NSGAII_OPLA_FeatMut {
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
 
-            Experiment experiement = mp.createExperimentOnDb(plaName, "NSGAII", configs.getDescription());
+            Experiment experiement = mp.createExperimentOnDb(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "NSGAII", configs);
             conf.save();
             LOGGER.info("Salvou configurações do experimento");

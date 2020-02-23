@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.opla.view;
 
+import arquitetura.io.OPLAThreadScope;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import database.Database;
 import exceptions.MissingConfigurationException;
@@ -23,7 +24,7 @@ public class InteractiveSolutionsFormTest {
 
     private static MetricsPersistence mp;
 
-//    @Test
+    //    @Test
     public void main() throws ClassNotFoundException {
 
         ManagerApplicationConfig managerApplicationConfig = new ManagerApplicationConfig();
@@ -38,7 +39,8 @@ public class InteractiveSolutionsFormTest {
             throw new RuntimeException();
         }
 
-        Experiment experiement = mp.createExperimentOnDb("AGM", "NSGAII", "teste");
+        Experiment experiement = mp.createExperimentOnDb("AGM", "NSGAII", "teste", OPLAThreadScope.hash.get()
+        );
         Execution execution = new Execution(experiement);
 
         execution.setFuns(Arrays.asList(new FunResults(
