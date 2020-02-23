@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @Scope("prototype")
@@ -69,5 +70,13 @@ public class BaseResource<T> {
     public Mono<ResponseEntity<ResultList<T>>> count() {
         return asyncMono(ResponseEntity.ok(new ResultList<>(service.count())));
     }
+
+    @Transactional
+    @GetMapping(value = "/by-experiment/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Mono<ResponseEntity<ResultList<T>>> findByExperiment(@PathVariable Long id) {
+        List<T> byExperiment = service.findByExperiment(id);
+        return asyncMono(ResponseEntity.ok(new ResultList<>(byExperiment)));
+    }
+
 
 }

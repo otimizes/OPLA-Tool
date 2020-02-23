@@ -31,7 +31,7 @@ public class SvcMetric implements GenericMetric {
 
     @ManyToOne
     @JoinColumn(name = "experiement_id", nullable = false)
-    private Experiment experiement;
+    private Experiment experiment;
 
     @Column(name = "is_all")
     private Integer isAll;
@@ -52,12 +52,12 @@ public class SvcMetric implements GenericMetric {
         return execution;
     }
 
-    public Experiment getExperiement() {
-        return experiement;
+    public Experiment getExperiment() {
+        return experiment;
     }
 
-    public void setExperiement(Experiment experiement) {
-        this.experiement = experiement;
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
     }
 
     public Integer getIsAll() {
@@ -106,20 +106,20 @@ public class SvcMetric implements GenericMetric {
         SvcMetric castOther = (SvcMetric) other;
         return Objects.equals(id, castOther.id) && Objects.equals(execution, castOther.execution)
                 && Objects.equals(svc, castOther.svc)
-                && Objects.equals(experiement, castOther.experiement) && Objects.equals(isAll, castOther.isAll)
+                && Objects.equals(experiment, castOther.experiment) && Objects.equals(isAll, castOther.isAll)
                 && Objects.equals(idSolution, castOther.idSolution);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, svc, execution, experiement, isAll, idSolution);
+        return Objects.hash(id, svc, execution, experiment, isAll, idSolution);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("id", id)
                 .append("svc", svc).append("executionId", execution)
-                .append("experiementId", experiement).append("isAll", isAll).append("idSolution", idSolution)
+                .append("experiementId", experiment).append("isAll", isAll).append("idSolution", idSolution)
                 .toString();
     }
 

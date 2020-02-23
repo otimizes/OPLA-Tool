@@ -73,7 +73,7 @@ public class FeatureDrivenMetric implements GenericMetric {
 
     @ManyToOne
     @JoinColumn(name = "experiement_id", nullable = false)
-    private Experiment experiement;
+    private Experiment experiment;
 
     @Column(name = "id_solution")
     private String idSolution;
@@ -191,12 +191,12 @@ public class FeatureDrivenMetric implements GenericMetric {
         this.isAll = isAll;
     }
 
-    public Experiment getExperiement() {
-        return experiement;
+    public Experiment getExperiment() {
+        return experiment;
     }
 
-    public void setExperiement(Experiment experiement) {
-        this.experiement = experiement;
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
     }
 
     public String getIdSolution() {
@@ -226,14 +226,14 @@ public class FeatureDrivenMetric implements GenericMetric {
                 && Objects.equals(lcc, castOther.lcc) && Objects.equals(lccClass, castOther.lccClass)
                 && Objects.equals(cdaClass, castOther.cdaClass) && Objects.equals(cibClass, castOther.cibClass)
                 && Objects.equals(execution, castOther.execution) && Objects.equals(isAll, castOther.isAll)
-                && Objects.equals(experiement, castOther.experiement)
+                && Objects.equals(experiment, castOther.experiment)
                 && Objects.equals(idSolution, castOther.idSolution);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, msiAggregation, cdac, cdai, cdao, cibc, iibc, oobc, lcc, lccClass, cdaClass, cibClass,
-                execution, isAll, experiement, idSolution);
+                execution, isAll, experiment, idSolution);
     }
 
     @Override
@@ -242,7 +242,7 @@ public class FeatureDrivenMetric implements GenericMetric {
                 .append("msiAggregation", msiAggregation).append("cdac", cdac).append("cdai", cdai).append("cdao", cdao)
                 .append("cibc", cibc).append("iibc", iibc).append("oobc", oobc).append("lcc", lcc)
                 .append("lccClass", lccClass).append("cdaClass", cdaClass).append("cibClass", cibClass)
-                .append("executionId", execution).append("isAll", isAll).append("experiementId", experiement)
+                .append("executionId", execution).append("isAll", isAll).append("experiementId", experiment)
                 .append("idSolution", idSolution).toString();
     }
 

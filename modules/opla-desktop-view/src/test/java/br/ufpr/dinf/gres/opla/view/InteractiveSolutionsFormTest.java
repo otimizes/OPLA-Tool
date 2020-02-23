@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.opla.view;
 
+import arquitetura.io.OPLAThreadScope;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.entity.Objective;
 import database.Database;
@@ -48,8 +49,8 @@ public class InteractiveSolutionsFormTest {
             throw new RuntimeException();
         }
 
-        Experiment experiement = mp.createExperimentOnDb("AGM", "NSGAII", "");
-        Execution execution = new Execution(experiement);
+        Experiment experiment = mp.createExperimentOnDb("AGM", "NSGAII", "", OPLAThreadScope.hash.get());
+        Execution execution = new Execution(experiment);
         execution.setFuns(new ArrayList<>());
         execution.setInfos(new ArrayList<>());
 
@@ -62,7 +63,7 @@ public class InteractiveSolutionsFormTest {
                     solution.getSolutionName(),
                     execution,
                     0,
-                    experiement,
+                    experiment,
                     ""
             ));
             execution.getInfos().add(new InfoResult(solution.getExecutionId().toString(),
@@ -79,7 +80,7 @@ public class InteractiveSolutionsFormTest {
                     1,
                     1,
                     1,
-                    experiement));
+                    experiment));
         });
         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.KMEANS, solutionSet);
     }
@@ -105,8 +106,8 @@ public class InteractiveSolutionsFormTest {
             throw new RuntimeException();
         }
 
-        Experiment experiement = mp.createExperimentOnDb("AGM", "NSGAII", "");
-        Execution execution = new Execution(experiement);
+        Experiment experiment = mp.createExperimentOnDb("AGM", "NSGAII", "", OPLAThreadScope.hash.get());
+        Execution execution = new Execution(experiment);
         execution.setFuns(new ArrayList<>());
         execution.setInfos(new ArrayList<>());
 
@@ -119,7 +120,7 @@ public class InteractiveSolutionsFormTest {
                     solution.getSolutionName(),
                     execution,
                     0,
-                    experiement,
+                    experiment,
                     ""
             ));
             execution.getInfos().add(new InfoResult(solution.getExecutionId().toString(),
@@ -136,7 +137,7 @@ public class InteractiveSolutionsFormTest {
                     1,
                     1,
                     1,
-                    experiement));
+                    experiment));
         });
         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.KMEANS, solutionSet);
     }

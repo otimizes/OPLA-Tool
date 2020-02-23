@@ -54,4 +54,10 @@ export class PersistenceService {
   }
 
 
+  findByExperiment(experimentId): Observable<any> {
+    return this.http.get(`${OptimizationService.baseUrl}/${this.collection}/by-experiment/${experimentId}`, {headers: this.createAuthorizationHeader()})
+      .pipe(catchError(this.errorHandler));
+  }
+
+
 }

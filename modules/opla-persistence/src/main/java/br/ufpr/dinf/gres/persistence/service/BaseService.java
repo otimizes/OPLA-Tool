@@ -1,10 +1,21 @@
 package br.ufpr.dinf.gres.persistence.service;
 
+import br.ufpr.dinf.gres.opla.entity.Experiment;
+import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.core.EntityInformation;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +24,13 @@ import java.util.Optional;
 public abstract class BaseService<T> {
     protected final JpaRepository<T, Long> repository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+    private Class<T> domain;
+
     public BaseService(JpaRepository<T, Long> repository) {
         this.repository = repository;
+        this.domain = this.clazz();
     }
 
     public T save(T var1) {
@@ -64,4 +80,29 @@ public abstract class BaseService<T> {
     public void deleteAll() {
         repository.deleteAll();
     }
+
+    public List<T> findByExperiment(Long experiment) {
+        Query query = entityManager.createQuery("from " + domain.getName() + " obj where obj.experiment.id = :experiment");
+        query.setParameter("experiment", experiment);
+        return query.getResultList();
+    }
+
+    private JpaEntityInformation<T, ?> getEntityInformation() {
+        return JpaEntityInformationSupport.getEntityInformation(clazz(), entityManager);
+    }
+
+    public static Class<?> inferGenericType(Class<?> clazz) {
+        return inferGenericType(clazz, 0);
+    }
+
+    public static Class<?> inferGenericType(Class<?> clazz, int index) {
+        Type superClass = clazz.getGenericSuperclass();
+        return (Class<?>) ((ParameterizedType) superClass).getActualTypeArguments()[index];
+    }
+
+    @SuppressWarnings("unchecked")
+    private Class<T> clazz() {
+        return (Class<T>) inferGenericType(getClass());
+    }
+
 }

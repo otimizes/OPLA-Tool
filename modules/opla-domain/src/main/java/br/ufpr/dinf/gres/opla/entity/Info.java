@@ -60,7 +60,7 @@ public class Info implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "experiement_id", nullable = false)
-    private Experiment experiement;
+    private Experiment experiment;
 
     @Column(name = "user_evaluation")
     private Integer userEvaluation;
@@ -172,12 +172,12 @@ public class Info implements Serializable {
         this.isAll = isAll;
     }
 
-    public Experiment getExperiement() {
-        return experiement;
+    public Experiment getExperiment() {
+        return experiment;
     }
 
-    public void setExperiement(Experiment experiement) {
-        this.experiement = experiement;
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
     }
 
     public Integer getNumberOfClasses() {
@@ -211,14 +211,14 @@ public class Info implements Serializable {
                 && Objects.equals(numberOfAssociations, castOther.numberOfAssociations)
                 && Objects.equals(numberOfAssociationsClass, castOther.numberOfAssociationsClass)
                 && Objects.equals(name, castOther.name) && Objects.equals(isAll, castOther.isAll)
-                && Objects.equals(experiement, castOther.experiement);
+                && Objects.equals(experiment, castOther.experiment);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, execution, listOfConcerns, numberOfPackages, numberOfVariabilities, numberOfInterfaces,
                 numberOfDependencies, numberOfAbstractions, numberOfGeneralizations, numberOfAssociations,
-                numberOfAssociationsClass, name, isAll, experiement);
+                numberOfAssociationsClass, name, isAll, experiment);
     }
 
     @Override
@@ -231,7 +231,7 @@ public class Info implements Serializable {
                 .append("numberOfGeneralizations", numberOfGeneralizations)
                 .append("numberOfAssociations", numberOfAssociations)
                 .append("numberOfAssociationsClass", numberOfAssociationsClass).append("name", name)
-                .append("isAll", isAll).append("experiement", experiement).toString();
+                .append("isAll", isAll).append("experiement", experiment).toString();
     }
 
     public static long getSerialVersionUID() {

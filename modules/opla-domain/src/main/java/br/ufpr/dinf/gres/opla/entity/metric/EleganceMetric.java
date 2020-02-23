@@ -49,7 +49,7 @@ public class EleganceMetric implements GenericMetric {
 
     @ManyToOne
     @JoinColumn(name = "experiement_id", nullable = false)
-    private Experiment experiement;
+    private Experiment experiment;
 
     @Column(name = "is_all")
     private Integer isAll;
@@ -106,12 +106,12 @@ public class EleganceMetric implements GenericMetric {
         this.elegance = elegance;
     }
 
-    public Experiment getExperiement() {
-        return experiement;
+    public Experiment getExperiment() {
+        return experiment;
     }
 
-    public void setExperiement(Experiment experiement) {
-        this.experiement = experiement;
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
     }
 
     public Integer getIsAll() {
@@ -145,20 +145,20 @@ public class EleganceMetric implements GenericMetric {
         return Objects.equals(id, castOther.id) && Objects.equals(nac, castOther.nac)
                 && Objects.equals(atmr, castOther.atmr) && Objects.equals(ec, castOther.ec)
                 && Objects.equals(execution, castOther.execution) && Objects.equals(elegance, castOther.elegance)
-                && Objects.equals(experiement, castOther.experiement) && Objects.equals(isAll, castOther.isAll)
+                && Objects.equals(experiment, castOther.experiment) && Objects.equals(isAll, castOther.isAll)
                 && Objects.equals(idSolution, castOther.idSolution);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nac, atmr, ec, execution, elegance, experiement, isAll, idSolution);
+        return Objects.hash(id, nac, atmr, ec, execution, elegance, experiment, isAll, idSolution);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("id", id).append("nac", nac)
                 .append("atmr", atmr).append("ec", ec).append("executionId", execution).append("elegance", elegance)
-                .append("experiementId", experiement).append("isAll", isAll).append("idSolution", idSolution)
+                .append("experiementId", experiment).append("isAll", isAll).append("idSolution", idSolution)
                 .toString();
     }
 
