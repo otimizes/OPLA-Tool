@@ -6,6 +6,9 @@ import {OptimizationService} from "./services/optimization.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {OptimizationInfo} from "./dto/optimization-info";
 import {ExperimentService} from "./services/experiment.service";
+import {ExperimentConfigurationService} from "./services/experiment-configuration.service";
+import {ObjectiveService} from "./services/objective.service";
+import {InfoService} from "./services/info.service";
 
 @Component({
   selector: 'app-root',
@@ -27,8 +30,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   optimizationOptions: any;
   experiments: any;
 
-  constructor(private _formBuilder: FormBuilder, private optimizationService: OptimizationService,
-              private experimentService: ExperimentService, private snackBar: MatSnackBar, fb: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder,
+              private optimizationService: OptimizationService,
+              private experimentService: ExperimentService,
+              private infoService: InfoService,
+              private objectiveService: ObjectiveService,
+              private experimentConfigurationService: ExperimentConfigurationService,
+              private snackBar: MatSnackBar, fb: FormBuilder) {
     this.executionFormGroup = fb.group({
       mutation: ['', Validators.compose([Validators.required])],
       mutationProbability: ['', Validators.compose([Validators.required])],
@@ -100,8 +108,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     })
   }
 
-  download(optimizationInfo: OptimizationInfo) {
-    this.optimizationService.download(optimizationInfo.hash).subscribe(result => {
+  download(hash: string) {
+    this.optimizationService.download(hash).subscribe(result => {
       this.snackBar.open("Your download is available", null, {
         duration: 2000
       });

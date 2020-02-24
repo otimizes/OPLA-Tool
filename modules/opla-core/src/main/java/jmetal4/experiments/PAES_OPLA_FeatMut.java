@@ -149,7 +149,7 @@ public class PAES_OPLA_FeatMut {
                 execution.setTime(estimatedTime);
 
                 List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), execution, experiement);
-                List<InfoResult> infoResults = result.getInformations(resultFront.getSolutionSet(), execution, experiement);
+                List<InfoResult> infoResults = result.getInformations(resultFront.getSolutionSet(), execution, experiement, funResults);
                 AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), execution, experiement, selectedObjectiveFunctions);
 
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
@@ -185,7 +185,7 @@ public class PAES_OPLA_FeatMut {
 
             mp.saveFunAll(funResults);
 
-            List<InfoResult> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
+            List<InfoResult> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement, funResults);
             mp.saveInfoAll(infoResults);
 
             AllMetrics allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,

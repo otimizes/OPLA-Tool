@@ -3,16 +3,17 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isRunning()"></mat-progress-bar>
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step>
-    <ng-template matStepLabel>General Configuration</ng-template>
-    <app-general [formGroup]="generalFormGroup" [optimizationDto]="optimizationDto"></app-general>
-  </mat-step>
-  <mat-step>
     <ng-template matStepLabel>Execution Configuration</ng-template>
-    <app-execution [optimizationOptions]="optimizationOptions" [formGroup]="executionFormGroup" [optimizationDto]="optimizationDto"></app-execution>
+    <app-execution [optimizationOptions]="optimizationOptions" [formGroup]="executionFormGroup"
+                   [optimizationDto]="optimizationDto"></app-execution>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Design Patterns</ng-template>
     <app-pattern [formGroup]="patternFormGroup" [optimizationDto]="optimizationDto"></app-pattern>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Another Configurations</ng-template>
+    <app-general [formGroup]="generalFormGroup" [optimizationDto]="optimizationDto"></app-general>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Results</ng-template>
@@ -20,7 +21,12 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Experiments</ng-template>
-    <app-experiments [experiments]="experiments"></app-experiments>
+    <app-experiments
+      [experimentConfigurationService]="experimentConfigurationService"
+      [experimentService]="experimentService"
+      [objectiveService]="objectiveService"
+      [infoService]="infoService"
+      (download)="download($event)"></app-experiments>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Logs</ng-template>
@@ -34,6 +40,6 @@
 </button>
 
 <button fixedVicButton matTooltip="Download" *ngIf="optimizationInfo != null && optimizationInfo.status == 'COMPLETE'"
-        color="accent" mat-fab aria-label="Download" (click)="download(optimizationInfo)">
+        color="accent" mat-fab aria-label="Download" (click)="download(optimizationInfo.hash)">
   <mat-icon>cloud_download</mat-icon>
 </button>

@@ -30,6 +30,11 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {DragDropDirectiveDirective} from './directives/drag-drop-directive.directive';
 import {MatTableModule} from "@angular/material/table";
 import {CommonModule} from "@angular/common";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatListModule} from "@angular/material/list";
+import { ReplaceallPipe } from './pipes/replaceall.pipe';
+import { NgVarDirective } from './directives/ng-var.directive';
+import {MatBadgeModule} from "@angular/material/badge";
 
 @NgModule({
   declarations: [
@@ -41,6 +46,8 @@ import {CommonModule} from "@angular/common";
     ExperimentsComponent,
     LogsComponent,
     DragDropDirectiveDirective,
+    ReplaceallPipe,
+    NgVarDirective,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +72,10 @@ import {CommonModule} from "@angular/common";
     MatSnackBarModule,
     MatProgressBarModule,
     MatTableModule,
-    CommonModule
+    CommonModule,
+    MatExpansionModule,
+    MatListModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

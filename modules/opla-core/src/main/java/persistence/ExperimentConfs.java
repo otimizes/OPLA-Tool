@@ -137,7 +137,7 @@ public class ExperimentConfs {
                 mutationOperatorsList = removeLastComma(mutationOperatorsList);
 
             query.append("INSERT into experiment_configurations (experiment_id, number_of_runs,"
-                    + " max_evaluations, crossover_prob, mutation_prob, patterns, pattern_strategy, algorithm, mutation_operators, archive_size, population_size) VALUES (");
+                    + " max_evaluations, crossover_prob, mutation_prob, patterns, pattern_strategy, algorithm, mutation_operators, archive_size, population_size, objectives) VALUES (");
             query.append(experimentId);
             query.append(",");
             query.append(configs.getNumberOfRuns());
@@ -167,6 +167,8 @@ public class ExperimentConfs {
             query.append(getArchiveSize());
             query.append(",");
             query.append(getPopulationSize());
+            query.append(",");
+            query.append(getObjectives());
             query.append(")");
 
             stat.execute(query.toString());
@@ -181,6 +183,10 @@ public class ExperimentConfs {
             return ((NSGAIIConfig) this.configs).getPopulationSize();
 
         return 0;
+    }
+
+    private String getObjectives() {
+        return "'" + this.configs.getObjectiveFuncions() + "'";
     }
 
     /**

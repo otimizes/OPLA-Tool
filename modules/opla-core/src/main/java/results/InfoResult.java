@@ -30,6 +30,7 @@ public class InfoResult {
     private Integer userEvaluation;
     private String freezedElements;
     private Experiment experiement;
+    private String objectives;
 
     public InfoResult() {
         this.id = Id.generateUniqueId();
@@ -223,5 +224,13 @@ public class InfoResult {
                 ", \nnumberOfGeneralizations=" + numberOfGeneralizations +
                 ", \nnumberOfassociationsClass=" + numberOfassociationsClass +
                 "\n}";
+    }
+
+    public String getObjectives() {
+        return objectives;
+    }
+
+    public void setObjectives(String objectives) {
+        this.objectives = objectives;
     }
 }

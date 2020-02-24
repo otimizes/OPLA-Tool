@@ -2,15 +2,12 @@ package jmetal4.experiments;
 
 import arquitetura.io.OPLAThreadScope;
 import arquitetura.io.ReaderConfig;
-import arquitetura.representation.Architecture;
-import arquitetura.representation.Class;
 import br.ufpr.dinf.gres.loglog.Level;
 import database.Database;
 import database.Result;
 import exceptions.MissingConfigurationException;
 import jmetal4.core.Algorithm;
 import jmetal4.core.SolutionSet;
-import jmetal4.interactive.InteractiveFunction;
 import jmetal4.metaheuristics.nsgaII.NSGAII;
 import jmetal4.operators.crossover.Crossover;
 import jmetal4.operators.crossover.CrossoverFactory;
@@ -34,7 +31,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class NSGAII_OPLA_FeatMut {
 
@@ -182,7 +178,7 @@ public class NSGAII_OPLA_FeatMut {
                 List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), execution,
                         experiement);
                 List<InfoResult> infoResults = result.getInformations(resultFront.getSolutionSet(), execution,
-                        experiement);
+                        experiement, funResults);
                 AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), execution,
                         experiement, selectedObjectiveFunctions);
                 execution.setTime(estimatedTime);
@@ -228,7 +224,7 @@ public class NSGAII_OPLA_FeatMut {
 
             mp.saveFunAll(funResults);
 
-            List<InfoResult> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
+            List<InfoResult> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement, funResults);
             mp.saveInfoAll(infoResults);
             LOGGER.info("saveInfoAll()");
 

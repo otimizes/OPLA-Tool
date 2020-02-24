@@ -68,6 +68,9 @@ public class Info implements Serializable {
     @Column(name = "freezed_elements")
     private String freezedElements;
 
+    @Column(name = "objectives")
+    private String objectives;
+
     public Integer getId() {
         return id;
     }
@@ -252,5 +255,13 @@ public class Info implements Serializable {
 
     public void setFreezedElements(String freezedElements) {
         this.freezedElements = freezedElements;
+    }
+
+    public String getObjectives() {
+        return objectives;
+    }
+
+    public void setObjectives(String objectives) {
+        this.objectives = objectives;
     }
 }

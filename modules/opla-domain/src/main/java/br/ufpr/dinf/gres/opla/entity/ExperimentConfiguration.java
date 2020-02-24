@@ -55,6 +55,9 @@ public class ExperimentConfiguration implements Serializable {
     @JoinColumn(name = "experiment_id")
     private Experiment experiment;
 
+    @Column(name = "objectives")
+    private String objectives;
+
     public Integer getId() {
         return id;
     }
@@ -200,4 +203,11 @@ public class ExperimentConfiguration implements Serializable {
                 .append("populationSize", populationSize).append("profilesUsed", profilesUsed).toString();
     }
 
+    public String getObjectives() {
+        return objectives;
+    }
+
+    public void setObjectives(String objectives) {
+        this.objectives = objectives;
+    }
 }

@@ -11,6 +11,7 @@ import results.FunResults;
 import results.InfoResult;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Result {
@@ -55,7 +56,8 @@ public class Result {
         return funResults;
     }
 
-    public List<InfoResult> getInformations(List<Solution> solutionsList, Execution execution, Experiment experiement) {
+    public List<InfoResult> getInformations(List<Solution> solutionsList, Execution execution,
+                                            Experiment experiement, List<FunResults> funResults) {
 
         List<InfoResult> infoResults = new ArrayList<InfoResult>();
 
@@ -70,7 +72,7 @@ public class Result {
                 ir.setExperiement(experiement);
                 if (execution == null)
                     ir.setIsAll(1);
-                ir.setName(plaName + "_" + ir.getId());
+                ir.setName(plaName + "_" + funResults.get(i).getId());
                 ir.setListOfConcerns(getListOfConcerns(arch.getAllConcerns()));
                 ir.setNumberOfPackages(arch.getAllPackages().size());
                 ir.setNumberOfVariabilities(arch.getAllVariabilities().size());
@@ -83,6 +85,7 @@ public class Result {
                 ir.setNumberOfassociationsClass(arch.getRelationshipHolder().getAllAssociationsClass().size());
                 ir.setUserEvaluation(solutionsList.get(i).getEvaluation());
                 ir.setFreezedElements(arch.toStringFreezedElements());
+                ir.setObjectives(Arrays.toString(solutionsList.get(i).getObjectives()));
                 infoResults.add(ir);
             }
         }
