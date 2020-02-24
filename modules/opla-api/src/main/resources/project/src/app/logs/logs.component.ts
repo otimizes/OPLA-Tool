@@ -22,7 +22,7 @@ export class LogsComponent implements OnInit {
       floatLabel: this.floatLabelControl,
     });
     OptimizationService.onOptimizationInfo.asObservable().subscribe(value => {
-      if (value.status === "RUNNING") {
+      if (value && value.status === "RUNNING") {
         if (value.logs && value.logs !== "") {
           this.logs += "\n" + value.logs;
         } else {

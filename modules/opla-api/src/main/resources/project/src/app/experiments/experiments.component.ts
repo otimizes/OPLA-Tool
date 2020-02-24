@@ -38,8 +38,13 @@ export class ExperimentsComponent implements OnInit {
   ngOnInit() {
     this.experimentService.getAll().subscribe(experiments => {
       this.experiments = experiments.values;
-      for (let any of this.experiments) {
+    });
 
+    OptimizationService.onOptimizationInfo.asObservable().subscribe(value => {
+      if (value && value.status === "COMPLETE") {
+        this.experimentService.getAll().subscribe(experiments => {
+          this.experiments = experiments.values;
+        });
       }
     });
   }

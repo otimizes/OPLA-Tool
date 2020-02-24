@@ -16,10 +16,6 @@
     <app-general [formGroup]="generalFormGroup" [optimizationDto]="optimizationDto"></app-general>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Results</ng-template>
-    <app-results></app-results>
-  </mat-step>
-  <mat-step>
     <ng-template matStepLabel>Experiments</ng-template>
     <app-experiments
       [experimentConfigurationService]="experimentConfigurationService"
@@ -27,6 +23,10 @@
       [objectiveService]="objectiveService"
       [infoService]="infoService"
       (download)="download($event)"></app-experiments>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Results Analysis</ng-template>
+    <app-results></app-results>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Logs</ng-template>

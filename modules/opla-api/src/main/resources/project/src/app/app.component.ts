@@ -88,7 +88,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.stepper.selectedIndex = 4;
+    this.stepper.selectedIndex = 0;
   }
 
   ngOnInit() {
