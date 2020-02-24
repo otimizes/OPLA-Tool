@@ -31,11 +31,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   experiments: any;
 
   constructor(private _formBuilder: FormBuilder,
-              private optimizationService: OptimizationService,
-              private experimentService: ExperimentService,
-              private infoService: InfoService,
-              private objectiveService: ObjectiveService,
-              private experimentConfigurationService: ExperimentConfigurationService,
+              public optimizationService: OptimizationService,
+              public experimentService: ExperimentService,
+              public infoService: InfoService,
+              public objectiveService: ObjectiveService,
+              public experimentConfigurationService: ExperimentConfigurationService,
               private snackBar: MatSnackBar, fb: FormBuilder) {
     this.executionFormGroup = fb.group({
       mutation: ['', Validators.compose([Validators.required])],

@@ -99,6 +99,8 @@ THE SOFTWARE.
 
 @angular/material/icon
 
+@angular/material/list
+
 @angular/material/progress-bar
 
 @angular/material/radio
