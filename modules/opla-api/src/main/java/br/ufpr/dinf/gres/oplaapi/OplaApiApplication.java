@@ -16,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -42,6 +43,7 @@ import java.nio.file.Paths;
         "br.ufpr.dinf.gres.oplaapi",
         "br.ufpr.dinf.gres.persistence.service"
 })
+@EnableAsync
 public class OplaApiApplication {
 
     @Autowired

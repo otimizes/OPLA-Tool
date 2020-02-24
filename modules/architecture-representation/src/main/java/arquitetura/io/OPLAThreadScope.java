@@ -16,6 +16,8 @@ public class OPLAThreadScope {
         return format.concat("-" + String.valueOf(Math.round(Math.random() * 10000)));
     });
 
+    public static ThreadLocal<Long> mainThreadId = new ThreadLocal<>();
+
     public static ThreadLocal<ApplicationYamlConfig> config = ThreadLocal.withInitial(() -> ApplicationFile.getInstance().getApplicationYaml());
 
     public static void setConfig(ApplicationYamlConfig config) {

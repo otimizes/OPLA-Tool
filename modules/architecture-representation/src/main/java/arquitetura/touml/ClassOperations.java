@@ -39,7 +39,7 @@ public class ClassOperations extends XmiHelper {
     private org.eclipse.uml2.uml.Stereotype stereotype;
 
     public ClassOperations(DocumentManager documentManager, Architecture a) {
-        uml2Helper = Uml2HelperFactory.getUml2Helper();
+        uml2Helper = Uml2HelperFactory.instance.get();
         this.documentManager = documentManager;
         this.elementXmiGenerator = new ElementXmiGenerator(documentManager, a);
     }

@@ -19,19 +19,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Uml2Helper extends Base {
 
     private static final boolean PRINT_LOGS = false;
-    private static Package profile;
-    private static Uml2Helper instance;
+    private static ThreadLocal<Package> profile = new ThreadLocal<>();
+    public static ThreadLocal<Uml2Helper> instance = ThreadLocal.withInitial(() -> new Uml2Helper());
 
-    public static Uml2Helper getInstance() {
-        if (instance == null)
-            instance = new Uml2Helper();
-        return instance;
-    }
 
     private static boolean fileExists(File file) {
         return file.exists();
@@ -345,15 +340,15 @@ public class Uml2Helper extends Base {
     }
 
     public Profile getSMartyProfile() {
-        return (Profile) profile;
+        return (Profile) profile.get();
     }
 
     public void setSMartyProfile() {
-        profile = loadSMartyProfile();
+        profile.set(loadSMartyProfile());
     }
 
     public EnumerationLiteral getLiteralEnumeration(String name) throws EnumerationNotFoundException {
-        Enumeration a = (Enumeration) getEnumerationByName((Profile) profile, "BindingTime");
+        Enumeration a = (Enumeration) getEnumerationByName((Profile) profile.get(), "BindingTime");
         return a.getOwnedLiteral(name);
     }
 

@@ -26,15 +26,12 @@ import static arquitetura.helpers.ElementsTypes.*;
 /**
  * Helper para atuar sobre um model ( arquitetura ).
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ModelHelper extends ElementHelper {
 
-    private static Uml2Helper uml2Helper;
+    private ThreadLocal<Uml2Helper> uml2Helper = ThreadLocal.withInitial(() -> Uml2HelperFactory.instance.get());
 
-    protected ModelHelper() throws ModelNotFoundException, ModelIncompleteException {
-        uml2Helper = Uml2HelperFactory.getUml2Helper();
-    }
 
     /**
      * Recupera Classes de um pacote.
@@ -224,7 +221,7 @@ public class ModelHelper extends ElementHelper {
     public Package getModel(String xmiFile) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
         //System.out.println(xmiFile);
         if (modelExists(xmiFile))
-            return uml2Helper.load(URI.createURI(xmiFile).toString());
+            return uml2Helper.get().load(URI.createURI(xmiFile).toString());
 
         throw new ModelNotFoundException("Model " + xmiFile + " not found");
     }
@@ -246,7 +243,7 @@ public class ModelHelper extends ElementHelper {
      * Essas variabilidades estão em elementos do tipo {@link Comment}
      *
      * @param model
-     * @return List<{@link Comment}>
+     * @return List<{ @ link Comment }>
      */
     public List<Comment> getAllVariabilities(Package model) {
         List<Comment> variabilities = new ArrayList<Comment>();
@@ -291,7 +288,7 @@ public class ModelHelper extends ElementHelper {
     }
 
     public Package loadConcernProfile() {
-        return uml2Helper.loadConcernProfile();
+        return uml2Helper.get().loadConcernProfile();
     }
 
 }

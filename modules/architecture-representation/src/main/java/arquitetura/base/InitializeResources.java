@@ -19,16 +19,12 @@ import java.util.Map;
  */
 public class InitializeResources {
 
-    private static final InitializeResources initializeResources = new InitializeResources();
+    public static ThreadLocal<InitializeResources> initializeResources = ThreadLocal.withInitial(InitializeResources::new);
     public ResourceSet RESOURCE_SET;
 
     private InitializeResources() {
         RESOURCE_SET = new ResourceSetImpl();
         init();
-    }
-
-    public static InitializeResources getInstance() {
-        return initializeResources;
     }
 
     protected void init() {

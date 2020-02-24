@@ -16,21 +16,21 @@ import java.io.IOException;
  * <p>
  * Mude o Path onde vc quer salvar o arquivo.
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ProfileSMarty {
 
 
-    private static Uml2Helper helper;
-
-    static {
-        helper = Uml2HelperFactory.getUml2Helper();
-    }
+    private static ThreadLocal<Uml2Helper> helperThread = ThreadLocal.withInitial(() -> {
+        return Uml2HelperFactory.instance.get();
+    });
 
     private Profile profile;
     private Enumeration bindingTime;
+    private Uml2Helper helper;
 
     public ProfileSMarty(String profileName) throws ModelNotFoundException {
+        this.helper = ProfileSMarty.helperThread.get();
         this.profile = helper.createProfile(profileName);
         this.profile.setName("smartyProfile");
 

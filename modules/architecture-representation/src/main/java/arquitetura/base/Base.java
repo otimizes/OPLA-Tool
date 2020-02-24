@@ -9,17 +9,13 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
  */
 public abstract class Base {
 
-    static InitializeResources resources;
+    private static ThreadLocal<InitializeResources> resources = ThreadLocal.withInitial(() -> InitializeResources.initializeResources.get());
 
     public Base() {
-        if (resources == null) {
-            //System.out.println("resources nulo");
-            resources = InitializeResources.getInstance();
-        }
     }
 
     public static ResourceSet getResources() {
-        return resources.getResources();
+        return resources.get().getResources();
     }
 
 }

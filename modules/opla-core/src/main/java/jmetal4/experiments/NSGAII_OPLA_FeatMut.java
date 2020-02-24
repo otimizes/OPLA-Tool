@@ -36,10 +36,10 @@ public class NSGAII_OPLA_FeatMut {
 
     private static final Logger LOGGER = Logger.getLogger(NSGAII_OPLA_FeatMut.class);
 
-    public int populationSize;
-    public int maxEvaluations;
-    public double mutationProbability;
-    public double crossoverProbability;
+    private int populationSize;
+    private int maxEvaluations;
+    private double mutationProbability;
+    private double crossoverProbability;
     private Connection connection;
     private AllMetricsPersistenceDependency allMetricsPersistenceDependencies;
     private MetricsPersistence mp;

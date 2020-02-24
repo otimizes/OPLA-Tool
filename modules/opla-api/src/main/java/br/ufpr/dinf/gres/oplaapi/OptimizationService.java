@@ -25,36 +25,35 @@ public class OptimizationService {
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(OptimizationService.class);
     private static final LogLog VIEW_LOGGER = Logger.getLogger();
     static Map<Long, List<OptimizationInfo>> lastLogs = new HashMap<>();
-    private Long id = null;
 
     public Mono<OptimizationInfo> executeNSGAII(OptimizationDto optimizationDto) {
         Thread thread = new Thread(() -> {
+            OPLAThreadScope.mainThreadId.set(Thread.currentThread().getId());
             OPLAThreadScope.setConfig(optimizationDto.getConfig());
             executeNSGAIIAlgorithm(optimizationDto);
         });
-        id = Thread.currentThread().getId();
         thread.start();
-        return Mono.just(new OptimizationInfo(id, "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
+        return Mono.just(new OptimizationInfo(thread.getId(), "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
     }
 
     public Mono<OptimizationInfo> executePAES(OptimizationDto optimizationDto) {
         Thread thread = new Thread(() -> {
+            OPLAThreadScope.mainThreadId.set(Thread.currentThread().getId());
             OPLAThreadScope.setConfig(optimizationDto.getConfig());
             executePAESAlgorithm(optimizationDto);
         });
-        id = Thread.currentThread().getId();
         thread.start();
-        return Mono.just(new OptimizationInfo(id, "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
+        return Mono.just(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
     }
 
     private void executeNSGAIIAlgorithm(OptimizationDto optimizationDto) {
 
         Logger.addListener(() -> {
             String s = LogLogData.printLog();
-            if (OptimizationService.lastLogs.get(id) != null && lastLogs.get(id).size() >= 100) {
-                lastLogs.get(id).clear();
+            if (OptimizationService.lastLogs.get(OPLAThreadScope.mainThreadId.get()) != null && lastLogs.get(OPLAThreadScope.mainThreadId.get()).size() >= 100) {
+                lastLogs.get(OPLAThreadScope.mainThreadId.get()).clear();
             }
-            lastLogs.computeIfAbsent(id, k -> new ArrayList<>()).add(new OptimizationInfo(id, s, OptimizationInfoStatus.RUNNING));
+            lastLogs.computeIfAbsent(OPLAThreadScope.mainThreadId.get(), k -> new ArrayList<>()).add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), s, OptimizationInfoStatus.RUNNING));
         });
 
         LOGGER.info("set configuration path");
@@ -141,22 +140,22 @@ public class OptimizationService {
             nsgaii.run();
         } catch (Exception e) {
             e.printStackTrace();
-            lastLogs.get(id).clear();
-            lastLogs.computeIfAbsent(id, k -> new ArrayList<>()).add(new OptimizationInfo(id, "ERROR", OptimizationInfoStatus.COMPLETE));
+            lastLogs.get(OPLAThreadScope.mainThreadId.get()).clear();
+            lastLogs.computeIfAbsent(OPLAThreadScope.mainThreadId.get(), k -> new ArrayList<>()).add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), "ERROR", OptimizationInfoStatus.COMPLETE));
         }
         LOGGER.info("Fim Execução NSGAII");
-        lastLogs.get(id).clear();
-        lastLogs.computeIfAbsent(id, k -> new ArrayList<>()).add(new OptimizationInfo(id, "Fin", OptimizationInfoStatus.COMPLETE));
+        lastLogs.get(OPLAThreadScope.mainThreadId.get()).clear();
+        lastLogs.computeIfAbsent(OPLAThreadScope.mainThreadId.get(), k -> new ArrayList<>()).add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), "Fin", OptimizationInfoStatus.COMPLETE));
     }
 
     private void executePAESAlgorithm(OptimizationDto optimizationDto) {
 
         Logger.addListener(() -> {
             String s = LogLogData.printLog();
-            if (OptimizationService.lastLogs.get(id) != null && lastLogs.get(id).size() >= 100) {
-                lastLogs.get(id).clear();
+            if (OptimizationService.lastLogs.get(OPLAThreadScope.mainThreadId.get()) != null && lastLogs.get(OPLAThreadScope.mainThreadId.get()).size() >= 100) {
+                lastLogs.get(OPLAThreadScope.mainThreadId.get()).clear();
             }
-            lastLogs.computeIfAbsent(id, k -> new ArrayList<>()).add(new OptimizationInfo(id, s, OptimizationInfoStatus.RUNNING));
+            lastLogs.computeIfAbsent(OPLAThreadScope.mainThreadId.get(), k -> new ArrayList<>()).add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), s, OptimizationInfoStatus.RUNNING));
         });
 
         ReaderConfig.setPathToConfigurationFile(UserHome.getPathToConfigFile());
@@ -214,11 +213,11 @@ public class OptimizationService {
             paes.run();
         } catch (Exception e) {
             e.printStackTrace();
-            lastLogs.get(id).clear();
-            lastLogs.computeIfAbsent(id, k -> new ArrayList<>()).add(new OptimizationInfo(id, "ERROR", OptimizationInfoStatus.COMPLETE));
+            lastLogs.get(OPLAThreadScope.mainThreadId.get()).clear();
+            lastLogs.computeIfAbsent(OPLAThreadScope.mainThreadId.get(), k -> new ArrayList<>()).add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), "ERROR", OptimizationInfoStatus.COMPLETE));
         }
         LOGGER.info("Fim Execução NSGAII");
-        lastLogs.get(id).clear();
-        lastLogs.computeIfAbsent(id, k -> new ArrayList<>()).add(new OptimizationInfo(id, "Fin", OptimizationInfoStatus.COMPLETE));
+        lastLogs.get(OPLAThreadScope.mainThreadId.get()).clear();
+        lastLogs.computeIfAbsent(OPLAThreadScope.mainThreadId.get(), k -> new ArrayList<>()).add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), "Fin", OptimizationInfoStatus.COMPLETE));
     }
 }
