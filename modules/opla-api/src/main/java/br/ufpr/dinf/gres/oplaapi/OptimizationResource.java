@@ -3,10 +3,11 @@ package br.ufpr.dinf.gres.oplaapi;
 import arquitetura.config.ApplicationFile;
 import arquitetura.config.ApplicationYamlConfig;
 import arquitetura.config.PathConfig;
+import arquitetura.io.OPLALogs;
+import arquitetura.io.OptimizationInfo;
+import arquitetura.io.OptimizationInfoStatus;
 import arquitetura.util.Constants;
 import br.ufpr.dinf.gres.oplaapi.dto.OptimizationDto;
-import br.ufpr.dinf.gres.oplaapi.dto.OptimizationInfo;
-import br.ufpr.dinf.gres.oplaapi.dto.OptimizationInfoStatus;
 import br.ufpr.dinf.gres.oplaapi.dto.OptimizationOptionsDTO;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.http.HttpStatus;
@@ -88,10 +89,10 @@ public class OptimizationResource {
     public Flux<OptimizationInfo> optimizationInfo(@PathVariable Long id) {
         return Flux.interval(Duration.ofMillis(500)).take(50).onBackpressureBuffer(50)
                 .map(str -> {
-                    if (OptimizationService.lastLogs.get(id) != null && !OptimizationService.lastLogs.get(id).isEmpty()) {
-                        OptimizationInfo optimizationInfo = OptimizationService.lastLogs.get(id).get(0);
+                    if (OPLALogs.lastLogs.get(id) != null && !OPLALogs.lastLogs.get(id).isEmpty()) {
+                        OptimizationInfo optimizationInfo = OPLALogs.lastLogs.get(id).get(0);
                         return OptimizationInfoStatus.COMPLETE.equals(optimizationInfo.status)
-                                ? optimizationInfo : OptimizationService.lastLogs.get(id).remove(0);
+                                ? optimizationInfo : OPLALogs.lastLogs.get(id).remove(0);
                     }
                     return new OptimizationInfo(id, "", OptimizationInfoStatus.RUNNING);
                 });

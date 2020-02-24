@@ -4,7 +4,10 @@ import arquitetura.config.ApplicationFile;
 import arquitetura.config.ApplicationYamlConfig;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class OPLAThreadScope {
 
@@ -17,6 +20,8 @@ public class OPLAThreadScope {
     });
 
     public static ThreadLocal<Long> mainThreadId = new ThreadLocal<>();
+
+    public static ThreadLocal<Integer> currentGeneration = new ThreadLocal<>();
 
     public static ThreadLocal<ApplicationYamlConfig> config = ThreadLocal.withInitial(() -> ApplicationFile.getInstance().getApplicationYaml());
 

@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.oplaapi.dto;
+package arquitetura.io;
 
 public enum OptimizationInfoStatus {
     RUNNING, COMPLETE;

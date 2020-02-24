@@ -21,6 +21,10 @@
 
 package jmetal4.metaheuristics.nsgaII;
 
+import arquitetura.io.OPLALogs;
+import arquitetura.io.OPLAThreadScope;
+import arquitetura.io.OptimizationInfo;
+import arquitetura.io.OptimizationInfoStatus;
 import arquitetura.representation.Element;
 import com.rits.cloning.Cloner;
 import jmetal4.core.*;
@@ -224,6 +228,8 @@ public class NSGAII extends Algorithm {
                 // than the hypervolume of the true Pareto front.
 
                 int generation = evaluations / populationSize;
+                OPLAThreadScope.currentGeneration.set(generation);
+                OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
                 LOGGER.info(">> GENERATION " + generation);
                 // The score is set up to 0 because in future mutations the object can be modified and due to the score the modified solution is manteined imutable
                 for (Solution solution : offspringPopulation.getSolutionSet()) {
