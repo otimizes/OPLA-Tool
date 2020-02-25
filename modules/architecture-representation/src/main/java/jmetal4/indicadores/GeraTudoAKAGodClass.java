@@ -1,4 +1,4 @@
-package patterns.indicadores;
+package jmetal4.indicadores;
 
 import jmetal4.core.SolutionSet;
 import jmetal4.qualityIndicator.util.MetricsUtil;

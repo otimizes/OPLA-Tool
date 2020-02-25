@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package patterns.indicadores;
+package jmetal4.indicadores;
 
 import jmetal4.qualityIndicator.util.MetricsUtil;
 

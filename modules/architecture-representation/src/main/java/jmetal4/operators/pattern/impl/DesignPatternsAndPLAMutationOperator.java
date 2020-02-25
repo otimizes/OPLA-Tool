@@ -1,6 +1,6 @@
-package patterns.operator.impl;
+package jmetal4.operators.pattern.impl;
 
-import patterns.operator.AbstractMutationOperator;
+import jmetal4.operators.pattern.AbstractMutationOperator;
 import patterns.strategies.designpatternselection.DesignPatternSelectionStrategy;
 import patterns.strategies.scopeselection.ScopeSelectionStrategy;
 import jmetal4.core.Solution;

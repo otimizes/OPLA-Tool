@@ -1,7 +1,7 @@
 package jmetal4.operators.mutation;
 
 import jmetal4.util.PseudoRandom;
-import patterns.operator.impl.DesignPatternMutationOperator;
+import jmetal4.operators.pattern.impl.DesignPatternMutationOperator;
 
 import java.util.Map;
 

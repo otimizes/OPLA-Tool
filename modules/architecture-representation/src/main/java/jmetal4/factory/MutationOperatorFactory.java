@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package patterns.factory;
+package jmetal4.factory;
 
-import patterns.operator.impl.DesignPatternMutationOperator;
-import patterns.operator.impl.DesignPatternsAndPLAMutationOperator;
-import patterns.operator.impl.PLAMutation;
-import patterns.operator.impl.PLAMutationThenDesignPatternsMutationOperator;
+import jmetal4.operators.pattern.impl.DesignPatternMutationOperator;
+import jmetal4.operators.pattern.impl.DesignPatternsAndPLAMutationOperator;
+import jmetal4.operators.pattern.impl.PLAMutation;
+import jmetal4.operators.pattern.impl.PLAMutationThenDesignPatternsMutationOperator;
 import jmetal4.operators.mutation.Mutation;
 
 import java.util.Map;

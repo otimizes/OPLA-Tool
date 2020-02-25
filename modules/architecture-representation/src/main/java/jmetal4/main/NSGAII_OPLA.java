@@ -1,10 +1,10 @@
-package patterns.main;
+package jmetal4.main;
 
 import arquitetura.io.ReaderConfig;
-import patterns.factory.MutationOperatorFactory;
-import patterns.indicadores.Hypervolume;
+import jmetal4.factory.MutationOperatorFactory;
+import jmetal4.indicadores.Hypervolume;
 import patterns.repositories.ArchitectureRepository;
-import jmetal4.core.Solution;
+import jmetal4.core.Algorithm;
 import jmetal4.core.SolutionSet;
 import jmetal4.metaheuristics.nsgaII.NSGAII;
 import jmetal4.operators.crossover.Crossover;
@@ -19,10 +19,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-public class NSGAII_OPLA_PLAThenDPM {
+public class NSGAII_OPLA {
 
     public static int populationSize_;
     public static int maxEvaluations_;
@@ -32,15 +31,16 @@ public class NSGAII_OPLA_PLAThenDPM {
     //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
     public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
-//        args = new String[]{"100", "1000", "0.9", ArchitectureRepository.AGM, "Teste", "false"};
-        if (args.length < 6) {
+//        args = new String[]{"1", "1", "0.0", ArchitectureRepository.BET, "Teste", "PLAMutation", "false"};
+        if (args.length < 7) {
             System.out.println("You need to inform the following parameters:");
             System.out.println("\t1 - Population Size (Integer);"
                     + "\n\t2 - Max Evaluations (Integer);"
                     + "\n\t3 - Mutation Probability (Double);"
                     + "\n\t4 - PLA path;"
                     + "\n\t5 - Context;"
-                    + "\n\t6 - If you want to write the variables (Boolean).");
+                    + "\n\t6 - Mutation Operator class simple name;"
+                    + "\n\t7 - If you want to write the variables (Boolean).");
             System.exit(0);
         }
 
@@ -80,8 +80,6 @@ public class NSGAII_OPLA_PLAThenDPM {
         Map<String, Object> parameters; // Operator parameters
         parameters = new HashMap<>();
         parameters.put("probability", mutationProbability_);
-        Mutation designPatternMutation = MutationOperatorFactory.create("DesignPatternsMutationOperator", parameters);
-        Mutation plaMutation = MutationOperatorFactory.create("PLAMutation", parameters);
 
         if (args[3] == null || args[3].trim().equals("")) {
             System.out.println("Missing PLA Path argument.");
@@ -96,10 +94,16 @@ public class NSGAII_OPLA_PLAThenDPM {
         String context = args[4];
 
         if (args[5] == null || args[5].trim().equals("")) {
+            System.out.println("Missing mutation operator argument.");
+            System.exit(1);
+        }
+        Mutation mutation = MutationOperatorFactory.create(args[5], parameters);
+
+        if (args[6] == null || args[6].trim().equals("")) {
             System.out.println("Missing print variables argument.");
             System.exit(1);
         }
-        boolean shouldPrintVariables = Boolean.valueOf(args[5]);
+        boolean shouldPrintVariables = Boolean.valueOf(args[6]);
 
         String plaName = getPlaName(pla);
 
@@ -126,7 +130,7 @@ public class NSGAII_OPLA_PLAThenDPM {
             e.printStackTrace();
         }
 
-        NSGAII algorithm;
+        Algorithm algorithm;
         SolutionSet todasRuns = new SolutionSet();
         // Thelma - Dez2013 - adicao da linha abaixo
         SolutionSet allSolutions = new SolutionSet();
@@ -138,7 +142,7 @@ public class NSGAII_OPLA_PLAThenDPM {
 
         // Algorithm parameters
         algorithm.setInputParameter("populationSize", populationSize_);
-        algorithm.setInputParameter("maxEvaluations", maxEvaluations_ / 2);
+        algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
 
         // Mutation and Crossover
         parameters = new HashMap<>();
@@ -151,8 +155,7 @@ public class NSGAII_OPLA_PLAThenDPM {
 
         // Add the operators to the algorithm
         algorithm.addOperator("crossover", crossover);
-
-        algorithm.addOperator("mutation", plaMutation);
+        algorithm.addOperator("mutation", mutation);
         algorithm.addOperator("selection", selection);
 
         System.out.println("\n================ NSGAII ================");
@@ -174,32 +177,15 @@ public class NSGAII_OPLA_PLAThenDPM {
 
         for (int runs = 0; runs < runsNumber; runs++) {
 
-            // Execute the Algorithm PLA Mutation
+            // Execute the Algorithm
             long initTime = System.currentTimeMillis();
             SolutionSet resultFront = algorithm.execute();
-
-            resultFront = problem.removeDominadas(resultFront);
-            resultFront = problem.removeRepetidas(resultFront);
-
-            //Parte do algoritmo que executa o operador de mutação de padrões de projeto
-            algorithm.addOperator("mutation", designPatternMutation);
-            {
-                SolutionSet tempResultFront = new SolutionSet(populationSize_);
-                for (Iterator<Solution> it = resultFront.iterator(); it.hasNext(); ) {
-                    Solution solution = it.next();
-                    tempResultFront.add(solution);
-                }
-                resultFront = tempResultFront;
-            }
-//            resultFront = algorithm.execute(resultFront, 0);
-            resultFront = algorithm.execute();
             long estimatedTime = System.currentTimeMillis() - initTime;
-
-            resultFront = problem.removeDominadas(resultFront);
-            resultFront = problem.removeRepetidas(resultFront);
-
             //System.out.println("Iruns: " + runs + "\tTotal time: " + estimatedTime);
             time[runs] = estimatedTime;
+
+            resultFront = problem.removeDominadas(resultFront);
+            resultFront = problem.removeRepetidas(resultFront);
 
             resultFront.printObjectivesToFile(directory + "/FUN_" + plaName + "_" + runs + ".txt");
             //resultFront.printVariablesToFile(directory + "/VAR_" + runs);

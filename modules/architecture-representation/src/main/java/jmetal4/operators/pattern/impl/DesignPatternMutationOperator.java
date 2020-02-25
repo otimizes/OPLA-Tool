@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package patterns.operator.impl;
+package jmetal4.operators.pattern.impl;
 
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Patterns;
 import patterns.designpatterns.DesignPattern;
 import patterns.models.Scope;
-import patterns.operator.AbstractMutationOperator;
+import jmetal4.operators.pattern.AbstractMutationOperator;
 import patterns.repositories.ArchitectureRepository;
 import patterns.strategies.designpatternselection.DesignPatternSelectionStrategy;
 import patterns.strategies.designpatternselection.defaultstrategy.RandomDesignPatternSelection;

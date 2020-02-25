@@ -1,4 +1,4 @@
-package patterns.operator;
+package jmetal4.operators.pattern;
 
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.ConcernNotFoundException;
@@ -6,7 +6,7 @@ import arquitetura.exceptions.NotFoundException;
 import arquitetura.exceptions.PackageNotFound;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
-import patterns.operator.impl.DesignPatternsAndPLAMutationOperator;
+import jmetal4.operators.pattern.impl.DesignPatternsAndPLAMutationOperator;
 import jmetal4.core.Solution;
 import jmetal4.operators.mutation.Mutation;
 import jmetal4.util.Configuration;

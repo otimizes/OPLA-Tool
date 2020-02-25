@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package patterns.operator.impl;
+package jmetal4.operators.pattern.impl;
 
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.helpers.UtilResources;
@@ -12,7 +12,7 @@ import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
-import patterns.operator.AbstractMutationOperator;
+import jmetal4.operators.pattern.AbstractMutationOperator;
 import jmetal4.core.Solution;
 import jmetal4.operators.mutation.PLAFeatureMutation;
 import jmetal4.problems.OPLA;
