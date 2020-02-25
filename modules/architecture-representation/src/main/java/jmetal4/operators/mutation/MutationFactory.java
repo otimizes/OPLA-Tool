@@ -29,6 +29,8 @@ import br.ufpr.inf.opla.patterns.strategies.designpatternselection.impl.CustomDe
 import jmetal4.experiments.ExperimentCommomConfigs;
 import jmetal4.util.Configuration;
 import jmetal4.util.JMException;
+import patterns.operator.impl.DesignPatternMutationOperator;
+import patterns.strategies.designpatternselection.impl.CustomDesignPatternSelection;
 
 public class MutationFactory {
 
