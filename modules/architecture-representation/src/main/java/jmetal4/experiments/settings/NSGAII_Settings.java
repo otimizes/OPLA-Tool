@@ -23,18 +23,18 @@ package jmetal4.experiments.settings;
 
 import java.util.HashMap;
 
-import jmetal45.core.Algorithm;
-import jmetal45.experiments.Settings;
-import jmetal45.metaheuristics.nsgaII.NSGAII;
-import jmetal45.operators.crossover.Crossover;
-import jmetal45.operators.crossover.CrossoverFactory;
-import jmetal45.operators.mutation.Mutation;
-import jmetal45.operators.mutation.MutationFactory;
-import jmetal45.operators.selection.Selection;
-import jmetal45.operators.selection.SelectionFactory;
-import jmetal45.problems.ProblemFactory;
-import jmetal45.qualityIndicator.QualityIndicator;
-import jmetal45.util.JMException;
+import jmetal4.core.Algorithm;
+import jmetal4.experiments.Settings;
+import jmetal4.metaheuristics.nsgaII.NSGAII;
+import jmetal4.operators.crossover.Crossover;
+import jmetal4.operators.crossover.CrossoverFactory;
+import jmetal4.operators.mutation.Mutation;
+import jmetal4.operators.mutation.MutationFactory;
+import jmetal4.operators.selection.Selection;
+import jmetal4.operators.selection.SelectionFactory;
+import jmetal4.problems.ProblemFactory;
+import jmetal4.qualityIndicator.QualityIndicator;
+import jmetal4.util.JMException;
 
 /**
  * Settings class of algorithm NSGA-II (real encoding)
@@ -50,15 +50,15 @@ public class NSGAII_Settings extends Settings {
     /**
      * Constructor
      *
-     * @throws jmetal45.util.JMException
+     * @throws jmetal4.util.JMException
      */
-    public NSGAII_Settings(String problem) throws jmetal45.util.JMException {
+    public NSGAII_Settings(String problem) throws jmetal4.util.JMException {
         super(problem);
 
         Object[] problemParams = {"Real"};
         try {
             problem_ = (new ProblemFactory()).getProblem(problemName_, problemParams);
-        } catch (jmetal45.util.JMException e) {
+        } catch (jmetal4.util.JMException e) {
             e.printStackTrace();
         }
         // Default settings
@@ -75,9 +75,9 @@ public class NSGAII_Settings extends Settings {
      * Configure NSGAII with user-defined parameter settings
      *
      * @return A NSGAII algorithm object
-     * @throws jmetal45.util.JMException
+     * @throws jmetal4.util.JMException
      */
-    public jmetal45.core.Algorithm configure() throws JMException {
+    public jmetal4.core.Algorithm configure() throws JMException {
         Algorithm algorithm;
         Selection selection;
         Crossover crossover;
@@ -85,7 +85,7 @@ public class NSGAII_Settings extends Settings {
 
         HashMap parameters; // Operator parameters
 
-        jmetal45.qualityIndicator.QualityIndicator indicators;
+        jmetal4.qualityIndicator.QualityIndicator indicators;
 
         // Creating the algorithm. There are two choices: NSGAII and its steady-
         // state variant ssNSGAII

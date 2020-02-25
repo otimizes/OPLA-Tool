@@ -156,7 +156,7 @@ public abstract class Settings {
                                         (fields[j].get(this) != null)) {
                                     if (fields[j].getType().equals(int.class) ||
                                             fields[j].getType().equals(Integer.class)) {
-                                        operator.setParameter(tmp, fields[j].getInt(this));
+                                        operator.setParameter(tmp, (double) fields[j].getInt(this));
                                     } else if (fields[j].getType().equals(double.class) ||
                                             fields[j].getType().equals(Double.class)) {
                                         operator.setParameter(tmp, fields[j].getDouble(this));

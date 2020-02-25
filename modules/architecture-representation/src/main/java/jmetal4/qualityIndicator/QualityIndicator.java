@@ -30,9 +30,9 @@ import jmetal4.core.SolutionSet;
  * QualityIndicator class
  */
 public class QualityIndicator {
-	
-	private static final Logger LOGGER = Logger.getLogger(QualityIndicator.class);
-	
+
+    private static final Logger LOGGER = Logger.getLogger(QualityIndicator.class);
+
     SolutionSet trueParetoFront_;
     double trueParetoFrontHypervolume_;
     Problem problem_;
@@ -60,7 +60,7 @@ public class QualityIndicator {
      * @return The value of the hypervolume indicator
      */
     public double getHypervolume(SolutionSet solutionSet) {
-    	LOGGER.info("getHypervolume()");
+        LOGGER.info("getHypervolume()");
         return new Hypervolume().hypervolume(solutionSet.writeObjectivesToMatrix(),
                 trueParetoFront_.writeObjectivesToMatrix(),
                 problem_.getNumberOfObjectives());
@@ -101,6 +101,18 @@ public class QualityIndicator {
                 trueParetoFront_.writeObjectivesToMatrix(),
                 problem_.getNumberOfObjectives());
     } // getGD
+
+
+    public double getGD(SolutionSet front, SolutionSet trueFront, int numberOfObjectives) {
+        return new GenerationalDistance().generationalDistance(front.writeObjectivesToMatrix(),
+                trueFront.writeObjectivesToMatrix(), numberOfObjectives);
+    } // getGD
+
+    public double getIGD(SolutionSet front, SolutionSet trueFront, int numberOfObjectives) {
+        System.out.println("IGD");
+        return new InvertedGenerationalDistance().invertedGenerationalDistance(front.writeObjectivesToMatrix(),
+                trueFront.writeObjectivesToMatrix(), numberOfObjectives);
+    } // getIGD
 
     /**
      * Returns the spread of solution set

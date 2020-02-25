@@ -191,7 +191,8 @@ public class NSGAII_OPLA_PLAThenDPM {
                 }
                 resultFront = tempResultFront;
             }
-            resultFront = algorithm.execute(resultFront, 0);
+//            resultFront = algorithm.execute(resultFront, 0);
+            resultFront = algorithm.execute();
             long estimatedTime = System.currentTimeMillis() - initTime;
 
             resultFront = problem.removeDominadas(resultFront);

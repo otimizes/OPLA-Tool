@@ -250,4 +250,9 @@ public abstract class Problem implements Serializable {
         }
         return result;
     } // getNumberOfBits();
+
+    public void setnumberOfObjectives(int numberOfObjectives) {
+        numberOfObjectives_ = numberOfObjectives;
+    }
+
 } // Problem

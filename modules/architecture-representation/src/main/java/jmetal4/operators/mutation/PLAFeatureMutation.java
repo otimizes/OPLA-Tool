@@ -1,14 +1,6 @@
 package jmetal4.operators.mutation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -49,6 +41,14 @@ public class PLAFeatureMutation extends Mutation {
     public PLAFeatureMutation(HashMap<String, Object> parameters, List<String> mutationOperators) {
         super(parameters);
         this.mutationOperators = mutationOperators;
+
+        if (parameters.get("probability") != null) {
+            mutationProbability = (Double) parameters.get("probability");
+        }
+    }
+
+    public PLAFeatureMutation(Map<String, Object> parameters) {
+        super(parameters);
 
         if (parameters.get("probability") != null) {
             mutationProbability = (Double) parameters.get("probability");

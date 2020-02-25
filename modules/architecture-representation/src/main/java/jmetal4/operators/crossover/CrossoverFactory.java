@@ -55,6 +55,14 @@ public class CrossoverFactory {
         }
     }
 
-    public static Crossover getCrossoverOperator(String sbxCrossover, HashMap parameters) {
+    public static Crossover getCrossoverOperator(String name, Map<String, Object> parameters) throws JMException {
+        if (name.equalsIgnoreCase("PLACrossover"))
+            return new PLACrossover2(parameters);
+        else {
+            Configuration.logger_.severe("CrossoverFactory.getCrossoverOperator. " +
+                    "Operator '" + name + "' not found ");
+            throw new JMException("Exception in " + name + ".getCrossoverOperator()");
+        }
     }
+
 }

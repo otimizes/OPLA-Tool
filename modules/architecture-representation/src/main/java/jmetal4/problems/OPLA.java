@@ -48,6 +48,22 @@ public class OPLA extends Problem {
     public OPLA() {
     }
 
+    public OPLA(String xmiFilePath) throws Exception {
+
+        numberOfVariables_ = 1;
+        numberOfObjectives_ = 2;
+        numberOfConstraints_ = 0;
+        problemName_ = "OPLA";
+        solutionType_ = new ArchitectureSolutionType(this);
+        variableType_ = new java.lang.Class[numberOfVariables_];
+        length_ = new int[numberOfVariables_];
+        variableType_[0] = java.lang.Class
+                .forName(Architecture.ARCHITECTURE_TYPE);
+
+        architecture_ = new ArchitectureBuilder().create(xmiFilePath);
+    }
+
+
     public OPLA(String xmiFilePath, ExperimentCommomConfigs oplaConfig) throws Exception {
         LOGGER.info("Setando configurações");
         this.configs = oplaConfig;
@@ -131,7 +147,7 @@ public class OPLA extends Problem {
                 case "av":
                     fitnesses.add(new jmetal4.experiments.Fitness(evaluateAv((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                    //addYni
+                //addYni
                 case "lcc":
                     fitnesses.add(new jmetal4.experiments.Fitness(evaluateLCC((Architecture) solution.getDecisionVariables()[0])));
                     break;
@@ -306,7 +322,7 @@ public class OPLA extends Problem {
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     public SolutionSet removeDominadas(SolutionSet result) {
-        List<Solution> collect = result.getSolutionSet().stream().filter(r ->  (r.getEvaluation() >= 5)).collect(Collectors.toList());
+        List<Solution> collect = result.getSolutionSet().stream().filter(r -> (r.getEvaluation() >= 5)).collect(Collectors.toList());
         LOGGER.info("removeDominadas()");
         boolean dominador, dominado;
         double valor1 = 0;

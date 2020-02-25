@@ -6,6 +6,7 @@ import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.LogLogData;
 import br.ufpr.dinf.gres.loglog.Logger;
 import br.ufpr.dinf.gres.oplaapi.dto.OptimizationDto;
+import jmetal4.experiments.*;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;

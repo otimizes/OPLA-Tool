@@ -28,6 +28,7 @@ import patterns.operator.impl.DesignPatternMutationOperator;
 import patterns.strategies.designpatternselection.impl.CustomDesignPatternSelection;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MutationFactory {
 
@@ -75,4 +76,15 @@ public class MutationFactory {
     private static boolean isOnlyDesignPattern(ExperimentCommomConfigs configs) {
         return configs.getMutationOperators().contains(DESIGN_PATTERNS) && configs.getMutationOperators().size() == 1;
     }
+    public static Mutation getMutationOperator(String name, Map<String, Object> parameters) throws JMException {
+
+        if (name.equalsIgnoreCase("PLAFeatureMutation"))
+            return new PLAFeatureMutation(parameters);
+        else {
+            Configuration.logger_.severe("Operator '" + name + "' not found ");
+            Class<?> cls = java.lang.String.class;
+            String name2 = cls.getName();
+            throw new JMException("Exception in " + name2 + ".getMutationOperator()");
+        }
+    } // getMutationOperator
 }
