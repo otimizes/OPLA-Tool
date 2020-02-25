@@ -6,7 +6,6 @@
 
 package results;
 
-import arquitetura.io.OPLAThreadScope;
 import database.Database;
 import metrics.*;
 import utils.Id;

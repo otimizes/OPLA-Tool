@@ -25,6 +25,7 @@ import jmetal4.experiments.ExperimentCommomConfigs;
 import jmetal4.util.Configuration;
 import jmetal4.util.JMException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -52,5 +53,8 @@ public class CrossoverFactory {
                     .severe("CrossoverFactory.getCrossoverOperator. " + "Operator '" + name + "' not found ");
             throw new JMException("Exception in " + name + ".getCrossoverOperator()");
         }
+    }
+
+    public static Crossover getCrossoverOperator(String sbxCrossover, HashMap parameters) {
     }
 }

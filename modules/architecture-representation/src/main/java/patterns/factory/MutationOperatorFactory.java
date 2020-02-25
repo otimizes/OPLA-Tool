@@ -9,7 +9,7 @@ import patterns.operator.impl.DesignPatternMutationOperator;
 import patterns.operator.impl.DesignPatternsAndPLAMutationOperator;
 import patterns.operator.impl.PLAMutation;
 import patterns.operator.impl.PLAMutationThenDesignPatternsMutationOperator;
-import jmetal45.operators.mutation.Mutation;
+import jmetal4.operators.mutation.Mutation;
 
 import java.util.Map;
 

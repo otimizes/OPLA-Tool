@@ -1,8 +1,8 @@
 package patterns.indicadores;
 
-import jmetal45.core.SolutionSet;
-import jmetal45.qualityIndicator.util.MetricsUtil;
-import jmetal45.util.JMException;
+import jmetal4.core.SolutionSet;
+import jmetal4.qualityIndicator.util.MetricsUtil;
+import jmetal4.util.JMException;
 import org.apache.log4j.Logger;
 
 import java.io.*;

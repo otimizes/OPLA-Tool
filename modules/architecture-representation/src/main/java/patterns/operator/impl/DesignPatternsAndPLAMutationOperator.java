@@ -3,8 +3,8 @@ package patterns.operator.impl;
 import patterns.operator.AbstractMutationOperator;
 import patterns.strategies.designpatternselection.DesignPatternSelectionStrategy;
 import patterns.strategies.scopeselection.ScopeSelectionStrategy;
-import jmetal45.core.Solution;
-import jmetal45.util.PseudoRandom;
+import jmetal4.core.Solution;
+import jmetal4.util.PseudoRandom;
 
 import java.util.Map;
 

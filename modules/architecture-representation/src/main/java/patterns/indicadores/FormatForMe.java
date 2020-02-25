@@ -5,7 +5,7 @@
  */
 package patterns.indicadores;
 
-import jmetal45.qualityIndicator.util.MetricsUtil;
+import jmetal4.qualityIndicator.util.MetricsUtil;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
