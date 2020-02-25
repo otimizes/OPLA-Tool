@@ -1,9 +1,9 @@
 package jmetal4.operators.mutation;
 
-import java.util.Map;
-
-import br.ufpr.inf.opla.patterns.operator.impl.DesignPatternMutationOperator;
 import jmetal4.util.PseudoRandom;
+import patterns.operator.impl.DesignPatternMutationOperator;
+
+import java.util.Map;
 
 public class DesignPatternAndPLAMutation extends Mutation {
 
