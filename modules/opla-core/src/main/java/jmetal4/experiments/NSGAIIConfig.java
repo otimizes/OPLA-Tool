@@ -1,5 +1,7 @@
 package jmetal4.experiments;
 
+import domain.experiments.ExperimentCommomConfigs;
+
 public class NSGAIIConfig extends ExperimentCommomConfigs {
 
     private int populationSize;

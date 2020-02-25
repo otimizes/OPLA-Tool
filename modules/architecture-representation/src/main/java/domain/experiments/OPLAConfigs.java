@@ -1,4 +1,4 @@
-package jmetal4.experiments;
+package domain.experiments;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package jmetal4.experiments;
+package domain.experiments;
 
 import br.ufpr.dinf.gres.loglog.LogLog;
 import domain.InteractiveFunction;

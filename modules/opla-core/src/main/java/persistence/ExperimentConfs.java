@@ -2,7 +2,7 @@ package persistence;
 
 import database.Database;
 import exceptions.MissingConfigurationException;
-import jmetal4.experiments.ExperimentCommomConfigs;
+import domain.experiments.ExperimentCommomConfigs;
 import jmetal4.experiments.NSGAIIConfig;
 import jmetal4.experiments.PaesConfigs;
 

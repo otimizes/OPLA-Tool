@@ -15,7 +15,7 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Interface;
 import domain.core.Solution;
-import jmetal4.experiments.ExperimentCommomConfigs;
+import domain.experiments.ExperimentCommomConfigs;
 import domain.util.PseudoRandom;
 
 /**

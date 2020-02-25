@@ -11,7 +11,7 @@ import domain.core.Solution;
 import domain.core.SolutionSet;
 import domain.encodings.solutionType.ArchitectureSolutionType;
 import domain.experiments.Fitness;
-import jmetal4.experiments.ExperimentCommomConfigs;
+import domain.experiments.ExperimentCommomConfigs;
 import domain.metrics.PLAMetrics.extensibility.ExtensPLA;
 import domain.metrics.concernDrivenMetrics.concernCohesion.LCC;
 import domain.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
