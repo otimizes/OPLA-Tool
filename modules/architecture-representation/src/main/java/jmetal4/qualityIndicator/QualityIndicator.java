@@ -21,6 +21,8 @@
 
 package jmetal4.qualityIndicator;
 
+import org.apache.log4j.Logger;
+
 import jmetal4.core.Problem;
 import jmetal4.core.SolutionSet;
 
@@ -28,10 +30,12 @@ import jmetal4.core.SolutionSet;
  * QualityIndicator class
  */
 public class QualityIndicator {
+	
+	private static final Logger LOGGER = Logger.getLogger(QualityIndicator.class);
+	
     SolutionSet trueParetoFront_;
     double trueParetoFrontHypervolume_;
     Problem problem_;
-    int numeroObjetivos_;
     jmetal4.qualityIndicator.util.MetricsUtil utilities_;
 
     /**
@@ -39,31 +43,15 @@ public class QualityIndicator {
      *
      * @param paretoFrontFile
      */
-
     public QualityIndicator(Problem problem, String paretoFrontFile) {
         problem_ = problem;
-
         utilities_ = new jmetal4.qualityIndicator.util.MetricsUtil();
         trueParetoFront_ = utilities_.readNonDominatedSolutionSet(paretoFrontFile);
-        trueParetoFrontHypervolume_ = new Hypervolume().hypervolume(trueParetoFront_.writeObjectivesToMatrix(),
-                trueParetoFront_.writeObjectivesToMatrix(), problem_.getNumberOfObjectives());
+        trueParetoFrontHypervolume_ = new Hypervolume().hypervolume(
+                trueParetoFront_.writeObjectivesToMatrix(),
+                trueParetoFront_.writeObjectivesToMatrix(),
+                problem_.getNumberOfObjectives());
     } // Constructor
-
-    public QualityIndicator(int numeroObjetivos, String paretoFrontFile) {
-
-        numeroObjetivos_ = numeroObjetivos;
-
-        utilities_ = new jmetal4.qualityIndicator.util.MetricsUtil();
-        trueParetoFront_ = utilities_.readNonDominatedSolutionSet(paretoFrontFile);
-        trueParetoFrontHypervolume_ = new Hypervolume().hypervolume(trueParetoFront_.writeObjectivesToMatrix(),
-                trueParetoFront_.writeObjectivesToMatrix(), numeroObjetivos_);
-        // System.out.println("erro");
-        // trueParetoFrontHypervolume_ = new Hypervolume().hypervolume(
-        // trueParetoFront_.writeObjectivesToMatrix(),
-        // trueParetoFront_.writeObjectivesToMatrix(),
-        // numeroObjetivos_);
-    } // Constructor
-
 
     /**
      * Returns the hypervolume of solution set
@@ -72,10 +60,12 @@ public class QualityIndicator {
      * @return The value of the hypervolume indicator
      */
     public double getHypervolume(SolutionSet solutionSet) {
+    	LOGGER.info("getHypervolume()");
         return new Hypervolume().hypervolume(solutionSet.writeObjectivesToMatrix(),
-                trueParetoFront_.writeObjectivesToMatrix(), problem_.getNumberOfObjectives());
-        // problem_.getNumberOfObjectives());
+                trueParetoFront_.writeObjectivesToMatrix(),
+                problem_.getNumberOfObjectives());
     } // getHypervolume
+
 
     /**
      * Returns the hypervolume of the true Pareto front
@@ -93,15 +83,10 @@ public class QualityIndicator {
      * @return The value of the hypervolume indicator
      */
     public double getIGD(SolutionSet solutionSet) {
-        System.out.println("IGD");
-        return new InvertedGenerationalDistance().invertedGenerationalDistance(solutionSet.writeObjectivesToMatrix(),
-                trueParetoFront_.writeObjectivesToMatrix(), problem_.getNumberOfObjectives());
-    } // getIGD
-
-    public double getIGD(SolutionSet front, SolutionSet trueFront, int numberOfObjectives) {
-        System.out.println("IGD");
-        return new InvertedGenerationalDistance().invertedGenerationalDistance(front.writeObjectivesToMatrix(),
-                trueFront.writeObjectivesToMatrix(), numberOfObjectives);
+        return new InvertedGenerationalDistance().invertedGenerationalDistance(
+                solutionSet.writeObjectivesToMatrix(),
+                trueParetoFront_.writeObjectivesToMatrix(),
+                problem_.getNumberOfObjectives());
     } // getIGD
 
     /**
@@ -111,13 +96,10 @@ public class QualityIndicator {
      * @return The value of the hypervolume indicator
      */
     public double getGD(SolutionSet solutionSet) {
-        return new GenerationalDistance().generationalDistance(solutionSet.writeObjectivesToMatrix(),
-                trueParetoFront_.writeObjectivesToMatrix(), problem_.getNumberOfObjectives());
-    } // getGD
-
-    public double getGD(SolutionSet front, SolutionSet trueFront, int numberOfObjectives) {
-        return new GenerationalDistance().generationalDistance(front.writeObjectivesToMatrix(),
-                trueFront.writeObjectivesToMatrix(), numberOfObjectives);
+        return new GenerationalDistance().generationalDistance(
+                solutionSet.writeObjectivesToMatrix(),
+                trueParetoFront_.writeObjectivesToMatrix(),
+                problem_.getNumberOfObjectives());
     } // getGD
 
     /**
@@ -127,9 +109,9 @@ public class QualityIndicator {
      * @return The value of the hypervolume indicator
      */
     public double getSpread(SolutionSet solutionSet) {
-        return new Spread().spread(solutionSet.writeObjectivesToMatrix(), trueParetoFront_.writeObjectivesToMatrix(),
+        return new Spread().spread(solutionSet.writeObjectivesToMatrix(),
+                trueParetoFront_.writeObjectivesToMatrix(),
                 problem_.getNumberOfObjectives());
-        // problem_.getNumberOfObjectives());
     } // getGD
 
     /**
@@ -139,8 +121,8 @@ public class QualityIndicator {
      * @return The value of the hypervolume indicator
      */
     public double getEpsilon(SolutionSet solutionSet) {
-        return new Epsilon().epsilon(solutionSet.writeObjectivesToMatrix(), trueParetoFront_.writeObjectivesToMatrix(),
+        return new Epsilon().epsilon(solutionSet.writeObjectivesToMatrix(),
+                trueParetoFront_.writeObjectivesToMatrix(),
                 problem_.getNumberOfObjectives());
-        // problem_.getNumberOfObjectives());
     } // getEpsilon
 } // QualityIndicator

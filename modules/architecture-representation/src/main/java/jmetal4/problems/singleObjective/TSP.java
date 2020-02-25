@@ -33,10 +33,9 @@ import java.io.*;
  */
 public class TSP extends Problem {
 
-    private static final long serialVersionUID = 1L;
-
     public int numberOfCities_;
     public double[][] distanceMatrix_;
+
 
     /**
      * Creates a new TSP problem instance. It accepts data files from TSPLIB
@@ -51,11 +50,10 @@ public class TSP extends Problem {
 
         solutionType_ = new PermutationSolutionType(this);
 
-        // variableType_ = new Class[numberOfVariables_] ;
+        //variableType_ = new Class[numberOfVariables_] ;
         length_ = new int[numberOfVariables_];
 
-        // variableType_[0] = Class.forName("jmetal4.base.variable.Permutation")
-        // ;
+        //variableType_[0] = Class.forName("jmetal4.base.variable.Permutation") ;
 
         readProblem(filename);
         System.out.println(numberOfCities_);
@@ -78,7 +76,7 @@ public class TSP extends Problem {
 
             x = ((Permutation) solution.getDecisionVariables()[0]).vector_[i];
             y = ((Permutation) solution.getDecisionVariables()[0]).vector_[i + 1];
-            // cout << "I : " << i << ", x = " << x << ", y = " << y << endl ;
+//  cout << "I : " << i << ", x = " << x << ", y = " << y << endl ;    
             fitness += distanceMatrix_[x][y];
         } // for
         int firstCity;
@@ -91,8 +89,12 @@ public class TSP extends Problem {
         solution.setObjective(0, fitness);
     } // evaluate
 
-    public void readProblem(String fileName) throws FileNotFoundException, IOException {
-        Reader inputFile = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+
+    public void readProblem(String fileName) throws FileNotFoundException,
+            IOException {
+        Reader inputFile = new BufferedReader(
+                new InputStreamReader(
+                        new FileInputStream(fileName)));
 
         StreamTokenizer token = new StreamTokenizer(inputFile);
         try {
@@ -118,7 +120,8 @@ public class TSP extends Problem {
             found = false;
             token.nextToken();
             while (!found) {
-                if ((token.sval != null) && ((token.sval.compareTo("SECTION") == 0)))
+                if ((token.sval != null) &&
+                        ((token.sval.compareTo("SECTION") == 0)))
                     found = true;
                 else
                     token.nextToken();
@@ -142,7 +145,8 @@ public class TSP extends Problem {
             for (int k = 0; k < numberOfCities_; k++) {
                 distanceMatrix_[k][k] = 0;
                 for (int j = k + 1; j < numberOfCities_; j++) {
-                    dist = Math.sqrt(Math.pow((c[k * 2] - c[j * 2]), 2.0) + Math.pow((c[k * 2 + 1] - c[j * 2 + 1]), 2));
+                    dist = Math.sqrt(Math.pow((c[k * 2] - c[j * 2]), 2.0) +
+                            Math.pow((c[k * 2 + 1] - c[j * 2 + 1]), 2));
                     dist = (int) (dist + .5);
                     distanceMatrix_[k][j] = dist;
                     distanceMatrix_[j][k] = dist;
@@ -154,5 +158,6 @@ public class TSP extends Problem {
             System.exit(1);
         } // catch
     } // readProblem
+
 
 } // TSP

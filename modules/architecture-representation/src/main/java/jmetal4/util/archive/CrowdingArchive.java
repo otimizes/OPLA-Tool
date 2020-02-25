@@ -35,8 +35,6 @@ import java.util.Comparator;
  */
 public class CrowdingArchive extends Archive {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * Stores the maximum size of the archive.
      */
@@ -85,13 +83,14 @@ public class CrowdingArchive extends Archive {
 
     } // CrowdingArchive
 
+
     /**
      * Adds a <code>Solution</code> to the archive. If the <code>Solution</code>
      * is dominated by any member of the archive, then it is discarded. If the
      * <code>Solution</code> dominates some members of the archive, these are
      * removed. If the archive is full and the <code>Solution</code> has to be
-     * inserted, the solutions are sorted by crowding distance and the one
-     * having the minimum crowding distance value.
+     * inserted, the solutions are sorted by crowding distance and the one having
+     * the minimum crowding distance value.
      *
      * @param solution The <code>Solution</code>
      * @return true if the <code>Solution</code> has been inserted, false
@@ -100,21 +99,20 @@ public class CrowdingArchive extends Archive {
     public boolean add(Solution solution) {
         int flag = 0;
         int i = 0;
-        Solution aux; // Store an solution temporally
+        Solution aux; //Store an solution temporally
         while (i < solutionsList_.size()) {
             aux = solutionsList_.get(i);
 
             flag = dominance_.compare(solution, aux);
-            if (flag == 1) { // The solution to add is dominated
-                return false; // Discard the new solution
-            } else if (flag == -1) { // A solution in the archive is dominated
-                solutionsList_.remove(i); // Remove it from the population
+            if (flag == 1) {               // The solution to add is dominated
+                return false;                // Discard the new solution
+            } else if (flag == -1) {       // A solution in the archive is dominated
+                solutionsList_.remove(i);    // Remove it from the population
             } else {
-                if (equals_.compare(aux, solution) == 0) { // There is an equal
-                    // solution
+                if (equals_.compare(aux, solution) == 0) { // There is an equal solution
                     // in the population
                     return false; // Discard the new solution
-                } // if
+                }  // if
                 i++;
             }
         }

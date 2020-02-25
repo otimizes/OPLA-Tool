@@ -34,7 +34,6 @@ import java.util.Iterator;
  */
 public class NonDominatedSolutionList extends SolutionSet {
 
-    private static final long serialVersionUID = 1L;
     /**
      * Stores a <code>Comparator</code> for checking if two solutions are equal
      */
@@ -45,16 +44,18 @@ public class NonDominatedSolutionList extends SolutionSet {
     private Comparator dominance_ = new DominanceComparator();
 
     /**
-     * Constructor. The objects of this class are lists of non-dominated
-     * solutions according to a Pareto dominance comparator.
+     * Constructor.
+     * The objects of this class are lists of non-dominated solutions according to
+     * a Pareto dominance comparator.
      */
     public NonDominatedSolutionList() {
         super();
     } // NonDominatedList
 
     /**
-     * Constructor. This constructor creates a list of non-dominated individuals
-     * using a comparator object.
+     * Constructor.
+     * This constructor creates a list of non-dominated individuals using a
+     * comparator object.
      *
      * @param dominance The comparator for dominance checking.
      */
@@ -68,8 +69,8 @@ public class NonDominatedSolutionList extends SolutionSet {
      *
      * @param solution The solution to be inserted.
      * @return true if the operation success, and false if the solution is
-     * dominated or if an identical individual exists. The decision
-     * variables can be null if the solution is read from a file; in
+     * dominated or if an identical individual exists.
+     * The decision variables can be null if the solution is read from a file; in
      * that case, the domination tests are omitted
      */
     public boolean add(Solution solution) {
@@ -80,13 +81,12 @@ public class NonDominatedSolutionList extends SolutionSet {
                 Solution listIndividual = iterator.next();
                 int flag = dominance_.compare(solution, listIndividual);
 
-                if (flag == -1) { // A solution in the list is dominated by the
-                    // new one
+                if (flag == -1) {  // A solution in the list is dominated by the new one
                     iterator.remove();
                 } else if (flag == 0) { // Non-dominated solutions
                     flag = equal_.compare(solution, listIndividual);
                     if (flag == 0) {
-                        return false; // The new solution is in the list
+                        return false;   // The new solution is in the list
                     }
                 } else if (flag == 1) { // The new solution is dominated
                     return false;
@@ -94,7 +94,7 @@ public class NonDominatedSolutionList extends SolutionSet {
             } // while
         } // if
 
-        // At this point, the solution is inserted into the list
+        //At this point, the solution is inserted into the list
         solutionsList_.add(solution);
 
         return true;

@@ -42,8 +42,7 @@ public class ProblemFactory {
      */
     public Problem getProblem(String name, Object[] params) throws JMException {
         // Params are the arguments
-        // The number of argument must correspond with the problem constructor
-        // params
+        // The number of argument must correspond with the problem constructor params
 
         String base = "jmetal4.problems.";
 
@@ -73,25 +72,26 @@ public class ProblemFactory {
             Class<?> problemClass = Class.forName(base + name);
             Constructor[] constructors = problemClass.getConstructors();
             int i = 0;
-            // find the constructor
-            while ((i < constructors.length) && (constructors[i].getParameterTypes().length != params.length)) {
+            //find the constructor
+            while ((i < constructors.length) &&
+                    (constructors[i].getParameterTypes().length != params.length)) {
                 i++;
             }
             // constructors[i] is the selected one constructor
             Problem problem = (Problem) constructors[i].newInstance(params);
             return problem;
-        } // try
+        }// try
         catch (Exception e) {
-            Configuration.logger_.severe("ProblemFactory.getProblem: " + "Problem '" + name + "' does not exist. "
-                    + "Please, check the problem names in jmetal4/problems");
+            Configuration.logger_.severe("ProblemFactory.getProblem: " +
+                    "Problem '" + name + "' does not exist. " +
+                    "Please, check the problem names in jmetal4/problems");
             throw new JMException("Exception in " + name + ".getProblem()");
         } // catch
     }
 
     public Problem getProblem(String name, Properties params) throws JMException {
         // Params are the arguments
-        // The number of argument must correspond with the problem constructor
-        // params
+        // The number of argument must correspond with the problem constructor params
 
         String base = "jmetal4.gui.problems.";
         if (name.substring(0, name.length() - 1).startsWith("DTLZ"))
@@ -115,18 +115,18 @@ public class ProblemFactory {
 
         try {
             Class<?> problemClass = Class.forName(base + name);
-            // Constructor constructors =
-            // problemClass.getConstructor(Properties.class);
+            //Constructor constructors = problemClass.getConstructor(Properties.class);
             Constructor constructors = problemClass.getConstructor(Properties.class);
 
             Problem problem = (Problem) constructors.newInstance(params);
 
             return problem;
-        } // try
+        }// try
         catch (Exception e) {
             e.printStackTrace();
-            Configuration.logger_.severe("ProblemFactory.getProblem: " + "Problem '" + name + "' does not exist. "
-                    + "Please, check the problem names in jmetal4/problems");
+            Configuration.logger_.severe("ProblemFactory.getProblem: " +
+                    "Problem '" + name + "' does not exist. " +
+                    "Please, check the problem names in jmetal4/problems");
             throw new JMException("Exception in " + name + ".getProblem()");
         } // catch
     }

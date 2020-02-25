@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/esIII/ThelmaDoutorado/svn/!svn/ver/63/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics
+END
+MeanDepComponents.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/esIII/ThelmaDoutorado/svn/!svn/ver/15/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics/MeanDepComponents.java
+END
+RelationalCohesion.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/esIII/ThelmaDoutorado/svn/!svn/ver/7/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics/RelationalCohesion.java
+END
+DependencyIn.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/esIII/ThelmaDoutorado/svn/!svn/ver/28/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics/DependencyIn.java
+END
+NACElegance.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/esIII/ThelmaDoutorado/svn/!svn/ver/62/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics/NACElegance.java
+END
+DependencyOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/esIII/ThelmaDoutorado/svn/!svn/ver/28/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics/DependencyOut.java
+END
+ATMRElegance.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/esIII/ThelmaDoutorado/svn/!svn/ver/62/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics/ATMRElegance.java
+END
+ClassDependencyIn.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/esIII/ThelmaDoutorado/svn/!svn/ver/28/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics/ClassDependencyIn.java
+END
+ECElegance.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/esIII/ThelmaDoutorado/svn/!svn/ver/63/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics/ECElegance.java
+END
+ClassDependencyOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/esIII/ThelmaDoutorado/svn/!svn/ver/43/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics/ClassDependencyOut.java
+END
+Estatistica.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/esIII/ThelmaDoutorado/svn/!svn/ver/62/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics/Estatistica.java
+END
+MeanNumOpsByInterface.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/esIII/ThelmaDoutorado/svn/!svn/ver/7/workspace/architecture-evolution/main/br/uem/din/metrics/conventionalMetrics/MeanNumOpsByInterface.java
+END

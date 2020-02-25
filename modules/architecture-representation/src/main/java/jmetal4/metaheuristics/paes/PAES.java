@@ -122,8 +122,6 @@ public class PAES extends Algorithm {
             problem_.evaluate(mutatedIndividual);
 
             evaluations++;
-            //<-
-
             // Check dominance
             int flag = dominance.compare(solution, mutatedIndividual);
 

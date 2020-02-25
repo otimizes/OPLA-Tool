@@ -1,0 +1,16 @@
+package br.uem.din.metrics.concernDrivenMetrics.concernDiffusion;
+
+import br.uem.din.architectureEvolution.representation.Architecture;
+import br.uem.din.architectureEvolution.representation.Concern;
+
+public class CDAI extends ConcernDiffusionMetric<CDAIResult> {
+
+	public CDAI(Architecture architecture){
+		super(architecture);
+	}
+
+	@Override
+	protected CDAIResult getElementForConcern(Concern concern) {
+		return new CDAIResult(concern, getArchitecture());
+	}
+}

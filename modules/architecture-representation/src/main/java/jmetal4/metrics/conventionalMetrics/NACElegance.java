@@ -3,14 +3,12 @@ package jmetal4.metrics.conventionalMetrics;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 
-
 //Numbers among classes elegance metric
 
 public class NACElegance {
 
     private Architecture architecture;
-    private double results;
-
+    private Double results;
 
     public NACElegance(Architecture architecture) {
 
@@ -23,12 +21,11 @@ public class NACElegance {
         int i = 0;
         int j = 0;
 
-        //Instancia a classe utilit�ria
 
         Estatistica e = new Estatistica();
 
         for (Class cls : this.architecture.getAllClasses()) {
-            //seta valores dos arrays
+            // seta valores dos arrays
             arrayAttributesNumbers[i] = cls.getAllAttributes().size();
             i++;
             arrayMethodsNumbers[j] = cls.getAllMethods().size();
@@ -43,7 +40,7 @@ public class NACElegance {
         this.results = (stdDeviationAttributes + stdDeviationMethods) / 2;
     }
 
-    public double getResults() {
+    public Double getResults() {
         return results;
     }
 

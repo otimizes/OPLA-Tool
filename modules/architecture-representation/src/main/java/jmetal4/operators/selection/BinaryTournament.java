@@ -21,35 +21,39 @@
 
 package jmetal4.operators.selection;
 
+import java.util.Comparator;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+
 import jmetal4.core.Solution;
 import jmetal4.core.SolutionSet;
 import jmetal4.util.PseudoRandom;
 import jmetal4.util.comparators.DominanceComparator;
 
-import java.util.Comparator;
-import java.util.Map;
-
 /**
  * This class implements an binary tournament selection operator
  */
 public class BinaryTournament extends Selection {
+	
+	private static final Logger LOGGER = Logger.getLogger(BinaryTournament.class);
 
-    private static final long serialVersionUID = 1L;
     /**
-     * Stores the <code>Comparator</code> used to compare two solutions
+     * Stores the <code>Comparator</code> used to compare two
+     * solutions
      */
     private Comparator comparator_;
 
     /**
-     * Constructor Creates a new Binary tournament operator using a
-     * BinaryTournamentComparator
+     * Constructor
+     * Creates a new Binary tournament operator using a BinaryTournamentComparator
      */
     public BinaryTournament(Map<String, Object> parameters) {
         super(parameters);
         if ((parameters != null) && (parameters.get("comparator") != null))
             comparator_ = (Comparator) parameters.get("comparator");
         else
-            // comparator_ = new BinaryTournamentComparator();
+            //comparator_ = new BinaryTournamentComparator();
             comparator_ = new DominanceComparator();
     } // BinaryTournament
 
@@ -60,15 +64,24 @@ public class BinaryTournament extends Selection {
      * @return the selected solution
      */
     public Object execute(Object object) {
+    	LOGGER.info("execute()");
         SolutionSet solutionSet = (SolutionSet) object;
         Solution solution1, solution2;
+        
+        LOGGER.info("Iniciando seleção randomina no espaço de busca de " + solutionSet.size());
         solution1 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
         solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
+        LOGGER.info("Seleção terminada");
+        
+        if (solutionSet.size() >= 2) {
+        	LOGGER.info("Soluções Iguais, buscando uma nova solução:");
+        	while (solution1 == solution2) {
+        		solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
+        	}
+        }
+        LOGGER.info("Busca concluída");
 
-        if (solutionSet.size() >= 2)
-            while (solution1 == solution2)
-                solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
-
+        LOGGER.info("Compare");
         int flag = comparator_.compare(solution1, solution2);
         if (flag == -1)
             return solution1;

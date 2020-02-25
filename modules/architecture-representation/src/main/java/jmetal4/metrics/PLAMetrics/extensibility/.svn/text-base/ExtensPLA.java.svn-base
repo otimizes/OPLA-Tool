@@ -1,0 +1,21 @@
+package br.uem.din.metrics.PLAMetrics.extensibility;
+
+import br.uem.din.architectureEvolution.representation.Architecture;
+import br.uem.din.architectureEvolution.representation.Component;
+
+public class ExtensPLA {
+
+	private final Architecture architecture;
+	
+	public ExtensPLA(Architecture architecture) {
+		this.architecture = architecture;
+	}
+	
+	public float getValue() {
+		float result = 0;
+		for (Component component : architecture.getComponents())
+			result += new ExtensVarComponent(component).getValue();
+		
+		return result;
+	}
+}

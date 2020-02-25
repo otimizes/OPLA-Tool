@@ -83,7 +83,8 @@ public class MetricsUtil {
     } // readFront
 
     /**
-     * Gets the maximun values for each objectives in a given pareto front
+     * Gets the maximun values for each objectives in a given pareto
+     * front
      *
      * @param front        The pareto front
      * @param noObjectives Number of objectives in the pareto front
@@ -95,6 +96,7 @@ public class MetricsUtil {
         for (int i = 0; i < noObjectives; i++)
             maximumValue[i] = Double.NEGATIVE_INFINITY;
 
+
         for (int i = 0; i < front.length; i++) {
             for (int j = 0; j < front[i].length; j++) {
                 if (front[i][j] > maximumValue[j])
@@ -105,8 +107,10 @@ public class MetricsUtil {
         return maximumValue;
     } // getMaximumValues
 
+
     /**
-     * Gets the minimun values for each objectives in a given pareto front
+     * Gets the minimun values for each objectives in a given pareto
+     * front
      *
      * @param front        The pareto front
      * @param noObjectives Number of objectives in the pareto front
@@ -127,6 +131,7 @@ public class MetricsUtil {
         return minimumValue;
     } // getMinimumValues
 
+
     /**
      * This method returns the distance (taken the euclidean distance) between
      * two points given as <code>double []</code>
@@ -137,22 +142,17 @@ public class MetricsUtil {
      **/
     public double distance(double[] a, double[] b) {
         double distance = 0.0;
-        int length;
 
-        if (a.length >= b.length) {
-            length = a.length;
-        } else
-            length = b.length;
-
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < a.length; i++) {
             distance += Math.pow(a[i] - b[i], 2.0);
         }
         return Math.sqrt(distance);
     } // distance
 
+
     /**
-     * Gets the distance between a point and the nearest one in a given front
-     * (the front is given as <code>double [][]</code>)
+     * Gets the distance between a point and the nearest one in
+     * a given front (the front is given as <code>double [][]</code>)
      *
      * @param point The point
      * @param front The front that contains the other points to calculate the
@@ -161,6 +161,7 @@ public class MetricsUtil {
      **/
     public double distanceToClosedPoint(double[] point, double[][] front) {
         double minDistance = distance(point, front[0]);
+
 
         for (int i = 1; i < front.length; i++) {
             double aux = distance(point, front[i]);
@@ -172,15 +173,16 @@ public class MetricsUtil {
         return minDistance;
     } // distanceToClosedPoint
 
+
     /**
-     * Gets the distance between a point and the nearest one in a given front,
-     * and this distance is greater than 0.0
+     * Gets the distance between a point and the nearest one in
+     * a given front, and this distance is greater than 0.0
      *
      * @param point The point
      * @param front The front that contains the other points to calculate the
      *              distances
-     * @return The minimun distances greater than zero between the point and the
-     * front
+     * @return The minimun distances greater than zero between the point and
+     * the front
      */
     public double distanceToNearestPoint(double[] point, double[][] front) {
         double minDistance = Double.MAX_VALUE;
@@ -196,43 +198,35 @@ public class MetricsUtil {
     } // distanceToNearestPoint
 
     /**
-     * This method receives a pareto front and two points, one whit maximun
-     * values and the other with minimun values allowed, and returns a the
-     * normalized pareto front.
+     * This method receives a pareto front and two points, one whit maximun values
+     * and the other with minimun values allowed, and returns a the normalized
+     * pareto front.
      *
      * @param front        A pareto front.
      * @param maximumValue The maximun values allowed
      * @param minimumValue The mininum values allowed
      * @return the normalized pareto front
      **/
-    public double[][] getNormalizedFront(double[][] front, double[] maximumValue, double[] minimumValue) {
+    public double[][] getNormalizedFront(double[][] front,
+                                         double[] maximumValue,
+                                         double[] minimumValue) {
 
-        if (maximumValue[0] == minimumValue[0]) {
-            double[][] normalizedFront = new double[front.length][];
+        double[][] normalizedFront = new double[front.length][];
 
-            for (int i = 0; i < front.length; i++) {
-                normalizedFront[i] = new double[front[i].length];
-                for (int j = 0; j < front[i].length; j++) {
-                    normalizedFront[i][j] = 0;
-                }
+        for (int i = 0; i < front.length; i++) {
+            normalizedFront[i] = new double[front[i].length];
+            for (int j = 0; j < front[i].length; j++) {
+                normalizedFront[i][j] = (front[i][j] - minimumValue[j]) /
+                        (maximumValue[j] - minimumValue[j]);
             }
-            return normalizedFront;
-        } else {
-            double[][] normalizedFront = new double[front.length][];
-
-            for (int i = 0; i < front.length; i++) {
-                normalizedFront[i] = new double[front[i].length];
-                for (int j = 0; j < front[i].length; j++) {
-                    normalizedFront[i][j] = (front[i][j] - minimumValue[j]) / (maximumValue[j] - minimumValue[j]);
-                }
-            }
-            return normalizedFront;
         }
+        return normalizedFront;
     } // getNormalizedFront
 
+
     /**
-     * This method receives a normalized pareto front and return the inverted
-     * one. This operation needed for minimization problems
+     * This method receives a normalized pareto front and return the inverted one.
+     * This operation needed for minimization problems
      *
      * @param front The pareto front to inverse
      * @return The inverted pareto front
@@ -263,7 +257,7 @@ public class MetricsUtil {
      */
     public SolutionSet readNonDominatedSolutionSet(String path) {
         try {
-            /* Open the file */
+      /* Open the file */
             FileInputStream fis = new FileInputStream(path);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);

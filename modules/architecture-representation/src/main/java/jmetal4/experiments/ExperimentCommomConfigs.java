@@ -5,6 +5,7 @@ import jmetal4.interactive.InteractiveFunction;
 import learning.ClusteringAlgorithm;
 import learning.Moment;
 import org.apache.commons.lang.WordUtils;
+import patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
 
 import java.util.ArrayList;
 import java.util.Arrays;

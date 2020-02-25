@@ -46,6 +46,35 @@ public class InvertedGenerationalDistance {
     } // GenerationalDistance
 
     /**
+     * This class can be invoqued from the command line. Two params are required:
+     * 1) the name of the file containing the front, and 2) the name of the file
+     * containig the true Pareto front
+     **/
+    public static void main(String args[]) {
+        if (args.length < 2) {
+            System.err.println("InvertedGenerationalDistance::Main: Usage: java " +
+                    "InvertedGenerationalDistance <FrontFile> " +
+                    "<TrueFrontFile>  <numberOfObjectives>");
+            System.exit(1);
+        } // if
+
+        // STEP 1. Create an instance of Generational Distance
+        InvertedGenerationalDistance qualityIndicator = new InvertedGenerationalDistance();
+
+        // STEP 2. Read the fronts from the files
+        double[][] solutionFront = qualityIndicator.utils_.readFront(args[0]);
+        double[][] trueFront = qualityIndicator.utils_.readFront(args[1]);
+
+        // STEP 3. Obtain the metric value
+        double value = qualityIndicator.invertedGenerationalDistance(
+                solutionFront,
+                trueFront,
+                (new Integer(args[2])).intValue());
+
+        System.out.println(value);
+    } // main
+
+    /**
      * Returns the inverted generational distance value for a given front
      *
      * @param front           The front
@@ -55,22 +84,54 @@ public class InvertedGenerationalDistance {
                                                double[][] trueParetoFront,
                                                int numberOfObjectives) {
 
+        /**
+         * Stores the maximum values of true pareto front.
+         */
+        double[] maximumValue;
+
+        /**
+         * Stores the minimum values of the true pareto front.
+         */
+        double[] minimumValue;
+
+        /**
+         * Stores the normalized front.
+         */
+        double[][] normalizedFront;
+
+        /**
+         * Stores the normalized true Pareto front.
+         */
+        double[][] normalizedParetoFront;
+
+        // STEP 1. Obtain the maximum and minimum values of the Pareto front
+        maximumValue = utils_.getMaximumValues(trueParetoFront, numberOfObjectives);
+        minimumValue = utils_.getMinimumValues(trueParetoFront, numberOfObjectives);
+
+        // STEP 2. Get the normalized front and true Pareto fronts
+        normalizedFront = utils_.getNormalizedFront(front,
+                maximumValue,
+                minimumValue);
+        normalizedParetoFront = utils_.getNormalizedFront(trueParetoFront,
+                maximumValue,
+                minimumValue);
+
         // STEP 3. Sum the distances between each point of the true Pareto front and
         // the nearest point in the true Pareto front
         double sum = 0.0;
-        for (int i = 0; i < trueParetoFront.length; i++)
-            sum += Math.pow(utils_.distanceToClosedPoint(trueParetoFront[i], front), pow_);
+        for (int i = 0; i < normalizedParetoFront.length; i++)
+            sum += Math.pow(utils_.distanceToClosedPoint(normalizedParetoFront[i],
+                    normalizedFront),
+                    pow_);
+
 
         // STEP 4. Obtain the sqrt of the sum
         sum = Math.pow(sum, 1.0 / pow_);
 
         // STEP 5. Divide the sum by the maximum number of points of the front
-        System.out.println("IGDvalor front = " + front.length);
-        System.out.println("IGDvalor truefront = " + trueParetoFront.length);
-        double generationalDistance = (sum / trueParetoFront.length);
+        double generationalDistance = sum / normalizedParetoFront.length;
 
         return generationalDistance;
     } // generationalDistance
-
 
 } // InvertedGenerationalDistance

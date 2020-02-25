@@ -12,9 +12,9 @@ import java.util.List;
 
 public class ECElegance {
 
-    private double results;
+    private Double results;
 
-    //External Coupling Elegance metric
+    // External Coupling Elegance metric
     public ECElegance(Architecture architecture) {
 
         this.results = 0.0;
@@ -22,12 +22,10 @@ public class ECElegance {
         double externalCouplesNumbers[] = new double[10000];
         int i = 0;
 
-        //Instancia a classe utilit�ria
-
         Estatistica e = new Estatistica();
 
         for (Class cls : architecture.getAllClasses()) {
-            //busca os external couples de cada classe
+            // busca os external couples de cada classe
             externalCouplesNumbers[i] = searchClassDependencies(cls);
             i++;
         }
@@ -37,9 +35,9 @@ public class ECElegance {
 
         this.results = stdDeviationCouples;
 
-
     }
-    //----------------------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------------------
 
     private int searchClassDependencies(Class source) {
         int cont = 0;
@@ -48,12 +46,14 @@ public class ECElegance {
             for (Relationship relationship : relationships) {
                 if (relationship instanceof DependencyRelationship) {
                     DependencyRelationship dependency = (DependencyRelationship) relationship;
-                    if (dependency.getClient().equals(source)) cont++;
+                    if (dependency.getClient().equals(source))
+                        cont++;
                 } else {
                     if (relationship instanceof AssociationRelationship) {
                         AssociationRelationship association = (AssociationRelationship) relationship;
                         for (AssociationEnd associationEnd : association.getParticipants()) {
-                            if (associationEnd.getCLSClass().equals(source)) cont++;
+                            if (associationEnd.getCLSClass().equals(source))
+                                cont++;
                         }
                     }
                 }
@@ -62,7 +62,7 @@ public class ECElegance {
         return cont;
     }
 
-    public double getResults() {
+    public Double getResults() {
         return results;
     }
 

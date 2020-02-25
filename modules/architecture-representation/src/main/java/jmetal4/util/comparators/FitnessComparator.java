@@ -25,7 +25,6 @@ import jmetal4.core.Solution;
 
 import java.util.Comparator;
 
-
 /**
  * This class implements a <code>Comparator</code> (a method for comparing
  * <code>Solution</code> objects) based on the fitness value returned by the

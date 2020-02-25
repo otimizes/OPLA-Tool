@@ -29,7 +29,7 @@ import java.util.Comparator;
  * This class implements a <code>Comparator</code> (a method for comparing
  * <code>Solution</code> objects) based on the rank of the solutions.
  */
-public class RankComparator implements Comparator {
+public class RankComparator implements Comparator<Object> {
     /**
      * Compares two solutions.
      *

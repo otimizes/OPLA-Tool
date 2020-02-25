@@ -17,19 +17,27 @@ public class RelationalCohesion {
     private Architecture architecture;
     private double results;
 
-//	Relational cohesion.
-//	This is the average number of internal relationships per class/interface, and is calculated as the ratio of R+1 to the number of classes and interfaces in the package.
-//	
-//	R is the number of relationships between classes and interfaces in the package. There is a dependency from class or interface C to class or interface D if
-//	C has an attribute of type D
-//	C has an operation with a parameter of type D
-//	C has an association, aggregation, or composition with navigability to D
-//	C has a UML dependency or usage dependency to D
-//	UML dependencies are shown as dashed arrows in the diagrams (usage with stereotype 'use').
-//	C is a child of D
-//	C implements interface D
-//	The metric counts all such dependencies between classes and interfaces in the package. Bidirectional associations are counted twice, because C knows D and vice versa. By convention, associations that indicate no navigability at either end are considered to be bidirectional.
-//	
+    // Relational cohesion.
+    // This is the average number of internal relationships per class/interface,
+    // and is calculated as the ratio of R+1 to the number of classes and
+    // interfaces in the package.
+    //
+    // R is the number of relationships between classes and interfaces in the
+    // package. There is a dependency from class or interface C to class or
+    // interface D if
+    // C has an attribute of type D
+    // C has an operation with a parameter of type D
+    // C has an association, aggregation, or composition with navigability to D
+    // C has a UML dependency or usage dependency to D
+    // UML dependencies are shown as dashed arrows in the diagrams (usage with
+    // stereotype 'use').
+    // C is a child of D
+    // C implements interface D
+    // The metric counts all such dependencies between classes and interfaces in
+    // the package. Bidirectional associations are counted twice, because C
+    // knows D and vice versa. By convention, associations that indicate no
+    // navigability at either end are considered to be bidirectional.
+    //
 
     public RelationalCohesion(Architecture architecture) {
 
@@ -63,7 +71,7 @@ public class RelationalCohesion {
     }
 
     // ---------------------------------------------------------------------------------
-//	C has an attribute of type D
+    // C has an attribute of type D
     private int searchAttributeClassDependencies(Class source, Package comp) {
         int attribDependencies;
         List<Class> classes = new ArrayList<Class>(comp.getAllClasses());
@@ -74,7 +82,8 @@ public class RelationalCohesion {
             List<Attribute> allAttributes = new ArrayList<Attribute>(source.getAllAttributes());
             for (Attribute attribute : allAttributes) {
                 if (attribute.getType() == c.getName()) {
-                    if (!(attribDepClasses.contains(c))) attribDepClasses.add(c);
+                    if (!(attribDepClasses.contains(c)))
+                        attribDepClasses.add(c);
                 }
             }
         }
@@ -83,7 +92,8 @@ public class RelationalCohesion {
             List<Attribute> allAttributes = new ArrayList<Attribute>(source.getAllAttributes());
             for (Attribute attribute : allAttributes) {
                 if (attribute.getType() == itf.getName()) {
-                    if (!(attribDepInterfaces.contains(itf))) attribDepInterfaces.add(itf);
+                    if (!(attribDepInterfaces.contains(itf)))
+                        attribDepInterfaces.add(itf);
                 }
             }
         }
@@ -91,12 +101,13 @@ public class RelationalCohesion {
         return attribDependencies;
     }
 
-// ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
 
     private int searchOperationClassDependencies(Class source, Package comp) {
         int operationDependencies;
         List<Class> classes = new ArrayList<Class>(comp.getAllClasses());
-        //List<Interface> interfaces = new ArrayList<Interface> (comp.getImplementedInterfaces());
+        // List<Interface> interfaces = new ArrayList<Interface>
+        // (comp.getImplementedInterfaces());
         List<Class> operationDepClasses = new ArrayList<Class>();
         List<Interface> operationDepInterfaces = new ArrayList<Interface>();
         for (Class c : classes) {
@@ -110,20 +121,23 @@ public class RelationalCohesion {
             }
         }
 
-//		for (Interface itf: interfaces){
-//			List<Method> allOperations =  new ArrayList<Method> (source.getAllMethods());
-//			for (Method method: allOperations){
-//				Collection<ParameterMethod> parameters = method.getParameters();
-//				for (ParameterMethod parameter: parameters) {
-//					if ((parameter.getName().contains(itf.getName())) && (!(operationDepInterfaces.contains(itf)))) operationDepInterfaces.add(itf);
-//				}
-//			}
-//		}
+        // for (Interface itf: interfaces){
+        // List<Method> allOperations = new ArrayList<Method>
+        // (source.getAllMethods());
+        // for (Method method: allOperations){
+        // Collection<ParameterMethod> parameters = method.getParameters();
+        // for (ParameterMethod parameter: parameters) {
+        // if ((parameter.getName().contains(itf.getName())) &&
+        // (!(operationDepInterfaces.contains(itf))))
+        // operationDepInterfaces.add(itf);
+        // }
+        // }
+        // }
         operationDependencies = operationDepClasses.size() + operationDepInterfaces.size();
         return operationDependencies;
     }
 
-// ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
 
     private int searchOperationInterfaceDependencies(Interface source, Package comp) {
         int operationDependencies;
@@ -162,7 +176,7 @@ public class RelationalCohesion {
         return operationDependencies;
     }
 
-// ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
 
     private int searchAssociationClassDependencies(Class source, Package comp) {
         int associationDependencies;
@@ -194,7 +208,7 @@ public class RelationalCohesion {
                     }
                 }
             }
-        }//end for classes
+        }// end for classes
 
         for (Interface itf : comp.getImplementedInterfaces()) {
             List<Relationship> relationships = new ArrayList<Relationship>(source.getRelationships());
@@ -215,22 +229,23 @@ public class RelationalCohesion {
                 if (relationship instanceof AssociationRelationship) {
                     AssociationRelationship association = (AssociationRelationship) relationship;
                     for (AssociationEnd associationEnd : association.getParticipants()) {
-                        if (associationEnd.getCLSClass().equals(itf.getName()) && (!(associationDepInterfaces.contains(itf)))) {
+                        if (associationEnd.getCLSClass().equals(itf.getName())
+                                && (!(associationDepInterfaces.contains(itf)))) {
                             associationDepInterfaces.add(itf);
                         }
                     }
                 }
             }
-        }//end for interfaces
+        }// end for interfaces
         associationDependencies = associationDepClasses.size() + associationDepInterfaces.size();
         return associationDependencies;
     }
 
-// ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
 
     private int searchImplementationDependencies(Interface itf, Package comp) {
         List<Element> depComponents = new ArrayList<Element>();
-        for (Element c : itf.getImplementors()) //EDIPO MOD
+        for (Element c : itf.getImplementors())
             if (!(depComponents.contains(c))) {
                 depComponents.add(c);
             }
@@ -238,7 +253,7 @@ public class RelationalCohesion {
         return depComponents.size();
     }
 
-// ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
 
     public double getResults() {
         return results;

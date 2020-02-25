@@ -7,5 +7,5 @@ import jmetal4.core.SolutionSet;
  */
 public interface InteractiveFunction {
 
-    jmetal4.core.SolutionSet run(SolutionSet solutionSet);
+    SolutionSet run(SolutionSet solutionSet);
 }

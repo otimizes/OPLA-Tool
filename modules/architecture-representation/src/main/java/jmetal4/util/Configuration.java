@@ -29,8 +29,6 @@ import java.util.logging.Logger;
  */
 public class Configuration implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * Logger object
      */

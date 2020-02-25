@@ -30,8 +30,8 @@ import java.util.Iterator;
 import java.util.Properties;
 
 /**
- * This class provides some utilities for working with properties. Thanks to
- * Francisco Chicano.
+ * This class provides some utilities for working with properties.
+ * Thanks to Francisco Chicano.
  */
 public abstract class PropUtils extends Object {
 
@@ -87,9 +87,11 @@ public abstract class PropUtils extends Object {
 
             if (isLabel(value)) {
                 /*
-                 * if (labels.getProperty(value) != null) { res.setProperty
-				 * (key, labels.getProperty (value)); }
-				 */
+                if (labels.getProperty(value) != null)
+				{
+					res.setProperty (key, labels.getProperty (value));
+				}
+				*/
                 aux = getPropertiesWithPrefix(labels, value);
                 aux = putPrefixToProperties(key, aux);
 
@@ -120,9 +122,11 @@ public abstract class PropUtils extends Object {
 
             if (isLabel(value)) {
 				/*
-				 * if (labels.getProperty(value) != null) { res.setProperty
-				 * (key, labels.getProperty (value)); }
-				 */
+				if (labels.getProperty(value) != null)
+				{
+					res.setProperty (key, labels.getProperty (value));
+				}
+				*/
 
                 String lab = value.substring(1, value.length() - 1);
 
@@ -143,10 +147,12 @@ public abstract class PropUtils extends Object {
 
         return res;
 
+
     }
 
     static public boolean isLabel(String str) {
-        return (str.indexOf(LABEL_LEFT_DELIMITER) == 0 && str.indexOf(LABEL_RIGHT_DELIMITER) == str.length() - 1);
+        return (str.indexOf(LABEL_LEFT_DELIMITER) == 0 &&
+                str.indexOf(LABEL_RIGHT_DELIMITER) == str.length() - 1);
     }
 
     static public void main(String[] argv) throws Exception {
@@ -154,14 +160,16 @@ public abstract class PropUtils extends Object {
         Properties delta = new Properties();
 
         InputStream isbase = new FileInputStream(argv[0]);
-        // InputStream isdelta = new FileInputStream (argv[1]);
+        //InputStream isdelta = new FileInputStream (argv[1]);
 
         base.load(isbase);
-        // delta.load(isdelta);
+        //delta.load(isdelta);
 
         Properties res = dereferenceProperties(base);
 
+
     }
+
 
     /**
      * @param file The file containing the properties
@@ -177,10 +185,10 @@ public abstract class PropUtils extends Object {
         return properties;
     } // load
 
+
     static public Properties setDefaultParameters(Properties properties, String algorithmName) {
 
-        // Parameters and Results are duplicated because of a Concurrent
-        // Modification Exception
+        // Parameters and Results are duplicated because of a Concurrent Modification Exception
         Properties parameters = PropUtils.getPropertiesWithPrefix(properties, algorithmName + ".DEFAULT");
         Properties results = PropUtils.getPropertiesWithPrefix(properties, algorithmName + ".DEFAULT");
         Iterator<Object> iterator = parameters.keySet().iterator();
@@ -198,13 +206,16 @@ public abstract class PropUtils extends Object {
         return results;
     } //
 
+
     static public Properties setDefaultParameters2(Properties properties, String algorithmName) {
 
-        // Parameters and Results are duplicated because of a Concurrent
-        // Modification Exception
+        // Parameters and Results are duplicated because of a Concurrent Modification Exception
         Properties parameters = PropUtils.getPropertiesWithPrefix(properties, algorithmName);
 
         return parameters;
     } //
 
+
 }
+
+

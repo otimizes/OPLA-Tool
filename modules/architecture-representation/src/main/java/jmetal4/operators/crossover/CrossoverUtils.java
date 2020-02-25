@@ -28,8 +28,7 @@ public class CrossoverUtils {
                         }
                     }
                     this.removeClassesComponent(comp, offspring, scope);
-                    // TODO não deveria remover o componente se ele tem classes
-                    // em hierarquia... ver como resolver esta quest�o
+                    //TODO não deveria remover o componente se ele tem classes em hierarquia... ver como resolver esta quest�o
                     // removeComponentRelationships(comp, offspring);
                     offspring.removePackage(comp);
 
@@ -91,10 +90,9 @@ public class CrossoverUtils {
             while (iteratorClasses.hasNext()) {
                 Class classComp = iteratorClasses.next();
                 if (comp.getAllClasses().contains(classComp)) {
-                    // se n�o estiver numa hierarquia elimina os relacionamentos
-                    // e a classe
+                    //se n�o estiver numa hierarquia elimina os relacionamentos e a classe
                     if (!searchForGeneralizations(classComp)) {
-                        // this.removeClassRelationships(classComp,offspring);
+                        //this.removeClassRelationships(classComp,offspring);
                         comp.removeClass(classComp);
                     } else { // tem que eliminar a hierarquia toda
                         removeHierarchyOfComponent(classComp, comp, offspring);
@@ -103,6 +101,7 @@ public class CrossoverUtils {
             }
         }
     }
+
 
     private void removeHierarchyOfComponent(Class cls, Package comp, Architecture architecture) {
         Class parent = cls;
@@ -164,6 +163,7 @@ public class CrossoverUtils {
         }
     }
 
+
     private void removeOperationsOfInterfaceRealizingFeature(Interface interfaceComp, Concern feature) {
         List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getOperations());
         if (!operationsInterfaceComp.isEmpty()) {
@@ -176,8 +176,7 @@ public class CrossoverUtils {
         }
     }
 
-    private void removeClassesComponentRealizingFeature(Package comp, Concern feature, Architecture offspring,
-                                                        String scope) {
+    private void removeClassesComponentRealizingFeature(Package comp, Concern feature, Architecture offspring, String scope) {
         List<Class> allClasses = new ArrayList<Class>(comp.getAllClasses());
 
         if (!allClasses.isEmpty()) {
@@ -185,8 +184,7 @@ public class CrossoverUtils {
             while (iteratorClasses.hasNext()) {
                 Class classComp = iteratorClasses.next();
                 if ((classComp.containsConcern(feature)) && (classComp.getOwnConcerns().size() == 1)) {
-                    // se não estiver numa hierarquia elimina os relacionamentos
-                    // e a classe
+                    //se não estiver numa hierarquia elimina os relacionamentos e a classe
                     if (!searchForGeneralizations(classComp)) {
                         comp.removeClass(classComp);
                     } else { // tem que eliminar a hierarquia toda

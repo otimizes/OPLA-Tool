@@ -18,19 +18,36 @@
 // 
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 package jmetal4.metaheuristics.nsgaII;
 
+import arquitetura.io.OPLALogs;
+import arquitetura.io.OPLAThreadScope;
+import arquitetura.io.OptimizationInfo;
+import arquitetura.io.OptimizationInfoStatus;
+import arquitetura.representation.Element;
+import com.rits.cloning.Cloner;
 import jmetal4.core.*;
+import jmetal4.interactive.InteractiveFunction;
 import jmetal4.qualityIndicator.QualityIndicator;
 import jmetal4.util.Distance;
 import jmetal4.util.JMException;
 import jmetal4.util.Ranking;
 import jmetal4.util.comparators.CrowdingComparator;
+import learning.ClassifierAlgorithm;
+import learning.SubjectiveAnalyzeAlgorithm;
+import org.apache.log4j.Logger;
+
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 /**
  * This class implements the NSGA-II algorithm.
  */
 public class NSGAII extends Algorithm {
+
+    private static final long serialVersionUID = 5815971727148859507L;
+    private static final Logger LOGGER = Logger.getLogger(NSGAII.class);
 
     /**
      * Constructor
@@ -42,52 +59,25 @@ public class NSGAII extends Algorithm {
 
     } // NSGAII
 
-    public SolutionSet execute() throws JMException, ClassNotFoundException {
-        int populationSize = (Integer) getInputParameter("populationSize");
-        SolutionSet population = new SolutionSet(populationSize);
-        int currentEvaluations = 0;
-
-        return execute(population, currentEvaluations);
-    }
-
-    private int initializePopulation(SolutionSet population, int populationSize, Operator mutationOperator, int currentEvaluations) {
-        try {
-            // Create the initial solutionSet
-            Solution newSolution;
-            for (int i = population.size(); i < populationSize; i++) {
-                newSolution = new Solution(problem_);
-                // criar a diversidade na populacao inicial
-                mutationOperator.execute(newSolution);
-                problem_.evaluate(newSolution);
-
-                //problem_.evaluateConstraints(newSolution);
-                currentEvaluations++;
-                population.add(newSolution);
-            } //for  
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-        return currentEvaluations;
-    }
-
     /**
      * Runs the NSGA-II algorithm.
      *
-     * @param initialPopulation
-     * @param currentEvaluations
      * @return a <code>SolutionSet</code> that is a set of non dominated
      * solutions as a result of the algorithm execution
      * @throws JMException
-     * @throws java.lang.ClassNotFoundException
+     * @throws Exception
      */
-    public SolutionSet execute(SolutionSet initialPopulation, int currentEvaluations) throws JMException, ClassNotFoundException {
+    public SolutionSet execute() throws JMException {
+        LOGGER.info("Iniciando Execução");
         int populationSize;
         int maxEvaluations;
+        int evaluations;
 
         QualityIndicator indicators; // QualityIndicator object
         int requiredEvaluations; // Use in the example of use of the
         // indicators object (see below)
 
+        SolutionSet population;
         SolutionSet offspringPopulation;
         SolutionSet union;
 
@@ -96,123 +86,248 @@ public class NSGAII extends Algorithm {
         Operator selectionOperator;
 
         Distance distance = new Distance();
+        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
 
-        //Read the parameters
-        populationSize = ((Integer) getInputParameter("populationSize"));
-        maxEvaluations = ((Integer) getInputParameter("maxEvaluations"));
+        // Read the parameters
+        populationSize = ((Integer) getInputParameter("populationSize")).intValue();
+        maxEvaluations = ((Integer) getInputParameter("maxEvaluations")).intValue();
+        int maxInteractions = ((Integer) getInputParameter("maxInteractions")).intValue();
+        int firstInteraction = ((Integer) getInputParameter("firstInteraction")).intValue();
+        int intervalInteraction = ((Integer) getInputParameter("intervalInteraction")).intValue();
+        Boolean interactive = ((Boolean) getInputParameter("interactive")).booleanValue();
+        InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
+
+        int currentInteraction = 0;
         indicators = (QualityIndicator) getInputParameter("indicators");
+        HashSet<Solution> bestOfUserEvaluation = new HashSet<>();
 
-//        //Initialize the variables
-//        population = new SolutionSet(populationSize);
-//        evaluations = 0;
+        // Initialize the variables
+        population = new SolutionSet(populationSize);
+        evaluations = 0;
+
         requiredEvaluations = 0;
 
-        //Read the operators
+        // Read the operators
         mutationOperator = operators_.get("mutation");
         crossoverOperator = operators_.get("crossover");
         selectionOperator = operators_.get("selection");
 
-        if (initialPopulation.size() < populationSize) {
-            currentEvaluations = initializePopulation(initialPopulation, populationSize, mutationOperator, currentEvaluations);
+        try {
+            LOGGER.info("Criando População");
+            // Create the initial solutionSet
+            Solution newSolution;
+            for (int i = 0; i < populationSize; i++) {
+                newSolution = newRandomSolution(mutationOperator);
+                evaluations++;
+                population.add(newSolution);
+            }
+
+        } catch (Exception e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+            throw new JMException(e.getMessage());
         }
 
         try {
-            // Generations 
-            while (currentEvaluations < maxEvaluations) {
-                System.out.println("==>" + currentEvaluations);
-                // Create the offSpring solutionSet      
+            LOGGER.info("Iniciando evoluções");
+            // Generations
+            while (evaluations < maxEvaluations) {
+                // Create the offSpring solutionSet
                 offspringPopulation = new SolutionSet(populationSize);
                 Solution[] parents = new Solution[2];
 
                 for (int i = 0; i < (populationSize / 2); i++) {
-                    if (currentEvaluations < maxEvaluations) {
-                        //obtain parents
-                        parents[0] = (Solution) selectionOperator.execute(initialPopulation);
-                        parents[1] = (Solution) selectionOperator.execute(initialPopulation);
+                    if (evaluations < maxEvaluations) {
+                        LOGGER.info("Origin INDIVIDUO: " + i + " evolucao: " + evaluations);
+                        parents[0] = (Solution) selectionOperator.execute(population);
+                        parents[1] = (Solution) selectionOperator.execute(population);
 
-                        Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
-                        problem_.evaluateConstraints(offSpring[0]);
-                        problem_.evaluateConstraints(offSpring[1]);
+                        Object execute = crossoverOperator.execute(parents);
+                        if (execute instanceof Solution) {
+                            Solution offSpring = (Solution) crossoverOperator.execute(parents);
+                            problem_.evaluateConstraints(offSpring);
+                            mutationOperator.execute(offSpring);
+                            problem_.evaluateConstraints(offSpring);
+                            problem_.evaluate(offSpring);
+                            offspringPopulation.add(offSpring);
+                        } else {
+                            Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
+                            problem_.evaluateConstraints(offSpring[0]);
+                            problem_.evaluateConstraints(offSpring[1]);
 
-                        mutationOperator.execute(offSpring[0]);
-                        mutationOperator.execute(offSpring[1]);
-                        problem_.evaluateConstraints(offSpring[0]);
-                        problem_.evaluateConstraints(offSpring[1]);
+                            mutationOperator.execute(offSpring[0]);
+                            mutationOperator.execute(offSpring[1]);
+                            problem_.evaluateConstraints(offSpring[0]);
+                            problem_.evaluateConstraints(offSpring[1]);
 
-                        problem_.evaluate(offSpring[0]);
-                        problem_.evaluate(offSpring[1]);
+                            problem_.evaluate(offSpring[0]);
+                            problem_.evaluate(offSpring[1]);
 
-                        offspringPopulation.add(offSpring[0]);
-                        offspringPopulation.add(offSpring[1]);
-                        currentEvaluations += 2;
-                    } // if                            
-                } // for
+                            offspringPopulation.add(offSpring[0]);
+                            offspringPopulation.add(offSpring[1]);
+                        }
+                        evaluations += 2;
+                    }
+                }
 
                 // Create the solutionSet union of solutionSet and offSpring
-                union = ((SolutionSet) initialPopulation).union(offspringPopulation);
+                LOGGER.info("Union solutions");
+                union = ((SolutionSet) population).union(offspringPopulation);
 
                 // Ranking the union
+                LOGGER.info("Ranking the union");
                 Ranking ranking = new Ranking(union);
 
                 int remain = populationSize;
                 int index = 0;
                 SolutionSet front = null;
-                initialPopulation.clear();
+                population.clear();
 
                 // Obtain the next front
+                LOGGER.info("getSubfront()");
                 front = ranking.getSubfront(index);
 
                 while ((remain > 0) && (remain >= front.size())) {
-                    //Assign crowding distance to individuals
+                    // Assign crowding distance to individuals
+                    LOGGER.info("crowdingDistanceAssignment()");
                     distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
-                    //Add the individuals of this front
+                    // Add the individuals of this front
                     for (int k = 0; k < front.size(); k++) {
-                        initialPopulation.add(front.get(k));
-                    } // for
+                        population.add(front.get(k));
+                    }
 
-                    //Decrement remain
+                    // Decrement remain
                     remain = remain - front.size();
 
-                    //Obtain the next front
+                    // Obtain the next front
                     index++;
                     if (remain > 0) {
+                        LOGGER.info("getSubfront()");
                         front = ranking.getSubfront(index);
-                    } // if        
-                } // while
+                    }
+                }
 
-                // Remain is less than front(index).size, insert only the best one
-                if (remain > 0) {  // front contains individuals to insert                        
+                // Remain is less than front(index).size, insert only the best
+                // one
+                if (remain > 0) { // front contains individuals to insert
+                    LOGGER.info("crowdingDistanceAssignment()");
                     distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
                     front.sort(new CrowdingComparator());
                     for (int k = 0; k < remain; k++) {
-                        initialPopulation.add(front.get(k));
-                    } // for
-
+                        population.add(front.get(k));
+                    }
                     remain = 0;
-                } // if                               
+                }
 
-                // This piece of code shows how to use the indicator object into the code
-                // of NSGA-II. In particular, it finds the number of evaluations required
-                // by the algorithm to obtain a Pareto front with a hypervolume higher
+                // This piece of code shows how to use the indicator object into
+                // the code
+                // of NSGA-II. In particular, it finds the number of evaluations
+                // required
+                // by the algorithm to obtain a Pareto front with a hypervolNSGAume
+                // higher
                 // than the hypervolume of the true Pareto front.
-                if ((indicators != null)
-                        && (requiredEvaluations == 0)) {
-                    double HV = indicators.getHypervolume(initialPopulation);
-                    if (HV >= (0.98 * indicators.getTrueParetoFrontHypervolume())) {
-                        requiredEvaluations = currentEvaluations;
-                    } // if
-                } // if
-            } // while
-        } catch (Exception e) {
 
+                int generation = evaluations / populationSize;
+                OPLAThreadScope.currentGeneration.set(generation);
+                OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
+                LOGGER.info(">> GENERATION " + generation);
+                // The score is set up to 0 because in future mutations the object can be modified and due to the score the modified solution is manteined imutable
+                for (Solution solution : offspringPopulation.getSolutionSet()) {
+                    solution.setEvaluation(0);
+//                        If you wish block replicated freezed solutions, uncomment this line
+//                        for (Element elementsWithPackage : solution.getAlternativeArchitecture().getElementsWithPackages()) {
+//                            elementsWithPackage.unsetFreeze();
+//                        }
+                }
+                if (interactive && currentInteraction < maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
+                    offspringPopulation = interactiveFunction.run(offspringPopulation);
+                    if (subjectiveAnalyzeAlgorithm == null) {
+                        subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(offspringPopulation, ClassifierAlgorithm.CLUSTERING_MLP);
+                        subjectiveAnalyzeAlgorithm.run(null, false);
+                    } else {
+                        subjectiveAnalyzeAlgorithm.run(offspringPopulation, false);
+                    }
+                    bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5 && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
+                    currentInteraction++;
+                }
+
+//              MID MLP
+                if (interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction) {
+                    subjectiveAnalyzeAlgorithm.run(offspringPopulation, true);
+                }
+
+                if (interactive && subjectiveAnalyzeAlgorithm != null && !subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions) {
+//                    subjectiveAnalyzeAlgorithm.run();
+                    subjectiveAnalyzeAlgorithm.setTrained(true);
+                }
+
+                if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
+                    subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(offspringPopulation, true);
+                }
+
+                if ((indicators != null) && (requiredEvaluations == 0)) {
+                    double HV = indicators.getHypervolume(population);
+                    if (HV >= (0.98 * indicators.getTrueParetoFrontHypervolume())) {
+                        requiredEvaluations = evaluations;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+            throw new JMException(e.getMessage());
         }
 
         // Return as output parameter the required evaluations
+        LOGGER.info("setOutputParameter()");
         setOutputParameter("evaluations", requiredEvaluations);
 
         // Return the first non-dominated front
-        Ranking ranking = new Ranking(initialPopulation);
-        return ranking.getSubfront(0);
-        //return population;
+        LOGGER.info("Ranking()");
+        SolutionSet populationOriginal = new Cloner().shallowClone(population);
+        Ranking ranking = new Ranking(population);
+
+        SolutionSet subfrontToReturn = ranking.getSubfront(0);
+
+        removeRuim(subfrontToReturn, populationOriginal, interactive);
+
+        subfrontToReturn.setCapacity(subfrontToReturn.getCapacity() + bestOfUserEvaluation.size());
+        for (Solution solution : bestOfUserEvaluation) {
+            if (!subfrontToReturn.getSolutionSet().contains(solution)) {
+                subfrontToReturn.add(solution);
+            }
+        }
+
+        if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
+            try {
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(subfrontToReturn, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return subfrontToReturn;
+        // return population;
     } // execute
+
+    private void removeRuim(SolutionSet population, SolutionSet original, Boolean interactive) {
+        if (interactive) {
+            for (int i = 0; i < population.getSolutionSet().size(); i++) {
+                if (population.get(i).getEvaluation() == 1) {
+                    population.remove(i);
+                }
+            }
+        }
+    }
+
+    private Solution newRandomSolution(Operator mutationOperator) throws Exception {
+        Solution newSolution;
+        newSolution = new Solution(problem_);
+        // criar a diversidade na populacao inicial
+        mutationOperator.execute(newSolution);
+        problem_.evaluate(newSolution);
+
+        problem_.evaluateConstraints(newSolution);
+        return newSolution;
+    }
 } // NSGA-II

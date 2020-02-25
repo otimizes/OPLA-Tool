@@ -2,9 +2,9 @@ package jmetal4.experiments;
 
 import exceptions.MissingConfigurationException;
 import jmetal4.core.Solution;
-import jmetal4.util.NonDominatedSolutionList;
 import jmetal4.core.SolutionSet;
 import jmetal4.qualityIndicator.util.MetricsUtil;
+import jmetal4.util.NonDominatedSolutionList;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 public class CalculaEd {
 
-    private jmetal4.qualityIndicator.util.MetricsUtil mu;
+    private MetricsUtil mu;
     private NumberFormat format = NumberFormat.getInstance();
 
     public CalculaEd() {
@@ -49,7 +49,7 @@ public class CalculaEd {
      * @throws Exception
      */
     public HashMap<String, Double> calcula(String experimentId, int numberObjectives) throws Exception {
-        jmetal4.core.SolutionSet ss = queryNonDominatedSolutinsFromExperiment(experimentId);
+        SolutionSet ss = queryNonDominatedSolutinsFromExperiment(experimentId);
         HashMap<String, Double> results = new HashMap<>();
 
         String[] names = new String[ss.size()];
@@ -72,7 +72,7 @@ public class CalculaEd {
      * @return
      * @throws Exception
      */
-    public jmetal4.core.SolutionSet queryNonDominatedSolutinsFromExperiment(String experimentID) throws Exception {
+    public SolutionSet queryNonDominatedSolutinsFromExperiment(String experimentID) throws Exception {
         try {
             Statement statement = database.Database.getConnection().createStatement();
 

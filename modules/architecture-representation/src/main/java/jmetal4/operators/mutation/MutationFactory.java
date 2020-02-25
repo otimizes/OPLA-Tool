@@ -21,33 +21,59 @@
 
 package jmetal4.operators.mutation;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import br.ufpr.inf.opla.patterns.operator.impl.DesignPatternMutationOperator;
+import br.ufpr.inf.opla.patterns.strategies.designpatternselection.impl.CustomDesignPatternSelection;
+import jmetal4.experiments.ExperimentCommomConfigs;
 import jmetal4.util.Configuration;
 import jmetal4.util.JMException;
 
-import java.util.Map;
-
-
-/**
- * Class implementing a factory for Mutation objects.
- */
 public class MutationFactory {
 
+    private static final String DESIGN_PATTERNS = "DesignPatterns";
+
     /**
-     * Gets a crossover operator through its name.
+     * Gets a mutation operator through its name.
      *
-     * @param name of the operator
+     * @param name                           of the operator
+     * @param configs.getMutationOperators()
      * @return the operator
      * @throws JMException
+     * @params configs
      */
-    public static Mutation getMutationOperator(String name, Map<String, Object> parameters) throws JMException {
+    public static Mutation getMutationOperator(String name, HashMap<String, Object> parameters, ExperimentCommomConfigs configs) throws JMException {
+        System.out.println("MUTATION " + name);
+        if (isOnlyDesignPattern(configs)) {
+            return new DesignPatternMutationOperator(parameters, configs.getDesignPatternStrategy(), new CustomDesignPatternSelection(configs.getPatterns()));
+        } else if (isDesignPatternAndPlaFeatureMutation(configs)) {
+            DesignPatternMutationOperator dpm = new DesignPatternMutationOperator(parameters, configs.getDesignPatternStrategy(),
+                    new CustomDesignPatternSelection(configs.getPatterns()));
 
-        if (name.equalsIgnoreCase("PLAFeatureMutation"))
-            return new PLAFeatureMutation(parameters);
-        else {
+            configs.excludeDesignPatternsFromMutationOperatorList();
+            PLAFeatureMutation pf = new PLAFeatureMutation(parameters, configs.getMutationOperators());
+
+            return new DesignPatternAndPLAMutation(parameters, dpm, pf);
+        } else if (isOnlyPLAFeatureMutation(configs)) {
+            return new PLAFeatureMutation(parameters, configs.getMutationOperators());
+        } else {
             Configuration.logger_.severe("Operator '" + name + "' not found ");
-            Class<?> cls = java.lang.String.class;
+            Class<String> cls = java.lang.String.class;
             String name2 = cls.getName();
             throw new JMException("Exception in " + name2 + ".getMutationOperator()");
         }
-    } // getMutationOperator
-} // MutationFactory
+    }
+
+    private static boolean isOnlyPLAFeatureMutation(ExperimentCommomConfigs configs) {
+        return !configs.getMutationOperators().contains(DESIGN_PATTERNS) && configs.getMutationOperators().size() >= 1;
+    }
+
+    private static boolean isDesignPatternAndPlaFeatureMutation(ExperimentCommomConfigs configs) {
+        return configs.getMutationOperators().contains(DESIGN_PATTERNS) && configs.getMutationOperators().size() > 1;
+    }
+
+    private static boolean isOnlyDesignPattern(ExperimentCommomConfigs configs) {
+        return configs.getMutationOperators().contains(DESIGN_PATTERNS) && configs.getMutationOperators().size() == 1;
+    }
+}

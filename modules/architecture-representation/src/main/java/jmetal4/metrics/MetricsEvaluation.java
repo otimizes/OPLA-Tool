@@ -1,6 +1,5 @@
 package jmetal4.metrics;
 
-
 import arquitetura.representation.Architecture;
 import jmetal4.metrics.PLAMetrics.extensibility.ExtensPLA;
 import jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCC;
@@ -10,55 +9,77 @@ import jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCComponentResult;
 import jmetal4.metrics.concernDrivenMetrics.concernDiffusion.*;
 import jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
 import jmetal4.metrics.conventionalMetrics.*;
-
+import jmetal4.metrics.newPlasMetrics.*;
 
 public class MetricsEvaluation {
 
+    //addYni
+    public float evaluateWocsClass(Architecture architecture) {
+        return new WocsClass(architecture).getResults();
+    }
+
+    public float evaluateWocsInterface(Architecture architecture) {
+        return new WocsInterface(architecture).getResults();
+    }
+
+    public float evaluateCbcs(Architecture architecture) {
+        return new CBCS(architecture).getResults();
+    }
+
+    public double evaluateSsc(Architecture architecture) {
+        return new SSC(architecture).getResults();
+    }
+
+    public double evaluateSvc(Architecture architecture) {
+        return new SVC(architecture).getResults();
+    }
+
+    public double evaluateAv(Architecture architecture) {
+        return new AV(architecture).getResults();
+    }
+
+    //addYni
+
     public double evaluateATMRElegance(Architecture architecture) {
-        ATMRElegance ATMR = new ATMRElegance(architecture);
-        return ATMR.getResults();
+        return new ATMRElegance(architecture).getResults();
     }
 
     public double evaluateECElegance(Architecture architecture) {
-        ECElegance EC = new ECElegance(architecture);
-        return EC.getResults();
+        return new ECElegance(architecture).getResults();
     }
 
     public double evaluateNACElegance(Architecture architecture) {
-        NACElegance NAC = new NACElegance(architecture);
-        return NAC.getResults();
+        return new NACElegance(architecture).getResults();
     }
 
-
     public double evaluateElegance(Architecture architecture) {
-        double EleganceFitness = 0.0;
-        EleganceFitness = evaluateATMRElegance(architecture) + evaluateECElegance(architecture) + evaluateNACElegance(architecture);
-        return EleganceFitness;
+        return evaluateATMRElegance(architecture) + evaluateECElegance(architecture)
+                + evaluateNACElegance(architecture);
     }
 
     public float evaluatePLAExtensibility(Architecture architecture) {
-        float ExtensibilityFitness = 0;
-        float Extensibility;
+        float extensibilityFitness = 0;
+        float extensibility;
         ExtensPLA PLAExtens = new ExtensPLA(architecture);
-        ExtensibilityFitness = PLAExtens.getValue();
-        if (ExtensibilityFitness == 0)
-            Extensibility = 1000;
-        else Extensibility = 1 / ExtensibilityFitness;
-        return (Extensibility);
+        extensibilityFitness = PLAExtens.getValue();
+        if (extensibilityFitness == 0)
+            extensibility = 1000;
+        else
+            extensibility = 1 / extensibilityFitness;
+        return extensibilityFitness;
     }
 
     public double evaluateMSIFitness(Architecture architecture) {
-        double sumCIBC = 0.0;
-        double sumIIBC = 0.0;
-        double sumOOBC = 0.0;
-        double sumCDAC = 0.0;
-        double sumCDAI = 0.0;
-        double sumCDAO = 0.0;
-        double sumLCC = 0.0;
-        double MSIFitness = 0.0;
+        Double sumCIBC = 0.0;
+        Double sumIIBC = 0.0;
+        Double sumOOBC = 0.0;
+        Double sumCDAC = 0.0;
+        Double sumCDAI = 0.0;
+        Double sumCDAO = 0.0;
+        Double sumLCC = 0.0;
+        Double MSIFitness = 0.0;
 
         sumLCC = evaluateLCC(architecture);
-
 
         CIBC cibc = new CIBC(architecture);
         for (CIBCResult c : cibc.getResults().values()) {
@@ -74,7 +95,6 @@ public class MetricsEvaluation {
         for (OOBCResult c : oobc.getResults().values()) {
             sumOOBC += c.getInterlacedConcerns().size();
         }
-
 
         CDAC cdac = new CDAC(architecture);
         for (CDACResult c : cdac.getResults()) {
@@ -95,9 +115,8 @@ public class MetricsEvaluation {
         return MSIFitness;
     }
 
-
-    public double evaluateCIBC(Architecture architecture) {
-        double sumCIBC = 0.0;
+    public Double evaluateCIBC(Architecture architecture) {
+        Double sumCIBC = 0.0;
 
         CIBC cibc = new CIBC(architecture);
         for (CIBCResult c : cibc.getResults().values()) {
@@ -107,10 +126,9 @@ public class MetricsEvaluation {
         return sumCIBC;
     }
 
+    public Double evaluateIIBC(Architecture architecture) {
 
-    public double evaluateIIBC(Architecture architecture) {
-
-        double sumIIBC = 0.0;
+        Double sumIIBC = 0.0;
 
         IIBC iibc = new IIBC(architecture);
         for (IIBCResult c : iibc.getResults().values()) {
@@ -120,10 +138,8 @@ public class MetricsEvaluation {
         return sumIIBC;
     }
 
-
-    public double evaluateOOBC(Architecture architecture) {
-
-        double sumOOBC = 0.0;
+    public Double evaluateOOBC(Architecture architecture) {
+        Double sumOOBC = 0.0;
 
         OOBC oobc = new OOBC(architecture);
         for (OOBCResult c : oobc.getResults().values()) {
@@ -132,10 +148,8 @@ public class MetricsEvaluation {
         return sumOOBC;
     }
 
-
-    public double evaluateCDAC(Architecture architecture) {
-
-        double sumCDAC = 0.0;
+    public Double evaluateCDAC(Architecture architecture) {
+        Double sumCDAC = 0.0;
         CDAC cdac = new CDAC(architecture);
         for (CDACResult c : cdac.getResults()) {
             sumCDAC += c.getElements().size();
@@ -143,8 +157,8 @@ public class MetricsEvaluation {
         return sumCDAC;
     }
 
-    public double evaluateCDAI(Architecture architecture) {
-        double sumCDAI = 0.0;
+    public Double evaluateCDAI(Architecture architecture) {
+        Double sumCDAI = 0.0;
 
         CDAI cdai = new CDAI(architecture);
         for (CDAIResult c : cdai.getResults()) {
@@ -153,9 +167,8 @@ public class MetricsEvaluation {
         return sumCDAI;
     }
 
-
-    public double evaluateCDAO(Architecture architecture) {
-        double sumCDAO = 0.0;
+    public Double evaluateCDAO(Architecture architecture) {
+        Double sumCDAO = 0.0;
         CDAO cdao = new CDAO(architecture);
         for (CDAOResult c : cdao.getResults()) {
             sumCDAO += c.getElements().size();
@@ -163,20 +176,19 @@ public class MetricsEvaluation {
         return sumCDAO;
     }
 
-    public double evaluateLCC(Architecture architecture) {
-        double sumLCC = 0.0;
+    public Double evaluateLCC(Architecture architecture) {
+        Double sumLCC = 0.0;
         LCC result = new LCC(architecture);
 
         for (LCCComponentResult component : result.getResults()) {
             sumLCC += component.numberOfConcerns();
-
         }
         return sumLCC;
     }
 
-    public double evaluateCDAClass(Architecture architecture) {
+    public Double evaluateCDAClass(Architecture architecture) {
 
-        double sumCDAClass = 0.0;
+        Double sumCDAClass = 0.0;
 
         CDAClass cdaclass = new CDAClass(architecture);
         for (CDAClassResult c : cdaclass.getResults()) {
@@ -186,10 +198,9 @@ public class MetricsEvaluation {
         return sumCDAClass;
     }
 
+    public Double evaluateCIBClass(Architecture architecture) {
 
-    public double evaluateCIBClass(Architecture architecture) {
-
-        double sumCIBClass = 0.0;
+        Double sumCIBClass = 0.0;
 
         CIBClass cibclass = new CIBClass(architecture);
         for (CIBClassResult c : cibclass.getResults().values()) {
@@ -199,9 +210,8 @@ public class MetricsEvaluation {
         return sumCIBClass;
     }
 
-
-    public double evaluateLCCClass(Architecture architecture) {
-        double sumLCCClass = 0.0;
+    public Double evaluateLCCClass(Architecture architecture) {
+        Double sumLCCClass = 0.0;
         LCCClass result = new LCCClass(architecture);
 
         for (LCCClassComponentResult cls : result.getResults()) {
@@ -211,18 +221,17 @@ public class MetricsEvaluation {
         return sumLCCClass;
     }
 
-    //----------------------------------------------------------------------------------
-    public double evaluateMACFitness(Architecture architecture) {
-        double MACFitness = 0.0;
-        double meanNumOps = 0.0;
-        double meanDepComps = 0.0;
-        double sumCohesion = 0.0;
-        double sumClassesDepIn = 0.0;
-        double sumClassesDepOut = 0.0;
-        double sumDepIn = 0.0;
-        double sumDepOut = 0.0;
-        double iCohesion = 0.0;
-
+    // ----------------------------------------------------------------------------------
+    public Double evaluateMACFitness(Architecture architecture) {
+        Double MACFitness = 0.0;
+        Double meanNumOps = 0.0;
+        Double meanDepComps = 0.0;
+        Double sumCohesion = 0.0;
+        int sumClassesDepIn = 0;
+        int sumClassesDepOut = 0;
+        int sumDepIn = 0;
+        int sumDepOut = 0;
+        Double iCohesion = 0.0;
 
         MeanNumOpsByInterface numOps = new MeanNumOpsByInterface(architecture);
         meanNumOps = numOps.getResults();
@@ -246,79 +255,53 @@ public class MetricsEvaluation {
         sumCohesion = cohesion.getResults();
         if (sumCohesion == 0) {
             iCohesion = 1.0;
-        } else iCohesion = 1 / sumCohesion;
+        } else
+            iCohesion = 1 / sumCohesion;
 
-
-        MACFitness = meanNumOps + meanDepComps + sumClassesDepIn + sumClassesDepOut + sumDepIn + sumDepOut + (1 / sumCohesion);
-
+        MACFitness = meanNumOps + meanDepComps + sumClassesDepIn + sumClassesDepOut + sumDepIn + sumDepOut
+                + (1 / sumCohesion);
 
         return MACFitness;
     }
 
-
-    public double evaluateMeanNumOps(Architecture architecture) {
-        double meanNumOps = 0.0;
+    public Double evaluateMeanNumOps(Architecture architecture) {
         MeanNumOpsByInterface numOps = new MeanNumOpsByInterface(architecture);
-        meanNumOps = numOps.getResults();
-        return meanNumOps;
+        return numOps.getResults();
     }
 
-    public double evaluateMeanDepComps(Architecture architecture) {
-        double meanDepComps = 0.0;
+    public Double evaluateMeanDepComps(Architecture architecture) {
         MeanDepComponents depComps = new MeanDepComponents(architecture);
-        meanDepComps = depComps.getResults();
-        return meanDepComps;
+        return depComps.getResults();
     }
 
-
-    public double evaluateSumClassesDepIn(Architecture architecture) {
-
-        double sumClassesDepIn = 0.0;
+    public int evaluateSumClassesDepIn(Architecture architecture) {
         ClassDependencyIn classesDepIn = new ClassDependencyIn(architecture);
-        sumClassesDepIn = classesDepIn.getResults();
-        return sumClassesDepIn;
+        return classesDepIn.getResults();
     }
 
-
-    public double evaluateSumClassesDepOut(Architecture architecture) {
-        double sumClassesDepOut = 0.0;
-
+    public int evaluateSumClassesDepOut(Architecture architecture) {
         ClassDependencyOut classesDepOut = new ClassDependencyOut(architecture);
-        sumClassesDepOut = classesDepOut.getResults();
-
-        return sumClassesDepOut;
+        return classesDepOut.getResults();
     }
 
     public double evaluateSumDepIn(Architecture architecture) {
-
-        double sumDepIn = 0.0;
         DependencyIn DepIn = new DependencyIn(architecture);
-        sumDepIn = DepIn.getResults();
-        return sumDepIn;
+        return DepIn.getResults();
     }
-
 
     public double evaluateSumDepOut(Architecture architecture) {
-
-        double sumDepOut = 0.0;
         DependencyOut DepOut = new DependencyOut(architecture);
-        sumDepOut = DepOut.getResults();
-        return sumDepOut;
+        return DepOut.getResults();
     }
 
-    //---------------------------------------------------------------------------------
-    public double evaluateCohesion(Architecture architecture) {
-        double sumCohesion = 0.0;
-        double iCohesion = 0.0;
-
+    // ---------------------------------------------------------------------------------
+    public Double evaluateCohesion(Architecture architecture) {
         RelationalCohesion cohesion = new RelationalCohesion(architecture);
-        sumCohesion = cohesion.getResults();
-        if (sumCohesion == 0) {
-            iCohesion = 1.0;
-        } else iCohesion = 1 / sumCohesion;
-
-        return iCohesion;
+        return cohesion.getResults();
     }
 
+    public Double evaluateICohesion(Double sumCohesion) {
+        return sumCohesion == 0 ? 1.0 : 1 / sumCohesion;
+    }
 
 }

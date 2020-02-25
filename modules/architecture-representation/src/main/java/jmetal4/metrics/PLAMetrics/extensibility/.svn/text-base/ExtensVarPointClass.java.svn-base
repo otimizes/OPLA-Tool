@@ -1,0 +1,26 @@
+package br.uem.din.metrics.PLAMetrics.extensibility;
+
+import br.uem.din.architectureEvolution.representation.Class;
+import br.uem.din.architectureEvolution.representation.Element;
+import br.uem.din.architectureEvolution.representation.VariationPoint;
+
+public class ExtensVarPointClass {
+	
+	private VariationPoint variationPoint;
+
+	public ExtensVarPointClass(VariationPoint variationPoint) {
+		this.variationPoint = variationPoint;
+	}
+	
+	public float getValue() {
+		if (!(variationPoint.getVariationPointElement() instanceof Class)) return 0;
+		
+		Class variationPointElement = (Class) variationPoint.getVariationPointElement();
+		float result = new ExtensClass(variationPointElement).getValue();
+		
+		for (Element variant : variationPoint.getVariants())
+			result += new ExtensClass((Class) variant).getValue();
+		
+		return result;
+	}
+}

@@ -1,61 +1,89 @@
 package jmetal4.experiments;
 
+import arquitetura.io.OPLAThreadScope;
+import arquitetura.io.ReaderConfig;
+import br.ufpr.dinf.gres.loglog.Level;
+import database.Database;
+import database.Result;
+import exceptions.MissingConfigurationException;
 import jmetal4.core.Algorithm;
 import jmetal4.core.SolutionSet;
 import jmetal4.metaheuristics.paes.PAES;
 import jmetal4.operators.crossover.Crossover;
+import jmetal4.operators.crossover.CrossoverFactory;
 import jmetal4.operators.mutation.Mutation;
 import jmetal4.operators.mutation.MutationFactory;
 import jmetal4.operators.selection.Selection;
 import jmetal4.operators.selection.SelectionFactory;
 import jmetal4.problems.OPLA;
-import jmetal4.util.JMException;
+import metrics.AllMetrics;
+import persistence.*;
+import results.Execution;
+import results.Experiment;
+import results.FunResults;
+import results.InfoResult;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 public class PAES_OPLA_FeatMut {
 
-    public static int populationSize_;
-    public static int maxEvaluations_;
-    public static double mutationProbability_;
-    public static double crossoverProbability_;
+    public static int populationSize;
+    public static int maxEvaluations;
+    public static double mutationProbability;
+    public static double crossoverProbability;
+    private static Connection connection;
+    private static AllMetricsPersistenceDependency allMetricsPersistenceDependencies;
+    private static MetricsPersistence mp;
+    private static Result result;
+    public String dirToSaveOutput; //Diretório que sera criado dentro do diretorio configurado no arquivo de configuracao
 
-    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException,
-            ClassNotFoundException {
+    private PaesConfigs configs;
+    private String experiementId;
+    private int numberObjectives;
 
-        int runsNumber = 30; // 30;
-        maxEvaluations_ = 30000; // 300 gera��es
-        int archiveSize = 100;
+    public PAES_OPLA_FeatMut(PaesConfigs config) {
+        this.configs = config;
+    }
+
+    private static String getPlaName(String pla) {
+        int beginIndex = pla.lastIndexOf("/") + 1;
+        int endIndex = pla.length() - 4;
+        return pla.substring(beginIndex, endIndex);
+    }
+
+    public void execute() throws Exception {
+
+        intializeDependencies();
+
+        int runsNumber = this.configs.getNumberOfRuns();
+        maxEvaluations = this.configs.getMaxEvaluation();
+        int archiveSize = this.configs.getArchiveSize();
         int biSections = 5;
-        mutationProbability_ = 0.8;
+        mutationProbability = this.configs.getMutationProbability();
+        this.numberObjectives = this.configs.getOplaConfigs().getNumberOfObjectives();
         String context = "OPLA";
 
-        File directory = new File("experiment/OPLA/PAES/FeatureMutation" + "/");
-        if (!directory.exists()) {
-            if (!directory.mkdir()) {
-                System.out.println("N�o foi poss�vel criar o diret�rio do resultado");
-                System.exit(0);
-            }
-        }
-
-        String plas[] = new String[]{"resources/AGM-Final-concerns.xmi", "resources/AGM-improvement.xmi",
-                "resources/MM-v6-completa.xmi", "resources/LPS-BET.xmi", "resources/MM-Final.xmi"};
+        String plas[] = this.configs.getPlas().split(",");
         String xmiFilePath;
 
         for (String pla : plas) {
-
             xmiFilePath = pla;
-
             OPLA problem = null;
+            String plaName = getPlaName(pla);
+
             try {
-                problem = new OPLA(xmiFilePath);
+                problem = new OPLA(xmiFilePath, this.configs);
             } catch (Exception e) {
-                e.printStackTrace();
+                this.configs.getLogger().putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
+
+            Experiment experiement = mp.createExperimentOnDb(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
+            ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "PAES", configs);
+            conf.save();
 
             Algorithm algorithm;
             SolutionSet todasRuns = new SolutionSet();
@@ -64,80 +92,168 @@ public class PAES_OPLA_FeatMut {
             Mutation mutation;
             Selection selection;
 
-            HashMap parameters; // Operator parameters
+            HashMap<String, Object> parameters;
 
             algorithm = new PAES(problem);
 
             // Algorithm parameters
-            algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
+            algorithm.setInputParameter("maxEvaluations", maxEvaluations);
             algorithm.setInputParameter("archiveSize", archiveSize);
             algorithm.setInputParameter("biSections", biSections);
 
-            // Mutation
+            // Mutation and Crossover
+            parameters = new HashMap<String, Object>();
+            parameters.put("probability", crossoverProbability);
+            //TODO avaliar configurações na execução do algoritmo
+            crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parameters, this.configs);
 
-            parameters = new HashMap();
-            parameters.put("probability", mutationProbability_);
-            mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parameters);
+            parameters = new HashMap<String, Object>();
+            parameters.put("probability", mutationProbability);
+            mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parameters, this.configs);
 
             // Selection Operator
             parameters = null;
             selection = SelectionFactory.getSelectionOperator("BinaryTournament", parameters);
 
             // Add the operators to the algorithm
+            algorithm.addOperator("crossover", crossover);
             algorithm.addOperator("mutation", mutation);
             algorithm.addOperator("selection", selection);
 
-            System.out.println("\n================ PAES ================");
-            System.out.println("Context: " + context);
-            System.out.println("PLA: " + pla);
-            System.out.println("Params:");
-            System.out.println("\tMaxEva -> " + maxEvaluations_);
-            System.out.println("\tMuta -> " + mutationProbability_);
+            if (this.configs.isLog())
+                logInforamtions(context, pla);
 
-            long heapSize = Runtime.getRuntime().totalMemory();
-            heapSize = (heapSize / 1024) / 1024;
-            System.out.println("Heap Size: " + heapSize + "Mb\n");
+            List<String> selectedObjectiveFunctions = this.configs.getOplaConfigs().getSelectedObjectiveFunctions();
+            mp.saveObjectivesNames(this.configs.getOplaConfigs().getSelectedObjectiveFunctions(), experiement.getId());
 
-            String PLAName = pla.substring(10, 18);
+            result.setPlaName(plaName);
+
             long time[] = new long[runsNumber];
 
             for (int runs = 0; runs < runsNumber; runs++) {
 
-                // Execute the Algorithm
+                // Cria uma execução. Cada execução está ligada a um
+                // experiemento.
+                Execution execution = new Execution(experiement);
+                setDirToSaveOutput(experiement.getId(), execution.getId());
 
+                // Execute the Algorithm
                 long initTime = System.currentTimeMillis();
                 SolutionSet resultFront = algorithm.execute();
                 long estimatedTime = System.currentTimeMillis() - initTime;
-                // System.out.println("Iruns: " + runs + "\tTotal time: " +
-                // estimatedTime);
                 time[runs] = estimatedTime;
 
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                resultFront.printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
-                // resultFront.printVariablesToFile(directory + "/VAR_" + runs);
-                resultFront.printInformationToFile(directory + "/INFO_" + PLAName + "_" + runs + ".txt");
-                // resultFront.saveVariablesToFile(directory + "/VAR_" + runs +
-                // "_");
-                resultFront.saveVariablesToFile("VAR_" + runs + "_");
+                execution.setTime(estimatedTime);
 
+                List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), execution, experiement);
+                List<InfoResult> infoResults = result.getInformations(resultFront.getSolutionSet(), execution, experiement, funResults);
+                AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), execution, experiement, selectedObjectiveFunctions);
+
+                resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
+
+                execution.setFuns(funResults);
+                execution.setInfos(infoResults);
+                execution.setAllMetrics(allMetrics);
+
+                ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
+                try {
+                    persistence.persist(execution);
+                    persistence = null;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 // armazena as solucoes de todas runs
                 todasRuns = todasRuns.union(resultFront);
 
-            }
+                //Util.copyFolder(experiement.getId(), execution.getId());
+                //Util.moveAllFilesToExecutionDirectory(experiementId, execution.getId());
 
-            todasRuns.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
+                saveHypervolume(experiement.getId(), execution.getId(), resultFront, plaName);
+
+            }
 
             todasRuns = problem.removeDominadas(todasRuns);
             todasRuns = problem.removeRepetidas(todasRuns);
 
-            System.out.println("------    All Runs - Non-dominated solutions --------");
-            todasRuns.printObjectivesToFile(directory + "/FUN_All_" + PLAName + ".txt");
-            // todasRuns.printVariablesToFile(directory + "/VAR_All");
-            todasRuns.printInformationToFile(directory + "/INFO_All_" + PLAName + ".txt");
-            todasRuns.saveVariablesToFile("VAR_All_");
+            configs.getLogger().putLog("------All Runs - Non-dominated solutions --------");
+            List<FunResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
+
+            todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
+
+            mp.saveFunAll(funResults);
+
+            List<InfoResult> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement, funResults);
+            mp.saveInfoAll(infoResults);
+
+            AllMetrics allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,
+                    selectedObjectiveFunctions);
+            mp.persisteMetrics(allMetrics, this.configs.getOplaConfigs().getSelectedObjectiveFunctions());
+            mp = null;
+
+            setDirToSaveOutput(experiement.getId(), null);
+
+            CalculaEd c = new CalculaEd();
+            DistanceEuclideanPersistence.save(c.calcula(this.experiementId, this.numberObjectives), this.experiementId);
+            infoResults = null;
+            funResults = null;
+
+            //Util.moveAllFilesToExecutionDirectory(experiementId, null);
+            saveHypervolume(experiement.getId(), null, todasRuns, plaName);
         }
+
+        //Util.moveResourceToExperimentFolder(this.experiementId);
+
     }
-    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+    private void intializeDependencies() throws Exception {
+        result = new Result();
+        Database.setPathToDB(this.configs.getPathToDb());
+
+        try {
+            connection = Database.getConnection();
+        } catch (ClassNotFoundException | MissingConfigurationException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        allMetricsPersistenceDependencies = new AllMetricsPersistenceDependency(connection);
+        mp = new MetricsPersistence(allMetricsPersistenceDependencies);
+    }
+
+    private void logInforamtions(String context, String pla) {
+        configs.getLogger().putLog("\n================ PAES ================", Level.INFO);
+        configs.getLogger().putLog("Context: " + context, Level.INFO);
+        configs.getLogger().putLog("PLA: " + pla, Level.INFO);
+        configs.getLogger().putLog("Params:", Level.INFO);
+        configs.getLogger().putLog("\tMaxEva -> " + maxEvaluations, Level.INFO);
+        configs.getLogger().putLog("\tMuta -> " + mutationProbability, Level.INFO);
+
+        long heapSize = Runtime.getRuntime().totalMemory();
+        heapSize = (heapSize / 1024) / 1024;
+        configs.getLogger().putLog("Heap Size: " + heapSize + "Mb\n");
+    }
+
+    private void setDirToSaveOutput(String experimentID, String executionID) {
+        this.experiementId = experimentID;
+        CommonOPLAFeatMut.setDirToSaveOutput(experimentID, executionID);
+
+    }
+
+    private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
+        String dir;
+        if (executionID != null)
+            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator")  + experimentID + "/" + executionID + "/Hypervolume/";
+        else
+            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator")  + experimentID + "/Hypervolume/";
+
+        File newDir = new File(dir);
+        if (!newDir.exists())
+            newDir.mkdirs();
+
+        allSolutions.printObjectivesToFile(dir + "/hypervolume.txt");
+    }
+
+
 }

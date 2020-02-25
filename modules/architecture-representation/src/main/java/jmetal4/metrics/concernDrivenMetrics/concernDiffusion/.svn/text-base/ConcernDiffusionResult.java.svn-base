@@ -1,0 +1,61 @@
+package br.uem.din.metrics.concernDrivenMetrics.concernDiffusion;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import br.uem.din.architectureEvolution.representation.Architecture;
+import br.uem.din.architectureEvolution.representation.Component;
+import br.uem.din.architectureEvolution.representation.Concern;
+import br.uem.din.architectureEvolution.representation.Element;
+import br.uem.din.architectureEvolution.representation.Interface;
+import br.uem.din.architectureEvolution.representation.Operation;
+
+public abstract class ConcernDiffusionResult<T extends Element> {
+	
+	private final Concern concern;
+	private final Set<T> elements = new HashSet<T>();
+	
+	public ConcernDiffusionResult(Concern concern, Architecture architecture) {
+		this.concern = concern;
+		loadElements(architecture);
+	}
+
+	protected boolean componentContainsConcern(Component component) {
+		return component.containsConcern(concern);
+	}
+
+	protected boolean componentContaisConcernViaInterface(Component component) {
+		for (Interface i : component.getImplementedInterfaces()) {
+			if (interfaceContainsConcern(i) || interfaceContainsConcernViaOperation(i))
+				return true;
+		}
+		return false;
+	}
+
+	protected boolean interfaceContainsConcern(Interface i) {
+		return i.containsConcern(concern);
+	}
+
+	protected boolean interfaceContainsConcernViaOperation(Interface i) {
+		for (Operation operation : i.getOperations()) {
+			if (operation.containsConcern(concern))
+				return true;
+		}
+		return false;
+	}
+	
+	public Concern getConcern() {
+		return concern;
+	}
+	
+	public Set<T> getElements() {
+		return elements;
+	}
+	
+	@Override
+	public String toString() {
+		return getConcern().getName() + ": " + elements.size();
+	}
+
+	protected abstract void loadElements(Architecture architecture);
+}

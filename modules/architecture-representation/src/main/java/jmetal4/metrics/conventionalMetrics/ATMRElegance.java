@@ -7,7 +7,7 @@ import arquitetura.representation.Class;
 public class ATMRElegance {
 
     private Architecture architecture;
-    private double results;
+    private Double results;
 
     public ATMRElegance(Architecture architecture) {
 
@@ -17,12 +17,10 @@ public class ATMRElegance {
         double ratiosAttributesMethods[] = new double[10000];
         int i = 0;
 
-        //Instancia a classe utilit�ria
-
         Estatistica e = new Estatistica();
 
         for (Class cls : this.architecture.getAllClasses()) {
-            //seta valores dos arrays
+            // seta valores dos arrays
             if (cls.getAllMethods().size() > 0) {
                 ratiosAttributesMethods[i] = (double) cls.getAllAttributes().size() / cls.getAllMethods().size();
                 i++;
@@ -38,7 +36,7 @@ public class ATMRElegance {
         this.results = stdDeviationRatios;
     }
 
-    public double getResults() {
+    public Double getResults() {
         return results;
     }
 

@@ -1,0 +1,37 @@
+package br.uem.din.metrics.concernDrivenMetrics.concernDiffusion;
+
+import br.uem.din.architectureEvolution.representation.Architecture;
+import br.uem.din.architectureEvolution.representation.Component;
+import br.uem.din.architectureEvolution.representation.Concern;
+import br.uem.din.architectureEvolution.representation.Interface;
+
+public class CDAIResult extends ConcernDiffusionResult<Interface> {
+
+	public CDAIResult(Concern concern, Architecture architecture) {
+		super(concern, architecture);
+	}
+
+	private void inspectInterfaces(Component component) {
+		for (Interface i : component.getImplementedInterfaces()) 
+			addInterface(i);
+
+		for (Interface i : component.getRequiredInterfaces()) 
+			addInterface(i);
+	}
+
+	private void addInterface(Interface i) {
+		if (interfaceContainsConcern(i) || interfaceContainsConcernViaOperation(i))
+			getElements().add(i);
+	}
+
+	@Override
+	protected void loadElements(Architecture architecture) {
+		for (Component component : architecture.getComponents()) {
+			if (componentContainsConcern(component))
+				getElements().addAll(component.getImplementedInterfaces());
+			else{
+				inspectInterfaces(component);
+			}
+		}
+	}
+}

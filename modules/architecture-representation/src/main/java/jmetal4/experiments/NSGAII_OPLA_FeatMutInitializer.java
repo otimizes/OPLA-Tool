@@ -13,7 +13,7 @@ public class NSGAII_OPLA_FeatMutInitializer implements AlgorithmBase {
 
 	@Override
 	public void run() {
-		jmetal4.experiments.NSGAII_OPLA_FeatMut nsgaiiFeatMut = new NSGAII_OPLA_FeatMut();
+		NSGAII_OPLA_FeatMut nsgaiiFeatMut = new NSGAII_OPLA_FeatMut();
 		nsgaiiFeatMut.setConfigs(this.config);
 		try {
 

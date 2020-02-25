@@ -24,9 +24,9 @@ package jmetal4.qualityIndicator.util;
 import java.util.Comparator;
 
 /**
- * This class implemnents the <code>Comparator</code> interface. It is used to
- * compare points given as <code>double</code>. The points are compared taken
- * account the value of a index
+ * This class implemnents the <code>Comparator</code> interface. It is used
+ * to compare points given as <code>double</code>. The points are compared
+ * taken account the value of a index
  */
 public class ValueComparator implements Comparator {
 
@@ -36,7 +36,8 @@ public class ValueComparator implements Comparator {
     private int index_;
 
     /**
-     * Constructor. Creates a new instance of ValueComparator
+     * Constructor.
+     * Creates a new instance of ValueComparator
      */
     public ValueComparator(int index) {
         index_ = index;
@@ -50,7 +51,7 @@ public class ValueComparator implements Comparator {
      * @return -1 if o1 < o1, 1 if o1 > o2 or 0 in other case.
      */
     public int compare(Object o1, Object o2) {
-        // Cast to double [] o1 and o2.
+        //Cast to double [] o1 and o2.
         double[] pointOne = (double[]) o1;
         double[] pointTwo = (double[]) o2;
 

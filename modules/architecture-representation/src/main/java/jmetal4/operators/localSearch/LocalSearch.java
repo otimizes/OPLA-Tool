@@ -25,13 +25,11 @@ import jmetal4.core.Operator;
 
 import java.util.HashMap;
 
+
 /**
  * Abstract class representing a generic local search operator
  */
 public abstract class LocalSearch extends Operator {
-
-    private static final long serialVersionUID = 1L;
-
     public LocalSearch(HashMap<String, Object> parameters) {
         super(parameters);
     }

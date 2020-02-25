@@ -4,7 +4,9 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Package;
 import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
+import arquitetura.representation.relationship.UsageRelationship;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,22 +26,22 @@ public class ClassDependencyOut {
         this.results = 0;
         int depOut = 0;
 
-
-        //EDIPO - Mudei para pacote
         for (Package component : this.architecture.getAllPackages()) {
 
             for (arquitetura.representation.Class cls : component.getAllClasses()) {
                 depOut += searchClassDependencies(cls, component);
-                //System.out.println("DepOut- Classe: "+ cls.getName() + " :" + depOut);
+                // System.out.println("DepOut- Classe: "+ cls.getName() + " :" +
+                // depOut);
             }
 
-            this.results += depOut; // somatorio de DepOut da arquitetura como um todo
+            this.results += depOut; // somatorio de DepOut da arquitetura como
+            // um todo
             depOut = 0;
         }
 
     }
 
-//----------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------
 
     private int searchClassDependencies(Class source, Package comp) {
         List<Class> depClasses = new ArrayList<Class>();
@@ -55,9 +57,21 @@ public class ClassDependencyOut {
                             depClasses.add(c);
                         }
                     }
+                    if (relationship instanceof RealizationRelationship) {
+                        RealizationRelationship dependency = (RealizationRelationship) relationship;
+                        if (dependency.getClient().equals(source) && (!(depClasses.contains(c)))) {
+                            depClasses.add(c);
+                        }
+                    }
+                    if (relationship instanceof UsageRelationship) {
+                        UsageRelationship dependency = (UsageRelationship) relationship;
+                        if (dependency.getClient().equals(source) && (!(depClasses.contains(c)))) {
+                            depClasses.add(c);
+                        }
+                    }
                 }
             }
-        }//end for classes
+        } // end for classes
 
         return depClasses.size();
     }

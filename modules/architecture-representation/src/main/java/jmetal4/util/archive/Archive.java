@@ -27,8 +27,6 @@ import jmetal4.core.SolutionSet;
  */
 public class Archive extends SolutionSet {
 
-    private static final long serialVersionUID = 1L;
-
     public Archive(int size) {
         super(size);
     }

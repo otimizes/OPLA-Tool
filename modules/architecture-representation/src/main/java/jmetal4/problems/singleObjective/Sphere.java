@@ -32,11 +32,9 @@ import jmetal4.util.JMException;
  * Class representing a Sphere problem.
  */
 public class Sphere extends Problem {
-
-    private static final long serialVersionUID = 1L;
-
     /**
-     * Constructor Creates a default instance of the Sphere problem
+     * Constructor
+     * Creates a default instance of the Sphere problem
      *
      * @param numberOfVariables Number of variables of the problem
      * @param solutionType      The solution type must "Real" or "BinaryReal".
@@ -81,3 +79,4 @@ public class Sphere extends Problem {
         solution.setObjective(0, sum);
     } // evaluate
 } // Sphere
+

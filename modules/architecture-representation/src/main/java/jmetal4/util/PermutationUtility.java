@@ -21,15 +21,20 @@
 
 package jmetal4.util;
 
+import org.apache.log4j.Logger;
+
 /**
  * Class that provide an int permutation
  */
 public class PermutationUtility {
+	
+	private static final Logger LOGGER = Logger.getLogger(PermutationUtility.class);
 
     /**
      * Returns a permutation vector between the 0 and (length - 1)
      */
     public int[] intPermutation(int length) {
+    	LOGGER.info("intPermutation()");
         int[] aux = new int[length];
         int[] result = new int[length];
 

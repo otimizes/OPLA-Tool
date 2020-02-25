@@ -60,9 +60,6 @@ public abstract class SolutionType {
             variables[var] = vars[var].deepCopy();
         } // for
 
-        // 	System.out.println("Thelma: Tamanho da cole�ao de dependencias depois da c�pia = "+((Architecture)variables[0]).getDependencyComponentInterfaceRelationships().size());
-
-
         return variables;
     } // copyVariables
 

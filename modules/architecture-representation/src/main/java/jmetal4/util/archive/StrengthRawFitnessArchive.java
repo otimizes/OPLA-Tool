@@ -35,8 +35,6 @@ import java.util.Comparator;
  */
 public class StrengthRawFitnessArchive extends Archive {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * Stores the maximum size of the archive.
      */
@@ -76,8 +74,8 @@ public class StrengthRawFitnessArchive extends Archive {
      * is dominated by any member of the archive then it is discarded. If the
      * <code>Solution</code> dominates some members of the archive, these are
      * removed. If the archive is full and the <code>Solution</code> has to be
-     * inserted, all the solutions are ordered by his strengthRawFitness value
-     * and the one having the worst value is removed.
+     * inserted, all the solutions are ordered by his strengthRawFitness value and
+     * the one having the worst value is removed.
      *
      * @param solution The <code>Solution</code>
      * @return true if the <code>Solution</code> has been inserted, false
@@ -90,10 +88,10 @@ public class StrengthRawFitnessArchive extends Archive {
         while (i < solutionsList_.size()) {
             aux = solutionsList_.get(i);
             flag = dominance_.compare(solution, aux);
-            if (flag == 1) { // The solution to add is dominated
-                return false; // Discard the new solution
-            } else if (flag == -1) { // A solution in the archive is dominated
-                solutionsList_.remove(i); // Remove the dominated solution
+            if (flag == 1) {                // The solution to add is dominated
+                return false;                 // Discard the new solution
+            } else if (flag == -1) {        // A solution in the archive is dominated
+                solutionsList_.remove(i);     // Remove the dominated solution
             } else {
                 if (equals_.compare(aux, solution) == 0) {
                     return false;
@@ -106,9 +104,9 @@ public class StrengthRawFitnessArchive extends Archive {
 
         if (size() > maxSize_) { // The archive is full
             (new Spea2Fitness(this)).fitnessAssign();
-            // Remove the last
+            //Remove the last
             remove(indexWorst(fitnessComparator_));
         }
         return true;
     } // add
-} // StrengthRawFitnessArchive
+} //StrengthRawFitnessArchive

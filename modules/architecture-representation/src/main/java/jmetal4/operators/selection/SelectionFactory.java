@@ -21,10 +21,10 @@
 
 package jmetal4.operators.selection;
 
+import java.util.Map;
+
 import jmetal4.util.Configuration;
 import jmetal4.util.JMException;
-
-import java.util.Map;
 
 /**
  * Class implementing a factory of selection operators

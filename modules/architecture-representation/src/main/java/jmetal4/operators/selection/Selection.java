@@ -21,16 +21,14 @@
 
 package jmetal4.operators.selection;
 
-import jmetal4.core.Operator;
-
 import java.util.Map;
+
+import jmetal4.core.Operator;
 
 /**
  * This class represents the super class of all the selection operators
  */
 public abstract class Selection extends Operator {
-
-    private static final long serialVersionUID = 1L;
 
     public Selection(Map<String, Object> parameters) {
         super(parameters);

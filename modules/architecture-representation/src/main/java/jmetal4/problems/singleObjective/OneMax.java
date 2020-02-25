@@ -32,7 +32,6 @@ import jmetal4.encodings.variable.Binary;
  */
 public class OneMax extends Problem {
 
-    private static final long serialVersionUID = 1L;
 
     /**
      * Creates a new OneMax problem instance
@@ -47,11 +46,10 @@ public class OneMax extends Problem {
 
         solutionType_ = new BinarySolutionType(this);
 
-        // variableType_ = new Class[numberOfVariables_] ;
+        //variableType_ = new Class[numberOfVariables_] ;
         length_ = new int[numberOfVariables_];
 
-        // variableType_[0] = Class.forName("jmetal4.encodings.variable.Binary")
-        // ;
+        //variableType_[0] = Class.forName("jmetal4.encodings.variable.Binary") ;
         length_[0] = numberOfBits;
     } // OneMax
 

@@ -10,7 +10,7 @@ public class PAES_OPLA_FeatMutInitializer implements AlgorithmBase {
 
     @Override
     public void run() {
-        jmetal4.experiments.PAES_OPLA_FeatMut paes = new PAES_OPLA_FeatMut(this.config);
+        PAES_OPLA_FeatMut paes = new PAES_OPLA_FeatMut(this.config);
 
         try {
             paes.execute();

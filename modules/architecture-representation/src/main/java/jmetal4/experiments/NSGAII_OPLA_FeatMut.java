@@ -1,5 +1,11 @@
 package jmetal4.experiments;
 
+import arquitetura.io.OPLAThreadScope;
+import arquitetura.io.ReaderConfig;
+import br.ufpr.dinf.gres.loglog.Level;
+import database.Database;
+import database.Result;
+import exceptions.MissingConfigurationException;
 import jmetal4.core.Algorithm;
 import jmetal4.core.SolutionSet;
 import jmetal4.metaheuristics.nsgaII.NSGAII;
@@ -11,84 +17,125 @@ import jmetal4.operators.selection.Selection;
 import jmetal4.operators.selection.SelectionFactory;
 import jmetal4.problems.OPLA;
 import jmetal4.util.JMException;
+import learning.*;
+import metrics.AllMetrics;
+import org.apache.log4j.Logger;
+import persistence.*;
+import results.Execution;
+import results.Experiment;
+import results.FunResults;
+import results.InfoResult;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
-
+import java.util.List;
 
 public class NSGAII_OPLA_FeatMut {
 
-    public static int populationSize_;
-    public static int maxEvaluations_;
-    public static double mutationProbability_;
-    public static double crossoverProbability_;
+    private static final Logger LOGGER = Logger.getLogger(NSGAII_OPLA_FeatMut.class);
 
-    //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    private int populationSize;
+    private int maxEvaluations;
+    private double mutationProbability;
+    private double crossoverProbability;
+    private Connection connection;
+    private AllMetricsPersistenceDependency allMetricsPersistenceDependencies;
+    private MetricsPersistence mp;
+    private Result result;
+    private NSGAIIConfig configs;
+    private String experiementId;
+    private int numberObjectives;
+    private ClusteringAlgorithm clusteringAlgorithm;
 
-        int runsNumber = 30; //30;
-        populationSize_ = 100; //100; 
-        maxEvaluations_ = 30000; //300 geraçõeshttp://loggr.net/
+    public NSGAII_OPLA_FeatMut(NSGAIIConfig config) {
+        this.configs = config;
+    }
 
-        crossoverProbability_ = 0.0;
-        mutationProbability_ = 0.9;
+    public NSGAII_OPLA_FeatMut() {
+    }
+
+    private static String getPlaName(String pla) {
+        int beginIndex = pla.lastIndexOf(File.separator) + 1;
+        int endIndex = pla.length() - 4;
+        return pla.substring(beginIndex, endIndex);
+    }
+
+    public void setConfigs(NSGAIIConfig configs) {
+        this.configs = configs;
+    }
+
+    public void execute() throws Exception {
+
+        intializeDependencies();
+
+        int runsNumber = this.configs.getNumberOfRuns();
+        populationSize = this.configs.getPopulationSize();
+        maxEvaluations = this.configs.getMaxEvaluation();
+        crossoverProbability = this.configs.getCrossoverProbability();
+        mutationProbability = this.configs.getMutationProbability();
+        this.numberObjectives = this.configs.getOplaConfigs().getNumberOfObjectives();
+        this.clusteringAlgorithm = this.configs.getClusteringAlgorithm();
+
         String context = "OPLA";
-        //Thelma - Dez2013 linha adicionada para identificar o algoritmo no nome do arquivo do hypervolume
-        String moea = "NSGAII-M";
 
-        //File directory = new File("resultado/nsgaii/" + context);
-        File directory = new File("experiment/OPLA/NSGA-II/FeatureMutation" + "/");
-        if (!directory.exists()) {
-            if (!directory.mkdirs()) {
-                System.out.println("N�o foi poss�vel criar o diret�rio do resultado");
-                System.exit(0);
-            }
-        }
-
-
-        String plas[] = new String[]{
-                "/Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agmfinal/agm.uml"};
+        String plas[] = this.configs.getPlas().split(",");
         String xmiFilePath;
 
         for (String pla : plas) {
+            LOGGER.info("Criando uma PLA em: " + pla);
             xmiFilePath = pla;
-
             OPLA problem = null;
+            String plaName = getPlaName(pla);
+            LOGGER.info("Nome da PLA: " + plaName);
+
             try {
-                problem = new OPLA(xmiFilePath);
+                problem = new OPLA(xmiFilePath, this.configs);
             } catch (Exception e) {
+                LOGGER.error(e);
                 e.printStackTrace();
+                this.configs.getLogger()
+                        .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
+                throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
+
+            Experiment experiement = mp.createExperimentOnDb(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
+            ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "NSGAII", configs);
+            conf.save();
+            LOGGER.info("Salvou configurações do experimento");
 
             Algorithm algorithm;
             SolutionSet todasRuns = new SolutionSet();
-            // Thelma - Dez2013 - adicao da linha abaixo
-            SolutionSet allSolutions = new SolutionSet();
 
             Crossover crossover;
             Mutation mutation;
             Selection selection;
 
-            Map<String, Object> parameters; // Operator parameters
-
+            HashMap<String, Object> parameters;
 
             algorithm = new NSGAII(problem);
 
             // Algorithm parameters
-            algorithm.setInputParameter("populationSize", populationSize_);
-            algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
+            algorithm.setInputParameter("populationSize", populationSize);
+            algorithm.setInputParameter("maxEvaluations", maxEvaluations);
+            algorithm.setInputParameter("interactiveFunction", this.configs.getInteractiveFunction());
+            algorithm.setInputParameter("maxInteractions", this.configs.getMaxInteractions());
+            algorithm.setInputParameter("firstInteraction", this.configs.getFirstInteraction());
+            algorithm.setInputParameter("intervalInteraction", this.configs.getIntervalInteraction());
+            algorithm.setInputParameter("interactive", this.configs.getInteractive());
+            algorithm.setInputParameter("clusteringMoment", this.configs.getClusteringMoment());
+            algorithm.setInputParameter("clusteringAlgorithm", this.configs.getClusteringAlgorithm());
 
             // Mutation and Crossover
-            parameters = new HashMap<>();
-            parameters.put("probability", crossoverProbability_);
-            crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parameters);
+            parameters = new HashMap<String, Object>();
+            parameters.put("probability", crossoverProbability);
+            parameters.put("numberOfObjectives", numberObjectives);
+            crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parameters, configs);
 
-            parameters = new HashMap<>();
-            parameters.put("probability", mutationProbability_);
-            mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parameters);
+            parameters = new HashMap<String, Object>();
+            parameters.put("probability", mutationProbability);
+            mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parameters, this.configs);
 
             // Selection Operator
             parameters = null;
@@ -99,80 +146,182 @@ public class NSGAII_OPLA_FeatMut {
             algorithm.addOperator("mutation", mutation);
             algorithm.addOperator("selection", selection);
 
+            if (this.configs.isLog())
+                logInforamtions(context, pla);
 
-            System.out.println("\n================ NSGAII ================");
-            System.out.println("Context: " + context);
-            System.out.println("PLA: " + pla);
-            System.out.println("Params:");
-            System.out.println("\tPop -> " + populationSize_);
-            System.out.println("\tMaxEva -> " + maxEvaluations_);
-            System.out.println("\tCross -> " + crossoverProbability_);
-            System.out.println("\tMuta -> " + mutationProbability_);
+            List<String> selectedObjectiveFunctions = this.configs.getOplaConfigs().getSelectedObjectiveFunctions();
+            mp.saveObjectivesNames(selectedObjectiveFunctions, experiement.getId());
+            LOGGER.info("Salvou funções objetivo selecionadas");
 
 
-            long heapSize = Runtime.getRuntime().totalMemory();
-            heapSize = (heapSize / 1024) / 1024;
-            System.out.println("Heap Size: " + heapSize + "Mb\n");
+            result.setPlaName(plaName);
 
-            String PLAName = getPlaName(pla);
             long time[] = new long[runsNumber];
 
             for (int runs = 0; runs < runsNumber; runs++) {
 
-                // Execute the Algorithm
+                // Cria uma execução. Cada execução está ligada a um
+                // experiemento.
+                Execution execution = new Execution(experiement);
+                execution.setRuns(runs);
+                setDirToSaveOutput(experiement.getId(), execution.getId());
 
+                // Execute the Algorithm
                 long initTime = System.currentTimeMillis();
                 SolutionSet resultFront = algorithm.execute();
                 long estimatedTime = System.currentTimeMillis() - initTime;
-                //System.out.println("Iruns: " + runs + "\tTotal time: " + estimatedTime);
                 time[runs] = estimatedTime;
 
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                resultFront.printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
-                //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
-                resultFront.printInformationToFile(directory + "/INFO_" + PLAName + "_" + runs + ".txt");
-                // resultFront.saveVariablesToFile(directory + "/VAR_" + runs + "_");
-                resultFront.saveVariablesToFile("VAR_" + runs + "_");
+                List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), execution,
+                        experiement);
+                List<InfoResult> infoResults = result.getInformations(resultFront.getSolutionSet(), execution,
+                        experiement, funResults);
+                AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), execution,
+                        experiement, selectedObjectiveFunctions);
+                execution.setTime(estimatedTime);
 
-                //armazena as solucoes de todas runs
+                if (Moment.POSTERIORI.equals(this.configs.getClusteringMoment())) {
+                    this.configs.getInteractiveFunction().run(resultFront);
+                }
+
+                resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
+
+                execution.setFuns(funResults);
+                execution.setInfos(infoResults);
+                execution.setAllMetrics(allMetrics);
+
+                ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
+                try {
+                    persistence.persist(execution);
+                    persistence = null;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                // armazena as solucoes de todas runs
                 todasRuns = todasRuns.union(resultFront);
 
-                //Thelma - Dez2013
-                allSolutions = allSolutions.union(resultFront);
-                resultFront.printMetricsToFile(directory + "/Metrics_" + PLAName + "_" + runs + ".txt");
+                // Util.copyFolder(experiement.getId(), execution.getId());
+                // Util.moveAllFilesToExecutionDirectory(experiementId,
+                // execution.getId());
 
-
+                saveHypervolume(experiement.getId(), execution.getId(), resultFront, plaName);
             }
-            //Thelma - Dez2013 - duas proximas linhas
-            String NameOfPLA = getPlaName(pla);
-            allSolutions.printObjectivesToFile(directory + "/Hypervolume/" + NameOfPLA + "/" + NameOfPLA + "_HV_" + moea + ".txt");
-
-            todasRuns.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
 
             todasRuns = problem.removeDominadas(todasRuns);
             todasRuns = problem.removeRepetidas(todasRuns);
 
-            System.out.println("------    All Runs - Non-dominated solutions --------");
-            todasRuns.printObjectivesToFile(directory + "/FUN_All_" + PLAName + ".txt");
-            //todasRuns.printVariablesToFile(directory + "/VAR_All");
-            todasRuns.printInformationToFile(directory + "/INFO_All_" + PLAName + ".txt");
-            //todasRuns.saveVariablesToFile(directory + "/VAR_All_");
-            todasRuns.saveVariablesToFile("VAR_All_");
+            this.configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
+            List<FunResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
 
-            //Thelma - Dez2013
-            todasRuns.printMetricsToFile(directory + "/Metrics_All_" + PLAName + ".txt");
-            todasRuns.printAllMetricsToFile(directory + "/FUN_Metrics_All_" + PLAName + ".txt");
+            if (runsNumber > 1) {
+                LOGGER.info("saveVariablesToFile()");
+                todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
+            }
 
+            mp.saveFunAll(funResults);
+
+            List<InfoResult> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement, funResults);
+            mp.saveInfoAll(infoResults);
+            LOGGER.info("saveInfoAll()");
+
+            AllMetrics allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,
+                    selectedObjectiveFunctions);
+            mp.persisteMetrics(allMetrics, this.configs.getOplaConfigs().getSelectedObjectiveFunctions());
+            LOGGER.info("getMetrics()");
+            mp = null;
+
+            setDirToSaveOutput(experiement.getId(), null);
+
+            LOGGER.info("DistanceEuclideanPersistence.calculate()");
+            CalculaEd c = new CalculaEd();
+            DistanceEuclideanPersistence.save(c.calcula(this.experiementId, this.numberObjectives), this.experiementId);
+            infoResults = null;
+            funResults = null;
+
+            // Util.moveAllFilesToExecutionDirectory(experiementId, null);
+            LOGGER.info("saveHypervolume()");
+            saveHypervolume(experiement.getId(), null, todasRuns, plaName);
         }
+
+        // Util.moveResourceToExperimentFolder(this.experiementId);
+
     }
 
-    private static String getPlaName(String pla) {
-        int beginIndex = pla.lastIndexOf("/") + 1;
-        int endIndex = pla.length() - 4;
-        return pla.substring(beginIndex, endIndex);
+    private void logInforamtions(String context, String pla) {
+        logarPainel(context, pla);
+        logarConsole(context, pla);
+
     }
 
+    private void logarPainel(String context, String pla) {
+        configs.getLogger().putLog("\n================ NSGAII ================", Level.INFO);
+        configs.getLogger().putLog("Context: " + context, Level.INFO);
+        configs.getLogger().putLog("PLA: " + pla, Level.INFO);
+        configs.getLogger().putLog("Params:", Level.INFO);
+        configs.getLogger().putLog("\tPop -> " + populationSize, Level.INFO);
+        configs.getLogger().putLog("\tMaxEva -> " + maxEvaluations, Level.INFO);
+        configs.getLogger().putLog("\tCross -> " + crossoverProbability, Level.INFO);
+        configs.getLogger().putLog("\tMuta -> " + mutationProbability, Level.INFO);
+
+        long heapSize = Runtime.getRuntime().totalMemory();
+        heapSize = (heapSize / 1024) / 1024;
+        configs.getLogger().putLog("Heap Size: " + heapSize + "Mb\n");
+    }
+
+    private void logarConsole(String context, String pla) {
+        LOGGER.info("================ NSGAII ================");
+        LOGGER.info("Context: " + context);
+        LOGGER.info("PLA: " + pla);
+        LOGGER.info("Params:");
+        LOGGER.info("tPop -> " + populationSize);
+        LOGGER.info("tMaxEva -> " + maxEvaluations);
+        LOGGER.info("tCross -> " + crossoverProbability);
+        LOGGER.info("tMuta -> " + mutationProbability);
+        LOGGER.info("================ NSGAII ================");
+    }
+
+    private void intializeDependencies() {
+        LOGGER.info("Inicializando dependências");
+        result = new Result();
+        Database.setPathToDB(this.configs.getPathToDb());
+
+        try {
+            connection = Database.getConnection();
+            allMetricsPersistenceDependencies = new AllMetricsPersistenceDependency(connection);
+            mp = new MetricsPersistence(allMetricsPersistenceDependencies);
+        } catch (ClassNotFoundException | MissingConfigurationException | SQLException e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+            throw new RuntimeException();
+        } catch (Exception e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+
+    }
+
+    private void setDirToSaveOutput(String experimentID, String executionID) {
+        this.experiementId = experimentID;
+        CommonOPLAFeatMut.setDirToSaveOutput(experimentID, executionID);
+    }
+
+    private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
+        String dir;
+        if (executionID != null)
+            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + experimentID + System.getProperty("file.separator") + executionID + "/Hypervolume/";
+        else
+            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + experimentID + "/Hypervolume/";
+
+        File newDir = new File(dir);
+        if (!newDir.exists())
+            newDir.mkdirs();
+
+        allSolutions.printObjectivesToFile(dir + "/hypervolume.txt");
+    }
 
 }

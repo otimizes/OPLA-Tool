@@ -38,13 +38,12 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 /**
- * This class implements an local search operator based in the use of a mutation
- * operator. An archive is used to store the non-dominated solutions found
- * during the search.
+ * This class implements an local search operator based in the use of a
+ * mutation operator. An archive is used to store the non-dominated solutions
+ * found during the search.
  */
 public class MutationLocalSearch extends LocalSearch {
 
-    private static final long serialVersionUID = 1L;
     /**
      * Stores the number of evaluations_ carried out
      */
@@ -54,8 +53,8 @@ public class MutationLocalSearch extends LocalSearch {
      */
     private Problem problem_;
     /**
-     * Stores a reference to the archive in which the non-dominated solutions
-     * are inserted
+     * Stores a reference to the archive in which the non-dominated solutions are
+     * inserted
      */
     private SolutionSet archive_;
     private int improvementRounds_;
@@ -71,7 +70,8 @@ public class MutationLocalSearch extends LocalSearch {
     private Operator mutationOperator_;
 
     /**
-     * Constructor. Creates a new local search object.
+     * Constructor.
+     * Creates a new local search object.
      *
      * @param problem          The problem to solve
      * @param mutationOperator The mutation operator
@@ -90,23 +90,22 @@ public class MutationLocalSearch extends LocalSearch {
         archive_ = null;
         dominanceComparator_ = new DominanceComparator();
         constraintComparator_ = new OverallConstraintViolationComparator();
-    } // Mutation improvement
+    } //Mutation improvement
+
 
     /**
-     * Constructor. Creates a new local search object.
-     *
-     * @param problem
-     *            The problem to solve
-     * @param mutationOperator
-     *            The mutation operator
+     * Constructor.
+     * Creates a new local search object.
+     * @param problem The problem to solve
+     * @param mutationOperator The mutation operator
      */
-    // public MutationLocalSearch(Problem problem, Operator mutationOperator) {
-    // evaluations_ = 0 ;
-    // problem_ = problem;
-    // mutationOperator_ = mutationOperator;
-    // dominanceComparator_ = new DominanceComparator();
-    // constraintComparator_ = new OverallConstraintViolationComparator();
-    // } // MutationLocalSearch
+    //public MutationLocalSearch(Problem problem, Operator mutationOperator) {
+    //  evaluations_ = 0 ;
+    //  problem_ = problem;
+    //  mutationOperator_ = mutationOperator;
+    //  dominanceComparator_ = new DominanceComparator();
+    //  constraintComparator_ = new OverallConstraintViolationComparator();
+    //} // MutationLocalSearch
 
     /**
      * Executes the local search. The maximum number of iterations is given by
@@ -123,8 +122,7 @@ public class MutationLocalSearch extends LocalSearch {
      * @throws ClassNotFound
      * @throws CloneNotSupportedException
      */
-    public Object execute(Object object) throws JMException, CloneNotSupportedException, ClassNotFound, PackageNotFound,
-            NotFoundException, ConcernNotFoundException {
+    public Object execute(Object object) throws JMException, CloneNotSupportedException, ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException {
         int i = 0;
         int best = 0;
         evaluations_ = 0;
@@ -149,12 +147,12 @@ public class MutationLocalSearch extends LocalSearch {
             if (problem_.getNumberOfConstraints() > 0) {
                 problem_.evaluateConstraints(mutatedSolution);
                 best = constraintComparator_.compare(mutatedSolution, solution);
-                if (best == 0) // none of then is better that the other one
+                if (best == 0) //none of then is better that the other one
                 {
                     problem_.evaluate(mutatedSolution);
                     evaluations_++;
                     best = dominanceComparator_.compare(mutatedSolution, solution);
-                } else if (best == -1) // mutatedSolution is best
+                } else if (best == -1) //mutatedSolution is best
                 {
                     problem_.evaluate(mutatedSolution);
                     evaluations_++;
@@ -167,18 +165,20 @@ public class MutationLocalSearch extends LocalSearch {
             if (best == -1) // This is: Mutated is best
                 solution = mutatedSolution;
             else if (best == 1) // This is: Original is best
-                // delete mutatedSolution
+                //delete mutatedSolution
                 ;
             else // This is mutatedSolution and original are non-dominated
             {
-                // this.archive_.addIndividual(new Solution(solution));
-                // solution = mutatedSolution;
+                //this.archive_.addIndividual(new Solution(solution));
+                //solution = mutatedSolution;
                 if (archive_ != null)
                     archive_.add(mutatedSolution);
             }
-        } while (i < rounds);
+        }
+        while (i < rounds);
         return new Solution(solution);
     } // execute
+
 
     /**
      * Returns the number of evaluations maded

@@ -1,0 +1,24 @@
+package br.uem.din.metrics.PLAMetrics.extensibility;
+
+import br.uem.din.architectureEvolution.representation.Class;
+
+public class ExtensClassResult {
+
+	private final Class class_;
+
+	public ExtensClassResult(Class class_) {
+		this.class_ = class_;
+	}
+	
+	public float getValue() {
+		float numberOfMethods = class_.getMethods().size();
+		float numberOfAbstractMethods = class_.getAbstractMethods().size();
+		if (numberOfMethods == 0) return 0;
+		return numberOfAbstractMethods / numberOfMethods;
+	}
+	
+	@Override
+	public String toString() {
+		return class_.getName() + ": " + getValue();
+	}
+}

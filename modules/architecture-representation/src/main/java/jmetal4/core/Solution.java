@@ -23,7 +23,10 @@
 
 package jmetal4.core;
 
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Element;
 import jmetal4.encodings.variable.Binary;
+import jmetal4.problems.OPLA;
 
 import java.io.Serializable;
 
@@ -35,6 +38,9 @@ public class Solution implements Serializable {
      *
      */
     private static final long serialVersionUID = 2508217794094374887L;
+
+
+    String solutionName;
 
     /**
      * Stores the problem
@@ -55,7 +61,7 @@ public class Solution implements Serializable {
      * Stores the objectives values of the solution.
      */
     private double[] objective_;
-    //para guardar os valores de cada metrica quando executar o GA
+    // para guardar os valores de cada metrica quando executar o GA
     private double[] objective_temp_;
 
     /**
@@ -69,8 +75,8 @@ public class Solution implements Serializable {
     private double fitness_;
 
     /**
-     * Used in algorithm AbYSS, this field is intended to be used to know
-     * when a <code>Solution</code> is marked.
+     * Used in algorithm AbYSS, this field is intended to be used to know when a
+     * <code>Solution</code> is marked.
      */
     private boolean marked_;
 
@@ -90,8 +96,8 @@ public class Solution implements Serializable {
     private int numberOfViolatedConstraints_;
 
     /**
-     * This field is intended to be used to know the location of
-     * a solution into a <code>SolutionSet</code>. Used in MOCell
+     * This field is intended to be used to know the location of a solution into
+     * a <code>SolutionSet</code>. Used in MOCell
      */
     private int location_;
 
@@ -114,6 +120,19 @@ public class Solution implements Serializable {
     private double distanceToSolutionSet_;
 
     /**
+     * Stores the cluster realized by AbstractClustering Filter
+     */
+    private Double clusterId_;
+
+    private int userEvaluation;
+
+    private Long executionId_;
+
+    private Boolean clusterNoise_;
+
+    public Boolean evaluatedByUser;
+
+    /**
      * Constructor.
      */
     public Solution() {
@@ -131,8 +150,9 @@ public class Solution implements Serializable {
      *
      * @param numberOfObjectives Number of objectives of the solution
      *                           <p>
-     *                           This constructor is used mainly to read objective values from a file to
-     *                           variables of a SolutionSet to apply quality indicators
+     *                           This constructor is used mainly to read objective values from
+     *                           a file to variables of a SolutionSet to apply quality
+     *                           indicators
      */
     public Solution(int numberOfObjectives) {
         numberOfObjectives_ = numberOfObjectives;
@@ -156,9 +176,9 @@ public class Solution implements Serializable {
         kDistance_ = 0.0;
         crowdingDistance_ = 0.0;
         distanceToSolutionSet_ = Double.POSITIVE_INFINITY;
-        //<-
+        // <-
 
-        //variable_ = problem.solutionType_.createVariables() ;
+        // variable_ = problem.solutionType_.createVariables() ;
         variable_ = type_.createVariables();
     } // Solution
 
@@ -178,7 +198,7 @@ public class Solution implements Serializable {
         kDistance_ = 0.0;
         crowdingDistance_ = 0.0;
         distanceToSolutionSet_ = Double.POSITIVE_INFINITY;
-        //<-
+        // <-
 
         variable_ = variables;
     } // Constructor
@@ -197,7 +217,7 @@ public class Solution implements Serializable {
         for (int i = 0; i < objective_.length; i++) {
             objective_[i] = solution.getObjective(i);
         } // for
-        //<-
+        // <-
 
         if (solution.objective_temp_ != null) {
             objective_temp_ = new double[solution.objective_temp_.length];
@@ -206,10 +226,7 @@ public class Solution implements Serializable {
             } // for
         }
 
-        //   System.out.println("Thelma: Tamanho da cole�ao de dependencias antes da c�pia = "+((Architecture)solution.variable_[0]).getDependencyComponentInterfaceRelationships().size());
-
         variable_ = type_.copyVariables(solution.variable_);
-
 
         overallConstraintViolation_ = solution.getOverallConstraintViolation();
         numberOfViolatedConstraints_ = solution.getNumberOfViolatedConstraint();
@@ -227,8 +244,8 @@ public class Solution implements Serializable {
     }
 
     /**
-     * Gets the distance from the solution to a <code>SolutionSet</code>.
-     * <b> REQUIRE </b>: this method has to be invoked after calling
+     * Gets the distance from the solution to a <code>SolutionSet</code>. <b>
+     * REQUIRE </b>: this method has to be invoked after calling
      * <code>setDistanceToPopulation</code>.
      *
      * @return the distance to a specific solutionSet.
@@ -260,8 +277,8 @@ public class Solution implements Serializable {
     } // getKDistance
 
     /**
-     * Sets the distance between the solution and its k-nearest neighbor in
-     * a <code>SolutionSet</code>. The value is stored in <code>kDistance_</code>.
+     * Sets the distance between the solution and its k-nearest neighbor in a
+     * <code>SolutionSet</code>. The value is stored in <code>kDistance_</code>.
      *
      * @param distance The distance to the k-nearest neighbor.
      */
@@ -270,10 +287,10 @@ public class Solution implements Serializable {
     } // setKDistance
 
     /**
-     * Gets the crowding distance of the solution into a <code>SolutionSet</code>.
-     * Returns the value stored in <code>crowdingDistance_</code>.
-     * <b> REQUIRE </b>: this method has to be invoked after calling
-     * <code>setCrowdingDistance</code>.
+     * Gets the crowding distance of the solution into a
+     * <code>SolutionSet</code>. Returns the value stored in
+     * <code>crowdingDistance_</code>. <b> REQUIRE </b>: this method has to be
+     * invoked after calling <code>setCrowdingDistance</code>.
      *
      * @return the distance crowding distance of the solution.
      */
@@ -292,10 +309,9 @@ public class Solution implements Serializable {
     } // setCrowdingDistance
 
     /**
-     * Gets the fitness of the solution.
-     * Returns the value of stored in the variable <code>fitness_</code>.
-     * <b> REQUIRE </b>: This method has to be invoked after calling
-     * <code>setFitness()</code>.
+     * Gets the fitness of the solution. Returns the value of stored in the
+     * variable <code>fitness_</code>. <b> REQUIRE </b>: This method has to be
+     * invoked after calling <code>setFitness()</code>.
      *
      * @return the fitness.
      */
@@ -304,8 +320,8 @@ public class Solution implements Serializable {
     } // getFitness
 
     /**
-     * Sets the fitness of a solution.
-     * The value is stored in <code>fitness_</code>.
+     * Sets the fitness of a solution. The value is stored in
+     * <code>fitness_</code>.
      *
      * @param fitness The fitness of the solution.
      */
@@ -332,12 +348,28 @@ public class Solution implements Serializable {
         return objective_[i];
     } // getObjective
 
+    public double[] getObjectives() {
+        return objective_;
+    }
+
+    public Problem getProblem() {
+        return problem_;
+    }
+
+    public void setProblem(Problem problem_) {
+        this.problem_ = problem_;
+    }
+
+    public OPLA getOPLAProblem() {
+        return (OPLA) problem_;
+    }
+
     public void createObjectiveTemp(int numberOfObjectives) {
         objective_temp_ = new double[numberOfObjectives];
     }
 
-    public void setnumberOfObjectives(int numberOfObjectives) {
-        numberOfObjectives_ = numberOfObjectives;
+    public void createObjective(int numberOfObjectives) {
+        objective_ = new double[numberOfObjectives];
     }
 
     public void setObjectiveTemp(int i, double value) {
@@ -347,7 +379,6 @@ public class Solution implements Serializable {
     public double getObjectiveTemp(int i) {
         return objective_temp_[i];
     } // getObjective
-
 
     /**
      * Returns the number of objectives.
@@ -360,6 +391,10 @@ public class Solution implements Serializable {
         else
             return numberOfObjectives_;
     } // numberOfObjectives
+
+    public void setNumberOfObjectives(int numberOfObjectives_) {
+        this.numberOfObjectives_ = numberOfObjectives_;
+    }
 
     /**
      * Returns the number of decision variables of the solution.
@@ -390,7 +425,6 @@ public class Solution implements Serializable {
         return aux;
     } // toString
 
-
     public String toStringObjectivesTemp() {
         String aux = "";
 
@@ -403,11 +437,23 @@ public class Solution implements Serializable {
         return aux;
     }
 
+    public String toStringObjectives() {
+        String aux = "";
+
+        if (objective_ != null) {
+            for (int i = 0; i < objective_.length; i++) {
+                aux = aux + this.getObjective(i) + " ";
+            }
+        }
+
+        return aux;
+    }
+
     /**
      * Returns the decision variables of the solution.
      *
-     * @return the <code>DecisionVariables</code> object representing the decision
-     * variables of the solution.
+     * @return the <code>DecisionVariables</code> object representing the
+     * decision variables of the solution.
      */
     public Variable[] getDecisionVariables() {
         return variable_;
@@ -416,8 +462,8 @@ public class Solution implements Serializable {
     /**
      * Sets the decision variables for the solution.
      *
-     * @param decisionVariables The <code>DecisionVariables</code> object
-     *                          representing the decision variables of the solution.
+     * @param decisionVariables The <code>DecisionVariables</code> object representing the
+     *                          decision variables of the solution.
      */
     public void setDecisionVariables(Variable[] variables) {
         variable_ = variables;
@@ -427,8 +473,8 @@ public class Solution implements Serializable {
      * Indicates if the solution is marked.
      *
      * @return true if the method <code>marked</code> has been called and, after
-     * that, the method <code>unmarked</code> hasn't been called. False in other
-     * case.
+     * that, the method <code>unmarked</code> hasn't been called. False
+     * in other case.
      */
     public boolean isMarked() {
         return this.marked_;
@@ -449,9 +495,8 @@ public class Solution implements Serializable {
     } // unMarked
 
     /**
-     * Gets the rank of the solution.
-     * <b> REQUIRE </b>: This method has to be invoked after calling
-     * <code>setRank()</code>.
+     * Gets the rank of the solution. <b> REQUIRE </b>: This method has to be
+     * invoked after calling <code>setRank()</code>.
      *
      * @return the rank of the solution.
      */
@@ -469,15 +514,15 @@ public class Solution implements Serializable {
     } // setRank
 
     /**
-     * Gets the overall constraint violated by the solution.
-     * <b> REQUIRE </b>: This method has to be invoked after calling
+     * Gets the overall constraint violated by the solution. <b> REQUIRE </b>:
+     * This method has to be invoked after calling
      * <code>overallConstraintViolation</code>.
      *
      * @return the overall constraint violation by the solution.
      */
     public double getOverallConstraintViolation() {
         return this.overallConstraintViolation_;
-    }  //getOverallConstraintViolation
+    } // getOverallConstraintViolation
 
     /**
      * Sets the overall constraints violated by the solution.
@@ -489,8 +534,8 @@ public class Solution implements Serializable {
     } // setOverallConstraintViolation
 
     /**
-     * Gets the number of constraint violated by the solution.
-     * <b> REQUIRE </b>: This method has to be invoked after calling
+     * Gets the number of constraint violated by the solution. <b> REQUIRE </b>:
+     * This method has to be invoked after calling
      * <code>setNumberOfViolatedConstraint</code>.
      *
      * @return the number of constraints violated by the solution.
@@ -506,11 +551,11 @@ public class Solution implements Serializable {
      */
     public void setNumberOfViolatedConstraint(int value) {
         this.numberOfViolatedConstraints_ = value;
-    } //setNumberOfViolatedConstraint
+    } // setNumberOfViolatedConstraint
 
     /**
-     * Gets the location of this solution in a <code>SolutionSet</code>.
-     * <b> REQUIRE </b>: This method has to be invoked after calling
+     * Gets the location of this solution in a <code>SolutionSet</code>. <b>
+     * REQUIRE </b>: This method has to be invoked after calling
      * <code>setLocation</code>.
      *
      * @return the location of the solution into a solutionSet
@@ -530,11 +575,13 @@ public class Solution implements Serializable {
 
     /**
      * Sets the type of the variable.
-     * @param type The type of the variable.
+     *
+     * @param type
+     *            The type of the variable.
      */
-    //public void setType(String type) {
+    // public void setType(String type) {
     // type_ = Class.forName("") ;
-    //} // setType
+    // } // setType
 
     /**
      * Gets the type of the variable
@@ -567,6 +614,15 @@ public class Solution implements Serializable {
         return value;
     } // getAggregativeValue
 
+
+    public String getSolutionName() {
+        return solutionName;
+    }
+
+    public void setSolutionName(String solutionName) {
+        this.solutionName = solutionName;
+    }
+
     /**
      * Returns the number of bits of the chromosome in case of using a binary
      * representation
@@ -578,13 +634,65 @@ public class Solution implements Serializable {
 
         for (int i = 0; i < variable_.length; i++)
             try {
-                if ((variable_[i].getVariableType() == Class.forName("jmetal4.base.variable.Binary")) ||
-                        (variable_[i].getVariableType() == Class.forName("jmetal4.base.variable.BinaryReal")))
+                if ((variable_[i].getVariableType() == Class.forName("jmetal4.base.variable.Binary"))
+                        || (variable_[i].getVariableType() == Class.forName("jmetal4.base.variable.BinaryReal")))
                     bits += ((Binary) (variable_[i])).getNumberOfBits();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-
         return bits;
     } // getNumberOfBits
+
+    public Double getClusterId() {
+        return clusterId_;
+    }
+
+    public void setClusterId(Double clusterId_) {
+        this.clusterId_ = clusterId_;
+    }
+
+    public int getEvaluation() {
+        return userEvaluation;
+    }
+
+    public void setEvaluation(int userEvaluation) {
+        this.userEvaluation = userEvaluation;
+    }
+
+    public Long getExecutionId() {
+        return executionId_;
+    }
+
+    public void setExecutionId(Long executionId_) {
+        this.executionId_ = executionId_;
+    }
+
+    public Boolean getClusterNoise() {
+        return clusterNoise_ != null && clusterNoise_;
+    }
+
+    public void setClusterNoise(Boolean clusterNoise_) {
+        this.clusterNoise_ = clusterNoise_;
+    }
+
+    public boolean containsArchitecturalEvaluation() {
+        for (Element element : getAlternativeArchitecture().getElementsWithPackages()) {
+            if (element.isFreezeByDM()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Architecture getAlternativeArchitecture() {
+        return (Architecture) getDecisionVariables()[0];
+    }
+
+    public Boolean getEvaluatedByUser() {
+        return evaluatedByUser != null && evaluatedByUser;
+    }
+
+    public void setEvaluatedByUser(Boolean evaluatedByUser) {
+        this.evaluatedByUser = evaluatedByUser;
+    }
 } // Solution

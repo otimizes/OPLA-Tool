@@ -113,10 +113,6 @@ public abstract class Problem implements Serializable {
         numberOfVariables_ = numberOfVariables;
     } // getNumberOfVariables
 
-    public void setnumberOfObjectives(int numberOfObjectives) {
-        numberOfObjectives_ = numberOfObjectives;
-    }
-
     /**
      * Gets the the number of objectives of the problem.
      *

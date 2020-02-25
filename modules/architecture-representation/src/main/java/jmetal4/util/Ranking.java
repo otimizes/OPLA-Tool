@@ -30,24 +30,28 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
- * This class implements some facilities for ranking solutions. Given a
- * <code>SolutionSet</code> object, their solutions are ranked according to
- * scheme proposed in NSGA-II; as a result, a set of subsets are obtained. The
- * subsets are numbered starting from 0 (in NSGA-II, the numbering starts from
- * 1); thus, subset 0 contains the non-dominated solutions, subset 1 contains
- * the non-dominated solutions after removing those belonging to subset 0, and
- * so on.
+ * This class implements some facilities for ranking solutions.
+ * Given a <code>SolutionSet</code> object, their solutions are ranked
+ * according to scheme proposed in NSGA-II; as a result, a set of subsets
+ * are obtained. The subsets are numbered starting from 0 (in NSGA-II, the
+ * numbering starts from 1); thus, subset 0 contains the non-dominated
+ * solutions, subset 1 contains the non-dominated solutions after removing those
+ * belonging to subset 0, and so on.
  */
 public class Ranking {
+	
+	private static final Logger LOGGER = Logger.getLogger(Ranking.class);
 
     /**
      * stores a <code>Comparator</code> for dominance checking
      */
     private static final Comparator dominance_ = new DominanceComparator();
     /**
-     * stores a <code>Comparator</code> for Overal Constraint Violation
-     * Comparator checking
+     * stores a <code>Comparator</code> for Overal Constraint Violation Comparator
+     * checking
      */
     private static final Comparator constraint_ = new OverallConstraintViolationComparator();
     /**
@@ -80,10 +84,11 @@ public class Ranking {
         int flagDominate;
 
         // Initialize the fronts
+        LOGGER.info("Initialize the fronts");
         for (int i = 0; i < front.length; i++)
             front[i] = new LinkedList<Integer>();
 
-        // -> Fast non dominated sorting algorithm
+        //-> Fast non dominated sorting algorithm
         for (int p = 0; p < solutionSet_.size(); p++) {
             // Initialice the list of individuals that i dominate and the number
             // of individuals that dominate me
@@ -110,7 +115,8 @@ public class Ranking {
             }
         }
 
-        // Obtain the rest of fronts
+        //Obtain the rest of fronts
+        LOGGER.info("Obtain the rest of fronts");
         int i = 0;
         Iterator<Integer> it1, it2; // Iterators
         while (front[i].size() != 0) {
@@ -128,10 +134,11 @@ public class Ranking {
                 }
             }
         }
-        // <-
+        //<-
 
+        LOGGER.info("ranking_");
         ranking_ = new SolutionSet[i];
-        // 0,1,2,....,i-1 are front, then i fronts
+        //0,1,2,....,i-1 are front, then i fronts
         for (int j = 0; j < i; j++) {
             ranking_[j] = new SolutionSet(front[j].size());
             it1 = front[j].iterator();
@@ -143,8 +150,7 @@ public class Ranking {
     } // Ranking
 
     /**
-     * Returns a <code>SolutionSet</code> containing the solutions of a given
-     * rank.
+     * Returns a <code>SolutionSet</code> containing the solutions of a given rank.
      *
      * @param rank The rank
      * @return Object representing the <code>SolutionSet</code>.
