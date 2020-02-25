@@ -26,10 +26,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import domain.core.Solution;
-import domain.core.SolutionSet;
-import domain.util.PseudoRandom;
-import domain.util.comparators.DominanceComparator;
+import jmetal4.core.core.Solution;
+import jmetal4.core.core.SolutionSet;
+import jmetal4.core.util.PseudoRandom;
+import jmetal4.core.util.comparators.DominanceComparator;
 
 /**
  * This class implements an binary tournament selection operator

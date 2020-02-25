@@ -33,7 +33,7 @@ public class WocsclassMetricDAO extends GenericDAOImpl<WocsclassMetric>
         query.setParameter("idSolution", idSolution);
 
         List<WocsclassMetric> resultList = query.getResultList();
-        LOGGER.debug("Number of results: " + resultList.size());
+        LOGGER.debug("Number of jmetal4.results: " + resultList.size());
         return resultList;
     }
 

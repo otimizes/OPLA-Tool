@@ -37,7 +37,7 @@ public class ConventionalMetricDAO extends GenericDAOImpl<ConventionalMetric>
 		query.setParameter("idSolution", idSolution);
 
 		List<ConventionalMetric> resultList = query.getResultList();
-		LOGGER.debug("Number of results: " + resultList.size());
+		LOGGER.debug("Number of jmetal4.results: " + resultList.size());
 		return resultList;
 	}
 

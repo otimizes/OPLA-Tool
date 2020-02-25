@@ -28,12 +28,12 @@ import java.io.IOException;
 import jmetal4.experiments.Experiment;
 
 /**
- * Class for generating results in form of boxplots
+ * Class for generating jmetal4.results in form of boxplots
  */
 public class RBoxplot {
   /**
    * This method produces R scripts for generating eps files containing boxplots
-   * of the results previosly obtained. The boxplots will be arranged in a grid
+   * of the jmetal4.results previosly obtained. The boxplots will be arranged in a grid
    * of rows x cols. As the number of problems in the experiment can be too high,
    * the @param problems includes a list of the problems to be plotted.
    * @param rows

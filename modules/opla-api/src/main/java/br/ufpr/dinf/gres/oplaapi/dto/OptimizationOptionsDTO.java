@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.oplaapi.dto;
 
-import domain.OptimizationAlgorithm;
+import jmetal4.core.OptimizationAlgorithm;
 import jmetal4.experiments.FeatureMutationOperators;
 import jmetal4.experiments.Metrics;
 

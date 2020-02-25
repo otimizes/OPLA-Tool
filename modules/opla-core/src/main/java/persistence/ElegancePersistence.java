@@ -1,6 +1,6 @@
 package persistence;
 
-import metrics.Elegance;
+import jmetal4.metrics.Elegance;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,7 +17,7 @@ public class ElegancePersistence {
     }
 
     /**
-     * Save to database
+     * Save to jmetal4.database
      */
     public void save(Elegance eleganceMetric) {
 

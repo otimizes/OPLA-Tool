@@ -21,16 +21,16 @@
 //
 //package jmetal4.metaheuristics.nsgaII;
 //
-//import domain.core.Algorithm;
-//import domain.core.Operator;
-//import domain.core.Problem;
-//import domain.core.Solution;
-//import domain.core.SolutionSet;
+//import jmetal4.core.core.Algorithm;
+//import jmetal4.core.core.Operator;
+//import jmetal4.core.core.Problem;
+//import jmetal4.core.core.Solution;
+//import jmetal4.core.core.SolutionSet;
 //import jmetal4.qualityIndicator.QualityIndicator;
-//import domain.util.Distance;
+//import jmetal4.core.util.Distance;
 //import domain.util.JMException;
-//import domain.util.Ranking;
-//import domain.util.comparators.CrowdingComparator;
+//import jmetal4.core.util.Ranking;
+//import jmetal4.core.util.comparators.CrowdingComparator;
 ///**
 // * This class implements a steady-state version of NSGA-II.
 // */

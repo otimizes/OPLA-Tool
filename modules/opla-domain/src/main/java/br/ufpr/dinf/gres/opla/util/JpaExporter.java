@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Export database sql
+ * Export jmetal4.database sql
  *
  * @author Fernando
  */
@@ -23,7 +23,7 @@ public class JpaExporter {
 
     public static void main(String[] args) {
 
-        final String OUTPUT = "target/database.sql";
+        final String OUTPUT = "target/jmetal4.database.sql";
 
         Map<String, String> map = new HashMap<>();
         map.put("hibernate.dialect", "org.hibernate.dialect.SQLiteDialect");

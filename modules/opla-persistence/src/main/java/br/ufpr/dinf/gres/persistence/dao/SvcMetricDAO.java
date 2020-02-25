@@ -33,7 +33,7 @@ public class SvcMetricDAO extends GenericDAOImpl<SvcMetric>
         query.setParameter("idSolution", idSolution);
 
         List<SvcMetric> resultList = query.getResultList();
-        LOGGER.debug("Number of results: " + resultList.size());
+        LOGGER.debug("Number of jmetal4.results: " + resultList.size());
         return resultList;
     }
 

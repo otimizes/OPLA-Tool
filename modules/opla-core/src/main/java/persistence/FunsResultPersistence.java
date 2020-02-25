@@ -6,7 +6,7 @@
 
 package persistence;
 
-import results.FunResults;
+import jmetal4.results.FunResults;
 
 import java.sql.Connection;
 import java.sql.SQLException;

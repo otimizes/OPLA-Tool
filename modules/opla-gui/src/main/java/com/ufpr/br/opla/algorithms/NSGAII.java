@@ -9,14 +9,14 @@ import br.ufpr.dinf.gres.loglog.Logger;
 import com.ufpr.br.opla.configuration.UserHome;
 import com.ufpr.br.opla.configuration.VolatileConfs;
 import com.ufpr.br.opla.utils.MutationOperatorsSelected;
-import domain.AlgorithmExperiment;
+import jmetal4.core.AlgorithmExperiment;
 import jmetal45.experiments.FeatureMutationOperators;
 import jmetal45.experiments.NSGAIIConfig;
 import jmetal45.experiments.NSGAII_OPLA_FeatMutInitializer;
 import jmetal45.experiments.OPLAConfigs;
 import jmetal45.interactive.InteractiveFunction;
-import learning.ClusteringAlgorithm;
-import learning.Moment;
+import jmetal4.core.learning.ClusteringAlgorithm;
+import jmetal4.core.learning.Moment;
 
 import javax.swing.*;
 import java.util.List;

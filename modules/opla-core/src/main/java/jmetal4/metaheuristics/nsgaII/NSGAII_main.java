@@ -26,15 +26,15 @@
 //import java.util.logging.FileHandler;
 //import java.util.logging.Logger;
 //
-//import domain.core.Algorithm;
-//import domain.core.Operator;
-//import domain.core.Problem;
-//import domain.core.SolutionSet;
+//import jmetal4.core.core.Algorithm;
+//import jmetal4.core.core.Operator;
+//import jmetal4.core.core.Problem;
+//import jmetal4.core.core.SolutionSet;
 //import jmetal4.operators.crossover.CrossoverFactory;
 //import jmetal4.operators.mutation.MutationFactory;
 //import jmetal4.operators.selection.SelectionFactory;
-//import domain.problems.Kursawe;
-//import domain.problems.ProblemFactory;
+//import jmetal4.core.problems.Kursawe;
+//import jmetal4.core.problems.ProblemFactory;
 //import jmetal4.qualityIndicator.QualityIndicator;
 //import domain.util.Configuration;
 //import domain.util.JMException;

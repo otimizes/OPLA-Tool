@@ -33,7 +33,7 @@ public class WocsinterfaceDAO extends GenericDAOImpl<WocsinterfaceMetric>
         query.setParameter("idSolution", idSolution);
 
         List<WocsinterfaceMetric> resultList = query.getResultList();
-        LOGGER.debug("Number of results: " + resultList.size());
+        LOGGER.debug("Number of jmetal4.results: " + resultList.size());
         return resultList;
     }
 

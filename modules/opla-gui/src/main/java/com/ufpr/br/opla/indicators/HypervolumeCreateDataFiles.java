@@ -6,8 +6,8 @@ package com.ufpr.br.opla.indicators;
 
 import com.ufpr.br.opla.configuration.UserHome;
 import com.ufpr.br.opla.utils.Utils;
-import results.Execution;
-import results.FunResults;
+import jmetal4.results.Execution;
+import jmetal4.results.FunResults;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;

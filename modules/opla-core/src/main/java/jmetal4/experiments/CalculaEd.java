@@ -1,10 +1,10 @@
 package jmetal4.experiments;
 
 import exceptions.MissingConfigurationException;
-import domain.core.Solution;
-import domain.core.SolutionSet;
+import jmetal4.core.core.Solution;
+import jmetal4.core.core.SolutionSet;
 import jmetal4.qualityIndicator.util.MetricsUtil;
-import domain.util.NonDominatedSolutionList;
+import jmetal4.core.util.NonDominatedSolutionList;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -74,7 +74,7 @@ public class CalculaEd {
      */
     public SolutionSet queryNonDominatedSolutinsFromExperiment(String experimentID) throws Exception {
         try {
-            Statement statement = database.Database.getConnection().createStatement();
+            Statement statement = jmetal4.database.Database.getConnection().createStatement();
 
             StringBuilder query = new StringBuilder();
             query.append("SELECT objectives, solution_name FROM objectives WHERE experiement_id=");

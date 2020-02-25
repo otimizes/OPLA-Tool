@@ -21,7 +21,7 @@
 
 package jmetal4.operators.localSearch;
 
-import domain.core.Operator;
+import jmetal4.core.core.Operator;
 
 import java.util.HashMap;
 

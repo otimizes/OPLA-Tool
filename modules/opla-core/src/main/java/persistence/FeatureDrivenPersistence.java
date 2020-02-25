@@ -1,7 +1,7 @@
 package persistence;
 
-import metrics.Elegance;
-import metrics.FeatureDriven;
+import jmetal4.metrics.Elegance;
+import jmetal4.metrics.FeatureDriven;
 
 import java.sql.Connection;
 import java.sql.SQLException;

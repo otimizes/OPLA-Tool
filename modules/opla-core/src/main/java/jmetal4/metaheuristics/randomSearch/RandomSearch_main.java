@@ -21,12 +21,12 @@
 
 package jmetal4.metaheuristics.randomSearch;
 
-import domain.core.Algorithm;
-import domain.core.Operator;
-import domain.core.Problem;
-import domain.core.SolutionSet;
-import domain.problems.Kursawe;
-import domain.problems.ProblemFactory;
+import jmetal4.core.core.Algorithm;
+import jmetal4.core.core.Operator;
+import jmetal4.core.core.Problem;
+import jmetal4.core.core.SolutionSet;
+import jmetal4.core.problems.Kursawe;
+import jmetal4.core.problems.ProblemFactory;
 import jmetal4.qualityIndicator.QualityIndicator;
 import domain.util.Configuration;
 import domain.util.JMException;

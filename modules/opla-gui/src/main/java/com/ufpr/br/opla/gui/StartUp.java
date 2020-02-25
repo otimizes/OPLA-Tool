@@ -67,12 +67,12 @@ import arquitetura.io.FileUtils;
 import patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
 import jmetal45.experiments.FeatureMutationOperators;
 import jmetal45.experiments.Metrics;
-import metrics.Conventional;
-import metrics.Elegance;
-import metrics.FeatureDriven;
-import metrics.PLAExtensibility;
+import jmetal4.metrics.Conventional;
+import jmetal4.metrics.Elegance;
+import jmetal4.metrics.FeatureDriven;
+import jmetal4.metrics.PLAExtensibility;
 import net.miginfocom.swing.MigLayout;
-import results.Execution;
+import jmetal4.results.Execution;
 
 /**
  * @author elf
@@ -3192,7 +3192,7 @@ public class StartUp extends javax.swing.JFrame {
     private void configureDb() throws Exception {
         createDataBaseIfNotExists();
         try {
-            db.Database.setContent(results.Experiment.all());
+            db.Database.setContent(jmetal4.results.Experiment.all());
         } catch (SQLException ex) {
             LOGGER.info(ex);
             VIEW_LOG.putLog(String.format(String.format(String.format("Error ConfigureDB %s", ex.getMessage())),
@@ -3273,7 +3273,7 @@ public class StartUp extends javax.swing.JFrame {
 
     private void populateTables() {
         JTable tables[] = {tableExp, tableExp2};
-        List<results.Experiment> allExp = db.Database.getContent();
+        List<jmetal4.results.Experiment> allExp = db.Database.getContent();
 
         for (int i = 0; i < tables.length; i++) {
             try {
@@ -3285,7 +3285,7 @@ public class StartUp extends javax.swing.JFrame {
                 model.addColumn("Created at");
                 tables[i].setModel(model);
 
-                for (results.Experiment exp : allExp) {
+                for (jmetal4.results.Experiment exp : allExp) {
                     Object[] row = new Object[4];
                     row[0] = exp.getId();
                     row[1] = exp.getName();

@@ -24,11 +24,11 @@ import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
-import domain.core.Solution;
-import domain.problems.OPLA;
+import jmetal4.core.core.Solution;
+import jmetal4.core.problems.OPLA;
 import domain.util.Configuration;
 import domain.util.JMException;
-import domain.util.PseudoRandom;
+import jmetal4.core.util.PseudoRandom;
 
 public class PLAFeatureMutation extends Mutation {
 

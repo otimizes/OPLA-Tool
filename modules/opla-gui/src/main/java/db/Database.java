@@ -4,12 +4,12 @@ import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.Logger;
 import com.ufpr.br.opla.configuration.UserHome;
 import com.ufpr.br.opla.configuration.VolatileConfs;
-import utils.MathUtils;
+import jmetal4.utils.MathUtils;
 import com.ufpr.br.opla.utils.Utils;
 import exceptions.MissingConfigurationException;
-import metrics.*;
-import results.Execution;
-import results.Experiment;
+import jmetal4.metrics.*;
+import jmetal4.results.Execution;
+import jmetal4.results.Experiment;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -49,7 +49,7 @@ public class Database {
         String ordenedObjectives[] = db.Database.getOrdenedObjectives(experimentId).split(" ");
 
         try {
-            try (Statement statement = database.Database.getConnection().createStatement()) {
+            try (Statement statement = jmetal4.database.Database.getConnection().createStatement()) {
                 ResultSet r = statement.executeQuery(query.toString());
                 String objectives[] = r.getString("objectives").split("\\|");
                 HashMap<String, String> map = new HashMap<>();
@@ -75,7 +75,7 @@ public class Database {
         Map<String, String> funs = new HashMap<>();
 
         try {
-            try (Statement statement = database.Database.getConnection().createStatement()) {
+            try (Statement statement = jmetal4.database.Database.getConnection().createStatement()) {
                 StringBuilder query = new StringBuilder();
 
                 query.append("SELECT * FROM objectives where execution_id = ");
@@ -107,7 +107,7 @@ public class Database {
     public static String getOrdenedObjectives(String experimentId) {
         Statement statement = null;
         try {
-            statement = database.Database.getConnection().createStatement();
+            statement = jmetal4.database.Database.getConnection().createStatement();
 
             StringBuilder query = new StringBuilder();
             query.append("SELECT names FROM map_objectives_names WHERE experiment_id=");
@@ -135,7 +135,7 @@ public class Database {
     public static String getAlgoritmUsedToExperimentId(String id) {
         Statement statement = null;
         try {
-            statement = database.Database.getConnection().createStatement();
+            statement = jmetal4.database.Database.getConnection().createStatement();
 
             StringBuilder query = new StringBuilder();
             query.append("SELECT algorithm, description FROM experiments WHERE id=");
@@ -166,7 +166,7 @@ public class Database {
     public static String getPlaUsedToExperimentId(String id) {
         Statement statement = null;
         try {
-            statement = database.Database.getConnection().createStatement();
+            statement = jmetal4.database.Database.getConnection().createStatement();
 
             StringBuilder query = new StringBuilder();
             query.append("SELECT name FROM experiments WHERE id=");
@@ -190,7 +190,7 @@ public class Database {
 
     public static void reloadContent() {
         try {
-            content = results.Experiment.all();
+            content = jmetal4.results.Experiment.all();
         } catch (SQLException ex) {
             ex.printStackTrace();
             Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
@@ -265,8 +265,8 @@ public class Database {
         return null;
     }
 
-    public static List<metrics.Metrics> getAllEleganceMetricsForExperimentId(String experimentId) {
-        List<metrics.Metrics> listFd = new ArrayList<>();
+    public static List<jmetal4.metrics.Metrics> getAllEleganceMetricsForExperimentId(String experimentId) {
+        List<jmetal4.metrics.Metrics> listFd = new ArrayList<>();
         for (Experiment exp : content) {
             if (exp.getId().equals(experimentId)) {
                 for (Execution exec : exp.getExecutions()) {
@@ -284,8 +284,8 @@ public class Database {
         return listFd;
     }
 
-    public static List<metrics.Metrics> getAllFeatureDrivenMetricsForExperimentId(String experimentId) {
-        List<metrics.Metrics> listFd = new ArrayList<>();
+    public static List<jmetal4.metrics.Metrics> getAllFeatureDrivenMetricsForExperimentId(String experimentId) {
+        List<jmetal4.metrics.Metrics> listFd = new ArrayList<>();
         for (Experiment exp : content) {
             if (exp.getId().equals(experimentId)) {
                 for (Execution exec : exp.getExecutions()) {
@@ -302,8 +302,8 @@ public class Database {
         return listFd;
     }
 
-    public static List<metrics.Metrics> getAllConventionalMetricsForExperimentId(String experimentId) {
-        List<metrics.Metrics> listCons = new ArrayList<>();
+    public static List<jmetal4.metrics.Metrics> getAllConventionalMetricsForExperimentId(String experimentId) {
+        List<jmetal4.metrics.Metrics> listCons = new ArrayList<>();
         for (Experiment exp : content) {
             if (exp.getId().equals(experimentId)) {
                 for (Execution exec : exp.getExecutions()) {
@@ -321,8 +321,8 @@ public class Database {
         return listCons;
     }
 
-    public static List<metrics.Metrics> getAllPLAExtMetricsForExperimentId(String experimentId) {
-        List<metrics.Metrics> listCons = new ArrayList<>();
+    public static List<jmetal4.metrics.Metrics> getAllPLAExtMetricsForExperimentId(String experimentId) {
+        List<jmetal4.metrics.Metrics> listCons = new ArrayList<>();
         for (Experiment exp : content) {
             if (exp.getId().equals(experimentId)) {
                 for (Execution exec : exp.getExecutions()) {
@@ -447,8 +447,8 @@ public class Database {
     //addYni
     //addYni
 
-    public static List<metrics.Metrics> getAllWocsCMetricsForExperimentId(String experimentId) {
-        List<metrics.Metrics> listFd = new ArrayList<>();
+    public static List<jmetal4.metrics.Metrics> getAllWocsCMetricsForExperimentId(String experimentId) {
+        List<jmetal4.metrics.Metrics> listFd = new ArrayList<>();
         for (Experiment exp : content) {
             if (exp.getId().equals(experimentId)) {
                 for (Execution exec : exp.getExecutions()) {
@@ -466,8 +466,8 @@ public class Database {
         return listFd;
     }
 
-    public static List<metrics.Metrics> getAllWocsIMetricsForExperimentId(String experimentId) {
-        List<metrics.Metrics> listFd = new ArrayList<>();
+    public static List<jmetal4.metrics.Metrics> getAllWocsIMetricsForExperimentId(String experimentId) {
+        List<jmetal4.metrics.Metrics> listFd = new ArrayList<>();
         for (Experiment exp : content) {
             if (exp.getId().equals(experimentId)) {
                 for (Execution exec : exp.getExecutions()) {
@@ -485,8 +485,8 @@ public class Database {
         return listFd;
     }
 
-    public static List<metrics.Metrics> getAllCbcsMetricsForExperimentId(String experimentId) {
-        List<metrics.Metrics> listFd = new ArrayList<>();
+    public static List<jmetal4.metrics.Metrics> getAllCbcsMetricsForExperimentId(String experimentId) {
+        List<jmetal4.metrics.Metrics> listFd = new ArrayList<>();
         for (Experiment exp : content) {
             if (exp.getId().equals(experimentId)) {
                 for (Execution exec : exp.getExecutions()) {
@@ -504,8 +504,8 @@ public class Database {
         return listFd;
     }
 
-    public static List<metrics.Metrics> getAllSvcMetricsForExperimentId(String experimentId) {
-        List<metrics.Metrics> listFd = new ArrayList<>();
+    public static List<jmetal4.metrics.Metrics> getAllSvcMetricsForExperimentId(String experimentId) {
+        List<jmetal4.metrics.Metrics> listFd = new ArrayList<>();
         for (Experiment exp : content) {
             if (exp.getId().equals(experimentId)) {
                 for (Execution exec : exp.getExecutions()) {
@@ -523,8 +523,8 @@ public class Database {
         return listFd;
     }
 
-    public static List<metrics.Metrics> getAllSscMetricsForExperimentId(String experimentId) {
-        List<metrics.Metrics> listFd = new ArrayList<>();
+    public static List<jmetal4.metrics.Metrics> getAllSscMetricsForExperimentId(String experimentId) {
+        List<jmetal4.metrics.Metrics> listFd = new ArrayList<>();
         for (Experiment exp : content) {
             if (exp.getId().equals(experimentId)) {
                 for (Execution exec : exp.getExecutions()) {
@@ -542,8 +542,8 @@ public class Database {
         return listFd;
     }
 
-    public static List<metrics.Metrics> getAllAvMetricsForExperimentId(String experimentId) {
-        List<metrics.Metrics> listFd = new ArrayList<>();
+    public static List<jmetal4.metrics.Metrics> getAllAvMetricsForExperimentId(String experimentId) {
+        List<jmetal4.metrics.Metrics> listFd = new ArrayList<>();
         for (Experiment exp : content) {
             if (exp.getId().equals(experimentId)) {
                 for (Execution exec : exp.getExecutions()) {
@@ -566,7 +566,7 @@ public class Database {
     public static int getNumberOfFunctionForExperimentId(String experimentId) throws Exception {
         Statement statement = null;
         try {
-            statement = database.Database.getConnection().createStatement();
+            statement = jmetal4.database.Database.getConnection().createStatement();
 
             StringBuilder query = new StringBuilder();
             query.append("SELECT names FROM map_objectives_names WHERE experiment_id=");
@@ -635,7 +635,7 @@ public class Database {
 
         Statement statement = null;
         try {
-            // statement = database.Database.getConnection().createStatement();
+            // statement = jmetal4.database.Database.getConnection().createStatement();
 
             statement = getConnection().createStatement();
 
@@ -693,8 +693,8 @@ public class Database {
 
             String[] objectives = db.Database.getOrdenedObjectives(exeprimentId).split(" ");
 
-            statementExecutions = database.Database.getConnection().createStatement();
-            statement = database.Database.getConnection().createStatement();
+            statementExecutions = jmetal4.database.Database.getConnection().createStatement();
+            statement = jmetal4.database.Database.getConnection().createStatement();
 
             StringBuilder executionsQuery = new StringBuilder();
             executionsQuery.append("select id from executions where experiement_id=").append(exeprimentId);
@@ -766,7 +766,7 @@ public class Database {
         Statement statement = null;
 
         try {
-            statement = database.Database.getConnection().createStatement();
+            statement = jmetal4.database.Database.getConnection().createStatement();
 
             List<List<Double>> values = new ArrayList<>();
 

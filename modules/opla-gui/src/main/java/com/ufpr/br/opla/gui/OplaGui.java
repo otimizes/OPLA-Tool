@@ -15,7 +15,7 @@ public class OplaGui {
             public void run() {
                 try {
                     ReaderConfig.load();
-                    database.Database.setPathToDB(UserHome.getPathToDb());
+                    jmetal4.database.Database.setPathToDB(UserHome.getPathToDb());
 
                     StartUp gui = new StartUp();
                     gui.setExtendedState(JFrame.MAXIMIZED_BOTH);

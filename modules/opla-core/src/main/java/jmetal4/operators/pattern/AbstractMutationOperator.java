@@ -7,7 +7,7 @@ import arquitetura.exceptions.PackageNotFound;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
 import jmetal4.operators.pattern.impl.DesignPatternsAndPLAMutationOperator;
-import domain.core.Solution;
+import jmetal4.core.core.Solution;
 import jmetal4.operators.mutation.Mutation;
 import domain.util.Configuration;
 import domain.util.JMException;

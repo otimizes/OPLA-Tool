@@ -63,7 +63,7 @@ public class ObjectiveDAO extends GenericDAOImpl<Objective> {
 			System.out.println("First Attempt");
 		}
 		List<Objective> resultList = query.getResultList();
-		LOGGER.debug("Listing " + resultList.size() + " results");
+		LOGGER.debug("Listing " + resultList.size() + " jmetal4.results");
 		return resultList;
 	}
 

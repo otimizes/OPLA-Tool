@@ -36,7 +36,7 @@ public class PLAExtensibilityMetricDAO extends GenericDAOImpl<PLAExtensibilityMe
 		query.setParameter("idSolution", idSolution);
 
 		List<PLAExtensibilityMetric> resultList = query.getResultList();
-		LOGGER.debug("Number of results: " + resultList.size());
+		LOGGER.debug("Number of jmetal4.results: " + resultList.size());
 		return resultList;
 	}
 

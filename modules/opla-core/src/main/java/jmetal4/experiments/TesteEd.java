@@ -1,6 +1,6 @@
 package jmetal4.experiments;
 
-import database.Database;
+import jmetal4.database.Database;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,7 @@
 package jmetal4.experiments;
 
 
-import domain.experiments.ExperimentCommomConfigs;
+import jmetal4.core.experiments.ExperimentCommomConfigs;
 
 public class PaesConfigs extends ExperimentCommomConfigs {
 

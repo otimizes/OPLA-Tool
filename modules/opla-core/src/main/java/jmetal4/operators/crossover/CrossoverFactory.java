@@ -21,7 +21,7 @@
 
 package jmetal4.operators.crossover;
 
-import domain.experiments.ExperimentCommomConfigs;
+import jmetal4.core.experiments.ExperimentCommomConfigs;
 import domain.util.Configuration;
 import domain.util.JMException;
 

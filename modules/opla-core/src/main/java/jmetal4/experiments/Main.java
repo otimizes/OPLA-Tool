@@ -21,9 +21,9 @@
 
 package jmetal4.experiments;
 
-import domain.core.Algorithm;
-import domain.core.Problem;
-import domain.core.SolutionSet;
+import jmetal4.core.core.Algorithm;
+import jmetal4.core.core.Problem;
+import jmetal4.core.core.SolutionSet;
 import jmetal4.qualityIndicator.QualityIndicator;
 import domain.util.Configuration;
 import domain.util.JMException;

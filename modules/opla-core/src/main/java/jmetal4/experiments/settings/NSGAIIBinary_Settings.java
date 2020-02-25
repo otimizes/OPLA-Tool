@@ -23,14 +23,14 @@
 //
 //import java.util.HashMap;
 //
-//import domain.core.Algorithm;
-//import domain.core.Operator;
+//import jmetal4.core.core.Algorithm;
+//import jmetal4.core.core.Operator;
 //import jmetal4.experiments.Settings;
 //import jmetal4.metaheuristics.nsgaII.NSGAII;
 //import jmetal4.operators.crossover.CrossoverFactory;
 //import jmetal4.operators.mutation.MutationFactory;
 //import jmetal4.operators.selection.SelectionFactory;
-//import domain.problems.ProblemFactory;
+//import jmetal4.core.problems.ProblemFactory;
 //import jmetal4.qualityIndicator.QualityIndicator;
 //import domain.util.JMException;
 //

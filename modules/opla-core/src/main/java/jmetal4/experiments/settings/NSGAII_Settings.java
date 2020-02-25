@@ -23,7 +23,7 @@ package jmetal4.experiments.settings;
 
 import java.util.HashMap;
 
-import domain.core.Algorithm;
+import jmetal4.core.core.Algorithm;
 import domain.util.JMException;
 import jmetal4.experiments.Settings;
 import jmetal4.metaheuristics.nsgaII.NSGAII;
@@ -33,7 +33,7 @@ import jmetal4.operators.mutation.Mutation;
 import jmetal4.operators.mutation.MutationFactory;
 import jmetal4.operators.selection.Selection;
 import jmetal4.operators.selection.SelectionFactory;
-import domain.problems.ProblemFactory;
+import jmetal4.core.problems.ProblemFactory;
 import jmetal4.qualityIndicator.QualityIndicator;
 
 /**
@@ -77,7 +77,7 @@ public class NSGAII_Settings extends Settings {
      * @return A NSGAII algorithm object
      * @throws JMException
      */
-    public domain.core.Algorithm configure() throws JMException {
+    public jmetal4.core.core.Algorithm configure() throws JMException {
         Algorithm algorithm;
         Selection selection;
         Crossover crossover;

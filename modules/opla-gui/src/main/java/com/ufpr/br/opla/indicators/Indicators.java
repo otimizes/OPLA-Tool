@@ -4,7 +4,7 @@
  */
 package com.ufpr.br.opla.indicators;
 
-import database.Database;
+import jmetal4.database.Database;
 import exceptions.MissingConfigurationException;
 import org.apache.commons.collections4.map.HashedMap;
 
@@ -29,7 +29,7 @@ public class Indicators {
     public static SortedMap<String, Double> getEdsForExperiment(String experimentID) throws Exception {
 
         try {
-            try (Statement statement = database.Database.getConnection().createStatement()) {
+            try (Statement statement = jmetal4.database.Database.getConnection().createStatement()) {
                 SortedMap<String, Double> results = new TreeMap<>();
 
                 StringBuilder query = new StringBuilder();
@@ -57,7 +57,7 @@ public class Indicators {
     public static String getEdForSelectedSolution(String fileName, String experimentID) throws Exception {
         try {
             String ed;
-            try (Statement statement = database.Database.getConnection().createStatement()) {
+            try (Statement statement = jmetal4.database.Database.getConnection().createStatement()) {
                 StringBuilder query = new StringBuilder();
                 query.append("SELECT ed FROM distance_euclidean WHERE experiment_id = ");
                 query.append(experimentID);
@@ -139,7 +139,7 @@ public class Indicators {
         String algorithmName = db.Database.getAlgoritmUsedToExperimentId(experimentId);
 
         try {
-            statement = database.Database.getConnection().createStatement();
+            statement = jmetal4.database.Database.getConnection().createStatement();
 
             for (int i = 0; i < allEds.length; i++) {
 

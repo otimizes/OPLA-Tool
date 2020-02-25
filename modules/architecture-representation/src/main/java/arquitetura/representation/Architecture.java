@@ -10,7 +10,7 @@ import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import com.rits.cloning.Cloner;
-import domain.core.Variable;
+import domain.Variable;
 import org.apache.log4j.Logger;
 
 import java.util.*;

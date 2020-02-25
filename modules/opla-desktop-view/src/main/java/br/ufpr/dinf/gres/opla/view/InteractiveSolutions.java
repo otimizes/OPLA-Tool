@@ -8,8 +8,8 @@ import jmetal45.core.SolutionSet;
 import jmetal45.experiments.NSGAIIConfig;
 import jmetal45.experiments.OPLAConfigs;
 import jmetal45.problems.OPLA;
-import learning.Clustering;
-import learning.ClusteringAlgorithm;
+import jmetal4.core.learning.Clustering;
+import jmetal4.core.learning.ClusteringAlgorithm;
 import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
 

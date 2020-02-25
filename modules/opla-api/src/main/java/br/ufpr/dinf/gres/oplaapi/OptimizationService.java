@@ -6,7 +6,7 @@ import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.LogLogData;
 import br.ufpr.dinf.gres.loglog.Logger;
 import br.ufpr.dinf.gres.oplaapi.dto.OptimizationDto;
-import domain.experiments.OPLAConfigs;
+import jmetal4.core.experiments.OPLAConfigs;
 import jmetal4.experiments.*;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

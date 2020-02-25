@@ -21,7 +21,7 @@
 
 package jmetal4.experiments;
 
-import domain.core.Algorithm;
+import jmetal4.core.core.Algorithm;
 import jmetal4.experiments.util.RBoxplot;
 import jmetal4.experiments.util.RWilcoxon;
 import jmetal4.experiments.util.RunExperiment;
@@ -47,7 +47,7 @@ public abstract class Experiment {
     // corresponding to the problems in problemList_
     public String[] indicatorList_; // List of the quality indicators to be
     // applied
-    public String experimentBaseDirectory_; // Directory to store the results
+    public String experimentBaseDirectory_; // Directory to store the jmetal4.results
     public String latexDirectory_; // Directory to store the latex files
     public String paretoFrontDirectory_; // Directory containing the Pareto
     // front files

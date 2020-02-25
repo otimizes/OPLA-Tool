@@ -11,7 +11,7 @@ public class DistanceEuclideanPersistence {
 
     public static void save(HashMap<String, Double> results, String experimentID) throws Exception {
         try {
-            Statement statement = database.Database.getConnection().createStatement();
+            Statement statement = jmetal4.database.Database.getConnection().createStatement();
 
             for (Map.Entry<String, Double> entry : results.entrySet()) {
                 StringBuilder query = new StringBuilder();

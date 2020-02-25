@@ -1,7 +1,7 @@
 package persistence;
 
-import metrics.Cbcs;
-import metrics.Elegance;
+import jmetal4.metrics.Cbcs;
+import jmetal4.metrics.Elegance;
 
 import java.sql.Connection;
 import java.sql.SQLException;

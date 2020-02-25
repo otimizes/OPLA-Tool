@@ -21,10 +21,10 @@
 //
 //package jmetal4.experiments.settings;
 //
-//import domain.core.Algorithm;
+//import jmetal4.core.core.Algorithm;
 //import jmetal4.experiments.Settings;
 //import jmetal4.metaheuristics.randomSearch.RandomSearch;
-//import domain.problems.ProblemFactory;
+//import jmetal4.core.problems.ProblemFactory;
 //import jmetal4.qualityIndicator.QualityIndicator;
 //import domain.util.JMException;
 //

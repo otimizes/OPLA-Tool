@@ -5,7 +5,7 @@
  */
 package jmetal4.indicadores;
 
-import domain.core.SolutionSet;
+import jmetal4.core.core.SolutionSet;
 import jmetal4.qualityIndicator.util.MetricsUtil;
 
 import java.io.File;

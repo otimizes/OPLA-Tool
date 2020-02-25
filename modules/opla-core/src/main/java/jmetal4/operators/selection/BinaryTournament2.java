@@ -24,13 +24,13 @@ package jmetal4.operators.selection;
 import java.util.Comparator;
 import java.util.Map;
 
-import domain.util.PermutationUtility;
+import jmetal4.core.util.PermutationUtility;
 import org.apache.log4j.Logger;
 
-import domain.core.Solution;
-import domain.core.SolutionSet;
-import domain.util.PseudoRandom;
-import domain.util.comparators.DominanceComparator;
+import jmetal4.core.core.Solution;
+import jmetal4.core.core.SolutionSet;
+import jmetal4.core.util.PseudoRandom;
+import jmetal4.core.util.comparators.DominanceComparator;
 
 /**
  * This class implements an operator for binary selections using the same code

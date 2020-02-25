@@ -33,7 +33,7 @@ public class AvMetricDAO extends GenericDAOImpl<AvMetric>
         query.setParameter("idSolution", idSolution);
 
         List<AvMetric> resultList = query.getResultList();
-        LOGGER.debug("Number of results: " + resultList.size());
+        LOGGER.debug("Number of jmetal4.results: " + resultList.size());
         return resultList;
     }
 

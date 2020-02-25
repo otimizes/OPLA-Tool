@@ -21,7 +21,7 @@
 
 package jmetal4.experiments;
 
-import domain.core.Algorithm;
+import jmetal4.core.core.Algorithm;
 import jmetal4.experiments.settings.NSGAII_Settings;
 import domain.util.JMException;
 

@@ -37,7 +37,7 @@ public class FeatureDrivenMetricDAO extends GenericDAOImpl<FeatureDrivenMetric>
 		query.setParameter("idSolution", idSolution);
 
 		List<FeatureDrivenMetric> resultList = query.getResultList();
-		LOGGER.debug("Number of results: " + resultList.size());
+		LOGGER.debug("Number of jmetal4.results: " + resultList.size());
 		return resultList;
 	}
 

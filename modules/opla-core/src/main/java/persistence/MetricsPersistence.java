@@ -1,12 +1,12 @@
 package persistence;
 
-import database.Database;
+import jmetal4.database.Database;
 import exceptions.MissingConfigurationException;
-import metrics.*;
-import results.Execution;
-import results.Experiment;
-import results.FunResults;
-import results.InfoResult;
+import jmetal4.metrics.*;
+import jmetal4.results.Execution;
+import jmetal4.results.Experiment;
+import jmetal4.results.FunResults;
+import jmetal4.results.InfoResult;
 import utils.Id;
 
 import java.sql.SQLException;

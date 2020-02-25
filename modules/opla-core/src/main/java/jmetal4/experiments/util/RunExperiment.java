@@ -28,9 +28,9 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import domain.core.Algorithm;
-import domain.core.Problem;
-import domain.core.SolutionSet;
+import jmetal4.core.core.Algorithm;
+import jmetal4.core.core.Problem;
+import jmetal4.core.core.SolutionSet;
 import jmetal4.experiments.Experiment;
 import jmetal4.experiments.Settings;
 import jmetal4.qualityIndicator.QualityIndicator;
@@ -55,7 +55,7 @@ public class RunExperiment extends Thread {
 	String[] paretoFrontFile_; // List of the files containing the pareto fronts
 	// corresponding to the problems in problemList_
 	String[] indicatorList_; // List of the quality indicators to be applied
-	String experimentBaseDirectory_; // Directory to store the results
+	String experimentBaseDirectory_; // Directory to store the jmetal4.results
 	String latexDirectory_; // Directory to store the latex files
 	String rDirectory_; // Directory to store the generated R scripts
 	String paretoFrontDirectory_; // Directory containing the Pareto front files
@@ -179,7 +179,7 @@ public class RunExperiment extends Thread {
 						Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
 					}
 
-					// STEP 8: put the results in the output directory
+					// STEP 8: put the jmetal4.results in the output directory
 					resultFront.printObjectivesToFile(directory + "/" + outputParetoFrontFile_ + "." + runs);
 					resultFront.printVariablesToFile(directory + "/" + outputParetoSetFile_ + "." + runs);
 

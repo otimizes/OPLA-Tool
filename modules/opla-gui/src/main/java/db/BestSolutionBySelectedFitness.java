@@ -1,7 +1,7 @@
 package db;
 
 import br.ufpr.dinf.gres.loglog.Logger;
-import metrics.*;
+import jmetal4.metrics.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,52 +12,52 @@ import java.util.Map.Entry;
 
 public class BestSolutionBySelectedFitness {
 
-    public static List<metrics.Metrics> calculateBestFeatureDriven(String experimentId) {
+    public static List<jmetal4.metrics.Metrics> calculateBestFeatureDriven(String experimentId) {
         return db.Database.getAllFeatureDrivenMetricsForExperimentId(experimentId);
     }
 
-    public static List<metrics.Metrics> calculateBestElegance(String experimentId) {
+    public static List<jmetal4.metrics.Metrics> calculateBestElegance(String experimentId) {
         return db.Database.getAllEleganceMetricsForExperimentId(experimentId);
 
     }
 
-    public static List<metrics.Metrics> calculateBestConventional(String experimentId) {
+    public static List<jmetal4.metrics.Metrics> calculateBestConventional(String experimentId) {
         return db.Database.getAllConventionalMetricsForExperimentId(experimentId);
 
     }
 
-    public static List<metrics.Metrics> calculateBestPlaExt(String experimentId) {
+    public static List<jmetal4.metrics.Metrics> calculateBestPlaExt(String experimentId) {
         return db.Database.getAllPLAExtMetricsForExperimentId(experimentId);
     }
 
     //---addYni---
 
-    public static List<metrics.Metrics> calculateBestWocsC(String experimentId) {
+    public static List<jmetal4.metrics.Metrics> calculateBestWocsC(String experimentId) {
         return db.Database.getAllWocsCMetricsForExperimentId(experimentId);
     }
 
-    public static List<metrics.Metrics> calculateBestWocsI(String experimentId) {
+    public static List<jmetal4.metrics.Metrics> calculateBestWocsI(String experimentId) {
         return db.Database.getAllWocsIMetricsForExperimentId(experimentId);
     }
 
-    public static List<metrics.Metrics> calculateBestCbcs(String experimentId) {
+    public static List<jmetal4.metrics.Metrics> calculateBestCbcs(String experimentId) {
         return db.Database.getAllCbcsMetricsForExperimentId(experimentId);
     }
 
-    public static List<metrics.Metrics> calculateBestSvc(String experimentId) {
+    public static List<jmetal4.metrics.Metrics> calculateBestSvc(String experimentId) {
         return db.Database.getAllSvcMetricsForExperimentId(experimentId);
     }
 
-    public static List<metrics.Metrics> calculateBestSsc(String experimentId) {
+    public static List<jmetal4.metrics.Metrics> calculateBestSsc(String experimentId) {
         return db.Database.getAllSscMetricsForExperimentId(experimentId);
     }
 
-    public static List<metrics.Metrics> calculateBestAv(String experimentId) {
+    public static List<jmetal4.metrics.Metrics> calculateBestAv(String experimentId) {
         return db.Database.getAllAvMetricsForExperimentId(experimentId);
     }
     //---addYni---
 
-    public static void buildTable(JTable tableMinorFitnessValues, List<metrics.Metrics> map) {
+    public static void buildTable(JTable tableMinorFitnessValues, List<jmetal4.metrics.Metrics> map) {
 
         Object[][] data = new Object[map.size()][map.size()];
 
@@ -100,8 +100,8 @@ public class BestSolutionBySelectedFitness {
         tableObjectives.updateUI();
     }
 
-    private static SortedMap<String, metrics.Metrics> buildMapElegance(List<Elegance> data) {
-        SortedMap<String, metrics.Metrics> map = new TreeMap<>();
+    private static SortedMap<String, jmetal4.metrics.Metrics> buildMapElegance(List<Elegance> data) {
+        SortedMap<String, jmetal4.metrics.Metrics> map = new TreeMap<>();
         for (int i = 0; i < data.size(); i++) {
             Elegance elegance = data.get(i);
             map.put(elegance.getIdSolution(), elegance);
@@ -109,8 +109,8 @@ public class BestSolutionBySelectedFitness {
         return map;
     }
 
-    private static SortedMap<String, metrics.Metrics> buildMapConventional(List<Conventional> data) {
-        SortedMap<String, metrics.Metrics> map = new TreeMap();
+    private static SortedMap<String, jmetal4.metrics.Metrics> buildMapConventional(List<Conventional> data) {
+        SortedMap<String, jmetal4.metrics.Metrics> map = new TreeMap();
         for (int i = 0; i < data.size(); i++) {
             Conventional conventional = data.get(i);
             map.put(conventional.getIdSolution(), conventional);
@@ -118,8 +118,8 @@ public class BestSolutionBySelectedFitness {
         return map;
     }
 
-    private static SortedMap<String, metrics.Metrics> buildMapFeatureDriven(List<FeatureDriven> data) {
-        SortedMap<String, metrics.Metrics> map = new TreeMap();
+    private static SortedMap<String, jmetal4.metrics.Metrics> buildMapFeatureDriven(List<FeatureDriven> data) {
+        SortedMap<String, jmetal4.metrics.Metrics> map = new TreeMap();
         for (int i = 0; i < data.size(); i++) {
             FeatureDriven fd = data.get(i);
             map.put(fd.getIdSolution(), fd);
@@ -127,8 +127,8 @@ public class BestSolutionBySelectedFitness {
         return map;
     }
 
-    private static SortedMap<String, metrics.Metrics> buildMapPLAExt(List<PLAExtensibility> data) {
-        SortedMap<String, metrics.Metrics> map = new TreeMap();
+    private static SortedMap<String, jmetal4.metrics.Metrics> buildMapPLAExt(List<PLAExtensibility> data) {
+        SortedMap<String, jmetal4.metrics.Metrics> map = new TreeMap();
         for (int i = 0; i < data.size(); i++) {
             PLAExtensibility plaExt = data.get(i);
             map.put(plaExt.getIdSolution(), plaExt);
@@ -136,7 +136,7 @@ public class BestSolutionBySelectedFitness {
         return map;
     }
 
-    private static Double getValueFitness(metrics.Metrics f) {
+    private static Double getValueFitness(jmetal4.metrics.Metrics f) {
         if (f instanceof Conventional) {
             return ((Conventional) f).evaluateMACFitness();
         } else if (f instanceof FeatureDriven) {

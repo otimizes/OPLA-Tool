@@ -11,12 +11,12 @@
 //import java.util.Set;
 //import java.util.logging.Level;
 //
-//import domain.core.Solution;
-//import domain.encodings.solutionType.ArchitectureSolutionType;
-//import domain.problems.OPLA;
+//import jmetal4.core.core.Solution;
+//import jmetal4.core.encodings.solutionType.ArchitectureSolutionType;
+//import jmetal4.core.problems.OPLA;
 //import domain.util.Configuration;
 //import domain.util.JMException;
-//import domain.util.PseudoRandom;
+//import jmetal4.core.util.PseudoRandom;
 //import arquitetura.exceptions.ClassNotFound;
 //import arquitetura.exceptions.ConcernNotFoundException;
 //import arquitetura.exceptions.InterfaceNotFound;
@@ -43,7 +43,7 @@
 //	private static final long serialVersionUID = -51015356906090226L;
 //	
 //	/**
-//	 * ARCHITECTURE_SOLUTION represents class domain.encodings.solutionType.ArchitectureSolutionType
+//	 * ARCHITECTURE_SOLUTION represents class jmetal4.core.encodings.solutionType.ArchitectureSolutionType
 //	 */
 //	private Double crossoverProbability_ = null;
 //		

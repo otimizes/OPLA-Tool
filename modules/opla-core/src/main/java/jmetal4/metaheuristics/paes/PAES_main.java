@@ -23,13 +23,13 @@
 //
 //import java.io.IOException;
 //
-//import domain.core.*;
+//import jmetal4.core.core.*;
 //import jmetal4.operators.mutation.*;
-//import domain.problems.*                  ;
-//import domain.problems.DTLZ.*;
-//import domain.problems.ZDT.*;
-//import domain.problems.WFG.*;
-//import domain.problems.LZ09.* ;
+//import jmetal4.core.problems.*                  ;
+//import jmetal4.core.problems.DTLZ.*;
+//import jmetal4.core.problems.ZDT.*;
+//import jmetal4.core.problems.WFG.*;
+//import jmetal4.core.problems.LZ09.* ;
 //import domain.util.Configuration;
 //import domain.util.JMException;
 //
@@ -117,7 +117,7 @@
 //    long estimatedTime = System.currentTimeMillis() - initTime;
 //    
 //    // Result messages 
-//    // STEP 8. Print the results
+//    // STEP 8. Print the jmetal4.results
 //    logger_.info("Total execution time: "+estimatedTime + "ms");
 //    logger_.info("Variables values have been writen to file VAR");
 //    population.printVariablesToFile("VAR");    

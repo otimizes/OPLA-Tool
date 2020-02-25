@@ -39,7 +39,7 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
 		LOGGER.debug("List all" + clazz.getSimpleName());
 		TypedQuery<T> query = em.createQuery(" FROM " + clazz.getSimpleName(), clazz);
 		List<T> resultList = query.getResultList();
-		LOGGER.debug("Listing " + resultList.size() + " results");
+		LOGGER.debug("Listing " + resultList.size() + " jmetal4.results");
 		return resultList;
 	}
 

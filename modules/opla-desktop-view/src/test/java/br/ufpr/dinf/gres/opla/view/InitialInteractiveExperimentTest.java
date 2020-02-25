@@ -13,7 +13,7 @@ import jmetal45.experiments.NSGAIIConfig;
 import jmetal45.experiments.OPLAConfigs;
 import jmetal45.operators.mutation.PLAFeatureMutation;
 import jmetal45.problems.OPLA;
-import learning.*;
+import jmetal4.core.learning.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 

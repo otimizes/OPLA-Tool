@@ -1,8 +1,8 @@
 package persistence;
 
-import results.Execution;
-import results.FunResults;
-import results.InfoResult;
+import jmetal4.results.Execution;
+import jmetal4.results.FunResults;
+import jmetal4.results.InfoResult;
 
 import java.sql.Connection;
 import java.sql.SQLException;

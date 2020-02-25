@@ -14,7 +14,7 @@ public class VolatileConfs {
 
     private static String[] architecturesInputPath;
     private static String algorithmName; // Cambo algorithm
-    private static List<String> objectiveFunctionsSelected = new ArrayList<>(); //checkboxs metrics
+    private static List<String> objectiveFunctionsSelected = new ArrayList<>(); //checkboxs jmetal4.metrics
     private static int numberOfRuns; //numberOfRuns text-field
     private static int maxEvaluations; //maxEvaluations text-field
     private static int fieldPopulationSize; //entendeu ja neh?
