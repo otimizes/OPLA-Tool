@@ -1,9 +1,9 @@
 package learning;
 
-import jmetal4core.core.Solution;
-import jmetal4core.core.SolutionSet;
-import jmetal4core.encodings.solutionType.ArchitectureSolutionType;
-import jmetal4core.problems.OPLA;
+import jmetal4.core.Solution;
+import jmetal4.core.SolutionSet;
+import jmetal4.encodings.solutionType.ArchitectureSolutionType;
+import jmetal4.problems.OPLA;
 import org.junit.Test;
 import results.Execution;
 import results.Experiment;

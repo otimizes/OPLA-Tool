@@ -1,6 +1,6 @@
 package domain;
 
-import jmetal4core.interactive.InteractiveFunction;
+import jmetal4.interactive.InteractiveFunction;
 import learning.ClusteringAlgorithm;
 import learning.Moment;
 

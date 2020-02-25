@@ -9,7 +9,7 @@ import br.ufpr.inf.opla.patterns.operator.impl.DesignPatternMutationOperator;
 import br.ufpr.inf.opla.patterns.operator.impl.DesignPatternsAndPLAMutationOperator;
 import br.ufpr.inf.opla.patterns.operator.impl.PLAMutation;
 import br.ufpr.inf.opla.patterns.operator.impl.PLAMutationThenDesignPatternsMutationOperator;
-import jmetal4.operators.mutation.Mutation;
+import jmetal45.operators.mutation.Mutation;
 
 import java.util.Map;
 

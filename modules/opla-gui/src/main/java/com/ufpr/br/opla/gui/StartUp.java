@@ -10,7 +10,6 @@ import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -66,8 +65,8 @@ import com.ufpr.br.opla.utils.Validators;
 
 import arquitetura.io.FileUtils;
 import br.ufpr.inf.opla.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
-import jmetal4.experiments.FeatureMutationOperators;
-import jmetal4.experiments.Metrics;
+import jmetal45.experiments.FeatureMutationOperators;
+import jmetal45.experiments.Metrics;
 import metrics.Conventional;
 import metrics.Elegance;
 import metrics.FeatureDriven;

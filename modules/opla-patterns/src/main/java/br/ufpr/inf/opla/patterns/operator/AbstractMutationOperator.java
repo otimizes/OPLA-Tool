@@ -7,10 +7,10 @@ import arquitetura.exceptions.PackageNotFound;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
 import br.ufpr.inf.opla.patterns.operator.impl.DesignPatternsAndPLAMutationOperator;
-import jmetal4.core.Solution;
-import jmetal4.operators.mutation.Mutation;
-import jmetal4.util.Configuration;
-import jmetal4.util.JMException;
+import jmetal45.core.Solution;
+import jmetal45.operators.mutation.Mutation;
+import jmetal45.util.Configuration;
+import jmetal45.util.JMException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

@@ -2,9 +2,9 @@ package persistence;
 
 import database.Database;
 import exceptions.MissingConfigurationException;
-import jmetal4core.experiments.ExperimentCommomConfigs;
-import jmetal4core.experiments.NSGAIIConfig;
-import jmetal4core.experiments.PaesConfigs;
+import jmetal4.experiments.ExperimentCommomConfigs;
+import jmetal4.experiments.NSGAIIConfig;
+import jmetal4.experiments.PaesConfigs;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

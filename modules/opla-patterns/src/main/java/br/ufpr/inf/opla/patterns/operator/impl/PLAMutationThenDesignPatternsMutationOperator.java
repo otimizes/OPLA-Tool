@@ -8,7 +8,7 @@ package br.ufpr.inf.opla.patterns.operator.impl;
 import br.ufpr.inf.opla.patterns.operator.AbstractMutationOperator;
 import br.ufpr.inf.opla.patterns.strategies.designpatternselection.DesignPatternSelectionStrategy;
 import br.ufpr.inf.opla.patterns.strategies.scopeselection.ScopeSelectionStrategy;
-import jmetal4.core.Solution;
+import jmetal45.core.Solution;
 
 import java.util.Map;
 

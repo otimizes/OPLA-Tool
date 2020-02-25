@@ -2,8 +2,8 @@ package learning;
 
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Element;
-import jmetal4core.core.Solution;
-import jmetal4core.core.SolutionSet;
+import jmetal4.core.Solution;
+import jmetal4.core.SolutionSet;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import weka.classifiers.Evaluation;

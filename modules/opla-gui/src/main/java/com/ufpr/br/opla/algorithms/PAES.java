@@ -8,10 +8,10 @@ import arquitetura.io.ReaderConfig;
 import com.ufpr.br.opla.configuration.UserHome;
 import com.ufpr.br.opla.configuration.VolatileConfs;
 import com.ufpr.br.opla.utils.MutationOperatorsSelected;
-import jmetal4.experiments.FeatureMutationOperators;
-import jmetal4.experiments.OPLAConfigs;
-import jmetal4.experiments.PAES_OPLA_FeatMutInitializer;
-import jmetal4.experiments.PaesConfigs;
+import jmetal45.experiments.FeatureMutationOperators;
+import jmetal45.experiments.OPLAConfigs;
+import jmetal45.experiments.PAES_OPLA_FeatMutInitializer;
+import jmetal45.experiments.PaesConfigs;
 
 import javax.swing.*;
 import java.util.List;

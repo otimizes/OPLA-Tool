@@ -5,7 +5,7 @@ import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.entity.Objective;
 import database.Database;
 import exceptions.MissingConfigurationException;
-import jmetal4.core.SolutionSet;
+import jmetal45.core.SolutionSet;
 import learning.ClusteringAlgorithm;
 import org.junit.Test;
 import persistence.AllMetricsPersistenceDependency;
@@ -15,14 +15,12 @@ import results.Experiment;
 import results.FunResults;
 import results.InfoResult;
 import utils.ExperimentTest;
-import utils.QtdElements;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class InteractiveSolutionsFormTest {
 

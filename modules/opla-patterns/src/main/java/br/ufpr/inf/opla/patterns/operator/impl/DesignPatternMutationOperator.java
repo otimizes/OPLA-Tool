@@ -15,9 +15,9 @@ import br.ufpr.inf.opla.patterns.strategies.designpatternselection.DesignPattern
 import br.ufpr.inf.opla.patterns.strategies.designpatternselection.defaultstrategy.RandomDesignPatternSelection;
 import br.ufpr.inf.opla.patterns.strategies.scopeselection.ScopeSelectionStrategy;
 import br.ufpr.inf.opla.patterns.strategies.scopeselection.defaultstrategy.RandomScopeSelection;
-import jmetal4.core.Solution;
-import jmetal4.problems.OPLA;
-import jmetal4.util.PseudoRandom;
+import jmetal45.core.Solution;
+import jmetal45.problems.OPLA;
+import jmetal45.util.PseudoRandom;
 import org.apache.log4j.Priority;
 
 import java.util.Map;

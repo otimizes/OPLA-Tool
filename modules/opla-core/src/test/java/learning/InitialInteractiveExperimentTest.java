@@ -4,12 +4,12 @@ import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Package;
 import br.ufpr.dinf.gres.loglog.LogLog;
-import jmetal4core.core.Solution;
-import jmetal4core.core.SolutionSet;
-import jmetal4core.core.Variable;
-import jmetal4core.encodings.solutionType.ArchitectureSolutionType;
-import jmetal4core.experiments.NSGAIIConfig;
-import jmetal4core.problems.OPLA;
+import jmetal4.core.Solution;
+import jmetal4.core.SolutionSet;
+import jmetal4.core.Variable;
+import jmetal4.encodings.solutionType.ArchitectureSolutionType;
+import jmetal4.experiments.NSGAIIConfig;
+import jmetal4.problems.OPLA;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;

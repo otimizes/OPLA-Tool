@@ -1,7 +1,7 @@
 package learning;
 
-import jmetal4core.core.Solution;
-import jmetal4core.core.SolutionSet;
+import jmetal4.core.Solution;
+import jmetal4.core.SolutionSet;
 import org.apache.log4j.Logger;
 import weka.clusterers.*;
 import weka.core.DistanceFunction;

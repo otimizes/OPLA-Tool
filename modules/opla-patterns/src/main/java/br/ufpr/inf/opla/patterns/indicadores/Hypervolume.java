@@ -5,8 +5,8 @@
  */
 package br.ufpr.inf.opla.patterns.indicadores;
 
-import jmetal4.core.SolutionSet;
-import jmetal4.qualityIndicator.util.MetricsUtil;
+import jmetal45.core.SolutionSet;
+import jmetal45.qualityIndicator.util.MetricsUtil;
 
 import java.io.File;
 import java.io.FileWriter;
