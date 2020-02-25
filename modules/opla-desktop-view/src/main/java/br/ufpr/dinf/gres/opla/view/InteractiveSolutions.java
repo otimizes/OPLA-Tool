@@ -3,26 +3,31 @@ package br.ufpr.dinf.gres.opla.view;
 import arquitetura.representation.Architecture;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
-import jmetal45.core.Solution;
-import jmetal45.core.SolutionSet;
-import jmetal45.experiments.NSGAIIConfig;
-import jmetal45.experiments.OPLAConfigs;
-import jmetal45.problems.OPLA;
+import jmetal4.core.Solution;
+import jmetal4.core.SolutionSet;
+import jmetal4.experiments.NSGAIIConfig;
+import jmetal4.experiments.OPLAConfigs;
+import jmetal4.problems.OPLA;
 import learning.Clustering;
 import learning.ClusteringAlgorithm;
 import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
-import javax.swing.tree.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class InteractiveSolutions extends JDialog {
@@ -154,7 +159,7 @@ public class InteractiveSolutions extends JDialog {
             if (i == 0) str.append("Trade-off ");
             for (int j = 0; j < solutionSet.get(0).numberOfObjectives(); j++) {
                 if (clustering.getMinClusterByObjective(j) == i)
-                    str.append(solutionSet.get(0).getOPLAProblem().getSelectedMetrics().get(j)).append(" ");
+                    str.append(((OPLA) solutionSet.get(i).getProblem()).getSelectedMetrics().get(j)).append(" ");
             }
             if (str.length() <= 0) str.append("none");
             DefaultMutableTreeNode objMetric = new DefaultMutableTreeNode("Cluster " + i + ", Best Objects: " + str);
@@ -203,7 +208,7 @@ public class InteractiveSolutions extends JDialog {
     private void paintNodesBySolutionSet(SolutionSet solutionSet) {
         logInteraction = new StringBuilder();
         for (int i = 0; i < solutionSet.size(); i++) {
-            String plaName = "TEMP_" + i + solutionSet.get(i).getOPLAProblem().getArchitecture_().getName();
+            String plaName = "TEMP_" + i + ((OPLA) solutionSet.get(i).getProblem()).getArchitecture_().getName();
             DefaultMutableTreeNode elem = new DefaultMutableTreeNode(plaName, true);
             logInteraction.append(elem.toString() + "\n");
 //            DefaultMutableTreeNode elem0 = new DefaultMutableTreeNode(i, true);
@@ -218,10 +223,10 @@ public class InteractiveSolutions extends JDialog {
             DefaultMutableTreeNode elem2 = new DefaultMutableTreeNode(objectives, false);
             logInteraction.append(elem2.toString() + "\n");
             elem.add(elem2);
-            DefaultMutableTreeNode elem3 = new DefaultMutableTreeNode("Metrics: " + solutionSet.get(i).getOPLAProblem().getSelectedMetrics().toString(), false);
+            DefaultMutableTreeNode elem3 = new DefaultMutableTreeNode("Metrics: " + ((OPLA) solutionSet.get(i).getProblem()).getSelectedMetrics().toString(), false);
             logInteraction.append(elem3.toString() + "\n");
             elem.add(elem3);
-            DefaultMutableTreeNode elem4 = new DefaultMutableTreeNode("Info: " + solutionSet.get(i).getOPLAProblem().getArchitecture_().toString(), false);
+            DefaultMutableTreeNode elem4 = new DefaultMutableTreeNode("Info: " + ((OPLA) solutionSet.get(i).getProblem()).getArchitecture_().toString(), false);
             logInteraction.append("Info: " + solutionSet.get(i).getAlternativeArchitecture().toDetailedString(true) + "\n");
             elem.add(elem4);
             DefaultMutableTreeNode elem5 = new DefaultMutableTreeNode("Previous User Evaluation: " + solutionSet.get(i).getEvaluation(), false);
@@ -235,7 +240,7 @@ public class InteractiveSolutions extends JDialog {
             }
             for (int j = 0; j < solutionSet.get(i).numberOfObjectives(); j++) {
                 if (clustering.getMinClusterByObjective(j) == clusterId) {
-                    bestClusters.add(solutionSet.get(i).getOPLAProblem().getSelectedMetrics().get(j));
+                    bestClusters.add(((OPLA) solutionSet.get(i).getProblem()).getSelectedMetrics().get(j));
                 }
             }
             if (bestClusters.size() <= 0) bestClusters.add("(-1) noise");
@@ -304,7 +309,7 @@ public class InteractiveSolutions extends JDialog {
     private void applySavedFile(int teste_valor) {
         File f1Di = new File(fileOnAnalyses);
         String replaceFileOnAnalyses = fileOnAnalyses.replace("_TEMP", "_Score_" + teste_valor + "_PlaId")
-                .replaceFirst(solutionOnAnalyses.getOPLAProblem().getArchitecture_().getName(), "_Fitness_" + solutionOnAnalyses.toStringObjectives());
+                .replaceFirst(((OPLA) solutionOnAnalyses.getProblem()).getArchitecture_().getName(), "_Fitness_" + solutionOnAnalyses.toStringObjectives());
         if (f1Di.exists()) {
             new File(replaceFileOnAnalyses).delete();
             new File(replaceFileOnAnalyses.replace(".di", ".uml")).delete();
@@ -322,14 +327,14 @@ public class InteractiveSolutions extends JDialog {
             f1Not.renameTo(f2Not);
         } else {
             new Thread(() -> solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses
-                    .replace("_TEMP", "_Score_" + teste_valor + "_PlaId").replaceFirst(solutionOnAnalyses.getOPLAProblem()
+                    .replace("_TEMP", "_Score_" + teste_valor + "_PlaId").replaceFirst(((OPLA) solutionOnAnalyses.getProblem())
                             .getArchitecture_().getName(), "_Fitness_" + solutionOnAnalyses.toStringObjectives()), LOGGER, true)).start();
         }
 
 
         NSGAIIConfig configs = new NSGAIIConfig();
         configs.setClusteringAlgorithm(ClusteringAlgorithm.KMEANS);
-        configs.setOplaConfigs(new OPLAConfigs(solutionSet.get(0).getOPLAProblem().getSelectedMetrics()));
+        configs.setOplaConfigs(new OPLAConfigs(((OPLA) solutionSet.get(0).getProblem()).getSelectedMetrics()));
 
         try {
             OPLA opla = new OPLA(replaceFileOnAnalyses.replace(".di", ".uml"), configs);
@@ -352,7 +357,7 @@ public class InteractiveSolutions extends JDialog {
     }
 
     private List<String> getSelectedMetrics(int indexSolution) {
-        return solutionSet.get(indexSolution).getOPLAProblem().getSelectedMetrics();
+        return ((OPLA) solutionSet.get(indexSolution).getProblem()).getSelectedMetrics();
     }
 
     class PopUp extends JPopupMenu {
@@ -412,7 +417,7 @@ public class InteractiveSolutions extends JDialog {
             solutionSet.saveVariableToFile(solutionOnAnalyses, plaNameOnAnalyses, LOGGER, true);
             progressBar.setValue(60);
             LOGGER.info("Opened solution " + nodeInfo.toString());
-            fileOnAnalyses = config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getOPLAProblem().getArchitecture_().getName() + ".di");
+            fileOnAnalyses = config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(((OPLA) solutionSet.get(0).getProblem()).getArchitecture_().getName() + ".di");
             progressBar.setValue(80);
             Process process = Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), fileOnAnalyses);
             new Thread(() -> {

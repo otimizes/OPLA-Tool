@@ -5,7 +5,7 @@ import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.entity.Objective;
 import jmetal4.database.Database;
 import common.exceptions.MissingConfigurationException;
-import jmetal45.core.SolutionSet;
+import jmetal4.core.SolutionSet;
 import learning.ClusteringAlgorithm;
 import org.junit.Test;
 import persistence.AllMetricsPersistenceDependency;
@@ -83,7 +83,7 @@ public class InteractiveSolutionsFormTest {
         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.KMEANS, solutionSet);
     }
 
-    @Test
+//    @Test
     public void main2() throws ClassNotFoundException, IOException {
 
 //        Object[] options = {

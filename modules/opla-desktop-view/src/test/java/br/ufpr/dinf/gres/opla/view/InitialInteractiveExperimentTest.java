@@ -7,12 +7,12 @@ import arquitetura.representation.Package;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
-import jmetal45.core.Solution;
-import jmetal45.core.SolutionSet;
-import jmetal45.experiments.NSGAIIConfig;
-import jmetal45.experiments.OPLAConfigs;
-import jmetal45.operators.mutation.PLAFeatureMutation;
-import jmetal45.problems.OPLA;
+import jmetal4.core.Solution;
+import jmetal4.core.SolutionSet;
+import jmetal4.experiments.NSGAIIConfig;
+import jmetal4.experiments.OPLAConfigs;
+import jmetal4.operators.mutation.PLAFeatureMutation;
+import jmetal4.problems.OPLA;
 import learning.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class InitialInteractiveExperimentTest {
 
     public static final Logger LOGGER = Logger.getLogger(InitialInteractiveExperimentTest.class);
 
-    @Test
+//    @Test
     public void savePositionsUML() throws Exception {
         List<String> xmis = Arrays.asList(
                 "/home/wmfsystem/oplatool/plas/agm/agm.uml"
@@ -58,7 +58,7 @@ public class InitialInteractiveExperimentTest {
         }
     }
 
-    @Test
+//    @Test
     public void savePositionsUML2() throws Exception {
         ManagerApplicationConfig instance = ApplicationFile.getInstance();
         NSGAIIConfig configs = new NSGAIIConfig();

@@ -65,8 +65,8 @@ import com.ufpr.br.opla.utils.Validators;
 
 import arquitetura.io.FileUtils;
 import patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
-import jmetal45.experiments.FeatureMutationOperators;
-import jmetal45.experiments.Metrics;
+import jmetal4.experiments.FeatureMutationOperators;
+import jmetal4.experiments.Metrics;
 import jmetal4.metrics.Conventional;
 import jmetal4.metrics.Elegance;
 import jmetal4.metrics.FeatureDriven;
