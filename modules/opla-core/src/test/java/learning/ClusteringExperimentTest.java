@@ -1,8 +1,8 @@
 package learning;
 
 import br.ufpr.dinf.gres.opla.entity.Objective;
-import jmetal4.core.Solution;
-import jmetal4.core.SolutionSet;
+import jmetal4core.core.Solution;
+import jmetal4core.core.SolutionSet;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.Before;

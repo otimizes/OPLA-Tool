@@ -1,0 +1,23 @@
+package jmetal4core.experiments;
+
+public class PAES_OPLA_FeatMutInitializer implements AlgorithmBase {
+
+    private PaesConfigs config;
+
+    public PAES_OPLA_FeatMutInitializer(PaesConfigs config) {
+        this.config = config;
+    }
+
+    @Override
+    public void run() {
+        jmetal4core.experiments.PAES_OPLA_FeatMut paes = new PAES_OPLA_FeatMut(this.config);
+
+        try {
+            paes.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+}

@@ -1,6 +1,5 @@
 package results;
 
-import jmetal4.core.Solution;
 import metrics.AllMetrics;
 import utils.Id;
 

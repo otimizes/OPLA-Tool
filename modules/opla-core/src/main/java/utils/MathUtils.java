@@ -4,8 +4,8 @@
  */
 package utils;
 
-import jmetal4.core.Solution;
-import jmetal4.core.SolutionSet;
+import jmetal4core.core.Solution;
+import jmetal4core.core.SolutionSet;
 
 import java.util.ArrayList;
 import java.util.HashMap;

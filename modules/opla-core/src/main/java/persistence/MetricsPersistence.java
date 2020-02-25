@@ -2,7 +2,6 @@ package persistence;
 
 import database.Database;
 import exceptions.MissingConfigurationException;
-import jmetal4.metrics.newPlasMetrics.*;
 import metrics.*;
 import results.Execution;
 import results.Experiment;
