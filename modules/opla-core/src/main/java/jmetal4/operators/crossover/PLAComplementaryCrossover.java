@@ -14,9 +14,9 @@ import org.apache.log4j.Logger;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Interface;
-import jmetal4.core.core.Solution;
-import jmetal4.core.experiments.ExperimentCommomConfigs;
-import jmetal4.core.util.PseudoRandom;
+import jmetal4.core.Solution;
+import jmetal4.experiments.ExperimentCommomConfigs;
+import jmetal4.util.PseudoRandom;
 
 /**
  * 

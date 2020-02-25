@@ -21,14 +21,14 @@
 
 package jmetal4.experiments;
 
-import jmetal4.core.core.Algorithm;
-import jmetal4.core.core.Operator;
-import jmetal4.core.core.Problem;
-import domain.util.JMException;
-import jmetal4.core.encodings.solutionType.ArrayRealSolutionType;
-import jmetal4.core.encodings.solutionType.BinaryRealSolutionType;
-import jmetal4.core.encodings.solutionType.BinarySolutionType;
-import jmetal4.core.encodings.solutionType.RealSolutionType;
+import jmetal4.core.Algorithm;
+import jmetal4.core.Operator;
+import jmetal4.core.Problem;
+import common.exceptions.JMException;
+import jmetal4.encodings.solutionType.ArrayRealSolutionType;
+import jmetal4.encodings.solutionType.BinaryRealSolutionType;
+import jmetal4.encodings.solutionType.BinarySolutionType;
+import jmetal4.encodings.solutionType.RealSolutionType;
 import jmetal4.operators.crossover.Crossover;
 import jmetal4.operators.crossover.CrossoverFactory;
 import jmetal4.operators.mutation.Mutation;

@@ -4,7 +4,7 @@ mestrado.arquitetura.base
 mestrado.arquitetura.base.test
 mestrado.arquitetura.builders
 mestrado.arquitetura.builders.test
-mestrado.arquitetura.exceptions
+mestrado.arquitetura.common.exceptions
 mestrado.arquitetura.factories
 mestrado.arquitetura.genericsTests
 mestrado.arquitetura.helpers

@@ -17,11 +17,11 @@
 //import domain.util.Configuration;
 //import domain.util.JMException;
 //import jmetal4.core.util.PseudoRandom;
-//import arquitetura.exceptions.ClassNotFound;
-//import arquitetura.exceptions.ConcernNotFoundException;
-//import arquitetura.exceptions.InterfaceNotFound;
-//import arquitetura.exceptions.NotFoundException;
-//import arquitetura.exceptions.PackageNotFound;
+//import arquitetura.common.exceptions.ClassNotFound;
+//import arquitetura.common.exceptions.ConcernNotFoundException;
+//import arquitetura.common.exceptions.InterfaceNotFound;
+//import arquitetura.common.exceptions.NotFoundException;
+//import arquitetura.common.exceptions.PackageNotFound;
 //import arquitetura.representation.Architecture;
 //import arquitetura.representation.Attribute;
 //import arquitetura.representation.Class;

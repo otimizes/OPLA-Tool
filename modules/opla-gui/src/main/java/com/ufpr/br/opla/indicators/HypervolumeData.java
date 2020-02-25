@@ -1,6 +1,6 @@
 package com.ufpr.br.opla.indicators;
 
-import jmetal4.utils.MathUtils;
+import jmetal4.util.MathUtils;
 
 import java.util.Collections;
 import java.util.List;

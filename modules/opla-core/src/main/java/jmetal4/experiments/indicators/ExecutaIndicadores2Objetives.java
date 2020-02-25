@@ -1,7 +1,7 @@
 package jmetal4.experiments.indicators;
 
-import jmetal4.core.core.SolutionSet;
-import jmetal4.core.problems.OPLA;
+import jmetal4.core.SolutionSet;
+import jmetal4.problems.OPLA;
 import jmetal4.qualityIndicator.QualityIndicator;
 import jmetal4.qualityIndicator.util.MetricsUtil;
 

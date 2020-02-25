@@ -1,7 +1,7 @@
 package jmetal4.experiments;
 
-import jmetal4.core.core.Algorithm;
-import jmetal4.core.core.SolutionSet;
+import jmetal4.core.Algorithm;
+import jmetal4.core.SolutionSet;
 import jmetal4.metaheuristics.nsgaII.NSGAII;
 import jmetal4.operators.crossover.Crossover;
 import jmetal4.operators.crossover.CrossoverFactory;
@@ -9,8 +9,8 @@ import jmetal4.operators.mutation.Mutation;
 import jmetal4.operators.mutation.MutationFactory;
 import jmetal4.operators.selection.Selection;
 import jmetal4.operators.selection.SelectionFactory;
-import jmetal4.core.problems.OPLA;
-import domain.util.JMException;
+import jmetal4.problems.OPLA;
+import common.exceptions.JMException;
 
 import java.io.File;
 import java.io.FileNotFoundException;

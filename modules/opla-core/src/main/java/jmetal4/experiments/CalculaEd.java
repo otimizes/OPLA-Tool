@@ -1,10 +1,10 @@
 package jmetal4.experiments;
 
-import exceptions.MissingConfigurationException;
-import jmetal4.core.core.Solution;
-import jmetal4.core.core.SolutionSet;
+import common.exceptions.MissingConfigurationException;
+import jmetal4.core.Solution;
+import jmetal4.core.SolutionSet;
 import jmetal4.qualityIndicator.util.MetricsUtil;
-import jmetal4.core.util.NonDominatedSolutionList;
+import jmetal4.util.NonDominatedSolutionList;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 

@@ -27,12 +27,12 @@ import arquitetura.representation.Variability;
 import arquitetura.representation.VariationPoint;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.Relationship;
-import jmetal4.core.core.Solution;
-import jmetal4.core.encodings.solutionType.ArchitectureSolutionType;
-import jmetal4.core.problems.OPLA;
-import domain.util.Configuration;
-import domain.util.JMException;
-import jmetal4.core.util.PseudoRandom;
+import jmetal4.core.Solution;
+import jmetal4.encodings.solutionType.ArchitectureSolutionType;
+import jmetal4.problems.OPLA;
+import common.Configuration;
+import common.exceptions.JMException;
+import jmetal4.util.PseudoRandom;
 
 public class PLACrossover2 extends Crossover {
 

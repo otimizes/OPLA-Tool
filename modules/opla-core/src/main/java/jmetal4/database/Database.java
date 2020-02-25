@@ -1,6 +1,6 @@
 package jmetal4.database;
 
-import exceptions.MissingConfigurationException;
+import common.exceptions.MissingConfigurationException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 

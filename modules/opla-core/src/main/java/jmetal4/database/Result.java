@@ -2,8 +2,8 @@ package jmetal4.database;
 
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Concern;
-import jmetal4.core.core.Solution;
-import jmetal4.core.metrics.MetricsEvaluation;
+import jmetal4.core.Solution;
+import jmetal4.metrics.MetricsEvaluation;
 import jmetal4.metrics.*;
 import jmetal4.results.Execution;
 import jmetal4.results.Experiment;

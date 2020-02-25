@@ -23,8 +23,8 @@ package jmetal4.qualityIndicator;
 
 import org.apache.log4j.Logger;
 
-import jmetal4.core.core.Problem;
-import jmetal4.core.core.SolutionSet;
+import jmetal4.core.Problem;
+import jmetal4.core.SolutionSet;
 
 /**
  * QualityIndicator class

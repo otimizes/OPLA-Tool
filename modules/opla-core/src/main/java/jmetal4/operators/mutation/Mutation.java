@@ -23,7 +23,7 @@ package jmetal4.operators.mutation;
 
 import java.util.Map;
 
-import jmetal4.core.core.Operator;
+import jmetal4.core.Operator;
 
 /**
  * This class represents the super class of all the mutations operators

@@ -13,12 +13,12 @@ import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import jmetal4.operators.pattern.AbstractMutationOperator;
-import jmetal4.core.core.Solution;
+import jmetal4.core.Solution;
 import jmetal4.operators.mutation.PLAFeatureMutation;
-import jmetal4.core.problems.OPLA;
-import domain.util.Configuration;
-import domain.util.JMException;
-import jmetal4.core.util.PseudoRandom;
+import jmetal4.problems.OPLA;
+import common.Configuration;
+import common.exceptions.JMException;
+import jmetal4.util.PseudoRandom;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

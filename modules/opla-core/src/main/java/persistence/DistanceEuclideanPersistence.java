@@ -1,6 +1,6 @@
 package persistence;
 
-import exceptions.MissingConfigurationException;
+import common.exceptions.MissingConfigurationException;
 
 import java.sql.SQLException;
 import java.sql.Statement;

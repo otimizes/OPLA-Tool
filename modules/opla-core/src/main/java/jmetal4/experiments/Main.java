@@ -21,12 +21,12 @@
 
 package jmetal4.experiments;
 
-import jmetal4.core.core.Algorithm;
-import jmetal4.core.core.Problem;
-import jmetal4.core.core.SolutionSet;
+import jmetal4.core.Algorithm;
+import jmetal4.core.Problem;
+import jmetal4.core.SolutionSet;
 import jmetal4.qualityIndicator.QualityIndicator;
-import domain.util.Configuration;
-import domain.util.JMException;
+import common.Configuration;
+import common.exceptions.JMException;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;

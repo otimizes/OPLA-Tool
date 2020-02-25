@@ -21,9 +21,9 @@
 
 package jmetal4.operators.crossover;
 
-import jmetal4.core.experiments.ExperimentCommomConfigs;
-import domain.util.Configuration;
-import domain.util.JMException;
+import jmetal4.experiments.ExperimentCommomConfigs;
+import common.Configuration;
+import common.exceptions.JMException;
 
 import java.util.Map;
 

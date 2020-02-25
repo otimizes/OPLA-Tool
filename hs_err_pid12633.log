@@ -356,7 +356,7 @@ Event: 236,893 Thread 0x00007f38740a3800 Uncommon trap: reason=unstable_if actio
 Classes redefined (0 events):
 No events
 
-Internal exceptions (10 events):
+Internal common.exceptions (10 events):
 Event: 40,148 Thread 0x00007f38740a3800 Implicit null exception at 0x00007f38d04a1132 to 0x00007f38d04a173d
 Event: 40,719 Thread 0x00007f38740a3800 Exception <a 'java/lang/NoClassDefFoundError': javax/swing/JTable$$Lambda$17/428039780> (0x00000000dffb67f0) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u181/11358/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 208]
 Event: 191,425 Thread 0x00007f38740a3800 Exception <a 'java/lang/NoClassDefFoundError': javax/swing/JTable$$Lambda$17/428039780> (0x00000000d7447b70) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u181/11358/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 208]

@@ -21,8 +21,8 @@
 
 package jmetal4.experiments;
 
-import domain.util.Configuration;
-import domain.util.JMException;
+import common.Configuration;
+import common.exceptions.JMException;
 
 import java.lang.reflect.Constructor;
 

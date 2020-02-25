@@ -1,6 +1,6 @@
 package jmetal4.experiments.indicators;
 
-import domain.util.JMException;
+import common.exceptions.JMException;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

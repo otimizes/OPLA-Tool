@@ -21,10 +21,10 @@
 
 package jmetal4.metaheuristics.paes;
 
-import jmetal4.core.core.*;
-import domain.util.JMException;
-import jmetal4.core.util.archive.AdaptiveGridArchive;
-import jmetal4.core.util.comparators.DominanceComparator;
+import jmetal4.core.*;
+import common.exceptions.JMException;
+import jmetal4.util.archive.AdaptiveGridArchive;
+import jmetal4.util.comparators.DominanceComparator;
 
 import java.util.Comparator;
 

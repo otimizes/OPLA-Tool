@@ -2,10 +2,10 @@ package br.ufpr.dinf.gres.oplaapi.dto;
 
 import arquitetura.config.ApplicationFile;
 import arquitetura.config.ApplicationYamlConfig;
-import jmetal4.core.OptimizationAlgorithm;
+import jmetal4.experiments.OptimizationAlgorithm;
 import jmetal4.interactive.InteractiveFunction;
-import jmetal4.core.learning.ClusteringAlgorithm;
-import jmetal4.core.learning.Moment;
+import learning.ClusteringAlgorithm;
+import learning.Moment;
 
 import java.util.ArrayList;
 import java.util.Arrays;

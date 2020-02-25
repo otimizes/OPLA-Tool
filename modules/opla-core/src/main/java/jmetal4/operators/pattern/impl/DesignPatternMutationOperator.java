@@ -15,9 +15,9 @@ import patterns.strategies.designpatternselection.DesignPatternSelectionStrategy
 import patterns.strategies.designpatternselection.defaultstrategy.RandomDesignPatternSelection;
 import patterns.strategies.scopeselection.ScopeSelectionStrategy;
 import patterns.strategies.scopeselection.defaultstrategy.RandomScopeSelection;
-import jmetal4.core.core.Solution;
-import jmetal4.core.problems.OPLA;
-import jmetal4.core.util.PseudoRandom;
+import jmetal4.core.Solution;
+import jmetal4.problems.OPLA;
+import jmetal4.util.PseudoRandom;
 import org.apache.log4j.Priority;
 
 import java.util.Map;

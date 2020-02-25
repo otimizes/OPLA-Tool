@@ -6,7 +6,7 @@
 
 package jmetal4.results;
 
-import utils.Id;
+import jmetal4.util.Id;
 
 /**
  * @author elf

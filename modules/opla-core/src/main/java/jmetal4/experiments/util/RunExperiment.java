@@ -28,13 +28,13 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import jmetal4.core.core.Algorithm;
-import jmetal4.core.core.Problem;
-import jmetal4.core.core.SolutionSet;
+import jmetal4.core.Algorithm;
+import jmetal4.core.Problem;
+import jmetal4.core.SolutionSet;
 import jmetal4.experiments.Experiment;
 import jmetal4.experiments.Settings;
 import jmetal4.qualityIndicator.QualityIndicator;
-import domain.util.JMException;
+import common.exceptions.JMException;
 /**
  * Class implementing the steps to run an experiment
  */

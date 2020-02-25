@@ -5,7 +5,7 @@
 package com.ufpr.br.opla.indicators;
 
 import jmetal4.database.Database;
-import exceptions.MissingConfigurationException;
+import common.exceptions.MissingConfigurationException;
 import org.apache.commons.collections4.map.HashedMap;
 
 import java.sql.ResultSet;

@@ -6,7 +6,7 @@ import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.AlertUtil;
 import br.ufpr.dinf.gres.opla.view.util.UserHome;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
-import jmetal4.core.AlgorithmExperiment;
+import jmetal4.experiments.AlgorithmExperiment;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;

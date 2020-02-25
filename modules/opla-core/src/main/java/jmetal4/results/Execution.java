@@ -1,7 +1,7 @@
 package jmetal4.results;
 
 import jmetal4.metrics.AllMetrics;
-import utils.Id;
+import jmetal4.util.Id;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.opla.view.model.combomodel;
 
 import br.ufpr.dinf.gres.opla.view.model.ComboModelBase;
-import utils.RScriptOption;
+import jmetal4.util.RScriptOption;
 
 import java.util.Arrays;
 

@@ -8,7 +8,7 @@ package jmetal4.results;
 
 import jmetal4.database.Database;
 import jmetal4.metrics.*;
-import utils.Id;
+import jmetal4.util.Id;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

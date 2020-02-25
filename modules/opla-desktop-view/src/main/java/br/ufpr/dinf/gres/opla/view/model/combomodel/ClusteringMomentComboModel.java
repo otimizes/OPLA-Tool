@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.opla.view.model.combomodel;
 
 import br.ufpr.dinf.gres.opla.view.model.ComboModelBase;
-import jmetal4.core.learning.Moment;
+import learning.Moment;
 
 import java.util.Arrays;
 
