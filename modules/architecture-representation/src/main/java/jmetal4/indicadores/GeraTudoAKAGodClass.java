@@ -1,8 +1,8 @@
 package jmetal4.indicadores;
 
-import jmetal4.core.SolutionSet;
+import domain.core.SolutionSet;
 import jmetal4.qualityIndicator.util.MetricsUtil;
-import jmetal4.util.JMException;
+import domain.util.JMException;
 import org.apache.log4j.Logger;
 
 import java.io.*;

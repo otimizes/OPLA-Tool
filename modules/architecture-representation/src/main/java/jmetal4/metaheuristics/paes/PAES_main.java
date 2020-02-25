@@ -23,15 +23,15 @@
 //
 //import java.io.IOException;
 //
-//import jmetal4.core.*;
+//import domain.core.*;
 //import jmetal4.operators.mutation.*;
-//import jmetal4.problems.*                  ;
-//import jmetal4.problems.DTLZ.*;
-//import jmetal4.problems.ZDT.*;
-//import jmetal4.problems.WFG.*;
-//import jmetal4.problems.LZ09.* ;
-//import jmetal4.util.Configuration;
-//import jmetal4.util.JMException;
+//import domain.problems.*                  ;
+//import domain.problems.DTLZ.*;
+//import domain.problems.ZDT.*;
+//import domain.problems.WFG.*;
+//import domain.problems.LZ09.* ;
+//import domain.util.Configuration;
+//import domain.util.JMException;
 //
 //import java.util.HashMap;
 //import java.util.logging.FileHandler;

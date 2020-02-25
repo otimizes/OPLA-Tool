@@ -23,8 +23,8 @@ package jmetal4.operators.selection;
 
 import java.util.Map;
 
-import jmetal4.util.Configuration;
-import jmetal4.util.JMException;
+import domain.util.Configuration;
+import domain.util.JMException;
 
 /**
  * Class implementing a factory of selection operators

@@ -23,7 +23,8 @@ package jmetal4.experiments.settings;
 
 import java.util.HashMap;
 
-import jmetal4.core.Algorithm;
+import domain.core.Algorithm;
+import domain.util.JMException;
 import jmetal4.experiments.Settings;
 import jmetal4.metaheuristics.nsgaII.NSGAII;
 import jmetal4.operators.crossover.Crossover;
@@ -32,9 +33,8 @@ import jmetal4.operators.mutation.Mutation;
 import jmetal4.operators.mutation.MutationFactory;
 import jmetal4.operators.selection.Selection;
 import jmetal4.operators.selection.SelectionFactory;
-import jmetal4.problems.ProblemFactory;
+import domain.problems.ProblemFactory;
 import jmetal4.qualityIndicator.QualityIndicator;
-import jmetal4.util.JMException;
 
 /**
  * Settings class of algorithm NSGA-II (real encoding)
@@ -50,15 +50,15 @@ public class NSGAII_Settings extends Settings {
     /**
      * Constructor
      *
-     * @throws jmetal4.util.JMException
+     * @throws JMException
      */
-    public NSGAII_Settings(String problem) throws jmetal4.util.JMException {
+    public NSGAII_Settings(String problem) throws JMException {
         super(problem);
 
         Object[] problemParams = {"Real"};
         try {
             problem_ = (new ProblemFactory()).getProblem(problemName_, problemParams);
-        } catch (jmetal4.util.JMException e) {
+        } catch (JMException e) {
             e.printStackTrace();
         }
         // Default settings
@@ -75,9 +75,9 @@ public class NSGAII_Settings extends Settings {
      * Configure NSGAII with user-defined parameter settings
      *
      * @return A NSGAII algorithm object
-     * @throws jmetal4.util.JMException
+     * @throws JMException
      */
-    public jmetal4.core.Algorithm configure() throws JMException {
+    public domain.core.Algorithm configure() throws JMException {
         Algorithm algorithm;
         Selection selection;
         Crossover crossover;

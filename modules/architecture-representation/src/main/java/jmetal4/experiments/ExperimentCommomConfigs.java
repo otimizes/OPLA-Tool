@@ -1,7 +1,7 @@
 package jmetal4.experiments;
 
 import br.ufpr.dinf.gres.loglog.LogLog;
-import jmetal4.interactive.InteractiveFunction;
+import domain.InteractiveFunction;
 import learning.ClusteringAlgorithm;
 import learning.Moment;
 import org.apache.commons.lang.WordUtils;

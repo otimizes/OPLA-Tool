@@ -24,12 +24,13 @@ package jmetal4.operators.selection;
 import java.util.Comparator;
 import java.util.Map;
 
+import domain.util.PermutationUtility;
 import org.apache.log4j.Logger;
 
-import jmetal4.core.Solution;
-import jmetal4.core.SolutionSet;
-import jmetal4.util.PseudoRandom;
-import jmetal4.util.comparators.DominanceComparator;
+import domain.core.Solution;
+import domain.core.SolutionSet;
+import domain.util.PseudoRandom;
+import domain.util.comparators.DominanceComparator;
 
 /**
  * This class implements an operator for binary selections using the same code
@@ -75,7 +76,7 @@ public class BinaryTournament2 extends Selection {
         if (index_ == 0) //Create the permutation
         {
 
-            a_ = (new jmetal4.util.PermutationUtility()).intPermutation(population.size());
+            a_ = (new PermutationUtility()).intPermutation(population.size());
         }
 
 

@@ -21,18 +21,18 @@
 
 package jmetal4.experiments;
 
-import jmetal4.core.Algorithm;
-import jmetal4.core.Operator;
-import jmetal4.core.Problem;
-import jmetal4.encodings.solutionType.ArrayRealSolutionType;
-import jmetal4.encodings.solutionType.BinaryRealSolutionType;
-import jmetal4.encodings.solutionType.BinarySolutionType;
-import jmetal4.encodings.solutionType.RealSolutionType;
+import domain.core.Algorithm;
+import domain.core.Operator;
+import domain.core.Problem;
+import domain.util.JMException;
+import domain.encodings.solutionType.ArrayRealSolutionType;
+import domain.encodings.solutionType.BinaryRealSolutionType;
+import domain.encodings.solutionType.BinarySolutionType;
+import domain.encodings.solutionType.RealSolutionType;
 import jmetal4.operators.crossover.Crossover;
 import jmetal4.operators.crossover.CrossoverFactory;
 import jmetal4.operators.mutation.Mutation;
 import jmetal4.operators.mutation.MutationFactory;
-import jmetal4.util.JMException;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public abstract class Settings {
      * Default configure method
      *
      * @return A problem with the default configuration
-     * @throws jmetal4.util.JMException
+     * @throws JMException
      */
     abstract public Algorithm configure() throws JMException;
 
@@ -71,7 +71,7 @@ public abstract class Settings {
      *
      * @param settings
      * @return A problem with the settings indicated as argument
-     * @throws jmetal4.util.JMException
+     * @throws JMException
      * @throws ClassNotFoundException
      */
     public final Algorithm configure(HashMap settings) throws JMException, IllegalArgumentException, IllegalAccessException, ClassNotFoundException {

@@ -21,9 +21,9 @@
 
 package jmetal4.experiments;
 
-import jmetal4.core.Algorithm;
+import domain.core.Algorithm;
 import jmetal4.experiments.settings.NSGAII_Settings;
-import jmetal4.util.JMException;
+import domain.util.JMException;
 
 import java.io.IOException;
 import java.util.HashMap;

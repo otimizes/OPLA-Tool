@@ -22,8 +22,8 @@
 package jmetal4.operators.mutation;
 
 import jmetal4.experiments.ExperimentCommomConfigs;
-import jmetal4.util.Configuration;
-import jmetal4.util.JMException;
+import domain.util.Configuration;
+import domain.util.JMException;
 import jmetal4.operators.pattern.impl.DesignPatternMutationOperator;
 import patterns.strategies.designpatternselection.impl.CustomDesignPatternSelection;
 

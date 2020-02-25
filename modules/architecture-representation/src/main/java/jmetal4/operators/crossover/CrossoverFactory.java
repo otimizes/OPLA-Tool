@@ -22,10 +22,9 @@
 package jmetal4.operators.crossover;
 
 import jmetal4.experiments.ExperimentCommomConfigs;
-import jmetal4.util.Configuration;
-import jmetal4.util.JMException;
+import domain.util.Configuration;
+import domain.util.JMException;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

@@ -3,7 +3,7 @@ package br.ufpr.dinf.gres.oplaapi.dto;
 import arquitetura.config.ApplicationFile;
 import arquitetura.config.ApplicationYamlConfig;
 import domain.OptimizationAlgorithm;
-import jmetal4.interactive.InteractiveFunction;
+import domain.InteractiveFunction;
 import learning.ClusteringAlgorithm;
 import learning.Moment;
 

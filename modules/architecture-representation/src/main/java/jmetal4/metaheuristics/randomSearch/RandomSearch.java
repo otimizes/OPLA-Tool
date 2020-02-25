@@ -21,12 +21,12 @@
 
 package jmetal4.metaheuristics.randomSearch;
 
-import jmetal4.core.Algorithm;
-import jmetal4.core.Problem;
-import jmetal4.core.Solution;
-import jmetal4.core.SolutionSet;
-import jmetal4.util.JMException;
-import jmetal4.util.NonDominatedSolutionList;
+import domain.core.Algorithm;
+import domain.core.Problem;
+import domain.core.Solution;
+import domain.core.SolutionSet;
+import domain.util.JMException;
+import domain.util.NonDominatedSolutionList;
 
 /**
  * This class implements a simple random search algorithm.

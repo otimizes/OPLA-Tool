@@ -1,6 +1,6 @@
 package jmetal4.experiments.indicators;
 
-import jmetal4.util.JMException;
+import domain.util.JMException;
 
 import java.io.*;
 

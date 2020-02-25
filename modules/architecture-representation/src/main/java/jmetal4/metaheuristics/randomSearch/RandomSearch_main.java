@@ -21,15 +21,15 @@
 
 package jmetal4.metaheuristics.randomSearch;
 
-import jmetal4.core.Algorithm;
-import jmetal4.core.Operator;
-import jmetal4.core.Problem;
-import jmetal4.core.SolutionSet;
-import jmetal4.problems.Kursawe;
-import jmetal4.problems.ProblemFactory;
+import domain.core.Algorithm;
+import domain.core.Operator;
+import domain.core.Problem;
+import domain.core.SolutionSet;
+import domain.problems.Kursawe;
+import domain.problems.ProblemFactory;
 import jmetal4.qualityIndicator.QualityIndicator;
-import jmetal4.util.Configuration;
-import jmetal4.util.JMException;
+import domain.util.Configuration;
+import domain.util.JMException;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;

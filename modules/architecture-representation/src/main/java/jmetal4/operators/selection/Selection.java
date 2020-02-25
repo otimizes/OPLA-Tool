@@ -23,7 +23,7 @@ package jmetal4.operators.selection;
 
 import java.util.Map;
 
-import jmetal4.core.Operator;
+import domain.core.Operator;
 
 /**
  * This class represents the super class of all the selection operators

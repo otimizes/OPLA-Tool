@@ -23,14 +23,14 @@
 //
 //import java.util.HashMap;
 //
-//import jmetal4.core.Algorithm;
+//import domain.core.Algorithm;
 //import jmetal4.experiments.Settings;
 //import jmetal4.metaheuristics.paes.PAES;
 //import jmetal4.operators.mutation.Mutation;
 //import jmetal4.operators.mutation.MutationFactory;
-//import jmetal4.problems.ProblemFactory;
+//import domain.problems.ProblemFactory;
 //import jmetal4.qualityIndicator.QualityIndicator;
-//import jmetal4.util.JMException;
+//import domain.util.JMException;
 //
 ///**
 // * Settings class of algorithm PAES
@@ -66,7 +66,7 @@
 //	/**
 //	 * Configure the MOCell algorithm with default parameter settings
 //	 * @return an algorithm object
-//	 * @throws jmetal4.util.JMException
+//	 * @throws domain.util.JMException
 //	 */
 //	public Algorithm configure() throws JMException {
 //		Algorithm algorithm ;

@@ -21,9 +21,9 @@
 
 package jmetal4.qualityIndicator.util;
 
-import jmetal4.core.Solution;
-import jmetal4.core.SolutionSet;
-import jmetal4.util.NonDominatedSolutionList;
+import domain.core.Solution;
+import domain.core.SolutionSet;
+import domain.util.NonDominatedSolutionList;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

@@ -21,12 +21,12 @@
 //
 //package jmetal4.experiments.settings;
 //
-//import jmetal4.core.Algorithm;
+//import domain.core.Algorithm;
 //import jmetal4.experiments.Settings;
 //import jmetal4.metaheuristics.randomSearch.RandomSearch;
-//import jmetal4.problems.ProblemFactory;
+//import domain.problems.ProblemFactory;
 //import jmetal4.qualityIndicator.QualityIndicator;
-//import jmetal4.util.JMException;
+//import domain.util.JMException;
 //
 ///**
 // * Settings class of algorithm RandomSearch
@@ -53,7 +53,7 @@
 //  /**
 //   * Configure the MOCell algorithm with default parameter settings
 //   * @return an algorithm object
-//   * @throws jmetal4.util.JMException
+//   * @throws domain.util.JMException
 //   */
 //  public Algorithm configure() throws JMException {
 //    Algorithm algorithm;

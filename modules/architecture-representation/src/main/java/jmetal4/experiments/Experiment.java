@@ -21,12 +21,12 @@
 
 package jmetal4.experiments;
 
-import jmetal4.core.Algorithm;
+import domain.core.Algorithm;
 import jmetal4.experiments.util.RBoxplot;
 import jmetal4.experiments.util.RWilcoxon;
 import jmetal4.experiments.util.RunExperiment;
 import jmetal4.experiments.util.Statistics;
-import jmetal4.util.JMException;
+import domain.util.JMException;
 
 import java.io.*;
 import java.util.*;

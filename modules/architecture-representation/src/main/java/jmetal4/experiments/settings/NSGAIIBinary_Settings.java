@@ -23,16 +23,16 @@
 //
 //import java.util.HashMap;
 //
-//import jmetal4.core.Algorithm;
-//import jmetal4.core.Operator;
+//import domain.core.Algorithm;
+//import domain.core.Operator;
 //import jmetal4.experiments.Settings;
 //import jmetal4.metaheuristics.nsgaII.NSGAII;
 //import jmetal4.operators.crossover.CrossoverFactory;
 //import jmetal4.operators.mutation.MutationFactory;
 //import jmetal4.operators.selection.SelectionFactory;
-//import jmetal4.problems.ProblemFactory;
+//import domain.problems.ProblemFactory;
 //import jmetal4.qualityIndicator.QualityIndicator;
-//import jmetal4.util.JMException;
+//import domain.util.JMException;
 //
 ///**
 // * Settings class of algorithm NSGA-II (binary encoding)
@@ -69,7 +69,7 @@
 //  /**
 //   * Configure NSGAII with user-defined parameter settings
 //   * @return A NSGAII algorithm object
-//   * @throws jmetal4.util.JMException
+//   * @throws domain.util.JMException
 //   */
 //  public Algorithm configure() throws JMException {
 //    Algorithm algorithm ;
