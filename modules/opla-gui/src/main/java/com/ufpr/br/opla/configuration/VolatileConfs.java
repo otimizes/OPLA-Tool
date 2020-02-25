@@ -1,6 +1,6 @@
 package com.ufpr.br.opla.configuration;
 
-import br.ufpr.inf.opla.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
+import patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
 
 import java.util.ArrayList;
 import java.util.List;

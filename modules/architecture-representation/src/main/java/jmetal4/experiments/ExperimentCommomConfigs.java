@@ -1,7 +1,6 @@
 package jmetal4.experiments;
 
 import br.ufpr.dinf.gres.loglog.LogLog;
-import br.ufpr.inf.opla.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
 import jmetal4.interactive.InteractiveFunction;
 import learning.ClusteringAlgorithm;
 import learning.Moment;

@@ -64,7 +64,7 @@ import com.ufpr.br.opla.utils.Utils;
 import com.ufpr.br.opla.utils.Validators;
 
 import arquitetura.io.FileUtils;
-import br.ufpr.inf.opla.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
+import patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
 import jmetal45.experiments.FeatureMutationOperators;
 import jmetal45.experiments.Metrics;
 import metrics.Conventional;
