@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api;
+package br.ufpr.dinf.gres.api.resource;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

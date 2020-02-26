@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api;
+package br.ufpr.dinf.gres.api.resource;
 
 import java.io.*;
 import java.util.ArrayList;

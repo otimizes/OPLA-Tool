@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api;
+package br.ufpr.dinf.gres.api.resource;
 
 import org.springframework.web.multipart.MultipartFile;
 

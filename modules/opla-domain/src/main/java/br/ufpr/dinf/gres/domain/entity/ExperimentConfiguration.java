@@ -30,7 +30,7 @@ public class ExperimentConfiguration implements Serializable {
     @Column(name = "mutation_prob")
     private Double mutationProb;
 
-    @Column(name = "br.ufpr.dinf.gres.patterns")
+    @Column(name = "patterns")
     private String patterns;
 
     @Column(name = "pattern_strategy")
@@ -198,7 +198,7 @@ public class ExperimentConfiguration implements Serializable {
         return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("experimentId", id)
                 .append("numberOfRuns", numberOfRuns).append("maxEvaluations", maxEvaluations)
                 .append("crossoverProb", crossoverProb).append("mutationProb", mutationProb)
-                .append("br.ufpr.dinf.gres.patterns", patterns).append("patternStrategy", patternStrategy).append("algorithm", algorithm)
+                .append("patterns", patterns).append("patternStrategy", patternStrategy).append("algorithm", algorithm)
                 .append("mutationOperators", mutationOperators).append("archiveSize", archiveSize)
                 .append("populationSize", populationSize).append("profilesUsed", profilesUsed).toString();
     }

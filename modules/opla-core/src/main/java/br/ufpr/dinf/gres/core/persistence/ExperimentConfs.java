@@ -137,7 +137,7 @@ public class ExperimentConfs {
                 mutationOperatorsList = removeLastComma(mutationOperatorsList);
 
             query.append("INSERT into experiment_configurations (experiment_id, number_of_runs,"
-                    + " max_evaluations, crossover_prob, mutation_prob, br.ufpr.dinf.gres.patterns, pattern_strategy, algorithm, mutation_operators, archive_size, population_size, objectives) VALUES (");
+                    + " max_evaluations, crossover_prob, mutation_prob, patterns, pattern_strategy, algorithm, mutation_operators, archive_size, population_size, objectives) VALUES (");
             query.append(experimentId);
             query.append(",");
             query.append(configs.getNumberOfRuns());

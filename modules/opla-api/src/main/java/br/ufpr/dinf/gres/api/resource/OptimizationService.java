@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api;
+package br.ufpr.dinf.gres.api.resource;
 
 import br.ufpr.dinf.gres.architecture.io.*;
 import br.ufpr.dinf.gres.architecture.util.UserHome;

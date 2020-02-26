@@ -1,7 +1,7 @@
-package br.ufpr.dinf.gres.api.config;
+package br.ufpr.dinf.gres.api.base;
 
 import br.ufpr.dinf.gres.api.dto.ResultList;
-import br.ufpr.dinf.gres.persistence.service.BaseService;
+import br.ufpr.dinf.gres.persistence.base.BaseService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

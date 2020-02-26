@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.persistence.service;
+package br.ufpr.dinf.gres.persistence.base;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.JpaRepository;

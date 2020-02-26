@@ -649,7 +649,6 @@ public class PLAFeatureMutation extends Mutation {
                     throw new JMException("Exception in " + name + ".doMutation()");
                 }
             }
-            Set<Class> allClasses = ((Package) ((Architecture) solution.getDecisionVariables()[0]).getAllPackages().toArray()[2]).getAllClasses();
         } catch (Exception e) {
             e.printStackTrace();
         }

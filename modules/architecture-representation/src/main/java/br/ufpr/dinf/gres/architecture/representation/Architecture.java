@@ -23,7 +23,7 @@ public class Architecture extends Variable {
 
     private static Logger LOGGER = Logger.getLogger(Architecture.class);
     private static final long serialVersionUID = -7764906574709840088L;
-    public static String ARCHITECTURE_TYPE = "br.ufpr.dinf.gres.arquitetura.representation.Architecture";
+    public static String ARCHITECTURE_TYPE = "br.ufpr.dinf.gres.architecture.representation.Architecture";
     private Cloner cloner;
     private Set<Package> packages = new HashSet<Package>();
     private Set<Class> classes = new HashSet<Class>();

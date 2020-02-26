@@ -30,13 +30,14 @@ import java.nio.file.Paths;
 @SpringBootApplication
 //@EnableTransactionManagement(proxyTargetClass = true)
 @EntityScan(basePackages = {
-        "br.ufpr.dinf.gres.domain.entity"
+        "br.ufpr.dinf.gres.domain.entity",
+        "br.ufpr.dinf.gres.domain.entity.metric"
 })
 @EnableJpaRepositories(basePackages = {
         "br.ufpr.dinf.gres.persistence.repository"
 })
 @ComponentScan(basePackages = {
-        "br.ufpr.dinf.gres.api",
+        "br.ufpr.dinf.gres.api.resource",
         "br.ufpr.dinf.gres.persistence.service"
 })
 @EnableAsync
@@ -45,13 +46,6 @@ public class OplaApiApplication {
     @Autowired
     Environment env;
 
-    //    driverClassName=org.sqlite.JDBC
-//            url=jdbc:sqlite:memory:myDb?cache=shared
-//            username=sa
-//    password=sa
-//    hibernate.dialect=com.baeldung.dialect.SQLiteDialect
-//    hibernate.hbm2ddl.auto=create-drop
-//    hibernate.show_sql=true
     @Bean
     public DataSource dataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
