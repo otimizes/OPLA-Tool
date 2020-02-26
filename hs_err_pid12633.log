@@ -119,8 +119,8 @@ V  [libjvm.so+0x68bf41]  InterpreterRuntime::_new(JavaThread*, ConstantPool*, in
 j  jmetal4.database.Result.getObjectives(Ljava/util/List;Lresults/Execution;Lresults/Experiment;)Ljava/util/List;+49
 j  jmetal4.experiments.NSGAII_OPLA_FeatMut.execute()V+692
 j  jmetal4.experiments.NSGAII_OPLA_FeatMutInitializer.run()V+25
-j  com.ufpr.br.opla.algorithms.NSGAII.execute(Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/Boolean;Ljava/lang/Integer;Llearning/ClusteringAlgorithm;Llearning/Moment;Ljmetal4/interactive/InteractiveFunction;)V+382
-j  com.ufpr.br.opla.algorithms.NSGAII.execute(Ljavax/swing/JComboBox;Ljavax/swing/JCheckBox;Ljavax/swing/JSlider;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JCheckBox;Ljavax/swing/JSlider;Ljavax/swing/JTextField;Ljavax/swing/JCheckBox;Ljavax/swing/JTextField;Ljavax/swing/JComboBox;Ljavax/swing/JComboBox;Ljmetal4/interactive/InteractiveFunction;)V+140
+j  br.ufpr.dinf.gres.opla.oldgui.algorithms.NSGAII.execute(Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/Boolean;Ljava/lang/Integer;Llearning/ClusteringAlgorithm;Llearning/Moment;Ljmetal4/interactive/InteractiveFunction;)V+382
+j  br.ufpr.dinf.gres.opla.oldgui.algorithms.NSGAII.execute(Ljavax/swing/JComboBox;Ljavax/swing/JCheckBox;Ljavax/swing/JSlider;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JCheckBox;Ljavax/swing/JSlider;Ljavax/swing/JTextField;Ljavax/swing/JCheckBox;Ljavax/swing/JTextField;Ljavax/swing/JComboBox;Ljavax/swing/JComboBox;Ljmetal4/interactive/InteractiveFunction;)V+140
 j  br.ufpr.dinf.gres.opla.view.Principal.executeNSGAII()V+71
 j  br.ufpr.dinf.gres.opla.view.Principal.access$6100(Lbr/ufpr/dinf/gres/opla/view/Principal;)V+1
 j  br.ufpr.dinf.gres.opla.view.Principal$59.doInBackground()Ljava/lang/Object;+76
@@ -157,8 +157,8 @@ v  ~StubRoutines::call_stub
 j  jmetal4.database.Result.getObjectives(Ljava/util/List;Lresults/Execution;Lresults/Experiment;)Ljava/util/List;+49
 j  jmetal4.experiments.NSGAII_OPLA_FeatMut.execute()V+692
 j  jmetal4.experiments.NSGAII_OPLA_FeatMutInitializer.run()V+25
-j  com.ufpr.br.opla.algorithms.NSGAII.execute(Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/Boolean;Ljava/lang/Integer;Llearning/ClusteringAlgorithm;Llearning/Moment;Ljmetal4/interactive/InteractiveFunction;)V+382
-j  com.ufpr.br.opla.algorithms.NSGAII.execute(Ljavax/swing/JComboBox;Ljavax/swing/JCheckBox;Ljavax/swing/JSlider;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JCheckBox;Ljavax/swing/JSlider;Ljavax/swing/JTextField;Ljavax/swing/JCheckBox;Ljavax/swing/JTextField;Ljavax/swing/JComboBox;Ljavax/swing/JComboBox;Ljmetal4/interactive/InteractiveFunction;)V+140
+j  br.ufpr.dinf.gres.opla.oldgui.algorithms.NSGAII.execute(Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/Boolean;Ljava/lang/Integer;Llearning/ClusteringAlgorithm;Llearning/Moment;Ljmetal4/interactive/InteractiveFunction;)V+382
+j  br.ufpr.dinf.gres.opla.oldgui.algorithms.NSGAII.execute(Ljavax/swing/JComboBox;Ljavax/swing/JCheckBox;Ljavax/swing/JSlider;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JTextField;Ljavax/swing/JCheckBox;Ljavax/swing/JSlider;Ljavax/swing/JTextField;Ljavax/swing/JCheckBox;Ljavax/swing/JTextField;Ljavax/swing/JComboBox;Ljavax/swing/JComboBox;Ljmetal4/interactive/InteractiveFunction;)V+140
 j  br.ufpr.dinf.gres.opla.view.Principal.executeNSGAII()V+71
 j  br.ufpr.dinf.gres.opla.view.Principal.access$6100(Lbr/ufpr/dinf/gres/opla/view/Principal;)V+1
 j  br.ufpr.dinf.gres.opla.view.Principal$59.doInBackground()Ljava/lang/Object;+76
@@ -803,7 +803,7 @@ Launcher Type: SUN_STANDARD
 
 Environment Variables:
 JAVA_HOME=/usr/lib/jvm/java-8-oracle
-PATH=/home/wmfsystem/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
+PATH=/home/wmfsystem/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/br.ufpr.dinf.gres.opla.db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
 USERNAME=wmfsystem
 SHELL=/bin/bash
 DISPLAY=:0

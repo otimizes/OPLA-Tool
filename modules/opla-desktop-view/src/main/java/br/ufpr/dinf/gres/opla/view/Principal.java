@@ -24,22 +24,22 @@ import br.ufpr.dinf.gres.persistence.dao.ExperimentDAO;
 import br.ufpr.dinf.gres.persistence.dao.MapObjectivesDAO;
 import br.ufpr.dinf.gres.persistence.dao.ObjectiveDAO;
 import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
-import com.ufpr.br.opla.algorithms.NSGAII;
-import com.ufpr.br.opla.algorithms.PAES;
-import com.ufpr.br.opla.charts.ChartGenerate;
-import com.ufpr.br.opla.charts.EdBar;
-import com.ufpr.br.opla.charts.EdLine;
-import com.ufpr.br.opla.configuration.GuiFile;
-import com.ufpr.br.opla.configuration.VolatileConfs;
-import com.ufpr.br.opla.gui.HypervolumeWindow;
-import com.ufpr.br.opla.gui.SmallerFintnessValuesWindow;
-import com.ufpr.br.opla.gui.StartUp;
-import com.ufpr.br.opla.indicators.HypervolumeData;
-import com.ufpr.br.opla.indicators.HypervolumeGenerateObjsData;
-import com.ufpr.br.opla.utils.GuiUtils;
-import com.ufpr.br.opla.utils.MutationOperatorsSelected;
-import com.ufpr.br.opla.utils.Time;
-import com.ufpr.br.opla.utils.Validators;
+import br.ufpr.dinf.gres.opla.oldgui.algorithms.NSGAII;
+import br.ufpr.dinf.gres.opla.oldgui.algorithms.PAES;
+import br.ufpr.dinf.gres.opla.oldgui.charts.ChartGenerate;
+import br.ufpr.dinf.gres.opla.oldgui.charts.EdBar;
+import br.ufpr.dinf.gres.opla.oldgui.charts.EdLine;
+import br.ufpr.dinf.gres.opla.oldgui.configuration.GuiFile;
+import br.ufpr.dinf.gres.opla.oldgui.configuration.VolatileConfs;
+import br.ufpr.dinf.gres.opla.oldgui.gui.HypervolumeWindow;
+import br.ufpr.dinf.gres.opla.oldgui.gui.SmallerFintnessValuesWindow;
+import br.ufpr.dinf.gres.opla.oldgui.gui.StartUp;
+import br.ufpr.dinf.gres.opla.oldgui.indicators.HypervolumeData;
+import br.ufpr.dinf.gres.opla.oldgui.indicators.HypervolumeGenerateObjsData;
+import br.ufpr.dinf.gres.opla.oldgui.utils.GuiUtils;
+import br.ufpr.dinf.gres.opla.oldgui.utils.MutationOperatorsSelected;
+import br.ufpr.dinf.gres.opla.oldgui.utils.Time;
+import br.ufpr.dinf.gres.opla.oldgui.utils.Validators;
 import jmetal4.experiments.AlgorithmExperiment;
 import jmetal4.core.SolutionSet;
 import jmetal4.experiments.FeatureMutationOperators;
@@ -2458,7 +2458,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
             for (int i = 0; i < selectedRows.length; i++) {
                 ids[i] = tbExperiments.getModel().getValueAt(selectedRows[i], 0).toString();
-                String functions = db.Database.getOrdenedObjectives(ids[i]);
+                String functions = br.ufpr.dinf.gres.opla.db.Database.getOrdenedObjectives(ids[i]);
                 if (funcs.isEmpty()) {
                     funcs = functions;
                 } else if (!funcs.equalsIgnoreCase(functions)) {
@@ -2495,7 +2495,7 @@ public class Principal extends AbstractPrincipalJFrame {
             ids[i] = tbExperiments.getModel().getValueAt(selectedRows[i], 0).toString();
         }
 
-        String name = db.Database.getPlaUsedToExperimentId(ids[0]);
+        String name = br.ufpr.dinf.gres.opla.db.Database.getPlaUsedToExperimentId(ids[0]);
 
         if (selectedRows.length >= 1) {
             String typeChart = GuiFile.getInstance().getEdChartType();
@@ -2532,7 +2532,7 @@ public class Principal extends AbstractPrincipalJFrame {
         for (JCheckBox box : checkeds) {
             String id = box.getName().split(",")[0]; // experimentID
             referenceExp = id;
-            String algorithmUsed = db.Database.getAlgoritmUsedToExperimentId(id);
+            String algorithmUsed = br.ufpr.dinf.gres.opla.db.Database.getAlgoritmUsedToExperimentId(id);
             experimentToAlgorithmUsed.put(id, algorithmUsed);
         }
         if (Validators.hasMoreThatTwoFunctionsSelectedForSelectedExperiments(allChecks)) {
@@ -2579,7 +2579,7 @@ public class Principal extends AbstractPrincipalJFrame {
 
         for (int i = 0; i < selectedRows.length; i++) {
             String experimentId = tbExperiments.getModel().getValueAt(selectedRows[i], 0).toString();
-            map.put(experimentId, db.Database.getOrdenedObjectives(experimentId).split(" "));
+            map.put(experimentId, br.ufpr.dinf.gres.opla.db.Database.getOrdenedObjectives(experimentId).split(" "));
         }
 
         // Validacao
@@ -2640,7 +2640,7 @@ public class Principal extends AbstractPrincipalJFrame {
             for (int i = 0; i < selectedRows.length; i++) {
                 ids[i] = tbExperiments.getModel().getValueAt(selectedRows[i], 0).toString();
             }
-            Map<String, List<Double>> content = db.Database.getAllObjectivesForDominatedSolutions(ids);
+            Map<String, List<Double>> content = br.ufpr.dinf.gres.opla.db.Database.getAllObjectivesForDominatedSolutions(ids);
             List<HypervolumeData> hypers = HypervolumeGenerateObjsData.generate(content);
             List<BoxPlotItem> collect = hypers.stream()
                     .map(h -> new BoxPlotItem(h.getValues(), h.getAlgorithm(), h.getIdExperiment())).collect(Collectors.toList());
@@ -2658,7 +2658,7 @@ public class Principal extends AbstractPrincipalJFrame {
             for (int i = 0; i < selectedRows.length; i++) {
                 ids[i] = tbExperiments.getModel().getValueAt(selectedRows[i], 0).toString();
             }
-            Map<String, List<Double>> content = db.Database.getAllObjectivesForDominatedSolutions(ids);
+            Map<String, List<Double>> content = br.ufpr.dinf.gres.opla.db.Database.getAllObjectivesForDominatedSolutions(ids);
             List<HypervolumeData> hypervolumeData = HypervolumeGenerateObjsData.generate(content);
             List<List<Double>> collect = hypervolumeData.stream().map(h -> h.getValues()).collect(Collectors.toList());
             String result = ((RScriptOption) cbRScript.getSelectedItem()).getResult(new RScriptOptionElement(collect, UserHome.getOplaUserHome() + Constants.TEMP_DIR + Constants.FILE_SEPARATOR));
@@ -3095,7 +3095,7 @@ public class Principal extends AbstractPrincipalJFrame {
                             jLabel12.setText("Done");
                             jProgressBar.setIndeterminate(false);
                             Logger.getLogger().putLog(String.format("Done NSGAII Execution at: %s", Time.timeNow().toString()));
-                            db.Database.reloadContent();
+                            br.ufpr.dinf.gres.opla.db.Database.reloadContent();
                             loadExecutionsData();
                         }
                     };
@@ -3123,7 +3123,7 @@ public class Principal extends AbstractPrincipalJFrame {
                             jProgressBar.setIndeterminate(false);
                             Logger.getLogger()
                                     .putLog(String.format("Done PAES Execution at: %s", Time.timeNow().toString()));
-                            db.Database.reloadContent();
+                            br.ufpr.dinf.gres.opla.db.Database.reloadContent();
                             loadExecutionsData();
                         }
                     };

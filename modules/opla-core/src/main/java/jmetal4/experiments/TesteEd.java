@@ -8,7 +8,7 @@ import java.util.Map;
 public class TesteEd {
 
     public static void main(String[] args) throws Exception {
-        Database.setPathToDB("/Users/elf/oplatool/db/oplatool.db");
+        Database.setPathToDB("/Users/elf/oplatool/br.ufpr.dinf.gres.opla.db/oplatool.br.ufpr.dinf.gres.opla.db");
         CalculaEd ed = new CalculaEd();
 //paes bet 4744218659
 //nsga bet 5568111744	

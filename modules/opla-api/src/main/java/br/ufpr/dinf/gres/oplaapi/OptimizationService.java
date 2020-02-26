@@ -113,7 +113,7 @@ public class OptimizationService {
         // operadores padroes ok
         // String[] padroes = configs.getPatterns();
 
-        // Configura onde o db esta localizado
+        // Configura onde o br.ufpr.dinf.gres.opla.db esta localizado
         configs.setPathToDb(UserHome.getPathToDb());
 
         // Instancia a classe de configuracao da OPLA.java
@@ -188,7 +188,7 @@ public class OptimizationService {
 //            configs.setDesignPatternStrategy(VolatileConfs.getScopePatterns());
         }
 
-        //Configura onde o db esta localizado
+        //Configura onde o br.ufpr.dinf.gres.opla.db esta localizado
         configs.setPathToDb(UserHome.getPathToDb());
 
         //Instancia a classe de configuracao da OPLA.java

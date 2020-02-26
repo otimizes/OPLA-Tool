@@ -62,7 +62,7 @@ public class Experiment {
      * Once this method is static, and maybe jmetal4.database URL isn't yet seted, you
      * need supply a jmetal4.database URL before. To do that:
      * <p>
-     * <code>Database.setURL("path/to/db/file");</code>>
+     * <code>Database.setURL("path/to/br.ufpr.dinf.gres.oplatool.db/file");</code>>
      *
      * @return {@link List} of {@link Experiment}
      * @throws SQLException

@@ -11,7 +11,7 @@ import java.util.List;
 public class FormatObjec {
 
     public static void main(String args[]) throws Exception {
-        Database.setPathToDB("/Users/elf/oplatool/db/oplatool.db");
+        Database.setPathToDB("/Users/elf/oplatool/db/opla.db");
 
         List<Double> c = new ArrayList<Double>();
         List<Double> f = new ArrayList<Double>();

@@ -12,7 +12,7 @@ public class Id {
     public static String generateUniqueId() {
         String id = RandomStringUtils.randomNumeric(ID_LENGTH);
         if (id.contains("0"))
-            return id.replaceAll("0", "1"); // remover 0 pois dava conflito com o db na hora do select
+            return id.replaceAll("0", "1"); // remover 0 pois dava conflito com o br.ufpr.dinf.gres.opla.db na hora do select
         return id;
     }
 

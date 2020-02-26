@@ -210,7 +210,7 @@ public class Utils {
             LOGGER.info("Banco de dados já configurado");
         }
         try {
-            db.Database.setContent(jmetal4.results.Experiment.all());
+            br.ufpr.dinf.gres.opla.db.Database.setContent(jmetal4.results.Experiment.all());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -247,8 +247,8 @@ public class Utils {
 
     // TODO Ajustar quando refatorar jmetal4.database
     // public static String generateFileName(String id) {
-    // String algorithmName = db.Database.getAlgoritmUsedToExperimentId(id);
-    // String plaName = db.Database.getPlaUsedToExperimentId(id);
+    // String algorithmName = br.ufpr.dinf.gres.opla.db.Database.getAlgoritmUsedToExperimentId(id);
+    // String plaName = br.ufpr.dinf.gres.opla.db.Database.getPlaUsedToExperimentId(id);
     //
     // StringBuilder fileName = new StringBuilder();
     // fileName.append(id);

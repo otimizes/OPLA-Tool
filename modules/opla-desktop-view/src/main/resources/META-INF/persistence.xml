@@ -23,7 +23,7 @@
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect" />
 			<property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:sqlite:${user.home}/oplatool/db/oplatool.db" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:sqlite:${user.home}/oplatool/db/opla.db" />
 			<property name="javax.persistence.jdbc.user" value="" />
 			<property name="javax.persistence.jdbc.password" value="" />
 			<property name="hibernate.show_sql" value="false" />
