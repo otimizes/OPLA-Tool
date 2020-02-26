@@ -24,8 +24,8 @@
         <module>modules/architecture-representation</module>
         <module>modules/opla-patterns</module>
         <module>modules/opla-core</module>
-        <module>modules/opla-gui</module>
-        <module>modules/opla-desktop-view</module>
+<!--        <module>modules/opla-gui</module>-->
+<!--        <module>modules/opla-desktop-view</module>-->
         <module>modules/opla-api</module>
     </modules>
 

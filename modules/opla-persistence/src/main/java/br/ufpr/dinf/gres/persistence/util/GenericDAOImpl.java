@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Generic implementation for DAO Pattern
@@ -20,7 +22,8 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
 
 	private static final Logger LOGGER = Logger.getLogger(GenericDAOImpl.class);
 
-	private final EntityManager em = PersistenceManager.getEntityManager();
+	@PersistenceContext
+	private EntityManager em;
 
 	private final Class<T> clazz;
 
@@ -30,12 +33,14 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
 
 	@Override
 	public T findById(Long id) {
+		if (em == null) em = PersistenceManager.getEntityManager();
 		LOGGER.debug("Finding by id: " + id);
 		return em.find(clazz, id);
 	}
 
 	@Override
 	public List<T> findAll() {
+		if (em == null) em = PersistenceManager.getEntityManager();
 		LOGGER.debug("List all" + clazz.getSimpleName());
 		TypedQuery<T> query = em.createQuery(" FROM " + clazz.getSimpleName(), clazz);
 		List<T> resultList = query.getResultList();
@@ -45,6 +50,7 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
 
 	@Override
 	public void save(T clazz) {
+		if (em == null) em = PersistenceManager.getEntityManager();
 		LOGGER.debug("Saving: " + clazz.getClass().getSimpleName());
 		em.getTransaction().begin();
 		em.persist(clazz);
@@ -63,6 +69,7 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
 
 	@Override
 	public void excluir(T clazz) {
+		if (em == null) em = PersistenceManager.getEntityManager();
 		LOGGER.debug("Deleting: " + clazz.getClass().getSimpleName());
 		em.getTransaction().begin();
 		em.remove(clazz);
@@ -77,6 +84,7 @@ public abstract class GenericDAOImpl<T extends Serializable> implements GenericD
 
 	@Override
 	public EntityManager getEntityManager() {
+		if (em == null) em = PersistenceManager.getEntityManager();
 		return em;
 	}
 	

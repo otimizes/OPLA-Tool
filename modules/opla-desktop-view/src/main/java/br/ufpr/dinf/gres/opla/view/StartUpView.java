@@ -1,14 +1,17 @@
 package br.ufpr.dinf.gres.opla.view;
 
+import arquitetura.config.ApplicationYamlConfig;
 import arquitetura.io.OPLAThreadScope;
 import br.ufpr.dinf.gres.opla.config.ApplicationFile;
 import br.ufpr.dinf.gres.opla.config.ManagerApplicationConfig;
 import br.ufpr.dinf.gres.opla.view.util.AlertUtil;
 import br.ufpr.dinf.gres.opla.view.util.UserHome;
 import br.ufpr.dinf.gres.opla.view.util.Utils;
+import br.ufpr.dinf.gres.persistence.util.PersistenceManager;
 import jmetal4.experiments.AlgorithmExperiment;
 import org.apache.log4j.Logger;
 
+import javax.persistence.Persistence;
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -33,6 +36,21 @@ public class StartUpView extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
+        PersistenceManager.entityManagerFactory = Persistence.createEntityManagerFactory("oplaPU");
+        br.ufpr.dinf.gres.opla.config.ApplicationYamlConfig applicationYaml = ApplicationFile.getInstance().getApplicationYaml();
+        ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
+        applicationYamlConfig.setDirectoryToSaveModels(applicationYaml.getDirectoryToSaveModels());
+        applicationYamlConfig.setDirectoryToExportModels(applicationYaml.getDirectoryToExportModels());
+        applicationYamlConfig.setDirectoryToInteraction(applicationYaml.getDirectoryToInteraction());
+        applicationYamlConfig.setPathLastOptimizationInput(applicationYaml.getPathLastOptimizationInput());
+        applicationYamlConfig.setPathPapyrus(applicationYaml.getPathPapyrus());
+        applicationYamlConfig.setPathToProfile(applicationYaml.getPathToProfile());
+        applicationYamlConfig.setPathToProfileConcern(applicationYaml.getPathToProfileConcern());
+        applicationYamlConfig.setPathToProfilePatterns(applicationYaml.getPathToProfilePatterns());
+        applicationYamlConfig.setPathToProfileRelationships(applicationYaml.getPathToProfileRelationships());
+        applicationYamlConfig.setPathToTemplateModelsDirectory(applicationYaml.getPathToTemplateModelsDirectory());
+        OPLAThreadScope.setConfig(applicationYamlConfig);
+        System.out.println("init ok");
 
         try {
             setArgumentsMap(args);
