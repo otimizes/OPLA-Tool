@@ -1,0 +1,109 @@
+/*
+Fun files is where objective values are stored.
+ */
+package br.ufpr.dinf.gres.core.jmetal4.results;
+
+import br.ufpr.dinf.gres.core.jmetal4.util.Id;
+
+/**
+ * @author elf`
+ */
+public class FunResults {
+
+    private String id;
+    private String name;
+    private String solution_name; // mesmo nome do arquivo da br.ufpr.dinf.gres.arquitetura gerado
+    private Execution execution;
+    private int isAll;
+    private Experiment experiement;
+    /**
+     * Objectives are stored on a single attribute, the values are separated by
+     * pipe ("|").
+     */
+    private String objectives;
+
+    public FunResults() {
+        this.id = Id.generateUniqueId();
+    }
+
+    public FunResults(String id, String name, String solution_name, Execution execution, int isAll, Experiment experiement, String objectives) {
+        this.id = id;
+        this.name = name;
+        this.solution_name = solution_name;
+        this.execution = execution;
+        this.isAll = isAll;
+        this.experiement = experiement;
+        this.objectives = objectives;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getObjectives() {
+        return objectives;
+    }
+
+    /**
+     * String objs should be a string of values separated with pipes |.
+     * <p>
+     * Ex: 0.19191919|0.199193393|39393993
+     *
+     * @param objs
+     */
+    public void setObjectives(String objs) {
+        this.objectives = objs;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public Execution getExecution() {
+        return this.execution;
+    }
+
+    public void setExecution(Execution execution) {
+        this.execution = execution;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = "FUN_" + name;
+
+    }
+
+    public int getIsAll() {
+        return isAll;
+    }
+
+    /*
+     * 0 - false 1 - true
+     * 
+     * Using int type because SQLITE don't have a boolean type
+     */
+    public void setIsAll(int isAll) {
+        this.isAll = isAll;
+    }
+
+    public Experiment getExperiement() {
+        return this.experiement;
+    }
+
+    public void setExperiement(Experiment experiement) {
+        this.experiement = experiement;
+    }
+
+    public String getSolution_name() {
+        return solution_name;
+    }
+
+    public void setSolution_name(String solution_name) {
+        this.solution_name = solution_name;
+    }
+
+
+}

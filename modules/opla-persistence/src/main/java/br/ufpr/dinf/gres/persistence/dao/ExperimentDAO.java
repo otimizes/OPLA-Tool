@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.persistence.dao;
 
-import br.ufpr.dinf.gres.opla.entity.Experiment;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.persistence.util.GenericDAOImpl;
 
 import javax.persistence.TypedQuery;

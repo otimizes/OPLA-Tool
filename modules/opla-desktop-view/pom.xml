@@ -51,7 +51,6 @@
 		<dependency>
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
-			<version>1.18</version>
 		</dependency>
 		<dependency>
 			<groupId>br.ufpr.dinf.gres</groupId>
@@ -103,7 +102,7 @@
 						<configuration>
 							<archive>
 								<manifest>
-									<mainClass>br.ufpr.dinf.gres.opla.view.StartUpView</mainClass>
+									<mainClass>br.ufpr.dinf.gres.domain.view.StartUpView</mainClass>
 								</manifest>
 							</archive>
 							<descriptorRefs>

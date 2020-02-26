@@ -23,7 +23,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <start-class>br.ufpr.dinf.gres.oplaapi.OplaApiApplication</start-class>
+        <start-class>br.ufpr.dinf.gres.api.OplaApiApplication</start-class>
     </properties>
 
     <dependencies>

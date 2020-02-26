@@ -1,4 +1,4 @@
-import arquitetura.builders.ArchitectureBuilder;
+import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilder;
 
 public class Diff {
 

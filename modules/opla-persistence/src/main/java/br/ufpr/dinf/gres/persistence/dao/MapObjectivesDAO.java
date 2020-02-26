@@ -11,8 +11,8 @@ import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
-import br.ufpr.dinf.gres.opla.entity.Experiment;
-import br.ufpr.dinf.gres.opla.entity.MapObjectiveName;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
+import br.ufpr.dinf.gres.domain.entity.MapObjectiveName;
 import br.ufpr.dinf.gres.persistence.util.GenericDAOImpl;
 
 public class MapObjectivesDAO extends GenericDAOImpl<MapObjectiveName> {

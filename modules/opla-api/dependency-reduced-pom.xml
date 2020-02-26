@@ -101,7 +101,7 @@
               <file>${basedir}/src/main/resources/lib/uml2-common-1.7.0.jar</file>
               <repositoryLayout>default</repositoryLayout>
               <groupId>org.uml2.common</groupId>
-              <artifactId>uml2-common</artifactId>
+              <artifactId>uml2-br.ufpr.dinf.gres.common</artifactId>
               <version>1.7.0</version>
               <packaging>jar</packaging>
               <generatePom>true</generatePom>
@@ -262,6 +262,6 @@
   </dependencies>
   <properties>
     <java.version>1.8</java.version>
-    <start-class>br.ufpr.dinf.gres.oplaapi.OplaApiApplication</start-class>
+    <start-class>br.ufpr.dinf.gres.api.OplaApiApplication</start-class>
   </properties>
 </project>

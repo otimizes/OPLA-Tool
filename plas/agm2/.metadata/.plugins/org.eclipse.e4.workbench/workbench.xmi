@@ -1142,7 +1142,7 @@
     <tags>View</tags>
     <tags>categoryTag:General</tags>
   </descriptors>
-  <descriptors xmi:id="_9mKrYNyrEeizl6_JgC8Bzg" elementId="org.eclipse.sirius.common.ui.view.timeProfiler" label="Time Profiler View" iconURI="platform:/plugin/org.eclipse.ui/icons/full/eview16/defaultview_misc.png" tooltip="" category="Sirius Profiler" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+  <descriptors xmi:id="_9mKrYNyrEeizl6_JgC8Bzg" elementId="org.eclipse.sirius.br.ufpr.dinf.gres.common.ui.view.timeProfiler" label="Time Profiler View" iconURI="platform:/plugin/org.eclipse.ui/icons/full/eview16/defaultview_misc.png" tooltip="" category="Sirius Profiler" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
     <tags>View</tags>
     <tags>categoryTag:Sirius Profiler</tags>
   </descriptors>
@@ -1290,7 +1290,7 @@
   <commands xmi:id="_9g04bNyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.emf.facet.efacet.sdk.ui.editFacet" commandName="Edit Facet" category="_9gycKNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g04bdyrEeizl6_JgC8Bzg" elementId="org.eclipse.ocl.xtext.completeocl.CompleteOCL.validate" commandName="Validate" description="Trigger expensive validation" category="_9gycKNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g04btyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.sysml.service.types.DeriveReqtCreateCommand" commandName="Create a new DeriveReqt" description="Create a new DeriveReqt" category="_9gx1HdyrEeizl6_JgC8Bzg"/>
-  <commands xmi:id="_9g04b9yrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.diagram.common.commands.DeleteFromDiagram" commandName="Delete From Diagram Command" description="Delete the selection from diagram" category="_9gycOdyrEeizl6_JgC8Bzg"/>
+  <commands xmi:id="_9g04b9yrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.diagram.br.ufpr.dinf.gres.common.commands.DeleteFromDiagram" commandName="Delete From Diagram Command" description="Delete the selection from diagram" category="_9gycOdyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g04cNyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.textedit.port.xtext.UmlPort.validate" commandName="Validate" description="Trigger expensive validation" category="_9gycKNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g04cdyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.emf.facet.efacet.sdk.ui.addAttributeInFacet" commandName="Add Facet Attribute" category="_9gycKNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g04ctyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.infra.nattable.column.label.feature.display.type" commandName="Display Column Label Feature Type" category="_9gx1G9yrEeizl6_JgC8Bzg"/>
@@ -2117,7 +2117,7 @@
   <commands xmi:id="_9g_QdNyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.service.types.StartObjectBehaviorActionCreateCommand" commandName="Create a new StartObjectBehaviorAction" description="Create a new StartObjectBehaviorAction" category="_9gx1INyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g_QddyrEeizl6_JgC8Bzg" elementId="org.eclipse.jdt.ui.correction.assignParamToField.assist" commandName="Quick Assist - Assign parameter to field" description="Invokes quick assist and selects 'Assign parameter to field'" category="_9gycRtyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g_QdtyrEeizl6_JgC8Bzg" elementId="org.eclipse.egit.ui.command.configureTrace" commandName="Configure Git Debug Trace" category="_9gycP9yrEeizl6_JgC8Bzg"/>
-  <commands xmi:id="_9g_Qd9yrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.diagram.common.commands.Unload" commandName="Unload" description="Unload the corresponding submodel" category="_9gycOdyrEeizl6_JgC8Bzg"/>
+  <commands xmi:id="_9g_Qd9yrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.diagram.br.ufpr.dinf.gres.common.commands.Unload" commandName="Unload" description="Unload the corresponding submodel" category="_9gycOdyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g_QeNyrEeizl6_JgC8Bzg" elementId="org.eclipse.jdt.ui.edit.text.java.move.inner.to.top.level" commandName="Move Type to New File" description="Move Type to New File" category="_9gycNdyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g_QedyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.diagram.menu.command.grow.top" commandName="Grow Width Command" description="Call the Grow on width" category="_9gycOdyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g_QetyrEeizl6_JgC8Bzg" elementId="org.eclipse.ui.navigate.linkWithEditor" commandName="Toggle Link with Editor " description="Toggles linking of a view's selection with the active editor's selection" category="_9gycMdyrEeizl6_JgC8Bzg"/>
@@ -2231,7 +2231,7 @@
   <commands xmi:id="_9g_3p9yrEeizl6_JgC8Bzg" elementId="org.eclipse.emf.ecp.emfstore.ui.deleteOnServer" commandName="Delete on Server" category="_9gycKNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g_3qNyrEeizl6_JgC8Bzg" elementId="org.eclipse.emf.ecp.ui.addrepository" commandName="Add Repository" category="_9gycKNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g_3qdyrEeizl6_JgC8Bzg" elementId="org.eclipse.debug.ui.DebugPerspective" commandName="Debug" description="Open the debug perspective" category="_9gycQtyrEeizl6_JgC8Bzg"/>
-  <commands xmi:id="_9g_3qtyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.textedit.common.xtext.UmlCommon.validate" commandName="Validate" description="Trigger expensive validation" category="_9gycKNyrEeizl6_JgC8Bzg"/>
+  <commands xmi:id="_9g_3qtyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.textedit.br.ufpr.dinf.gres.common.xtext.UmlCommon.validate" commandName="Validate" description="Trigger expensive validation" category="_9gycKNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g_3q9yrEeizl6_JgC8Bzg" elementId="org.eclipse.egit.ui.history.RenameBranch" commandName="Rename Branch..." category="_9gycKNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g_3rNyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.infra.emf.readonly.EnableWriteCommand" commandName="Enable write" description="Enable write" category="_9gycOdyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g_3rdyrEeizl6_JgC8Bzg" elementId="org.eclipse.jdt.ui.specific_content_assist.command" commandName="Content Assist" description="A parameterizable command that invokes content assist with a single completion proposal category" category="_9gx1ENyrEeizl6_JgC8Bzg">
@@ -2467,7 +2467,7 @@
   <commands xmi:id="_9hBF_tyrEeizl6_JgC8Bzg" elementId="org.eclipse.help.ui.ignoreMissingPlaceholders" commandName="Do not warn of missing documentation" description="Sets the help preferences to no longer report a warning about the current set of missing documents." category="_9gycONyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9hBF_9yrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.sysml.service.types.FlowPort_InCreateCommand" commandName="Create a new FlowPort_In" description="Create a new FlowPort_In" category="_9gx1HdyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9hBGANyrEeizl6_JgC8Bzg" elementId="org.eclipse.compare.compareWithOther" commandName="Compare With Other Resource" description="Compare resources, clipboard contents or editors" category="_9gycNNyrEeizl6_JgC8Bzg"/>
-  <commands xmi:id="_9hBGAdyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.diagram.common.commands.Load" commandName="Load" description="Load the corresponding submodel" category="_9gycOdyrEeizl6_JgC8Bzg"/>
+  <commands xmi:id="_9hBGAdyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.diagram.br.ufpr.dinf.gres.common.commands.Load" commandName="Load" description="Load the corresponding submodel" category="_9gycOdyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9hBGAtyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.service.types.SubstitutionCreateCommand" commandName="Create a new Substitution" description="Create a new Substitution" category="_9gx1INyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9hBGA9yrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.sysml.service.types.ItemFlowCreateCommand" commandName="Create a new ItemFlow" description="Create a new ItemFlow" category="_9gx1HdyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9hBGBNyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.service.types.TimeIntervalCreateCommand" commandName="Create a new TimeInterval" description="Create a new TimeInterval" category="_9gx1INyrEeizl6_JgC8Bzg"/>
@@ -2804,7 +2804,7 @@
   <commands xmi:id="_9hDh_tyrEeizl6_JgC8Bzg" elementId="org.eclipse.emf.ecp.ui.delete" commandName="Delete" category="_9gycKNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9hDh_9yrEeizl6_JgC8Bzg" elementId="org.eclipse.ui.edit.text.recenter" commandName="Recenter" description="Scroll cursor line to center, top and bottom" category="_9gx1FNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9hDiANyrEeizl6_JgC8Bzg" elementId="org.eclipse.team.cvs.ui.merge" commandName="Merge" description="Merge" category="_9gycIdyrEeizl6_JgC8Bzg"/>
-  <commands xmi:id="_9hDiAdyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.infra.nattable.common.reload.table.editor.command" commandName="Reload Table Widget" description="This command allow to reload the table widget" category="_9gx1G9yrEeizl6_JgC8Bzg"/>
+  <commands xmi:id="_9hDiAdyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.infra.nattable.br.ufpr.dinf.gres.common.reload.table.editor.command" commandName="Reload Table Widget" description="This command allow to reload the table widget" category="_9gx1G9yrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9hDiAtyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.views.modelexplorer.close.all.command" commandName="Close All Command" description="The command to close all" category="_9gycOdyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9hDiA9yrEeizl6_JgC8Bzg" elementId="org.eclipse.ui.edit.text.scroll.lineDown" commandName="Scroll Line Down" description="Scroll down one line of text" category="_9gx1FNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9hDiBNyrEeizl6_JgC8Bzg" elementId="org.eclipse.ui.ToggleCoolbarAction" commandName="Toggle Toolbar Visibility" description="Toggles the visibility of the window toolbar" category="_9gx1HNyrEeizl6_JgC8Bzg"/>
@@ -3025,7 +3025,7 @@
   <categories xmi:id="_9gycQtyrEeizl6_JgC8Bzg" elementId="org.eclipse.ui.category.perspectives" name="Perspectives" description="Commands for opening perspectives"/>
   <categories xmi:id="_9gycQ9yrEeizl6_JgC8Bzg" elementId="org.eclipse.ltk.ui.category.refactoring" name="Refactoring"/>
   <categories xmi:id="_9gycRNyrEeizl6_JgC8Bzg" elementId="org.eclipse.gef.category.view" name="View" description="View"/>
-  <categories xmi:id="_9gycRdyrEeizl6_JgC8Bzg" elementId="org.eclipse.sirius.common.ui.category" name="Sirius"/>
+  <categories xmi:id="_9gycRdyrEeizl6_JgC8Bzg" elementId="org.eclipse.sirius.br.ufpr.dinf.gres.common.ui.category" name="Sirius"/>
   <categories xmi:id="_9gycRtyrEeizl6_JgC8Bzg" elementId="org.eclipse.jdt.ui.category.source" name="Source" description="Java Source Actions"/>
   <categories xmi:id="_9gycR9yrEeizl6_JgC8Bzg" elementId="org.eclipse.pde.runtime.spy.commands.category" name="Spy"/>
   <categories xmi:id="_9gycSNyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.diagram.composite.part.UMLDiagramEditorID" name="CompositeStructure Editor Commands" description="CompositeStructure Editor Commands"/>

@@ -30,7 +30,7 @@ public class DependencyIn {
                     if (dependency.getChild().equals(component)) depIn++;
                 }
             }
-            this.results += depIn; // somatorio de DepIn da arquitetura como um todo
+            this.results += depIn; // somatorio de DepIn da br.ufpr.dinf.gres.arquitetura como um todo
             depIn = 0;
         }
     }

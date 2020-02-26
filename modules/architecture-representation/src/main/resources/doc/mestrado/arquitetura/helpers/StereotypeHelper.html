@@ -56,10 +56,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../mestrado/arquitetura/helpers/Predicate.html" title="interface in mestrado.arquitetura.helpers"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../mestrado/arquitetura/helpers/StereotypesTypes.html" title="class in mestrado.arquitetura.helpers"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../mestrado/arquitetura/helpers/Predicate.html" title="interface in mestrado.br.ufpr.dinf.gres.architecture.helpers"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../mestrado/arquitetura/helpers/StereotypesTypes.html" title="class in mestrado.br.ufpr.dinf.gres.architecture.helpers"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?mestrado/arquitetura/helpers/StereotypeHelper.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?mestrado/br.ufpr.dinf.gres.arquitetura/helpers/StereotypeHelper.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="StereotypeHelper.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -89,12 +89,12 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&n
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-mestrado.arquitetura.helpers</FONT>
+    mestrado.br.ufpr.dinf.gres.architecture.helpers</FONT>
 <BR>
 Class StereotypeHelper</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>mestrado.arquitetura.helpers.StereotypeHelper</B>
+  <IMG SRC="../../../resources/inherit.gif" ALT="extended by "><B>mestrado.br.ufpr.dinf.gres.architecture.helpers.StereotypeHelper</B>
 </PRE>
 <HR>
 <DL>
@@ -307,7 +307,7 @@ public static boolean <B>hasConcern</B>(org.eclipse.uml2.uml.NamedElement&nbsp;e
 <DL>
 <DD>Verifica se elemento possui interesse. Os intereses são definidos em um profile separado do Smarty.
  Esse profile, contém um estereótipo chamado <b>concern</b>, que é abstrato e estende a metaclasse <b>Class</b>
- Sendo assim os interesses que o usuário desejar usar na arquitetura devem estender do estereótipo <b>Concern</b>.<br/><br/>
+ Sendo assim os interesses que o usuário desejar usar na br.ufpr.dinf.gres.arquitetura devem estender do estereótipo <b>Concern</b>.<br/><br/>
  
  <a href="https://dl.dropboxusercontent.com/u/6730822/Screen%20Shot%202013-05-17%20at%209.51.41%20AM.png">Exemplo</a>
 <P>
@@ -339,7 +339,7 @@ public static java.lang.String <B>getValueOfAttribute</B>(org.eclipse.uml2.uml.E
 getConcernName</H3>
 <PRE>
 public static java.lang.String <B>getConcernName</B>(org.eclipse.uml2.uml.NamedElement&nbsp;c)
-                                       throws <A HREF="../../../mestrado/arquitetura/exceptions/ConcernNotFoundException.html" title="class in mestrado.arquitetura.exceptions">ConcernNotFoundException</A></PRE>
+                                       throws <A HREF="../../../mestrado/arquitetura/exceptions/ConcernNotFoundException.html" title="class in mestrado.br.ufpr.dinf.gres.architecture.exceptions">ConcernNotFoundException</A></PRE>
 <DL>
 <DD>Retorna o nome do concern, caso existir. Se element não possuir concern retorna ConcernNotFoundExpection.
 <P>
@@ -347,7 +347,7 @@ public static java.lang.String <B>getConcernName</B>(org.eclipse.uml2.uml.NamedE
 <DT><B>Parameters:</B><DD><CODE>c</CODE> - 
 <DT><B>Returns:</B><DD>
 <DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../mestrado/arquitetura/exceptions/ConcernNotFoundException.html" title="class in mestrado.arquitetura.exceptions">ConcernNotFoundException</A></CODE> - se concern não for encontrado</DL>
+<DD><CODE><A HREF="../../../mestrado/arquitetura/exceptions/ConcernNotFoundException.html" title="class in mestrado.br.ufpr.dinf.gres.architecture.exceptions">ConcernNotFoundException</A></CODE> - se concern não for encontrado</DL>
 </DD>
 </DL>
 <HR>
@@ -357,9 +357,9 @@ getVariabilityAttributes</H3>
 <PRE>
 public static java.util.Map&lt;java.lang.String,java.lang.String&gt; <B>getVariabilityAttributes</B>(org.eclipse.uml2.uml.NamedElement&nbsp;klass,
                                                                                         org.eclipse.uml2.uml.Comment&nbsp;comment)
-                                                                                 throws <A HREF="../../../mestrado/arquitetura/exceptions/ModelNotFoundException.html" title="class in mestrado.arquitetura.exceptions">ModelNotFoundException</A>,
-                                                                                        <A HREF="../../../mestrado/arquitetura/exceptions/ModelIncompleteException.html" title="class in mestrado.arquitetura.exceptions">ModelIncompleteException</A>,
-                                                                                        <A HREF="../../../mestrado/arquitetura/exceptions/SMartyProfileNotAppliedToModelExcepetion.html" title="class in mestrado.arquitetura.exceptions">SMartyProfileNotAppliedToModelExcepetion</A></PRE>
+                                                                                 throws <A HREF="../../../mestrado/arquitetura/exceptions/ModelNotFoundException.html" title="class in mestrado.br.ufpr.dinf.gres.architecture.exceptions">ModelNotFoundException</A>,
+                                                                                        <A HREF="../../../mestrado/arquitetura/exceptions/ModelIncompleteException.html" title="class in mestrado.br.ufpr.dinf.gres.architecture.exceptions">ModelIncompleteException</A>,
+                                                                                        <A HREF="../../../mestrado/arquitetura/exceptions/SMartyProfileNotAppliedToModelExcepetion.html" title="class in mestrado.br.ufpr.dinf.gres.architecture.exceptions">SMartyProfileNotAppliedToModelExcepetion</A></PRE>
 <DL>
 <DD>Retorna um <CODE>Map</CODE> contendo os atributos/valores para atributos de um variabilidade.
 <P>
@@ -367,9 +367,9 @@ public static java.util.Map&lt;java.lang.String,java.lang.String&gt; <B>getVaria
 <DT><B>Parameters:</B><DD><CODE>klass</CODE> - 
 <DT><B>Returns:</B><DD><CODE>Map</CODE>
 <DT><B>Throws:</B>
-<DD><CODE><A HREF="../../../mestrado/arquitetura/exceptions/ModelNotFoundException.html" title="class in mestrado.arquitetura.exceptions">ModelNotFoundException</A></CODE>
-<DD><CODE><A HREF="../../../mestrado/arquitetura/exceptions/ModelIncompleteException.html" title="class in mestrado.arquitetura.exceptions">ModelIncompleteException</A></CODE>
-<DD><CODE><A HREF="../../../mestrado/arquitetura/exceptions/SMartyProfileNotAppliedToModelExcepetion.html" title="class in mestrado.arquitetura.exceptions">SMartyProfileNotAppliedToModelExcepetion</A></CODE></DL>
+<DD><CODE><A HREF="../../../mestrado/arquitetura/exceptions/ModelNotFoundException.html" title="class in mestrado.br.ufpr.dinf.gres.architecture.exceptions">ModelNotFoundException</A></CODE>
+<DD><CODE><A HREF="../../../mestrado/arquitetura/exceptions/ModelIncompleteException.html" title="class in mestrado.br.ufpr.dinf.gres.architecture.exceptions">ModelIncompleteException</A></CODE>
+<DD><CODE><A HREF="../../../mestrado/arquitetura/exceptions/SMartyProfileNotAppliedToModelExcepetion.html" title="class in mestrado.br.ufpr.dinf.gres.architecture.exceptions">SMartyProfileNotAppliedToModelExcepetion</A></CODE></DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -403,10 +403,10 @@ public static java.util.Map&lt;java.lang.String,java.lang.String&gt; <B>getVaria
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../mestrado/arquitetura/helpers/Predicate.html" title="interface in mestrado.arquitetura.helpers"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../mestrado/arquitetura/helpers/StereotypesTypes.html" title="class in mestrado.arquitetura.helpers"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../mestrado/arquitetura/helpers/Predicate.html" title="interface in mestrado.br.ufpr.dinf.gres.architecture.helpers"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../mestrado/arquitetura/helpers/StereotypesTypes.html" title="class in mestrado.br.ufpr.dinf.gres.architecture.helpers"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../index.html?mestrado/arquitetura/helpers/StereotypeHelper.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../index.html?mestrado/br.ufpr.dinf.gres.arquitetura/helpers/StereotypeHelper.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="StereotypeHelper.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

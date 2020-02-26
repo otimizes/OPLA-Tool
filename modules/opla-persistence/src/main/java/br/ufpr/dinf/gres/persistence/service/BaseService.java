@@ -1,14 +1,9 @@
 package br.ufpr.dinf.gres.persistence.service;
 
-import br.ufpr.dinf.gres.opla.entity.Experiment;
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.core.EntityInformation;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;

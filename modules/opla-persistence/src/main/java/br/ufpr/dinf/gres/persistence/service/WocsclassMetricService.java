@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.persistence.service;
 
-import br.ufpr.dinf.gres.opla.entity.metric.WocsclassMetric;
+import br.ufpr.dinf.gres.domain.entity.metric.WocsclassMetric;
 import br.ufpr.dinf.gres.persistence.repository.WocsclassMetricRepository;
 import org.springframework.stereotype.Service;
 

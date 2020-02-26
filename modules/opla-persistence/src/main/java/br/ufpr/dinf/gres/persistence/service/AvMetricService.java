@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.persistence.service;
 
-import br.ufpr.dinf.gres.opla.entity.metric.AvMetric;
+import br.ufpr.dinf.gres.domain.entity.metric.AvMetric;
 import br.ufpr.dinf.gres.persistence.repository.AvMetricRepository;
 import org.springframework.stereotype.Service;
 

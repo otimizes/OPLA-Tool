@@ -1,6 +1,6 @@
-import arquitetura.builders.ArchitectureBuilder;
-import arquitetura.main.GenerateArchitecture;
-import arquitetura.representation.Architecture;
+import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilder;
+import br.ufpr.dinf.gres.architecture.main.GenerateArchitecture;
+import br.ufpr.dinf.gres.architecture.representation.Architecture;
 
 
 public class TimeReadWritePLAs {

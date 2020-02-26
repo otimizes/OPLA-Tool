@@ -11,9 +11,9 @@ import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
 
-import br.ufpr.dinf.gres.opla.entity.Execution;
-import br.ufpr.dinf.gres.opla.entity.Experiment;
-import br.ufpr.dinf.gres.opla.entity.Objective;
+import br.ufpr.dinf.gres.domain.entity.Execution;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
+import br.ufpr.dinf.gres.domain.entity.Objective;
 import br.ufpr.dinf.gres.persistence.util.GenericDAOImpl;
 
 /**
@@ -63,7 +63,7 @@ public class ObjectiveDAO extends GenericDAOImpl<Objective> {
 			System.out.println("First Attempt");
 		}
 		List<Objective> resultList = query.getResultList();
-		LOGGER.debug("Listing " + resultList.size() + " jmetal4.results");
+		LOGGER.debug("Listing " + resultList.size() + " br.ufpr.dinf.gres.core.jmetal4.results");
 		return resultList;
 	}
 

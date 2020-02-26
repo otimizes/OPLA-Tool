@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
-import br.ufpr.dinf.gres.opla.entity.Execution;
-import br.ufpr.dinf.gres.opla.entity.Experiment;
+import br.ufpr.dinf.gres.domain.entity.Execution;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.persistence.util.GenericDAOImpl;
 
 public class ExecutionDAO extends GenericDAOImpl<Execution> {

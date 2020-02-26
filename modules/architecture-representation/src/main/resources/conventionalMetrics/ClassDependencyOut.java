@@ -31,7 +31,7 @@ public class ClassDependencyOut {
                 //System.out.println("DepOut- Classe: "+ cls.getName() + " :" + depOut);
             }
 
-            this.results += depOut; // somatorio de DepOut da arquitetura como um todo
+            this.results += depOut; // somatorio de DepOut da br.ufpr.dinf.gres.arquitetura como um todo
             depOut = 0;
         }
 

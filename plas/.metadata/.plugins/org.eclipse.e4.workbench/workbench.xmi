@@ -25,7 +25,7 @@
           <tags>persp.actionSet:org.eclipse.ui.externaltools.ExternalToolsSet</tags>
           <tags>persp.actionSet:org.eclipse.ui.actionSet.keyBindings</tags>
           <tags>persp.actionSet:org.eclipse.ui.actionSet.openFiles</tags>
-          <tags>persp.actionSet:org.eclipse.emf.facet.common.editor.actionSet</tags>
+          <tags>persp.actionSet:org.eclipse.emf.facet.br.ufpr.dinf.gres.common.editor.actionSet</tags>
           <tags>persp.actionSet:org.eclipse.debug.ui.launchActionSet</tags>
           <tags>persp.actionSet:org.eclipse.jdt.ui.JavaActionSet</tags>
           <tags>persp.actionSet:org.eclipse.jdt.ui.JavaElementCreationActionSet</tags>
@@ -285,7 +285,7 @@
         <children xsi:type="menu:OpaqueToolItem" xmi:id="_sXIfMcBKEemGLq3QVmKY3w" elementId="org.eclipse.debug.internal.ui.actions.RunDropDownAction"/>
         <children xsi:type="menu:OpaqueToolItem" xmi:id="_sXz0oMBKEemGLq3QVmKY3w" elementId="org.eclipse.ui.externaltools.ExternalToolMenuDelegateToolbar"/>
       </children>
-      <children xsi:type="menu:ToolBar" xmi:id="_sXazEMBKEemGLq3QVmKY3w" elementId="org.eclipse.emf.facet.common.editor.actionSet">
+      <children xsi:type="menu:ToolBar" xmi:id="_sXazEMBKEemGLq3QVmKY3w" elementId="org.eclipse.emf.facet.br.ufpr.dinf.gres.common.editor.actionSet">
         <tags>Draggable</tags>
         <children xsi:type="menu:OpaqueToolItem" xmi:id="_sXz0osBKEemGLq3QVmKY3w" elementId="Normal"/>
         <children xsi:type="menu:OpaqueToolItem" xmi:id="_sXz0o8BKEemGLq3QVmKY3w" elementId="org.eclipse.emf.facet.util.emf.actions.OpenModelFromEmfRegistry"/>
@@ -1030,7 +1030,7 @@
   <rootContext xmi:id="_sLdatMBKEemGLq3QVmKY3w" elementId="org.eclipse.ui.WorkingSetActionSet" name="Auto::org.eclipse.ui.WorkingSetActionSet"/>
   <rootContext xmi:id="_sLdatsBKEemGLq3QVmKY3w" elementId="org.eclipse.ui.actionSet.openFiles" name="Auto::org.eclipse.ui.actionSet.openFiles"/>
   <rootContext xmi:id="_sLeBwMBKEemGLq3QVmKY3w" elementId="org.eclipse.ui.edit.text.actionSet.presentation" name="Auto::org.eclipse.ui.edit.text.actionSet.presentation"/>
-  <rootContext xmi:id="_sLeBwsBKEemGLq3QVmKY3w" elementId="org.eclipse.emf.facet.common.editor.actionSet" name="Auto::org.eclipse.emf.facet.common.editor.actionSet"/>
+  <rootContext xmi:id="_sLeBwsBKEemGLq3QVmKY3w" elementId="org.eclipse.emf.facet.br.ufpr.dinf.gres.common.editor.actionSet" name="Auto::org.eclipse.emf.facet.br.ufpr.dinf.gres.common.editor.actionSet"/>
   <descriptors xmi:id="_rmqrkMBKEemGLq3QVmKY3w" elementId="org.eclipse.e4.ui.compatibility.editor" allowMultiple="true" category="org.eclipse.e4.primaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor">
     <tags>Editor</tags>
   </descriptors>
@@ -1334,7 +1334,7 @@
     <tags>View</tags>
     <tags>categoryTag:Other</tags>
   </descriptors>
-  <descriptors xmi:id="_rna5gcBKEemGLq3QVmKY3w" elementId="org.eclipse.emf.facet.infra.common.ui.views.packageRegistry" label="EPackage Registry" iconURI="platform:/plugin/org.eclipse.emf.facet.util.emf.ui/icons/EPackageView.gif" category="org.eclipse.e4.secondaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+  <descriptors xmi:id="_rna5gcBKEemGLq3QVmKY3w" elementId="org.eclipse.emf.facet.infra.br.ufpr.dinf.gres.common.ui.views.packageRegistry" label="EPackage Registry" iconURI="platform:/plugin/org.eclipse.emf.facet.util.emf.ui/icons/EPackageView.gif" category="org.eclipse.e4.secondaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
     <tags>View</tags>
     <tags>categoryTag:EMF Facet</tags>
   </descriptors>
@@ -1383,7 +1383,7 @@
   <commands xmi:id="_ri0GUsBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.diagram.menu.commands.BringToFrontCommand" commandName="Bring to front the selection" description="The command to bring to front the selection" category="_rixqGsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri0GU8BKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.sysml.service.types.DeriveReqtCreateCommand" commandName="Create a new DeriveReqt" description="Create a new DeriveReqt" category="_rixDDMBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri0GVMBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.diagram.statemachine.updateDiagram" commandName="Update PapyrusUMLStateMachineDiagram diagram" description="Perform PapyrusUMLStateMachineDiagram diagram update" category="_rixDAcBKEemGLq3QVmKY3w"/>
-  <commands xmi:id="_ri0GVcBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.diagram.common.commands.DeleteFromDiagram" commandName="Delete From Diagram Command" description="Delete the selection from diagram" category="_rixqGsBKEemGLq3QVmKY3w"/>
+  <commands xmi:id="_ri0GVcBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.diagram.br.ufpr.dinf.gres.common.commands.DeleteFromDiagram" commandName="Delete From Diagram Command" description="Delete the selection from diagram" category="_rixqGsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri0GVsBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.textedit.port.xtext.UmlPort.validate" commandName="Validate" description="Trigger expensive validation" category="_rixDFcBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri0GV8BKEemGLq3QVmKY3w" elementId="org.eclipse.ui.edit.text.deletePreviousWord" commandName="Delete Previous Word" description="Delete the previous word" category="_rixDBMBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri0GWMBKEemGLq3QVmKY3w" elementId="org.eclipse.jdt.ui.edit.text.java.search.declarations.in.workspace" commandName="Declaration in Workspace" description="Search for declarations of the selected element in the workspace" category="_rixqHsBKEemGLq3QVmKY3w"/>
@@ -2031,7 +2031,7 @@
   <commands xmi:id="_ri9QTMBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.service.types.StartObjectBehaviorActionCreateCommand" commandName="Create a new StartObjectBehaviorAction" description="Create a new StartObjectBehaviorAction" category="_rixDDsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri9QTcBKEemGLq3QVmKY3w" elementId="org.eclipse.jdt.ui.correction.assignParamToField.assist" commandName="Quick Assist - Assign parameter to field" description="Invokes quick assist and selects 'Assign parameter to field'" category="_rixqJsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri9QTsBKEemGLq3QVmKY3w" elementId="org.eclipse.egit.ui.command.configureTrace" commandName="Configure Git Debug Trace" category="_rixqH8BKEemGLq3QVmKY3w"/>
-  <commands xmi:id="_ri9QT8BKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.diagram.common.commands.Unload" commandName="Unload" description="Unload the corresponding submodel" category="_rixqGsBKEemGLq3QVmKY3w"/>
+  <commands xmi:id="_ri9QT8BKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.diagram.br.ufpr.dinf.gres.common.commands.Unload" commandName="Unload" description="Unload the corresponding submodel" category="_rixqGsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri9QUMBKEemGLq3QVmKY3w" elementId="org.eclipse.jdt.ui.edit.text.java.move.inner.to.top.level" commandName="Move Type to New File" description="Move Type to New File" category="_rixqFsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri9QUcBKEemGLq3QVmKY3w" elementId="org.eclipse.ui.navigate.linkWithEditor" commandName="Toggle Link with Editor " description="Toggles linking of a view's selection with the active editor's selection" category="_rixqE8BKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri9QUsBKEemGLq3QVmKY3w" elementId="org.eclipse.jdt.ui.edit.text.java.open.hierarchy" commandName="Quick Hierarchy" description="Show the quick hierarchy of the selected element" category="_rixqE8BKEemGLq3QVmKY3w"/>
@@ -2075,7 +2075,7 @@
   <commands xmi:id="_ri93VsBKEemGLq3QVmKY3w" elementId="org.eclipse.egit.ui.team.PushTags" commandName="Push Tags..." category="_rixqH8BKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri93V8BKEemGLq3QVmKY3w" elementId="org.eclipse.egit.ui.ContinueRebase" commandName="Continue Rebase" category="_rixqH8BKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri93WMBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.service.creation.DeleteCommand" commandName="Delete" description="Delete" category="_rixqGsBKEemGLq3QVmKY3w"/>
-  <commands xmi:id="_ri93WcBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.infra.table.common.selectvisiblecolumns" commandName="Select the columns to Show" description="Open a dialog to select the columns to display" category="_rixqGsBKEemGLq3QVmKY3w"/>
+  <commands xmi:id="_ri93WcBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.infra.table.br.ufpr.dinf.gres.common.selectvisiblecolumns" commandName="Select the columns to Show" description="Open a dialog to select the columns to display" category="_rixqGsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri93WsBKEemGLq3QVmKY3w" elementId="org.eclipse.team.cvs.ui.GenerateDiff" commandName="Create Patch" description="Compare your workspace contents with the server and generate a diff file that can be used as a patch file." category="_rixDEcBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri93W8BKEemGLq3QVmKY3w" elementId="org.eclipse.help.ui.closeTray" commandName="Close User Assistance Tray" description="Close the user assistance tray containing context help information and cheat sheets." category="_rixqGcBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri93XMBKEemGLq3QVmKY3w" elementId="org.eclipse.egit.ui.history.CreatePatch" commandName="Create Patch" category="_rixDFcBKEemGLq3QVmKY3w"/>
@@ -2131,7 +2131,7 @@
   <commands xmi:id="_ri-ebMBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.diagram.sequence.LoadResourceAction" commandName="Load Resource" category="_rixDGMBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri-ebcBKEemGLq3QVmKY3w" elementId="org.eclipse.egit.ui.team.stash.drop" commandName="Delete Stashed Commit..." category="_rixqH8BKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri-ebsBKEemGLq3QVmKY3w" elementId="org.eclipse.debug.ui.DebugPerspective" commandName="Debug" description="Open the debug perspective" category="_rixqI8BKEemGLq3QVmKY3w"/>
-  <commands xmi:id="_ri-eb8BKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.textedit.common.xtext.UmlCommon.validate" commandName="Validate" description="Trigger expensive validation" category="_rixDFcBKEemGLq3QVmKY3w"/>
+  <commands xmi:id="_ri-eb8BKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.textedit.br.ufpr.dinf.gres.common.xtext.UmlCommon.validate" commandName="Validate" description="Trigger expensive validation" category="_rixDFcBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri-ecMBKEemGLq3QVmKY3w" elementId="org.eclipse.egit.ui.history.RenameBranch" commandName="Rename Branch..." category="_rixDFcBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri-eccBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.infra.emf.readonly.EnableWriteCommand" commandName="Enable write" description="Enable write" category="_rixqGsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri-ecsBKEemGLq3QVmKY3w" elementId="org.eclipse.jdt.ui.specific_content_assist.command" commandName="Content Assist" description="A parameterizable command that invokes content assist with a single completion proposal category" category="_rixDAcBKEemGLq3QVmKY3w">
@@ -2327,7 +2327,7 @@
   <commands xmi:id="_ri_ss8BKEemGLq3QVmKY3w" elementId="org.eclipse.help.ui.ignoreMissingPlaceholders" commandName="Do not warn of missing documentation" description="Sets the help preferences to no longer report a warning about the current set of missing documents." category="_rixqGcBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri_stMBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.sysml.service.types.FlowPort_InCreateCommand" commandName="Create a new FlowPort_In" description="Create a new FlowPort_In" category="_rixDDMBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri_stcBKEemGLq3QVmKY3w" elementId="org.eclipse.compare.compareWithOther" commandName="Compare With Other Resource" description="Compare resources, clipboard contents or editors" category="_rixqFcBKEemGLq3QVmKY3w"/>
-  <commands xmi:id="_ri_stsBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.diagram.common.commands.Load" commandName="Load" description="Load the corresponding submodel" category="_rixqGsBKEemGLq3QVmKY3w"/>
+  <commands xmi:id="_ri_stsBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.diagram.br.ufpr.dinf.gres.common.commands.Load" commandName="Load" description="Load the corresponding submodel" category="_rixqGsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri_st8BKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.service.types.SubstitutionCreateCommand" commandName="Create a new Substitution" description="Create a new Substitution" category="_rixDDsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri_suMBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.sysml.service.types.ItemFlowCreateCommand" commandName="Create a new ItemFlow" description="Create a new ItemFlow" category="_rixDDMBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_ri_sucBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.service.types.TimeIntervalCreateCommand" commandName="Create a new TimeInterval" description="Create a new TimeInterval" category="_rixDDsBKEemGLq3QVmKY3w"/>
@@ -2544,7 +2544,7 @@
   <commands xmi:id="_rjA6_cBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.diagram.menu.commands.SortFilterCompartmentItemsCommand" commandName="Sort/Filter Compartments Items..." description="The command to sort Compartments Items" category="_rixqGsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_rjA6_sBKEemGLq3QVmKY3w" elementId="org.eclipse.debug.ui.commands.ToggleMethodBreakpoint" commandName="Toggle Method Breakpoint" description="Creates or removes a method breakpoint" category="_rixDEMBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_rjA6_8BKEemGLq3QVmKY3w" elementId="org.eclipse.jdt.ui.navigate.java.open.structure" commandName="Open Structure" description="Show the structure of the selected element" category="_rixqE8BKEemGLq3QVmKY3w"/>
-  <commands xmi:id="_rjA7AMBKEemGLq3QVmKY3w" elementId="org.eclipse.emf.facet.widget.nattable.common.columns.command" commandName="Common Columns Command" description="Show only the common columns" category="_rixDAMBKEemGLq3QVmKY3w"/>
+  <commands xmi:id="_rjA7AMBKEemGLq3QVmKY3w" elementId="org.eclipse.emf.facet.widget.nattable.br.ufpr.dinf.gres.common.columns.command" commandName="Common Columns Command" description="Show only the br.ufpr.dinf.gres.common columns" category="_rixDAMBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_rjA7AcBKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.uml.service.types.SignalEventCreateCommand" commandName="Create a new SignalEvent" description="Create a new SignalEvent" category="_rixDDsBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_rjA7AsBKEemGLq3QVmKY3w" elementId="org.eclipse.ui.navigate.next" commandName="Next" description="Navigate to the next item" category="_rixqE8BKEemGLq3QVmKY3w"/>
   <commands xmi:id="_rjA7A8BKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.validation.ValidateDelMarkersFromSubtreeCommand" commandName="ValidateDelMarkersFromSubtree" description="ValidateDelMarkersFromSubtree" category="_rixqGsBKEemGLq3QVmKY3w"/>
@@ -2621,7 +2621,7 @@
   <commands xmi:id="_rjBh48BKEemGLq3QVmKY3w" elementId="org.eclipse.papyrus.sysml.service.types.FlowPort_NACreateCommand" commandName="Create a new FlowPort (non atomic)" description="Create a new FlowPort (non atomic)" category="_rixDDMBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_rqmwYsBKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.emf.exporter.genModelEditorContribution/org.eclipse.emf.exporter.ui.GenModelExportActionDelegate.Editor" commandName="&amp;Export Model..."/>
   <commands xmi:id="_rqn-gMBKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.emf.facet.widgets.nattable.workbench.editor.actions/org.eclipse.emf.facet.widgets.nattable.workbench.action4" commandName="Hide empty columns"/>
-  <commands xmi:id="_rqpMosBKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.emf.facet.widgets.nattable.workbench.editor.actions/org.eclipse.emf.facet.widgets.nattable.workbench.action5" commandName="Only show common columns"/>
+  <commands xmi:id="_rqpMosBKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.emf.facet.widgets.nattable.workbench.editor.actions/org.eclipse.emf.facet.widgets.nattable.workbench.action5" commandName="Only show br.ufpr.dinf.gres.common columns"/>
   <commands xmi:id="_rqpzssBKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.emf.importer.genModelEditorContribution/org.eclipse.emf.importer.ui.GenModelReloadActionDelegate.Editor" commandName="&amp;Reload..."/>
   <commands xmi:id="_rqqawsBKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.emf.mapping.ecore2ecore.presentation.Ecore2EcoreContributionID/org.eclipse.emf.mapping.action.RemoveMappingActionID" commandName="&amp;Remove Mapping"/>
   <commands xmi:id="_rqro4MBKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.emf.mapping.ecore2ecore.presentation.Ecore2EcoreContributionID/org.eclipse.emf.mapping.action.TypeMatchMappingActionID" commandName="Match Mapping by &amp;Type"/>
@@ -2754,7 +2754,7 @@
   <commands xmi:id="_r8o7kcBKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.mylyn.tasks.ui.actions.view/org.eclipse.mylyn.context.ui.actions.tasklist.focus" commandName="Focus on Workweek" description="Focus on Workweek" category="_rixDFcBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_r8o7ksBKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.pde.ui.logViewActions/org.eclipse.jdt.debug.ui.LogViewActions.showStackTrace" commandName="Show Stack Trace in Console View" description="Show Stack Trace in Console View" category="_rixDFcBKEemGLq3QVmKY3w"/>
   <commands xmi:id="_r8o7k8BKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.emf.facet.widgets.nattable.workbench.view.contribution/org.eclipse.emf.facet.widgets.nattable.workbench.action4" commandName="Hide empty columns" category="_rixDFcBKEemGLq3QVmKY3w"/>
-  <commands xmi:id="_r8o7lMBKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.emf.facet.widgets.nattable.workbench.view.contribution/org.eclipse.emf.facet.widgets.nattable.workbench.action5" commandName="Only show common columns" category="_rixDFcBKEemGLq3QVmKY3w"/>
+  <commands xmi:id="_r8o7lMBKEemGLq3QVmKY3w" elementId="AUTOGEN:::org.eclipse.emf.facet.widgets.nattable.workbench.view.contribution/org.eclipse.emf.facet.widgets.nattable.workbench.action5" commandName="Only show br.ufpr.dinf.gres.common columns" category="_rixDFcBKEemGLq3QVmKY3w"/>
   <addons xmi:id="_rh4SOMBKEemGLq3QVmKY3w" elementId="org.eclipse.e4.core.commands.service" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_rh4SOcBKEemGLq3QVmKY3w" elementId="org.eclipse.e4.ui.contexts.service" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_rh4SOsBKEemGLq3QVmKY3w" elementId="org.eclipse.e4.ui.bindings.service" contributorURI="platform:/plugin/org.eclipse.ui.workbench" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

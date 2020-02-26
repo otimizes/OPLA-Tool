@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.persistence.service;
 
-import br.ufpr.dinf.gres.opla.entity.Experiment;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.persistence.repository.ExperimentRepository;
 import org.springframework.stereotype.Service;
 

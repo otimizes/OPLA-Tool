@@ -51,7 +51,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-@angular/common
+@angular/br.ufpr.dinf.gres.common
 MIT
 
 @angular/core
@@ -213,7 +213,7 @@ Apache-2.0
     the copyright owner that is granting the License.
 
     "Legal Entity" shall mean the union of the acting entity and all
-    other entities that control, are controlled by, or are under common
+    other entities that control, are controlled by, or are under br.ufpr.dinf.gres.common
     control with that entity. For the purposes of this definition,
     "control" means (i) the power, direct or indirect, to cause the
     direction or management of such entity, whether by contract or

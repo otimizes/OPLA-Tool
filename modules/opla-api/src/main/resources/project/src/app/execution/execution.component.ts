@@ -31,7 +31,7 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
         this.optimizationDto.config.pathToProfile = string;
       } else if (string.includes("concerns.profile")) {
         this.optimizationDto.config.pathToProfileConcern = string;
-      } else if (string.includes("patterns.profile")) {
+      } else if (string.includes("br.ufpr.dinf.gres.patterns.profile")) {
         this.optimizationDto.config.pathToProfilePatterns = string;
       } else if (string.includes("relationships.profile")) {
         this.optimizationDto.config.pathToProfileRelationships = string;

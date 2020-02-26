@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.persistence.dao;
 
-import br.ufpr.dinf.gres.opla.entity.metric.WocsinterfaceMetric;
+import br.ufpr.dinf.gres.domain.entity.metric.WocsinterfaceMetric;
 import br.ufpr.dinf.gres.persistence.util.GenericDAOImpl;
 import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
 import org.apache.log4j.Logger;
@@ -33,7 +33,7 @@ public class WocsinterfaceDAO extends GenericDAOImpl<WocsinterfaceMetric>
         query.setParameter("idSolution", idSolution);
 
         List<WocsinterfaceMetric> resultList = query.getResultList();
-        LOGGER.debug("Number of jmetal4.results: " + resultList.size());
+        LOGGER.debug("Number of br.ufpr.dinf.gres.core.jmetal4.results: " + resultList.size());
         return resultList;
     }
 

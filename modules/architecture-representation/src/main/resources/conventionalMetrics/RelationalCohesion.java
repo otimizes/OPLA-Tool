@@ -51,7 +51,7 @@ public class RelationalCohesion {
             totalClassesAndInterfaces = component.getClasses().size() + component.getImplementedInterfaces().size();
             if (totalClassesAndInterfaces != 0) {
                 H = (R + 1) / totalClassesAndInterfaces;
-                this.results += H; // soma de H para a arquitetura
+                this.results += H; // soma de H para a br.ufpr.dinf.gres.arquitetura
             }
 
             R = 0;

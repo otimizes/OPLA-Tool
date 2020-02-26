@@ -51,7 +51,7 @@ j  org.hibernate.internal.SessionImpl.list(Ljava/lang/String;Lorg/hibernate/engi
 j  org.hibernate.query.internal.AbstractProducedQuery.doList()Ljava/util/List;+80
 j  org.hibernate.query.internal.AbstractProducedQuery.list()Ljava/util/List;+5
 j  org.hibernate.query.Query.getResultList()Ljava/util/List;+1
-j  br.ufpr.dinf.gres.persistence.dao.ExecutionDAO.findByExperimentId(Ljava/lang/Long;)Ljava/util/List;+25
+j  br.ufpr.dinf.gres.br.ufpr.dinf.gres.core.persistence.dao.ExecutionDAO.findByExperimentId(Ljava/lang/Long;)Ljava/util/List;+25
 j  br.ufpr.dinf.gres.oplaapi.PersistenceController.getExecutionsByExperiment(Ljava/lang/Long;)Lreactor/core/publisher/Mono;+5
 v  ~StubRoutines::call_stub
 J 2185  jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; java.base@13 (0 bytes) @ 0x00007f0c9518a5b7 [0x00007f0c9518a540+0x0000000000000077]
@@ -598,7 +598,7 @@ No events
 Classes redefined (0 events):
 No events
 
-Internal common.exceptions (20 events):
+Internal br.ufpr.dinf.gres.common.exceptions (20 events):
 Event: 6,152 Thread 0x00007f0c2400e000 Exception <a 'java/lang/ClassNotFoundException'{0x000000008d35eae8}: org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfigurationCustomizer> (0x000000008d35eae8) 
 thrown [build/openjdk-13-ZQXljJ/openjdk-13-13+33/src/hotspot/share/classfile/systemDictionary.cpp, line 232]
 Event: 6,154 Thread 0x00007f0c2400e000 Exception <a 'java/lang/ClassNotFoundException'{0x000000008d3895b8}: org/springframework/context/ResourceLoaderAwareCustomizer> (0x000000008d3895b8) 

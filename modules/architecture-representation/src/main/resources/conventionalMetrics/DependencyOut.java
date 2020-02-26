@@ -30,7 +30,7 @@ public class DependencyOut {
                     if (dependency.getComponent().equals(component)) depOut++;
                 }
             }
-            this.results += depOut; // somatorio de DepOut da arquitetura como um todo
+            this.results += depOut; // somatorio de DepOut da br.ufpr.dinf.gres.arquitetura como um todo
             depOut = 0;
         }
     }

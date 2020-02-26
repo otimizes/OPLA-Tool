@@ -218,7 +218,7 @@
                             <file>${basedir}/src/main/resources/lib/uml2-common-1.7.0.jar</file>
                             <repositoryLayout>default</repositoryLayout>
                             <groupId>org.uml2.common</groupId>
-                            <artifactId>uml2-common</artifactId>
+                            <artifactId>uml2-commo</artifactId>
                             <version>1.7.0</version>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>

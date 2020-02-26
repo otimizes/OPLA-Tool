@@ -5,27 +5,27 @@
 
 	<persistence-unit name="oplaPU" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<class>br.ufpr.dinf.gres.opla.entity.Experiment</class>
-		<class>br.ufpr.dinf.gres.opla.entity.Execution</class>
-		<class>br.ufpr.dinf.gres.opla.entity.Objective</class>
-		<class>br.ufpr.dinf.gres.opla.entity.MapObjectiveName</class>
-		<class>br.ufpr.dinf.gres.opla.entity.metric.ConventionalMetric</class>
-		<class>br.ufpr.dinf.gres.opla.entity.metric.EleganceMetric</class>
-		<class>br.ufpr.dinf.gres.opla.entity.metric.PLAExtensibilityMetric</class>
-		<class>br.ufpr.dinf.gres.opla.entity.metric.FeatureDrivenMetric</class>
-		<class>br.ufpr.dinf.gres.opla.entity.metric.WocsinterfaceMetric</class>
-		<class>br.ufpr.dinf.gres.opla.entity.metric.AvMetric</class>
-		<class>br.ufpr.dinf.gres.opla.entity.metric.CbcsMetric</class>
-		<class>br.ufpr.dinf.gres.opla.entity.metric.SscMetric</class>
-		<class>br.ufpr.dinf.gres.opla.entity.metric.SvcMetric</class>
-		<class>br.ufpr.dinf.gres.opla.entity.metric.WocsclassMetric</class>
+		<class>br.ufpr.dinf.gres.domain.entity.Experiment</class>
+		<class>br.ufpr.dinf.gres.domain.entity.Execution</class>
+		<class>br.ufpr.dinf.gres.domain.entity.Objective</class>
+		<class>br.ufpr.dinf.gres.domain.entity.MapObjectiveName</class>
+		<class>br.ufpr.dinf.gres.domain.entity.metric.ConventionalMetric</class>
+		<class>br.ufpr.dinf.gres.domain.entity.metric.EleganceMetric</class>
+		<class>br.ufpr.dinf.gres.domain.entity.metric.PLAExtensibilityMetric</class>
+		<class>br.ufpr.dinf.gres.domain.entity.metric.FeatureDrivenMetric</class>
+		<class>br.ufpr.dinf.gres.domain.entity.metric.WocsinterfaceMetric</class>
+		<class>br.ufpr.dinf.gres.domain.entity.metric.AvMetric</class>
+		<class>br.ufpr.dinf.gres.domain.entity.metric.CbcsMetric</class>
+		<class>br.ufpr.dinf.gres.domain.entity.metric.SscMetric</class>
+		<class>br.ufpr.dinf.gres.domain.entity.metric.SvcMetric</class>
+		<class>br.ufpr.dinf.gres.domain.entity.metric.WocsclassMetric</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect" />
-			<property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:sqlite:${user.home}/oplatool/db/opla.db" />
-			<property name="javax.persistence.jdbc.user" value="" />
-			<property name="javax.persistence.jdbc.password" value="" />
+			<property name="javax.br.ufpr.dinf.gres.core.persistence.jdbc.driver" value="org.sqlite.JDBC" />
+			<property name="javax.br.ufpr.dinf.gres.core.persistence.jdbc.url" value="jdbc:sqlite:${user.home}/oplatool/db/opla.db" />
+			<property name="javax.br.ufpr.dinf.gres.core.persistence.jdbc.user" value="" />
+			<property name="javax.br.ufpr.dinf.gres.core.persistence.jdbc.password" value="" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="format_sql" value="true" />
 			<property name="hibernate.connection.charSet" value="UTF-8" />

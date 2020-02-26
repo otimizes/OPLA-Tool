@@ -4630,7 +4630,7 @@
         <children xmi:type="notation:DecorationNode" xmi:id="_JMf9Rpw6EeSwLJ0VOpeuvQ" type="5014">
           <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_SD-UQJw6EeSwLJ0VOpeuvQ" source="Stereotype_Annotation">
             <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_SEQBEJw6EeSwLJ0VOpeuvQ" key="StereotypeWithQualifiedNameList" value=""/>
-            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_SEQBEZw6EeSwLJ0VOpeuvQ" key="StereotypeList" value="perfilConcerns::persistence,aspect::aspect"/>
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_SEQBEZw6EeSwLJ0VOpeuvQ" key="StereotypeList" value="perfilConcerns::br.ufpr.dinf.gres.core.persistence,aspect::aspect"/>
             <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_SEQBEpw6EeSwLJ0VOpeuvQ" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
             <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_SEQoIJw6EeSwLJ0VOpeuvQ" key="PropStereoDisplay" value=""/>
             <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_SEQoIZw6EeSwLJ0VOpeuvQ" key="StereotypePropertyLocation" value="Compartment"/>
