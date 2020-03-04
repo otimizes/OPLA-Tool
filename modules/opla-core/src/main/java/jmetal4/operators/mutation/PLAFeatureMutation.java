@@ -667,17 +667,18 @@ public class PLAFeatureMutation extends Mutation {
                 arch.addExternalClass(newClass);
 
 //                                Passo 4
+//                Associação bidirecional
                 RelationshipsHolder relationshipsHolder = new RelationshipsHolder();
                 AssociationRelationship associationRelationship = new AssociationRelationship(c, newClass);
                 relationshipsHolder.addRelationship(associationRelationship);
                 c.setRelationshipHolder(relationshipsHolder);
                 arch.addRelationship(associationRelationship);
 
-                RelationshipsHolder relationshipsHolder2 = new RelationshipsHolder();
-                AssociationRelationship associationRelationship2 = new AssociationRelationship(newClass, c);
-                relationshipsHolder2.addRelationship(associationRelationship2);
-                newClass.setRelationshipHolder(relationshipsHolder2);
-                arch.addRelationship(associationRelationship2);
+//                RelationshipsHolder relationshipsHolder2 = new RelationshipsHolder();
+//                AssociationRelationship associationRelationship2 = new AssociationRelationship(newClass, c);
+//                relationshipsHolder2.addRelationship(associationRelationship2);
+//                newClass.setRelationshipHolder(relationshipsHolder2);
+//                arch.addRelationship(associationRelationship2);
 
                 applyToClass(arch, c);
 
