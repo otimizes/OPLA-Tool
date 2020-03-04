@@ -861,24 +861,48 @@ public class PLAFeatureMutation extends Mutation {
 
     private void moveOperationToComponent(Method operation, Interface sourceInterface, Package targetComp,
                                           Package sourceComp, Architecture architecture, Concern concern) throws ConcernNotFoundException {
+        //System.out.println("INICIO moveOperation");
+        //architecture.verifyInterfaceWithoutRelationship();
         Interface targetInterface = null;
         // joao\
         if (searchPatternsInterface(sourceInterface)) {
             targetInterface = searchForInterfaceWithConcern(concern, targetComp);
 
             if (targetInterface == null) {
+                //System.out.println("targetInterface é vazio");
                 targetInterface = targetComp.createInterface("Interface" + OPLA.contInt_++);
                 sourceInterface.moveOperationToInterface(operation, targetInterface);
                 targetInterface.addConcern(concern.getName());
             } else {
+                //System.out.println("targetInterface não é vazio");
                 sourceInterface.moveOperationToInterface(operation, targetInterface);
             }
-
+            //System.out.println("ANTES DO ADD");
+            //architecture.hasDuplicateInterface();
+            //architecture.verifyInterfaceWithoutRelationship();
             addRelationship(sourceInterface, targetComp, sourceComp, architecture, concern, targetInterface);
+            //System.out.println("DEPOIS DO ADD");
+            //architecture.hasDuplicateInterface();
+            //architecture.verifyInterfaceWithoutRelationship();
+
+            //verificar se a interface fonte está vazia depois da operação de move
+            if(sourceInterface.getOperations().size() == 0){
+                System.out.println("Interface "+sourceInterface.getName()+" é vazia e será removida");
+                architecture.removeInterfaceByID(sourceInterface.getId());
+            }
+
+
         } // joao^
+        /*else{
+            //System.out.println("NAO ENTROU NO IF");
+        }*/
+        //System.out.println("FIM moveOperation");
+        //architecture.hasDuplicateInterface();
+        //architecture.verifyInterfaceWithoutRelationship();
     }
 
     // duvida
+    //DIEGO CONSTATADO ERRO (Remove as relações da interface fonte e coloca no novo, perdendo as relacoes da interface fonte)
     private void addRelationship(Interface sourceInterface, Package targetComp, Package sourceComp,
                                  Architecture architecture, Concern concern, Interface targetInterface) {
         for (Element implementor : sourceInterface.getImplementors()) {
@@ -903,7 +927,7 @@ public class PLAFeatureMutation extends Mutation {
                             // joao
                             if (searchPatternsInterface(targetInterface)) {
                                 if (targetInterface.containsConcern(c)) {
-                                    architecture.removeImplementedInterface(sourceInterface, sourceComp);
+                                    // architecture.removeImplementedInterface(sourceInterface, sourceComp);
                                     addExternalInterface(targetComp, architecture, targetInterface);
                                     addImplementedInterface(targetComp, architecture, targetInterface, klass);
                                     return;
@@ -928,7 +952,7 @@ public class PLAFeatureMutation extends Mutation {
                     final Class klass = randonClass(targetClasses);
                     // joao
                     if (searchPatternsClass(klass)) {
-                        architecture.removeImplementedInterface(sourceInterface, sourceComp);
+                        //architecture.removeImplementedInterface(sourceInterface, sourceComp);
                         addExternalInterface(targetComp, architecture, targetInterface);
                         addImplementedInterface(targetComp, architecture, targetInterface, klass);
                         return;
@@ -942,7 +966,7 @@ public class PLAFeatureMutation extends Mutation {
                     final Class klass = randonClass(targetClasses);
                     if (searchPatternsClass(klass)) {
                         if (klass != null) {
-                            architecture.removeImplementedInterface(sourceInterface, sourceComp);
+                            // architecture.removeImplementedInterface(sourceInterface, sourceComp);
                             addExternalInterface(targetComp, architecture, targetInterface);
                             addImplementedInterface(targetComp, architecture, targetInterface, klass);
                         }
@@ -960,7 +984,7 @@ public class PLAFeatureMutation extends Mutation {
             if (implementor instanceof Class) {
                 // joao\
                 if (searchPatternsInterface(sourceInterface) && searchPatternsInterface(targetInterface)) {
-                    architecture.removeImplementedInterface(sourceInterface, sourceComp);
+                    // architecture.removeImplementedInterface(sourceInterface, sourceComp);
                     addExternalInterface(targetComp, architecture, targetInterface);
                     addImplementedInterface(targetComp, architecture, targetInterface, (Class) implementor);
                 }
@@ -1043,7 +1067,6 @@ public class PLAFeatureMutation extends Mutation {
     public Object execute(Object object) throws Exception {
         Solution solution = (Solution) object;
         Double probability = (Double) getParameter("probability");
-
         if (probability == null) {
             Configuration.logger_.severe("FeatureMutation.execute: probability not specified");
             java.lang.Class<String> cls = java.lang.String.class;
