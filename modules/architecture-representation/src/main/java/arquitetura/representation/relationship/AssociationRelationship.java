@@ -21,8 +21,11 @@ public class AssociationRelationship extends Relationship {
 
     public AssociationRelationship(Element class1, Element class2) {
         setId(UtilResources.getRandonUUID());
-        getParticipants().add(new AssociationEnd(class1, false, "association", null, ""));
-        getParticipants().add(new AssociationEnd(class2, false, "association", null, ""));
+
+        Multiplicity multi1 = new Multiplicity("1","1");
+        Multiplicity multi2 = new Multiplicity("1","1");
+        getParticipants().add(new AssociationEnd(class1, false, "association", multi1, ""));
+        getParticipants().add(new AssociationEnd(class2, false, "association", multi2, ""));
 
         super.setType(ElementsTypes.ASSOCIATION);
 

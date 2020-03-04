@@ -160,6 +160,25 @@ public class Package extends Element {
         return inter;
     }
 
+    public void removeInterfaceByID(String id) {
+        //Interface interfacee = null;
+
+        Set<Interface> newHash = new HashSet<>();
+        for(Interface i: this.interfaces) {
+            if(!i.getId().equals(id)){
+                newHash.add(i);
+            }
+            else{
+                relationshipHolder.removeRelatedRelationships(i);
+            }
+
+
+
+        }
+        this.interfaces.clear();
+        this.interfaces.addAll(newHash);
+    }
+
     @Override
     public Set<Concern> getAllConcerns() {
         Set<Concern> concerns = new HashSet<Concern>();

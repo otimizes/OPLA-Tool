@@ -273,6 +273,26 @@ public class Architecture extends Variable {
         return null;
     }
 
+    public void removeInterfaceByID(String id) {
+
+        Set<Interface> newHash = new HashSet<>();
+
+        for(Interface i: getInterfaces()){
+            if(!i.getId().equals(id)){
+                newHash.add(i);
+            }
+            else{
+                relationshipHolder.removeRelatedRelationships(i);
+            }
+        }
+        this.interfaces.clear();
+        this.interfaces.addAll(newHash);
+        for(Package pkg : this.packages){
+            pkg.removeInterfaceByID(id);
+        }
+
+    }
+
     /**
      * Busca um pacote por nome.
      *
