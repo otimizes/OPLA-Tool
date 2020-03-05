@@ -9,33 +9,32 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesi
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.newPlasMetrics.*;
 
 public class MetricsEvaluation {
 
     //addYni
     public float evaluateWocsClass(Architecture architecture) {
-        return new WocsClass(architecture).getResults();
+        return new Wocsclass(architecture).getResults();
     }
 
     public float evaluateWocsInterface(Architecture architecture) {
-        return new WocsInterface(architecture).getResults();
+        return new Wocsinterface(architecture).getResults();
     }
 
     public float evaluateCbcs(Architecture architecture) {
-        return new CBCS(architecture).getResults();
+        return new Cbcs(architecture).getResults();
     }
 
     public double evaluateSsc(Architecture architecture) {
-        return new SSC(architecture).getResults();
+        return new Ssc(architecture).getResults();
     }
 
     public double evaluateSvc(Architecture architecture) {
-        return new SVC(architecture).getResults();
+        return new Svc(architecture).getResults();
     }
 
     public double evaluateAv(Architecture architecture) {
-        return new AV(architecture).getResults();
+        return new Av(architecture).getResults();
     }
 
     //addYni

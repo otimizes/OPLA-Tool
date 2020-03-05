@@ -1,11 +1,33 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
+import br.ufpr.dinf.gres.architecture.representation.Architecture;
+import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 
 public class Cbcs extends Metrics {
 
     private double cbcs;
+    private float results;
+
+    public Cbcs(Architecture architecture) {
+
+        this.results = 0;
+        float valorcbcs = 0;
+        float numinterface = architecture.getAllInterfaces().size();
+
+        for (Interface interf : architecture.getAllInterfaces()) {
+            valorcbcs += interf.getRelationships().size();
+        }
+
+        this.results = valorcbcs / numinterface;
+
+    }
+
+    public float getResults() {
+        return results;
+    }
+
 
     public Cbcs(String idSolution, ExecutionResults executionResults, ExperimentResults experiement) {
         super.setExecutionResults(executionResults);

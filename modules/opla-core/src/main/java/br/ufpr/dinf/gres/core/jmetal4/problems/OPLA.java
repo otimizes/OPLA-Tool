@@ -6,12 +6,14 @@ import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.relationship.*;
+import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType.ArchitectureSolutionType;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.Fitness;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommomConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.Fitness;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.PLAMetrics.extensibility.ExtensPLA;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCC;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
@@ -20,8 +22,6 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesi
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.newPlasMetrics.*;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -739,21 +739,21 @@ public class OPLA extends Problem {
     //addYni
     public double evaluateWocsC(Architecture architecture) {
         double wocscFitness = 0;
-        WocsClass wocsc = new WocsClass(architecture);
+        Wocsclass wocsc = new Wocsclass(architecture);
         wocscFitness = wocsc.getResults();
         return wocscFitness;
     }
 
     public double evaluateWocsI(Architecture architecture) {
         double wocsiFitness = 0;
-        WocsInterface wocsi = new WocsInterface(architecture);
+        Wocsinterface wocsi = new Wocsinterface(architecture);
         wocsiFitness = wocsi.getResults();
         return wocsiFitness;
     }
 
     public double evaluateCbcs(Architecture architecture) {
         double cbcsFitness = 0;
-        CBCS cbcs = new CBCS(architecture);
+        Cbcs cbcs = new Cbcs(architecture);
         cbcsFitness = cbcs.getResults();
         return cbcsFitness;
     }
@@ -761,21 +761,21 @@ public class OPLA extends Problem {
 
     public double evaluateSvc(Architecture architecture) {
         double svcFitness = 0;
-        SVC svc = new SVC(architecture);
+        Svc svc = new Svc(architecture);
         svcFitness = svc.getResults();
         return svcFitness;
     }
 
     public double evaluateSsc(Architecture architecture) {
         double sscFitness = 0;
-        SSC ssc = new SSC(architecture);
+        Ssc ssc = new Ssc(architecture);
         sscFitness = ssc.getResults();
         return sscFitness;
     }
 
     public double evaluateAv(Architecture architecture) {
         double avFitness = 0;
-        AV av = new AV(architecture);
+        Av av = new Av(architecture);
         avFitness = av.getResults();
         return avFitness;
     }
