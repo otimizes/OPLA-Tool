@@ -2,13 +2,14 @@ package br.ufpr.dinf.gres.core.jmetal4.results;
 
 import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetrics;
 import br.ufpr.dinf.gres.core.jmetal4.util.Id;
+import br.ufpr.dinf.gres.domain.entity.Execution;
 
 import java.util.List;
 
 /**
  * Essa classe representa cada execucao de um dado experiementos.
  */
-public class ExecutionResults {
+public class ExecutionResults implements PersistentDto<Execution> {
 
     private String id;
     private List<InfoResults> infos;
@@ -89,6 +90,12 @@ public class ExecutionResults {
     public void setExperimentResults(ExperimentResults experimentResults) {
         this.experimentResults = experimentResults;
     }
+
+    @Override
+    public Execution newPersistentInstance(PersistentDto persistentDto) {
+        return null;
+    }
+
 
     // public List<FunResults> getAttributes() throws ClassNotFoundException,
     // SQLException, MissingConfigurationException {

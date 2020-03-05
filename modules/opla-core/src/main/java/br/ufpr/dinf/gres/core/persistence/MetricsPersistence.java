@@ -8,6 +8,8 @@ import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
 import br.ufpr.dinf.gres.core.jmetal4.util.Id;
+import br.ufpr.dinf.gres.persistence.service.InfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,21 +17,16 @@ import java.util.List;
 
 public class MetricsPersistence {
 
-    private AllMetricsPersistenceDependency allMetricsPersistenceDependencies;
+    @Autowired
+    private InfoService infoService;
 
-    public MetricsPersistence(AllMetricsPersistenceDependency allMetricsPersistenceDependencies) {
-        this.allMetricsPersistenceDependencies = allMetricsPersistenceDependencies;
+
+
+    public MetricsPersistence() {
     }
 
     public void saveInfoAll(List<InfoResults> infoResults) {
-        InfosResultPersistence infosPersistence = new InfosResultPersistence( this.allMetricsPersistenceDependencies.getConnection());
-        try {
-            for (InfoResults info : infoResults)
-                infosPersistence.persistInfoDatas(info);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        infosPersistence = null;
+        infoService.save(infoResults);
     }
 
     public void saveFunAll(List<FunResults> funResults) {
