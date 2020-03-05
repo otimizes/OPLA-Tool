@@ -56,6 +56,10 @@ public class InfoResults {
         this.experiement = experiement;
     }
 
+    public InfoResults(String toString, String s, String solutionName, ExecutionResults executionResults, int i, ExperimentResults experimentResults, String s1) {
+
+    }
+
     public String getListOfConcerns() {
         return listOfConcerns;
     }
@@ -233,4 +237,5 @@ public class InfoResults {
     public void setObjectives(String objectives) {
         this.objectives = objectives;
     }
+
 }

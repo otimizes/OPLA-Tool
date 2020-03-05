@@ -2,13 +2,13 @@ package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
 import br.ufpr.dinf.gres.architecture.io.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
-import br.ufpr.dinf.gres.loglog.Level;
-import br.ufpr.dinf.gres.core.jmetal4.database.Database;
-import br.ufpr.dinf.gres.core.jmetal4.database.Result;
-import br.ufpr.dinf.gres.common.exceptions.MissingConfigurationException;
+import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.database.Database;
+import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetrics;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
@@ -16,18 +16,19 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.MutationFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.Selection;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
-import br.ufpr.dinf.gres.core.learning.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetrics;
-import org.apache.log4j.Logger;
-import br.ufpr.dinf.gres.core.persistence.*;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
+import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
+import br.ufpr.dinf.gres.core.learning.Moment;
+import br.ufpr.dinf.gres.core.persistence.DistanceEuclideanPersistence;
+import br.ufpr.dinf.gres.core.persistence.ExecutionPersistence;
+import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
+import br.ufpr.dinf.gres.core.persistence.Persistence;
+import br.ufpr.dinf.gres.loglog.Level;
+import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -40,9 +41,7 @@ public class NSGAII_OPLA_FeatMut {
     private int maxEvaluations;
     private double mutationProbability;
     private double crossoverProbability;
-    private Connection connection;
-    private AllMetricsPersistenceDependency allMetricsPersistenceDependencies;
-    private MetricsPersistence mp;
+    private Persistence mp;
     private Result result;
     private NSGAIIConfig configs;
     private String experiementId;
@@ -175,11 +174,8 @@ public class NSGAII_OPLA_FeatMut {
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), executionResults,
-                        experiement);
-                List<InfoResults> infoResults = result.getInformations(resultFront.getSolutionSet(), executionResults,
-                        experiement, funResults);
-                AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), executionResults,
+                List<InfoResults> infoResults = result.getInformations(resultFront.getSolutionSet(), executionResults, experiement);
+                AllMetrics allMetrics = result.getMetrics(infoResults, resultFront.getSolutionSet(), executionResults,
                         experiement, selectedObjectiveFunctions);
                 executionResults.setTime(estimatedTime);
 
@@ -187,13 +183,12 @@ public class NSGAII_OPLA_FeatMut {
                     this.configs.getInteractiveFunction().run(resultFront);
                 }
 
-                resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
+                resultFront.saveVariablesToFile("VAR_" + runs + "_", infoResults, this.configs.getLogger(), true);
 
-                executionResults.setFuns(funResults);
                 executionResults.setInfos(infoResults);
                 executionResults.setAllMetrics(allMetrics);
 
-                ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
+                ExecutionPersistence persistence = new ExecutionPersistence();
                 try {
                     persistence.persist(executionResults);
                     persistence = null;
@@ -215,16 +210,15 @@ public class NSGAII_OPLA_FeatMut {
             todasRuns = problem.removeRepetidas(todasRuns);
 
             this.configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
-            List<FunResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
+            List<InfoResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
 
             if (runsNumber > 1) {
                 LOGGER.info("saveVariablesToFile()");
                 todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
             }
 
-            mp.saveFunAll(funResults);
 
-            List<InfoResults> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement, funResults);
+            List<InfoResults> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
             mp.saveInfoAll(infoResults);
             LOGGER.info("saveInfoAll()");
 
@@ -290,13 +284,7 @@ public class NSGAII_OPLA_FeatMut {
         Database.setPathToDB(this.configs.getPathToDb());
 
         try {
-            connection = Database.getConnection();
-            allMetricsPersistenceDependencies = new AllMetricsPersistenceDependency(connection);
-            mp = new MetricsPersistence(allMetricsPersistenceDependencies);
-        } catch (ClassNotFoundException | MissingConfigurationException | SQLException e) {
-            LOGGER.error(e);
-            e.printStackTrace();
-            throw new RuntimeException();
+            mp = new Persistence();
         } catch (Exception e) {
             LOGGER.error(e);
             e.printStackTrace();

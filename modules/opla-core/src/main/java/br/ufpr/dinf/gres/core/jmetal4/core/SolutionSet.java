@@ -21,25 +21,24 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.core;
 
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.loglog.Level;
-import br.ufpr.dinf.gres.loglog.LogLog;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
-import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
+import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
+import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
 import br.ufpr.dinf.gres.core.learning.ArchitecturalElementType;
 import br.ufpr.dinf.gres.core.learning.DistributeUserEvaluation;
+import br.ufpr.dinf.gres.loglog.Level;
+import br.ufpr.dinf.gres.loglog.LogLog;
 import org.apache.commons.lang.ArrayUtils;
-import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import org.apache.log4j.Logger;
 
 /**
  * Class representing a SolutionSet (a set of solutions)
@@ -343,7 +342,7 @@ public class SolutionSet implements Serializable {
     } // printVariablesToFile
 
     // added by Thelma october/2012
-    public void saveVariablesToFile(String path, List<FunResults> funResults, LogLog logger, boolean generate) {
+    public void saveVariablesToFile(String path, List<InfoResults> funResults, LogLog logger, boolean generate) {
         int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
 
         if (logger != null)
@@ -353,7 +352,7 @@ public class SolutionSet implements Serializable {
                 Architecture arch = (Architecture) solutionsList_.get(i).getDecisionVariables()[j];
                 String pathToSave = path;
                 String originalName = ((OPLA) solutionsList_.get(i).getProblem()).getArchitecture_().getName();
-                funResults.get(i).setSolution_name(pathToSave + originalName + "-" + funResults.get(i).getId());
+                funResults.get(i).setName(pathToSave + originalName + "-" + funResults.get(i).getId());
                 if (generate)
                     arch.save(arch, pathToSave, "-" + funResults.get(i).getId());
             }

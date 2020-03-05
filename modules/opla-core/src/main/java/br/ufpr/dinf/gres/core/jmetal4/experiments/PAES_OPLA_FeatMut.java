@@ -2,13 +2,13 @@ package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
 import br.ufpr.dinf.gres.architecture.io.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
-import br.ufpr.dinf.gres.loglog.Level;
-import br.ufpr.dinf.gres.core.jmetal4.database.Database;
-import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.common.exceptions.MissingConfigurationException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.database.Database;
+import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.paes.PAES;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetrics;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
@@ -16,12 +16,14 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.MutationFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.Selection;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetrics;
-import br.ufpr.dinf.gres.core.persistence.*;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
+import br.ufpr.dinf.gres.core.persistence.DistanceEuclideanPersistence;
+import br.ufpr.dinf.gres.core.persistence.ExecutionPersistence;
+import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
+import br.ufpr.dinf.gres.core.persistence.Persistence;
+import br.ufpr.dinf.gres.loglog.Level;
 
 import java.io.File;
 import java.sql.Connection;
@@ -36,8 +38,7 @@ public class PAES_OPLA_FeatMut {
     public static double mutationProbability;
     public static double crossoverProbability;
     private static Connection connection;
-    private static AllMetricsPersistenceDependency allMetricsPersistenceDependencies;
-    private static MetricsPersistence mp;
+    private static Persistence mp;
     private static Result result;
     public String dirToSaveOutput; //Diretório que sera criado dentro do diretorio configurado no arquivo de configuracao
 
@@ -148,17 +149,15 @@ public class PAES_OPLA_FeatMut {
 
                 executionResults.setTime(estimatedTime);
 
-                List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), executionResults, experiement);
-                List<InfoResults> infoResults = result.getInformations(resultFront.getSolutionSet(), executionResults, experiement, funResults);
-                AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), executionResults, experiement, selectedObjectiveFunctions);
+                List<InfoResults> infoResults = result.getInformations(resultFront.getSolutionSet(), executionResults, experiement);
+                AllMetrics allMetrics = result.getMetrics(infoResults, resultFront.getSolutionSet(), executionResults, experiement, selectedObjectiveFunctions);
 
-                resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
+                resultFront.saveVariablesToFile("VAR_" + runs + "_", infoResults, this.configs.getLogger(), true);
 
-                executionResults.setFuns(funResults);
                 executionResults.setInfos(infoResults);
                 executionResults.setAllMetrics(allMetrics);
 
-                ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
+                ExecutionPersistence persistence = new ExecutionPersistence();
                 try {
                     persistence.persist(executionResults);
                     persistence = null;
@@ -179,13 +178,12 @@ public class PAES_OPLA_FeatMut {
             todasRuns = problem.removeRepetidas(todasRuns);
 
             configs.getLogger().putLog("------All Runs - Non-dominated solutions --------");
-            List<FunResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
+            List<InfoResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
 
             todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
 
-            mp.saveFunAll(funResults);
 
-            List<InfoResults> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement, funResults);
+            List<InfoResults> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
             mp.saveInfoAll(infoResults);
 
             AllMetrics allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,
@@ -217,9 +215,6 @@ public class PAES_OPLA_FeatMut {
         } catch (ClassNotFoundException | MissingConfigurationException | SQLException e) {
             e.printStackTrace();
         }
-
-        allMetricsPersistenceDependencies = new AllMetricsPersistenceDependency(connection);
-        mp = new MetricsPersistence(allMetricsPersistenceDependencies);
     }
 
     private void logInforamtions(String context, String pla) {
@@ -244,9 +239,9 @@ public class PAES_OPLA_FeatMut {
     private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
         String dir;
         if (executionID != null)
-            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator")  + experimentID + "/" + executionID + "/Hypervolume/";
+            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + experimentID + "/" + executionID + "/Hypervolume/";
         else
-            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator")  + experimentID + "/Hypervolume/";
+            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + experimentID + "/Hypervolume/";
 
         File newDir = new File(dir);
         if (!newDir.exists())

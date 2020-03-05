@@ -3,11 +3,9 @@ package br.ufpr.dinf.gres.core.jmetal4.database;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.*;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
 
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class Result {
     }
 
     /**
-     * Returns {@link FunResults} given a {@link List} of {@link Solution} and a
+     * Returns {@link InfoResults} given a {@link List} of {@link Solution} and a
      * executionId.<br />
      * <p>
      * Pass null to execution when are ALL br.ufpr.dinf.gres.core.jmetal4.results. So br.ufpr.dinf.gres.core.jmetal4.results belongs to
@@ -36,14 +34,12 @@ public class Result {
      * @param executionResults
      * @return
      */
-    public List<FunResults> getObjectives(List<Solution> list, ExecutionResults executionResults, ExperimentResults experiement) {
+    public List<InfoResults> getObjectives(List<Solution> list, ExecutionResults executionResults, ExperimentResults experiement) {
+        List<InfoResults> funResults = new ArrayList<InfoResults>();
+        for (Solution solution : list) {
+            String sb = (solution.toString().trim()).replace(" ", "|");
 
-        List<FunResults> funResults = new ArrayList<FunResults>();
-
-        for (int i = 0; i < list.size(); i++) {
-            String sb = (list.get(i).toString().trim()).replace(" ", "|");
-
-            FunResults funResult = new FunResults();
+            InfoResults funResult = new InfoResults();
             funResult.setName(plaName + "_" + funResult.getId());
             funResult.setExecutionResults(executionResults);
             funResult.setExperiement(experiement);
@@ -57,7 +53,7 @@ public class Result {
     }
 
     public List<InfoResults> getInformations(List<Solution> solutionsList, ExecutionResults executionResults,
-                                             ExperimentResults experiement, List<FunResults> funResults) {
+                                             ExperimentResults experiement) {
 
         List<InfoResults> infoResults = new ArrayList<InfoResults>();
 
@@ -72,7 +68,7 @@ public class Result {
                 ir.setExperiement(experiement);
                 if (executionResults == null)
                     ir.setIsAll(1);
-                ir.setName(plaName + "_" + funResults.get(i).getId());
+                ir.setName(plaName + "_" + ir.getId());
                 ir.setListOfConcerns(getListOfConcerns(arch.getAllConcerns()));
                 ir.setNumberOfPackages(arch.getAllPackages().size());
                 ir.setNumberOfVariabilities(arch.getAllVariabilities().size());
@@ -107,7 +103,7 @@ public class Result {
         return concernsList.substring(0, concernsList.length() - 1);
     }
 
-    public AllMetrics getMetrics(List<FunResults> funResults, List<Solution> list, ExecutionResults executionResults, ExperimentResults experiement, List<String> objectiveFuncs) {
+    public AllMetrics getMetrics(List<InfoResults> funResults, List<Solution> list, ExecutionResults executionResults, ExperimentResults experiement, List<String> objectiveFuncs) {
 
         MetricsEvaluation metrics = new MetricsEvaluation();
         AllMetrics allMetrics = new AllMetrics();

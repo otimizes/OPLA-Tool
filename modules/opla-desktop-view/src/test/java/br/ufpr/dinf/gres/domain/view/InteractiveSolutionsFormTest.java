@@ -1,19 +1,17 @@
 package br.ufpr.dinf.gres.domain.view;
 
 import br.ufpr.dinf.gres.architecture.io.OPLAThreadScope;
-import br.ufpr.dinf.gres.domain.config.ManagerApplicationConfig;
-import br.ufpr.dinf.gres.domain.entity.Objective;
-import br.ufpr.dinf.gres.core.jmetal4.database.Database;
 import br.ufpr.dinf.gres.common.exceptions.MissingConfigurationException;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
-import br.ufpr.dinf.gres.core.persistence.AllMetricsPersistenceDependency;
-import br.ufpr.dinf.gres.core.persistence.MetricsPersistence;
+import br.ufpr.dinf.gres.core.jmetal4.database.Database;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
+import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.core.learning.ExperimentTest;
+import br.ufpr.dinf.gres.core.persistence.Persistence;
+import br.ufpr.dinf.gres.domain.config.ManagerApplicationConfig;
+import br.ufpr.dinf.gres.domain.entity.Objective;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -23,7 +21,7 @@ import java.util.List;
 
 public class InteractiveSolutionsFormTest {
 
-    private static MetricsPersistence mp;
+    private static Persistence mp;
 
 //    @Test
     public void main() throws ClassNotFoundException, IOException {
@@ -38,8 +36,7 @@ public class InteractiveSolutionsFormTest {
 
         try {
             Connection connection = Database.getConnection();
-            AllMetricsPersistenceDependency allMetricsPersistenceDependency = new AllMetricsPersistenceDependency(connection);
-            mp = new MetricsPersistence(allMetricsPersistenceDependency);
+            mp = new Persistence();
         } catch (ClassNotFoundException | MissingConfigurationException | SQLException e) {
             throw new RuntimeException();
         } catch (Exception e) {
@@ -48,13 +45,12 @@ public class InteractiveSolutionsFormTest {
 
         ExperimentResults experimentResults = mp.createExperimentOnDb("AGM", "NSGAII", "", OPLAThreadScope.hash.get());
         ExecutionResults executionResults = new ExecutionResults(experimentResults);
-        executionResults.setFuns(new ArrayList<>());
         executionResults.setInfos(new ArrayList<>());
 
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_03062019.csv");
         SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, null, 1L);
         solutionSet.getSolutionSet().forEach(solution -> {
-            executionResults.getFuns().add(new FunResults(
+            executionResults.getInfos().add(new InfoResults(
                     solution.getExecutionId().toString(),
                     "FUN_" + solution.getSolutionName(),
                     solution.getSolutionName(),
@@ -79,7 +75,7 @@ public class InteractiveSolutionsFormTest {
                     1,
                     experimentResults));
         });
-        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.KMEANS, solutionSet);
+        br.ufpr.dinf.gres.domain.view.InteractiveSolutions interactiveSolutions = new br.ufpr.dinf.gres.domain.view.InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.KMEANS, solutionSet);
     }
 
 //    @Test
@@ -95,8 +91,7 @@ public class InteractiveSolutionsFormTest {
 
         try {
             Connection connection = Database.getConnection();
-            AllMetricsPersistenceDependency allMetricsPersistenceDependency = new AllMetricsPersistenceDependency(connection);
-            mp = new MetricsPersistence(allMetricsPersistenceDependency);
+            mp = new Persistence();
         } catch (ClassNotFoundException | MissingConfigurationException | SQLException e) {
             throw new RuntimeException();
         } catch (Exception e) {
@@ -105,13 +100,12 @@ public class InteractiveSolutionsFormTest {
 
         ExperimentResults experimentResults = mp.createExperimentOnDb("AGM", "NSGAII", "", OPLAThreadScope.hash.get());
         ExecutionResults executionResults = new ExecutionResults(experimentResults);
-        executionResults.setFuns(new ArrayList<>());
         executionResults.setInfos(new ArrayList<>());
 
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_03062019.csv");
         SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, null, 0L);
         solutionSet.getSolutionSet().forEach(solution -> {
-            executionResults.getFuns().add(new FunResults(
+            executionResults.getInfos().add(new InfoResults(
                     solution.getExecutionId().toString(),
                     "FUN_" + solution.getSolutionName(),
                     solution.getSolutionName(),
@@ -136,6 +130,6 @@ public class InteractiveSolutionsFormTest {
                     1,
                     experimentResults));
         });
-        InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.KMEANS, solutionSet);
+        br.ufpr.dinf.gres.domain.view.InteractiveSolutions interactiveSolutions = new br.ufpr.dinf.gres.domain.view.InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.KMEANS, solutionSet);
     }
 }
