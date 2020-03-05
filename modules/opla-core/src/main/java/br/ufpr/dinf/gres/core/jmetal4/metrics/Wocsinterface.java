@@ -31,9 +31,6 @@ public class Wocsinterface extends Metrics {
                     complexidade += cantparame;
                 }
 
-                //System.out.println("WOCS for Interface:" + interfa.getName() + "=" + complexidade);
-
-                //this.br.ufpr.dinf.gres.core.jmetal4.results = complexidade;
                 tcomplexidade = complexidade;
 
             }

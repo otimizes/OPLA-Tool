@@ -19,24 +19,17 @@ public class Svc extends Metrics {
 
         for (Package pacote : architecture.getAllPackages()) {
 
-            int commoncomp = 0;
             int variablecomp = 0;
 
             for (Element elemento : pacote.getElements()) {
-
                 if (elemento.getVariationPoint() != null) {
                     variablecomp = 1;
-                } else {
-                    commoncomp = 1;
                 }
             }
 
             if (variablecomp == 1) {
-
                 tvariablecomp++;
-
             } else {
-
                 tcommoncomp++;
             }
 
@@ -53,7 +46,6 @@ public class Svc extends Metrics {
     }
 
     public float getResults() {
-
         return results;
     }
 

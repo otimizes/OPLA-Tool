@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.PLAMetrics.extensibility.ExtensPLA;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility.ExtensPLA;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCC;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClassComponentResult;
@@ -69,16 +69,14 @@ public class MetricsEvaluation {
     }
 
     public double evaluateMSIFitness(Architecture architecture) {
-        Double sumCIBC = 0.0;
-        Double sumIIBC = 0.0;
-        Double sumOOBC = 0.0;
-        Double sumCDAC = 0.0;
-        Double sumCDAI = 0.0;
-        Double sumCDAO = 0.0;
-        Double sumLCC = 0.0;
-        Double MSIFitness = 0.0;
-
-        sumLCC = evaluateLCC(architecture);
+        double sumCIBC = 0.0;
+        double sumIIBC = 0.0;
+        double sumOOBC = 0.0;
+        double sumCDAC = 0.0;
+        double sumCDAI = 0.0;
+        double sumCDAO = 0.0;
+        double MSIFitness = 0.0;
+        Double sumLCC = evaluateLCC(architecture);
 
         CIBC cibc = new CIBC(architecture);
         for (CIBCResult c : cibc.getResults().values()) {
@@ -126,8 +124,7 @@ public class MetricsEvaluation {
     }
 
     public Double evaluateIIBC(Architecture architecture) {
-
-        Double sumIIBC = 0.0;
+        double sumIIBC = 0.0;
 
         IIBC iibc = new IIBC(architecture);
         for (IIBCResult c : iibc.getResults().values()) {
@@ -138,7 +135,7 @@ public class MetricsEvaluation {
     }
 
     public Double evaluateOOBC(Architecture architecture) {
-        Double sumOOBC = 0.0;
+        double sumOOBC = 0.0;
 
         OOBC oobc = new OOBC(architecture);
         for (OOBCResult c : oobc.getResults().values()) {
@@ -148,7 +145,7 @@ public class MetricsEvaluation {
     }
 
     public Double evaluateCDAC(Architecture architecture) {
-        Double sumCDAC = 0.0;
+        double sumCDAC = 0.0;
         CDAC cdac = new CDAC(architecture);
         for (CDACResult c : cdac.getResults()) {
             sumCDAC += c.getElements().size();
@@ -157,7 +154,7 @@ public class MetricsEvaluation {
     }
 
     public Double evaluateCDAI(Architecture architecture) {
-        Double sumCDAI = 0.0;
+        double sumCDAI = 0.0;
 
         CDAI cdai = new CDAI(architecture);
         for (CDAIResult c : cdai.getResults()) {
@@ -167,7 +164,7 @@ public class MetricsEvaluation {
     }
 
     public Double evaluateCDAO(Architecture architecture) {
-        Double sumCDAO = 0.0;
+        double sumCDAO = 0.0;
         CDAO cdao = new CDAO(architecture);
         for (CDAOResult c : cdao.getResults()) {
             sumCDAO += c.getElements().size();
@@ -176,7 +173,7 @@ public class MetricsEvaluation {
     }
 
     public Double evaluateLCC(Architecture architecture) {
-        Double sumLCC = 0.0;
+        double sumLCC = 0.0;
         LCC result = new LCC(architecture);
 
         for (LCCComponentResult component : result.getResults()) {
@@ -186,8 +183,7 @@ public class MetricsEvaluation {
     }
 
     public Double evaluateCDAClass(Architecture architecture) {
-
-        Double sumCDAClass = 0.0;
+        double sumCDAClass = 0.0;
 
         CDAClass cdaclass = new CDAClass(architecture);
         for (CDAClassResult c : cdaclass.getResults()) {
@@ -198,8 +194,7 @@ public class MetricsEvaluation {
     }
 
     public Double evaluateCIBClass(Architecture architecture) {
-
-        Double sumCIBClass = 0.0;
+        double sumCIBClass = 0.0;
 
         CIBClass cibclass = new CIBClass(architecture);
         for (CIBClassResult c : cibclass.getResults().values()) {
@@ -210,7 +205,7 @@ public class MetricsEvaluation {
     }
 
     public Double evaluateLCCClass(Architecture architecture) {
-        Double sumLCCClass = 0.0;
+        double sumLCCClass = 0.0;
         LCCClass result = new LCCClass(architecture);
 
         for (LCCClassComponentResult cls : result.getResults()) {
@@ -222,18 +217,17 @@ public class MetricsEvaluation {
 
     // ----------------------------------------------------------------------------------
     public Double evaluateMACFitness(Architecture architecture) {
-        Double MACFitness = 0.0;
-        Double meanNumOps = 0.0;
-        Double meanDepComps = 0.0;
-        Double sumCohesion = 0.0;
+        double MACFitness = 0.0;
+        double meanDepComps = 0.0;
+        double sumCohesion = 0.0;
         int sumClassesDepIn = 0;
         int sumClassesDepOut = 0;
         int sumDepIn = 0;
         int sumDepOut = 0;
-        Double iCohesion = 0.0;
+        double iCohesion = 0.0;
 
         MeanNumOpsByInterface numOps = new MeanNumOpsByInterface(architecture);
-        meanNumOps = numOps.getResults();
+        Double meanNumOps = numOps.getResults();
 
         MeanDepComponents depComps = new MeanDepComponents(architecture);
         meanDepComps = depComps.getResults();
@@ -293,7 +287,6 @@ public class MetricsEvaluation {
         return DepOut.getResults();
     }
 
-    // ---------------------------------------------------------------------------------
     public Double evaluateCohesion(Architecture architecture) {
         RelationalCohesion cohesion = new RelationalCohesion(architecture);
         return cohesion.getResults();

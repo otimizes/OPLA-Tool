@@ -13,10 +13,6 @@ import java.util.List;
 
 public class ClassDependencyOut {
 
-    /**
-     * @param args
-     */
-
     private Architecture architecture;
     private int results;
 
@@ -30,8 +26,6 @@ public class ClassDependencyOut {
 
             for (br.ufpr.dinf.gres.architecture.representation.Class cls : component.getAllClasses()) {
                 depOut += searchClassDependencies(cls, component);
-                // System.out.println("DepOut- Classe: "+ cls.getName() + " :" +
-                // depOut);
             }
 
             this.results += depOut; // somatorio de DepOut da br.ufpr.dinf.gres.arquitetura como
@@ -47,27 +41,25 @@ public class ClassDependencyOut {
         List<Class> depClasses = new ArrayList<Class>();
 
         for (Class c : comp.getAllClasses()) {
-            List<Relationship> relationships = new ArrayList<Relationship>(source.getRelationships());
-            if (relationships != null) {
-                for (Relationship relationship : relationships) {
+            List<Relationship> relationships = new ArrayList<>(source.getRelationships());
+            for (Relationship relationship : relationships) {
 
-                    if (relationship instanceof DependencyRelationship) {
-                        DependencyRelationship dependency = (DependencyRelationship) relationship;
-                        if (dependency.getClient().equals(source) && (!(depClasses.contains(c)))) {
-                            depClasses.add(c);
-                        }
+                if (relationship instanceof DependencyRelationship) {
+                    DependencyRelationship dependency = (DependencyRelationship) relationship;
+                    if (dependency.getClient().equals(source) && (!(depClasses.contains(c)))) {
+                        depClasses.add(c);
                     }
-                    if (relationship instanceof RealizationRelationship) {
-                        RealizationRelationship dependency = (RealizationRelationship) relationship;
-                        if (dependency.getClient().equals(source) && (!(depClasses.contains(c)))) {
-                            depClasses.add(c);
-                        }
+                }
+                if (relationship instanceof RealizationRelationship) {
+                    RealizationRelationship dependency = (RealizationRelationship) relationship;
+                    if (dependency.getClient().equals(source) && (!(depClasses.contains(c)))) {
+                        depClasses.add(c);
                     }
-                    if (relationship instanceof UsageRelationship) {
-                        UsageRelationship dependency = (UsageRelationship) relationship;
-                        if (dependency.getClient().equals(source) && (!(depClasses.contains(c)))) {
-                            depClasses.add(c);
-                        }
+                }
+                if (relationship instanceof UsageRelationship) {
+                    UsageRelationship dependency = (UsageRelationship) relationship;
+                    if (dependency.getClient().equals(source) && (!(depClasses.contains(c)))) {
+                        depClasses.add(c);
                     }
                 }
             }

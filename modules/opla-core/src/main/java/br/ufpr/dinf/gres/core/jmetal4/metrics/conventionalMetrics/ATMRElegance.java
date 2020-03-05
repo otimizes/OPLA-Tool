@@ -3,7 +3,6 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 
-//Attributes to methods ratio elegance metric
 public class ATMRElegance {
 
     private Architecture architecture;
@@ -17,7 +16,7 @@ public class ATMRElegance {
         double ratiosAttributesMethods[] = new double[10000];
         int i = 0;
 
-        Estatistica e = new Estatistica();
+        ConventionalMetricsStatistic e = new ConventionalMetricsStatistic();
 
         for (Class cls : this.architecture.getAllClasses()) {
             // seta valores dos arrays
@@ -31,7 +30,7 @@ public class ATMRElegance {
 
         }
         e.setArray(ratiosAttributesMethods);
-        stdDeviationRatios = e.getDesvioPadrao();
+        stdDeviationRatios = e.getSampleStandardDeviation();
 
         this.results = stdDeviationRatios;
     }

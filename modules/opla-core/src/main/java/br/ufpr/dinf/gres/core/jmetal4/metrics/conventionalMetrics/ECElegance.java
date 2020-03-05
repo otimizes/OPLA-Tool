@@ -19,10 +19,10 @@ public class ECElegance {
 
         this.results = 0.0;
         double stdDeviationCouples = 0.0;
-        double externalCouplesNumbers[] = new double[10000];
+        double[] externalCouplesNumbers = new double[10000];
         int i = 0;
 
-        Estatistica e = new Estatistica();
+        ConventionalMetricsStatistic e = new ConventionalMetricsStatistic();
 
         for (Class cls : architecture.getAllClasses()) {
             // busca os external couples de cada classe
@@ -31,7 +31,7 @@ public class ECElegance {
         }
 
         e.setArray(externalCouplesNumbers);
-        stdDeviationCouples = e.getDesvioPadrao();
+        stdDeviationCouples = e.getSampleStandardDeviation();
 
         this.results = stdDeviationCouples;
 
@@ -42,19 +42,17 @@ public class ECElegance {
     private int searchClassDependencies(Class source) {
         int cont = 0;
         List<Relationship> relationships = new ArrayList<Relationship>(source.getRelationships());
-        if (relationships != null) {
-            for (Relationship relationship : relationships) {
-                if (relationship instanceof DependencyRelationship) {
-                    DependencyRelationship dependency = (DependencyRelationship) relationship;
-                    if (dependency.getClient().equals(source))
-                        cont++;
-                } else {
-                    if (relationship instanceof AssociationRelationship) {
-                        AssociationRelationship association = (AssociationRelationship) relationship;
-                        for (AssociationEnd associationEnd : association.getParticipants()) {
-                            if (associationEnd.getCLSClass().equals(source))
-                                cont++;
-                        }
+        for (Relationship relationship : relationships) {
+            if (relationship instanceof DependencyRelationship) {
+                DependencyRelationship dependency = (DependencyRelationship) relationship;
+                if (dependency.getClient().equals(source))
+                    cont++;
+            } else {
+                if (relationship instanceof AssociationRelationship) {
+                    AssociationRelationship association = (AssociationRelationship) relationship;
+                    for (AssociationEnd associationEnd : association.getParticipants()) {
+                        if (associationEnd.getCLSClass().equals(source))
+                            cont++;
                     }
                 }
             }

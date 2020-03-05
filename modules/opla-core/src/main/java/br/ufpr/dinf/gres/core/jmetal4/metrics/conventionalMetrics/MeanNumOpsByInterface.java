@@ -6,18 +6,15 @@ import br.ufpr.dinf.gres.architecture.representation.Interface;
 
 public class MeanNumOpsByInterface {
 
-    private Architecture architecture;
     private Double results;
-    private int numberInterfaces;
 
     public MeanNumOpsByInterface(Architecture architecture) {
-        this.architecture = architecture;
         this.results = 0.0;
-        this.numberInterfaces = 0;
-        for (br.ufpr.dinf.gres.architecture.representation.Package component : this.architecture.getAllPackages()) {
+        int numberInterfaces = 0;
+        for (br.ufpr.dinf.gres.architecture.representation.Package component : architecture.getAllPackages()) {
             for (Interface itf : component.getImplementedInterfaces()) {
                 this.results += itf.getOperations().size();
-                this.numberInterfaces++;
+                numberInterfaces++;
             }
         }
         if (numberInterfaces == 0) {

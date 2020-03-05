@@ -10,18 +10,13 @@ import java.util.List;
 
 public class MeanDepComponents {
 
-    /**
-     * @param args
-     */
-    private Architecture architecture;
     private double results;
 
     public MeanDepComponents(Architecture architecture) {
 
-        this.architecture = architecture;
         this.results = 0;
-        List<Element> depComponents = new ArrayList<Element>();
-        int totalComponents = this.architecture.getAllPackages().size();
+        List<Element> depComponents = new ArrayList<>();
+        int totalComponents = architecture.getAllPackages().size();
         int totalDependencies = 0;
 
         for (Package component : architecture.getAllPackages()) {

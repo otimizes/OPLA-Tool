@@ -14,7 +14,7 @@ import br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType.ArchitectureSolutio
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommomConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Fitness;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.PLAMetrics.extensibility.ExtensPLA;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility.ExtensPLA;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCC;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClassComponentResult;

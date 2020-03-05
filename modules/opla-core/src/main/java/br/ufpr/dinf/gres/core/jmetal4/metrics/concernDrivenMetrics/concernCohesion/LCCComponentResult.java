@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 public class LCCComponentResult {
 
-    private final HashSet<Concern> allConcerns = new HashSet<Concern>();
+    private final HashSet<Concern> allConcerns = new HashSet<>();
     private final Package component;
 
     public LCCComponentResult(Package component) {

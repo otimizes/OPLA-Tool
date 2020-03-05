@@ -11,10 +11,6 @@ import java.util.List;
 
 public class RelationalCohesion {
 
-    /**
-     * @param args
-     */
-    private Architecture architecture;
     private double results;
 
     // Relational cohesion.
@@ -41,13 +37,15 @@ public class RelationalCohesion {
 
     public RelationalCohesion(Architecture architecture) {
 
-        this.architecture = architecture;
+        /**
+         * @param args
+         */
         this.results = 0;
         int totalClassesAndInterfaces = 0;
         int R = 0;
         double H = 0;
 
-        for (Package component : this.architecture.getAllPackages()) {
+        for (Package component : architecture.getAllPackages()) {
 
             for (Interface itf : component.getImplementedInterfaces()) {
                 R += searchOperationInterfaceDependencies(itf, component);

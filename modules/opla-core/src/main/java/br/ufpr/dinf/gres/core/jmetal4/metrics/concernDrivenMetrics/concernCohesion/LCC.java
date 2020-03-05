@@ -10,7 +10,7 @@ import java.util.Collection;
 public class LCC {
 
     private final Architecture architecture;
-    private final Collection<LCCComponentResult> results = new ArrayList<LCCComponentResult>();
+    private final Collection<LCCComponentResult> results = new ArrayList<>();
 
     public LCC(Architecture architecture) {
         this.architecture = architecture;

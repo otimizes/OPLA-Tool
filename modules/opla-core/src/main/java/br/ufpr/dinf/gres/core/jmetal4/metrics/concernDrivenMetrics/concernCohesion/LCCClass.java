@@ -9,7 +9,7 @@ import java.util.Collection;
 public class LCCClass {
 
     private final Architecture architecture;
-    private final Collection<LCCClassComponentResult> results = new ArrayList<LCCClassComponentResult>();
+    private final Collection<LCCClassComponentResult> results = new ArrayList<>();
 
     public LCCClass(Architecture architecture) {
         this.architecture = architecture;

@@ -21,7 +21,6 @@ public class Wocsclass extends Metrics {
         float tcomplexidade = 0;
         float numclass =  architecture.getAllClasses().size();
 
-
         for(Package pacote : architecture.getAllPackages()){
 
             for(Class classes : pacote.getAllClasses()){
@@ -36,12 +35,8 @@ public class Wocsclass extends Metrics {
                 }
 
                 tcomplexidade = complexidade;
-
             }
-
         }
-
-
         valorwocsc = tcomplexidade / numclass;
         this.results = valorwocsc;
 

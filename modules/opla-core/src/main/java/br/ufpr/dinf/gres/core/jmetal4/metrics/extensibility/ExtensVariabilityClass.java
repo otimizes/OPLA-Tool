@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.PLAMetrics.extensibility;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility;
 
 import br.ufpr.dinf.gres.architecture.representation.Variability;
 
