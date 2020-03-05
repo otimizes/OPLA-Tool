@@ -19,8 +19,8 @@ public class FeatureDrivenPersistence {
 
     public void save(FeatureDriven fd) {
         String executionID = "null";
-        if (fd.getExecution() != null)
-            executionID = fd.getExecution().getId();
+        if (fd.getExecutionResults() != null)
+            executionID = fd.getExecutionResults().getId();
 
         StringBuilder query = new StringBuilder();
         query.append("insert into FeatureDrivenMetrics (msiAggregation, cdac, cdai, cdao, cibc, iibc, oobc, lcc, lccClass, cdaClass, cibClass, execution_id, is_all, experiement_id, id_solution) values (");
@@ -48,7 +48,7 @@ public class FeatureDrivenPersistence {
         query.append(",");
         query.append(executionID);
         query.append(",");
-        if (fd.getExecution() == null)
+        if (fd.getExecutionResults() == null)
             query.append("1");
         else
             query.append("0");

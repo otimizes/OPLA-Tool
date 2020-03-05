@@ -8,33 +8,33 @@ import java.util.List;
 /**
  * Essa classe representa cada execucao de um dado experiementos.
  */
-public class Execution {
+public class ExecutionResults {
 
     private String id;
-    private List<InfoResult> infos;
+    private List<InfoResults> infos;
     private List<FunResults> funs;
     private AllMetrics allMetrics;
-    private Experiment experiment;
+    private ExperimentResults experimentResults;
     private long time = 0l;
     private int runs;
 
-    public Execution(Experiment experiment) {
+    public ExecutionResults(ExperimentResults experimentResults) {
         setId(Id.generateUniqueId());
-        this.experiment = experiment;
+        this.experimentResults = experimentResults;
     }
 
 
-    public Execution(String id, long t) {
+    public ExecutionResults(String id, long t) {
 
         this.id = id;
         this.time = t;
     }
 
-    public List<InfoResult> getInfos() {
+    public List<InfoResults> getInfos() {
         return infos;
     }
 
-    public void setInfos(List<InfoResult> infos) {
+    public void setInfos(List<InfoResults> infos) {
         this.infos = infos;
     }
 
@@ -54,8 +54,8 @@ public class Execution {
         this.id = id;
     }
 
-    public Experiment getExperiement() {
-        return this.experiment;
+    public ExperimentResults getExperiement() {
+        return this.experimentResults;
     }
 
     public long getTime() {
@@ -82,12 +82,12 @@ public class Execution {
         this.runs = runs;
     }
 
-    public Experiment getExperiment() {
-        return experiment;
+    public ExperimentResults getExperimentResults() {
+        return experimentResults;
     }
 
-    public void setExperiment(Experiment experiment) {
-        this.experiment = experiment;
+    public void setExperimentResults(ExperimentResults experimentResults) {
+        this.experimentResults = experimentResults;
     }
 
     // public List<FunResults> getAttributes() throws ClassNotFoundException,

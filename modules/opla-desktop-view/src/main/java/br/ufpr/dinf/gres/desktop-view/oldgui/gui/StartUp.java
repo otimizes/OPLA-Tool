@@ -41,6 +41,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.JTextComponent;
 
+import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.Logger;
@@ -72,7 +73,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.Elegance;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.FeatureDriven;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.PLAExtensibility;
 import net.miginfocom.swing.MigLayout;
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 
 /**
  * @author elf
@@ -393,8 +394,8 @@ public class StartUp extends javax.swing.JFrame {
         int numberNonDominatedSolutions = br.ufpr.dinf.gres.domain.db.Database.countNumberNonDominatedSolutins(idExperiment);
 
         try {
-            Collection<Execution> all = br.ufpr.dinf.gres.domain.db.Database.getAllExecutionsByExperimentId(idExperiment);
-            for (Execution exec : all) {
+            Collection<ExecutionResults> all = br.ufpr.dinf.gres.domain.db.Database.getAllExecutionsByExperimentId(idExperiment);
+            for (ExecutionResults exec : all) {
                 Object[] row = new Object[5];
                 row[0] = exec.getId();
                 row[1] = Time.convertMsToMin(exec.getTime());
@@ -3192,7 +3193,7 @@ public class StartUp extends javax.swing.JFrame {
     private void configureDb() throws Exception {
         createDataBaseIfNotExists();
         try {
-            br.ufpr.dinf.gres.domain.db.Database.setContent(br.ufpr.dinf.gres.core.jmetal4.results.Experiment.all());
+            br.ufpr.dinf.gres.domain.db.Database.setContent(ExperimentResults.all());
         } catch (SQLException ex) {
             LOGGER.info(ex);
             VIEW_LOG.putLog(String.format(String.format(String.format("Error ConfigureDB %s", ex.getMessage())),
@@ -3273,7 +3274,7 @@ public class StartUp extends javax.swing.JFrame {
 
     private void populateTables() {
         JTable tables[] = {tableExp, tableExp2};
-        List<br.ufpr.dinf.gres.core.jmetal4.results.Experiment> allExp = br.ufpr.dinf.gres.domain.db.Database.getContent();
+        List<ExperimentResults> allExp = br.ufpr.dinf.gres.domain.db.Database.getContent();
 
         for (int i = 0; i < tables.length; i++) {
             try {
@@ -3285,7 +3286,7 @@ public class StartUp extends javax.swing.JFrame {
                 model.addColumn("Created at");
                 tables[i].setModel(model);
 
-                for (br.ufpr.dinf.gres.core.jmetal4.results.Experiment exp : allExp) {
+                for (ExperimentResults exp : allExp) {
                     Object[] row = new Object[4];
                     row[0] = exp.getId();
                     row[1] = exp.getName();

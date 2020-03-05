@@ -20,8 +20,8 @@ public class CbcsPersistence {
     public void save(Cbcs cBcs) {
 
 	String executionID = "null";
-	if (cBcs.getExecution() != null)
-	    executionID = cBcs.getExecution().getId();
+	if (cBcs.getExecutionResults() != null)
+	    executionID = cBcs.getExecutionResults().getId();
 
 	StringBuilder query = new StringBuilder();
 
@@ -30,7 +30,7 @@ public class CbcsPersistence {
 	query.append(",");
 	query.append(executionID);
 	query.append(",");
-	if (cBcs.getExecution() == null)
+	if (cBcs.getExecutionResults() == null)
 	    query.append("1");
 	else
 	    query.append("0");

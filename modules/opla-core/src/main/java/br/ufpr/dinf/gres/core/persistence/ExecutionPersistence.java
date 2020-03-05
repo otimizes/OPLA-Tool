@@ -1,8 +1,8 @@
 package br.ufpr.dinf.gres.core.persistence;
 
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.InfoResult;
+import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,15 +16,15 @@ public class ExecutionPersistence {
         this.allMetricsPersistenceDependencies = allMetricsPersistenceDependencies;
     }
 
-    public void persist(Execution execution) throws SQLException {
+    public void persist(ExecutionResults executionResults) throws SQLException {
         StringBuilder query = new StringBuilder();
         query.append("insert into executions (id, experiement_id, time) values ");
         query.append("(");
-        query.append(execution.getId());
+        query.append(executionResults.getId());
         query.append(",");
-        query.append(execution.getExperiement().getId());
+        query.append(executionResults.getExperiement().getId());
         query.append(",");
-        query.append(execution.getTime());
+        query.append(executionResults.getTime());
         query.append(")");
 
         Connection connection = allMetricsPersistenceDependencies.getConnection();
@@ -32,18 +32,18 @@ public class ExecutionPersistence {
         statement.executeUpdate(query.toString());
         statement.close();
 
-        if (execution.getInfos() != null) {
-            for (InfoResult ir : execution.getInfos())
+        if (executionResults.getInfos() != null) {
+            for (InfoResults ir : executionResults.getInfos())
                 allMetricsPersistenceDependencies.getInfosPersistence().persistInfoDatas(ir);
         }
 
-        if (execution.getFuns() != null) {
-            for (FunResults fr : execution.getFuns())
+        if (executionResults.getFuns() != null) {
+            for (FunResults fr : executionResults.getFuns())
                 allMetricsPersistenceDependencies.getFunsPersistence().persistFunsDatas(fr);
         }
 
         MetricsPersistence metricsPersistence = new MetricsPersistence(allMetricsPersistenceDependencies);
-        metricsPersistence.persisteMetrics(execution);
+        metricsPersistence.persisteMetrics(executionResults);
         metricsPersistence = null;
 
     }

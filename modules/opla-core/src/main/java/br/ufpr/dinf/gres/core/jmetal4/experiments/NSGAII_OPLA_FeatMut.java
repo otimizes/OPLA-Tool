@@ -21,10 +21,10 @@ import br.ufpr.dinf.gres.core.learning.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetrics;
 import org.apache.log4j.Logger;
 import br.ufpr.dinf.gres.core.persistence.*;
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
-import br.ufpr.dinf.gres.core.jmetal4.results.Experiment;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.InfoResult;
+import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
 
 import java.io.File;
 import java.sql.Connection;
@@ -100,7 +100,7 @@ public class NSGAII_OPLA_FeatMut {
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
 
-            Experiment experiement = mp.createExperimentOnDb(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
+            ExperimentResults experiement = mp.createExperimentOnDb(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "NSGAII", configs);
             conf.save();
             LOGGER.info("Salvou configurações do experimento");
@@ -162,9 +162,9 @@ public class NSGAII_OPLA_FeatMut {
 
                 // Cria uma execução. Cada execução está ligada a um
                 // experiemento.
-                Execution execution = new Execution(experiement);
-                execution.setRuns(runs);
-                setDirToSaveOutput(experiement.getId(), execution.getId());
+                ExecutionResults executionResults = new ExecutionResults(experiement);
+                executionResults.setRuns(runs);
+                setDirToSaveOutput(experiement.getId(), executionResults.getId());
 
                 // Execute the Algorithm
                 long initTime = System.currentTimeMillis();
@@ -175,13 +175,13 @@ public class NSGAII_OPLA_FeatMut {
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), execution,
+                List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), executionResults,
                         experiement);
-                List<InfoResult> infoResults = result.getInformations(resultFront.getSolutionSet(), execution,
+                List<InfoResults> infoResults = result.getInformations(resultFront.getSolutionSet(), executionResults,
                         experiement, funResults);
-                AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), execution,
+                AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), executionResults,
                         experiement, selectedObjectiveFunctions);
-                execution.setTime(estimatedTime);
+                executionResults.setTime(estimatedTime);
 
                 if (Moment.POSTERIORI.equals(this.configs.getClusteringMoment())) {
                     this.configs.getInteractiveFunction().run(resultFront);
@@ -189,13 +189,13 @@ public class NSGAII_OPLA_FeatMut {
 
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
 
-                execution.setFuns(funResults);
-                execution.setInfos(infoResults);
-                execution.setAllMetrics(allMetrics);
+                executionResults.setFuns(funResults);
+                executionResults.setInfos(infoResults);
+                executionResults.setAllMetrics(allMetrics);
 
                 ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
                 try {
-                    persistence.persist(execution);
+                    persistence.persist(executionResults);
                     persistence = null;
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -208,7 +208,7 @@ public class NSGAII_OPLA_FeatMut {
                 // Util.moveAllFilesToExecutionDirectory(experiementId,
                 // execution.getId());
 
-                saveHypervolume(experiement.getId(), execution.getId(), resultFront, plaName);
+                saveHypervolume(experiement.getId(), executionResults.getId(), resultFront, plaName);
             }
 
             todasRuns = problem.removeDominadas(todasRuns);
@@ -224,7 +224,7 @@ public class NSGAII_OPLA_FeatMut {
 
             mp.saveFunAll(funResults);
 
-            List<InfoResult> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement, funResults);
+            List<InfoResults> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement, funResults);
             mp.saveInfoAll(infoResults);
             LOGGER.info("saveInfoAll()");
 

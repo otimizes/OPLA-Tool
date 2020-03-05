@@ -6,7 +6,7 @@ package br.ufpr.dinf.gres.domain.oldgui.indicators;
 
 import br.ufpr.dinf.gres.domain.oldgui.configuration.UserHome;
 import br.ufpr.dinf.gres.domain.oldgui.utils.Utils;
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
 
 import java.io.FileWriter;
@@ -43,9 +43,9 @@ public class HypervolumeCreateDataFiles {
 
             try (PrintWriter pw = new PrintWriter(new FileWriter(nameFile))) {
                 List<Double> values = new ArrayList<>();
-                for (Execution execution : br.ufpr.dinf.gres.domain.db.Database.getAllExecutionsByExperimentId(id)) {
+                for (ExecutionResults executionResults : br.ufpr.dinf.gres.domain.db.Database.getAllExecutionsByExperimentId(id)) {
 
-                    for (FunResults fun : execution.getFuns()) {
+                    for (FunResults fun : executionResults.getFuns()) {
                         String o = fun.getObjectives().trim().replace("|", " ");
                         String[] ov = o.split(" ");
 

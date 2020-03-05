@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.util;
 
 import br.ufpr.dinf.gres.core.jmetal4.database.Database;
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -20,7 +20,7 @@ public class FormatObjec {
         Statement statamentExecution = Database.getConnection().createStatement();
         ResultSet r = statamentExecution
                 .executeQuery("SELECT objectives from objectives where experiement_id=4744218659 and execution_id=''");
-        List<Execution> execs = new ArrayList<Execution>();
+        List<ExecutionResults> execs = new ArrayList<ExecutionResults>();
 
         while (r.next()) {
             String objs = r.getString("objectives").trim().replace("|", " ");

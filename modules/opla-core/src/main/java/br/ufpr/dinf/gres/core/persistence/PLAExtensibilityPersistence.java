@@ -20,8 +20,8 @@ public class PLAExtensibilityPersistence {
     public void save(PLAExtensibility plaExtensibility) {
 
         String executionID = "null";
-        if (plaExtensibility.getExecution() != null)
-            executionID = plaExtensibility.getExecution().getId();
+        if (plaExtensibility.getExecutionResults() != null)
+            executionID = plaExtensibility.getExecutionResults().getId();
 
         StringBuilder query = new StringBuilder();
 
@@ -30,7 +30,7 @@ public class PLAExtensibilityPersistence {
         query.append(",");
         query.append(executionID);
         query.append(",");
-        if (plaExtensibility.getExecution() == null)
+        if (plaExtensibility.getExecutionResults() == null)
             query.append("1");
         else
             query.append("0");

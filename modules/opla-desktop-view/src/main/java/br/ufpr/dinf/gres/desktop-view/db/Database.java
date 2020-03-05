@@ -8,8 +8,8 @@ import br.ufpr.dinf.gres.core.jmetal4.util.MathUtils;
 import br.ufpr.dinf.gres.domain.oldgui.utils.Utils;
 import br.ufpr.dinf.gres.common.exceptions.MissingConfigurationException;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.*;
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
-import br.ufpr.dinf.gres.core.jmetal4.results.Experiment;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -20,20 +20,20 @@ import java.util.Map.Entry;
 
 public class Database {
     private static Connection connection = null;
-    private static List<Experiment> content;
+    private static List<ExperimentResults> content;
 
-    public static List<Experiment> getContent() {
+    public static List<ExperimentResults> getContent() {
         return content;
     }
 
-    public static void setContent(List<Experiment> all) {
+    public static void setContent(List<ExperimentResults> all) {
         content = all;
     }
 
-    public static Collection<Execution> getAllExecutionsByExperimentId(String experimentId) {
-        for (Experiment exp : content) {
+    public static Collection<ExecutionResults> getAllExecutionsByExperimentId(String experimentId) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId.replaceAll("\\s+", ""))) {
-                return exp.getExecutions();
+                return exp.getExecutionResults();
             }
         }
 
@@ -190,7 +190,7 @@ public class Database {
 
     public static void reloadContent() {
         try {
-            content = br.ufpr.dinf.gres.core.jmetal4.results.Experiment.all();
+            content = ExperimentResults.all();
         } catch (SQLException ex) {
             ex.printStackTrace();
             Logger.getLogger().putLog(ex.getMessage(), Level.ERROR);
@@ -201,9 +201,9 @@ public class Database {
     }
 
     public static PLAExtensibility getPlaExtMetricsForSolution(String idSolution, String experimentId) {
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (PLAExtensibility plaExt : exec.getAllMetrics().getPlaExtensibility()) {
                         if (plaExt.getIdSolution().equals(idSolution)) {
                             return plaExt;
@@ -218,9 +218,9 @@ public class Database {
     }
 
     public static Elegance getEleganceMetricsForSolution(String idSolution, String experimentId) {
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Elegance elegance : exec.getAllMetrics().getElegance()) {
                         if (elegance.getIdSolution().equals(idSolution)) {
                             return elegance;
@@ -234,9 +234,9 @@ public class Database {
     }
 
     public static Conventional getConventionalsMetricsForSolution(String idSolution, String experimentId) {
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Conventional con : exec.getAllMetrics().getConventional()) {
                         if (con.getIdSolution().equals(idSolution)) {
                             return con;
@@ -250,9 +250,9 @@ public class Database {
     }
 
     public static FeatureDriven getFeatureDrivenMetricsForSolution(String idSolution, String experimentId) {
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (FeatureDriven f : exec.getAllMetrics().getFeatureDriven()) {
                         if (f.getIdSolution().equals(idSolution)) {
                             return f;
@@ -267,9 +267,9 @@ public class Database {
 
     public static List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> getAllEleganceMetricsForExperimentId(String experimentId) {
         List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> listFd = new ArrayList<>();
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Elegance m : exec.getAllMetrics().getElegance()) {
                         if (m.getIsAll() == 1) {
                             listFd.add(m);
@@ -286,9 +286,9 @@ public class Database {
 
     public static List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> getAllFeatureDrivenMetricsForExperimentId(String experimentId) {
         List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> listFd = new ArrayList<>();
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (FeatureDriven m : exec.getAllMetrics().getFeatureDriven()) {
                         if (m.getIsAll() == 1) {
                             listFd.add(m);
@@ -304,9 +304,9 @@ public class Database {
 
     public static List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> getAllConventionalMetricsForExperimentId(String experimentId) {
         List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> listCons = new ArrayList<>();
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Conventional m : exec.getAllMetrics().getConventional()) {
                         if (m.getIsAll() == 1) {
                             listCons.add(m);
@@ -323,9 +323,9 @@ public class Database {
 
     public static List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> getAllPLAExtMetricsForExperimentId(String experimentId) {
         List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> listCons = new ArrayList<>();
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (PLAExtensibility m : exec.getAllMetrics().getPlaExtensibility()) {
                         if (m.getIsAll() == 1) {
                             listCons.add(m);
@@ -343,9 +343,9 @@ public class Database {
     //addYni
 
     public static Wocsclass getWocsclassMetricsForSolution(String idSolution, String experimentId) {
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Wocsclass wocsc : exec.getAllMetrics().getWocsclass()) {
                         if (wocsc.getIdSolution().equals(idSolution)) {
                             return wocsc;
@@ -360,9 +360,9 @@ public class Database {
     }
 
     public static Wocsinterface getWocsinterfaceMetricsForSolution(String idSolution, String experimentId) {
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Wocsinterface wocsi : exec.getAllMetrics().getWocsinterface()) {
                         if (wocsi.getIdSolution().equals(idSolution)) {
                             return wocsi;
@@ -377,9 +377,9 @@ public class Database {
     }
 
     public static Cbcs getCbcsMetricsForSolution(String idSolution, String experimentId) {
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Cbcs cbcs : exec.getAllMetrics().getCbcs()) {
                         if (cbcs.getIdSolution().equals(idSolution)) {
                             return cbcs;
@@ -394,9 +394,9 @@ public class Database {
     }
 
     public static Svc getSvcMetricsForSolution(String idSolution, String experimentId) {
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Svc svc : exec.getAllMetrics().getSvc()) {
                         if (svc.getIdSolution().equals(idSolution)) {
                             return svc;
@@ -411,9 +411,9 @@ public class Database {
     }
 
     public static Ssc getSscMetricsForSolution(String idSolution, String experimentId) {
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Ssc ssc : exec.getAllMetrics().getSsc()) {
                         if (ssc.getIdSolution().equals(idSolution)) {
                             return ssc;
@@ -428,9 +428,9 @@ public class Database {
     }
 
     public static Av getAvMetricsForSolution(String idSolution, String experimentId) {
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Av av : exec.getAllMetrics().getAv()) {
                         if (av.getIdSolution().equals(idSolution)) {
                             return av;
@@ -449,9 +449,9 @@ public class Database {
 
     public static List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> getAllWocsCMetricsForExperimentId(String experimentId) {
         List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> listFd = new ArrayList<>();
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Wocsclass m : exec.getAllMetrics().getWocsclass()) {
                         if (m.getIsAll() == 1) {
                             listFd.add(m);
@@ -468,9 +468,9 @@ public class Database {
 
     public static List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> getAllWocsIMetricsForExperimentId(String experimentId) {
         List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> listFd = new ArrayList<>();
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Wocsinterface m : exec.getAllMetrics().getWocsinterface()) {
                         if (m.getIsAll() == 1) {
                             listFd.add(m);
@@ -487,9 +487,9 @@ public class Database {
 
     public static List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> getAllCbcsMetricsForExperimentId(String experimentId) {
         List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> listFd = new ArrayList<>();
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Cbcs m : exec.getAllMetrics().getCbcs()) {
                         if (m.getIsAll() == 1) {
                             listFd.add(m);
@@ -506,9 +506,9 @@ public class Database {
 
     public static List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> getAllSvcMetricsForExperimentId(String experimentId) {
         List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> listFd = new ArrayList<>();
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Svc m : exec.getAllMetrics().getSvc()) {
                         if (m.getIsAll() == 1) {
                             listFd.add(m);
@@ -525,9 +525,9 @@ public class Database {
 
     public static List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> getAllSscMetricsForExperimentId(String experimentId) {
         List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> listFd = new ArrayList<>();
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Ssc m : exec.getAllMetrics().getSsc()) {
                         if (m.getIsAll() == 1) {
                             listFd.add(m);
@@ -544,9 +544,9 @@ public class Database {
 
     public static List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> getAllAvMetricsForExperimentId(String experimentId) {
         List<br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics> listFd = new ArrayList<>();
-        for (Experiment exp : content) {
+        for (ExperimentResults exp : content) {
             if (exp.getId().equals(experimentId)) {
-                for (Execution exec : exp.getExecutions()) {
+                for (ExecutionResults exec : exp.getExecutionResults()) {
                     for (Av m : exec.getAllMetrics().getAv()) {
                         if (m.getIsAll() == 1) {
                             listFd.add(m);

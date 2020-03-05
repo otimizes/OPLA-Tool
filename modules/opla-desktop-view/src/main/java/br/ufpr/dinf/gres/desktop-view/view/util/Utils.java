@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.domain.view.util;
 
+import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import org.apache.commons.io.FileUtils;
@@ -210,7 +211,7 @@ public class Utils {
             LOGGER.info("Banco de dados já configurado");
         }
         try {
-            br.ufpr.dinf.gres.domain.db.Database.setContent(br.ufpr.dinf.gres.core.jmetal4.results.Experiment.all());
+            br.ufpr.dinf.gres.domain.db.Database.setContent(ExperimentResults.all());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -20,8 +20,8 @@ public class SscPersistence {
     public void save(Ssc sSc) {
 
 	String executionID = "null";
-	if (sSc.getExecution() != null)
-	    executionID = sSc.getExecution().getId();
+	if (sSc.getExecutionResults() != null)
+	    executionID = sSc.getExecutionResults().getId();
 
 	StringBuilder query = new StringBuilder();
 
@@ -30,7 +30,7 @@ public class SscPersistence {
 	query.append(",");
 	query.append(executionID);
 	query.append(",");
-	if (sSc.getExecution() == null)
+	if (sSc.getExecutionResults() == null)
 	    query.append("1");
 	else
 	    query.append("0");

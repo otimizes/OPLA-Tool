@@ -1,15 +1,15 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
-import br.ufpr.dinf.gres.core.jmetal4.results.Experiment;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 
 
 public class Wocsclass extends Metrics {
 
     private float wocsclass;
 
-    public Wocsclass(String idSolution, Execution execution, Experiment experiement) {
-        super.setExecution(execution);
+    public Wocsclass(String idSolution, ExecutionResults executionResults, ExperimentResults experiement) {
+        super.setExecutionResults(executionResults);
         super.setExperiement(experiement);
         super.setIdSolution(idSolution);
     }

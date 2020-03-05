@@ -20,8 +20,8 @@ public class AvPersistence {
     public void save(Av aV) {
 
 	String executionID = "null";
-	if (aV.getExecution() != null)
-	    executionID = aV.getExecution().getId();
+	if (aV.getExecutionResults() != null)
+	    executionID = aV.getExecutionResults().getId();
 
 	StringBuilder query = new StringBuilder();
 
@@ -30,7 +30,7 @@ public class AvPersistence {
 	query.append(",");
 	query.append(executionID);
 	query.append(",");
-	if (aV.getExecution() == null)
+	if (aV.getExecutionResults() == null)
 	    query.append("1");
 	else
 	    query.append("0");

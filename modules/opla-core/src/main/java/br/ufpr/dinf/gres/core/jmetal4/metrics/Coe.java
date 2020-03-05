@@ -5,8 +5,8 @@
  */
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
-import br.ufpr.dinf.gres.core.jmetal4.results.Experiment;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 
 /**
  * @author elf
@@ -16,8 +16,8 @@ public class Coe extends Metrics {
     private Double cohesion;
     private Double lcc;
 
-    public Coe(String idSolution, Execution execution, Experiment experiement) {
-        super.setExecution(execution);
+    public Coe(String idSolution, ExecutionResults executionResults, ExperimentResults experiement) {
+        super.setExecutionResults(executionResults);
         super.setExperiement(experiement);
         super.setIdSolution(idSolution);
     }

@@ -20,8 +20,8 @@ public class WocsclassPersistence {
     public void save(Wocsclass wocsClass) {
 
 	String executionID = "null";
-	if (wocsClass.getExecution() != null)
-	    executionID = wocsClass.getExecution().getId();
+	if (wocsClass.getExecutionResults() != null)
+	    executionID = wocsClass.getExecutionResults().getId();
 
 	StringBuilder query = new StringBuilder();
 
@@ -30,7 +30,7 @@ public class WocsclassPersistence {
 	query.append(",");
 	query.append(executionID);
 	query.append(",");
-	if (wocsClass.getExecution() == null)
+	if (wocsClass.getExecutionResults() == null)
 	    query.append("1");
 	else
 	    query.append("0");

@@ -20,8 +20,8 @@ public class WocsinterfacePersistence {
     public void save(Wocsinterface wocsInterface) {
 
 	String executionID = "null";
-	if (wocsInterface.getExecution() != null)
-	    executionID = wocsInterface.getExecution().getId();
+	if (wocsInterface.getExecutionResults() != null)
+	    executionID = wocsInterface.getExecutionResults().getId();
 
 	StringBuilder query = new StringBuilder();
 
@@ -30,7 +30,7 @@ public class WocsinterfacePersistence {
 	query.append(",");
 	query.append(executionID);
 	query.append(",");
-	if (wocsInterface.getExecution() == null)
+	if (wocsInterface.getExecutionResults() == null)
 	    query.append("1");
 	else
 	    query.append("0");

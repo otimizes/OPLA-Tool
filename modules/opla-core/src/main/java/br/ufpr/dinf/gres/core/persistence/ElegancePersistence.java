@@ -22,8 +22,8 @@ public class ElegancePersistence {
     public void save(Elegance eleganceMetric) {
 
         String executionID = "null";
-        if (eleganceMetric.getExecution() != null)
-            executionID = eleganceMetric.getExecution().getId();
+        if (eleganceMetric.getExecutionResults() != null)
+            executionID = eleganceMetric.getExecutionResults().getId();
 
         StringBuilder query = new StringBuilder();
         query.append("insert into EleganceMetrics (nac,atmr,ec,elegance,execution_id, experiement_id, is_all, id_solution) values (");
@@ -39,7 +39,7 @@ public class ElegancePersistence {
         query.append(",");
         query.append(eleganceMetric.getExperiement().getId());
         query.append(",");
-        if (eleganceMetric.getExecution() == null)
+        if (eleganceMetric.getExecutionResults() == null)
             query.append("1");
         else
             query.append("0");

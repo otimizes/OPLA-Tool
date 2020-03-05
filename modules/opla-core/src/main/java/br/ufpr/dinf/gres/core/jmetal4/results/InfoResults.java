@@ -11,12 +11,12 @@ import br.ufpr.dinf.gres.core.jmetal4.util.Id;
 /**
  * @author elf
  */
-public class InfoResult {
+public class InfoResults {
 
     private String id;
     private int isAll; // informa se é referente os dados de todas as rodadas
     private String name; // INFO_PLANAME_N (where n is number of run)
-    private Execution execution;
+    private ExecutionResults executionResults;
     private String listOfConcerns; //separated by pipe |
     private Integer numberOfPackages;
     private Integer numberOfVariabilities;
@@ -29,20 +29,20 @@ public class InfoResult {
     private Integer numberOfassociationsClass;
     private Integer userEvaluation;
     private String freezedElements;
-    private Experiment experiement;
+    private ExperimentResults experiement;
     private String objectives;
 
-    public InfoResult() {
+    public InfoResults() {
         this.id = Id.generateUniqueId();
     }
 
-    public InfoResult(String id, int isAll, String name, Execution execution, String listOfConcerns, Integer numberOfPackages,
-                      Integer numberOfVariabilities, Integer numberOfClasses, Integer numberOfInterfaces, Integer numberOfDependencies,
-                      Integer numberOfAbstraction, Integer numberOfAssociations, Integer numberOfGeneralizations, Integer numberOfassociationsClass, Experiment experiement) {
+    public InfoResults(String id, int isAll, String name, ExecutionResults executionResults, String listOfConcerns, Integer numberOfPackages,
+                       Integer numberOfVariabilities, Integer numberOfClasses, Integer numberOfInterfaces, Integer numberOfDependencies,
+                       Integer numberOfAbstraction, Integer numberOfAssociations, Integer numberOfGeneralizations, Integer numberOfassociationsClass, ExperimentResults experiement) {
         this.id = id;
         this.isAll = isAll;
         this.name = name;
-        this.execution = execution;
+        this.executionResults = executionResults;
         this.listOfConcerns = listOfConcerns;
         this.numberOfPackages = numberOfPackages;
         this.numberOfVariabilities = numberOfVariabilities;
@@ -167,12 +167,12 @@ public class InfoResult {
         this.id = id;
     }
 
-    public Execution getExecution() {
-        return execution;
+    public ExecutionResults getExecutionResults() {
+        return executionResults;
     }
 
-    public void setExecution(Execution execution) {
-        this.execution = execution;
+    public void setExecutionResults(ExecutionResults executionResults) {
+        this.executionResults = executionResults;
     }
 
     public int getIsAll() {
@@ -183,11 +183,11 @@ public class InfoResult {
         this.isAll = i;
     }
 
-    public Experiment getExperiement() {
+    public ExperimentResults getExperiement() {
         return this.experiement;
     }
 
-    public void setExperiement(Experiment experiement) {
+    public void setExperiement(ExperimentResults experiement) {
         this.experiement = experiement;
     }
 

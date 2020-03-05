@@ -18,10 +18,10 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetrics;
 import br.ufpr.dinf.gres.core.persistence.*;
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
-import br.ufpr.dinf.gres.core.jmetal4.results.Experiment;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.InfoResult;
+import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
 
 import java.io.File;
 import java.sql.Connection;
@@ -81,7 +81,7 @@ public class PAES_OPLA_FeatMut {
                 this.configs.getLogger().putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
 
-            Experiment experiement = mp.createExperimentOnDb(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
+            ExperimentResults experiement = mp.createExperimentOnDb(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "PAES", configs);
             conf.save();
 
@@ -134,8 +134,8 @@ public class PAES_OPLA_FeatMut {
 
                 // Cria uma execução. Cada execução está ligada a um
                 // experiemento.
-                Execution execution = new Execution(experiement);
-                setDirToSaveOutput(experiement.getId(), execution.getId());
+                ExecutionResults executionResults = new ExecutionResults(experiement);
+                setDirToSaveOutput(experiement.getId(), executionResults.getId());
 
                 // Execute the Algorithm
                 long initTime = System.currentTimeMillis();
@@ -146,21 +146,21 @@ public class PAES_OPLA_FeatMut {
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                execution.setTime(estimatedTime);
+                executionResults.setTime(estimatedTime);
 
-                List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), execution, experiement);
-                List<InfoResult> infoResults = result.getInformations(resultFront.getSolutionSet(), execution, experiement, funResults);
-                AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), execution, experiement, selectedObjectiveFunctions);
+                List<FunResults> funResults = result.getObjectives(resultFront.getSolutionSet(), executionResults, experiement);
+                List<InfoResults> infoResults = result.getInformations(resultFront.getSolutionSet(), executionResults, experiement, funResults);
+                AllMetrics allMetrics = result.getMetrics(funResults, resultFront.getSolutionSet(), executionResults, experiement, selectedObjectiveFunctions);
 
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", funResults, this.configs.getLogger(), true);
 
-                execution.setFuns(funResults);
-                execution.setInfos(infoResults);
-                execution.setAllMetrics(allMetrics);
+                executionResults.setFuns(funResults);
+                executionResults.setInfos(infoResults);
+                executionResults.setAllMetrics(allMetrics);
 
                 ExecutionPersistence persistence = new ExecutionPersistence(allMetricsPersistenceDependencies);
                 try {
-                    persistence.persist(execution);
+                    persistence.persist(executionResults);
                     persistence = null;
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -171,7 +171,7 @@ public class PAES_OPLA_FeatMut {
                 //Util.copyFolder(experiement.getId(), execution.getId());
                 //Util.moveAllFilesToExecutionDirectory(experiementId, execution.getId());
 
-                saveHypervolume(experiement.getId(), execution.getId(), resultFront, plaName);
+                saveHypervolume(experiement.getId(), executionResults.getId(), resultFront, plaName);
 
             }
 
@@ -185,7 +185,7 @@ public class PAES_OPLA_FeatMut {
 
             mp.saveFunAll(funResults);
 
-            List<InfoResult> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement, funResults);
+            List<InfoResults> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement, funResults);
             mp.saveInfoAll(infoResults);
 
             AllMetrics allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,

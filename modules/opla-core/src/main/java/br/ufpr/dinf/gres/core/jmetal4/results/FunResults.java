@@ -13,9 +13,9 @@ public class FunResults {
     private String id;
     private String name;
     private String solution_name; // mesmo nome do arquivo da br.ufpr.dinf.gres.arquitetura gerado
-    private Execution execution;
+    private ExecutionResults executionResults;
     private int isAll;
-    private Experiment experiement;
+    private ExperimentResults experiement;
     /**
      * Objectives are stored on a single attribute, the values are separated by
      * pipe ("|").
@@ -26,11 +26,11 @@ public class FunResults {
         this.id = Id.generateUniqueId();
     }
 
-    public FunResults(String id, String name, String solution_name, Execution execution, int isAll, Experiment experiement, String objectives) {
+    public FunResults(String id, String name, String solution_name, ExecutionResults executionResults, int isAll, ExperimentResults experiement, String objectives) {
         this.id = id;
         this.name = name;
         this.solution_name = solution_name;
-        this.execution = execution;
+        this.executionResults = executionResults;
         this.isAll = isAll;
         this.experiement = experiement;
         this.objectives = objectives;
@@ -59,12 +59,12 @@ public class FunResults {
         return this.id;
     }
 
-    public Execution getExecution() {
-        return this.execution;
+    public ExecutionResults getExecutionResults() {
+        return this.executionResults;
     }
 
-    public void setExecution(Execution execution) {
-        this.execution = execution;
+    public void setExecutionResults(ExecutionResults executionResults) {
+        this.executionResults = executionResults;
     }
 
     public String getName() {
@@ -89,11 +89,11 @@ public class FunResults {
         this.isAll = isAll;
     }
 
-    public Experiment getExperiement() {
+    public ExperimentResults getExperiement() {
         return this.experiement;
     }
 
-    public void setExperiement(Experiment experiement) {
+    public void setExperiement(ExperimentResults experiement) {
         this.experiement = experiement;
     }
 

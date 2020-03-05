@@ -22,7 +22,7 @@ import java.util.*;
  *
  * @author elf
  */
-public class Experiment {
+public class ExperimentResults {
 
     private String id;
     private String name;
@@ -30,7 +30,7 @@ public class Experiment {
     private String algorithm;
     private String createdAt;
     private String hash;
-    private Collection<Execution> executions;
+    private Collection<ExecutionResults> executionResults;
 
     /**
      * Use this if you don't cares about id generated. Otherwise use setters
@@ -39,7 +39,7 @@ public class Experiment {
      * @param description
      * @throws Exception
      */
-    public Experiment(String name, String algorithm, String description) throws Exception {
+    public ExperimentResults(String name, String algorithm, String description) throws Exception {
         this.name = name;
         this.algorithm = algorithm;
         this.description = description;
@@ -47,7 +47,7 @@ public class Experiment {
         this.createdAt = setCreatedAt();
     }
 
-    public Experiment(String name, String algorithm, String description, String hash) throws Exception {
+    public ExperimentResults(String name, String algorithm, String description, String hash) throws Exception {
         this.name = name;
         this.algorithm = algorithm;
         this.description = description;
@@ -64,14 +64,14 @@ public class Experiment {
      * <p>
      * <code>Database.setURL("path/to/br.ufpr.dinf.gres.oplatool.db/file");</code>>
      *
-     * @return {@link List} of {@link Experiment}
+     * @return {@link List} of {@link ExperimentResults}
      * @throws SQLException
      * @throws Exception
      */
-    public static List<Experiment> all() throws SQLException, Exception {
+    public static List<ExperimentResults> all() throws SQLException, Exception {
 
         String attrs[] = {"id", "name", "algorithm", "created_at", "description", "hash"};
-        List<Experiment> experiements = new ArrayList<Experiment>();
+        List<ExperimentResults> experiements = new ArrayList<ExperimentResults>();
         ResultSet r = null;
         Connection connection = Database.getConnection();
         Statement staementExperiement = connection.createStatement();
@@ -79,11 +79,11 @@ public class Experiment {
         r = staementExperiement.executeQuery("select * from experiments");
 
         while (r.next()) {
-            Experiment exp = new Experiment(r.getString(attrs[1]), r.getString(attrs[2]), r.getString(attrs[3]));
+            ExperimentResults exp = new ExperimentResults(r.getString(attrs[1]), r.getString(attrs[2]), r.getString(attrs[3]));
             exp.setId(r.getString(attrs[0]));
-            Collection<Execution> execs = buildExecutions(r.getString(attrs[0]), exp, connection);
+            Collection<ExecutionResults> execs = buildExecutions(r.getString(attrs[0]), exp, connection);
             exp.setCreatedAt(r.getString(attrs[3]));
-            exp.setExecutions(execs);
+            exp.setExecutionResults(execs);
             exp.setDescription(r.getString(attrs[4]));
             exp.setHash(r.getString(attrs[5]));
             experiements.add(exp);
@@ -95,21 +95,21 @@ public class Experiment {
         return experiements;
     }
 
-    private static Collection<Execution> buildExecutions(String experiementId, Experiment exp, Connection connection)
+    private static Collection<ExecutionResults> buildExecutions(String experiementId, ExperimentResults exp, Connection connection)
             throws Exception {
         Statement statamentExecution = connection.createStatement();
 
         ResultSet r = statamentExecution
                 .executeQuery("select * from executions where experiement_id = " + experiementId);
-        List<Execution> execs = new ArrayList<Execution>();
+        List<ExecutionResults> execs = new ArrayList<ExecutionResults>();
 
         while (r.next()) {
             AllMetrics allMetrics = new AllMetrics();
-            Execution exec = new Execution(exp);
+            ExecutionResults exec = new ExecutionResults(exp);
 
             exec.setId(r.getString("id"));
             List<FunResults> funs = buildFuns(connection, exp, exec);
-            List<InfoResult> infos = buildInfos(connection, exp, exec);
+            List<InfoResults> infos = buildInfos(connection, exp, exec);
 
             allMetrics.setConventional(buildConventionalMetrics(connection, exec, exp));
             allMetrics.setElegance(buildEleganceMetrics(connection, exec, exp));
@@ -128,7 +128,7 @@ public class Experiment {
         return Collections.unmodifiableCollection(execs);
     }
 
-    private static List<PLAExtensibility> buildPlaExtensibility(Connection connection, Execution exec, Experiment exp)
+    private static List<PLAExtensibility> buildPlaExtensibility(Connection connection, ExecutionResults exec, ExperimentResults exp)
             throws SQLException {
         Statement plaExtStatement = connection.createStatement();
         StringBuilder query = new StringBuilder();
@@ -154,7 +154,7 @@ public class Experiment {
         return plaExtensibilities;
     }
 
-    private static List<FeatureDriven> buildFeatureDrivenMetrics(Connection connection, Execution exec, Experiment exp)
+    private static List<FeatureDriven> buildFeatureDrivenMetrics(Connection connection, ExecutionResults exec, ExperimentResults exp)
             throws Exception {
 
         Statement featureDrivenStatement = connection.createStatement();
@@ -190,7 +190,7 @@ public class Experiment {
         return featuresDriven;
     }
 
-    private static List<Elegance> buildEleganceMetrics(Connection connection, Execution exec, Experiment exp)
+    private static List<Elegance> buildEleganceMetrics(Connection connection, ExecutionResults exec, ExperimentResults exp)
             throws SQLException {
         Statement eleganceStatement = connection.createStatement();
 
@@ -216,13 +216,13 @@ public class Experiment {
         return elegances;
     }
 
-    private static List<Conventional> buildConventionalMetrics(Connection connection, Execution execution,
-                                                               Experiment experiement) throws SQLException {
+    private static List<Conventional> buildConventionalMetrics(Connection connection, ExecutionResults executionResults,
+                                                               ExperimentResults experiement) throws SQLException {
         Statement conventionalStatement = connection.createStatement();
 
         StringBuilder query = new StringBuilder();
         query.append("select * from ConventionalMetrics where execution_id = ");
-        query.append(execution.getId());
+        query.append(executionResults.getId());
         query.append(" OR (execution_id='' AND experiement_id=");
         query.append(experiement.getId());
         query.append(")");
@@ -231,7 +231,7 @@ public class Experiment {
         List<Conventional> conventionals = new ArrayList<Conventional>();
 
         while (resultSetConventional.next()) {
-            Conventional conventional = new Conventional(resultSetConventional.getString("id_solution"), execution,
+            Conventional conventional = new Conventional(resultSetConventional.getString("id_solution"), executionResults,
                     experiement);
             conventional.setSumCohesion(getResultParseDouble(resultSetConventional, "sum_cohesion"));
             conventional.setCohesion(getResultParseDouble(resultSetConventional, "cohesion"));
@@ -251,10 +251,10 @@ public class Experiment {
 
     }
 
-    private static List<InfoResult> buildInfos(Connection connection, Experiment exp, Execution exec)
+    private static List<InfoResults> buildInfos(Connection connection, ExperimentResults exp, ExecutionResults exec)
             throws SQLException {
         Statement infosStatement = connection.createStatement();
-        List<InfoResult> infos = new ArrayList<InfoResult>();
+        List<InfoResults> infos = new ArrayList<InfoResults>();
 
         StringBuilder query = new StringBuilder();
         query.append("select * from infos where execution_id=");
@@ -266,8 +266,8 @@ public class Experiment {
         ResultSet resultSetInfos = infosStatement.executeQuery(query.toString());
 
         while (resultSetInfos.next()) {
-            InfoResult info = new InfoResult();
-            info.setExecution(exec);
+            InfoResults info = new InfoResults();
+            info.setExecutionResults(exec);
             info.setExperiement(exp);
             info.setId(resultSetInfos.getString("id"));
             info.setName(resultSetInfos.getString("name"));
@@ -306,7 +306,7 @@ public class Experiment {
         return null;
     }
 
-    private static List<FunResults> buildFuns(Connection connection, Experiment exp, Execution exec)
+    private static List<FunResults> buildFuns(Connection connection, ExperimentResults exp, ExecutionResults exec)
             throws SQLException {
         Statement funStatement = connection.createStatement();
 
@@ -323,7 +323,7 @@ public class Experiment {
         while (resultSetFuns.next()) {
             FunResults fun = new FunResults();
             fun.setExperiement(exp);
-            fun.setExecution(exec);
+            fun.setExecutionResults(exec);
             fun.setIsAll(Integer.parseInt(resultSetFuns.getString("is_all")));
             fun.setObjectives(resultSetFuns.getString("objectives"));
 
@@ -419,12 +419,12 @@ public class Experiment {
         return dt.format(new Date()).toString();
     }
 
-    public Collection<Execution> getExecutions() {
-        return executions;
+    public Collection<ExecutionResults> getExecutionResults() {
+        return executionResults;
     }
 
-    public void setExecutions(Collection<Execution> execs) {
-        this.executions = execs;
+    public void setExecutionResults(Collection<ExecutionResults> execs) {
+        this.executionResults = execs;
     }
 
     public String getHash() {

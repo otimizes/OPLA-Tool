@@ -3,10 +3,10 @@ package br.ufpr.dinf.gres.core.persistence;
 import br.ufpr.dinf.gres.core.jmetal4.database.Database;
 import br.ufpr.dinf.gres.common.exceptions.MissingConfigurationException;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.*;
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
-import br.ufpr.dinf.gres.core.jmetal4.results.Experiment;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.InfoResult;
+import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
 import br.ufpr.dinf.gres.core.jmetal4.util.Id;
 
 import java.sql.SQLException;
@@ -21,10 +21,10 @@ public class MetricsPersistence {
         this.allMetricsPersistenceDependencies = allMetricsPersistenceDependencies;
     }
 
-    public void saveInfoAll(List<InfoResult> infoResults) {
+    public void saveInfoAll(List<InfoResults> infoResults) {
         InfosResultPersistence infosPersistence = new InfosResultPersistence( this.allMetricsPersistenceDependencies.getConnection());
         try {
-            for (InfoResult info : infoResults)
+            for (InfoResults info : infoResults)
                 infosPersistence.persistInfoDatas(info);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,10 +44,10 @@ public class MetricsPersistence {
         funsPersistence = null;
     }
 
-    public Experiment createExperimentOnDb(String PLAName, String algorithm, String description, String hash) {
-        Experiment experiement = null;
+    public ExperimentResults createExperimentOnDb(String PLAName, String algorithm, String description, String hash) {
+        ExperimentResults experiement = null;
         try {
-            experiement = new Experiment(PLAName, algorithm, description, hash);
+            experiement = new ExperimentResults(PLAName, algorithm, description, hash);
             experiement.save();
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,18 +55,18 @@ public class MetricsPersistence {
         return experiement;
     }
 
-    public void persisteMetrics(Execution execution) {
-        persisteElegance(execution.getAllMetrics().getElegance());
-        persisteFeatureDriven(execution.getAllMetrics().getFeatureDriven());
-        persisteConventional(execution.getAllMetrics().getConventional());
-        persistePlaExtensibility(execution.getAllMetrics().getPlaExtensibility());
+    public void persisteMetrics(ExecutionResults executionResults) {
+        persisteElegance(executionResults.getAllMetrics().getElegance());
+        persisteFeatureDriven(executionResults.getAllMetrics().getFeatureDriven());
+        persisteConventional(executionResults.getAllMetrics().getConventional());
+        persistePlaExtensibility(executionResults.getAllMetrics().getPlaExtensibility());
         //addYni
-        persisteWocsclass(execution.getAllMetrics().getWocsclass());
-        persisteWocsinterface(execution.getAllMetrics().getWocsinterface());
-        persisteCbcs(execution.getAllMetrics().getCbcs());
-        persisteSsc(execution.getAllMetrics().getSsc());
-        persisteSvc(execution.getAllMetrics().getSvc());
-        persisteAv(execution.getAllMetrics().getAv());
+        persisteWocsclass(executionResults.getAllMetrics().getWocsclass());
+        persisteWocsinterface(executionResults.getAllMetrics().getWocsinterface());
+        persisteCbcs(executionResults.getAllMetrics().getCbcs());
+        persisteSsc(executionResults.getAllMetrics().getSsc());
+        persisteSvc(executionResults.getAllMetrics().getSvc());
+        persisteAv(executionResults.getAllMetrics().getAv());
         //addYni
     }
 

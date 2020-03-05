@@ -5,10 +5,10 @@ import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.*;
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
-import br.ufpr.dinf.gres.core.jmetal4.results.Experiment;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.InfoResult;
+import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,10 +33,10 @@ public class Result {
      *
      * @param list
      * @param experiement
-     * @param execution
+     * @param executionResults
      * @return
      */
-    public List<FunResults> getObjectives(List<Solution> list, Execution execution, Experiment experiement) {
+    public List<FunResults> getObjectives(List<Solution> list, ExecutionResults executionResults, ExperimentResults experiement) {
 
         List<FunResults> funResults = new ArrayList<FunResults>();
 
@@ -45,9 +45,9 @@ public class Result {
 
             FunResults funResult = new FunResults();
             funResult.setName(plaName + "_" + funResult.getId());
-            funResult.setExecution(execution);
+            funResult.setExecutionResults(executionResults);
             funResult.setExperiement(experiement);
-            if (execution == null)
+            if (executionResults == null)
                 funResult.setIsAll(1);
             funResult.setObjectives(sb.replaceAll("\\s+", ""));
             funResults.add(funResult);
@@ -56,10 +56,10 @@ public class Result {
         return funResults;
     }
 
-    public List<InfoResult> getInformations(List<Solution> solutionsList, Execution execution,
-                                            Experiment experiement, List<FunResults> funResults) {
+    public List<InfoResults> getInformations(List<Solution> solutionsList, ExecutionResults executionResults,
+                                             ExperimentResults experiement, List<FunResults> funResults) {
 
-        List<InfoResult> infoResults = new ArrayList<InfoResult>();
+        List<InfoResults> infoResults = new ArrayList<InfoResults>();
 
         for (int i = 0; i < solutionsList.size(); i++) {
             int numberOfVariables = solutionsList.get(0).getDecisionVariables().length;
@@ -67,10 +67,10 @@ public class Result {
             for (int j = 0; j < numberOfVariables; j++) {
                 Architecture arch = (Architecture) solutionsList.get(i).getDecisionVariables()[j];
 
-                InfoResult ir = new InfoResult();
-                ir.setExecution(execution);
+                InfoResults ir = new InfoResults();
+                ir.setExecutionResults(executionResults);
                 ir.setExperiement(experiement);
-                if (execution == null)
+                if (executionResults == null)
                     ir.setIsAll(1);
                 ir.setName(plaName + "_" + funResults.get(i).getId());
                 ir.setListOfConcerns(getListOfConcerns(arch.getAllConcerns()));
@@ -107,7 +107,7 @@ public class Result {
         return concernsList.substring(0, concernsList.length() - 1);
     }
 
-    public AllMetrics getMetrics(List<FunResults> funResults, List<Solution> list, Execution execution, Experiment experiement, List<String> objectiveFuncs) {
+    public AllMetrics getMetrics(List<FunResults> funResults, List<Solution> list, ExecutionResults executionResults, ExperimentResults experiement, List<String> objectiveFuncs) {
 
         MetricsEvaluation metrics = new MetricsEvaluation();
         AllMetrics allMetrics = new AllMetrics();
@@ -118,38 +118,38 @@ public class Result {
                 Architecture arch = (Architecture) list.get(i).getDecisionVariables()[j];
                 String idSolution = funResults.get(i).getId();
                 if (objectiveFuncs.contains("elegance"))
-                    allMetrics.getElegance().add(buildEleganceMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getElegance().add(buildEleganceMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("PLAExtensibility"))
-                    allMetrics.getPlaExtensibility().add(buildPLAExtensibilityMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getPlaExtensibility().add(buildPLAExtensibilityMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("conventional"))
-                    allMetrics.getConventional().add(buildConventionalMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getConventional().add(buildConventionalMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("featureDriven"))
-                    allMetrics.getFeatureDriven().add(buildFeatureDrivenMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getFeatureDriven().add(buildFeatureDrivenMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("acomp"))
-                    allMetrics.getAcomp().add(buildAcompMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getAcomp().add(buildAcompMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("aclass"))
-                    allMetrics.getAclass().add(buildAclassMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getAclass().add(buildAclassMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("tam"))
-                    allMetrics.getTam().add(buildTamMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getTam().add(buildTamMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("coe"))
-                    allMetrics.getCoe().add(buildCoeMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getCoe().add(buildCoeMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("dc"))
-                    allMetrics.getDc().add(buildDcMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getDc().add(buildDcMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("ec"))
-                    allMetrics.getEc().add(buildEcMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getEc().add(buildEcMetrics(idSolution, executionResults, experiement, metrics, arch));
                 //addYni
                 if (objectiveFuncs.contains("wocsc"))
-                    allMetrics.getWocsclass().add(buildWocsclassMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getWocsclass().add(buildWocsclassMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("wocsi"))
-                    allMetrics.getWocsinterface().add(buildWocsinterfaceMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getWocsinterface().add(buildWocsinterfaceMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("cbcs"))
-                    allMetrics.getCbcs().add(buildCbcsMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getCbcs().add(buildCbcsMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("ssc"))
-                    allMetrics.getSsc().add(buildSscMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getSsc().add(buildSscMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("svc"))
-                    allMetrics.getSvc().add(buildSvcMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getSvc().add(buildSvcMetrics(idSolution, executionResults, experiement, metrics, arch));
                 if (objectiveFuncs.contains("av"))
-                    allMetrics.getAv().add(buildAvMetrics(idSolution, execution, experiement, metrics, arch));
+                    allMetrics.getAv().add(buildAvMetrics(idSolution, executionResults, experiement, metrics, arch));
 
                 //addYni
             }
@@ -158,10 +158,10 @@ public class Result {
         return allMetrics;
     }
 
-    private FeatureDriven buildFeatureDrivenMetrics(String idSolution, Execution execution, Experiment experiement,
+    private FeatureDriven buildFeatureDrivenMetrics(String idSolution, ExecutionResults executionResults, ExperimentResults experiement,
                                                     MetricsEvaluation metrics, Architecture arch) {
 
-        FeatureDriven fd = new FeatureDriven(idSolution, execution, experiement);
+        FeatureDriven fd = new FeatureDriven(idSolution, executionResults, experiement);
 
         fd.setCdac(metrics.evaluateCDAC(arch));
         fd.setCdai(metrics.evaluateCDAI(arch));
@@ -177,10 +177,10 @@ public class Result {
         return fd;
     }
 
-    private Conventional buildConventionalMetrics(String idSolution, Execution execution, Experiment experiement,
+    private Conventional buildConventionalMetrics(String idSolution, ExecutionResults executionResults, ExperimentResults experiement,
                                                   MetricsEvaluation metrics, Architecture arch) {
 
-        Conventional conventional = new Conventional(idSolution, execution, experiement);
+        Conventional conventional = new Conventional(idSolution, executionResults, experiement);
 
         conventional.setSumCohesion(metrics.evaluateCohesion(arch));
         conventional.setCohesion(metrics.evaluateICohesion(conventional.getSumChoesion()));
@@ -194,19 +194,19 @@ public class Result {
         return conventional;
     }
 
-    private PLAExtensibility buildPLAExtensibilityMetrics(String idSolution, Execution execution,
-                                                          Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+    private PLAExtensibility buildPLAExtensibilityMetrics(String idSolution, ExecutionResults executionResults,
+                                                          ExperimentResults experiement, MetricsEvaluation metrics, Architecture arch) {
 
-        PLAExtensibility plaExtensibility = new PLAExtensibility(idSolution, execution, experiement);
+        PLAExtensibility plaExtensibility = new PLAExtensibility(idSolution, executionResults, experiement);
         plaExtensibility.setPlaExtensibility(metrics.evaluatePLAExtensibility(arch));
 
         return plaExtensibility;
     }
 
-    private Elegance buildEleganceMetrics(String idSolution, Execution execution, Experiment experiement,
+    private Elegance buildEleganceMetrics(String idSolution, ExecutionResults executionResults, ExperimentResults experiement,
                                           MetricsEvaluation metrics, Architecture arch) {
 
-        Elegance elegance = new Elegance(idSolution, execution, experiement);
+        Elegance elegance = new Elegance(idSolution, executionResults, experiement);
         elegance.setNac(metrics.evaluateNACElegance(arch));
         elegance.setAtmr(metrics.evaluateATMRElegance(arch));
         elegance.setEc(metrics.evaluateECElegance(arch));
@@ -214,10 +214,10 @@ public class Result {
         return elegance;
     }
 
-    private Acomp buildAcompMetrics(String idSolution, Execution execution, Experiment experiement,
+    private Acomp buildAcompMetrics(String idSolution, ExecutionResults executionResults, ExperimentResults experiement,
                                     MetricsEvaluation metrics, Architecture arch) {
 
-        Acomp acomp = new Acomp(idSolution, execution, experiement);
+        Acomp acomp = new Acomp(idSolution, executionResults, experiement);
 
         acomp.setSumDepIn(metrics.evaluateSumDepIn(arch));
         acomp.setSumDepOut(metrics.evaluateSumDepOut(arch));
@@ -225,10 +225,10 @@ public class Result {
         return acomp;
     }
 
-    private Aclass buildAclassMetrics(String idSolution, Execution execution, Experiment experiement,
+    private Aclass buildAclassMetrics(String idSolution, ExecutionResults executionResults, ExperimentResults experiement,
                                       MetricsEvaluation metrics, Architecture arch) {
 
-        Aclass aclass = new Aclass(idSolution, execution, experiement);
+        Aclass aclass = new Aclass(idSolution, executionResults, experiement);
 
         aclass.setSumClassesDepIn(metrics.evaluateSumClassesDepIn(arch));
         aclass.setSumClassesDepOut(metrics.evaluateSumClassesDepOut(arch));
@@ -236,20 +236,20 @@ public class Result {
         return aclass;
     }
 
-    private Tam buildTamMetrics(String idSolution, Execution execution, Experiment experiement,
+    private Tam buildTamMetrics(String idSolution, ExecutionResults executionResults, ExperimentResults experiement,
                                 MetricsEvaluation metrics, Architecture arch) {
 
-        Tam tam = new Tam(idSolution, execution, experiement);
+        Tam tam = new Tam(idSolution, executionResults, experiement);
 
         tam.setMeanNumOps(metrics.evaluateMeanNumOps(arch));
 
         return tam;
     }
 
-    private Coe buildCoeMetrics(String idSolution, Execution execution, Experiment experiement,
+    private Coe buildCoeMetrics(String idSolution, ExecutionResults executionResults, ExperimentResults experiement,
                                 MetricsEvaluation metrics, Architecture arch) {
 
-        Coe coe = new Coe(idSolution, execution, experiement);
+        Coe coe = new Coe(idSolution, executionResults, experiement);
 
         coe.setLcc(metrics.evaluateLCC(arch));
         coe.setCohesion(metrics.evaluateCohesion(arch));
@@ -258,10 +258,10 @@ public class Result {
         return coe;
     }
 
-    private Dc buildDcMetrics(String idSolution, Execution execution, Experiment experiement,
+    private Dc buildDcMetrics(String idSolution, ExecutionResults executionResults, ExperimentResults experiement,
                               MetricsEvaluation metrics, Architecture arch) {
 
-        Dc dc = new Dc(idSolution, execution, experiement);
+        Dc dc = new Dc(idSolution, executionResults, experiement);
 
         dc.setCdai(metrics.evaluateCDAI(arch));
         dc.setCdao(metrics.evaluateCDAO(arch));
@@ -271,10 +271,10 @@ public class Result {
         return dc;
     }
 
-    private Ec buildEcMetrics(String idSolution, Execution execution, Experiment experiement,
+    private Ec buildEcMetrics(String idSolution, ExecutionResults executionResults, ExperimentResults experiement,
                               MetricsEvaluation metrics, Architecture arch) {
 
-        Ec ec = new Ec(idSolution, execution, experiement);
+        Ec ec = new Ec(idSolution, executionResults, experiement);
 
         ec.setCibc(metrics.evaluateCIBC(arch));
         ec.setIibc(metrics.evaluateIIBC(arch));
@@ -287,57 +287,57 @@ public class Result {
     //addYni
 
 
-    private Wocsclass buildWocsclassMetrics(String idSolution, Execution execution,
-                                            Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+    private Wocsclass buildWocsclassMetrics(String idSolution, ExecutionResults executionResults,
+                                            ExperimentResults experiement, MetricsEvaluation metrics, Architecture arch) {
 
-        Wocsclass wocsClass = new Wocsclass(idSolution, execution, experiement);
+        Wocsclass wocsClass = new Wocsclass(idSolution, executionResults, experiement);
         wocsClass.setWocsClass(metrics.evaluateWocsClass(arch));
 
         return wocsClass;
     }
 
-    private Wocsinterface buildWocsinterfaceMetrics(String idSolution, Execution execution,
-                                                    Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+    private Wocsinterface buildWocsinterfaceMetrics(String idSolution, ExecutionResults executionResults,
+                                                    ExperimentResults experiement, MetricsEvaluation metrics, Architecture arch) {
 
-        Wocsinterface wocsInterface = new Wocsinterface(idSolution, execution, experiement);
+        Wocsinterface wocsInterface = new Wocsinterface(idSolution, executionResults, experiement);
         wocsInterface.setWocsInterface(metrics.evaluateWocsInterface(arch));
 
         return wocsInterface;
     }
 
-    private Cbcs buildCbcsMetrics(String idSolution, Execution execution,
-                                  Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+    private Cbcs buildCbcsMetrics(String idSolution, ExecutionResults executionResults,
+                                  ExperimentResults experiement, MetricsEvaluation metrics, Architecture arch) {
 
-        Cbcs cBcs = new Cbcs(idSolution, execution, experiement);
+        Cbcs cBcs = new Cbcs(idSolution, executionResults, experiement);
         cBcs.setCbcs(metrics.evaluateWocsInterface(arch));
 
         return cBcs;
     }
 
-    private Ssc buildSscMetrics(String idSolution, Execution execution,
-                                Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+    private Ssc buildSscMetrics(String idSolution, ExecutionResults executionResults,
+                                ExperimentResults experiement, MetricsEvaluation metrics, Architecture arch) {
 
-        Ssc sSc = new Ssc(idSolution, execution, experiement);
+        Ssc sSc = new Ssc(idSolution, executionResults, experiement);
         sSc.setSsc(metrics.evaluateWocsInterface(arch));
 
         return sSc;
     }
 
 
-    private Svc buildSvcMetrics(String idSolution, Execution execution,
-                                Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+    private Svc buildSvcMetrics(String idSolution, ExecutionResults executionResults,
+                                ExperimentResults experiement, MetricsEvaluation metrics, Architecture arch) {
 
-        Svc sVc = new Svc(idSolution, execution, experiement);
+        Svc sVc = new Svc(idSolution, executionResults, experiement);
         sVc.setSvc(metrics.evaluateWocsInterface(arch));
 
         return sVc;
     }
 
 
-    private Av buildAvMetrics(String idSolution, Execution execution,
-                              Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
+    private Av buildAvMetrics(String idSolution, ExecutionResults executionResults,
+                              ExperimentResults experiement, MetricsEvaluation metrics, Architecture arch) {
 
-        Av aV = new Av(idSolution, execution, experiement);
+        Av aV = new Av(idSolution, executionResults, experiement);
         aV.setAv(metrics.evaluateWocsInterface(arch));
 
         return aV;

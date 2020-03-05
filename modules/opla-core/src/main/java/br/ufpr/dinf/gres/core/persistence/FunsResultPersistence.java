@@ -28,8 +28,8 @@ public class FunsResultPersistence {
         StringBuilder query = new StringBuilder();
 
         String executionId = "null";
-        if (funs.getExecution() != null)
-            executionId = funs.getExecution().getId();
+        if (funs.getExecutionResults() != null)
+            executionId = funs.getExecutionResults().getId();
 
         query.append("insert into objectives (id, execution_id, objectives, is_all, experiement_id, solution_name) values (");
         query.append(funs.getId());

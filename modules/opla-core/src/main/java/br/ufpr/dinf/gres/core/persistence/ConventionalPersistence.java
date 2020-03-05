@@ -20,8 +20,8 @@ public class ConventionalPersistence {
     public void save(Conventional conventional) {
 
         String executionID = "null";
-        if (conventional.getExecution() != null)
-            executionID = conventional.getExecution().getId();
+        if (conventional.getExecutionResults() != null)
+            executionID = conventional.getExecutionResults().getId();
 
         StringBuilder query = new StringBuilder();
 
@@ -50,7 +50,7 @@ public class ConventionalPersistence {
         query.append(",");
         query.append(executionID);
         query.append(",");
-        if (conventional.getExecution() == null)
+        if (conventional.getExecutionResults() == null)
             query.append("1");
         else
             query.append("0");

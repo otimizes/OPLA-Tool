@@ -20,8 +20,8 @@ public class SvcPersistence {
     public void save(Svc sVc) {
 
 	String executionID = "null";
-	if (sVc.getExecution() != null)
-	    executionID = sVc.getExecution().getId();
+	if (sVc.getExecutionResults() != null)
+	    executionID = sVc.getExecutionResults().getId();
 
 	StringBuilder query = new StringBuilder();
 
@@ -30,7 +30,7 @@ public class SvcPersistence {
 	query.append(",");
 	query.append(executionID);
 	query.append(",");
-	if (sVc.getExecution() == null)
+	if (sVc.getExecutionResults() == null)
 	    query.append("1");
 	else
 	    query.append("0");

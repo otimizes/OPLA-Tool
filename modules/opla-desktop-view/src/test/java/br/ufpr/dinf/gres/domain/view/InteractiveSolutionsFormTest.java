@@ -9,10 +9,10 @@ import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.core.persistence.AllMetricsPersistenceDependency;
 import br.ufpr.dinf.gres.core.persistence.MetricsPersistence;
-import br.ufpr.dinf.gres.core.jmetal4.results.Execution;
-import br.ufpr.dinf.gres.core.jmetal4.results.Experiment;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
+import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.FunResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.InfoResult;
+import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
 import br.ufpr.dinf.gres.core.learning.ExperimentTest;
 
 import java.io.IOException;
@@ -46,27 +46,27 @@ public class InteractiveSolutionsFormTest {
             throw new RuntimeException();
         }
 
-        Experiment experiment = mp.createExperimentOnDb("AGM", "NSGAII", "", OPLAThreadScope.hash.get());
-        Execution execution = new Execution(experiment);
-        execution.setFuns(new ArrayList<>());
-        execution.setInfos(new ArrayList<>());
+        ExperimentResults experimentResults = mp.createExperimentOnDb("AGM", "NSGAII", "", OPLAThreadScope.hash.get());
+        ExecutionResults executionResults = new ExecutionResults(experimentResults);
+        executionResults.setFuns(new ArrayList<>());
+        executionResults.setInfos(new ArrayList<>());
 
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_03062019.csv");
         SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, null, 1L);
         solutionSet.getSolutionSet().forEach(solution -> {
-            execution.getFuns().add(new FunResults(
+            executionResults.getFuns().add(new FunResults(
                     solution.getExecutionId().toString(),
                     "FUN_" + solution.getSolutionName(),
                     solution.getSolutionName(),
-                    execution,
+                    executionResults,
                     0,
-                    experiment,
+                    experimentResults,
                     ""
             ));
-            execution.getInfos().add(new InfoResult(solution.getExecutionId().toString(),
+            executionResults.getInfos().add(new InfoResults(solution.getExecutionId().toString(),
                     1,
                     "1",
-                    execution,
+                    executionResults,
                     "",
                     1,
                     1,
@@ -77,7 +77,7 @@ public class InteractiveSolutionsFormTest {
                     1,
                     1,
                     1,
-                    experiment));
+                    experimentResults));
         });
         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.KMEANS, solutionSet);
     }
@@ -103,27 +103,27 @@ public class InteractiveSolutionsFormTest {
             throw new RuntimeException();
         }
 
-        Experiment experiment = mp.createExperimentOnDb("AGM", "NSGAII", "", OPLAThreadScope.hash.get());
-        Execution execution = new Execution(experiment);
-        execution.setFuns(new ArrayList<>());
-        execution.setInfos(new ArrayList<>());
+        ExperimentResults experimentResults = mp.createExperimentOnDb("AGM", "NSGAII", "", OPLAThreadScope.hash.get());
+        ExecutionResults executionResults = new ExecutionResults(experimentResults);
+        executionResults.setFuns(new ArrayList<>());
+        executionResults.setInfos(new ArrayList<>());
 
         List<Objective> objectives = ExperimentTest.getObjectivesFromFile("agm_objectives_03062019.csv");
         SolutionSet solutionSet = ExperimentTest.getSolutionSetFromObjectiveListTest(objectives, null, 0L);
         solutionSet.getSolutionSet().forEach(solution -> {
-            execution.getFuns().add(new FunResults(
+            executionResults.getFuns().add(new FunResults(
                     solution.getExecutionId().toString(),
                     "FUN_" + solution.getSolutionName(),
                     solution.getSolutionName(),
-                    execution,
+                    executionResults,
                     0,
-                    experiment,
+                    experimentResults,
                     ""
             ));
-            execution.getInfos().add(new InfoResult(solution.getExecutionId().toString(),
+            executionResults.getInfos().add(new InfoResults(solution.getExecutionId().toString(),
                     1,
                     "1",
-                    execution,
+                    executionResults,
                     "",
                     1,
                     1,
@@ -134,7 +134,7 @@ public class InteractiveSolutionsFormTest {
                     1,
                     1,
                     1,
-                    experiment));
+                    experimentResults));
         });
         InteractiveSolutions interactiveSolutions = new InteractiveSolutions(managerApplicationConfig, ClusteringAlgorithm.KMEANS, solutionSet);
     }
