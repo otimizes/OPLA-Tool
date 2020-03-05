@@ -1,4 +1,7 @@
 # Changelog
+## [1.0.1] - 2020-03-05
+### Added
+- feature-driven mutation correction (problem with empty and loose interfaces).
 ## [1.0.0] - 2018-11-29
 ### Added
 - Clustering Algorithm KMeans and Dbscan
