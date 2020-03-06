@@ -19,40 +19,27 @@ import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
-import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.core.learning.Moment;
-import br.ufpr.dinf.gres.core.persistence.DistanceEuclideanPersistence;
-import br.ufpr.dinf.gres.core.persistence.ExecutionPersistence;
 import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
 import br.ufpr.dinf.gres.loglog.Level;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
-public class NSGAII_OPLA_FeatMut {
+@Service
+public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig> {
 
     private static final Logger LOGGER = Logger.getLogger(NSGAII_OPLA_FeatMut.class);
 
-    private int populationSize;
-    private int maxEvaluations;
-    private double mutationProbability;
-    private double crossoverProbability;
-    private Persistence mp;
-    private Result result;
-    private NSGAIIConfig configs;
-    private String experiementId;
-    private int numberObjectives;
-    private ClusteringAlgorithm clusteringAlgorithm;
+    private final Persistence mp;
 
-    public NSGAII_OPLA_FeatMut(NSGAIIConfig config) {
-        this.configs = config;
-    }
 
-    public NSGAII_OPLA_FeatMut() {
+    public NSGAII_OPLA_FeatMut(Persistence mp) {
+        this.mp = mp;
     }
 
     private static String getPlaName(String pla) {
@@ -61,25 +48,14 @@ public class NSGAII_OPLA_FeatMut {
         return pla.substring(beginIndex, endIndex);
     }
 
-    public void setConfigs(NSGAIIConfig configs) {
-        this.configs = configs;
-    }
+    public void execute(NSGAIIConfig configs) throws Exception {
 
-    public void execute() throws Exception {
-
-        intializeDependencies();
-
-        int runsNumber = this.configs.getNumberOfRuns();
-        populationSize = this.configs.getPopulationSize();
-        maxEvaluations = this.configs.getMaxEvaluation();
-        crossoverProbability = this.configs.getCrossoverProbability();
-        mutationProbability = this.configs.getMutationProbability();
-        this.numberObjectives = this.configs.getOplaConfigs().getNumberOfObjectives();
-        this.clusteringAlgorithm = this.configs.getClusteringAlgorithm();
+        Database.setPathToDB(configs.getPathToDb());
+        String experiementId = null;
 
         String context = "OPLA";
 
-        String plas[] = this.configs.getPlas().split(",");
+        String[] plas = configs.getPlas().split(",");
         String xmiFilePath;
 
         for (String pla : plas) {
@@ -90,80 +66,73 @@ public class NSGAII_OPLA_FeatMut {
             LOGGER.info("Nome da PLA: " + plaName);
 
             try {
-                problem = new OPLA(xmiFilePath, this.configs);
+                problem = new OPLA(xmiFilePath, configs);
             } catch (Exception e) {
                 LOGGER.error(e);
                 e.printStackTrace();
-                this.configs.getLogger()
+                configs.getLogger()
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
 
+            LOGGER.info("Inicializando dependências");
+            Result result = new Result();
+            Database.setPathToDB(configs.getPathToDb());
+
             ExperimentResults experiement = mp.createExperimentOnDb(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "NSGAII", configs);
-            conf.save();
+            mp.create(conf);
             LOGGER.info("Salvou configurações do experimento");
 
-            Algorithm algorithm;
-            SolutionSet todasRuns = new SolutionSet();
 
-            Crossover crossover;
-            Mutation mutation;
-            Selection selection;
-
-            HashMap<String, Object> parameters;
-
-            algorithm = new NSGAII(problem);
-
-            // Algorithm parameters
-            algorithm.setInputParameter("populationSize", populationSize);
-            algorithm.setInputParameter("maxEvaluations", maxEvaluations);
-            algorithm.setInputParameter("interactiveFunction", this.configs.getInteractiveFunction());
-            algorithm.setInputParameter("maxInteractions", this.configs.getMaxInteractions());
-            algorithm.setInputParameter("firstInteraction", this.configs.getFirstInteraction());
-            algorithm.setInputParameter("intervalInteraction", this.configs.getIntervalInteraction());
-            algorithm.setInputParameter("interactive", this.configs.getInteractive());
-            algorithm.setInputParameter("clusteringMoment", this.configs.getClusteringMoment());
-            algorithm.setInputParameter("clusteringAlgorithm", this.configs.getClusteringAlgorithm());
+            SolutionSet allRuns = new SolutionSet();
+            Algorithm algorithm = new NSGAII(problem);
+            algorithm.setInputParameter("populationSize", configs.getNumberOfRuns());
+            algorithm.setInputParameter("maxEvaluations", configs.getMaxEvaluation());
+            algorithm.setInputParameter("interactiveFunction", configs.getInteractiveFunction());
+            algorithm.setInputParameter("maxInteractions", configs.getMaxInteractions());
+            algorithm.setInputParameter("firstInteraction", configs.getFirstInteraction());
+            algorithm.setInputParameter("intervalInteraction", configs.getIntervalInteraction());
+            algorithm.setInputParameter("interactive", configs.getInteractive());
+            algorithm.setInputParameter("clusteringMoment", configs.getClusteringMoment());
+            algorithm.setInputParameter("clusteringAlgorithm", configs.getClusteringAlgorithm());
 
             // Mutation and Crossover
-            parameters = new HashMap<String, Object>();
-            parameters.put("probability", crossoverProbability);
-            parameters.put("numberOfObjectives", numberObjectives);
-            crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parameters, configs);
-
-            parameters = new HashMap<String, Object>();
-            parameters.put("probability", mutationProbability);
-            mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parameters, this.configs);
-
-            // Selection Operator
-            parameters = null;
-            selection = SelectionFactory.getSelectionOperator("BinaryTournament", parameters);
-
-            // Add the operators to the algorithm
+            HashMap<String, Object> parametersCrossover = new HashMap<>();
+            parametersCrossover.put("probability", configs.getCrossoverProbability());
+            parametersCrossover.put("numberOfObjectives", configs.getOplaConfigs().getNumberOfObjectives());
+            Crossover crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parametersCrossover, configs);
             algorithm.addOperator("crossover", crossover);
+
+            HashMap<String, Object> parametersMutation = new HashMap<>();
+            parametersMutation.put("probability", configs.getMutationProbability());
+            Mutation mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parametersMutation, configs);
             algorithm.addOperator("mutation", mutation);
+
+            Selection selection = SelectionFactory.getSelectionOperator("BinaryTournament", null);
             algorithm.addOperator("selection", selection);
 
-            if (this.configs.isLog())
-                logInforamtions(context, pla);
 
-            List<String> selectedObjectiveFunctions = this.configs.getOplaConfigs().getSelectedObjectiveFunctions();
+            if (configs.isLog())
+                logInforamtions(context, pla, configs, configs.getPopulationSize(), configs.getMaxEvaluations(),
+                        configs.getCrossoverProbability(), configs.getMutationProbability());
+
+            List<String> selectedObjectiveFunctions = configs.getOplaConfigs().getSelectedObjectiveFunctions();
             mp.saveObjectivesNames(selectedObjectiveFunctions, experiement.getId());
             LOGGER.info("Salvou funções objetivo selecionadas");
 
 
             result.setPlaName(plaName);
 
-            long time[] = new long[runsNumber];
+            long[] time = new long[configs.getNumberOfRuns()];
 
-            for (int runs = 0; runs < runsNumber; runs++) {
+            for (int runs = 0; runs < configs.getNumberOfRuns(); runs++) {
 
                 // Cria uma execução. Cada execução está ligada a um
                 // experiemento.
                 ExecutionResults executionResults = new ExecutionResults(experiement);
                 executionResults.setRuns(runs);
-                setDirToSaveOutput(experiement.getId(), executionResults.getId());
+                CommonOPLAFeatMut.setDirToSaveOutput(experiementId, executionResults.getId());
 
                 // Execute the Algorithm
                 long initTime = System.currentTimeMillis();
@@ -179,25 +148,19 @@ public class NSGAII_OPLA_FeatMut {
                         experiement, selectedObjectiveFunctions);
                 executionResults.setTime(estimatedTime);
 
-                if (Moment.POSTERIORI.equals(this.configs.getClusteringMoment())) {
-                    this.configs.getInteractiveFunction().run(resultFront);
+                if (Moment.POSTERIORI.equals(configs.getClusteringMoment())) {
+                    configs.getInteractiveFunction().run(resultFront);
                 }
 
-                resultFront.saveVariablesToFile("VAR_" + runs + "_", infoResults, this.configs.getLogger(), true);
+                resultFront.saveVariablesToFile("VAR_" + runs + "_", infoResults, configs.getLogger(), true);
 
                 executionResults.setInfos(infoResults);
                 executionResults.setAllMetrics(allMetrics);
 
-                ExecutionPersistence persistence = new ExecutionPersistence();
-                try {
-                    persistence.persist(executionResults);
-                    persistence = null;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                mp.persist(executionResults);
 
                 // armazena as solucoes de todas runs
-                todasRuns = todasRuns.union(resultFront);
+                allRuns = allRuns.union(resultFront);
 
                 // Util.copyFolder(experiement.getId(), execution.getId());
                 // Util.moveAllFilesToExecutionDirectory(experiementId,
@@ -206,52 +169,51 @@ public class NSGAII_OPLA_FeatMut {
                 saveHypervolume(experiement.getId(), executionResults.getId(), resultFront, plaName);
             }
 
-            todasRuns = problem.removeDominadas(todasRuns);
-            todasRuns = problem.removeRepetidas(todasRuns);
+            allRuns = problem.removeDominadas(allRuns);
+            allRuns = problem.removeRepetidas(allRuns);
 
-            this.configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
-            List<InfoResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
+            configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
+            List<InfoResults> funResults = result.getObjectives(allRuns.getSolutionSet(), null, experiement);
 
-            if (runsNumber > 1) {
+            if (configs.getNumberOfRuns() > 1) {
                 LOGGER.info("saveVariablesToFile()");
-                todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
+                allRuns.saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
             }
 
 
-            List<InfoResults> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
+            List<InfoResults> infoResults = result.getInformations(allRuns.getSolutionSet(), null, experiement);
             mp.saveInfoAll(infoResults);
             LOGGER.info("saveInfoAll()");
 
-            AllMetrics allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,
+            AllMetrics allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiement,
                     selectedObjectiveFunctions);
-            mp.persisteMetrics(allMetrics, this.configs.getOplaConfigs().getSelectedObjectiveFunctions());
+            mp.persisteMetrics(allMetrics, configs.getOplaConfigs().getSelectedObjectiveFunctions());
             LOGGER.info("getMetrics()");
-            mp = null;
 
-            setDirToSaveOutput(experiement.getId(), null);
+            CommonOPLAFeatMut.setDirToSaveOutput(experiementId, null);
 
             LOGGER.info("DistanceEuclideanPersistence.calculate()");
             CalculaEd c = new CalculaEd();
-            DistanceEuclideanPersistence.save(c.calcula(this.experiementId, this.numberObjectives), this.experiementId);
+            mp.savedistance(c.calcula(experiementId, configs.getOplaConfigs().getNumberOfObjectives()), experiementId);
             infoResults = null;
             funResults = null;
 
             // Util.moveAllFilesToExecutionDirectory(experiementId, null);
             LOGGER.info("saveHypervolume()");
-            saveHypervolume(experiement.getId(), null, todasRuns, plaName);
+            saveHypervolume(experiement.getId(), null, allRuns, plaName);
         }
 
         // Util.moveResourceToExperimentFolder(this.experiementId);
 
     }
 
-    private void logInforamtions(String context, String pla) {
-        logarPainel(context, pla);
-        logarConsole(context, pla);
+    private void logInforamtions(String context, String pla, NSGAIIConfig configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
+        logarPainel(context, pla, configs, populationSize, maxEvaluations, crossoverProbability, mutationProbability);
+        logarConsole(context, pla, configs, populationSize, maxEvaluations, crossoverProbability, mutationProbability);
 
     }
 
-    private void logarPainel(String context, String pla) {
+    private void logarPainel(String context, String pla, NSGAIIConfig configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
         configs.getLogger().putLog("\n================ NSGAII ================", Level.INFO);
         configs.getLogger().putLog("Context: " + context, Level.INFO);
         configs.getLogger().putLog("PLA: " + pla, Level.INFO);
@@ -266,7 +228,7 @@ public class NSGAII_OPLA_FeatMut {
         configs.getLogger().putLog("Heap Size: " + heapSize + "Mb\n");
     }
 
-    private void logarConsole(String context, String pla) {
+    private void logarConsole(String context, String pla, NSGAIIConfig configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
         LOGGER.info("================ NSGAII ================");
         LOGGER.info("Context: " + context);
         LOGGER.info("PLA: " + pla);
@@ -278,25 +240,6 @@ public class NSGAII_OPLA_FeatMut {
         LOGGER.info("================ NSGAII ================");
     }
 
-    private void intializeDependencies() {
-        LOGGER.info("Inicializando dependências");
-        result = new Result();
-        Database.setPathToDB(this.configs.getPathToDb());
-
-        try {
-            mp = new Persistence();
-        } catch (Exception e) {
-            LOGGER.error(e);
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
-
-    }
-
-    private void setDirToSaveOutput(String experimentID, String executionID) {
-        this.experiementId = experimentID;
-        CommonOPLAFeatMut.setDirToSaveOutput(experimentID, executionID);
-    }
 
     private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
         String dir;

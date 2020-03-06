@@ -1,31 +1,29 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
-public class NSGAII_OPLA_FeatMutInitializer implements AlgorithmBase {
-	private static final Logger LOGGER = Logger.getLogger(NSGAII_OPLA_FeatMutInitializer.class);
+@Service
+public class NSGAII_OPLA_FeatMutInitializer implements AlgorithmBase<NSGAIIConfig> {
+    private static final Logger LOGGER = Logger.getLogger(NSGAII_OPLA_FeatMutInitializer.class);
 
-	private NSGAIIConfig config;
+    private final NSGAII_OPLA_FeatMut nsgaiiFeatMut;
 
-	public NSGAII_OPLA_FeatMutInitializer(NSGAIIConfig config) {
-		this.config = config;
-	}
+    public NSGAII_OPLA_FeatMutInitializer(NSGAII_OPLA_FeatMut nsgaiiFeatMut) {
+        this.nsgaiiFeatMut = nsgaiiFeatMut;
+    }
 
-	@Override
-	public void run() {
-		NSGAII_OPLA_FeatMut nsgaiiFeatMut = new NSGAII_OPLA_FeatMut();
-		nsgaiiFeatMut.setConfigs(this.config);
-		try {
-
-			LOGGER.info("execute()");
-			nsgaiiFeatMut.execute();
-			LOGGER.info("Finished");
-		} catch (Exception e) {
-			LOGGER.error(e);
-			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
-
-		}
-	}
+    @Override
+    public void run(NSGAIIConfig experimentCommomConfigs) {
+        try {
+            LOGGER.info("execute()");
+            nsgaiiFeatMut.execute(experimentCommomConfigs);
+            LOGGER.info("Finished");
+        } catch (Exception e) {
+            LOGGER.error(e);
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 
 }

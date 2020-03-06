@@ -38,9 +38,8 @@ public class ExperimentResults implements IPersistentDto<Experiment> {
      *
      * @param name
      * @param description
-     * @throws Exception
      */
-    public ExperimentResults(String name, String algorithm, String description) throws Exception {
+    public ExperimentResults(String name, String algorithm, String description) {
         this.name = name;
         this.algorithm = algorithm;
         this.description = description;
@@ -48,7 +47,7 @@ public class ExperimentResults implements IPersistentDto<Experiment> {
         this.createdAt = setCreatedAt();
     }
 
-    public ExperimentResults(String name, String algorithm, String description, String hash) throws Exception {
+    public ExperimentResults(String name, String algorithm, String description, String hash) {
         this.name = name;
         this.algorithm = algorithm;
         this.description = description;
@@ -179,7 +178,14 @@ public class ExperimentResults implements IPersistentDto<Experiment> {
     }
 
     @Override
-    public Experiment newPersistentInstance(IPersistentDto persistentDto) {
-        return null;
+    public Experiment newPersistentInstance() {
+        Experiment experiment = new Experiment();
+        experiment.setAlgorithm(this.getAlgorithm());
+        experiment.setCreatedAt(this.getCreatedAt());
+        experiment.setDescription(this.getDescription());
+        experiment.setHash(this.getHash());
+        experiment.setId(Long.valueOf(this.getId()));
+        experiment.setName(this.getName());
+        return experiment;
     }
 }

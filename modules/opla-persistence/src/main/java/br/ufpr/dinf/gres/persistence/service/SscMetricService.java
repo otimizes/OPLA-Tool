@@ -6,10 +6,10 @@ import br.ufpr.dinf.gres.persistence.repository.SscMetricRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SscMetricRepositoryService extends BaseService<SscMetric> {
+public class SscMetricService extends BaseService<SscMetric> {
 
 
-    public SscMetricRepositoryService(SscMetricRepository repository) {
+    public SscMetricService(SscMetricRepository repository) {
         super(repository);
     }
 }

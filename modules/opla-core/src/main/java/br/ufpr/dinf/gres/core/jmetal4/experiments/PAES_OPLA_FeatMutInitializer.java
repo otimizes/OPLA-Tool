@@ -1,19 +1,20 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
-public class PAES_OPLA_FeatMutInitializer implements AlgorithmBase {
+import org.springframework.stereotype.Service;
 
-    private PaesConfigs config;
+@Service
+public class PAES_OPLA_FeatMutInitializer implements AlgorithmBase<PaesConfigs> {
 
-    public PAES_OPLA_FeatMutInitializer(PaesConfigs config) {
-        this.config = config;
+    private final PAES_OPLA_FeatMut paes;
+
+    public PAES_OPLA_FeatMutInitializer(PAES_OPLA_FeatMut paes) {
+        this.paes = paes;
     }
 
     @Override
-    public void run() {
-        PAES_OPLA_FeatMut paes = new PAES_OPLA_FeatMut(this.config);
-
+    public void run(PaesConfigs config) {
         try {
-            paes.execute();
+            paes.execute(config);
         } catch (Exception e) {
             e.printStackTrace();
         }

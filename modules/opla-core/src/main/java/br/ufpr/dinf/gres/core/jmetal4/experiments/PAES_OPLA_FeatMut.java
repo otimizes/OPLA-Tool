@@ -19,11 +19,10 @@ import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
-import br.ufpr.dinf.gres.core.persistence.DistanceEuclideanPersistence;
-import br.ufpr.dinf.gres.core.persistence.ExecutionPersistence;
 import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
 import br.ufpr.dinf.gres.loglog.Level;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.sql.Connection;
@@ -31,7 +30,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
-public class PAES_OPLA_FeatMut {
+@Service
+public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
 
     public static int populationSize;
     public static int maxEvaluations;
@@ -46,8 +46,7 @@ public class PAES_OPLA_FeatMut {
     private String experiementId;
     private int numberObjectives;
 
-    public PAES_OPLA_FeatMut(PaesConfigs config) {
-        this.configs = config;
+    public PAES_OPLA_FeatMut() {
     }
 
     private static String getPlaName(String pla) {
@@ -56,7 +55,7 @@ public class PAES_OPLA_FeatMut {
         return pla.substring(beginIndex, endIndex);
     }
 
-    public void execute() throws Exception {
+    public void execute(PaesConfigs configs) throws Exception {
 
         intializeDependencies();
 
@@ -84,7 +83,7 @@ public class PAES_OPLA_FeatMut {
 
             ExperimentResults experiement = mp.createExperimentOnDb(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "PAES", configs);
-            conf.save();
+            mp.create(conf);
 
             Algorithm algorithm;
             SolutionSet todasRuns = new SolutionSet();
@@ -157,13 +156,7 @@ public class PAES_OPLA_FeatMut {
                 executionResults.setInfos(infoResults);
                 executionResults.setAllMetrics(allMetrics);
 
-                ExecutionPersistence persistence = new ExecutionPersistence();
-                try {
-                    persistence.persist(executionResults);
-                    persistence = null;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                mp.persist(executionResults);
                 // armazena as solucoes de todas runs
                 todasRuns = todasRuns.union(resultFront);
 
@@ -194,7 +187,7 @@ public class PAES_OPLA_FeatMut {
             setDirToSaveOutput(experiement.getId(), null);
 
             CalculaEd c = new CalculaEd();
-            DistanceEuclideanPersistence.save(c.calcula(this.experiementId, this.numberObjectives), this.experiementId);
+            mp.savedistance(c.calcula(this.experiementId, this.numberObjectives), this.experiementId);
             infoResults = null;
             funResults = null;
 

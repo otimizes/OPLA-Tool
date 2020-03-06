@@ -7,11 +7,13 @@
 package br.ufpr.dinf.gres.core.jmetal4.results;
 
 import br.ufpr.dinf.gres.core.jmetal4.util.Id;
+import br.ufpr.dinf.gres.core.persistence.IPersistentDto;
+import br.ufpr.dinf.gres.domain.entity.Info;
 
 /**
  * @author elf
  */
-public class InfoResults {
+public class InfoResults implements IPersistentDto<Info> {
 
     private String id;
     private int isAll; // informa se é referente os dados de todas as rodadas
@@ -236,6 +238,31 @@ public class InfoResults {
 
     public void setObjectives(String objectives) {
         this.objectives = objectives;
+    }
+
+    @Override
+    public Info newPersistentInstance() {
+        Info info = new Info();
+        info.setNumberOfAssociationsClass(this.getNumberOfassociationsClass());
+        info.setNumberOfAssociations(this.getNumberOfAssociations());
+        info.setNumberOfAbstractions(this.getNumberOfAbstraction());
+        info.setExperiment(this.getExperiement().newPersistentInstance());
+        info.setExecution(this.getExecutionResults().newPersistentInstance());
+        info.setFreezedElements(this.getFreezedElements());
+        info.setId(Integer.valueOf(this.getId()));
+        info.setIsAll(this.getIsAll());
+        info.setName(this.getName());
+        info.setUserEvaluation(this.getUserEvaluation());
+        info.setListOfConcerns(this.getListOfConcerns());
+        info.setNumberOfClasses(this.getNumberOfClasses());
+        info.setNumberOfDependencies(this.getNumberOfDependencies());
+        info.setNumberOfVariabilities(this.getNumberOfVariabilities());
+        info.setNumberOfPackages(this.getNumberOfPackages());
+        info.setNumberOfInterfaces(this.getNumberOfInterfaces());
+        info.setObjectives(this.getObjectives());
+        info.setNumberOfGeneralizations(this.getNumberOfGeneralizations());
+        info.setNumberOfVariabilities(this.getNumberOfVariabilities());
+        return info;
     }
 
 }

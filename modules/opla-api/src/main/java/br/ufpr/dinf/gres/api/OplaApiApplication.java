@@ -38,13 +38,18 @@ import java.nio.file.Paths;
 })
 @ComponentScan(basePackages = {
         "br.ufpr.dinf.gres.api.resource",
-        "br.ufpr.dinf.gres.persistence.service"
+        "br.ufpr.dinf.gres.persistence.service",
+        "br.ufpr.dinf.gres.core.jmetal4.experiments",
+        "br.ufpr.dinf.gres.core.persistence"
 })
 @EnableAsync
 public class OplaApiApplication {
 
-    @Autowired
-    Environment env;
+    private final Environment env;
+
+    public OplaApiApplication(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource dataSource() {

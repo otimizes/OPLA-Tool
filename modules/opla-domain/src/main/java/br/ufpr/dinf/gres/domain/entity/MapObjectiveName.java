@@ -29,7 +29,7 @@ public class MapObjectiveName implements Serializable {
 	@Transient
 	private BigDecimal value;
 
-	protected MapObjectiveName() {
+	public MapObjectiveName() {
 		// Empty
 	}
 

@@ -18,6 +18,7 @@ public class ExecutionResults implements IPersistentDto<Execution> {
     private ExperimentResults experimentResults;
     private long time = 0l;
     private int runs;
+    private String description;
 
     public ExecutionResults(ExperimentResults experimentResults) {
         setId(Id.generateUniqueId());
@@ -82,9 +83,21 @@ public class ExecutionResults implements IPersistentDto<Execution> {
     public void setExperimentResults(ExperimentResults experimentResults) {
         this.experimentResults = experimentResults;
     }
-
     @Override
-    public Execution newPersistentInstance(IPersistentDto persistentDto) {
-        return null;
+    public Execution newPersistentInstance() {
+        Execution execution = new Execution();
+        execution.setId(Long.valueOf(this.getId()));
+        execution.setTime(this.getTime());
+        execution.setDescription(this.getDescription());
+        execution.setExperiment(this.getExperiement().newPersistentInstance());
+        return execution;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

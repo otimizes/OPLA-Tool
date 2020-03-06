@@ -20,6 +20,14 @@ public class OptimizationService {
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(OptimizationService.class);
     private static final LogLog VIEW_LOGGER = Logger.getLogger();
 
+    private final NSGAII_OPLA_FeatMutInitializer nsgaii;
+
+    private final PAES_OPLA_FeatMutInitializer paes;
+
+    public OptimizationService(NSGAII_OPLA_FeatMutInitializer nsgaii, PAES_OPLA_FeatMutInitializer paes) {
+        this.nsgaii = nsgaii;
+        this.paes = paes;
+    }
 
     public Mono<OptimizationInfo> executeNSGAII(OptimizationDto optimizationDto) {
         Thread thread = new Thread(() -> {
@@ -126,13 +134,11 @@ public class OptimizationService {
         // Add as confs de OPLA na classe de configuracoes gerais.
         configs.setOplaConfigs(oplaConfig);
 
-        // Utiliza a classe Initializer do NSGAII passando as configs.
-        NSGAII_OPLA_FeatMutInitializer nsgaii = new NSGAII_OPLA_FeatMutInitializer(configs);
 
         // Executa
         LOGGER.info("Execução NSGAII");
         try {
-            nsgaii.run();
+            nsgaii.run(configs);
         } catch (Exception e) {
             e.printStackTrace();
             OPLALogs.lastLogs.get(OPLAThreadScope.mainThreadId.get()).clear();
@@ -200,12 +206,9 @@ public class OptimizationService {
         //Add as confs de OPLA na classe de configuracoes gerais.
         configs.setOplaConfigs(oplaConfig);
 
-        //Utiliza a classe Initializer do NSGAII passando as configs.
-        PAES_OPLA_FeatMutInitializer paes = new PAES_OPLA_FeatMutInitializer(configs);
-
         //Executa
         try {
-            paes.run();
+            paes.run(configs);
         } catch (Exception e) {
             e.printStackTrace();
             OPLALogs.lastLogs.get(OPLAThreadScope.mainThreadId.get()).clear();
