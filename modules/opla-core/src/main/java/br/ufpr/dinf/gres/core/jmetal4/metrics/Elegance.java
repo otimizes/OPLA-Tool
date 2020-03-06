@@ -2,8 +2,10 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
+import br.ufpr.dinf.gres.core.persistence.IPersistentDto;
+import br.ufpr.dinf.gres.domain.entity.metric.EleganceMetric;
 
-public class Elegance extends Metrics {
+public class Elegance extends Metrics implements IPersistentDto<EleganceMetric> {
 
     private double nac;
     private double atmr;
@@ -50,5 +52,18 @@ public class Elegance extends Metrics {
                 ", atmr=" + atmr +
                 ", ec=" + ec +
                 "]";
+    }
+
+    @Override
+    public EleganceMetric newPersistentInstance() {
+        EleganceMetric metric = new EleganceMetric();
+        metric.setExecution(this.getExecutionResults().newPersistentInstance());
+        metric.setExperiment(this.getExperiement().newPersistentInstance());
+        metric.setId(Long.valueOf(this.getIdSolution()));
+        metric.setIsAll(this.getIsAll());
+        metric.setAtmr(String.valueOf(this.getAtmr()));
+        metric.setEc(String.valueOf(this.getEc()));
+        metric.setNac(String.valueOf(this.getNac()));
+        return metric;
     }
 }

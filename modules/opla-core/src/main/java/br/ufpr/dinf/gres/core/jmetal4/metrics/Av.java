@@ -5,8 +5,10 @@ import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
+import br.ufpr.dinf.gres.core.persistence.IPersistentDto;
+import br.ufpr.dinf.gres.domain.entity.metric.AvMetric;
 
-public class Av extends Metrics {
+public class Av extends Metrics implements IPersistentDto<AvMetric> {
 
     private double av;
     private int results;
@@ -19,66 +21,65 @@ public class Av extends Metrics {
         super.setIdSolution(idSolution);
     }
 
-	private Architecture architecture;
+    private Architecture architecture;
 
 
-	private int cantComponetvariable(Architecture architecture){
+    private int cantComponetvariable(Architecture architecture) {
 
-		//private int tcompvariable;
-		int cantvcomponet = 0;
+        //private int tcompvariable;
+        int cantvcomponet = 0;
 
-		for(Package pacote : this.architecture.getAllPackages()){
+        for (Package pacote : this.architecture.getAllPackages()) {
 
-			int variablecomp = 0;
+            int variablecomp = 0;
 
-			for(Element elemento : pacote.getElements()){
+            for (Element elemento : pacote.getElements()) {
 
-				if(elemento.getVariationPoint() != null){
-					variablecomp = 1;
-				}
-			}
+                if (elemento.getVariationPoint() != null) {
+                    variablecomp = 1;
+                }
+            }
 
-			if (variablecomp == 1){
-				cantvcomponet++;
-			}
-		}
+            if (variablecomp == 1) {
+                cantvcomponet++;
+            }
+        }
 
-		return cantvcomponet;
-	}
-
-
-	public Av(Architecture architecture){
-		this.architecture = architecture;
-		int compvariable = cantComponetvariable(this.architecture);
-
-		for(Package pacote : this.architecture.getAllPackages()){
-
-			int compcomposto = 0;
-
-			for(Element elemento : pacote.getElements()){
-
-				if(elemento.getTypeElement().equals("package")){
-
-					compcomposto++;
-
-				}
-			}
-
-			if(compcomposto != 0){
-				this.a = compcomposto;
-			}else{
-				this.a = compvariable;
-			}
-		}
-
-		this.results = compvariable + this.a;
-	}
+        return cantvcomponet;
+    }
 
 
+    public Av(Architecture architecture) {
+        this.architecture = architecture;
+        int compvariable = cantComponetvariable(this.architecture);
 
-	public int getResults() {
-		return results;
-	}
+        for (Package pacote : this.architecture.getAllPackages()) {
+
+            int compcomposto = 0;
+
+            for (Element elemento : pacote.getElements()) {
+
+                if (elemento.getTypeElement().equals("package")) {
+
+                    compcomposto++;
+
+                }
+            }
+
+            if (compcomposto != 0) {
+                this.a = compcomposto;
+            } else {
+                this.a = compvariable;
+            }
+        }
+
+        this.results = compvariable + this.a;
+    }
+
+
+    public int getResults() {
+        return results;
+    }
 
     public double getAv() {
         return av;
@@ -89,4 +90,14 @@ public class Av extends Metrics {
     }
 
 
+    @Override
+    public AvMetric newPersistentInstance() {
+        AvMetric metric = new AvMetric();
+        metric.setExecution(this.getExecutionResults().newPersistentInstance());
+        metric.setExperiment(this.getExperiement().newPersistentInstance());
+        metric.setId(Long.valueOf(this.getIdSolution()));
+        metric.setIsAll(this.getIsAll());
+        metric.setAv(String.valueOf(this.getAv()));
+        return metric;
+    }
 }

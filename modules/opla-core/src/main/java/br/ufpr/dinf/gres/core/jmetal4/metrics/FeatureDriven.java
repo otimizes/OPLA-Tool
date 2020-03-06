@@ -2,11 +2,13 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
+import br.ufpr.dinf.gres.core.persistence.IPersistentDto;
+import br.ufpr.dinf.gres.domain.entity.metric.FeatureDrivenMetric;
 
 /**
  * @author elf
  */
-public class FeatureDriven extends Metrics {
+public class FeatureDriven extends Metrics implements IPersistentDto<FeatureDrivenMetric> {
 
     private double cdac;
     private double cdai;
@@ -128,5 +130,25 @@ public class FeatureDriven extends Metrics {
                 ", cdaClass=" + cdaClass +
                 ", cibClass=" + cibClass +
                 " ]";
+    }
+
+    @Override
+    public FeatureDrivenMetric newPersistentInstance() {
+        FeatureDrivenMetric metric = new FeatureDrivenMetric();
+        metric.setExecution(this.getExecutionResults().newPersistentInstance());
+        metric.setExperiment(this.getExperiement().newPersistentInstance());
+        metric.setId(Long.valueOf(this.getIdSolution()));
+        metric.setIsAll(this.getIsAll());
+        metric.setCdac(String.valueOf(this.getCdac()));
+        metric.setCdaClass(String.valueOf(this.getCdaClass()));
+        metric.setCdai(String.valueOf(this.getCdai()));
+        metric.setCdao(String.valueOf(this.getCdao()));
+        metric.setCibClass(String.valueOf(this.getCibClass()));
+        metric.setCibc(String.valueOf(this.getCibc()));
+        metric.setLcc(String.valueOf(this.getLcc()));
+        metric.setLccClass(String.valueOf(this.getLccClass()));
+        metric.setIibc(String.valueOf(this.getIibc()));
+        metric.setOobc(String.valueOf(this.getOobc()));
+        return metric;
     }
 }

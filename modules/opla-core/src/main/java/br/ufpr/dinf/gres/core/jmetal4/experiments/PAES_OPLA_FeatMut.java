@@ -45,8 +45,10 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
     private PaesConfigs configs;
     private String experiementId;
     private int numberObjectives;
+    private final CalculaEd c;
 
-    public PAES_OPLA_FeatMut() {
+    public PAES_OPLA_FeatMut(CalculaEd c) {
+        this.c = c;
     }
 
     private static String getPlaName(String pla) {
@@ -81,9 +83,9 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
                 this.configs.getLogger().putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
 
-            ExperimentResults experiement = mp.createExperimentOnDb(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
+            ExperimentResults experiement = mp.saveExperiment(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "PAES", configs);
-            mp.create(conf);
+            mp.save(conf);
 
             Algorithm algorithm;
             SolutionSet todasRuns = new SolutionSet();
@@ -156,7 +158,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
                 executionResults.setInfos(infoResults);
                 executionResults.setAllMetrics(allMetrics);
 
-                mp.persist(executionResults);
+                mp.save(executionResults);
                 // armazena as solucoes de todas runs
                 todasRuns = todasRuns.union(resultFront);
 
@@ -181,13 +183,12 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
 
             AllMetrics allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,
                     selectedObjectiveFunctions);
-            mp.persisteMetrics(allMetrics, this.configs.getOplaConfigs().getSelectedObjectiveFunctions());
+            mp.save(allMetrics, this.configs.getOplaConfigs().getSelectedObjectiveFunctions());
             mp = null;
 
             setDirToSaveOutput(experiement.getId(), null);
 
-            CalculaEd c = new CalculaEd();
-            mp.savedistance(c.calcula(this.experiementId, this.numberObjectives), this.experiementId);
+            mp.saveDistance(c.calcula(this.experiementId, this.numberObjectives), this.experiementId);
             infoResults = null;
             funResults = null;
 

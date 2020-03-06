@@ -38,30 +38,6 @@ public class InfoResults implements IPersistentDto<Info> {
         this.id = Id.generateUniqueId();
     }
 
-    public InfoResults(String id, int isAll, String name, ExecutionResults executionResults, String listOfConcerns, Integer numberOfPackages,
-                       Integer numberOfVariabilities, Integer numberOfClasses, Integer numberOfInterfaces, Integer numberOfDependencies,
-                       Integer numberOfAbstraction, Integer numberOfAssociations, Integer numberOfGeneralizations, Integer numberOfassociationsClass, ExperimentResults experiement) {
-        this.id = id;
-        this.isAll = isAll;
-        this.name = name;
-        this.executionResults = executionResults;
-        this.listOfConcerns = listOfConcerns;
-        this.numberOfPackages = numberOfPackages;
-        this.numberOfVariabilities = numberOfVariabilities;
-        this.numberOfClasses = numberOfClasses;
-        this.numberOfInterfaces = numberOfInterfaces;
-        this.numberOfDependencies = numberOfDependencies;
-        this.numberOfAbstraction = numberOfAbstraction;
-        this.numberOfAssociations = numberOfAssociations;
-        this.numberOfGeneralizations = numberOfGeneralizations;
-        this.numberOfassociationsClass = numberOfassociationsClass;
-        this.experiement = experiement;
-    }
-
-    public InfoResults(String toString, String s, String solutionName, ExecutionResults executionResults, int i, ExperimentResults experimentResults, String s1) {
-
-    }
-
     public String getListOfConcerns() {
         return listOfConcerns;
     }
@@ -247,9 +223,9 @@ public class InfoResults implements IPersistentDto<Info> {
         info.setNumberOfAssociations(this.getNumberOfAssociations());
         info.setNumberOfAbstractions(this.getNumberOfAbstraction());
         info.setExperiment(this.getExperiement().newPersistentInstance());
-        info.setExecution(this.getExecutionResults().newPersistentInstance());
+        if (this.getExecutionResults() != null) info.setExecution(this.getExecutionResults().newPersistentInstance());
         info.setFreezedElements(this.getFreezedElements());
-        info.setId(Integer.valueOf(this.getId()));
+        info.setId(Long.valueOf(this.getId()));
         info.setIsAll(this.getIsAll());
         info.setName(this.getName());
         info.setUserEvaluation(this.getUserEvaluation());

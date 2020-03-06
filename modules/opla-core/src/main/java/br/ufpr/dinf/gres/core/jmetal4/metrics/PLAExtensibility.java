@@ -2,11 +2,13 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
+import br.ufpr.dinf.gres.core.persistence.IPersistentDto;
+import br.ufpr.dinf.gres.domain.entity.metric.PLAExtensibilityMetric;
 
 /**
  * @author elf
  */
-public class PLAExtensibility extends Metrics {
+public class PLAExtensibility extends Metrics implements IPersistentDto<PLAExtensibilityMetric> {
 
     private double plaExtensibility;
 
@@ -29,5 +31,16 @@ public class PLAExtensibility extends Metrics {
         return "PLAExtensibility [" +
                 "plaExtensibility=" + plaExtensibility +
                 "]";
+    }
+
+    @Override
+    public PLAExtensibilityMetric newPersistentInstance() {
+        PLAExtensibilityMetric metric = new PLAExtensibilityMetric();
+        metric.setExecution(this.getExecutionResults().newPersistentInstance());
+        metric.setExperiment(this.getExperiement().newPersistentInstance());
+        metric.setId(Long.valueOf(this.getIdSolution()));
+        metric.setIsAll(this.getIsAll());
+        metric.setPlaExtensibility(String.valueOf(this.getPlaExtensibility()));
+        return metric;
     }
 }

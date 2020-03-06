@@ -6,9 +6,12 @@ import br.ufpr.dinf.gres.architecture.representation.Method;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
+import br.ufpr.dinf.gres.core.jmetal4.util.Id;
+import br.ufpr.dinf.gres.core.persistence.IPersistentDto;
+import br.ufpr.dinf.gres.domain.entity.metric.WocsclassMetric;
 
 
-public class Wocsclass extends Metrics {
+public class Wocsclass extends Metrics implements IPersistentDto<WocsclassMetric> {
 
     private float wocsclass;
 
@@ -61,4 +64,14 @@ public class Wocsclass extends Metrics {
     }
 
 
+    @Override
+    public WocsclassMetric newPersistentInstance() {
+        WocsclassMetric metric = new WocsclassMetric();
+        metric.setExecution(this.getExecutionResults().newPersistentInstance());
+        metric.setExperiment(this.getExperiement().newPersistentInstance());
+        metric.setId(Long.valueOf(this.getIdSolution()));
+        metric.setIsAll(this.getIsAll());
+        metric.setWocsclass(String.valueOf(this.getWocsClass()));
+        return metric;
+    }
 }

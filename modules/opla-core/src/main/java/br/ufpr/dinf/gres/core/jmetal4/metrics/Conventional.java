@@ -7,11 +7,13 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
+import br.ufpr.dinf.gres.core.persistence.IPersistentDto;
+import br.ufpr.dinf.gres.domain.entity.metric.ConventionalMetric;
 
 /**
  * @author elf
  */
-public class Conventional extends Metrics {
+public class Conventional extends Metrics implements IPersistentDto<ConventionalMetric> {
 
     private Double sumChoesion;
     private Double cohesion;
@@ -111,4 +113,21 @@ public class Conventional extends Metrics {
         return this.sumClassesDepIn + this.sumClassesDepOut + this.sumDepIn + this.sumDepOut + this.cohesion;
     }
 
+    @Override
+    public ConventionalMetric newPersistentInstance() {
+        ConventionalMetric metric = new ConventionalMetric();
+        metric.setExecution(this.getExecutionResults().newPersistentInstance());
+        metric.setExperiment(this.getExperiement().newPersistentInstance());
+        metric.setId(Long.valueOf(this.getIdSolution()));
+        metric.setIsAll(this.getIsAll());
+        metric.setCohesion(String.valueOf(this.getCohesion()));
+        metric.setMacAggregation(String.valueOf(this.getMacAggregation()));
+        metric.setMeanDepComps(String.valueOf(this.getMeanDepComps()));
+        metric.setMeanNumOps(String.valueOf(this.getMeanNumOps()));
+        metric.setSumClassesDepIn(String.valueOf(this.getSumClassesDepIn()));
+        metric.setSumClassesDepOut(String.valueOf(this.getSumClassesDepOut()));
+        metric.setSumDepIn(String.valueOf(this.getSumDepIn()));
+        metric.setSumDepOut(String.valueOf(this.getSumDepOut()));
+        return metric;
+    }
 }

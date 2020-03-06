@@ -6,14 +6,12 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.results;
 
-import br.ufpr.dinf.gres.core.jmetal4.database.Database;
 import br.ufpr.dinf.gres.core.jmetal4.util.Id;
 import br.ufpr.dinf.gres.core.persistence.IPersistentDto;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -106,47 +104,10 @@ public class ExperimentResults implements IPersistentDto<Experiment> {
         this.description = description;
     }
 
-    public String getAlgorithmAndDescription() {
-        if ("null".equals(this.description))
-            return this.getAlgorithm();
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.getAlgorithm());
-        sb.append(" (");
-        sb.append(this.description);
-        sb.append(")");
-
-        return sb.toString();
-    }
-
-    private String makeQuery() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("insert into experiments (id, name, algorithm, description, created_at, hash) ");
-        sb.append("values (");
-        sb.append(this.id);
-        sb.append(",'");
-        sb.append(this.name);
-        sb.append("','");
-        sb.append(this.algorithm);
-        sb.append("','");
-        sb.append(this.description);
-        sb.append("','");
-        sb.append(this.getCreatedAt());
-        sb.append("','");
-        sb.append(this.hash);
-        sb.append("')");
-        return sb.toString();
-    }
-
     private String givenId() {
         return Id.generateUniqueId();
     }
 
-    public void save() throws Exception {
-        Statement statement = Database.getConnection().createStatement();
-        statement.executeUpdate(makeQuery());
-        statement.close();
-    }
 
     public String getCreatedAt() {
         return createdAt;

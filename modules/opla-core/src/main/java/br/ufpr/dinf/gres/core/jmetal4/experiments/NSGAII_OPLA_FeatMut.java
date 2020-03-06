@@ -36,10 +36,12 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
     private static final Logger LOGGER = Logger.getLogger(NSGAII_OPLA_FeatMut.class);
 
     private final Persistence mp;
+    private final CalculaEd c;
 
 
-    public NSGAII_OPLA_FeatMut(Persistence mp) {
+    public NSGAII_OPLA_FeatMut(Persistence mp, CalculaEd c) {
         this.mp = mp;
+        this.c = c;
     }
 
     private static String getPlaName(String pla) {
@@ -51,7 +53,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
     public void execute(NSGAIIConfig configs) throws Exception {
 
         Database.setPathToDB(configs.getPathToDb());
-        String experiementId = null;
+        ExperimentResults experiment = null;
 
         String context = "OPLA";
 
@@ -79,15 +81,15 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
             Result result = new Result();
             Database.setPathToDB(configs.getPathToDb());
 
-            ExperimentResults experiement = mp.createExperimentOnDb(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
-            ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "NSGAII", configs);
-            mp.create(conf);
+            experiment = mp.saveExperiment(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
+            ExperimentConfs conf = new ExperimentConfs(experiment.getId(), "NSGAII", configs);
+            mp.save(conf);
             LOGGER.info("Salvou configurações do experimento");
 
 
             SolutionSet allRuns = new SolutionSet();
             Algorithm algorithm = new NSGAII(problem);
-            algorithm.setInputParameter("populationSize", configs.getNumberOfRuns());
+            algorithm.setInputParameter("populationSize", configs.getPopulationSize());
             algorithm.setInputParameter("maxEvaluations", configs.getMaxEvaluation());
             algorithm.setInputParameter("interactiveFunction", configs.getInteractiveFunction());
             algorithm.setInputParameter("maxInteractions", configs.getMaxInteractions());
@@ -118,7 +120,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                         configs.getCrossoverProbability(), configs.getMutationProbability());
 
             List<String> selectedObjectiveFunctions = configs.getOplaConfigs().getSelectedObjectiveFunctions();
-            mp.saveObjectivesNames(selectedObjectiveFunctions, experiement.getId());
+            mp.saveObjectivesNames(selectedObjectiveFunctions, experiment.getId());
             LOGGER.info("Salvou funções objetivo selecionadas");
 
 
@@ -130,9 +132,9 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
 
                 // Cria uma execução. Cada execução está ligada a um
                 // experiemento.
-                ExecutionResults executionResults = new ExecutionResults(experiement);
+                ExecutionResults executionResults = new ExecutionResults(experiment);
                 executionResults.setRuns(runs);
-                CommonOPLAFeatMut.setDirToSaveOutput(experiementId, executionResults.getId());
+                CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), executionResults.getId());
 
                 // Execute the Algorithm
                 long initTime = System.currentTimeMillis();
@@ -143,21 +145,21 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                List<InfoResults> infoResults = result.getInformations(resultFront.getSolutionSet(), executionResults, experiement);
+                List<InfoResults> infoResults = result.getInformations(resultFront.getSolutionSet(), executionResults, experiment);
                 AllMetrics allMetrics = result.getMetrics(infoResults, resultFront.getSolutionSet(), executionResults,
-                        experiement, selectedObjectiveFunctions);
+                        experiment, selectedObjectiveFunctions);
                 executionResults.setTime(estimatedTime);
 
                 if (Moment.POSTERIORI.equals(configs.getClusteringMoment())) {
                     configs.getInteractiveFunction().run(resultFront);
                 }
 
-                resultFront.saveVariablesToFile("VAR_" + runs + "_", infoResults, configs.getLogger(), true);
+//                resultFront.saveVariablesToFile("VAR_" + runs + "_", infoResults, configs.getLogger(), true);
 
                 executionResults.setInfos(infoResults);
                 executionResults.setAllMetrics(allMetrics);
 
-                mp.persist(executionResults);
+                mp.save(executionResults);
 
                 // armazena as solucoes de todas runs
                 allRuns = allRuns.union(resultFront);
@@ -166,14 +168,14 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                 // Util.moveAllFilesToExecutionDirectory(experiementId,
                 // execution.getId());
 
-                saveHypervolume(experiement.getId(), executionResults.getId(), resultFront, plaName);
+                saveHypervolume(experiment.getId(), executionResults.getId(), resultFront, plaName);
             }
 
             allRuns = problem.removeDominadas(allRuns);
             allRuns = problem.removeRepetidas(allRuns);
 
             configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
-            List<InfoResults> funResults = result.getObjectives(allRuns.getSolutionSet(), null, experiement);
+            List<InfoResults> funResults = result.getObjectives(allRuns.getSolutionSet(), null, experiment);
 
             if (configs.getNumberOfRuns() > 1) {
                 LOGGER.info("saveVariablesToFile()");
@@ -181,26 +183,26 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
             }
 
 
-            List<InfoResults> infoResults = result.getInformations(allRuns.getSolutionSet(), null, experiement);
+            List<InfoResults> infoResults = result.getInformations(allRuns.getSolutionSet(), null, experiment);
             mp.saveInfoAll(infoResults);
             LOGGER.info("saveInfoAll()");
 
-            AllMetrics allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiement,
+            AllMetrics allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);
-            mp.persisteMetrics(allMetrics, configs.getOplaConfigs().getSelectedObjectiveFunctions());
+            mp.save(allMetrics, configs.getOplaConfigs().getSelectedObjectiveFunctions());
             LOGGER.info("getMetrics()");
 
-            CommonOPLAFeatMut.setDirToSaveOutput(experiementId, null);
+            CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
 
             LOGGER.info("DistanceEuclideanPersistence.calculate()");
-            CalculaEd c = new CalculaEd();
-            mp.savedistance(c.calcula(experiementId, configs.getOplaConfigs().getNumberOfObjectives()), experiementId);
+
+            mp.saveDistance(c.calcula(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             infoResults = null;
             funResults = null;
 
             // Util.moveAllFilesToExecutionDirectory(experiementId, null);
             LOGGER.info("saveHypervolume()");
-            saveHypervolume(experiement.getId(), null, allRuns, plaName);
+            saveHypervolume(experiment.getId(), null, allRuns, plaName);
         }
 
         // Util.moveResourceToExperimentFolder(this.experiementId);

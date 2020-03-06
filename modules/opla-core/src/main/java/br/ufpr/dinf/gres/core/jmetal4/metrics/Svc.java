@@ -5,9 +5,11 @@ import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
+import br.ufpr.dinf.gres.core.persistence.IPersistentDto;
+import br.ufpr.dinf.gres.domain.entity.metric.SvcMetric;
 
 
-public class Svc extends Metrics {
+public class Svc extends Metrics implements IPersistentDto<SvcMetric> {
 
     private double svc;
     private float results;
@@ -63,4 +65,14 @@ public class Svc extends Metrics {
         this.svc = svc;
     }
 
+    @Override
+    public SvcMetric newPersistentInstance() {
+        SvcMetric metric = new SvcMetric();
+        metric.setExecution(this.getExecutionResults().newPersistentInstance());
+        metric.setExperiment(this.getExperiement().newPersistentInstance());
+        metric.setId(Long.valueOf(this.getIdSolution()));
+        metric.setIsAll(this.getIsAll());
+        metric.setSvc(String.valueOf(this.getSvc()));
+        return metric;
+    }
 }

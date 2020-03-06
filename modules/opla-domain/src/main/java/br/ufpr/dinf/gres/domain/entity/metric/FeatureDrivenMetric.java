@@ -1,23 +1,14 @@
 package br.ufpr.dinf.gres.domain.entity.metric;
 
-import java.util.Objects;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import br.ufpr.dinf.gres.domain.entity.Execution;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
-import br.ufpr.dinf.gres.domain.entity.Execution;
-import br.ufpr.dinf.gres.domain.entity.Experiment;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "FeatureDrivenMetrics")
@@ -205,6 +196,14 @@ public class FeatureDrivenMetric implements GenericMetric {
 
     public void setIdSolution(String idSolution) {
         this.idSolution = idSolution;
+    }
+
+    public Execution getExecution() {
+        return execution;
+    }
+
+    public void setExecution(Execution execution) {
+        this.execution = execution;
     }
 
     @Override
