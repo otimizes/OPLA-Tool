@@ -6,7 +6,6 @@ import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.paes.PAES;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetricsOld;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
@@ -14,11 +13,12 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.MutationFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.Selection;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
+import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
+import br.ufpr.dinf.gres.core.persistence.Persistence;
+import br.ufpr.dinf.gres.domain.entity.AllMetrics;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.Info;
-import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
-import br.ufpr.dinf.gres.core.persistence.Persistence;
 import br.ufpr.dinf.gres.loglog.Level;
 import org.springframework.stereotype.Service;
 
@@ -131,8 +131,8 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
 
                 // Cria uma execução. Cada execução está ligada a um
                 // experiemento.
-                Execution Execution = new Execution(experiement);
-                setDirToSaveOutput(experiement.getId(), Execution.getId());
+                Execution execution = new Execution(experiement);
+                setDirToSaveOutput(experiement.getId(), execution.getId());
 
                 // Execute the Algorithm
                 long initTime = System.currentTimeMillis();
@@ -143,24 +143,24 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                Execution.setTime(estimatedTime);
+                execution.setTime(estimatedTime);
 
-                List<Info> Info = result.getInformations(resultFront.getSolutionSet(), Execution, experiement);
-                AllMetricsOld allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), Execution, experiement, selectedObjectiveFunctions);
+                List<Info> Info = result.getInformations(resultFront.getSolutionSet(), execution, experiement);
+                AllMetrics allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), execution, experiement, selectedObjectiveFunctions);
 
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", Info, this.configs.getLogger(), true);
 
-                Execution.setInfos(Info);
-                Execution.setAllMetrics(allMetrics);
+                execution.setInfos(Info);
+                execution.setAllMetrics(allMetrics);
 
-                mp.save(Execution);
+                mp.save(execution);
                 // armazena as solucoes de todas runs
                 todasRuns = todasRuns.union(resultFront);
 
                 //Util.copyFolder(experiement.getId(), execution.getId());
                 //Util.moveAllFilesToExecutionDirectory(experiementId, execution.getId());
 
-                saveHypervolume(experiement.getId(), Execution.getId(), resultFront, plaName);
+                saveHypervolume(experiement.getId(), execution.getId(), resultFront, plaName);
 
             }
 
@@ -176,7 +176,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
             List<Info> Info = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
             mp.saveInfoAll(Info);
 
-            AllMetricsOld allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,
+            AllMetrics allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,
                     selectedObjectiveFunctions);
             mp.save(allMetrics, this.configs.getOplaConfigs().getSelectedObjectiveFunctions());
             mp = null;

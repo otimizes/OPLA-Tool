@@ -135,7 +135,7 @@ public class Persistence {
         MapObjectiveName mapObjectiveName = new MapObjectiveName();
         mapObjectiveName.setId(IdUtil.generateUniqueId());
         mapObjectiveName.setNames(names);
-        mapObjectiveName.setExperiment(experimentService.getOne(Long.valueOf(experimentId)));
+        mapObjectiveName.setExperiment(experimentService.getOne(experimentId));
         mapObjectiveNameService.save(mapObjectiveName);
     }
 
@@ -152,7 +152,7 @@ public class Persistence {
     public void save(ExperimentConfs conf) {
         ExperimentConfiguration experimentConfiguration = new ExperimentConfiguration();
         experimentConfiguration.setId(IdUtil.generateUniqueId());
-        experimentConfiguration.setExperiment(experimentService.getOne(Long.valueOf(conf.getExperimentId())));
+        experimentConfiguration.setExperiment(experimentService.getOne(conf.getExperimentId()));
         experimentConfiguration.setNumberOfRuns((long) conf.getConfigs().getNumberOfRuns());
         experimentConfiguration.setMaxEvaluations(conf.getConfigs().getMaxEvaluations());
         experimentConfiguration.setCrossoverProb(conf.getConfigs().getCrossoverProbability());
@@ -167,7 +167,7 @@ public class Persistence {
     }
 
     public void saveDistance(HashMap<String, Double> results, String experiementId) {
-        Experiment experiment = experimentService.getOne(Long.valueOf(experiementId));
+        Experiment experiment = experimentService.getOne(experiementId);
         List<DistanceEuclidean> collect = results.entrySet().stream().map(entry -> {
             DistanceEuclidean distanceEuclidean = new DistanceEuclidean();
             distanceEuclidean.setSolutionName(entry.getKey());
@@ -193,7 +193,7 @@ public class Persistence {
     }
 
     public SolutionSet queryNonDominatedSolutinsFromExperiment(String experimentID) throws Exception {
-        List<Objective> byExperiment = objectiveService.findByExperiment(Long.valueOf(experimentID));
+        List<Objective> byExperiment = objectiveService.findByExperiment(experimentID);
         SolutionSet solutionSet = new NonDominatedSolutionList();
 
         for (Objective objective : byExperiment) {

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WocsclassMetricRepository extends JpaRepository<WocsclassMetric, Long> {
+public interface WocsclassMetricRepository extends JpaRepository<WocsclassMetric, String> {
 }

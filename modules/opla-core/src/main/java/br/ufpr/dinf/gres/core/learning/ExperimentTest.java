@@ -47,7 +47,7 @@ public class ExperimentTest {
                 ((OPLA)solution.getProblem()).setSelectedMetrics(metrics);
 
                 solution.setSolutionName(objective.getSolutionName());
-                solution.setExecutionId(objective.getExecution() != null ? objective.getExecution().getId() : 0);
+                solution.setExecutionId(objective.getExecution() != null ? objective.getExecution().getId() : "0");
                 solution.setNumberOfObjectives(split.length);
                 solutionSet.getSolutionSet().add(solution);
             }
@@ -89,7 +89,7 @@ public class ExperimentTest {
                 ((OPLA)solution.getProblem()).setSelectedMetrics(Arrays.asList("featureDriven", "aclass", "coe"));
 
                 solution.setSolutionName(objective.getSolutionName());
-                solution.setExecutionId(objective.getExecution() != null ? objective.getExecution().getId() : 0);
+                solution.setExecutionId(objective.getExecution() != null ? objective.getExecution().getId() : "0");
                 solution.setNumberOfObjectives(3);
 
 
@@ -260,7 +260,7 @@ public class ExperimentTest {
         for (int i = 0; i < result.size(); i++) {
             builder.append(result.get(i).toString().replace("[", "").replace("]", "").replaceAll(",", "") + "\n");
             if (!run.getSolutionSet().get(i).getExecutionId().equals(lastExec)) {
-                lastExec = run.getSolutionSet().get(i).getExecutionId();
+                lastExec = Long.valueOf(run.getSolutionSet().get(i).getExecutionId());
                 builder.append("\n");
             }
         }

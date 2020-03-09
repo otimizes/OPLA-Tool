@@ -126,7 +126,7 @@ public class Solution implements Serializable {
 
     private int userEvaluation;
 
-    private Long executionId_;
+    private String executionId_;
 
     private Boolean clusterNoise_;
 
@@ -655,11 +655,11 @@ public class Solution implements Serializable {
         this.userEvaluation = userEvaluation;
     }
 
-    public Long getExecutionId() {
+    public String getExecutionId() {
         return executionId_;
     }
 
-    public void setExecutionId(Long executionId_) {
+    public void setExecutionId(String executionId_) {
         this.executionId_ = executionId_;
     }
 

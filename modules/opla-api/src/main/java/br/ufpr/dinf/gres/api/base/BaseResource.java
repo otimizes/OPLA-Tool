@@ -34,7 +34,7 @@ public class BaseResource<T> {
 
     @Transactional
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Mono<ResponseEntity<Void>> delete(@PathVariable Long id) {
+    public Mono<ResponseEntity<Void>> delete(@PathVariable String id) {
         T entity = service.getOne(id);
         service.delete(entity);
         return asyncMono(ResponseEntity.noContent().build());
@@ -42,7 +42,7 @@ public class BaseResource<T> {
 
     @Transactional
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Mono<ResponseEntity<T>> getOne(@PathVariable Long id) {
+    public Mono<ResponseEntity<T>> getOne(@PathVariable String id) {
         T entity = service.getOne(id);
         return asyncMono(ResponseEntity.ok(entity));
     }
@@ -73,7 +73,7 @@ public class BaseResource<T> {
 
     @Transactional
     @GetMapping(value = "/by-experiment/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Mono<ResponseEntity<ResultList<T>>> findByExperiment(@PathVariable Long id) {
+    public Mono<ResponseEntity<ResultList<T>>> findByExperiment(@PathVariable String id) {
         List<T> byExperiment = service.findByExperiment(id);
         return asyncMono(ResponseEntity.ok(new ResultList<>(byExperiment)));
     }

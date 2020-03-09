@@ -1,6 +1,5 @@
 package br.ufpr.dinf.gres.domain.entity;
 
-import br.ufpr.dinf.gres.domain.util.IdUtil;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -17,7 +16,7 @@ public class DistanceEuclidean implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
     @Column(name = "solution_name")
     private String solutionName;
@@ -29,11 +28,11 @@ public class DistanceEuclidean implements Serializable {
     @Column(name = "ed")
     private Double ed;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

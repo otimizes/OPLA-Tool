@@ -17,13 +17,13 @@ import java.util.Optional;
 @Service
 @Scope("prototype")
 public abstract class BaseService<T> {
-    protected final JpaRepository<T, Long> repository;
+    protected final JpaRepository<T, String> repository;
 
     @PersistenceContext
     private EntityManager entityManager;
     private Class<T> domain;
 
-    public BaseService(JpaRepository<T, Long> repository) {
+    public BaseService(JpaRepository<T, String> repository) {
         this.repository = repository;
         this.domain = this.clazz();
     }
@@ -36,15 +36,15 @@ public abstract class BaseService<T> {
         return repository.saveAll(var1);
     }
 
-    public Optional<T> findById(Long var1) {
+    public Optional<T> findById(String var1) {
         return repository.findById(var1);
     }
 
-    public T getOne(Long var1) {
+    public T getOne(String var1) {
         return repository.getOne(var1);
     }
 
-    public boolean existsById(Long var1) {
+    public boolean existsById(String var1) {
         return repository.existsById(var1);
     }
 
@@ -52,7 +52,7 @@ public abstract class BaseService<T> {
         return repository.findAll();
     }
 
-    public List<T> findAllById(Iterable<Long> var1) {
+    public List<T> findAllById(Iterable<String> var1) {
         return repository.findAllById(var1);
     }
 
@@ -60,7 +60,7 @@ public abstract class BaseService<T> {
         return repository.count();
     }
 
-    public void deleteById(Long var1) {
+    public void deleteById(String var1) {
         repository.deleteById(var1);
     }
 
@@ -76,7 +76,7 @@ public abstract class BaseService<T> {
         repository.deleteAll();
     }
 
-    public List<T> findByExperiment(Long experiment) {
+    public List<T> findByExperiment(String experiment) {
         Query query = entityManager.createQuery("from " + domain.getName() + " obj where obj.experiment.id = :experiment");
         query.setParameter("experiment", experiment);
         return query.getResultList();

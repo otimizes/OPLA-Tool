@@ -54,10 +54,10 @@ public class Objective implements Serializable {
 
     public Objective(String id, String execution, String objectives, String isAll, String experiment, String solutionName) {
         this.id = "".equals(id) ? null : id;
-        this.execution = "".equals(execution) ? null : new Execution(Long.valueOf(execution));
+        this.execution = "".equals(execution) ? null : new Execution(execution);
         this.objectives = "".equals(objectives) ? null : objectives;
         this.isAll = "".equals(isAll) ? null : Integer.valueOf(isAll);
-        this.experiment = "".equals(experiment) ? null : new Experiment(Long.valueOf(experiment));
+        this.experiment = "".equals(experiment) ? null : new Experiment(experiment);
         this.solutionName = "".equals(solutionName) ? null : solutionName;
     }
 

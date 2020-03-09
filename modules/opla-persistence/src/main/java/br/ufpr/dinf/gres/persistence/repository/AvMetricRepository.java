@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AvMetricRepository extends JpaRepository<AvMetric, Long> {
+public interface AvMetricRepository extends JpaRepository<AvMetric, String> {
 }
