@@ -1,6 +1,5 @@
 package br.ufpr.dinf.gres.domain.entity;
 
-import br.ufpr.dinf.gres.domain.util.IdUtil;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

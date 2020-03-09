@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
-import br.ufpr.dinf.gres.domain.util.IdUtil;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -44,7 +43,6 @@ public class Execution implements Serializable {
     }
 
     public Execution(Experiment experimentResults) {
-        setId(IdUtil.generateUniqueId());
         this.experiment = experimentResults;
     }
 

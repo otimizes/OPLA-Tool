@@ -352,7 +352,7 @@ public class SolutionSet implements Serializable {
                 Architecture arch = (Architecture) solutionsList_.get(i).getDecisionVariables()[j];
                 String pathToSave = path;
                 String originalName = ((OPLA) solutionsList_.get(i).getProblem()).getArchitecture_().getName();
-                funResults.get(i).setName(pathToSave + originalName + "-" + funResults.get(i).getId());
+                funResults.get(i).setName(pathToSave + originalName);
                 if (generate)
                     arch.save(arch, pathToSave, "-" + funResults.get(i).getId());
             }
@@ -371,32 +371,7 @@ public class SolutionSet implements Serializable {
             }
         }
     }
-
-
-    public void saveVariableToFile(Solution solution, String path, Logger logger, boolean generate) {
-        int numberOfVariables = solution.getDecisionVariables().length;
-
-        for (int j = 0; j < numberOfVariables; j++) {
-            Architecture arch = (Architecture) solution.getDecisionVariables()[j];
-            arch.setName(((OPLA) solution.getProblem()).getArchitecture_().getName());
-            if (generate)
-                arch.save(arch, path, "");
-        }
-    }
-
-    public void saveVariablesToFile(String path, Logger logger, boolean generate) {
-        int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
-
-        if (logger != null)
-            logger.info("Number of solutions: " + solutionsList_.size());
-        for (int i = 0; i < solutionsList_.size(); i++) {
-            for (int j = 0; j < numberOfVariables; j++) {
-                Architecture arch = (Architecture) solutionsList_.get(i).getDecisionVariables()[j];
-                if (generate)
-                    arch.save(arch, path + i, "");
-            }
-        }
-    }
+//    TODO REMOVE saveVaruablesToFile FROM HERE TO ANOTHER CLASS IN ORDER TO REDUCE ACLASS COUPLING
 
     public void printInformationToFile(String path) {
         try {

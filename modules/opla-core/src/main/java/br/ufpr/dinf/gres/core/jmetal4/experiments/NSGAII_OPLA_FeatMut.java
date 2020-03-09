@@ -142,8 +142,11 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                List<Info> Info = result.getInformations(resultFront.getSolutionSet(), execution, experiment);
-                AllMetrics allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), execution,
+                execution = mp.save(execution);
+                List<Info> infos = result.getInformations(resultFront.getSolutionSet(), execution, experiment);
+                infos = mp.saveInfoAll(infos);
+                execution.setInfos(infos);
+                AllMetrics allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
                         experiment, selectedObjectiveFunctions);
                 execution.setTime(estimatedTime);
 
@@ -151,12 +154,11 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                     configs.getInteractiveFunction().run(resultFront);
                 }
 
-                resultFront.saveVariablesToFile("VAR_" + runs + "_", Info, configs.getLogger(), true);
+                resultFront.saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
 
-                execution.setInfos(Info);
+                execution.setInfos(infos);
                 execution.setAllMetrics(allMetrics);
 
-                mp.save(execution);
 
                 // armazena as solucoes de todas runs
                 allRuns = allRuns.union(resultFront);
@@ -181,7 +183,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
 
 
             List<Info> infos = result.getInformations(allRuns.getSolutionSet(), null, experiment);
-            mp.saveInfoAll(infos);
+            infos = mp.saveInfoAll(infos);
             LOGGER.info("saveInfoAll()");
 
             AllMetrics allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,

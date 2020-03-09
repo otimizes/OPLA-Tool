@@ -1,6 +1,5 @@
 package br.ufpr.dinf.gres.domain.entity;
 
-import br.ufpr.dinf.gres.domain.util.IdUtil;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -48,7 +47,6 @@ public class Experiment implements Serializable {
         this.name = name;
         this.algorithm = algorithm;
         this.description = description;
-        this.id = givenId();
         this.createdAt = setCreatedAt();
     }
 
@@ -56,13 +54,8 @@ public class Experiment implements Serializable {
         this.name = name;
         this.algorithm = algorithm;
         this.description = description;
-        this.id = givenId();
         this.hash = hash;
         this.createdAt = setCreatedAt();
-    }
-
-    private String givenId() {
-        return IdUtil.generateUniqueId();
     }
 
     private String setCreatedAt() {

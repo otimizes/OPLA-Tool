@@ -42,7 +42,7 @@ public class Result {
             String sb = (solution.toString().trim()).replace(" ", "|");
 
             Info funResult = new Info();
-            funResult.setName(plaName + "_" + funResult.getId());
+            funResult.setName(plaName);
             funResult.setExecution(Execution);
             funResult.setExperiment(experiement);
             if (Execution == null)
@@ -54,7 +54,7 @@ public class Result {
         return funResults;
     }
 
-    public List<Info> getInformations(List<Solution> solutionsList, Execution Execution,
+    public List<Info> getInformations(List<Solution> solutionsList, Execution execution,
                                       Experiment experiement) {
 
         List<Info> Info = new ArrayList<Info>();
@@ -66,11 +66,11 @@ public class Result {
                 Architecture arch = (Architecture) solutionsList.get(i).getDecisionVariables()[j];
 
                 Info ir = new Info();
-                ir.setExecution(Execution);
+                ir.setExecution(execution);
                 ir.setExperiment(experiement);
-                if (Execution == null)
+                if (execution == null)
                     ir.setIsAll(1);
-                ir.setName(plaName + "_" + ir.getId());
+                ir.setName(plaName);
                 ir.setListOfConcerns(getListOfConcerns(arch.getAllConcerns()));
                 ir.setNumberOfPackages(arch.getAllPackages().size());
                 ir.setNumberOfVariabilities(arch.getAllVariabilities().size());
