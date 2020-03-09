@@ -1,9 +1,7 @@
 package br.ufpr.dinf.gres.core.persistence;
 
-import br.ufpr.dinf.gres.common.exceptions.MissingConfigurationException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.CalculaEd;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.*;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
 import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
@@ -12,13 +10,8 @@ import br.ufpr.dinf.gres.core.jmetal4.util.Id;
 import br.ufpr.dinf.gres.core.jmetal4.util.NonDominatedSolutionList;
 import br.ufpr.dinf.gres.domain.entity.*;
 import br.ufpr.dinf.gres.persistence.service.*;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
