@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.core.jmetal4.util;
+package br.ufpr.dinf.gres.domain.entity;
 
 import org.apache.commons.lang.RandomStringUtils;
 

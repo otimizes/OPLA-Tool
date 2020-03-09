@@ -4,11 +4,7 @@
  * and open the template in the editor.
  */
 
-package br.ufpr.dinf.gres.core.jmetal4.results;
-
-import br.ufpr.dinf.gres.core.jmetal4.util.Id;
-import br.ufpr.dinf.gres.core.persistence.IPersistentDto;
-import br.ufpr.dinf.gres.domain.entity.Experiment;
+package br.ufpr.dinf.gres.domain.entity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

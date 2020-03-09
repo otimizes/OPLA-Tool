@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.core.persistence;
+package br.ufpr.dinf.gres.domain.entity;
 
 public interface IPersistentDto<S> {
     public S newPersistentInstance();

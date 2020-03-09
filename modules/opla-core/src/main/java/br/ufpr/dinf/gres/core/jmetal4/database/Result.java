@@ -4,9 +4,9 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.*;
-import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
+import br.ufpr.dinf.gres.domain.entity.ExecutionResults;
+import br.ufpr.dinf.gres.domain.entity.ExperimentResults;
+import br.ufpr.dinf.gres.domain.entity.InfoResults;
 
 import java.util.ArrayList;
 import java.util.Arrays;

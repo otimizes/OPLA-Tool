@@ -1,8 +1,8 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
 
-import br.ufpr.dinf.gres.core.jmetal4.results.ExecutionResults;
-import br.ufpr.dinf.gres.core.jmetal4.results.ExperimentResults;
+import br.ufpr.dinf.gres.domain.entity.ExecutionResults;
+import br.ufpr.dinf.gres.domain.entity.ExperimentResults;
 
 public abstract class Metrics {
 

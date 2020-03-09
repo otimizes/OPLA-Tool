@@ -28,7 +28,7 @@ import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import br.ufpr.dinf.gres.core.jmetal4.results.InfoResults;
+import br.ufpr.dinf.gres.domain.entity.InfoResults;
 import br.ufpr.dinf.gres.core.learning.ArchitecturalElementType;
 import br.ufpr.dinf.gres.core.learning.DistributeUserEvaluation;
 import br.ufpr.dinf.gres.loglog.Level;

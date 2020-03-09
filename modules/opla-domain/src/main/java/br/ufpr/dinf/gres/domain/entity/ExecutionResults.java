@@ -1,9 +1,4 @@
-package br.ufpr.dinf.gres.core.jmetal4.results;
-
-import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetrics;
-import br.ufpr.dinf.gres.core.jmetal4.util.Id;
-import br.ufpr.dinf.gres.core.persistence.IPersistentDto;
-import br.ufpr.dinf.gres.domain.entity.Execution;
+package br.ufpr.dinf.gres.domain.entity;
 
 import java.util.List;
 
