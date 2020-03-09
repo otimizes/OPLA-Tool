@@ -28,34 +28,34 @@ public class ConventionalMetric implements GenericMetric {
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private String id;
 
 	@Column(name = "sum_cohesion")
-	private String sumCohesion;
+	private Double sumCohesion;
 
 	@Column(name = "macAggregation")
-	private String macAggregation;
+	private Double macAggregation;
 
 	@Column(name = "cohesion")
-	private String cohesion;
+	private Double cohesion;
 
 	@Column(name = "meanDepComps")
-	private String meanDepComps;
+	private Double meanDepComps;
 
 	@Column(name = "meanNumOps")
-	private String meanNumOps;
+	private Double meanNumOps;
 
 	@Column(name = "sumClassesDepIn")
-	private String sumClassesDepIn;
+	private Double sumClassesDepIn;
 
 	@Column(name = "sumClassesDepOut")
-	private String sumClassesDepOut;
+	private Double sumClassesDepOut;
 
 	@Column(name = "sumDepIn")
-	private String sumDepIn;
+	private Double sumDepIn;
 
 	@Column(name = "sumDepOut")
-	private String sumDepOut;
+	private Double sumDepOut;
 
 	@ManyToOne
 	@NotFound(action = NotFoundAction.IGNORE)
@@ -72,84 +72,94 @@ public class ConventionalMetric implements GenericMetric {
 	@Column(name = "id_solution")
 	private String idSolution;
 
-	@Override
-	public Long getId() {
+	public ConventionalMetric(String idSolution, Execution execution, Experiment experiement) {
+		this.idSolution = idSolution;
+		this.execution = execution;
+		this.experiment = experiement;
+	}
+
+    @Override
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public String getSumCohesion() {
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public Double getSumCohesion() {
 		return sumCohesion;
 	}
 
-	public void setSumCohesion(String sumCohesion) {
+	public void setSumCohesion(Double sumCohesion) {
 		this.sumCohesion = sumCohesion;
 	}
 
-	public String getMacAggregation() {
+	public Double getMacAggregation() {
 		return macAggregation;
 	}
 
-	public void setMacAggregation(String macAggregation) {
+	public void setMacAggregation(Double macAggregation) {
 		this.macAggregation = macAggregation;
 	}
 
-	public String getCohesion() {
+	public Double getCohesion() {
 		return cohesion;
 	}
 
-	public void setCohesion(String cohesion) {
+	public void setCohesion(Double cohesion) {
 		this.cohesion = cohesion;
 	}
 
-	public String getMeanDepComps() {
+	public Double getMeanDepComps() {
 		return meanDepComps;
 	}
 
-	public void setMeanDepComps(String meanDepComps) {
+	public void setMeanDepComps(Double meanDepComps) {
 		this.meanDepComps = meanDepComps;
 	}
 
-	public String getMeanNumOps() {
+	public Double getMeanNumOps() {
 		return meanNumOps;
 	}
 
-	public void setMeanNumOps(String meanNumOps) {
+	public void setMeanNumOps(Double meanNumOps) {
 		this.meanNumOps = meanNumOps;
 	}
 
-	public String getSumClassesDepIn() {
+	public Double getSumClassesDepIn() {
 		return sumClassesDepIn;
 	}
 
-	public void setSumClassesDepIn(String sumClassesDepIn) {
+	public void setSumClassesDepIn(Double sumClassesDepIn) {
 		this.sumClassesDepIn = sumClassesDepIn;
 	}
 
-	public String getSumClassesDepOut() {
+	public Double getSumClassesDepOut() {
 		return sumClassesDepOut;
 	}
 
-	public void setSumClassesDepOut(String sumClassesDepOut) {
+	public void setSumClassesDepOut(Double sumClassesDepOut) {
 		this.sumClassesDepOut = sumClassesDepOut;
 	}
 
-	public String getSumDepIn() {
+	public Double getSumDepIn() {
 		return sumDepIn;
 	}
 
-	public void setSumDepIn(String sumDepIn) {
+	public void setSumDepIn(Double sumDepIn) {
 		this.sumDepIn = sumDepIn;
 	}
 
-	public String getSumDepOut() {
+	public Double getSumDepOut() {
 		return sumDepOut;
 	}
 
-	public void setSumDepOut(String sumDepOut) {
+	public void setSumDepOut(Double sumDepOut) {
 		this.sumDepOut = sumDepOut;
 	}
 

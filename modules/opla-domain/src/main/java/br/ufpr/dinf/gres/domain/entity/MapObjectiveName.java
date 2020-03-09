@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.domain.entity;
 
+import br.ufpr.dinf.gres.domain.util.IdUtil;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -17,7 +18,7 @@ public class MapObjectiveName implements Serializable {
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private String id;
 
 	@Column(name = "names")
 	private String names;
@@ -38,11 +39,11 @@ public class MapObjectiveName implements Serializable {
 		this.names = name.toUpperCase();
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

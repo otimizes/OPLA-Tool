@@ -1,11 +1,11 @@
-package br.ufpr.dinf.gres.domain.entity;
+package br.ufpr.dinf.gres.domain.util;
 
 import org.apache.commons.lang.RandomStringUtils;
 
 /**
  * @author elf
  */
-public class Id {
+public class IdUtil {
 
     private static final int ID_LENGTH = 10;
 

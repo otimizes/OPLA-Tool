@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.domain.entity;
 
+import br.ufpr.dinf.gres.domain.util.IdUtil;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -17,7 +18,7 @@ public class Objective implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "execution_id")
@@ -42,7 +43,7 @@ public class Objective implements Serializable {
     public Objective() {
     }
 
-    public Objective(Long id, Execution execution, String objectives, Integer isAll, Experiment experiment, String solutionName) {
+    public Objective(String id, Execution execution, String objectives, Integer isAll, Experiment experiment, String solutionName) {
         this.id = id;
         this.execution = execution;
         this.objectives = objectives;
@@ -52,7 +53,7 @@ public class Objective implements Serializable {
     }
 
     public Objective(String id, String execution, String objectives, String isAll, String experiment, String solutionName) {
-        this.id = "".equals(id) ? null : Long.valueOf(id);
+        this.id = "".equals(id) ? null : id;
         this.execution = "".equals(execution) ? null : new Execution(Long.valueOf(execution));
         this.objectives = "".equals(objectives) ? null : objectives;
         this.isAll = "".equals(isAll) ? null : Integer.valueOf(isAll);
@@ -61,11 +62,11 @@ public class Objective implements Serializable {
     }
 
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

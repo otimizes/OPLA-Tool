@@ -6,7 +6,7 @@ import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.paes.PAES;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetrics;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetricsOld;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
@@ -14,9 +14,9 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.MutationFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.Selection;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import br.ufpr.dinf.gres.domain.entity.ExecutionResults;
-import br.ufpr.dinf.gres.domain.entity.ExperimentResults;
-import br.ufpr.dinf.gres.domain.entity.InfoResults;
+import br.ufpr.dinf.gres.domain.entity.Execution;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
+import br.ufpr.dinf.gres.domain.entity.Info;
 import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
 import br.ufpr.dinf.gres.loglog.Level;
@@ -78,7 +78,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
                 this.configs.getLogger().putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
 
-            ExperimentResults experiement = mp.saveExperiment(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
+            Experiment experiement = mp.saveExperiment(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "PAES", configs);
             mp.save(conf);
 
@@ -131,8 +131,8 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
 
                 // Cria uma execução. Cada execução está ligada a um
                 // experiemento.
-                ExecutionResults executionResults = new ExecutionResults(experiement);
-                setDirToSaveOutput(experiement.getId(), executionResults.getId());
+                Execution Execution = new Execution(experiement);
+                setDirToSaveOutput(experiement.getId(), Execution.getId());
 
                 // Execute the Algorithm
                 long initTime = System.currentTimeMillis();
@@ -143,24 +143,24 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                executionResults.setTime(estimatedTime);
+                Execution.setTime(estimatedTime);
 
-                List<InfoResults> infoResults = result.getInformations(resultFront.getSolutionSet(), executionResults, experiement);
-                AllMetrics allMetrics = result.getMetrics(infoResults, resultFront.getSolutionSet(), executionResults, experiement, selectedObjectiveFunctions);
+                List<Info> Info = result.getInformations(resultFront.getSolutionSet(), Execution, experiement);
+                AllMetricsOld allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), Execution, experiement, selectedObjectiveFunctions);
 
-                resultFront.saveVariablesToFile("VAR_" + runs + "_", infoResults, this.configs.getLogger(), true);
+                resultFront.saveVariablesToFile("VAR_" + runs + "_", Info, this.configs.getLogger(), true);
 
-                executionResults.setInfos(infoResults);
-                executionResults.setAllMetrics(allMetrics);
+                Execution.setInfos(Info);
+                Execution.setAllMetrics(allMetrics);
 
-                mp.save(executionResults);
+                mp.save(Execution);
                 // armazena as solucoes de todas runs
                 todasRuns = todasRuns.union(resultFront);
 
                 //Util.copyFolder(experiement.getId(), execution.getId());
                 //Util.moveAllFilesToExecutionDirectory(experiementId, execution.getId());
 
-                saveHypervolume(experiement.getId(), executionResults.getId(), resultFront, plaName);
+                saveHypervolume(experiement.getId(), Execution.getId(), resultFront, plaName);
 
             }
 
@@ -168,15 +168,15 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
             todasRuns = problem.removeRepetidas(todasRuns);
 
             configs.getLogger().putLog("------All Runs - Non-dominated solutions --------");
-            List<InfoResults> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
+            List<Info> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
 
             todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
 
 
-            List<InfoResults> infoResults = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
-            mp.saveInfoAll(infoResults);
+            List<Info> Info = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
+            mp.saveInfoAll(Info);
 
-            AllMetrics allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,
+            AllMetricsOld allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,
                     selectedObjectiveFunctions);
             mp.save(allMetrics, this.configs.getOplaConfigs().getSelectedObjectiveFunctions());
             mp = null;
@@ -184,7 +184,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
             setDirToSaveOutput(experiement.getId(), null);
 
             mp.saveDistance(c.calcula(this.experiementId, this.numberObjectives), this.experiementId);
-            infoResults = null;
+            Info = null;
             funResults = null;
 
             //Util.moveAllFilesToExecutionDirectory(experiementId, null);

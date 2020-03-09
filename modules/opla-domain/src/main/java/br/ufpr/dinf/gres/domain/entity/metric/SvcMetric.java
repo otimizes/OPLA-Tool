@@ -19,10 +19,10 @@ public class SvcMetric implements GenericMetric {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "svc")
-    private String svc;
+    private Double svc;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
@@ -39,12 +39,18 @@ public class SvcMetric implements GenericMetric {
     @Column(name = "id_solution")
     private String idSolution;
 
+    public SvcMetric(String idSolution, Execution execution, Experiment experiement) {
+        this.idSolution = idSolution;
+        this.execution = execution;
+        this.experiment = experiement;
+    }
+
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -80,11 +86,11 @@ public class SvcMetric implements GenericMetric {
         return serialVersionUID;
     }
 
-    public String getSvc() {
+    public Double getSvc() {
         return svc;
     }
 
-    public void setSvc(String svc) {
+    public void setSvc(Double svc) {
         this.svc = svc;
     }
 

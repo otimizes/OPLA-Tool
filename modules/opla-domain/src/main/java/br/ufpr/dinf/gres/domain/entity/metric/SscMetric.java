@@ -19,10 +19,10 @@ public class SscMetric implements GenericMetric {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "ssc")
-    private String ssc;
+    private Double ssc;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
@@ -39,12 +39,18 @@ public class SscMetric implements GenericMetric {
     @Column(name = "id_solution")
     private String idSolution;
 
+    public SscMetric(String idSolution, Execution execution, Experiment experiement) {
+        this.idSolution = idSolution;
+        this.execution = execution;
+        this.experiment = experiement;
+    }
+
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -80,11 +86,11 @@ public class SscMetric implements GenericMetric {
         return serialVersionUID;
     }
 
-    public String getSsc() {
+    public Double getSsc() {
         return ssc;
     }
 
-    public void setSsc(String ssc) {
+    public void setSsc(Double ssc) {
         this.ssc = ssc;
     }
 

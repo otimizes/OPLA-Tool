@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
-import br.ufpr.dinf.gres.domain.entity.ExecutionResults;
-import br.ufpr.dinf.gres.domain.entity.ExperimentResults;
+import br.ufpr.dinf.gres.domain.entity.Execution;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.IPersistentDto;
 import br.ufpr.dinf.gres.domain.entity.metric.FeatureDrivenMetric;
 
@@ -21,8 +21,8 @@ public class FeatureDriven extends Metrics implements IPersistentDto<FeatureDriv
     private double cdaClass;
     private double cibClass;
 
-    public FeatureDriven(String idSolution, ExecutionResults executionResults, ExperimentResults experiement) {
-        super.setExecutionResults(executionResults);
+    public FeatureDriven(String idSolution, Execution Execution, Experiment experiement) {
+        super.setExecution(Execution);
         super.setExperiement(experiement);
         super.setIdSolution(idSolution);
     }
@@ -135,7 +135,7 @@ public class FeatureDriven extends Metrics implements IPersistentDto<FeatureDriv
     @Override
     public FeatureDrivenMetric newPersistentInstance() {
         FeatureDrivenMetric metric = new FeatureDrivenMetric();
-        metric.setExecution(this.getExecutionResults().newPersistentInstance());
+        metric.setExecution(this.getExecution().newPersistentInstance());
         metric.setExperiment(this.getExperiement().newPersistentInstance());
         metric.setId(Long.valueOf(this.getIdSolution()));
         metric.setIsAll(this.getIsAll());

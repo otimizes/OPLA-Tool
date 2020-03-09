@@ -1,5 +1,7 @@
 package br.ufpr.dinf.gres.domain.entity;
 
+import br.ufpr.dinf.gres.domain.util.IdUtil;
+
 import java.util.List;
 
 /**
@@ -16,7 +18,7 @@ public class ExecutionResults implements IPersistentDto<Execution> {
     private String description;
 
     public ExecutionResults(ExperimentResults experimentResults) {
-        setId(Id.generateUniqueId());
+        setId(IdUtil.generateUniqueId());
         this.experimentResults = experimentResults;
     }
 

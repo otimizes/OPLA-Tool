@@ -19,10 +19,10 @@ public class CbcsMetric implements GenericMetric {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "cbcs")
-    private String cbcs;
+    private Double cbcs;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
@@ -39,12 +39,18 @@ public class CbcsMetric implements GenericMetric {
     @Column(name = "id_solution")
     private String idSolution;
 
+    public CbcsMetric(String idSolution, Execution execution, Experiment experiement) {
+        this.idSolution = idSolution;
+        this.execution = execution;
+        this.experiment = experiement;
+    }
+
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -80,11 +86,11 @@ public class CbcsMetric implements GenericMetric {
         return serialVersionUID;
     }
 
-    public String getCbcs() {
+    public Double getCbcs() {
         return cbcs;
     }
 
-    public void setCbcs(String cbcs) {
+    public void setCbcs(Double cbcs) {
         this.cbcs = cbcs;
     }
 

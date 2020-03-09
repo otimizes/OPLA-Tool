@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.domain.entity;
 
+import br.ufpr.dinf.gres.domain.util.IdUtil;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -16,7 +17,7 @@ public class ExperimentConfiguration implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "number_of_runs")
     private Long numberOfRuns;
@@ -58,11 +59,11 @@ public class ExperimentConfiguration implements Serializable {
     @Column(name = "objectives")
     private String objectives;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

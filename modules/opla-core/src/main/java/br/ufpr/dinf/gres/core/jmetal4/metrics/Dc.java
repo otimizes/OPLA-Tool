@@ -5,8 +5,8 @@
  */
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
-import br.ufpr.dinf.gres.domain.entity.ExecutionResults;
-import br.ufpr.dinf.gres.domain.entity.ExperimentResults;
+import br.ufpr.dinf.gres.domain.entity.Execution;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
 
 /**
  * @author elf
@@ -17,8 +17,8 @@ public class Dc extends Metrics {
     private double cdai;
     private double cdao;
 
-    public Dc(String idSolution, ExecutionResults executionResults, ExperimentResults experiement) {
-        super.setExecutionResults(executionResults);
+    public Dc(String idSolution, Execution Execution, Experiment experiement) {
+        super.setExecution(Execution);
         super.setExperiement(experiement);
         super.setIdSolution(idSolution);
     }

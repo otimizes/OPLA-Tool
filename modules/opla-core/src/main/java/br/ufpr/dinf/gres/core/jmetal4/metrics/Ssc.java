@@ -3,8 +3,8 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.domain.entity.ExecutionResults;
-import br.ufpr.dinf.gres.domain.entity.ExperimentResults;
+import br.ufpr.dinf.gres.domain.entity.Execution;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.IPersistentDto;
 import br.ufpr.dinf.gres.domain.entity.metric.SscMetric;
 
@@ -50,8 +50,8 @@ public class Ssc extends Metrics implements IPersistentDto<SscMetric> {
         return results;
     }
 
-    public Ssc(String idSolution, ExecutionResults executionResults, ExperimentResults experiement) {
-        super.setExecutionResults(executionResults);
+    public Ssc(String idSolution, Execution Execution, Experiment experiement) {
+        super.setExecution(Execution);
         super.setExperiement(experiement);
         super.setIdSolution(idSolution);
     }
@@ -67,7 +67,7 @@ public class Ssc extends Metrics implements IPersistentDto<SscMetric> {
     @Override
     public SscMetric newPersistentInstance() {
         SscMetric metric = new SscMetric();
-        metric.setExecution(this.getExecutionResults().newPersistentInstance());
+        metric.setExecution(this.getExecution().newPersistentInstance());
         metric.setExperiment(this.getExperiement().newPersistentInstance());
         metric.setId(Long.valueOf(this.getIdSolution()));
         metric.setIsAll(this.getIsAll());

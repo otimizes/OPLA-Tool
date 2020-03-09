@@ -10,6 +10,6 @@ import java.io.Serializable;
  */
 public interface GenericMetric extends Serializable{
 
-	Long getId();
+	String getId();
 
 }

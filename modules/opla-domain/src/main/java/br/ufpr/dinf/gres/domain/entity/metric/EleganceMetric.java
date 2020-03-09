@@ -28,16 +28,16 @@ public class EleganceMetric implements GenericMetric {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "nac")
-    private String nac;
+    private Double nac;
 
     @Column(name = "atmr")
-    private String atmr;
+    private Double atmr;
 
     @Column(name = "ec")
-    private String ec;
+    private Double ec;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
@@ -45,7 +45,7 @@ public class EleganceMetric implements GenericMetric {
     private Execution execution;
 
     @Column(name = "elegance")
-    private String elegance;
+    private Double elegance;
 
     @ManyToOne
     @JoinColumn(name = "experiement_id", nullable = false)
@@ -57,36 +57,46 @@ public class EleganceMetric implements GenericMetric {
     @Column(name = "id_solution")
     private String idSolution;
 
+    public EleganceMetric(String idSolution, Execution execution, Experiment experiement) {
+        this.idSolution = idSolution;
+        this.execution = execution;
+        this.experiment = experiement;
+    }
+
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getNac() {
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Double getNac() {
         return nac;
     }
 
-    public void setNac(String nac) {
+    public void setNac(Double nac) {
         this.nac = nac;
     }
 
-    public String getAtmr() {
+    public Double getAtmr() {
         return atmr;
     }
 
-    public void setAtmr(String atmr) {
+    public void setAtmr(Double atmr) {
         this.atmr = atmr;
     }
 
-    public String getEc() {
+    public Double getEc() {
         return ec;
     }
 
-    public void setEc(String ec) {
+    public void setEc(Double ec) {
         this.ec = ec;
     }
 
@@ -98,11 +108,11 @@ public class EleganceMetric implements GenericMetric {
         this.execution = execution;
     }
 
-    public String getElegance() {
+    public Double getElegance() {
         return elegance;
     }
 
-    public void setElegance(String elegance) {
+    public void setElegance(Double elegance) {
         this.elegance = elegance;
     }
 

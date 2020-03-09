@@ -19,10 +19,10 @@ public class WocsclassMetric implements GenericMetric {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "wocsclass")
-    private String wocsclass;
+    private Double wocsclass;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
@@ -39,12 +39,18 @@ public class WocsclassMetric implements GenericMetric {
     @Column(name = "id_solution")
     private String idSolution;
 
+    public WocsclassMetric(String idSolution, Execution execution, Experiment experiement) {
+        this.idSolution = idSolution;
+        this.execution = execution;
+        this.experiment = experiement;
+    }
+
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -80,11 +86,11 @@ public class WocsclassMetric implements GenericMetric {
         return serialVersionUID;
     }
 
-    public String getWocsclass() {
+    public Double getWocsclass() {
         return wocsclass;
     }
 
-    public void setWocsclass(String wocsclass) {
+    public void setWocsclass(Double wocsclass) {
         this.wocsclass = wocsclass;
     }
 

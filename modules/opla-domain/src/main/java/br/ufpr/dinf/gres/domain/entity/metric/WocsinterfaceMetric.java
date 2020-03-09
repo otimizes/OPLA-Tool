@@ -19,10 +19,10 @@ public class WocsinterfaceMetric implements GenericMetric {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "wocsinterface")
-    private String wocsinterface;
+    private Double wocsinterface;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
@@ -39,12 +39,18 @@ public class WocsinterfaceMetric implements GenericMetric {
     @Column(name = "id_solution")
     private String idSolution;
 
+    public WocsinterfaceMetric(String idSolution, Execution execution, Experiment experiement) {
+        this.idSolution = idSolution;
+        this.execution = execution;
+        this.experiment = experiement;
+    }
+
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -80,11 +86,11 @@ public class WocsinterfaceMetric implements GenericMetric {
         return serialVersionUID;
     }
 
-    public String getWocsinterface() {
+    public Double getWocsinterface() {
         return wocsinterface;
     }
 
-    public void setWocsinterface(String wocsinterface) {
+    public void setWocsinterface(Double wocsinterface) {
         this.wocsinterface = wocsinterface;
     }
 

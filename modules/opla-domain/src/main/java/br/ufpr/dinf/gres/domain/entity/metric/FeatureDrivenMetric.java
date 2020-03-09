@@ -19,40 +19,40 @@ public class FeatureDrivenMetric implements GenericMetric {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "msiAggregation")
-    private String msiAggregation;
+    private Double msiAggregation;
 
     @Column(name = "cdac")
-    private String cdac;
+    private Double cdac;
 
     @Column(name = "cdai")
-    private String cdai;
+    private Double cdai;
 
     @Column(name = "cdao")
-    private String cdao;
+    private Double cdao;
 
     @Column(name = "cibc")
-    private String cibc;
+    private Double cibc;
 
     @Column(name = "iibc")
-    private String iibc;
+    private Double iibc;
 
     @Column(name = "oobc")
-    private String oobc;
+    private Double oobc;
 
     @Column(name = "lcc")
-    private String lcc;
+    private Double lcc;
 
     @Column(name = "lccClass")
-    private String lccClass;
+    private Double lccClass;
 
     @Column(name = "cdaClass")
-    private String cdaClass;
+    private Double cdaClass;
 
     @Column(name = "cibClass")
-    private String cibClass;
+    private Double cibClass;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
@@ -69,100 +69,111 @@ public class FeatureDrivenMetric implements GenericMetric {
     @Column(name = "id_solution")
     private String idSolution;
 
+    public FeatureDrivenMetric(String idSolution, Execution executionResults, Experiment experiement) {
+        this.idSolution = idSolution;
+        this.execution = executionResults;
+        this.experiment = experiement;
+
+    }
+
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getMsiAggregation() {
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Double getMsiAggregation() {
         return msiAggregation;
     }
 
-    public void setMsiAggregation(String msiAggregation) {
+    public void setMsiAggregation(Double msiAggregation) {
         this.msiAggregation = msiAggregation;
     }
 
-    public String getCdac() {
+    public Double getCdac() {
         return cdac;
     }
 
-    public void setCdac(String cdac) {
+    public void setCdac(Double cdac) {
         this.cdac = cdac;
     }
 
-    public String getCdai() {
+    public Double getCdai() {
         return cdai;
     }
 
-    public void setCdai(String cdai) {
+    public void setCdai(Double cdai) {
         this.cdai = cdai;
     }
 
-    public String getCdao() {
+    public Double getCdao() {
         return cdao;
     }
 
-    public void setCdao(String cdao) {
+    public void setCdao(Double cdao) {
         this.cdao = cdao;
     }
 
-    public String getCibc() {
+    public Double getCibc() {
         return cibc;
     }
 
-    public void setCibc(String cibc) {
+    public void setCibc(Double cibc) {
         this.cibc = cibc;
     }
 
-    public String getIibc() {
+    public Double getIibc() {
         return iibc;
     }
 
-    public void setIibc(String iibc) {
+    public void setIibc(Double iibc) {
         this.iibc = iibc;
     }
 
-    public String getOobc() {
+    public Double getOobc() {
         return oobc;
     }
 
-    public void setOobc(String oobc) {
+    public void setOobc(Double oobc) {
         this.oobc = oobc;
     }
 
-    public String getLcc() {
+    public Double getLcc() {
         return lcc;
     }
 
-    public void setLcc(String lcc) {
+    public void setLcc(Double lcc) {
         this.lcc = lcc;
     }
 
-    public String getLccClass() {
+    public Double getLccClass() {
         return lccClass;
     }
 
-    public void setLccClass(String lccClass) {
+    public void setLccClass(Double lccClass) {
         this.lccClass = lccClass;
     }
 
-    public String getCdaClass() {
+    public Double getCdaClass() {
         return cdaClass;
     }
 
-    public void setCdaClass(String cdaClass) {
+    public void setCdaClass(Double cdaClass) {
         this.cdaClass = cdaClass;
     }
 
-    public String getCibClass() {
+    public Double getCibClass() {
         return cibClass;
     }
 
-    public void setCibClass(String cibClass) {
+    public void setCibClass(Double cibClass) {
         this.cibClass = cibClass;
     }
 

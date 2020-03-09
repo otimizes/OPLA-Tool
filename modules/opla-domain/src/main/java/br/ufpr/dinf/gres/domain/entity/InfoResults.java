@@ -6,6 +6,8 @@
 
 package br.ufpr.dinf.gres.domain.entity;
 
+import br.ufpr.dinf.gres.domain.util.IdUtil;
+
 /**
  * @author elf
  */
@@ -31,7 +33,7 @@ public class InfoResults implements IPersistentDto<Info> {
     private String objectives;
 
     public InfoResults() {
-        this.id = Id.generateUniqueId();
+        this.id = IdUtil.generateUniqueId();
     }
 
     public String getListOfConcerns() {

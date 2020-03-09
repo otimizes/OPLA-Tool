@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
-import br.ufpr.dinf.gres.domain.entity.ExecutionResults;
-import br.ufpr.dinf.gres.domain.entity.ExperimentResults;
+import br.ufpr.dinf.gres.domain.entity.Execution;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.IPersistentDto;
 import br.ufpr.dinf.gres.domain.entity.metric.EleganceMetric;
 
@@ -11,8 +11,8 @@ public class Elegance extends Metrics implements IPersistentDto<EleganceMetric> 
     private double atmr;
     private double ec;
 
-    public Elegance(String idSolution, ExecutionResults executionResults, ExperimentResults experiement) {
-        super.setExecutionResults(executionResults);
+    public Elegance(String idSolution, Execution Execution, Experiment experiement) {
+        super.setExecution(Execution);
         super.setExperiement(experiement);
         super.setIdSolution(idSolution);
     }
@@ -57,7 +57,7 @@ public class Elegance extends Metrics implements IPersistentDto<EleganceMetric> 
     @Override
     public EleganceMetric newPersistentInstance() {
         EleganceMetric metric = new EleganceMetric();
-        metric.setExecution(this.getExecutionResults().newPersistentInstance());
+        metric.setExecution(this.getExecution().newPersistentInstance());
         metric.setExperiment(this.getExperiement().newPersistentInstance());
         metric.setId(Long.valueOf(this.getIdSolution()));
         metric.setIsAll(this.getIsAll());

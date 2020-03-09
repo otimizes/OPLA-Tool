@@ -1,14 +1,14 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
 
-import br.ufpr.dinf.gres.domain.entity.ExecutionResults;
-import br.ufpr.dinf.gres.domain.entity.ExperimentResults;
+import br.ufpr.dinf.gres.domain.entity.Execution;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
 
 public abstract class Metrics {
 
     private String idSolution;
-    private ExperimentResults experiement;
-    private ExecutionResults executionResults;
+    private Experiment experiement;
+    private Execution Execution;
     private Integer isAll;
 
     public String getIdSolution() {
@@ -19,20 +19,20 @@ public abstract class Metrics {
         this.idSolution = idSolution;
     }
 
-    public ExperimentResults getExperiement() {
+    public Experiment getExperiement() {
         return experiement;
     }
 
-    public void setExperiement(ExperimentResults experiement) {
+    public void setExperiement(Experiment experiement) {
         this.experiement = experiement;
     }
 
-    public ExecutionResults getExecutionResults() {
-        return executionResults;
+    public Execution getExecution() {
+        return Execution;
     }
 
-    public void setExecutionResults(ExecutionResults executionResults) {
-        this.executionResults = executionResults;
+    public void setExecution(Execution Execution) {
+        this.Execution = Execution;
     }
 
     public Integer getIsAll() {

@@ -19,10 +19,10 @@ public class AvMetric implements GenericMetric {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "av")
-    private String av;
+    private Double av;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
@@ -39,12 +39,18 @@ public class AvMetric implements GenericMetric {
     @Column(name = "id_solution")
     private String idSolution;
 
+    public AvMetric(String idSolution, Execution execution, Experiment experiement) {
+        this.idSolution = idSolution;
+        this.execution = execution;
+        this.experiment = experiement;
+    }
+
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -80,11 +86,11 @@ public class AvMetric implements GenericMetric {
         return serialVersionUID;
     }
 
-    public String getAv() {
+    public Double getAv() {
         return av;
     }
 
-    public void setAv(String av) {
+    public void setAv(Double av) {
         this.av = av;
     }
 

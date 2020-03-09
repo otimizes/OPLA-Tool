@@ -16,7 +16,7 @@ public class Experiment implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -37,15 +37,15 @@ public class Experiment implements Serializable {
     public Experiment() {
     }
 
-    public Experiment(Long id) {
+    public Experiment(String id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

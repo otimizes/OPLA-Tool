@@ -28,7 +28,7 @@ import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import br.ufpr.dinf.gres.domain.entity.InfoResults;
+import br.ufpr.dinf.gres.domain.entity.Info;
 import br.ufpr.dinf.gres.core.learning.ArchitecturalElementType;
 import br.ufpr.dinf.gres.core.learning.DistributeUserEvaluation;
 import br.ufpr.dinf.gres.loglog.Level;
@@ -342,7 +342,7 @@ public class SolutionSet implements Serializable {
     } // printVariablesToFile
 
     // added by Thelma october/2012
-    public void saveVariablesToFile(String path, List<InfoResults> funResults, LogLog logger, boolean generate) {
+    public void saveVariablesToFile(String path, List<Info> funResults, LogLog logger, boolean generate) {
         int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
 
         if (logger != null)

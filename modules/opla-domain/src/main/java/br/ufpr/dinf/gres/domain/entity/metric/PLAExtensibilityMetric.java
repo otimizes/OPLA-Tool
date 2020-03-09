@@ -23,15 +23,15 @@ import br.ufpr.dinf.gres.domain.entity.Experiment;
 @Table(name = "plaextensibility_metrics")
 public class PLAExtensibilityMetric implements GenericMetric {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "plaExtensibility")
-    private String plaExtensibility;
+    private Double plaExtensibility;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
@@ -48,20 +48,30 @@ public class PLAExtensibilityMetric implements GenericMetric {
     @Column(name = "id_solution")
     private String idSolution;
 
+    public PLAExtensibilityMetric(String idSolution, Execution execution, Experiment experiement) {
+        this.idSolution = idSolution;
+        this.execution = execution;
+        this.experiment = experiement;
+    }
+
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getPlaExtensibility() {
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Double getPlaExtensibility() {
         return plaExtensibility;
     }
 
-    public void setPlaExtensibility(String plaExtensibility) {
+    public void setPlaExtensibility(Double plaExtensibility) {
         this.plaExtensibility = plaExtensibility;
     }
 

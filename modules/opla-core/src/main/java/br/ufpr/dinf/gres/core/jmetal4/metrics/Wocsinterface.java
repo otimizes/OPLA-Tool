@@ -4,8 +4,8 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.Method;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.domain.entity.ExecutionResults;
-import br.ufpr.dinf.gres.domain.entity.ExperimentResults;
+import br.ufpr.dinf.gres.domain.entity.Execution;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.IPersistentDto;
 import br.ufpr.dinf.gres.domain.entity.metric.WocsinterfaceMetric;
 
@@ -48,8 +48,8 @@ public class Wocsinterface extends Metrics implements IPersistentDto<Wocsinterfa
         return results;
     }
 
-    public Wocsinterface(String idSolution, ExecutionResults executionResults, ExperimentResults experiement) {
-        super.setExecutionResults(executionResults);
+    public Wocsinterface(String idSolution, Execution Execution, Experiment experiement) {
+        super.setExecution(Execution);
         super.setExperiement(experiement);
         super.setIdSolution(idSolution);
     }
@@ -65,7 +65,7 @@ public class Wocsinterface extends Metrics implements IPersistentDto<Wocsinterfa
     @Override
     public WocsinterfaceMetric newPersistentInstance() {
         WocsinterfaceMetric metric = new WocsinterfaceMetric();
-        metric.setExecution(this.getExecutionResults().newPersistentInstance());
+        metric.setExecution(this.getExecution().newPersistentInstance());
         metric.setExperiment(this.getExperiement().newPersistentInstance());
         metric.setId(Long.valueOf(this.getIdSolution()));
         metric.setIsAll(this.getIsAll());

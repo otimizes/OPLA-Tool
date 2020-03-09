@@ -17,7 +17,7 @@ public class TamMetric implements GenericMetric {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "meannumops")
     private Double meanNumOps;
@@ -37,12 +37,18 @@ public class TamMetric implements GenericMetric {
     @Column(name = "id_solution")
     private String idSolution;
 
+    public TamMetric(String idSolution, Execution execution, Experiment experiement) {
+        this.idSolution = idSolution;
+        this.execution = execution;
+        this.experiment = experiement;
+    }
+
     @Override
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

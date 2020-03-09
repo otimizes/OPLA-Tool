@@ -25,7 +25,7 @@ public class Execution implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
@@ -40,15 +40,15 @@ public class Execution implements Serializable {
     public Execution() {
     }
 
-    public Execution(Long id) {
+    public Execution(String id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

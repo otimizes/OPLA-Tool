@@ -6,6 +6,8 @@
 
 package br.ufpr.dinf.gres.domain.entity;
 
+import br.ufpr.dinf.gres.domain.util.IdUtil;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -101,7 +103,7 @@ public class ExperimentResults implements IPersistentDto<Experiment> {
     }
 
     private String givenId() {
-        return Id.generateUniqueId();
+        return IdUtil.generateUniqueId();
     }
 
 

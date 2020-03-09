@@ -6,7 +6,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.*;
 import br.ufpr.dinf.gres.domain.entity.ExecutionResults;
 import br.ufpr.dinf.gres.domain.entity.ExperimentResults;
 import br.ufpr.dinf.gres.domain.entity.InfoResults;
-import br.ufpr.dinf.gres.domain.entity.Id;
+import br.ufpr.dinf.gres.domain.util.IdUtil;
 import br.ufpr.dinf.gres.core.jmetal4.util.NonDominatedSolutionList;
 import br.ufpr.dinf.gres.domain.entity.*;
 import br.ufpr.dinf.gres.persistence.service.*;
@@ -137,7 +137,7 @@ public class Persistence {
     public void saveObjectivesNames(List<String> selectedMetrics, String experimentId) throws Exception {
         String names = getNames(selectedMetrics);
         MapObjectiveName mapObjectiveName = new MapObjectiveName();
-        mapObjectiveName.setId(Long.valueOf(Id.generateUniqueId()));
+        mapObjectiveName.setId(Long.valueOf(IdUtil.generateUniqueId()));
         mapObjectiveName.setNames(names);
         mapObjectiveName.setExperiment(experimentService.getOne(Long.valueOf(experimentId)));
         mapObjectiveNameService.save(mapObjectiveName);
@@ -155,7 +155,7 @@ public class Persistence {
 
     public void save(ExperimentConfs conf) {
         ExperimentConfiguration experimentConfiguration = new ExperimentConfiguration();
-        experimentConfiguration.setId(Long.valueOf(Id.generateUniqueId()));
+        experimentConfiguration.setId(Long.valueOf(IdUtil.generateUniqueId()));
         experimentConfiguration.setExperiment(experimentService.getOne(Long.valueOf(conf.getExperimentId())));
         experimentConfiguration.setNumberOfRuns((long) conf.getConfigs().getNumberOfRuns());
         experimentConfiguration.setMaxEvaluations(conf.getConfigs().getMaxEvaluations());
@@ -188,7 +188,7 @@ public class Persistence {
             Objective objective = new Objective();
             objective.setExecution(execution);
             objective.setExperiment(execution.getExperiment());
-            objective.setId(Long.valueOf(Id.generateUniqueId()));
+            objective.setId(Long.valueOf(IdUtil.generateUniqueId()));
             objective.setIsAll(infoResults.getIsAll());
             objective.setObjectives(infoResults.getObjectives().replace("[", "").replace("]", "").replace(",", "|"));
             objective.setSolutionName(infoResults.getName());

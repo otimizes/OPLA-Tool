@@ -104,19 +104,19 @@ public class AllMetrics {
         this.ec = ec;
     }
 
-    public List<WocsclassMetric> getWocsc() {
+    public List<WocsclassMetric> getWocsclass() {
         return wocsc;
     }
 
-    public void setWocsc(List<WocsclassMetric> wocsc) {
+    public void setWocsclass(List<WocsclassMetric> wocsc) {
         this.wocsc = wocsc;
     }
 
-    public List<WocsinterfaceMetric> getWocsi() {
+    public List<WocsinterfaceMetric> getWocsinterface() {
         return wocsi;
     }
 
-    public void setWocsi(List<WocsinterfaceMetric> wocsi) {
+    public void setWocsinterface(List<WocsinterfaceMetric> wocsi) {
         this.wocsi = wocsi;
     }
 
