@@ -20,7 +20,7 @@ import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 
 @Entity
-@Table(name = "ConventionalMetrics")
+@Table(name = "conventional_metrics")
 public class ConventionalMetric implements GenericMetric {
 
 	private static final long serialVersionUID = 1L;

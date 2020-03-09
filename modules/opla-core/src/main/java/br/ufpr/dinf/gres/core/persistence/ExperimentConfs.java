@@ -1,15 +1,8 @@
 package br.ufpr.dinf.gres.core.persistence;
 
-import br.ufpr.dinf.gres.core.jmetal4.database.Database;
-import br.ufpr.dinf.gres.common.exceptions.MissingConfigurationException;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommomConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.NSGAIIConfig;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.PaesConfigs;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
 
 /**
  * Classe responsável por guardar E persistir/recuperar informações referentes a

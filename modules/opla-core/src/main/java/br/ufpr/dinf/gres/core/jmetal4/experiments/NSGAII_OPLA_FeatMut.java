@@ -5,7 +5,6 @@ import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.database.Database;
 import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetrics;
@@ -52,7 +51,6 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
 
     public void execute(NSGAIIConfig configs) throws Exception {
 
-        Database.setPathToDB(configs.getPathToDb());
         ExperimentResults experiment = null;
 
         String context = "OPLA";
@@ -79,7 +77,6 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
 
             LOGGER.info("Inicializando dependências");
             Result result = new Result();
-            Database.setPathToDB(configs.getPathToDb());
 
             experiment = mp.saveExperiment(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiment.getId(), "NSGAII", configs);
@@ -154,7 +151,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                     configs.getInteractiveFunction().run(resultFront);
                 }
 
-//                resultFront.saveVariablesToFile("VAR_" + runs + "_", infoResults, configs.getLogger(), true);
+                resultFront.saveVariablesToFile("VAR_" + runs + "_", infoResults, configs.getLogger(), true);
 
                 executionResults.setInfos(infoResults);
                 executionResults.setAllMetrics(allMetrics);

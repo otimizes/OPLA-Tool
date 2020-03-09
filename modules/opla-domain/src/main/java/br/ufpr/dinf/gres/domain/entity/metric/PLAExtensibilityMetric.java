@@ -20,7 +20,7 @@ import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 
 @Entity
-@Table(name = "PLAExtensibilityMetrics")
+@Table(name = "plaextensibility_metrics")
 public class PLAExtensibilityMetric implements GenericMetric {
 
 	private static final long serialVersionUID = 1L;

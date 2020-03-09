@@ -20,7 +20,7 @@ import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 
 @Entity
-@Table(name = "EleganceMetrics")
+@Table(name = "elegance_metrics")
 public class EleganceMetric implements GenericMetric {
 
     private static final long serialVersionUID = 1L;

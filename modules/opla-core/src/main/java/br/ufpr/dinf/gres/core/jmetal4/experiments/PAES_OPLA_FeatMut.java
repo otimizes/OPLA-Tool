@@ -2,10 +2,8 @@ package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
 import br.ufpr.dinf.gres.architecture.io.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
-import br.ufpr.dinf.gres.common.exceptions.MissingConfigurationException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.database.Database;
 import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.paes.PAES;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetrics;
@@ -25,8 +23,6 @@ import br.ufpr.dinf.gres.loglog.Level;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,7 +33,6 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
     public static int maxEvaluations;
     public static double mutationProbability;
     public static double crossoverProbability;
-    private static Connection connection;
     private static Persistence mp;
     private static Result result;
     public String dirToSaveOutput; //Diretório que sera criado dentro do diretorio configurado no arquivo de configuracao
@@ -202,13 +197,6 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
 
     private void intializeDependencies() throws Exception {
         result = new Result();
-        Database.setPathToDB(this.configs.getPathToDb());
-
-        try {
-            connection = Database.getConnection();
-        } catch (ClassNotFoundException | MissingConfigurationException | SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     private void logInforamtions(String context, String pla) {

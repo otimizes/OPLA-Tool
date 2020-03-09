@@ -1,8 +1,9 @@
-package br.ufpr.dinf.gres.architecture.representation.relationship;
+package br.ufpr.dinf.gres.architecture.base;
 
 import br.ufpr.dinf.gres.architecture.base.ArchitectureHelper;
 import br.ufpr.dinf.gres.architecture.builders.AssociationEndBuilder;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
+import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationEnd;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Property;
 

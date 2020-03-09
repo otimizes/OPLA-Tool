@@ -2,7 +2,7 @@ package br.ufpr.dinf.gres.architecture.builders;
 
 import br.ufpr.dinf.gres.architecture.base.ArchitectureHelper;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationHelper;
+import br.ufpr.dinf.gres.architecture.base.AssociationHelper;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationRelationship;
 import org.eclipse.uml2.uml.Association;
 

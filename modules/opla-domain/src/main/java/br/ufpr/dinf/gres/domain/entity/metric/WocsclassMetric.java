@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "WocsclassMetrics")
+@Table(name = "wocsclass_metrics")
 public class WocsclassMetric implements GenericMetric {
 
     private static final long serialVersionUID = 1L;

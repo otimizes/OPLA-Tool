@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "AvMetrics")
+@Table(name = "av_metrics")
 public class AvMetric implements GenericMetric {
 
     private static final long serialVersionUID = 1L;

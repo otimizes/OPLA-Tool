@@ -94,7 +94,6 @@ public class OplaApiApplication {
     private static void initialConfiguration() {
         createPathOplaTool();
         configureApplicationFile();
-        setPathDatabase();
         configureDb();
     }
 
@@ -122,11 +121,6 @@ public class OplaApiApplication {
 
     private static void configureApplicationFile() {
         ApplicationFile.getInstance();
-    }
-
-
-    private static void setPathDatabase() {
-        br.ufpr.dinf.gres.core.jmetal4.database.Database.setPathToDB(UserHome.getPathToDb());
     }
 
     /**
