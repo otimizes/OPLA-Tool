@@ -2,17 +2,12 @@ package br.ufpr.dinf.gres.domain.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import br.ufpr.dinf.gres.domain.util.IdUtil;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -37,8 +32,22 @@ public class Execution implements Serializable {
     @Column(name = "time")
     private Long time;
 
+    @Column(name = "runs")
+    private int runs;
+
+    @Transient
+    private List<Info> infos;
+    @Transient
+    private AllMetrics allMetrics;
+
     public Execution() {
     }
+
+    public Execution(Experiment experimentResults) {
+        setId(IdUtil.generateUniqueId());
+        this.experiment = experimentResults;
+    }
+
 
     public Execution(String id) {
         this.id = id;
@@ -71,7 +80,7 @@ public class Execution implements Serializable {
     public Date getTime() {
         return new Date(time);
     }
-    
+
     public void setTime(Long time) {
         this.time = time;
     }
@@ -103,4 +112,27 @@ public class Execution implements Serializable {
                 .append("experimentId", experiment).append("time", time).toString();
     }
 
+    public int getRuns() {
+        return runs;
+    }
+
+    public void setRuns(int runs) {
+        this.runs = runs;
+    }
+
+    public List<Info> getInfos() {
+        return infos;
+    }
+
+    public void setInfos(List<Info> infos) {
+        this.infos = infos;
+    }
+
+    public AllMetrics getAllMetrics() {
+        return allMetrics;
+    }
+
+    public void setAllMetrics(AllMetrics allMetrics) {
+        this.allMetrics = allMetrics;
+    }
 }

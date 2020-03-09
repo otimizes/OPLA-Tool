@@ -2,10 +2,7 @@ package br.ufpr.dinf.gres.core.persistence;
 
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.*;
-import br.ufpr.dinf.gres.domain.entity.ExecutionResults;
-import br.ufpr.dinf.gres.domain.entity.ExperimentResults;
-import br.ufpr.dinf.gres.domain.entity.InfoResults;
+import br.ufpr.dinf.gres.domain.entity.metric.*;
 import br.ufpr.dinf.gres.domain.util.IdUtil;
 import br.ufpr.dinf.gres.core.jmetal4.util.NonDominatedSolutionList;
 import br.ufpr.dinf.gres.domain.entity.*;
@@ -59,14 +56,13 @@ public class Persistence {
         this.featureDrivenMetricService = featureDrivenMetricService;
     }
 
-    public void saveInfoAll(List<InfoResults> infoResults) {
-        List<Info> collect = infoResults.stream().map(InfoResults::newPersistentInstance).collect(Collectors.toList());
-        infoService.saveAll(collect);
+    public void saveInfoAll(List<Info> infoResults) {
+        infoService.saveAll(infoResults);
     }
 
-    public ExperimentResults saveExperiment(String PLAName, String algorithm, String description, String hash) {
-        ExperimentResults experimentResults = new ExperimentResults(PLAName, algorithm, description, hash);
-        Experiment save = experimentService.save(experimentResults.newPersistentInstance());
+    public Experiment saveExperiment(String PLAName, String algorithm, String description, String hash) {
+        Experiment experimentResults = new Experiment(PLAName, algorithm, description, hash);
+        Experiment save = experimentService.save(experimentResults);
         experimentResults.setId(String.valueOf(save.getId()));
         return experimentResults;
     }
@@ -94,50 +90,50 @@ public class Persistence {
             saveAv(allMetrics.getAv());
     }
 
-    private void saveWocsclass(List<Wocsclass> wocsC) {
-        wocsclassMetricService.saveAll(wocsC.stream().map(Wocsclass::newPersistentInstance).collect(Collectors.toList()));
+    private void saveWocsclass(List<WocsclassMetric> wocsC) {
+        wocsclassMetricService.saveAll(wocsC);
     }
 
-    private void persisteWocsinterface(List<Wocsinterface> wocsI) {
-        wocsinterfaceMetricService.saveAll(wocsI.stream().map(Wocsinterface::newPersistentInstance).collect(Collectors.toList()));
+    private void persisteWocsinterface(List<WocsinterfaceMetric> wocsI) {
+        wocsinterfaceMetricService.saveAll(wocsI);
     }
 
-    private void saveCbcs(List<Cbcs> cBcs) {
-        cbcsMetricService.saveAll(cBcs.stream().map(Cbcs::newPersistentInstance).collect(Collectors.toList()));
+    private void saveCbcs(List<CbcsMetric> cBcs) {
+        cbcsMetricService.saveAll(cBcs);
     }
 
-    private void saveSsc(List<Ssc> sSc) {
-        sscMetricService.saveAll(sSc.stream().map(Ssc::newPersistentInstance).collect(Collectors.toList()));
+    private void saveSsc(List<SscMetric> sSc) {
+        sscMetricService.saveAll(sSc);
     }
 
-    private void saveSvc(List<Svc> sVc) {
-        svcMetricService.saveAll(sVc.stream().map(Svc::newPersistentInstance).collect(Collectors.toList()));
+    private void saveSvc(List<SvcMetric> sVc) {
+        svcMetricService.saveAll(sVc);
     }
 
-    private void saveAv(List<Av> aV) {
-        avMetricService.saveAll(aV.stream().map(Av::newPersistentInstance).collect(Collectors.toList()));
+    private void saveAv(List<AvMetric> aV) {
+        avMetricService.saveAll(aV);
     }
 
-    private void savePlaExtensibility(List<PLAExtensibility> plaExt) {
-        plaExtensibilityMetricService.saveAll(plaExt.stream().map(PLAExtensibility::newPersistentInstance).collect(Collectors.toList()));
+    private void savePlaExtensibility(List<PLAExtensibilityMetric> plaExt) {
+        plaExtensibilityMetricService.saveAll(plaExt);
     }
 
-    private void saveConventional(List<Conventional> conventionals) {
-        conventionalMetricService.saveAll(conventionals.stream().map(Conventional::newPersistentInstance).collect(Collectors.toList()));
+    private void saveConventional(List<ConventionalMetric> conventionals) {
+        conventionalMetricService.saveAll(conventionals);
     }
 
-    private void saveFeatureDriven(List<FeatureDriven> featuresDriven) {
-        featureDrivenMetricService.saveAll(featuresDriven.stream().map(FeatureDriven::newPersistentInstance).collect(Collectors.toList()));
+    private void saveFeatureDriven(List<FeatureDrivenMetric> featuresDriven) {
+        featureDrivenMetricService.saveAll(featuresDriven);
     }
 
-    private void saveElegance(List<Elegance> elegances) {
-        eleganceMetricService.saveAll(elegances.stream().map(Elegance::newPersistentInstance).collect(Collectors.toList()));
+    private void saveElegance(List<EleganceMetric> elegances) {
+        eleganceMetricService.saveAll(elegances);
     }
 
     public void saveObjectivesNames(List<String> selectedMetrics, String experimentId) throws Exception {
         String names = getNames(selectedMetrics);
         MapObjectiveName mapObjectiveName = new MapObjectiveName();
-        mapObjectiveName.setId(Long.valueOf(IdUtil.generateUniqueId()));
+        mapObjectiveName.setId(IdUtil.generateUniqueId());
         mapObjectiveName.setNames(names);
         mapObjectiveName.setExperiment(experimentService.getOne(Long.valueOf(experimentId)));
         mapObjectiveNameService.save(mapObjectiveName);
@@ -155,7 +151,7 @@ public class Persistence {
 
     public void save(ExperimentConfs conf) {
         ExperimentConfiguration experimentConfiguration = new ExperimentConfiguration();
-        experimentConfiguration.setId(Long.valueOf(IdUtil.generateUniqueId()));
+        experimentConfiguration.setId(IdUtil.generateUniqueId());
         experimentConfiguration.setExperiment(experimentService.getOne(Long.valueOf(conf.getExperimentId())));
         experimentConfiguration.setNumberOfRuns((long) conf.getConfigs().getNumberOfRuns());
         experimentConfiguration.setMaxEvaluations(conf.getConfigs().getMaxEvaluations());
@@ -182,19 +178,18 @@ public class Persistence {
         distanceEuclideanService.saveAll(collect);
     }
 
-    public void save(ExecutionResults executionResults) {
-        Execution execution = executionService.save(executionResults.newPersistentInstance());
-        for (InfoResults infoResults : executionResults.getInfos()) {
+    public void save(Execution executionResults) {
+        Execution execution = executionService.save(executionResults);
+        for (Info infoResults : executionResults.getInfos()) {
             Objective objective = new Objective();
             objective.setExecution(execution);
             objective.setExperiment(execution.getExperiment());
-            objective.setId(Long.valueOf(IdUtil.generateUniqueId()));
+            objective.setId(IdUtil.generateUniqueId());
             objective.setIsAll(infoResults.getIsAll());
             objective.setObjectives(infoResults.getObjectives().replace("[", "").replace("]", "").replace(",", "|"));
             objective.setSolutionName(infoResults.getName());
             objectiveService.save(objective);
         }
-
     }
 
     public SolutionSet queryNonDominatedSolutinsFromExperiment(String experimentID) throws Exception {

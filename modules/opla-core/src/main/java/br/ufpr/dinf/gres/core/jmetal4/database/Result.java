@@ -289,7 +289,7 @@ public class Result {
                                                   Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
 
         WocsclassMetric wocsClass = new WocsclassMetric(idSolution, Execution, experiement);
-        wocsClass.setWocsclass((double) metrics.evaluateWocsClass(arch));
+        wocsClass.setWocsclass(MetricsEvaluation.evaluateWocsC(arch));
 
         return wocsClass;
     }
@@ -298,7 +298,7 @@ public class Result {
                                                           Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
 
         WocsinterfaceMetric wocsInterface = new WocsinterfaceMetric(idSolution, Execution, experiement);
-        wocsInterface.setWocsinterface((double) metrics.evaluateWocsInterface(arch));
+        wocsInterface.setWocsinterface(MetricsEvaluation.evaluateWocsI(arch));
 
         return wocsInterface;
     }
@@ -307,7 +307,7 @@ public class Result {
                                         Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
 
         CbcsMetric cBcs = new CbcsMetric(idSolution, Execution, experiement);
-        cBcs.setCbcs((double) metrics.evaluateWocsInterface(arch));
+        cBcs.setCbcs(MetricsEvaluation.evaluateWocsI(arch));
 
         return cBcs;
     }
@@ -316,7 +316,7 @@ public class Result {
                                       Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
 
         SscMetric sSc = new SscMetric(idSolution, Execution, experiement);
-        sSc.setSsc((double) metrics.evaluateWocsInterface(arch));
+        sSc.setSsc(MetricsEvaluation.evaluateWocsI(arch));
 
         return sSc;
     }
@@ -326,7 +326,7 @@ public class Result {
                                       Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
 
         SvcMetric sVc = new SvcMetric(idSolution, Execution, experiement);
-        sVc.setSvc((double) metrics.evaluateWocsInterface(arch));
+        sVc.setSvc(MetricsEvaluation.evaluateWocsI(arch));
 
         return sVc;
     }
@@ -336,7 +336,7 @@ public class Result {
                                     Experiment experiement, MetricsEvaluation metrics, Architecture arch) {
 
         AvMetric aV = new AvMetric(idSolution, Execution, experiement);
-        aV.setAv((double) metrics.evaluateWocsInterface(arch));
+        aV.setAv(MetricsEvaluation.evaluateWocsI(arch));
 
         return aV;
     }

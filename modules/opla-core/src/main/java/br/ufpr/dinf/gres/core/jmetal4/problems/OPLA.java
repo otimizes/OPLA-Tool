@@ -97,60 +97,60 @@ public class OPLA extends Problem {
 
             switch (metric) {
                 case "elegance":
-                    fitnesses.add(new Fitness(evaluateElegance((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateElegance((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "conventional":
-                    fitnesses.add(new Fitness(evaluateMACFitness((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateMACFitness((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "featureDriven":
-                    fitnesses.add(new Fitness(evaluateMSIFitness((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateMSIFitness((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "PLAExtensibility":
-                    fitnesses.add(new Fitness(evaluatePLAExtensibility((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluatePLAExtensibility((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 //implementado por marcelo
                 case "acomp":
-                    fitnesses.add(new Fitness(evaluateACOMP((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateACOMP((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "aclass":
-                    fitnesses.add(new Fitness(evaluateACLASS((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateACLASS((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "tam":
-                    fitnesses.add(new Fitness(evaluateTAM((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateTAM((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "coe":
-                    fitnesses.add(new Fitness(evaluateCOE((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateCOE((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "dc":
-                    fitnesses.add(new Fitness(evaluateDC((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateDC((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "ec":
-                    fitnesses.add(new Fitness(evaluateEC((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateEC((Architecture) solution.getDecisionVariables()[0])));
                     //addYni
                 case "wocsclass":
-                    fitnesses.add(new Fitness(evaluateWocsC((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateWocsC((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "wocsinterface":
-                    fitnesses.add(new Fitness(evaluateWocsI((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateWocsI((Architecture) solution.getDecisionVariables()[0])));
                     break;
 
                 case "cbcs":
-                    fitnesses.add(new Fitness(evaluateCbcs((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateCbcs((Architecture) solution.getDecisionVariables()[0])));
                     break;
 
                 case "svc":
-                    fitnesses.add(new Fitness(evaluateSvc((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateSvc((Architecture) solution.getDecisionVariables()[0])));
                     break;
 
                 case "ssc":
-                    fitnesses.add(new Fitness(evaluateSsc((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateSsc((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "av":
-                    fitnesses.add(new Fitness(evaluateAv((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateAv((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 //addYni
                 case "lcc":
-                    fitnesses.add(new Fitness(evaluateLCC((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateLCC((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 default:
             }
@@ -160,165 +160,6 @@ public class OPLA extends Problem {
             solution.setObjective(i, fitnesses.get(i).getValue());
         }
 
-    }
-
-    private double evaluateDepIN(Architecture architecture) {
-        LOGGER.info("evaluateDepIN()");
-        ClassDependencyIn depIn = new ClassDependencyIn(architecture);
-        return depIn.getResults();
-    }
-
-    private double evaluateElegance(Architecture architecture) {
-        LOGGER.info("evaluateElegance()");
-        double EleganceFitness = 0.0;
-        ECElegance EC = new ECElegance(architecture);
-        ATMRElegance ATMR = new ATMRElegance(architecture);
-        NACElegance NAC = new NACElegance(architecture);
-        EleganceFitness = EC.getResults() + ATMR.getResults() + NAC.getResults();
-
-        return EleganceFitness;
-    }
-
-    private double evaluateMSIFitness(Architecture architecture) {
-        LOGGER.info("evaluateMSIFitness()");
-        double sumCIBC = 0.0;
-        double sumIIBC = 0.0;
-        double sumOOBC = 0.0;
-        double sumCDAC = 0.0;
-        double sumCDAI = 0.0;
-        double sumCDAO = 0.0;
-        double sumLCC = 0.0;
-        double MSIFitness = 0.0;
-        double sumCDAClass = 0.0;
-        double sumCIBClass = 0.0;
-        double sumLCCClass = 0.0;
-
-        sumLCC = evaluateLCC(architecture);
-
-        sumLCCClass = evaluateLCCClass(architecture);
-
-        CIBC cibc = new CIBC(architecture);
-        for (CIBCResult c : cibc.getResults().values()) {
-            sumCIBC += c.getInterlacedConcerns().size();
-        }
-
-        CIBClass cibclass = new CIBClass(architecture);
-        for (CIBClassResult c : cibclass.getResults().values()) {
-            sumCIBClass += c.getInterlacedConcerns().size();
-        }
-
-        IIBC iibc = new IIBC(architecture);
-        for (IIBCResult c : iibc.getResults().values()) {
-            sumIIBC += c.getInterlacedConcerns().size();
-        }
-
-        OOBC oobc = new OOBC(architecture);
-        for (OOBCResult c : oobc.getResults().values()) {
-            sumOOBC += c.getInterlacedConcerns().size();
-        }
-
-        CDAC cdac = new CDAC(architecture);
-        for (CDACResult c : cdac.getResults()) {
-            sumCDAC += c.getElements().size();
-        }
-
-        CDAClass cdaclass = new CDAClass(architecture);
-        for (CDAClassResult c : cdaclass.getResults()) {
-            sumCDAClass += c.getElements().size();
-        }
-
-        CDAI cdai = new CDAI(architecture);
-        for (CDAIResult c : cdai.getResults()) {
-            sumCDAI += c.getElements().size();
-        }
-
-        CDAO cdao = new CDAO(architecture);
-        for (CDAOResult c : cdao.getResults()) {
-            sumCDAO += c.getElements().size();
-        }
-
-        MSIFitness = sumLCC + sumLCCClass + sumCDAC + sumCDAClass + sumCDAI
-                + sumCDAO + sumCIBC + sumCIBClass + sumIIBC + sumOOBC;
-        return MSIFitness;
-    }
-
-    private double evaluateLCC(Architecture architecture) {
-        LOGGER.info("evaluateLCC()");
-        double sumLCC = 0.0;
-        LCC result = new LCC(architecture);
-
-        for (LCCComponentResult component : result.getResults()) {
-            sumLCC += component.numberOfConcerns();
-
-        }
-        return sumLCC;
-    }
-
-    // ----------------------------------------------------------------------------------
-    private double evaluateMACFitness(Architecture architecture) {
-        LOGGER.info("evaluateMACFitness()");
-        double MACFitness = 0.0;
-        double meanNumOps = 0.0;
-        double meanDepComps = 0.0;
-        double sumCohesion = 0.0;
-        double sumClassesDepIn = 0.0;
-        double sumClassesDepOut = 0.0;
-        double sumDepIn = 0.0;
-        double sumDepOut = 0.0;
-        double iCohesion = 0.0;
-
-        MeanNumOpsByInterface numOps = new MeanNumOpsByInterface(architecture);
-        meanNumOps = numOps.getResults();
-
-        MeanDepComponents depComps = new MeanDepComponents(architecture);
-        meanDepComps = depComps.getResults();
-
-        ClassDependencyOut classesDepOut = new ClassDependencyOut(architecture);
-        sumClassesDepOut = classesDepOut.getResults();
-
-        ClassDependencyIn classesDepIn = new ClassDependencyIn(architecture);
-        sumClassesDepIn = classesDepIn.getResults();
-
-        DependencyOut DepOut = new DependencyOut(architecture);
-        sumDepOut = DepOut.getResults();
-
-        DependencyIn DepIn = new DependencyIn(architecture);
-        sumDepIn = DepIn.getResults();
-
-        RelationalCohesion cohesion = new RelationalCohesion(architecture);
-        sumCohesion = cohesion.getResults();
-        if (sumCohesion == 0) {
-            iCohesion = 1.0;
-        } else
-            iCohesion = 1 / sumCohesion;
-
-        // System.out.println("MeanNumOps: "+meanNumOps);
-        // System.out.println("meanDepComps: "+meanDepComps);
-        // System.out.println("sumClassesDepIn: "+sumClassesDepIn);
-        // System.out.println("sumClassesDepOut: "+sumClassesDepOut);
-        // System.out.println("sumDepIn: "+sumDepIn);
-        // System.out.println("sumDepOut: "+sumDepOut);
-        // System.out.println("sumCohesion: "+iCohesion);
-        //
-
-        // MACFitness = meanNumOps + meanDepComps + sumClassesDepIn +
-        // sumClassesDepOut + sumDepIn + sumDepOut + (1 / sumCohesion);
-        // Design Outset
-        MACFitness = sumClassesDepIn + sumClassesDepOut + sumDepIn + sumDepOut + iCohesion;
-
-        return MACFitness;
-    }
-
-    // ---------------------------------------------------------------------------------
-    private double evaluateCohesionFitness(Architecture architecture) {
-        LOGGER.info("evaluateCohesionFitness()");
-        double sumCohesion = 0.0;
-        double Cohesion = 0.0;
-
-        RelationalCohesion cohesion = new RelationalCohesion(architecture);
-        sumCohesion = cohesion.getResults();
-        Cohesion = (1 / sumCohesion);
-        return Cohesion;
     }
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -431,94 +272,6 @@ public class OPLA extends Problem {
             }
         }
         return false;
-    }
-
-    private double evaluateMSIFitnessDesignOutset(Architecture architecture) {
-        LOGGER.info("evaluateMSIFitnessDesignOutset()");
-        double sumCIBC = 0.0;
-        double sumIIBC = 0.0;
-        double sumOOBC = 0.0;
-        double sumCDAC = 0.0;
-        double sumCDAI = 0.0;
-        double sumCDAO = 0.0;
-        double sumLCC = 0.0;
-        double MSIFitness = 0.0;
-        double sumCDAClass = 0.0;
-        double sumCIBClass = 0.0;
-        double sumLCCClass = 0.0;
-
-        sumLCC = evaluateLCC(architecture);
-
-        sumLCCClass = evaluateLCCClass(architecture);
-
-        CIBC cibc = new CIBC(architecture);
-        for (CIBCResult c : cibc.getResults().values()) {
-            sumCIBC += c.getInterlacedConcerns().size();
-        }
-
-        CIBClass cibclass = new CIBClass(architecture);
-        for (CIBClassResult c : cibclass.getResults().values()) {
-            sumCIBClass += c.getInterlacedConcerns().size();
-        }
-
-        IIBC iibc = new IIBC(architecture);
-        for (IIBCResult c : iibc.getResults().values()) {
-            sumIIBC += c.getInterlacedConcerns().size();
-        }
-
-        OOBC oobc = new OOBC(architecture);
-        for (OOBCResult c : oobc.getResults().values()) {
-            sumOOBC += c.getInterlacedConcerns().size();
-        }
-
-        CDAC cdac = new CDAC(architecture);
-        for (CDACResult c : cdac.getResults()) {
-            sumCDAC += c.getElements().size();
-        }
-
-        CDAClass cdaclass = new CDAClass(architecture);
-        for (CDAClassResult c : cdaclass.getResults()) {
-            sumCDAClass += c.getElements().size();
-        }
-
-        CDAI cdai = new CDAI(architecture);
-        for (CDAIResult c : cdai.getResults()) {
-            sumCDAI += c.getElements().size();
-        }
-
-        CDAO cdao = new CDAO(architecture);
-        for (CDAOResult c : cdao.getResults()) {
-            sumCDAO += c.getElements().size();
-        }
-
-        MSIFitness = sumLCC + sumLCCClass + sumCDAC + sumCDAClass + sumCDAI + sumCDAO + sumCIBC + sumCIBClass + sumIIBC
-                + sumOOBC;
-        return MSIFitness;
-    }
-
-    private double evaluateLCCClass(Architecture architecture) {
-        LOGGER.info("evaluateLCCClass()");
-        double sumLCCClass = 0.0;
-        LCCClass result = new LCCClass(architecture);
-
-        for (LCCClassComponentResult cls : result.getResults()) {
-            sumLCCClass += cls.numberOfConcerns();
-
-        }
-        return sumLCCClass;
-    }
-
-    private double evaluatePLAExtensibility(Architecture architecture) {
-        LOGGER.info("evaluatePLAExtensibility()");
-        double ExtensibilityFitness = 0;
-        double Extensibility;
-        ExtensPLA PLAExtens = new ExtensPLA(architecture);
-        ExtensibilityFitness = PLAExtens.getValue();
-        if (ExtensibilityFitness == 0)
-            Extensibility = 1000;
-        else
-            Extensibility = 1 / ExtensibilityFitness;
-        return (Extensibility);
     }
 
     private void removeComponentRelationships(Package comp, Architecture architecture) {
@@ -639,146 +392,7 @@ public class OPLA extends Problem {
 
     }
 
-    //implementado por marcelo
-    public double evaluateACOMP(Architecture architecture) {
-        LOGGER.info("evaluateACOMP()");
-        double acompFitness = 0.0;
-        DependencyIn depIN = new DependencyIn(architecture);
-        DependencyOut depOUT = new DependencyOut(architecture);
-        acompFitness = depIN.getResults() + depOUT.getResults();
-        return acompFitness;
-    }
 
-    public double evaluateACLASS(Architecture architecture) {
-        LOGGER.info("evaluateACLASS()");
-        double aclassFitness = 0.0;
-        ClassDependencyIn CDepIN = new ClassDependencyIn(architecture);
-        ClassDependencyOut CDepOUT = new ClassDependencyOut(architecture);
-        aclassFitness = CDepIN.getResults() + CDepOUT.getResults();
-        return aclassFitness;
-    }
-
-    public double evaluateTAM(Architecture architecture) {
-        LOGGER.info("evaluateTAM()");
-        double tamFitness = 0.0;
-        MeanNumOpsByInterface NumOps = new MeanNumOpsByInterface(architecture);
-
-        tamFitness = NumOps.getResults();
-        return tamFitness;
-    }
-
-    public double evaluateCOE(Architecture architecture) {
-        LOGGER.info("evaluateCOE()");
-        double coeFitness = 0.0;
-        double sumLCC = 0.0;
-
-        RelationalCohesion rc = new RelationalCohesion(architecture);
-
-
-        LCC lcc = new LCC(architecture);
-        for (LCCComponentResult c : lcc.getResults()) {
-            sumLCC += c.numberOfConcerns();
-        }
-
-        coeFitness = rc.getResults() + sumLCC;
-        return sumLCC;
-    }
-
-    public double evaluateDC(Architecture architecture) {
-        LOGGER.info("evaluateDC()");
-        double dcFitness = 0.0;
-        double sumCDAC = 0.0;
-        double sumCDAI = 0.0;
-        double sumCDAO = 0.0;
-
-        CDAI cdai = new CDAI(architecture);
-        for (CDAIResult c : cdai.getResults()) {
-            sumCDAI += c.getElements().size();
-        }
-
-        CDAO cdao = new CDAO(architecture);
-        for (CDAOResult c : cdao.getResults()) {
-            sumCDAO += c.getElements().size();
-        }
-
-        CDAC cdac = new CDAC(architecture);
-        for (CDACResult c : cdac.getResults()) {
-            sumCDAC += c.getElements().size();
-        }
-
-        dcFitness = sumCDAI + sumCDAO + sumCDAC;
-        return dcFitness;
-    }
-
-    public double evaluateEC(Architecture architecture) {
-        LOGGER.info("evaluateEC()");
-        double ecFitness = 0.0;
-        double sumCIBC = 0.0;
-        double sumIIBC = 0.0;
-        double sumOOBC = 0.0;
-
-        CIBC cibc = new CIBC(architecture);
-        for (CIBCResult c : cibc.getResults().values()) {
-            sumCIBC += c.getInterlacedConcerns().size();
-        }
-
-        IIBC iibc = new IIBC(architecture);
-        for (IIBCResult c : iibc.getResults().values()) {
-            sumIIBC += c.getInterlacedConcerns().size();
-        }
-
-        OOBC oobc = new OOBC(architecture);
-        for (OOBCResult c : oobc.getResults().values()) {
-            sumOOBC += c.getInterlacedConcerns().size();
-        }
-
-        ecFitness = sumCIBC + sumIIBC + sumOOBC;
-        return ecFitness;
-    }
-
-    //addYni
-    public double evaluateWocsC(Architecture architecture) {
-        double wocscFitness = 0;
-        Wocsclass wocsc = new Wocsclass(architecture);
-        wocscFitness = wocsc.getResults();
-        return wocscFitness;
-    }
-
-    public double evaluateWocsI(Architecture architecture) {
-        double wocsiFitness = 0;
-        Wocsinterface wocsi = new Wocsinterface(architecture);
-        wocsiFitness = wocsi.getResults();
-        return wocsiFitness;
-    }
-
-    public double evaluateCbcs(Architecture architecture) {
-        double cbcsFitness = 0;
-        Cbcs cbcs = new Cbcs(architecture);
-        cbcsFitness = cbcs.getResults();
-        return cbcsFitness;
-    }
-
-
-    public double evaluateSvc(Architecture architecture) {
-        double svcFitness = 0;
-        Svc svc = new Svc(architecture);
-        svcFitness = svc.getResults();
-        return svcFitness;
-    }
-
-    public double evaluateSsc(Architecture architecture) {
-        double sscFitness = 0;
-        Ssc ssc = new Ssc(architecture);
-        sscFitness = ssc.getResults();
-        return sscFitness;
-    }
-
-    public double evaluateAv(Architecture architecture) {
-        double avFitness = 0;
-        Av av = new Av(architecture);
-        avFitness = av.getResults();
-        return avFitness;
-    }
 
     public static Logger getLOGGER() {
         return LOGGER;

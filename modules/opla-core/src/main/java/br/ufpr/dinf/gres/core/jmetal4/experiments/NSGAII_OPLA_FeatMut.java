@@ -7,7 +7,6 @@ import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.AllMetricsOld;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
@@ -15,6 +14,7 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.MutationFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.Selection;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
+import br.ufpr.dinf.gres.domain.entity.AllMetrics;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.Info;
@@ -129,9 +129,9 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
 
                 // Cria uma execução. Cada execução está ligada a um
                 // experiemento.
-                Execution Execution = new Execution(experiment);
-                Execution.setRuns(runs);
-                CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), Execution.getId());
+                Execution execution = new Execution(experiment);
+                execution.setRuns(runs);
+                CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), execution.getId());
 
                 // Execute the Algorithm
                 long initTime = System.currentTimeMillis();
@@ -142,10 +142,10 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                List<Info> Info = result.getInformations(resultFront.getSolutionSet(), Execution, experiment);
-                AllMetricsOld allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), Execution,
+                List<Info> Info = result.getInformations(resultFront.getSolutionSet(), execution, experiment);
+                AllMetrics allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), execution,
                         experiment, selectedObjectiveFunctions);
-                Execution.setTime(estimatedTime);
+                execution.setTime(estimatedTime);
 
                 if (Moment.POSTERIORI.equals(configs.getClusteringMoment())) {
                     configs.getInteractiveFunction().run(resultFront);
@@ -153,10 +153,10 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
 
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", Info, configs.getLogger(), true);
 
-                Execution.setInfos(Info);
-                Execution.setAllMetrics(allMetrics);
+                execution.setInfos(Info);
+                execution.setAllMetrics(allMetrics);
 
-                mp.save(Execution);
+                mp.save(execution);
 
                 // armazena as solucoes de todas runs
                 allRuns = allRuns.union(resultFront);
@@ -165,7 +165,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                 // Util.moveAllFilesToExecutionDirectory(experiementId,
                 // execution.getId());
 
-                saveHypervolume(experiment.getId(), Execution.getId(), resultFront, plaName);
+                saveHypervolume(experiment.getId(), execution.getId(), resultFront, plaName);
             }
 
             allRuns = problem.removeDominadas(allRuns);
@@ -180,11 +180,11 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
             }
 
 
-            List<Info> Info = result.getInformations(allRuns.getSolutionSet(), null, experiment);
-            mp.saveInfoAll(Info);
+            List<Info> infos = result.getInformations(allRuns.getSolutionSet(), null, experiment);
+            mp.saveInfoAll(infos);
             LOGGER.info("saveInfoAll()");
 
-            AllMetricsOld allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
+            AllMetrics allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);
             mp.save(allMetrics, configs.getOplaConfigs().getSelectedObjectiveFunctions());
             LOGGER.info("getMetrics()");
@@ -194,7 +194,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
             LOGGER.info("DistanceEuclideanPersistence.calculate()");
 
             mp.saveDistance(c.calcula(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
-            Info = null;
+            infos = null;
             funResults = null;
 
             // Util.moveAllFilesToExecutionDirectory(experiementId, null);

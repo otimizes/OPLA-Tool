@@ -1,10 +1,13 @@
 package br.ufpr.dinf.gres.domain.entity;
 
+import br.ufpr.dinf.gres.domain.util.IdUtil;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -40,6 +43,33 @@ public class Experiment implements Serializable {
     public Experiment(String id) {
         this.id = id;
     }
+
+    public Experiment(String name, String algorithm, String description) {
+        this.name = name;
+        this.algorithm = algorithm;
+        this.description = description;
+        this.id = givenId();
+        this.createdAt = setCreatedAt();
+    }
+
+    public Experiment(String name, String algorithm, String description, String hash) {
+        this.name = name;
+        this.algorithm = algorithm;
+        this.description = description;
+        this.id = givenId();
+        this.hash = hash;
+        this.createdAt = setCreatedAt();
+    }
+
+    private String givenId() {
+        return IdUtil.generateUniqueId();
+    }
+
+    private String setCreatedAt() {
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return dt.format(new Date()).toString();
+    }
+
 
     public String getId() {
         return id;
