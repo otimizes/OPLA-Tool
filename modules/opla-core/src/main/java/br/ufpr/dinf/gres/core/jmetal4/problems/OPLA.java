@@ -13,15 +13,7 @@ import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType.ArchitectureSolutionType;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommomConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Fitness;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility.ExtensPLA;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCC;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClassComponentResult;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCComponentResult;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.*;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -391,7 +383,6 @@ public class OPLA extends Problem {
         allComponents.clear();
 
     }
-
 
 
     public static Logger getLOGGER() {

@@ -128,7 +128,10 @@ public class MetricsEvaluation {
 
     public static Double evaluateLCCClass(Architecture architecture) {
         double sumLCCClass = 0.0;
-        LCCClass result = new LCCClass(architecture);
+        LCCClass result = new LCCClass();
+        for (Class cls : architecture.getAllClasses()) {
+            result.getResults().add(new LCCClassComponentResult(cls));
+        }
 
         for (LCCClassComponentResult cls : result.getResults()) {
             sumLCCClass += cls.numberOfConcerns();
@@ -208,7 +211,10 @@ public class MetricsEvaluation {
         RelationalCohesion rc = new RelationalCohesion(architecture);
 
 
-        LCC lcc = new LCC(architecture);
+        LCC lcc = new LCC();
+        for (Package component : architecture.getAllPackages()) {
+            lcc.getResults().add(new LCCComponentResult(component));
+        }
         for (LCCComponentResult c : lcc.getResults()) {
             sumLCC += c.numberOfConcerns();
         }
@@ -519,7 +525,10 @@ public class MetricsEvaluation {
 
     public static double evaluateLCC(Architecture architecture) {
         double sumLCC = 0.0;
-        LCC result = new LCC(architecture);
+        LCC result = new LCC();
+        for (Package component : architecture.getAllPackages()) {
+            result.getResults().add(new LCCComponentResult(component));
+        }
 
         for (LCCComponentResult component : result.getResults()) {
             sumLCC += component.numberOfConcerns();
