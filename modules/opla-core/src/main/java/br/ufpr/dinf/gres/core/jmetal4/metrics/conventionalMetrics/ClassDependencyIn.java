@@ -13,19 +13,17 @@ import java.util.List;
 
 public class ClassDependencyIn {
 
-    /**
-     * @param args
-     */
-    private Architecture architecture;
     private int results;
 
     public ClassDependencyIn(Architecture architecture) {
 
-        this.architecture = architecture;
+        /**
+         * @param args
+         */
         this.results = 0;
         int depIn = 0;
 
-        for (Package component : this.architecture.getAllPackages()) {
+        for (Package component : architecture.getAllPackages()) {
             for (Class cls : component.getAllClasses()) {
                 depIn += searchClassDependencies(cls, component);
                 // System.out.println("DepIn- Classe: "+ cls.getName() + " :" +

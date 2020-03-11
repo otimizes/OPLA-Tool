@@ -13,16 +13,14 @@ import java.util.List;
 
 public class ClassDependencyOut {
 
-    private Architecture architecture;
     private int results;
 
     public ClassDependencyOut(Architecture architecture) {
 
-        this.architecture = architecture;
         this.results = 0;
         int depOut = 0;
 
-        for (Package component : this.architecture.getAllPackages()) {
+        for (Package component : architecture.getAllPackages()) {
 
             for (br.ufpr.dinf.gres.architecture.representation.Class cls : component.getAllClasses()) {
                 depOut += searchClassDependencies(cls, component);

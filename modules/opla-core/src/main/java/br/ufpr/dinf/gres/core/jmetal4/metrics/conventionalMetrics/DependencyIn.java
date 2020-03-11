@@ -9,19 +9,17 @@ import java.util.List;
 
 public class DependencyIn {
 
-    /**
-     * @param args
-     */
-    private Architecture architecture;
     private int results;
 
     public DependencyIn(Architecture architecture) {
 
-        this.architecture = architecture;
+        /**
+         * @param args
+         */
         this.results = 0;
         int depIn = 0;
 
-        for (Package component : this.architecture.getAllPackages()) {
+        for (Package component : architecture.getAllPackages()) {
             List<Relationship> relationships = new ArrayList<Relationship>(architecture.getRelationshipHolder().getAllRelationships());
 
             for (Relationship relationship : relationships) {

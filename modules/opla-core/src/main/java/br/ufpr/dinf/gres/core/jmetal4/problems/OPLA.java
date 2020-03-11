@@ -88,60 +88,56 @@ public class OPLA extends Problem {
             String metric = this.selectedMetrics.get(i);
 
             switch (metric) {
-                case "elegance":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateElegance((Architecture) solution.getDecisionVariables()[0])));
-                    break;
-                case "conventional":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateMACFitness((Architecture) solution.getDecisionVariables()[0])));
-                    break;
-                case "featureDriven":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateMSIFitness((Architecture) solution.getDecisionVariables()[0])));
-                    break;
-                case "PLAExtensibility":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluatePLAExtensibility((Architecture) solution.getDecisionVariables()[0])));
+                case "aclass":
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateACLASS((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "acomp":
                     fitnesses.add(new Fitness(MetricsEvaluation.evaluateACOMP((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                case "aclass":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateACLASS((Architecture) solution.getDecisionVariables()[0])));
+                case "av":
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateAv((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                case "tam":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateTAM((Architecture) solution.getDecisionVariables()[0])));
+                case "cbcs":
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateCbcs((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "coe":
                     fitnesses.add(new Fitness(MetricsEvaluation.evaluateCohesionFitness((Architecture) solution.getDecisionVariables()[0])));
+                    break;
+                case "conventional":
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateMACFitness((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "dc":
                     fitnesses.add(new Fitness(MetricsEvaluation.evaluateDC((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "ec":
                     fitnesses.add(new Fitness(MetricsEvaluation.evaluateEC((Architecture) solution.getDecisionVariables()[0])));
-                    //addYni
+                    break;
+                case "elegance":
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateElegance((Architecture) solution.getDecisionVariables()[0])));
+                    break;
+                case "featureDriven":
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateMSIFitness((Architecture) solution.getDecisionVariables()[0])));
+                    break;
+                case "lcc":
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateLCC((Architecture) solution.getDecisionVariables()[0])));
+                    break;
+                case "PLAExtensibility":
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluatePLAExtensibility((Architecture) solution.getDecisionVariables()[0])));
+                    break;
+                case "ssc":
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateSsc((Architecture) solution.getDecisionVariables()[0])));
+                    break;
+                case "svc":
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateSvc((Architecture) solution.getDecisionVariables()[0])));
+                    break;
+                case "tam":
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateTAM((Architecture) solution.getDecisionVariables()[0])));
+                    break;
                 case "wocsclass":
                     fitnesses.add(new Fitness(MetricsEvaluation.evaluateWocsC((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "wocsinterface":
                     fitnesses.add(new Fitness(MetricsEvaluation.evaluateWocsI((Architecture) solution.getDecisionVariables()[0])));
-                    break;
-
-                case "cbcs":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateCbcs((Architecture) solution.getDecisionVariables()[0])));
-                    break;
-
-                case "svc":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateSvc((Architecture) solution.getDecisionVariables()[0])));
-                    break;
-
-                case "ssc":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateSsc((Architecture) solution.getDecisionVariables()[0])));
-                    break;
-                case "av":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateAv((Architecture) solution.getDecisionVariables()[0])));
-                    break;
-                //addYni
-                case "lcc":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateLCC((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 default:
             }

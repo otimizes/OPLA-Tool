@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class CIBC {
 
     private final Architecture architecture;
-    private final HashMap<Concern, CIBCResult> results = new HashMap<Concern, CIBCResult>();
+    private final HashMap<Concern, CIBCResult> results = new HashMap<>();
 
     public CIBC(Architecture architecture) {
 
