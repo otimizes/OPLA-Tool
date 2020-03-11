@@ -10,77 +10,19 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "aclass_metrics")
-public class AclassMetric implements GenericMetric {
+public class AclassMetric extends BaseMetric {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
 
     @Column(name = "sumclassdepin")
     private Double sumClassesDepIn;
     @Column(name = "sumclassdepout")
     private Double sumClassesDepOut;
 
-    @ManyToOne
-    @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "execution_id")
-    private Execution execution;
-
-    @ManyToOne
-    @JoinColumn(name = "experiement_id", nullable = false)
-    private Experiment experiment;
-
-    @Column(name = "is_all")
-    private Integer isAll;
-
-    @Column(name = "id_solution")
-    private String idSolution;
-
     public AclassMetric(String idSolution, Execution execution, Experiment experiement) {
-        this.idSolution = idSolution;
-        this.execution = execution;
-        this.experiment = experiement;
+        super(idSolution, execution, experiement);
     }
 
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Execution getExecution() {
-        return execution;
-    }
-
-    public Experiment getExperiment() {
-        return experiment;
-    }
-
-    public void setExperiment(Experiment experiment) {
-        this.experiment = experiment;
-    }
-
-    public Integer getIsAll() {
-        return isAll;
-    }
-
-    public void setIsAll(Integer isAll) {
-        this.isAll = isAll;
-    }
-
-    public String getIdSolution() {
-        return idSolution;
-    }
-
-    public void setIdSolution(String idSolution) {
-        this.idSolution = idSolution;
-    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -102,10 +44,6 @@ public class AclassMetric implements GenericMetric {
         this.sumClassesDepOut = sumClassesDepOut;
     }
 
-    public void setExecution(Execution execution) {
-        this.execution = execution;
-    }
-
     @Override
     public boolean equals(final Object other) {
         if (this == other) {
@@ -118,16 +56,16 @@ public class AclassMetric implements GenericMetric {
             return false;
         }
         AclassMetric castOther = (AclassMetric) other;
-        return Objects.equals(id, castOther.id) && Objects.equals(execution, castOther.execution)
+        return Objects.equals(getId(), castOther.getId()) && Objects.equals(getExecution(), castOther.getExecution())
+                && Objects.equals(getExperiment(), castOther.getExperiment()) && Objects.equals(getIsAll(), castOther.getIsAll())
+                && Objects.equals(getIdSolution(), castOther.getIdSolution())
                 && Objects.equals(sumClassesDepIn, castOther.sumClassesDepIn)
-                && Objects.equals(sumClassesDepOut, castOther.sumClassesDepOut)
-                && Objects.equals(experiment, castOther.experiment) && Objects.equals(isAll, castOther.isAll)
-                && Objects.equals(idSolution, castOther.idSolution);
+                && Objects.equals(sumClassesDepOut, castOther.sumClassesDepOut);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, sumClassesDepIn, sumClassesDepOut, execution, experiment, isAll, idSolution);
+        return Objects.hash(getId(), getExecution(), getExperiment(), getIsAll(), getIdSolution(), sumClassesDepIn, sumClassesDepOut);
     }
 
 

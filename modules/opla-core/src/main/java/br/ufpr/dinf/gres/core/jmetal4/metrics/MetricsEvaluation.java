@@ -285,9 +285,7 @@ public class MetricsEvaluation {
 
 
     public static double evaluateWocsI(Architecture architecture) {
-        double wocsiFitness = 0;
-
-        float valorwocsi = 0;
+        float valorwocsi;
         float tcomplexidade = 0;
         float numclass = architecture.getAllInterfaces().size();
 
@@ -314,7 +312,6 @@ public class MetricsEvaluation {
 
 
     public static double evaluateCbcs(Architecture architecture) {
-        double cbcsFitness = 0;
         float valorcbcs = 0;
         float numinterface = architecture.getAllInterfaces().size();
 
@@ -339,6 +336,7 @@ public class MetricsEvaluation {
             for (Element elemento : pacote.getElements()) {
                 if (elemento.getVariationPoint() != null) {
                     variablecomp = 1;
+                    break;
                 }
             }
 
@@ -415,18 +413,16 @@ public class MetricsEvaluation {
 
 
     private static int cantComponetvariable(Architecture architecture) {
-
-        //private int tcompvariable;
         int cantvcomponet = 0;
 
         for (Package pacote : architecture.getAllPackages()) {
-
             int variablecomp = 0;
 
             for (Element elemento : pacote.getElements()) {
 
                 if (elemento.getVariationPoint() != null) {
                     variablecomp = 1;
+                    break;
                 }
             }
 

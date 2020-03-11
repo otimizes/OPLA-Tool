@@ -16,27 +16,20 @@ public class ClassDependencyOut {
     private int results;
 
     public ClassDependencyOut(Architecture architecture) {
-
         this.results = 0;
         int depOut = 0;
 
         for (Package component : architecture.getAllPackages()) {
-
             for (br.ufpr.dinf.gres.architecture.representation.Class cls : component.getAllClasses()) {
                 depOut += searchClassDependencies(cls, component);
             }
-
-            this.results += depOut; // somatorio de DepOut da br.ufpr.dinf.gres.arquitetura como
-            // um todo
+            this.results += depOut;
             depOut = 0;
         }
-
     }
 
-    // ----------------------------------------------------------------------------------
-
     private int searchClassDependencies(Class source, Package comp) {
-        List<Class> depClasses = new ArrayList<Class>();
+        List<Class> depClasses = new ArrayList<>();
 
         for (Class c : comp.getAllClasses()) {
             List<Relationship> relationships = new ArrayList<>(source.getRelationships());
@@ -61,15 +54,12 @@ public class ClassDependencyOut {
                     }
                 }
             }
-        } // end for classes
+        }
 
         return depClasses.size();
     }
 
-    // ---------------------------------------------------------------------------------
-
     public int getResults() {
         return results;
     }
-
 }
