@@ -189,7 +189,7 @@ public class NSGAII_OPLA {
 
             resultFront.printObjectivesToFile(directory + "/FUN_" + plaName + "_" + runs + ".txt");
             //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
-            resultFront.printInformationToFile(directory + "/INFO_" + plaName + "_" + runs + ".txt");
+            MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_" + plaName + "_" + runs + ".txt");
             // resultFront.saveVariablesToFile(directory + "/VAR_" + runs + "_");
             if (shouldPrintVariables) {
                 resultFront.saveVariablesToFile("VAR_" + runs + "_");
@@ -206,7 +206,7 @@ public class NSGAII_OPLA {
 
         }
 
-        todasRuns.printTimeToFile(directory + "/TIME_" + plaName, runsNumber, time, pla);
+        MainTestUtil.printTimeToFile(directory + "/TIME_" + plaName, runsNumber, time, pla);
 
         todasRuns = problem.removeDominadas(todasRuns);
         todasRuns = problem.removeRepetidas(todasRuns);
@@ -214,7 +214,7 @@ public class NSGAII_OPLA {
         System.out.println("------    All Runs - Non-dominated solutions --------");
         todasRuns.printObjectivesToFile(directory + "/FUN_All_" + plaName + ".txt");
         //todasRuns.printVariablesToFile(directory + "/VAR_All");
-        todasRuns.printInformationToFile(directory + "/INFO_All_" + plaName + ".txt");
+        MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_All_" + plaName + ".txt");
         //todasRuns.saveVariablesToFile(directory + "/VAR_All_");
         if (shouldPrintVariables) {
             todasRuns.saveVariablesToFile("VAR_All_");
@@ -222,7 +222,7 @@ public class NSGAII_OPLA {
 
         //Thelma - Dez2013
         MainTestUtil.printMetricsToFile(allSolutions, directory + "/Metrics_All_" + plaName + ".txt");
-        todasRuns.printAllMetricsToFile(directory + "/FUN_Metrics_All_" + plaName + ".txt");
+        MainTestUtil.printAllMetricsToFile(allSolutions, directory + "/FUN_Metrics_All_" + plaName + ".txt");
 
     }
 

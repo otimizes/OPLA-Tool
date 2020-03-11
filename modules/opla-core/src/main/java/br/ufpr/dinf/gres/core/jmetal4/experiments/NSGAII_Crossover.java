@@ -138,7 +138,7 @@ public class NSGAII_Crossover {
 
                 resultFront.printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
                 //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
-                resultFront.printInformationToFile(directory + "/INFO_" + PLAName + "_" + runs + ".txt");
+                MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_" + PLAName + "_" + runs + ".txt");
                 // resultFront.saveVariablesToFile(directory + "/VAR_" + runs + "_");
                 resultFront.saveVariablesToFile("VAR_" + runs + "_");
 
@@ -148,7 +148,7 @@ public class NSGAII_Crossover {
 
                 //Thelma - Dez2013
                 allSolutions = allSolutions.union(resultFront);
-                MainTestUtil.printMetricsToFile(allSolutions,directory + "/Metrics_" + PLAName + "_" + runs + ".txt");
+                MainTestUtil.printMetricsToFile(allSolutions, directory + "/Metrics_" + PLAName + "_" + runs + ".txt");
                 System.out.println("Number of Discarded Solutions: " + OPLA.contDiscardedSolutions_);
                 totalDiscardedSolutions = totalDiscardedSolutions + OPLA.contDiscardedSolutions_;
             }
@@ -156,7 +156,7 @@ public class NSGAII_Crossover {
             String NameOfPLA = pla.substring(10, 15);
             allSolutions.printObjectivesToFile(directory + "/Hypervolume/" + NameOfPLA + "/" + NameOfPLA + "_HV_" + moea + ".txt");
 
-            todasRuns.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
+            MainTestUtil.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
             todasRuns = problem.removeDominadas(todasRuns);
             todasRuns = problem.removeRepetidas(todasRuns);
 
@@ -164,16 +164,16 @@ public class NSGAII_Crossover {
             System.out.println("------    All Runs - Non-dominated solutions --------");
             todasRuns.printObjectivesToFile(directory + "/FUN_All_" + PLAName + ".txt");
             //todasRuns.printVariablesToFile(directory + "/VAR_All");
-            todasRuns.printInformationToFile(directory + "/INFO_All_" + PLAName + ".txt");
+            MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_All_" + PLAName + ".txt");
             todasRuns.saveVariablesToFile("VAR_All_");
 
             //Thelma - Dez2013
-            MainTestUtil.printMetricsToFile(allSolutions,directory + "/Metrics_All_" + PLAName + ".txt");
-            todasRuns.printAllMetricsToFile(directory + "/FUN_Metrics_All_" + PLAName + ".txt");
+            MainTestUtil.printMetricsToFile(allSolutions, directory + "/Metrics_All_" + PLAName + ".txt");
+            MainTestUtil.printAllMetricsToFile(allSolutions, directory + "/FUN_Metrics_All_" + PLAName + ".txt");
 
             System.out.println("Total Number of Discarded Solutions:  " + totalDiscardedSolutions);
             totalDiscardedSolutions = 0;
-            todasRuns.printDiscardedSolutionsToFile(discardedSolutions, directory + "/AllDiscardedSolutions_" + PLAName + ".txt");
+            MainTestUtil.printDiscardedSolutionsToFile(discardedSolutions, directory + "/AllDiscardedSolutions_" + PLAName + ".txt");
 
         }
     }

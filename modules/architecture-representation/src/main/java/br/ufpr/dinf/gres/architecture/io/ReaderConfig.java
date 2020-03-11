@@ -189,7 +189,7 @@ public class ReaderConfig {
                 dir = yaml.loadAs(inputStream, DirTarget.class);
                 LOGGER.info("Default Path " + dir);
             }
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             LOGGER.error("I can't read the configuration file: application.yaml");
         }
     }
