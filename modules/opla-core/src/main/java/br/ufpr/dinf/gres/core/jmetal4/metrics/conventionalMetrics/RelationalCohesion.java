@@ -1,17 +1,17 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics;
 
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.*;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class RelationalCohesion {
+public class RelationalCohesion extends BaseMetricResults {
 
-    private double results;
 
     // Relational cohesion.
     // This is the average number of internal relationships per class/interface,
@@ -35,12 +35,16 @@ public class RelationalCohesion {
     // navigability at either end are considered to be bidirectional.
     //
 
-    public RelationalCohesion(Architecture architecture) {
 
-        /**
-         * @param args
-         */
-        this.results = 0;
+    public Double evaluateICohesion() {
+        Double results = this.getResults();
+        return results == 0 ? 1.0 : 1 / results;
+    }
+
+    public RelationalCohesion(Architecture architecture) {
+        super(architecture);
+
+        this.setResults(0.0);
         int totalClassesAndInterfaces = 0;
         int R = 0;
         double H = 0;
@@ -59,7 +63,7 @@ public class RelationalCohesion {
             totalClassesAndInterfaces = component.getAllClasses().size() + component.getImplementedInterfaces().size();
             if (totalClassesAndInterfaces != 0) {
                 H = (R + 1) / totalClassesAndInterfaces;
-                this.results += H; // soma de H para a br.ufpr.dinf.gres.arquitetura
+                this.addToResults(H); // soma de H para a br.ufpr.dinf.gres.arquitetura
             }
 
             R = 0;
@@ -68,18 +72,17 @@ public class RelationalCohesion {
 
     }
 
-    // ---------------------------------------------------------------------------------
     // C has an attribute of type D
     private int searchAttributeClassDependencies(Class source, Package comp) {
         int attribDependencies;
-        List<Class> classes = new ArrayList<Class>(comp.getAllClasses());
-        List<Interface> interfaces = new ArrayList<Interface>(comp.getImplementedInterfaces());
-        List<Class> attribDepClasses = new ArrayList<Class>();
-        List<Interface> attribDepInterfaces = new ArrayList<Interface>();
+        List<Class> classes = new ArrayList<>(comp.getAllClasses());
+        List<Interface> interfaces = new ArrayList<>(comp.getImplementedInterfaces());
+        List<Class> attribDepClasses = new ArrayList<>();
+        List<Interface> attribDepInterfaces = new ArrayList<>();
         for (Class c : classes) {
-            List<Attribute> allAttributes = new ArrayList<Attribute>(source.getAllAttributes());
+            List<Attribute> allAttributes = new ArrayList<>(source.getAllAttributes());
             for (Attribute attribute : allAttributes) {
-                if (attribute.getType() == c.getName()) {
+                if (attribute.getType().equals(c.getName())) {
                     if (!(attribDepClasses.contains(c)))
                         attribDepClasses.add(c);
                 }
@@ -89,7 +92,7 @@ public class RelationalCohesion {
         for (Interface itf : interfaces) {
             List<Attribute> allAttributes = new ArrayList<Attribute>(source.getAllAttributes());
             for (Attribute attribute : allAttributes) {
-                if (attribute.getType() == itf.getName()) {
+                if (attribute.getType().equals(itf.getName())) {
                     if (!(attribDepInterfaces.contains(itf)))
                         attribDepInterfaces.add(itf);
                 }
@@ -99,17 +102,14 @@ public class RelationalCohesion {
         return attribDependencies;
     }
 
-    // ---------------------------------------------------------------------------------
 
     private int searchOperationClassDependencies(Class source, Package comp) {
         int operationDependencies;
-        List<Class> classes = new ArrayList<Class>(comp.getAllClasses());
-        // List<Interface> interfaces = new ArrayList<Interface>
-        // (comp.getImplementedInterfaces());
-        List<Class> operationDepClasses = new ArrayList<Class>();
-        List<Interface> operationDepInterfaces = new ArrayList<Interface>();
+        List<Class> classes = new ArrayList<>(comp.getAllClasses());
+        List<Class> operationDepClasses = new ArrayList<>();
+        List<Interface> operationDepInterfaces = new ArrayList<>();
         for (Class c : classes) {
-            List<Method> allOperations = new ArrayList<Method>(source.getAllMethods());
+            List<Method> allOperations = new ArrayList<>(source.getAllMethods());
             for (Method method : allOperations) {
                 Collection<ParameterMethod> parameters = method.getParameters();
                 for (ParameterMethod parameter : parameters) {
@@ -134,8 +134,6 @@ public class RelationalCohesion {
         operationDependencies = operationDepClasses.size() + operationDepInterfaces.size();
         return operationDependencies;
     }
-
-    // ---------------------------------------------------------------------------------
 
     private int searchOperationInterfaceDependencies(Interface source, Package comp) {
         int operationDependencies;
@@ -173,8 +171,6 @@ public class RelationalCohesion {
         operationDependencies = operationDepClasses.size() + operationDepInterfaces.size();
         return operationDependencies;
     }
-
-    // ---------------------------------------------------------------------------------
 
     private int searchAssociationClassDependencies(Class source, Package comp) {
         int associationDependencies;
@@ -239,8 +235,6 @@ public class RelationalCohesion {
         return associationDependencies;
     }
 
-    // ---------------------------------------------------------------------------------
-
     private int searchImplementationDependencies(Interface itf, Package comp) {
         List<Element> depComponents = new ArrayList<Element>();
         for (Element c : itf.getImplementors())
@@ -250,11 +244,4 @@ public class RelationalCohesion {
 
         return depComponents.size();
     }
-
-    // ---------------------------------------------------------------------------------
-
-    public double getResults() {
-        return results;
-    }
-
 }

@@ -2,30 +2,25 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
 
 
-public class MeanNumOpsByInterface {
-
-    private Double results;
+public class MeanNumOpsByInterface extends BaseMetricResults {
 
     public MeanNumOpsByInterface(Architecture architecture) {
-        this.results = 0.0;
+        super(architecture);
+        this.setResults(0.0);
         int numberInterfaces = 0;
         for (br.ufpr.dinf.gres.architecture.representation.Package component : architecture.getAllPackages()) {
             for (Interface itf : component.getImplementedInterfaces()) {
-                this.results += itf.getOperations().size();
+                this.addToResults(itf.getOperations().size());
                 numberInterfaces++;
             }
         }
         if (numberInterfaces == 0) {
-            this.results = 0.0;
+            this.setResults(0.0);
         } else {
-            this.results = results / numberInterfaces;
+            this.divideToResults(numberInterfaces);
         }
     }
-
-    public Double getResults() {
-        return results;
-    }
-
 }

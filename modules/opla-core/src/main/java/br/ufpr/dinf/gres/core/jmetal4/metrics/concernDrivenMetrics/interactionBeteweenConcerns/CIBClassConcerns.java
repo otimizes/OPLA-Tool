@@ -6,12 +6,12 @@ import br.ufpr.dinf.gres.architecture.representation.Class;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class CIBClass {
+public class CIBClassConcerns {
 
     private final Architecture architecture;
     private final HashMap<Concern, CIBClassResult> results = new HashMap<Concern, CIBClassResult>();
 
-    public CIBClass(Architecture architecture) {
+    public CIBClassConcerns(Architecture architecture) {
         this.architecture = architecture;
 
         for (Class cls : architecture.getAllClasses()) {

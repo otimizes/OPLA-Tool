@@ -1,17 +1,18 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.architecture.representation.Concern;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
 
-
-public class CDAO extends ConcernDiffusionMetric<CDAOResult> {
+public class CDAO extends BaseMetricResults {
 
     public CDAO(Architecture architecture) {
         super(architecture);
+        double sumCDAO = 0.0;
+        CDAOConcerns cdao = new CDAOConcerns(architecture);
+        for (CDAOResult c : cdao.getResults()) {
+            sumCDAO += c.getElements().size();
+        }
+        this.setResults(sumCDAO);
     }
 
-    @Override
-    protected CDAOResult getElementForConcern(Concern concern) {
-        return new CDAOResult(concern, getArchitecture());
-    }
 }

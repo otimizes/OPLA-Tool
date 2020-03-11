@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.main.MainTestUtil;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.CrossoverFactory;
@@ -147,7 +148,7 @@ public class NSGAII_Crossover {
 
                 //Thelma - Dez2013
                 allSolutions = allSolutions.union(resultFront);
-                resultFront.printMetricsToFile(directory + "/Metrics_" + PLAName + "_" + runs + ".txt");
+                MainTestUtil.printMetricsToFile(allSolutions,directory + "/Metrics_" + PLAName + "_" + runs + ".txt");
                 System.out.println("Number of Discarded Solutions: " + OPLA.contDiscardedSolutions_);
                 totalDiscardedSolutions = totalDiscardedSolutions + OPLA.contDiscardedSolutions_;
             }
@@ -167,7 +168,7 @@ public class NSGAII_Crossover {
             todasRuns.saveVariablesToFile("VAR_All_");
 
             //Thelma - Dez2013
-            todasRuns.printMetricsToFile(directory + "/Metrics_All_" + PLAName + ".txt");
+            MainTestUtil.printMetricsToFile(allSolutions,directory + "/Metrics_All_" + PLAName + ".txt");
             todasRuns.printAllMetricsToFile(directory + "/FUN_Metrics_All_" + PLAName + ".txt");
 
             System.out.println("Total Number of Discarded Solutions:  " + totalDiscardedSolutions);

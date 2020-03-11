@@ -4,6 +4,7 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.RelationalCohesion;
 import br.ufpr.dinf.gres.domain.entity.AllMetrics;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
@@ -181,8 +182,9 @@ public class Result {
 
         ConventionalMetric conventional = new ConventionalMetric(idSolution, Execution, experiement);
 
-        conventional.setSumCohesion(MetricsEvaluation.evaluateCohesion(arch));
-        conventional.setCohesion(MetricsEvaluation.evaluateICohesion(conventional.getSumCohesion()));
+        RelationalCohesion relationalCohesion = new RelationalCohesion(arch);
+        conventional.setSumCohesion(relationalCohesion.getResults());
+        conventional.setCohesion(relationalCohesion.evaluateICohesion());
         conventional.setMeanDepComps(MetricsEvaluation.evaluateMeanDepComps(arch));
         conventional.setMeanNumOps(MetricsEvaluation.evaluateMeanNumOps(arch));
         conventional.setSumClassesDepIn((double) MetricsEvaluation.evaluateSumClassesDepIn(arch));

@@ -2,16 +2,13 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
 
-//Numbers among classes elegance metric
-
-public class NACElegance {
-
-    private Double results;
+public class NACElegance extends BaseMetricResults {
 
     public NACElegance(Architecture architecture) {
-
-        this.results = 0.0;
+        super(architecture);
+        this.setResults(0.0);
         double stdDeviationAttributes = 0.0;
         double stdDeviationMethods = 0.0;
         double[] arrayAttributesNumbers = new double[10000];
@@ -23,7 +20,6 @@ public class NACElegance {
         ConventionalMetricsStatistic e = new ConventionalMetricsStatistic();
 
         for (Class cls : architecture.getAllClasses()) {
-            // seta valores dos arrays
             arrayAttributesNumbers[i] = cls.getAllAttributes().size();
             i++;
             arrayMethodsNumbers[j] = cls.getAllMethods().size();
@@ -35,11 +31,6 @@ public class NACElegance {
         e.setArray(arrayMethodsNumbers);
         stdDeviationMethods = e.getSampleStandardDeviation();
 
-        this.results = (stdDeviationAttributes + stdDeviationMethods) / 2;
+        this.setResults((stdDeviationAttributes + stdDeviationMethods) / 2);
     }
-
-    public Double getResults() {
-        return results;
-    }
-
 }

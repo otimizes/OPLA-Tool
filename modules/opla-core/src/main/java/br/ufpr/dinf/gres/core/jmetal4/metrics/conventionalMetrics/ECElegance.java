@@ -6,19 +6,17 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationEnd
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ECElegance {
+public class ECElegance extends BaseMetricResults {
 
-    private Double results;
-
-    // External Coupling Elegance metric
     public ECElegance(Architecture architecture) {
-
-        this.results = 0.0;
-        double stdDeviationCouples = 0.0;
+        super(architecture);
+        this.setResults(0.0);
+        double stdDeviationCouples;
         double[] externalCouplesNumbers = new double[10000];
         int i = 0;
 
@@ -33,15 +31,13 @@ public class ECElegance {
         e.setArray(externalCouplesNumbers);
         stdDeviationCouples = e.getSampleStandardDeviation();
 
-        this.results = stdDeviationCouples;
+        this.setResults(stdDeviationCouples);
 
     }
 
-    // ----------------------------------------------------------------------------------
-
     private int searchClassDependencies(Class source) {
         int cont = 0;
-        List<Relationship> relationships = new ArrayList<Relationship>(source.getRelationships());
+        List<Relationship> relationships = new ArrayList<>(source.getRelationships());
         for (Relationship relationship : relationships) {
             if (relationship instanceof DependencyRelationship) {
                 DependencyRelationship dependency = (DependencyRelationship) relationship;
@@ -60,8 +56,5 @@ public class ECElegance {
         return cont;
     }
 
-    public Double getResults() {
-        return results;
-    }
 
 }

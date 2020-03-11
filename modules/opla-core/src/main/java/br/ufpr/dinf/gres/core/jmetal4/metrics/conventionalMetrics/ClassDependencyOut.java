@@ -7,23 +7,23 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRela
 import br.ufpr.dinf.gres.architecture.representation.relationship.RealizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.UsageRelationship;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassDependencyOut {
-
-    private int results;
+public class ClassDependencyOut extends BaseMetricResults {
 
     public ClassDependencyOut(Architecture architecture) {
-        this.results = 0;
+        super(architecture);
+        this.setResults(0.0);
         int depOut = 0;
 
         for (Package component : architecture.getAllPackages()) {
             for (br.ufpr.dinf.gres.architecture.representation.Class cls : component.getAllClasses()) {
                 depOut += searchClassDependencies(cls, component);
             }
-            this.results += depOut;
+            this.addToResults(depOut);
             depOut = 0;
         }
     }
@@ -57,9 +57,5 @@ public class ClassDependencyOut {
         }
 
         return depClasses.size();
-    }
-
-    public int getResults() {
-        return results;
     }
 }

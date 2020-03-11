@@ -4,17 +4,15 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeanDepComponents {
-
-    private double results;
-
+public class MeanDepComponents extends BaseMetricResults {
     public MeanDepComponents(Architecture architecture) {
-
-        this.results = 0;
+        super(architecture);
+        this.setResults(0.0);
         List<Element> depComponents = new ArrayList<>();
         int totalComponents = architecture.getAllPackages().size();
         int totalDependencies = 0;
@@ -30,12 +28,8 @@ public class MeanDepComponents {
 
         }
         if (totalComponents != 0) {
-            this.results = totalDependencies / totalComponents;
+            this.setResults(totalDependencies / totalComponents);
         }
-    }
-
-    public double getResults() {
-        return results;
     }
 
 }

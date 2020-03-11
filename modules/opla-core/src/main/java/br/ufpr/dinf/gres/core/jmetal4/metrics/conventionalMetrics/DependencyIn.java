@@ -3,20 +3,16 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.relationship.*;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DependencyIn {
-
-    private int results;
+public class DependencyIn extends BaseMetricResults {
 
     public DependencyIn(Architecture architecture) {
-
-        /**
-         * @param args
-         */
-        this.results = 0;
+        super(architecture);
+        this.setResults(0.0);
         int depIn = 0;
 
         for (Package component : architecture.getAllPackages()) {
@@ -27,15 +23,15 @@ public class DependencyIn {
                     AbstractionRelationship abstraction = (AbstractionRelationship) relationship;
                     if (abstraction.getSupplier().getNamespace().contains(component.getName())) depIn++;
 
-                }else if (relationship instanceof DependencyRelationship) {
+                } else if (relationship instanceof DependencyRelationship) {
                     DependencyRelationship dependency = (DependencyRelationship) relationship;
                     if (dependency.getSupplier().getNamespace().contains(component.getName())) depIn++;
 
-                }else if (relationship instanceof UsageRelationship) {
+                } else if (relationship instanceof UsageRelationship) {
                     UsageRelationship usage = (UsageRelationship) relationship;
                     if (usage.getSupplier().getNamespace().contains(component.getName())) depIn++;
 
-                }else if (relationship instanceof RealizationRelationship) {
+                } else if (relationship instanceof RealizationRelationship) {
                     RealizationRelationship realization = (RealizationRelationship) relationship;
                     if (realization.getSupplier().getNamespace().contains(component.getName())) depIn++;
 
@@ -43,13 +39,8 @@ public class DependencyIn {
             }
 
 
-            this.results += depIn; // somatorio de DepIn da br.ufpr.dinf.gres.arquitetura como um todo
-            depIn= 0;
+            this.addToResults(depIn);
+            depIn = 0;
         }
     }
-
-    public int getResults() {
-        return results;
-    }
-
 }

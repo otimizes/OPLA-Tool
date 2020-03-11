@@ -1,11 +1,11 @@
 package br.ufpr.dinf.gres.core.jmetal4.main;
 
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
-import br.ufpr.dinf.gres.core.jmetal4.factory.MutationOperatorFactory;
-import br.ufpr.dinf.gres.core.jmetal4.indicadores.Hypervolume;
-import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
+import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.factory.MutationOperatorFactory;
+import br.ufpr.dinf.gres.core.jmetal4.indicadores.Hypervolume;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.CrossoverFactory;
@@ -13,7 +13,7 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.Selection;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -202,7 +202,7 @@ public class NSGAII_OPLA {
 
             //Thelma - Dez2013
             allSolutions = allSolutions.union(resultFront);
-            resultFront.printMetricsToFile(directory + "/Metrics_" + plaName + "_" + runs + ".txt");
+            MainTestUtil.printMetricsToFile(allSolutions, directory + "/Metrics_" + plaName + "_" + runs + ".txt");
 
         }
 
@@ -221,7 +221,7 @@ public class NSGAII_OPLA {
         }
 
         //Thelma - Dez2013
-        todasRuns.printMetricsToFile(directory + "/Metrics_All_" + plaName + ".txt");
+        MainTestUtil.printMetricsToFile(allSolutions, directory + "/Metrics_All_" + plaName + ".txt");
         todasRuns.printAllMetricsToFile(directory + "/FUN_Metrics_All_" + plaName + ".txt");
 
     }
