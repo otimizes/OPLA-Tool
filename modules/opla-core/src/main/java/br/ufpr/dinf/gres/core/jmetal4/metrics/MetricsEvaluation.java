@@ -3,7 +3,6 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCC;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClassComponentResult;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCComponentResult;
@@ -11,6 +10,9 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffus
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility.ExtensPLA;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class MetricsEvaluation {
     //addYni
@@ -202,25 +204,6 @@ public class MetricsEvaluation {
 
         tamFitness = NumOps.getResults();
         return tamFitness;
-    }
-
-    public static double evaluateCOE(Architecture architecture) {
-        double coeFitness = 0.0;
-        double sumLCC = 0.0;
-
-        RelationalCohesion rc = new RelationalCohesion(architecture);
-
-
-        LCC lcc = new LCC();
-        for (Package component : architecture.getAllPackages()) {
-            lcc.getResults().add(new LCCComponentResult(component));
-        }
-        for (LCCComponentResult c : lcc.getResults()) {
-            sumLCC += c.numberOfConcerns();
-        }
-
-        coeFitness = rc.getResults() + sumLCC;
-        return sumLCC;
     }
 
     public static double evaluateDC(Architecture architecture) {
@@ -520,17 +503,18 @@ public class MetricsEvaluation {
 
         MSIFitness = sumLCC + sumLCCClass + sumCDAC + sumCDAClass + sumCDAI
                 + sumCDAO + sumCIBC + sumCIBClass + sumIIBC + sumOOBC;
+
         return MSIFitness;
     }
 
     public static double evaluateLCC(Architecture architecture) {
         double sumLCC = 0.0;
-        LCC result = new LCC();
+        Collection<LCCComponentResult> results = new ArrayList<>();
         for (Package component : architecture.getAllPackages()) {
-            result.getResults().add(new LCCComponentResult(component));
+            results.add(new LCCComponentResult(component));
         }
 
-        for (LCCComponentResult component : result.getResults()) {
+        for (LCCComponentResult component : results) {
             sumLCC += component.numberOfConcerns();
 
         }

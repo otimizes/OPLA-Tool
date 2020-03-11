@@ -13,6 +13,7 @@ public class AllMetrics {
     private List<PLAExtensibilityMetric> plaExtensibility = new ArrayList<>();
     private List<AcompMetric> acomp = new ArrayList<>();
     private List<AclassMetric> aclass = new ArrayList<>();
+    private List<LCCMetric> lcc = new ArrayList<>();
     private List<TamMetric> tam = new ArrayList<>();
     private List<CoeMetric> coe = new ArrayList<>();
     private List<DcMetric> dc = new ArrayList<>();
@@ -54,6 +55,14 @@ public class AllMetrics {
 
     public void setPlaExtensibility(List<PLAExtensibilityMetric> plaExtensibility) {
         this.plaExtensibility = plaExtensibility;
+    }
+
+    public List<LCCMetric> getLcc() {
+        return lcc;
+    }
+
+    public void setLcc(List<LCCMetric> lcc) {
+        this.lcc = lcc;
     }
 
     public List<AcompMetric> getAcomp() {
@@ -181,6 +190,7 @@ public class AllMetrics {
         if (this.dc.size() > id) this.dc.remove(id);
         if (this.ec.size() > id) this.ec.remove(id);
         if (this.wocsc.size() > id) this.wocsc.remove(id);
+        if (this.lcc.size() > id) this.lcc.remove(id);
         if (this.wocsi.size() > id) this.wocsi.remove(id);
         if (this.cbcs.size() > id) this.cbcs.remove(id);
         if (this.svc.size() > id) this.svc.remove(id);

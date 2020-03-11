@@ -100,7 +100,6 @@ public class OPLA extends Problem {
                 case "PLAExtensibility":
                     fitnesses.add(new Fitness(MetricsEvaluation.evaluatePLAExtensibility((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                //implementado por marcelo
                 case "acomp":
                     fitnesses.add(new Fitness(MetricsEvaluation.evaluateACOMP((Architecture) solution.getDecisionVariables()[0])));
                     break;
@@ -111,7 +110,7 @@ public class OPLA extends Problem {
                     fitnesses.add(new Fitness(MetricsEvaluation.evaluateTAM((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "coe":
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateCOE((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateCohesionFitness((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case "dc":
                     fitnesses.add(new Fitness(MetricsEvaluation.evaluateDC((Architecture) solution.getDecisionVariables()[0])));

@@ -134,6 +134,8 @@ public class Result {
                     allMetrics.getDc().add(buildDcMetrics(idSolution, Execution, experiement, arch));
                 if (objectiveFuncs.contains("ec"))
                     allMetrics.getEc().add(buildEcMetrics(idSolution, Execution, experiement, arch));
+                if (objectiveFuncs.contains("lcc"))
+                    allMetrics.getLcc().add(buildLccMetrics(idSolution, Execution, experiement, arch));
                 //addYni
                 if (objectiveFuncs.contains("wocsc"))
                     allMetrics.getWocsclass().add(buildWocsclassMetrics(idSolution, Execution, experiement, arch));
@@ -248,11 +250,17 @@ public class Result {
 
         CoeMetric coe = new CoeMetric(idSolution, Execution, experiement);
 
-        coe.setLcc(MetricsEvaluation.evaluateLCC(arch));
         coe.setCohesion(MetricsEvaluation.evaluateCohesion(arch));
 
-
         return coe;
+    }
+
+    private LCCMetric buildLccMetrics(String idSolution, Execution Execution, Experiment experiement,
+                                      Architecture arch) {
+
+        LCCMetric lcc = new LCCMetric(idSolution, Execution, experiement);
+        lcc.setLcc(MetricsEvaluation.evaluateLCC(arch));
+        return lcc;
     }
 
     private DcMetric buildDcMetrics(String idSolution, Execution Execution, Experiment experiement,

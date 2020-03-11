@@ -44,9 +44,6 @@ public class EleganceMetric implements GenericMetric {
     @JoinColumn(name = "execution_id")
     private Execution execution;
 
-    @Column(name = "elegance")
-    private Double elegance;
-
     @ManyToOne
     @JoinColumn(name = "experiement_id", nullable = false)
     private Experiment experiment;
@@ -56,6 +53,9 @@ public class EleganceMetric implements GenericMetric {
 
     @Column(name = "id_solution")
     private String idSolution;
+
+    @Column(name = "elegance")
+    private Double elegance;
 
     public EleganceMetric(String idSolution, Execution execution, Experiment experiement) {
         this.idSolution = idSolution;

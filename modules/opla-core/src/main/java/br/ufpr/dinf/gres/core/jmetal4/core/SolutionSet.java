@@ -808,7 +808,7 @@ public class SolutionSet implements Serializable {
                     bw.newLine();
                     bw.write("MAC AGGREGATION: " + metrics.evaluateMACFitness(arch));
                     bw.newLine();
-                    bw.write("Cohesion: " + metrics.evaluateCohesion(arch));
+                    bw.write("Cohesion: " + metrics.evaluateCohesionFitness(arch));
                     bw.newLine();
                     bw.write("Mean Dep Comps: " + metrics.evaluateMeanDepComps(arch));
                     bw.newLine();

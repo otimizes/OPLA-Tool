@@ -6,21 +6,15 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "coe_metrics")
-public class CoeMetric implements GenericMetric {
-
-    private static final long serialVersionUID = 1L;
+@Table(name = "lcc_metrics")
+public class LCCMetric {
 
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-
-    @Column(name = "cohesion")
-    private Double cohesion;
 
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
@@ -37,13 +31,20 @@ public class CoeMetric implements GenericMetric {
     @Column(name = "id_solution")
     private String idSolution;
 
-    public CoeMetric(String idSolution, Execution execution, Experiment experiement) {
+
+    @Column(name = "lcc")
+    private Double lcc;
+
+    public LCCMetric(Double lcc) {
+        this.lcc = lcc;
+    }
+
+    public LCCMetric(String idSolution, Execution execution, Experiment experiement) {
         this.idSolution = idSolution;
         this.execution = execution;
         this.experiment = experiement;
     }
 
-    @Override
     public String getId() {
         return id;
     }
@@ -54,6 +55,10 @@ public class CoeMetric implements GenericMetric {
 
     public Execution getExecution() {
         return execution;
+    }
+
+    public void setExecution(Execution execution) {
+        this.execution = execution;
     }
 
     public Experiment getExperiment() {
@@ -80,45 +85,11 @@ public class CoeMetric implements GenericMetric {
         this.idSolution = idSolution;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Double getLcc() {
+        return lcc;
     }
 
-    public Double getCohesion() {
-        return cohesion;
+    public void setLcc(Double lcc) {
+        this.lcc = lcc;
     }
-
-    public void setCohesion(Double cohesion) {
-        this.cohesion = cohesion;
-    }
-
-
-    public void setExecution(Execution execution) {
-        this.execution = execution;
-    }
-
-    @Override
-    public boolean equals(final Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null) {
-            return false;
-        }
-        if (!getClass().equals(other.getClass())) {
-            return false;
-        }
-        CoeMetric castOther = (CoeMetric) other;
-        return Objects.equals(id, castOther.id) && Objects.equals(execution, castOther.execution)
-                && Objects.equals(cohesion, castOther.cohesion)
-                && Objects.equals(experiment, castOther.experiment) && Objects.equals(isAll, castOther.isAll)
-                && Objects.equals(idSolution, castOther.idSolution);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, cohesion, execution, experiment, isAll, idSolution);
-    }
-
-
 }
