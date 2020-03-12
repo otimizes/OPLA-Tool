@@ -3,6 +3,7 @@ package br.ufpr.dinf.gres.core.jmetal4.database;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.Metrics;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.RelationalCohesion;
 import br.ufpr.dinf.gres.domain.entity.AllMetrics;
@@ -115,43 +116,40 @@ public class Result {
             for (int j = 0; j < numberOfVariables; j++) {
                 Architecture arch = (Architecture) list.get(i).getDecisionVariables()[j];
                 String idSolution = funResults.get(i).getId();
-                if (objectiveFuncs.contains("elegance"))
+                if (objectiveFuncs.contains(Metrics.ELEGANCE.toString()))
                     allMetrics.getElegance().add(buildEleganceMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("PLAExtensibility"))
+                if (objectiveFuncs.contains(Metrics.PLAEXTENSIBILITY.toString()))
                     allMetrics.getPlaExtensibility().add(buildPLAExtensibilityMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("conventional"))
+                if (objectiveFuncs.contains(Metrics.CONVENTIONAL.toString()))
                     allMetrics.getConventional().add(buildConventionalMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("featureDriven"))
+                if (objectiveFuncs.contains(Metrics.FM.toString()))
                     allMetrics.getFm().add(buildFeatureDrivenMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("acomp"))
+                if (objectiveFuncs.contains(Metrics.ACOMP.toString()))
                     allMetrics.getAcomp().add(buildAcompMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("aclass"))
+                if (objectiveFuncs.contains(Metrics.ACLASS.toString()))
                     allMetrics.getAclass().add(buildAclassMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("tam"))
+                if (objectiveFuncs.contains(Metrics.TAM.toString()))
                     allMetrics.getTam().add(buildTamMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("coe"))
+                if (objectiveFuncs.contains(Metrics.COE.toString()))
                     allMetrics.getCoe().add(buildCoeMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("dc"))
+                if (objectiveFuncs.contains(Metrics.DC.toString()))
                     allMetrics.getDc().add(buildDcMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("ec"))
+                if (objectiveFuncs.contains(Metrics.EC.toString()))
                     allMetrics.getEc().add(buildEcMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("lcc"))
+                if (objectiveFuncs.contains(Metrics.LCC.toString()))
                     allMetrics.getLcc().add(buildLccMetrics(idSolution, Execution, experiement, arch));
-                //addYni
-                if (objectiveFuncs.contains("wocsc"))
+                if (objectiveFuncs.contains(Metrics.WOCSCLASS.toString()))
                     allMetrics.getWocsclass().add(buildWocsclassMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("wocsi"))
+                if (objectiveFuncs.contains(Metrics.WOCSINTERFACE.toString()))
                     allMetrics.getWocsinterface().add(buildWocsinterfaceMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("cbcs"))
+                if (objectiveFuncs.contains(Metrics.CBCS.toString()))
                     allMetrics.getCbcs().add(buildCbcsMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("ssc"))
+                if (objectiveFuncs.contains(Metrics.SSC.toString()))
                     allMetrics.getSsc().add(buildSscMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("svc"))
+                if (objectiveFuncs.contains(Metrics.SVC.toString()))
                     allMetrics.getSvc().add(buildSvcMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains("av"))
+                if (objectiveFuncs.contains(Metrics.AV.toString()))
                     allMetrics.getAv().add(buildAvMetrics(idSolution, Execution, experiement, arch));
-
-                //addYni
             }
         }
 

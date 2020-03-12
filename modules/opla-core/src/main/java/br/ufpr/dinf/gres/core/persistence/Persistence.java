@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.core.persistence;
 
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.Metrics;
 import br.ufpr.dinf.gres.core.jmetal4.util.NonDominatedSolutionList;
 import br.ufpr.dinf.gres.domain.entity.*;
 import br.ufpr.dinf.gres.persistence.service.*;
@@ -74,29 +75,27 @@ public class Persistence {
     }
 
     public void save(AllMetrics allMetrics, List<String> list) {
-
-        if (list.contains("elegance"))
+        if (list.contains(Metrics.ELEGANCE.toString()))
             eleganceMetricService.saveAll(allMetrics.getElegance());
-        if (list.contains("featureDriven"))
+        if (list.contains(Metrics.FM.toString()))
             featureDrivenMetricService.saveAll(allMetrics.getFm());
-        if (list.contains("conventional"))
+        if (list.contains(Metrics.CONVENTIONAL.toString()))
             conventionalMetricService.saveAll(allMetrics.getConventional());
-        if (list.contains("PLAExtensibility"))
+        if (list.contains(Metrics.PLAEXTENSIBILITY.toString()))
             plaExtensibilityMetricService.saveAll(allMetrics.getPlaExtensibility());
-        if (list.contains("wocsclass"))
+        if (list.contains(Metrics.WOCSCLASS.toString()))
             wocsclassMetricService.saveAll(allMetrics.getWocsclass());
-        if (list.contains("wocsinterface"))
+        if (list.contains(Metrics.WOCSINTERFACE.toString()))
             wocsinterfaceMetricService.saveAll(allMetrics.getWocsinterface());
-        if (list.contains("cbcs"))
+        if (list.contains(Metrics.CBCS.toString()))
             cbcsMetricService.saveAll(allMetrics.getCbcs());
-        if (list.contains("ssc"))
+        if (list.contains(Metrics.SSC.toString()))
             sscMetricService.saveAll(allMetrics.getSsc());
-        if (list.contains("svc"))
+        if (list.contains(Metrics.SVC.toString()))
             svcMetricService.saveAll(allMetrics.getSvc());
-        if (list.contains("av"))
+        if (list.contains(Metrics.AV.toString()))
             avMetricService.saveAll(allMetrics.getAv());
     }
-
 
     public MapObjectiveName saveObjectivesNames(List<String> selectedMetrics, String experimentId) throws Exception {
         String names = getNames(selectedMetrics);

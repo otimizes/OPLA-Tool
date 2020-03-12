@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 @Table(name = "executions")
@@ -28,7 +30,8 @@ public class Execution implements Serializable {
     @JoinColumn(name = "experiement_id", nullable = false)
     private Experiment experiment;
 
-    @Column(name = "time")
+    @Column(name = "time", nullable = true)
+    @NotFound(action = NotFoundAction.IGNORE)
     private Long time;
 
     @Column(name = "runs")
