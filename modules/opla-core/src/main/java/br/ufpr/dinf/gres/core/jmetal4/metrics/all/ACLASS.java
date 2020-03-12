@@ -1,11 +1,9 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.classical;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.ClassDependencyIn;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.ClassDependencyOut;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.DependencyIn;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.DependencyOut;
 
 public class ACLASS extends BaseMetricResults {
 

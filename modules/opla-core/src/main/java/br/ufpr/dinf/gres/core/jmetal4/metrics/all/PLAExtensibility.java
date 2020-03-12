@@ -1,8 +1,9 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility.ExtensVarComponent;
 
 public class PLAExtensibility extends BaseMetricResults {
 
@@ -10,8 +11,7 @@ public class PLAExtensibility extends BaseMetricResults {
         super(architecture);
         double ExtensibilityFitness = 0;
         double Extensibility;
-        PLAExtensibility PLAExtens = new PLAExtensibility(architecture);
-        ExtensibilityFitness = PLAExtens.getValue(architecture);
+        ExtensibilityFitness = getValue(architecture);
         if (ExtensibilityFitness == 0)
             Extensibility = 1000;
         else

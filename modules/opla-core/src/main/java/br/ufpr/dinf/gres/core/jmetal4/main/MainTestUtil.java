@@ -144,8 +144,8 @@ public class MainTestUtil {
             for (int i = 0; i < solutionsList_.size(); i++) {
                 for (int j = 0; j < numberOfVariables; j++) {
                     Architecture arch = (Architecture) solutionsList_.get(i).getDecisionVariables()[j];
-                    bw.write(metrics.evaluateMSIFitness(arch) + "  " + metrics.evaluateMACFitness(arch) + "  "
-                            + metrics.evaluatePLAExtensibility(arch) + "  " + metrics.evaluateElegance(arch));
+                    bw.write(metrics.evaluateFM(arch) + "  " + metrics.evaluateCONVENTIONAL(arch) + "  "
+                            + metrics.evaluatePLAEXTENSIBILITY(arch) + "  " + metrics.evaluateELEGANCE(arch));
                     // bw.write(solutionsList_.get(i).toString());
                     bw.newLine();
                 }
@@ -186,7 +186,7 @@ public class MainTestUtil {
                     bw.write("--------  ELEGANCE ------------------");
                     bw.newLine();
                     bw.newLine();
-                    bw.write("ELEGANCE: " + metrics.evaluateElegance(arch));
+                    bw.write("ELEGANCE: " + metrics.evaluateELEGANCE(arch));
                     bw.newLine();
                     bw.write("NAC - ELEGANCE: " + metrics.evaluateNACElegance(arch));
                     bw.newLine();
@@ -199,13 +199,13 @@ public class MainTestUtil {
                     bw.write("--------  PLA EXTENSIBILITY -----------");
                     bw.newLine();
                     bw.newLine();
-                    bw.write("PLA EXTENSIBILITY: " + metrics.evaluatePLAExtensibility(arch));
+                    bw.write("PLA EXTENSIBILITY: " + metrics.evaluatePLAEXTENSIBILITY(arch));
                     bw.newLine();
 
                     bw.write("-----  FEATURE-DRIVEN METRICS ----------");
                     bw.newLine();
                     bw.newLine();
-                    bw.write("MSI AGGREGATION: " + metrics.evaluateMSIFitness(arch));
+                    bw.write("MSI AGGREGATION: " + metrics.evaluateFM(arch));
                     bw.newLine();
                     bw.write("CDAC: " + metrics.evaluateCDAC(arch));
                     bw.newLine();
@@ -232,9 +232,9 @@ public class MainTestUtil {
                     bw.write("------  CONVENTIONAL METRICS -----------");
                     bw.newLine();
                     bw.newLine();
-                    bw.write("MAC AGGREGATION: " + metrics.evaluateMACFitness(arch));
+                    bw.write("MAC AGGREGATION: " + metrics.evaluateCONVENTIONAL(arch));
                     bw.newLine();
-                    bw.write("Cohesion: " + metrics.evaluateCohesionFitness(arch));
+                    bw.write("Cohesion: " + metrics.evaluateCOE(arch));
                     bw.newLine();
                     bw.write("Mean Dep Comps: " + metrics.evaluateMeanDepComps(arch));
                     bw.newLine();
@@ -283,7 +283,7 @@ public class MainTestUtil {
                     bw.write("------  COE METRICS -----------");
                     bw.newLine();
                     bw.newLine();
-                    bw.write("Relational Cohesion: " + metrics.evaluateCohesion(arch));
+                    bw.write("Relational Cohesion: " + metrics.evaluateHCohesion(arch));
                     bw.newLine();
                     bw.write("Lcc: " + metrics.evaluateLCC(arch));
                     bw.newLine();

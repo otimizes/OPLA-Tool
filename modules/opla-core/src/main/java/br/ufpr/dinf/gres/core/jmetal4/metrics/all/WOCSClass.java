@@ -1,37 +1,36 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.classical;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
 
-import br.ufpr.dinf.gres.architecture.representation.*;
+import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
+import br.ufpr.dinf.gres.architecture.representation.Method;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
 
-public class WOCSInterface extends BaseMetricResults {
+public class WOCSClass extends BaseMetricResults {
 
-    public WOCSInterface(Architecture architecture) {
+    public WOCSClass(Architecture architecture) {
         super(architecture);
-        double valorwocsi;
+        double valorwocsc;
         double tcomplexidade = 0;
-        double numclass = architecture.getAllInterfaces().size();
+        double numclass = architecture.getAllClasses().size();
 
         for (Package pacote : architecture.getAllPackages()) {
-
-            for (Interface interfa : pacote.getAllInterfaces()) {
+            for (Class classes : pacote.getAllClasses()) {
                 int cantparame = 0;
                 int complexidade = 0;
 
-                for (Method metodo : interfa.getOperations()) {
+
+                for (Method metodo : classes.getAllMethods()) {
 
                     cantparame = metodo.getParameters().size() + 1;
                     complexidade += cantparame;
                 }
 
                 tcomplexidade = complexidade;
-
             }
-
         }
-        valorwocsi = tcomplexidade / numclass;
-        this.setResults(valorwocsi);
+        valorwocsc = tcomplexidade / numclass;
+        this.setResults(valorwocsc);
     }
 
 }

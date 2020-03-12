@@ -122,7 +122,7 @@ public class Result {
                 if (objectiveFuncs.contains("conventional"))
                     allMetrics.getConventional().add(buildConventionalMetrics(idSolution, Execution, experiement, arch));
                 if (objectiveFuncs.contains("featureDriven"))
-                    allMetrics.getFeatureDriven().add(buildFeatureDrivenMetrics(idSolution, Execution, experiement, arch));
+                    allMetrics.getFm().add(buildFeatureDrivenMetrics(idSolution, Execution, experiement, arch));
                 if (objectiveFuncs.contains("acomp"))
                     allMetrics.getAcomp().add(buildAcompMetrics(idSolution, Execution, experiement, arch));
                 if (objectiveFuncs.contains("aclass"))
@@ -199,7 +199,7 @@ public class Result {
                                                                 Experiment experiement, Architecture arch) {
 
         PLAExtensibilityMetric plaExtensibility = new PLAExtensibilityMetric(idSolution, Execution, experiement);
-        plaExtensibility.setPlaExtensibility(MetricsEvaluation.evaluatePLAExtensibility(arch));
+        plaExtensibility.setPlaExtensibility(MetricsEvaluation.evaluatePLAEXTENSIBILITY(arch));
 
         return plaExtensibility;
     }
@@ -252,7 +252,9 @@ public class Result {
 
         CoeMetric coe = new CoeMetric(idSolution, Execution, experiement);
 
-        coe.setCohesion(MetricsEvaluation.evaluateCohesion(arch));
+        coe.setCohesion(MetricsEvaluation.evaluateHCohesion(arch));
+        coe.setLcc(MetricsEvaluation.evaluateLCC(arch));
+        coe.setLcc(new RelationalCohesion(arch).getResults());
 
         return coe;
     }
@@ -298,7 +300,7 @@ public class Result {
                                                   Experiment experiement, Architecture arch) {
 
         WocsclassMetric wocsClass = new WocsclassMetric(idSolution, Execution, experiement);
-        wocsClass.setWocsclass(MetricsEvaluation.evaluateWocsC(arch));
+        wocsClass.setWocsclass(MetricsEvaluation.evaluateWOCSCLASS(arch));
 
         return wocsClass;
     }
@@ -307,7 +309,7 @@ public class Result {
                                                           Experiment experiement, Architecture arch) {
 
         WocsinterfaceMetric wocsInterface = new WocsinterfaceMetric(idSolution, Execution, experiement);
-        wocsInterface.setWocsinterface(MetricsEvaluation.evaluateWocsI(arch));
+        wocsInterface.setWocsinterface(MetricsEvaluation.evaluateWOCSINTERFFACE(arch));
 
         return wocsInterface;
     }
@@ -316,7 +318,7 @@ public class Result {
                                         Experiment experiement, Architecture arch) {
 
         CbcsMetric cBcs = new CbcsMetric(idSolution, Execution, experiement);
-        cBcs.setCbcs(MetricsEvaluation.evaluateWocsI(arch));
+        cBcs.setCbcs(MetricsEvaluation.evaluateWOCSINTERFFACE(arch));
 
         return cBcs;
     }
@@ -325,7 +327,7 @@ public class Result {
                                       Experiment experiement, Architecture arch) {
 
         SscMetric sSc = new SscMetric(idSolution, Execution, experiement);
-        sSc.setSsc(MetricsEvaluation.evaluateWocsI(arch));
+        sSc.setSsc(MetricsEvaluation.evaluateWOCSINTERFFACE(arch));
 
         return sSc;
     }
@@ -335,7 +337,7 @@ public class Result {
                                       Experiment experiement, Architecture arch) {
 
         SvcMetric sVc = new SvcMetric(idSolution, Execution, experiement);
-        sVc.setSvc(MetricsEvaluation.evaluateWocsI(arch));
+        sVc.setSvc(MetricsEvaluation.evaluateWOCSINTERFFACE(arch));
 
         return sVc;
     }
@@ -345,7 +347,7 @@ public class Result {
                                     Experiment experiement, Architecture arch) {
 
         AvMetric aV = new AvMetric(idSolution, Execution, experiement);
-        aV.setAv(MetricsEvaluation.evaluateWocsI(arch));
+        aV.setAv(MetricsEvaluation.evaluateWOCSINTERFFACE(arch));
 
         return aV;
     }

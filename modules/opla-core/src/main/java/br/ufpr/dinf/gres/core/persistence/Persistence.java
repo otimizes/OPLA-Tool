@@ -2,7 +2,6 @@ package br.ufpr.dinf.gres.core.persistence;
 
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.domain.entity.metric.*;
 import br.ufpr.dinf.gres.core.jmetal4.util.NonDominatedSolutionList;
 import br.ufpr.dinf.gres.domain.entity.*;
 import br.ufpr.dinf.gres.persistence.service.*;
@@ -33,7 +32,6 @@ public class Persistence {
     private final WocsclassMetricService wocsclassMetricService;
     private final WocsinterfaceMetricService wocsinterfaceMetricService;
     private final FeatureDrivenMetricService featureDrivenMetricService;
-
 
     public Persistence(AvMetricService avMetricService, ExperimentService experimentService, ExperimentConfigurationService experimentConfigurationService, MapObjectiveNameService mapObjectiveNameService, SscMetricService sscMetricService, WocsclassMetricService wocsclassMetricService, InfoService infoService, CbcsMetricService cbcsMetricService, WocsinterfaceMetricService wocsinterfaceMetricService, ConventionalMetricService conventionalMetricService, DistanceEuclideanService distanceEuclideanService, EleganceMetricService eleganceMetricService, SvcMetricService svcMetricService, ExecutionService executionService, PLAExtensibilityMetricService plaExtensibilityMetricService, ObjectiveService objectiveService, FeatureDrivenMetricService featureDrivenMetricService) {
         this.avMetricService = avMetricService;
@@ -76,67 +74,29 @@ public class Persistence {
     }
 
     public void save(AllMetrics allMetrics, List<String> list) {
+
         if (list.contains("elegance"))
-            saveElegance(allMetrics.getElegance());
+            eleganceMetricService.saveAll(allMetrics.getElegance());
         if (list.contains("featureDriven"))
-            saveFeatureDriven(allMetrics.getFeatureDriven());
+            featureDrivenMetricService.saveAll(allMetrics.getFm());
         if (list.contains("conventional"))
-            saveConventional(allMetrics.getConventional());
+            conventionalMetricService.saveAll(allMetrics.getConventional());
         if (list.contains("PLAExtensibility"))
-            savePlaExtensibility(allMetrics.getPlaExtensibility());
+            plaExtensibilityMetricService.saveAll(allMetrics.getPlaExtensibility());
         if (list.contains("wocsclass"))
-            saveWocsclass(allMetrics.getWocsclass());
+            wocsclassMetricService.saveAll(allMetrics.getWocsclass());
         if (list.contains("wocsinterface"))
-            persisteWocsinterface(allMetrics.getWocsinterface());
+            wocsinterfaceMetricService.saveAll(allMetrics.getWocsinterface());
         if (list.contains("cbcs"))
-            saveCbcs(allMetrics.getCbcs());
+            cbcsMetricService.saveAll(allMetrics.getCbcs());
         if (list.contains("ssc"))
-            saveSsc(allMetrics.getSsc());
+            sscMetricService.saveAll(allMetrics.getSsc());
         if (list.contains("svc"))
-            saveSvc(allMetrics.getSvc());
+            svcMetricService.saveAll(allMetrics.getSvc());
         if (list.contains("av"))
-            saveAv(allMetrics.getAv());
+            avMetricService.saveAll(allMetrics.getAv());
     }
 
-    private void saveWocsclass(List<WocsclassMetric> wocsC) {
-        wocsclassMetricService.saveAll(wocsC);
-    }
-
-    private void persisteWocsinterface(List<WocsinterfaceMetric> wocsI) {
-        wocsinterfaceMetricService.saveAll(wocsI);
-    }
-
-    private void saveCbcs(List<CbcsMetric> cBcs) {
-        cbcsMetricService.saveAll(cBcs);
-    }
-
-    private void saveSsc(List<SscMetric> sSc) {
-        sscMetricService.saveAll(sSc);
-    }
-
-    private void saveSvc(List<SvcMetric> sVc) {
-        svcMetricService.saveAll(sVc);
-    }
-
-    private void saveAv(List<AvMetric> aV) {
-        avMetricService.saveAll(aV);
-    }
-
-    private void savePlaExtensibility(List<PLAExtensibilityMetric> plaExt) {
-        plaExtensibilityMetricService.saveAll(plaExt);
-    }
-
-    private void saveConventional(List<ConventionalMetric> conventionals) {
-        conventionalMetricService.saveAll(conventionals);
-    }
-
-    private void saveFeatureDriven(List<FeatureDrivenMetric> featuresDriven) {
-        featureDrivenMetricService.saveAll(featuresDriven);
-    }
-
-    private void saveElegance(List<EleganceMetric> elegances) {
-        eleganceMetricService.saveAll(elegances);
-    }
 
     public MapObjectiveName saveObjectivesNames(List<String> selectedMetrics, String experimentId) throws Exception {
         String names = getNames(selectedMetrics);

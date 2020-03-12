@@ -1,12 +1,12 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.classical;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.*;
 
-public class MAC extends BaseMetricResults {
+public class Conventional extends BaseMetricResults {
 
-    public MAC(Architecture architecture) {
+    public Conventional(Architecture architecture) {
         super(architecture);
         double MACFitness = 0.0;
         double meanDepComps = 0.0;

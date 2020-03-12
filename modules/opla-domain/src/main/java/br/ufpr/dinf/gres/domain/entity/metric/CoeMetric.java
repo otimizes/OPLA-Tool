@@ -2,11 +2,10 @@ package br.ufpr.dinf.gres.domain.entity.metric;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
-import javax.persistence.*;
-import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "coe_metrics")
@@ -16,6 +15,10 @@ public class CoeMetric extends BaseMetric {
 
     @Column(name = "cohesion")
     private Double cohesion;
+    @Column(name = "lcc")
+    private Double lcc;
+    @Column(name = "h")
+    private Double h;
 
     public CoeMetric(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
@@ -29,5 +32,19 @@ public class CoeMetric extends BaseMetric {
         this.cohesion = cohesion;
     }
 
+    public Double getLcc() {
+        return lcc;
+    }
 
+    public void setLcc(Double lcc) {
+        this.lcc = lcc;
+    }
+
+    public Double getH() {
+        return h;
+    }
+
+    public void setH(Double h) {
+        this.h = h;
+    }
 }

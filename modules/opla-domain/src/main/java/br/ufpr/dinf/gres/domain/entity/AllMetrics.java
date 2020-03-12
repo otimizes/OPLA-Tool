@@ -9,7 +9,7 @@ public class AllMetrics {
 
     private List<ConventionalMetric> conventional = new ArrayList<>();
     private List<EleganceMetric> elegance = new ArrayList<>();
-    private List<FeatureDrivenMetric> featureDriven = new ArrayList<>();
+    private List<FeatureDrivenMetric> fm = new ArrayList<>();
     private List<PLAExtensibilityMetric> plaExtensibility = new ArrayList<>();
     private List<AcompMetric> acomp = new ArrayList<>();
     private List<AclassMetric> aclass = new ArrayList<>();
@@ -18,8 +18,8 @@ public class AllMetrics {
     private List<CoeMetric> coe = new ArrayList<>();
     private List<DcMetric> dc = new ArrayList<>();
     private List<EcMetric> ec = new ArrayList<>();
-    private List<WocsclassMetric> wocsc = new ArrayList<>(); //addYni
-    private List<WocsinterfaceMetric> wocsi = new ArrayList<>(); //addYni
+    private List<WocsclassMetric> wocsclass = new ArrayList<>(); //addYni
+    private List<WocsinterfaceMetric> wocsinterface = new ArrayList<>(); //addYni
     private List<CbcsMetric> cbcs = new ArrayList<>(); //addYni
     private List<SvcMetric> svc = new ArrayList<>(); //addYni
     private List<SscMetric> ssc = new ArrayList<>(); //addYni
@@ -41,12 +41,12 @@ public class AllMetrics {
         this.elegance = elegance;
     }
 
-    public List<FeatureDrivenMetric> getFeatureDriven() {
-        return featureDriven;
+    public List<FeatureDrivenMetric> getFm() {
+        return fm;
     }
 
-    public void setFeatureDriven(List<FeatureDrivenMetric> featureDriven) {
-        this.featureDriven = featureDriven;
+    public void setFm(List<FeatureDrivenMetric> fm) {
+        this.fm = fm;
     }
 
     public List<PLAExtensibilityMetric> getPlaExtensibility() {
@@ -114,19 +114,19 @@ public class AllMetrics {
     }
 
     public List<WocsclassMetric> getWocsclass() {
-        return wocsc;
+        return wocsclass;
     }
 
     public void setWocsclass(List<WocsclassMetric> wocsc) {
-        this.wocsc = wocsc;
+        this.wocsclass = wocsc;
     }
 
     public List<WocsinterfaceMetric> getWocsinterface() {
-        return wocsi;
+        return wocsinterface;
     }
 
     public void setWocsinterface(List<WocsinterfaceMetric> wocsi) {
-        this.wocsi = wocsi;
+        this.wocsinterface = wocsi;
     }
 
     public List<CbcsMetric> getCbcs() {
@@ -166,7 +166,7 @@ public class AllMetrics {
         return "AllMetrics{" +
                 "\nconventional=" + conventional +
                 ", \nelegance=" + elegance +
-                ", \nfeatureDriven=" + featureDriven +
+                ", \nfeatureDriven=" + fm +
                 ", \nplaExtensibility=" + plaExtensibility +
                 ", \nacomp=" + acomp +
                 ", \naclass=" + aclass +
@@ -181,7 +181,7 @@ public class AllMetrics {
     public void remove(Integer id) {
         if (this.conventional.size() > id) this.conventional.remove(id);
         if (this.elegance.size() > id) this.elegance.remove(id);
-        if (this.featureDriven.size() > id) this.featureDriven.remove(id);
+        if (this.fm.size() > id) this.fm.remove(id);
         if (this.plaExtensibility.size() > id) this.plaExtensibility.remove(id);
         if (this.acomp.size() > id) this.acomp.remove(id);
         if (this.aclass.size() > id) this.aclass.remove(id);
@@ -189,9 +189,9 @@ public class AllMetrics {
         if (this.coe.size() > id) this.coe.remove(id);
         if (this.dc.size() > id) this.dc.remove(id);
         if (this.ec.size() > id) this.ec.remove(id);
-        if (this.wocsc.size() > id) this.wocsc.remove(id);
+        if (this.wocsclass.size() > id) this.wocsclass.remove(id);
         if (this.lcc.size() > id) this.lcc.remove(id);
-        if (this.wocsi.size() > id) this.wocsi.remove(id);
+        if (this.wocsinterface.size() > id) this.wocsinterface.remove(id);
         if (this.cbcs.size() > id) this.cbcs.remove(id);
         if (this.svc.size() > id) this.svc.remove(id);
         if (this.ssc.size() > id) this.ssc.remove(id);

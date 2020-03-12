@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.classical;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
@@ -17,4 +17,5 @@ public class COE extends BaseMetricResults {
         coeFitness = rc.getResults() + lcc.getResults();
         this.setResults(coeFitness);
     }
+
 }
