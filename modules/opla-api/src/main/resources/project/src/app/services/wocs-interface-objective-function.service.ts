@@ -5,9 +5,9 @@ import {PersistenceService} from "./persistence.service";
 @Injectable({
   providedIn: 'root'
 })
-export class SscMetricService extends PersistenceService {
+export class WocsInterfaceObjectiveFunctionService extends PersistenceService {
 
   constructor(http: HttpClient) {
-    super("ssc-metric", http);
+    super("wocs-interface-objective-function", http);
   }
 }

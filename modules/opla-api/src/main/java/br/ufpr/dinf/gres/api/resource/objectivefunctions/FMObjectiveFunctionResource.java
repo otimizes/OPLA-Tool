@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api.resource;
+package br.ufpr.dinf.gres.api.resource.objectivefunctions;
 
 import br.ufpr.dinf.gres.api.base.BaseResource;
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.FMObjectiveFunction;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/feature-driven-metric")
-public class FeatureDrivenMetricResource extends BaseResource<FMObjectiveFunction> {
-    public FeatureDrivenMetricResource(BaseService<FMObjectiveFunction> service) {
+@RequestMapping("/api/fm-objective-function")
+public class FMObjectiveFunctionResource extends BaseResource<FMObjectiveFunction> {
+    public FMObjectiveFunctionResource(BaseService<FMObjectiveFunction> service) {
         super(service);
     }
 }

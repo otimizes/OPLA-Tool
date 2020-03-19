@@ -5,9 +5,9 @@ import {PersistenceService} from "./persistence.service";
 @Injectable({
   providedIn: 'root'
 })
-export class EleganceMetricService extends PersistenceService {
+export class CmObjectiveFunctionService extends PersistenceService {
 
   constructor(http: HttpClient) {
-    super("elegance-metric", http);
+    super("cm-objective-function", http);
   }
 }

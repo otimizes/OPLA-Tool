@@ -5,9 +5,9 @@ import {PersistenceService} from "./persistence.service";
 @Injectable({
   providedIn: 'root'
 })
-export class SvcMetricService extends PersistenceService {
+export class ElegObjectiveFunctionService extends PersistenceService {
 
   constructor(http: HttpClient) {
-    super("svc-metric", http);
+    super("eleg-objective-function", http);
   }
 }

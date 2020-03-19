@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api.resource;
+package br.ufpr.dinf.gres.api.resource.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.ELEGObjectiveFunction;
 import br.ufpr.dinf.gres.api.base.BaseResource;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/elegance-metric")
-public class EleganceMetricResource extends BaseResource<ELEGObjectiveFunction> {
+@RequestMapping("/api/eleg-objective-function")
+public class ELEGObjectiveFunctionResource extends BaseResource<ELEGObjectiveFunction> {
 
-    public EleganceMetricResource(BaseService<ELEGObjectiveFunction> service) {
+    public ELEGObjectiveFunctionResource(BaseService<ELEGObjectiveFunction> service) {
         super(service);
     }
 }

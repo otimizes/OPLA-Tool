@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api.resource;
+package br.ufpr.dinf.gres.api.resource.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.TVObjectiveFunction;
 import br.ufpr.dinf.gres.api.base.BaseResource;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/av-metric")
-public class AvMetricResource extends BaseResource<TVObjectiveFunction> {
+@RequestMapping("/api/tv-objective-function")
+public class TVObjectiveFunctionResource extends BaseResource<TVObjectiveFunction> {
 
-    public AvMetricResource(BaseService<TVObjectiveFunction> service) {
+    public TVObjectiveFunctionResource(BaseService<TVObjectiveFunction> service) {
         super(service);
     }
 }

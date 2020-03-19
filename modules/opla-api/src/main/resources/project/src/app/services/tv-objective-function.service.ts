@@ -5,9 +5,9 @@ import {PersistenceService} from "./persistence.service";
 @Injectable({
   providedIn: 'root'
 })
-export class CbcsMetricService extends PersistenceService {
+export class TvObjectiveFunctionService extends PersistenceService {
 
   constructor(http: HttpClient) {
-    super("cbcs-metic", http);
+    super("tv-objective-function", http);
   }
 }

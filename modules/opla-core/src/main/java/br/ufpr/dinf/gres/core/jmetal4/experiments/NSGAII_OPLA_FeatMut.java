@@ -7,6 +7,7 @@ import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctions;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
@@ -24,6 +25,7 @@ import br.ufpr.dinf.gres.core.persistence.Persistence;
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.BaseObjectiveFunction;
 import br.ufpr.dinf.gres.loglog.Level;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -156,7 +158,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                     configs.getInteractiveFunction().run(resultFront);
                 }
 
-                resultFront.saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
+//                resultFront.saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
 
                 execution.setInfos(infos);
                 execution.setAllMetrics(allMetrics);

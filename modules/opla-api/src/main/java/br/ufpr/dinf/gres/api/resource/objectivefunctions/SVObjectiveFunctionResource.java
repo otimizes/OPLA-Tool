@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api.resource;
+package br.ufpr.dinf.gres.api.resource.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.SVObjectiveFunction;
 import br.ufpr.dinf.gres.api.base.BaseResource;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/svc-metric")
-public class SvcMetricResource extends BaseResource<SVObjectiveFunction> {
+@RequestMapping("/api/sv-objective-function")
+public class SVObjectiveFunctionResource extends BaseResource<SVObjectiveFunction> {
 
-    public SvcMetricResource(BaseService<SVObjectiveFunction> service) {
+    public SVObjectiveFunctionResource(BaseService<SVObjectiveFunction> service) {
         super(service);
     }
 }

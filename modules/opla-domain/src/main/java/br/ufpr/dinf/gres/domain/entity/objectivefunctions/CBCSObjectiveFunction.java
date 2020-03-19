@@ -8,15 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "rcc_obj")
-public class RCCObjectiveFunction extends BaseObjectiveFunction {
+@Table(name = "cbcs_obj")
+public class CBCSObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
     @Column(name = "cbcs")
     private Double cbcs;
 
-    public RCCObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
+    public CBCSObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

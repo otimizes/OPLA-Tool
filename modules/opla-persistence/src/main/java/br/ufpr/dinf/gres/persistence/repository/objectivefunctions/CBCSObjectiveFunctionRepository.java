@@ -1,9 +1,9 @@
 package br.ufpr.dinf.gres.persistence.repository.objectivefunctions;
 
-import br.ufpr.dinf.gres.domain.entity.objectivefunctions.RCCObjectiveFunction;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.CBCSObjectiveFunction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RCCObjectiveFunctionRepository extends JpaRepository<RCCObjectiveFunction, String> {
+public interface CBCSObjectiveFunctionRepository extends JpaRepository<CBCSObjectiveFunction, String> {
 }

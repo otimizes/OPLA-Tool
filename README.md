@@ -63,13 +63,13 @@ https://github.com/SBSE-UEM/OPLA-Tool/blob/master/Contributing.pdf
 
 ### Implementing a new Objective Function
 
-- Create the persistent entity into the opla-domain > metric.
-- Every Objective Function must inherit the class BaseMetric.
+- Create the persistent entity into the opla-domain > objectivefunctions.
+- Every Objective Function must inherit the class BaseObjectiveFunction.
 
 ```java
 @Entity
 @Table(name = "myobj_metrics")
-public class MYOBJObjectiveFunction extends BaseMetric {
+public class MYOBJObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
@@ -86,12 +86,12 @@ public class MYOBJObjectiveFunction extends BaseMetric {
 }
 ```
 
-- Create the service and repository of your objective function into the opla-persistence
-- Create the resource inside the opla-api.
+- Create the service and repository of your objective function into the opla-persistence > |repository|service| > objectivefunctions
+- Create the resource inside the opla-api > resource > objectivefunctions.
 
 - The implementation of metrics must be inside a package in opla-core > jmetal4 > metrics.
 - The implementation of your objective function must be in opla-core > jmetal4 > metrics > objectivefunctions.
-- The class must inherit the BaseObjectiveFunction and must be UPPERCASE. Read the comments in the code below.
+- The implementation class must inherit the BaseObjectiveFunction and must be UPPERCASE. Read the comments in the code below.
 ```java
 public class MYOBJ extends BaseObjectiveFunction {
 
@@ -111,10 +111,8 @@ public class MYOBJ extends BaseObjectiveFunction {
 - Add your metrics into Metrics Enum and the Objective Function into the ObjectiveFunctions Enum.
 ```java
 public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
-    ACLASS {
-        @Autowired
-        private MYOBJObjectiveFunctionService myobjObjectiveFunctionService;
-
+// ...
+    MYOBJ {
         @Override
         public Double evaluate(Architecture architecture) {
             return new MYOBJ(architecture).getResults();
@@ -128,16 +126,15 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             myobj.setSumClassesDepOut(Metrics.SumClassDepOut.evaluate(arch));
             return aclass;
         }
-
-        @Override
-        public MYOBJObjectiveFunctionService getService() {
-            return myobjObjectiveFunctionService;
-        }
     }
 }
 ```
 
-
-
-- Add the instance your obj. function inside the class MetricsEvaluation as a static method that returns a Double value. 
 - Implement the tests in the core inside the MetricsTest
+- ** ATTENTION ** Use the exactly name of the object function (in enum ObjectiveFunctions) as prefix of your resource, service and repository. Also use the pattern of posfix. It is used reflection to facilitate the development of new objective functions. 
+-- Example: 
+- MYOBJ.java -> Implementation of the objective function
+- MYOBJObjectiveFunction.java -> Domain of the objective function
+- MUOBJObjectiveFuntionRepository -> Repository of the objective function
+- MYOBJObjectiveFunctionService -> Service of the objective function
+- MYOBJObjectiveFunctionResource -> Resource of the objective function

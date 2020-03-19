@@ -10,7 +10,6 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.*;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.BaseObjectiveFunction;
-import br.ufpr.dinf.gres.persistence.base.BaseService;
 
 public enum Metrics implements ObjectiveFunctionsLink {
     ATMRElegance {
@@ -21,11 +20,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
 
         @Override
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            return null;
-        }
-
-        @Override
-        public BaseService getService() {
             return null;
         }
     },
@@ -39,11 +33,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
-
-        @Override
-        public BaseService getService() {
-            return null;
-        }
     },
     NACElegance {
         @Override
@@ -53,11 +42,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
 
         @Override
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            return null;
-        }
-
-        @Override
-        public BaseService getService() {
             return null;
         }
     },
@@ -71,11 +55,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
-
-        @Override
-        public BaseService getService() {
-            return null;
-        }
     },
     IIBC {
         @Override
@@ -85,11 +64,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
 
         @Override
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            return null;
-        }
-
-        @Override
-        public BaseService getService() {
             return null;
         }
     },
@@ -103,11 +77,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
-
-        @Override
-        public BaseService getService() {
-            return null;
-        }
     },
     CDAC {
         @Override
@@ -117,11 +86,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
 
         @Override
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            return null;
-        }
-
-        @Override
-        public BaseService getService() {
             return null;
         }
     },
@@ -135,11 +99,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
-
-        @Override
-        public BaseService getService() {
-            return null;
-        }
     },
     CDAO {
         @Override
@@ -149,11 +108,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
 
         @Override
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            return null;
-        }
-
-        @Override
-        public BaseService getService() {
             return null;
         }
     },
@@ -167,11 +121,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
-
-        @Override
-        public BaseService getService() {
-            return null;
-        }
     },
     CIBClass {
         @Override
@@ -181,11 +130,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
 
         @Override
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            return null;
-        }
-
-        @Override
-        public BaseService getService() {
             return null;
         }
     },
@@ -199,11 +143,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
-
-        @Override
-        public BaseService getService() {
-            return null;
-        }
     },
     MeanNumOps {
         @Override
@@ -213,11 +152,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
 
         @Override
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            return null;
-        }
-
-        @Override
-        public BaseService getService() {
             return null;
         }
     },
@@ -231,11 +165,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
-
-        @Override
-        public BaseService getService() {
-            return null;
-        }
     },
     SumClassDepIn {
         @Override
@@ -245,11 +174,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
 
         @Override
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            return null;
-        }
-
-        @Override
-        public BaseService getService() {
             return null;
         }
     },
@@ -263,11 +187,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
-
-        @Override
-        public BaseService getService() {
-            return null;
-        }
     },
     SumDepIn {
         @Override
@@ -279,11 +198,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
-
-        @Override
-        public BaseService getService() {
-            return null;
-        }
     },
     SumDepOut {
         @Override
@@ -293,11 +207,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
 
         @Override
         public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            return null;
-        }
-
-        @Override
-        public BaseService getService() {
             return null;
         }
     }

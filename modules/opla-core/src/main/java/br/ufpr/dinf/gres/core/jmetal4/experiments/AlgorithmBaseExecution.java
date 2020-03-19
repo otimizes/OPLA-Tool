@@ -1,7 +1,5 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
-import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommomConfigs;
-
 public interface AlgorithmBaseExecution<T extends ExperimentCommomConfigs> {
 
     /**

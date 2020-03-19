@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api.resource;
+package br.ufpr.dinf.gres.api.resource.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.WOCSINTERFACEObjectiveFunction;
 import br.ufpr.dinf.gres.api.base.BaseResource;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/wocs-interface-metric")
-public class WocsinterfaceMetricResource extends BaseResource<WOCSINTERFACEObjectiveFunction> {
+@RequestMapping("/api/wocs-interface-objective-function")
+public class WOCSINTERFACEObjectiveFunctionResource extends BaseResource<WOCSINTERFACEObjectiveFunction> {
 
-    public WocsinterfaceMetricResource(BaseService<WOCSINTERFACEObjectiveFunction> service) {
+    public WOCSINTERFACEObjectiveFunctionResource(BaseService<WOCSINTERFACEObjectiveFunction> service) {
         super(service);
     }
 }

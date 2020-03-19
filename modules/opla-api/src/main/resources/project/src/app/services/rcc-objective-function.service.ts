@@ -5,9 +5,9 @@ import {PersistenceService} from "./persistence.service";
 @Injectable({
   providedIn: 'root'
 })
-export class ConventionalMetricService extends PersistenceService {
+export class RccObjectiveFunctionService extends PersistenceService {
 
   constructor(http: HttpClient) {
-    super("conventional-metic", http);
+    super("rcc-objective-function", http);
   }
 }

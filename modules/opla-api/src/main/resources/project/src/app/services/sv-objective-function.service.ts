@@ -5,9 +5,9 @@ import {PersistenceService} from "./persistence.service";
 @Injectable({
   providedIn: 'root'
 })
-export class AvMetricService extends PersistenceService {
+export class SvObjectiveFunctionService extends PersistenceService {
 
   constructor(http: HttpClient) {
-    super("av-metic", http);
+    super("sv-objective-function", http);
   }
 }

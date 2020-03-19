@@ -6,18 +6,11 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.*;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.*;
-import br.ufpr.dinf.gres.persistence.base.BaseService;
-import br.ufpr.dinf.gres.persistence.service.objectivefunctions.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 
-@Service
 public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
-    ACLASS {
-        @Autowired
-        private ACLASSObjectiveFunctionService aclassMetricService;
 
+    ACLASS {
         @Override
         public Double evaluate(Architecture architecture) {
             return new ACLASS(architecture).getResults();
@@ -31,16 +24,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             aclass.setSumClassesDepOut(Metrics.SumClassDepOut.evaluate(arch));
             return aclass;
         }
-
-        @Override
-        public ACLASSObjectiveFunctionService getService() {
-            return aclassMetricService;
-        }
     },
     ACOMP {
-        @Autowired
-        private ACOMPObjectiveFunctionService acompMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new ACOMP(architecture).getResults();
@@ -53,16 +38,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             acomp.setSumDepOut(Metrics.SumDepOut.evaluate(arch));
             return acomp;
         }
-
-        @Override
-        public ACOMPObjectiveFunctionService getService() {
-            return acompMetricService;
-        }
     },
     TV {
-        @Autowired
-        private TVObjectiveFunctionService avMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new TV(architecture).getResults();
@@ -74,38 +51,21 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             aV.setAv(ObjectiveFunctions.TV.evaluate(arch));
             return aV;
         }
-
-        @Override
-        public TVObjectiveFunctionService getService() {
-            return avMetricService;
-        }
     },
     CBCS {
-        @Autowired
-        private RCCObjectiveFunctionService cbcsMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new CBCS(architecture).getResults();
         }
 
         @Override
-        public RCCObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            RCCObjectiveFunction cBcs = new RCCObjectiveFunction(idSolution, Execution, experiement);
+        public CBCSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+            CBCSObjectiveFunction cBcs = new CBCSObjectiveFunction(idSolution, Execution, experiement);
             cBcs.setCbcs(ObjectiveFunctions.CBCS.evaluate(arch));
             return cBcs;
         }
-
-        @Override
-        public BaseService getService() {
-            return cbcsMetricService;
-        }
     },
     COE {
-
-        @Autowired
-        private COEObjectiveFunctionService coeMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new COE(architecture).getResults();
@@ -118,15 +78,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             return coe;
         }
 
-        @Override
-        public BaseService getService() {
-            return coeMetricService;
-        }
     },
     CM {
-        @Autowired
-        private CMObjectiveFunctionService conventionalMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new CM(architecture).getResults();
@@ -146,17 +99,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             conventional.setSumDepOut(Metrics.SumDepOut.evaluate(arch));
             return conventional;
         }
-
-        @Override
-        public BaseService getService() {
-            return conventionalMetricService;
-        }
     },
     DC {
-
-        @Autowired
-        private DCObjectiveFunctionService dcMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new DC(architecture).getResults();
@@ -170,16 +114,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             dc.setCdac(Metrics.CDAC.evaluate(arch));
             return dc;
         }
-
-        @Override
-        public BaseService getService() {
-            return dcMetricService;
-        }
     },
     EC {
-        @Autowired
-        private ECObjectiveFunctionService ecMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new EC(architecture).getResults();
@@ -193,16 +129,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             ec.setOobc(Metrics.OOBC.evaluate(arch));
             return ec;
         }
-
-        @Override
-        public BaseService getService() {
-            return ecMetricService;
-        }
     },
     ELEG {
-        @Autowired
-        private ELEGObjectiveFunctionService eleganceMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new ELEG(architecture).getResults();
@@ -216,16 +144,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             elegance.setEc(Metrics.ECElegance.evaluate(arch));
             return elegance;
         }
-
-        @Override
-        public BaseService getService() {
-            return eleganceMetricService;
-        }
     },
     FM {
-        @Autowired
-        private FMObjectiveFunctionService featureDrivenMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new FM(architecture).getResults();
@@ -246,16 +166,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             fd.setCibClass(Metrics.CIBClass.evaluate(arch));
             return fd;
         }
-
-        @Override
-        public BaseService getService() {
-            return featureDrivenMetricService;
-        }
     },
     LCC {
-        @Autowired
-        private LCCObjectiveFunctionService lccMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new LCC(architecture).getResults();
@@ -267,17 +179,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             lcc.setLcc(ObjectiveFunctions.LCC.evaluate(arch));
             return lcc;
         }
-
-        @Override
-        public BaseService getService() {
-            return lccMetricService;
-        }
     },
     EXT {
-
-        @Autowired
-        private EXTObjectiveFunctionService plaExtensibilityMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new EXT(architecture).getResults();
@@ -289,17 +192,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             plaExtensibility.setPlaExtensibility(ObjectiveFunctions.EXT.evaluate(arch));
             return plaExtensibility;
         }
-
-        @Override
-        public BaseService getService() {
-            return plaExtensibilityMetricService;
-        }
     },
     SD {
-
-        @Autowired
-        private SDObjectiveFunctionService sscMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new SD(architecture).getResults();
@@ -311,16 +205,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             sSc.setSsc(ObjectiveFunctions.SD.evaluate(arch));
             return sSc;
         }
-
-        @Override
-        public BaseService getService() {
-            return sscMetricService;
-        }
     },
     SV {
-        @Autowired
-        private SVObjectiveFunctionService svcMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new SV(architecture).getResults();
@@ -332,17 +218,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             sVc.setSvc(ObjectiveFunctions.SV.evaluate(arch));
             return sVc;
         }
-
-        @Override
-        public BaseService getService() {
-            return svcMetricService;
-        }
     },
     TAM {
-
-        @Autowired
-        private TAMObjectiveFunctionService tamMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new TAM(architecture).getResults();
@@ -355,16 +232,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             tam.setTam(ObjectiveFunctions.TAM.evaluate(arch));
             return tam;
         }
-
-        @Override
-        public BaseService getService() {
-            return tamMetricService;
-        }
     },
     WOCSCLASS {
-        @Autowired
-        private WOCSCLASSObjectiveFunctionService wocsclassMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new WOCSCLASS(architecture).getResults();
@@ -376,16 +245,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             wocsClass.setWocsclass(ObjectiveFunctions.WOCSCLASS.evaluate(arch));
             return wocsClass;
         }
-
-        @Override
-        public BaseService getService() {
-            return wocsclassMetricService;
-        }
     },
     WOCSINTERFACE {
-        @Autowired
-        private WOCSINTERFACEObjectiveFunctionService wocsinterfaceMetricService;
-
         @Override
         public Double evaluate(Architecture architecture) {
             return new WOCSINTERFACE(architecture).getResults();
@@ -396,11 +257,6 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             WOCSINTERFACEObjectiveFunction wocsInterface = new WOCSINTERFACEObjectiveFunction(idSolution, Execution, experiement);
             wocsInterface.setWocsinterface(ObjectiveFunctions.WOCSINTERFACE.evaluate(arch));
             return wocsInterface;
-        }
-
-        @Override
-        public BaseService getService() {
-            return wocsinterfaceMetricService;
         }
     };
 

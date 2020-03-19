@@ -17,17 +17,15 @@ import static org.junit.Assert.assertEquals;
 
 public class MetricsTest {
 
-    //    TODO Verificar com Thelma métricas zeradas
     @Test
     public void evaluateAGM() throws Exception {
 //        AV, SSC, SVC depends of variabilities and variation points
-//        String agm = Thread.currentThread().getContextClassLoader().getResource("agm").getFile();
-        String agm = "/home/wmfsystem/workspace/asdasd/plas/newagm";
+        String agm = Thread.currentThread().getContextClassLoader().getResource("agm").getFile();
         ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
-        applicationYamlConfig.setPathToProfile(agm + Constants.FILE_SEPARATOR + "resources/smarty.profile.uml");
-        applicationYamlConfig.setPathToProfileConcern(agm + Constants.FILE_SEPARATOR + "resources/concerns.profile.uml");
-        applicationYamlConfig.setPathToProfilePatterns(agm + Constants.FILE_SEPARATOR + "resources/patterns.profile.uml");
-        applicationYamlConfig.setPathToProfileRelationships(agm + Constants.FILE_SEPARATOR + "resources/relationships.profile.uml");
+        applicationYamlConfig.setPathToProfile(agm + Constants.FILE_SEPARATOR + "smarty.profile.uml");
+        applicationYamlConfig.setPathToProfileConcern(agm + Constants.FILE_SEPARATOR + "concerns.profile.uml");
+        applicationYamlConfig.setPathToProfilePatterns(agm + Constants.FILE_SEPARATOR + "patterns.profile.uml");
+        applicationYamlConfig.setPathToProfileRelationships(agm + Constants.FILE_SEPARATOR + "relationships.profile.uml");
         applicationYamlConfig.setDirectoryToExportModels("/home/wmfsystem/oplatool/output/");
         applicationYamlConfig.setDirectoryToSaveModels("/home/wmfsystem/oplatool/temp/");
         applicationYamlConfig.setPathToTemplateModelsDirectory("/home/wmfsystem/oplatool/templates/");
@@ -61,10 +59,10 @@ public class MetricsTest {
         assertEquals(resultsACOMP, ObjectiveFunctions.ACOMP.evaluate(architecture));
         assertEquals(resultsACOMP, Double.valueOf(solution.getObjective(1)));
 
-        Double resultsAV = new TV(architecture).getResults();
-        assertEquals(new Double(0.0), resultsAV);
-        assertEquals(resultsAV, ObjectiveFunctions.TV.evaluate(architecture));
-        assertEquals(resultsAV, Double.valueOf(solution.getObjective(2)));
+        Double resultsTV = new TV(architecture).getResults();
+        assertEquals(new Double(0.0), resultsTV);
+        assertEquals(resultsTV, ObjectiveFunctions.TV.evaluate(architecture));
+        assertEquals(resultsTV, Double.valueOf(solution.getObjective(2)));
 
         Double resultsCBCS = new CBCS(architecture).getResults();
         assertEquals(new Double(2.0), resultsCBCS);

@@ -5,9 +5,9 @@ import {PersistenceService} from "./persistence.service";
 @Injectable({
   providedIn: 'root'
 })
-export class PlaExtensibilityMetricService extends PersistenceService {
+export class WocsClassObjectiveFunctionService extends PersistenceService {
 
   constructor(http: HttpClient) {
-    super("pla-extensibility-metric", http);
+    super("wocs-class-objective-function", http);
   }
 }

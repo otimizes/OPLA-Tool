@@ -3,12 +3,12 @@ package br.ufpr.dinf.gres.core.persistence;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctions;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionsLink;
 import br.ufpr.dinf.gres.core.jmetal4.util.NonDominatedSolutionList;
 import br.ufpr.dinf.gres.domain.entity.*;
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.BaseObjectiveFunction;
 import br.ufpr.dinf.gres.persistence.base.BaseService;
 import br.ufpr.dinf.gres.persistence.service.*;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -27,11 +27,12 @@ public class Persistence {
     private final ObjectiveService objectiveService;
     private final InfoService infoService;
     private final DistanceEuclideanService distanceEuclideanService;
+    private final ApplicationContext applicationContext;
 
-    public Persistence( ObjectiveService objectiveService, InfoService infoService, ExperimentService experimentService,
-                        DistanceEuclideanService distanceEuclideanService,
-                        ExecutionService executionService,
-                        ExperimentConfigurationService experimentConfigurationService, MapObjectiveNameService mapObjectiveNameService) {
+    public Persistence(ObjectiveService objectiveService, InfoService infoService, ExperimentService experimentService,
+                       DistanceEuclideanService distanceEuclideanService,
+                       ExecutionService executionService,
+                       ExperimentConfigurationService experimentConfigurationService, MapObjectiveNameService mapObjectiveNameService, ApplicationContext applicationContext) {
         this.experimentService = experimentService;
         this.experimentConfigurationService = experimentConfigurationService;
         this.mapObjectiveNameService = mapObjectiveNameService;
@@ -39,6 +40,7 @@ public class Persistence {
         this.objectiveService = objectiveService;
         this.infoService = infoService;
         this.distanceEuclideanService = distanceEuclideanService;
+        this.applicationContext = applicationContext;
     }
 
     public List<Info> saveInfoAll(List<Info> infoResults) {
@@ -65,7 +67,8 @@ public class Persistence {
         for (Map.Entry<String, List<BaseObjectiveFunction>> stringListEntry : allMetrics.entrySet()) {
             ObjectiveFunctions key = ObjectiveFunctions.valueOf(stringListEntry.getKey());
             for (BaseObjectiveFunction baseObjectiveFunction : stringListEntry.getValue()) {
-                key.getService().save(baseObjectiveFunction);
+                BaseService bean = (BaseService) applicationContext.getBean(key.name() + "ObjectiveFunctionService");
+                bean.save(baseObjectiveFunction);
             }
         }
     }

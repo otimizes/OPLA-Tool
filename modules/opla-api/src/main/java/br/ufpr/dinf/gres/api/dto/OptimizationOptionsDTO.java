@@ -9,6 +9,6 @@ import java.util.List;
 
 public class OptimizationOptionsDTO {
     public List<OptimizationAlgorithm> algorithms = Arrays.asList(OptimizationAlgorithm.values());
-    public List<ObjectiveFunctions> objectiveFunction = Arrays.asList(ObjectiveFunctions.values());
+    public List<ObjectiveFunctions> objectiveFunctions = Arrays.asList(ObjectiveFunctions.values());
     public List<FeatureMutationOperators> featureMutationOperators = Arrays.asList(FeatureMutationOperators.values());
 }

@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api.resource;
+package br.ufpr.dinf.gres.api.resource.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.EXTObjectiveFunction;
 import br.ufpr.dinf.gres.api.base.BaseResource;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/pla-extensibility-metric")
-public class PLAExtensibilityMetricResource extends BaseResource<EXTObjectiveFunction> {
+@RequestMapping("/api/ext-objective-function")
+public class EXTObjectiveFunctionResource extends BaseResource<EXTObjectiveFunction> {
 
-    public PLAExtensibilityMetricResource(BaseService<EXTObjectiveFunction> service) {
+    public EXTObjectiveFunctionResource(BaseService<EXTObjectiveFunction> service) {
         super(service);
     }
 }

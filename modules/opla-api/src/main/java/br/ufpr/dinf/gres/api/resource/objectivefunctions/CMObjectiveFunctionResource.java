@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api.resource;
+package br.ufpr.dinf.gres.api.resource.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.CMObjectiveFunction;
 import br.ufpr.dinf.gres.api.base.BaseResource;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/conventional-metric")
-public class ConventionalMetricResource extends BaseResource<CMObjectiveFunction> {
+@RequestMapping("/api/cm-objective-function")
+public class CMObjectiveFunctionResource extends BaseResource<CMObjectiveFunction> {
 
-    public ConventionalMetricResource(BaseService<CMObjectiveFunction> service) {
+    public CMObjectiveFunctionResource(BaseService<CMObjectiveFunction> service) {
         super(service);
     }
 }
