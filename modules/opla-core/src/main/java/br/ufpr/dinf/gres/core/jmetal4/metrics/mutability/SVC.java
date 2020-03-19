@@ -1,39 +1,52 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.mutability;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 
-public class SSC extends BaseMetricResults {
+/**
+ * Structure Variability Coefficient (Zhang et al., 2008)
+ * <p>
+ * and proposal to measure the variability of PLA.
+ * <p>
+ * (|Cv| / |Cc| + |Cv|)
+ */
+public class SVC extends ObjectiveFunctionBase {
 
-    public SSC(Architecture architecture) {
+    public SVC(Architecture architecture) {
         super(architecture);
-        double tcommoncomp = 0;
         double resultsComponents;
+
+        double tcommoncomp = 0;
         double tvariablecomp = 0;
 
         for (Package pacote : architecture.getAllPackages()) {
+
             int variablecomp = 0;
+
             for (Element elemento : pacote.getElements()) {
                 if (elemento.getVariationPoint() != null) {
                     variablecomp = 1;
                     break;
                 }
             }
+
             if (variablecomp == 1) {
                 tvariablecomp++;
             } else {
                 tcommoncomp++;
             }
+
         }
 
-        if (tcommoncomp == 0) {
+        double denominador = tcommoncomp + tvariablecomp;
+
+        if (denominador == 0) {
             resultsComponents = 0;
         } else {
-            resultsComponents = 1 / (tcommoncomp / (tvariablecomp + tcommoncomp));
+            resultsComponents = tvariablecomp / denominador;
         }
-
         this.setResults(resultsComponents);
     }
 

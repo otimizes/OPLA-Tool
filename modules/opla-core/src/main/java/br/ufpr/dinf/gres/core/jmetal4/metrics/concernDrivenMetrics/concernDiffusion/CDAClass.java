@@ -1,9 +1,9 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 
-public class CDAClass extends BaseMetricResults {
+public class CDAClass extends ObjectiveFunctionBase {
 
     public CDAClass(Architecture architecture) {
         super(architecture);

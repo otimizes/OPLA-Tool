@@ -1,14 +1,23 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCComponentResult;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class LCC extends BaseMetricResults {
+/**
+ * Feature-based Cohesion (Santos et al., 2015)
+ * <p>
+ * It aims to measure the cohesion based on characteristics by means
+ * of the number of characteristics with which a given package is
+ * associated.
+ * <p>
+ * (LCC)
+ */
+public class LCC extends ObjectiveFunctionBase {
 
     public LCC(Architecture architecture) {
         super(architecture);

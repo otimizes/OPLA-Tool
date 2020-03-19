@@ -4,7 +4,7 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Metrics;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionEvaluation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.RelationalCohesion;
 import br.ufpr.dinf.gres.domain.entity.AllMetrics;
 import br.ufpr.dinf.gres.domain.entity.Execution;
@@ -116,11 +116,11 @@ public class Result {
             for (int j = 0; j < numberOfVariables; j++) {
                 Architecture arch = (Architecture) list.get(i).getDecisionVariables()[j];
                 String idSolution = funResults.get(i).getId();
-                if (objectiveFuncs.contains(Metrics.ELEGANCE.toString()))
+                if (objectiveFuncs.contains(Metrics.ELEG.toString()))
                     allMetrics.getElegance().add(buildEleganceMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains(Metrics.PLAEXTENSIBILITY.toString()))
+                if (objectiveFuncs.contains(Metrics.EXT.toString()))
                     allMetrics.getPlaExtensibility().add(buildPLAExtensibilityMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains(Metrics.CONVENTIONAL.toString()))
+                if (objectiveFuncs.contains(Metrics.CM.toString()))
                     allMetrics.getConventional().add(buildConventionalMetrics(idSolution, Execution, experiement, arch));
                 if (objectiveFuncs.contains(Metrics.FM.toString()))
                     allMetrics.getFm().add(buildFeatureDrivenMetrics(idSolution, Execution, experiement, arch));
@@ -144,11 +144,11 @@ public class Result {
                     allMetrics.getWocsinterface().add(buildWocsinterfaceMetrics(idSolution, Execution, experiement, arch));
                 if (objectiveFuncs.contains(Metrics.CBCS.toString()))
                     allMetrics.getCbcs().add(buildCbcsMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains(Metrics.SSC.toString()))
+                if (objectiveFuncs.contains(Metrics.SD.toString()))
                     allMetrics.getSsc().add(buildSscMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains(Metrics.SVC.toString()))
+                if (objectiveFuncs.contains(Metrics.SV.toString()))
                     allMetrics.getSvc().add(buildSvcMetrics(idSolution, Execution, experiement, arch));
-                if (objectiveFuncs.contains(Metrics.AV.toString()))
+                if (objectiveFuncs.contains(Metrics.TV.toString()))
                     allMetrics.getAv().add(buildAvMetrics(idSolution, Execution, experiement, arch));
             }
         }
@@ -161,16 +161,16 @@ public class Result {
 
         FeatureDrivenMetric fd = new FeatureDrivenMetric(idSolution, Execution, experiement);
 
-        fd.setCdac(MetricsEvaluation.evaluateCDAC(arch));
-        fd.setCdai(MetricsEvaluation.evaluateCDAI(arch));
-        fd.setCdao(MetricsEvaluation.evaluateCDAO(arch));
-        fd.setCibc(MetricsEvaluation.evaluateCIBC(arch));
-        fd.setIibc(MetricsEvaluation.evaluateIIBC(arch));
-        fd.setOobc(MetricsEvaluation.evaluateOOBC(arch));
-        fd.setLcc(MetricsEvaluation.evaluateLCC(arch));
-        fd.setLccClass(MetricsEvaluation.evaluateLCCClass(arch));
-        fd.setCdaClass(MetricsEvaluation.evaluateCDAClass(arch));
-        fd.setCibClass(MetricsEvaluation.evaluateCIBClass(arch));
+        fd.setCdac(ObjectiveFunctionEvaluation.evaluateCDAC(arch));
+        fd.setCdai(ObjectiveFunctionEvaluation.evaluateCDAI(arch));
+        fd.setCdao(ObjectiveFunctionEvaluation.evaluateCDAO(arch));
+        fd.setCibc(ObjectiveFunctionEvaluation.evaluateCIBC(arch));
+        fd.setIibc(ObjectiveFunctionEvaluation.evaluateIIBC(arch));
+        fd.setOobc(ObjectiveFunctionEvaluation.evaluateOOBC(arch));
+        fd.setLcc(ObjectiveFunctionEvaluation.evaluateLCC(arch));
+        fd.setLccClass(ObjectiveFunctionEvaluation.evaluateLCCClass(arch));
+        fd.setCdaClass(ObjectiveFunctionEvaluation.evaluateCDAClass(arch));
+        fd.setCibClass(ObjectiveFunctionEvaluation.evaluateCIBClass(arch));
 
         return fd;
     }
@@ -183,12 +183,12 @@ public class Result {
         RelationalCohesion relationalCohesion = new RelationalCohesion(arch);
         conventional.setSumCohesion(relationalCohesion.getResults());
         conventional.setCohesion(relationalCohesion.evaluateICohesion());
-        conventional.setMeanDepComps(MetricsEvaluation.evaluateMeanDepComps(arch));
-        conventional.setMeanNumOps(MetricsEvaluation.evaluateMeanNumOps(arch));
-        conventional.setSumClassesDepIn((double) MetricsEvaluation.evaluateSumClassesDepIn(arch));
-        conventional.setSumClassesDepOut((double) MetricsEvaluation.evaluateSumClassesDepOut(arch));
-        conventional.setSumDepIn(MetricsEvaluation.evaluateSumDepIn(arch));
-        conventional.setSumDepOut(MetricsEvaluation.evaluateSumDepOut(arch));
+        conventional.setMeanDepComps(ObjectiveFunctionEvaluation.evaluateMeanDepComps(arch));
+        conventional.setMeanNumOps(ObjectiveFunctionEvaluation.evaluateMeanNumOps(arch));
+        conventional.setSumClassesDepIn((double) ObjectiveFunctionEvaluation.evaluateSumClassesDepIn(arch));
+        conventional.setSumClassesDepOut((double) ObjectiveFunctionEvaluation.evaluateSumClassesDepOut(arch));
+        conventional.setSumDepIn(ObjectiveFunctionEvaluation.evaluateSumDepIn(arch));
+        conventional.setSumDepOut(ObjectiveFunctionEvaluation.evaluateSumDepOut(arch));
 
         return conventional;
     }
@@ -197,7 +197,7 @@ public class Result {
                                                                 Experiment experiement, Architecture arch) {
 
         PLAExtensibilityMetric plaExtensibility = new PLAExtensibilityMetric(idSolution, Execution, experiement);
-        plaExtensibility.setPlaExtensibility(MetricsEvaluation.evaluatePLAEXTENSIBILITY(arch));
+        plaExtensibility.setPlaExtensibility(ObjectiveFunctionEvaluation.evaluateEXT(arch));
 
         return plaExtensibility;
     }
@@ -206,9 +206,9 @@ public class Result {
                                                 Architecture arch) {
 
         EleganceMetric elegance = new EleganceMetric(idSolution, Execution, experiement);
-        elegance.setNac(MetricsEvaluation.evaluateNACElegance(arch));
-        elegance.setAtmr(MetricsEvaluation.evaluateATMRElegance(arch));
-        elegance.setEc(MetricsEvaluation.evaluateECElegance(arch));
+        elegance.setNac(ObjectiveFunctionEvaluation.evaluateNACElegance(arch));
+        elegance.setAtmr(ObjectiveFunctionEvaluation.evaluateATMRElegance(arch));
+        elegance.setEc(ObjectiveFunctionEvaluation.evaluateECElegance(arch));
 
         return elegance;
     }
@@ -218,8 +218,8 @@ public class Result {
 
         AcompMetric acomp = new AcompMetric(idSolution, Execution, experiement);
 
-        acomp.setSumDepIn(MetricsEvaluation.evaluateSumDepIn(arch));
-        acomp.setSumDepOut(MetricsEvaluation.evaluateSumDepOut(arch));
+        acomp.setSumDepIn(ObjectiveFunctionEvaluation.evaluateSumDepIn(arch));
+        acomp.setSumDepOut(ObjectiveFunctionEvaluation.evaluateSumDepOut(arch));
 
         return acomp;
     }
@@ -229,8 +229,8 @@ public class Result {
 
         AclassMetric aclass = new AclassMetric(idSolution, Execution, experiement);
 
-        aclass.setSumClassesDepIn((double) MetricsEvaluation.evaluateSumClassesDepIn(arch));
-        aclass.setSumClassesDepOut((double) MetricsEvaluation.evaluateSumClassesDepOut(arch));
+        aclass.setSumClassesDepIn((double) ObjectiveFunctionEvaluation.evaluateSumClassesDepIn(arch));
+        aclass.setSumClassesDepOut((double) ObjectiveFunctionEvaluation.evaluateSumClassesDepOut(arch));
 
         return aclass;
     }
@@ -240,7 +240,7 @@ public class Result {
 
         TamMetric tam = new TamMetric(idSolution, Execution, experiement);
 
-        tam.setMeanNumOps(MetricsEvaluation.evaluateMeanNumOps(arch));
+        tam.setMeanNumOps(ObjectiveFunctionEvaluation.evaluateMeanNumOps(arch));
 
         return tam;
     }
@@ -250,8 +250,8 @@ public class Result {
 
         CoeMetric coe = new CoeMetric(idSolution, Execution, experiement);
 
-        coe.setCohesion(MetricsEvaluation.evaluateHCohesion(arch));
-        coe.setLcc(MetricsEvaluation.evaluateLCC(arch));
+        coe.setCohesion(ObjectiveFunctionEvaluation.evaluateHCohesion(arch));
+        coe.setLcc(ObjectiveFunctionEvaluation.evaluateLCC(arch));
         coe.setLcc(new RelationalCohesion(arch).getResults());
 
         return coe;
@@ -261,7 +261,7 @@ public class Result {
                                       Architecture arch) {
 
         LCCMetric lcc = new LCCMetric(idSolution, Execution, experiement);
-        lcc.setLcc(MetricsEvaluation.evaluateLCC(arch));
+        lcc.setLcc(ObjectiveFunctionEvaluation.evaluateLCC(arch));
         return lcc;
     }
 
@@ -270,9 +270,9 @@ public class Result {
 
         DcMetric dc = new DcMetric(idSolution, Execution, experiement);
 
-        dc.setCdai(MetricsEvaluation.evaluateCDAI(arch));
-        dc.setCdao(MetricsEvaluation.evaluateCDAO(arch));
-        dc.setCdac(MetricsEvaluation.evaluateCDAC(arch));
+        dc.setCdai(ObjectiveFunctionEvaluation.evaluateCDAI(arch));
+        dc.setCdao(ObjectiveFunctionEvaluation.evaluateCDAO(arch));
+        dc.setCdac(ObjectiveFunctionEvaluation.evaluateCDAC(arch));
 
 
         return dc;
@@ -283,9 +283,9 @@ public class Result {
 
         EcMetric ec = new EcMetric(idSolution, Execution, experiement);
 
-        ec.setCibc(MetricsEvaluation.evaluateCIBC(arch));
-        ec.setIibc(MetricsEvaluation.evaluateIIBC(arch));
-        ec.setOobc(MetricsEvaluation.evaluateOOBC(arch));
+        ec.setCibc(ObjectiveFunctionEvaluation.evaluateCIBC(arch));
+        ec.setIibc(ObjectiveFunctionEvaluation.evaluateIIBC(arch));
+        ec.setOobc(ObjectiveFunctionEvaluation.evaluateOOBC(arch));
 
 
         return ec;
@@ -298,7 +298,7 @@ public class Result {
                                                   Experiment experiement, Architecture arch) {
 
         WocsclassMetric wocsClass = new WocsclassMetric(idSolution, Execution, experiement);
-        wocsClass.setWocsclass(MetricsEvaluation.evaluateWOCSCLASS(arch));
+        wocsClass.setWocsclass(ObjectiveFunctionEvaluation.evaluateWOCSCLASS(arch));
 
         return wocsClass;
     }
@@ -307,7 +307,7 @@ public class Result {
                                                           Experiment experiement, Architecture arch) {
 
         WocsinterfaceMetric wocsInterface = new WocsinterfaceMetric(idSolution, Execution, experiement);
-        wocsInterface.setWocsinterface(MetricsEvaluation.evaluateWOCSINTERFFACE(arch));
+        wocsInterface.setWocsinterface(ObjectiveFunctionEvaluation.evaluateWOCSINTERFFACE(arch));
 
         return wocsInterface;
     }
@@ -316,7 +316,7 @@ public class Result {
                                         Experiment experiement, Architecture arch) {
 
         CbcsMetric cBcs = new CbcsMetric(idSolution, Execution, experiement);
-        cBcs.setCbcs(MetricsEvaluation.evaluateWOCSINTERFFACE(arch));
+        cBcs.setCbcs(ObjectiveFunctionEvaluation.evaluateWOCSINTERFFACE(arch));
 
         return cBcs;
     }
@@ -325,7 +325,7 @@ public class Result {
                                       Experiment experiement, Architecture arch) {
 
         SscMetric sSc = new SscMetric(idSolution, Execution, experiement);
-        sSc.setSsc(MetricsEvaluation.evaluateWOCSINTERFFACE(arch));
+        sSc.setSsc(ObjectiveFunctionEvaluation.evaluateWOCSINTERFFACE(arch));
 
         return sSc;
     }
@@ -335,7 +335,7 @@ public class Result {
                                       Experiment experiement, Architecture arch) {
 
         SvcMetric sVc = new SvcMetric(idSolution, Execution, experiement);
-        sVc.setSvc(MetricsEvaluation.evaluateWOCSINTERFFACE(arch));
+        sVc.setSvc(ObjectiveFunctionEvaluation.evaluateWOCSINTERFFACE(arch));
 
         return sVc;
     }
@@ -345,7 +345,7 @@ public class Result {
                                     Experiment experiement, Architecture arch) {
 
         AvMetric aV = new AvMetric(idSolution, Execution, experiement);
-        aV.setAv(MetricsEvaluation.evaluateWOCSINTERFFACE(arch));
+        aV.setAv(ObjectiveFunctionEvaluation.evaluateWOCSINTERFFACE(arch));
 
         return aV;
     }

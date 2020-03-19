@@ -13,7 +13,7 @@ import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType.ArchitectureSolutionType;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommomConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Fitness;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionEvaluation;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class OPLA extends Problem {
 
     @Override
     public void evaluate(Solution solution) {
-        List<Fitness> fitnesses = MetricsEvaluation.evaluate(this.selectedMetrics, solution);
+        List<Fitness> fitnesses = ObjectiveFunctionEvaluation.evaluate(this.selectedMetrics, solution);
         for (int i = 0; i < fitnesses.size(); i++) {
             solution.setObjective(i, fitnesses.get(i).getValue());
         }

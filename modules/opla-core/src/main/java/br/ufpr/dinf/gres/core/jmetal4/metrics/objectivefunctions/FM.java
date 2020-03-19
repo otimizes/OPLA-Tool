@@ -1,14 +1,22 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
 
-public class MSIDesignOutset extends BaseMetricResults {
+/**
+ * Feature Driven Function
+ * <p>
+ * It aims to measure the modularization of characteristics and, for this,
+ * it is composed of a set of various metrics directed to the characteristics
+ * proposed in (Sant'Anna, 2008).
+ * (LCC, CDAC, CDAI, CDAO, CIBC, IIBC , OOBC)
+ */
+public class FM extends ObjectiveFunctionBase {
 
-    public MSIDesignOutset(Architecture architecture) {
+    public FM(Architecture architecture) {
         super(architecture);
         double sumCIBC = 0.0;
         double sumIIBC = 0.0;
@@ -66,8 +74,9 @@ public class MSIDesignOutset extends BaseMetricResults {
             sumCDAO += c.getElements().size();
         }
 
-        MSIFitness = sumLCC + sumLCCClass + sumCDAC + sumCDAClass + sumCDAI + sumCDAO + sumCIBC + sumCIBClass + sumIIBC
-                + sumOOBC;
+        MSIFitness = sumLCC + sumLCCClass + sumCDAC + sumCDAClass + sumCDAI
+                + sumCDAO + sumCIBC + sumCIBClass + sumIIBC + sumOOBC;
+
         this.setResults(MSIFitness);
     }
 

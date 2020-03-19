@@ -1,9 +1,9 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 
-public class OOBC extends BaseMetricResults {
+public class OOBC extends ObjectiveFunctionBase {
 
     public OOBC(Architecture architecture) {
         super(architecture);

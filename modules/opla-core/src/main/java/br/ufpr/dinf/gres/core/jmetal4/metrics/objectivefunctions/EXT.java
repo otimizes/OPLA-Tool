@@ -1,13 +1,19 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility.ExtensVarComponent;
 
-public class PLAExtensibility extends BaseMetricResults {
+/**
+ * PLA Extensibility
+ *
+ * It aims to indicate the degree of extensibility of the LPS.
+ * (1 / ExtensPLA)
+ */
+public class EXT extends ObjectiveFunctionBase {
 
-    public PLAExtensibility(Architecture architecture) {
+    public EXT(Architecture architecture) {
         super(architecture);
         double ExtensibilityFitness = 0;
         double Extensibility;

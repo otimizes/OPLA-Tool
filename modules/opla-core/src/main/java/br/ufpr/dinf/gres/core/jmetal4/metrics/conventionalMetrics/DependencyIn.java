@@ -3,12 +3,12 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.relationship.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DependencyIn extends BaseMetricResults {
+public class DependencyIn extends ObjectiveFunctionBase {
 
     public DependencyIn(Architecture architecture) {
         super(architecture);

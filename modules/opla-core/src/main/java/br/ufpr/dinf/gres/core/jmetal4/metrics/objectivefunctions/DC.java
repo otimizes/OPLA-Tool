@@ -1,10 +1,19 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.*;
 
-public class DC extends BaseMetricResults {
+/**
+ * Feature Diffusion (Santos et al., 2015)
+ * <p>
+ * It aims to measure the diffusion of characteristics,
+ * adding the numbers of architectural elements (components, interfaces and operations of the project)
+ * that contribute to the realization of the characteristics of the LPS.
+ * <p>
+ * (CDAI + CDAO + CDAC)
+ */
+public class DC extends ObjectiveFunctionBase {
 
     public DC(Architecture architecture) {
         super(architecture);

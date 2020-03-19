@@ -1,12 +1,19 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.*;
 
-public class Conventional extends BaseMetricResults {
+/**
+ * Conventional Function
+ * <p>
+ * It aims to provide indicators on basic design principles including cohesion, coupling and size.
+ * CM (pla) is formed by an aggregation of various metrics extracted from (W¨ust, 2016)
+ * (DepIn, DepOut, CDepIn, CDepOut, DepPack, NumOps, H)
+ */
+public class CM extends ObjectiveFunctionBase {
 
-    public Conventional(Architecture architecture) {
+    public CM(Architecture architecture) {
         super(architecture);
         double MACFitness = 0.0;
         double meanDepComps = 0.0;

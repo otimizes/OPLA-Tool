@@ -1,10 +1,10 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.MeanNumOpsByInterface;
 
-public class TAM extends BaseMetricResults {
+public class TAM extends ObjectiveFunctionBase {
 
     public TAM(Architecture architecture) {
         super(architecture);

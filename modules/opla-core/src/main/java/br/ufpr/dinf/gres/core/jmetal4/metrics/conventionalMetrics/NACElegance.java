@@ -2,9 +2,9 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 
-public class NACElegance extends BaseMetricResults {
+public class NACElegance extends ObjectiveFunctionBase {
 
     public NACElegance(Architecture architecture) {
         super(architecture);

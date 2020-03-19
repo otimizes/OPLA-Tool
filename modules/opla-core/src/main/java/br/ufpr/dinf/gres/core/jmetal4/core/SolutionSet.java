@@ -26,7 +26,6 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.domain.entity.Info;
 import br.ufpr.dinf.gres.core.learning.ArchitecturalElementType;

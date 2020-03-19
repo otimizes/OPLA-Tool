@@ -4,37 +4,36 @@ import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class RelationalCohesion extends BaseMetricResults {
-
-
-    // Relational cohesion.
-    // This is the average number of internal relationships per class/interface,
-    // and is calculated as the ratio of R+1 to the number of classes and
-    // interfaces in the package.
-    //
-    // R is the number of relationships between classes and interfaces in the
-    // package. There is a dependency from class or interface C to class or
-    // interface D if
-    // C has an attribute of type D
-    // C has an operation with a parameter of type D
-    // C has an association, aggregation, or composition with navigability to D
-    // C has a UML dependency or usage dependency to D
-    // UML dependencies are shown as dashed arrows in the diagrams (usage with
-    // stereotype 'use').
-    // C is a child of D
-    // C implements interface D
-    // The metric counts all such dependencies between classes and interfaces in
-    // the package. Bidirectional associations are counted twice, because C
-    // knows D and vice versa. By convention, associations that indicate no
-    // navigability at either end are considered to be bidirectional.
-    //
-
+/**
+ * Relational cohesion.
+ * <p>
+ * This is the average number of internal relationships per class/interface,
+ * and is calculated as the ratio of R+1 to the number of classes and
+ * interfaces in the package.
+ * <p>
+ * R is the number of relationships between classes and interfaces in the
+ * package. There is a dependency from class or interface C to class or
+ * interface D if
+ * C has an attribute of type D
+ * C has an operation with a parameter of type D
+ * C has an association, aggregation, or composition with navigability to D
+ * C has a UML dependency or usage dependency to D
+ * UML dependencies are shown as dashed arrows in the diagrams (usage with
+ * stereotype 'use').
+ * C is a child of D
+ * C implements interface D
+ * The metric counts all such dependencies between classes and interfaces in
+ * the package. Bidirectional associations are counted twice, because C
+ * knows D and vice versa. By convention, associations that indicate no
+ * navigability at either end are considered to be bidirectional.
+ */
+public class RelationalCohesion extends ObjectiveFunctionBase {
 
     public Double evaluateICohesion() {
         Double results = this.getResults();

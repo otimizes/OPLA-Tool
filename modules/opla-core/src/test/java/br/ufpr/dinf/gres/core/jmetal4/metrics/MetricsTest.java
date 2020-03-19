@@ -1,24 +1,18 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
-import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilder;
 import br.ufpr.dinf.gres.architecture.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.architecture.io.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.util.Constants;
 import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Metrics;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.all.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.RelationalCohesion;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.*;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -60,92 +54,87 @@ public class MetricsTest {
 
         Double resultsACLASS = new ACLASS(architecture).getResults();
         assertEquals(new Double(30.0), resultsACLASS);
-        assertEquals(resultsACLASS, MetricsEvaluation.evaluateACLASS(architecture));
+        assertEquals(resultsACLASS, ObjectiveFunctionEvaluation.evaluateACLASS(architecture));
         assertEquals(resultsACLASS, Double.valueOf(solution.getObjective(0)));
 
         Double resultsACOMP = new ACOMP(architecture).getResults();
         assertEquals(new Double(59.0), resultsACOMP);
-        assertEquals(resultsACOMP, MetricsEvaluation.evaluateACOMP(architecture));
+        assertEquals(resultsACOMP, ObjectiveFunctionEvaluation.evaluateACOMP(architecture));
         assertEquals(resultsACOMP, Double.valueOf(solution.getObjective(1)));
 
-        Double resultsAV = new AV(architecture).getResults();
+        Double resultsAV = new TV(architecture).getResults();
         assertEquals(new Double(0.0), resultsAV);
-        assertEquals(resultsAV, MetricsEvaluation.evaluateAV(architecture));
+        assertEquals(resultsAV, ObjectiveFunctionEvaluation.evaluateTV(architecture));
         assertEquals(resultsAV, Double.valueOf(solution.getObjective(2)));
 
         Double resultsCBCS = new CBCS(architecture).getResults();
         assertEquals(new Double(2.0), resultsCBCS);
-        assertEquals(resultsCBCS, MetricsEvaluation.evaluateCBCS(architecture));
+        assertEquals(resultsCBCS, ObjectiveFunctionEvaluation.evaluateCBCS(architecture));
         assertEquals(resultsCBCS, Double.valueOf(solution.getObjective(3)));
 
         Double resultsCOE = new COE(architecture).getResults();
         assertEquals(new Double(7.0), resultsCOE);
-        assertEquals(resultsCOE, MetricsEvaluation.evaluateCOE(architecture));
+        assertEquals(resultsCOE, ObjectiveFunctionEvaluation.evaluateCOE(architecture));
         assertEquals(resultsCOE, Double.valueOf(solution.getObjective(4)));
 
-        Double resultsConventional = new Conventional(architecture).getResults();
+        Double resultsConventional = new CM(architecture).getResults();
         assertEquals(new Double(95.07142857142857), resultsConventional);
-        assertEquals(resultsConventional, MetricsEvaluation.evaluateCONVENTIONAL(architecture));
+        assertEquals(resultsConventional, ObjectiveFunctionEvaluation.evaluateCONVENTIONAL(architecture));
         assertEquals(resultsConventional, Double.valueOf(solution.getObjective(5)));
 
         Double resultsDC = new DC(architecture).getResults();
         assertEquals(new Double(430.0), resultsDC);
-        assertEquals(resultsDC, MetricsEvaluation.evaluateDC(architecture));
+        assertEquals(resultsDC, ObjectiveFunctionEvaluation.evaluateDC(architecture));
         assertEquals(resultsDC, Double.valueOf(solution.getObjective(6)));
 
         Double resultsEC = new EC(architecture).getResults();
         assertEquals(new Double(124.0), resultsEC);
-        assertEquals(resultsEC, MetricsEvaluation.evaluateEC(architecture));
+        assertEquals(resultsEC, ObjectiveFunctionEvaluation.evaluateEC(architecture));
         assertEquals(resultsEC, Double.valueOf(solution.getObjective(7)));
 
-        Double resultsElegance = new Elegance(architecture).getResults();
+        Double resultsElegance = new ELEG(architecture).getResults();
         assertEquals(new Double(0.36551288350386757), resultsElegance);
-        assertEquals(resultsElegance, MetricsEvaluation.evaluateELEGANCE(architecture));
+        assertEquals(resultsElegance, ObjectiveFunctionEvaluation.evaluateELEG(architecture));
         assertEquals(resultsElegance, Double.valueOf(solution.getObjective(8)));
 
         Double resultsFM = new FM(architecture).getResults();
         assertEquals(new Double(758.0), resultsFM);
-        assertEquals(resultsFM, MetricsEvaluation.evaluateFM(architecture));
+        assertEquals(resultsFM, ObjectiveFunctionEvaluation.evaluateFM(architecture));
         assertEquals(resultsFM, Double.valueOf(solution.getObjective(9)));
 
         Double resultsLCC = new LCC(architecture).getResults();
         assertEquals(new Double(26.0), resultsLCC);
-        assertEquals(resultsLCC, MetricsEvaluation.evaluateLCC(architecture));
+        assertEquals(resultsLCC, ObjectiveFunctionEvaluation.evaluateLCC(architecture));
         assertEquals(resultsLCC, Double.valueOf(solution.getObjective(10)));
 
-        Double resultsMSIDesignOutset = new MSIDesignOutset(architecture).getResults();
-        assertEquals(new Double(758.0), resultsMSIDesignOutset);
-        assertEquals(resultsMSIDesignOutset, MetricsEvaluation.evaluateMSIDESIGNOUTSET(architecture));
-        assertEquals(resultsMSIDesignOutset, Double.valueOf(solution.getObjective(11)));
-
-        Double resultsplaext = new PLAExtensibility(architecture).getResults();
+        Double resultsplaext = new EXT(architecture).getResults();
         assertEquals(new Double(1.4999999552965178), resultsplaext);
-        assertEquals(resultsplaext, MetricsEvaluation.evaluatePLAEXTENSIBILITY(architecture));
-        assertEquals(resultsplaext, Double.valueOf(solution.getObjective(12)));
+        assertEquals(resultsplaext, ObjectiveFunctionEvaluation.evaluateEXT(architecture));
+        assertEquals(resultsplaext, Double.valueOf(solution.getObjective(11)));
 
-        Double resultsSSC = new SSC(architecture).getResults();
+        Double resultsSSC = new SD(architecture).getResults();
         assertEquals(new Double(1.0), resultsSSC);
-        assertEquals(resultsSSC, MetricsEvaluation.evaluateSSC(architecture));
-        assertEquals(resultsSSC, Double.valueOf(solution.getObjective(13)));
+        assertEquals(resultsSSC, ObjectiveFunctionEvaluation.evaluateSD(architecture));
+        assertEquals(resultsSSC, Double.valueOf(solution.getObjective(12)));
 
-        Double resultsSVC = new SVC(architecture).getResults();
+        Double resultsSVC = new SV(architecture).getResults();
         assertEquals(new Double(0.0), resultsSVC);
-        assertEquals(resultsSVC, MetricsEvaluation.evaluateSVC(architecture));
-        assertEquals(resultsSVC, Double.valueOf(solution.getObjective(14)));
+        assertEquals(resultsSVC, ObjectiveFunctionEvaluation.evaluateSV(architecture));
+        assertEquals(resultsSVC, Double.valueOf(solution.getObjective(13)));
 
         Double resultsTAM = new TAM(architecture).getResults();
         assertEquals(new Double(3.9285714285714284), resultsTAM);
-        assertEquals(resultsTAM, MetricsEvaluation.evaluateTAM(architecture));
-        assertEquals(resultsTAM, Double.valueOf(solution.getObjective(15)));
+        assertEquals(resultsTAM, ObjectiveFunctionEvaluation.evaluateTAM(architecture));
+        assertEquals(resultsTAM, Double.valueOf(solution.getObjective(14)));
 
-        Double resultswclass = new WOCSClass(architecture).getResults();
+        Double resultswclass = new WOCSCLASS(architecture).getResults();
         assertEquals(new Double(0.13333333333333333), resultswclass);
-        assertEquals(resultswclass, MetricsEvaluation.evaluateWOCSCLASS(architecture));
-        assertEquals(resultswclass, Double.valueOf(solution.getObjective(16)));
+        assertEquals(resultswclass, ObjectiveFunctionEvaluation.evaluateWOCSCLASS(architecture));
+        assertEquals(resultswclass, Double.valueOf(solution.getObjective(15)));
 
-        Double resultswinterface = new WOCSInterface(architecture).getResults();
+        Double resultswinterface = new WOCSINTERFACE(architecture).getResults();
         assertEquals(new Double(0.2857142857142857), resultswinterface);
-        assertEquals(resultswinterface, MetricsEvaluation.evaluateWOCSINTERFFACE(architecture));
-        assertEquals(resultswinterface, Double.valueOf(solution.getObjective(17)));
+        assertEquals(resultswinterface, ObjectiveFunctionEvaluation.evaluateWOCSINTERFFACE(architecture));
+        assertEquals(resultswinterface, Double.valueOf(solution.getObjective(16)));
     }
 }

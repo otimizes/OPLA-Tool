@@ -4,7 +4,7 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.MetricsEvaluation;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionEvaluation;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -139,13 +139,13 @@ public class MainTestUtil {
             int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
             bw.write("MSI    MAC     Extensibility       Elegance");
             bw.newLine();
-            MetricsEvaluation metrics = new MetricsEvaluation();
+            ObjectiveFunctionEvaluation metrics = new ObjectiveFunctionEvaluation();
 
             for (int i = 0; i < solutionsList_.size(); i++) {
                 for (int j = 0; j < numberOfVariables; j++) {
                     Architecture arch = (Architecture) solutionsList_.get(i).getDecisionVariables()[j];
                     bw.write(metrics.evaluateFM(arch) + "  " + metrics.evaluateCONVENTIONAL(arch) + "  "
-                            + metrics.evaluatePLAEXTENSIBILITY(arch) + "  " + metrics.evaluateELEGANCE(arch));
+                            + metrics.evaluateEXT(arch) + "  " + metrics.evaluateELEG(arch));
                     // bw.write(solutionsList_.get(i).toString());
                     bw.newLine();
                 }
@@ -160,7 +160,7 @@ public class MainTestUtil {
     } // printAllMetricsToFile
 
     public static void printMetricsToFile(SolutionSet solutionsList_, String path) {
-        MetricsEvaluation metrics = new MetricsEvaluation();
+        ObjectiveFunctionEvaluation metrics = new ObjectiveFunctionEvaluation();
 
         try {
             /* Open the file */
@@ -186,7 +186,7 @@ public class MainTestUtil {
                     bw.write("--------  ELEGANCE ------------------");
                     bw.newLine();
                     bw.newLine();
-                    bw.write("ELEGANCE: " + metrics.evaluateELEGANCE(arch));
+                    bw.write("ELEGANCE: " + metrics.evaluateELEG(arch));
                     bw.newLine();
                     bw.write("NAC - ELEGANCE: " + metrics.evaluateNACElegance(arch));
                     bw.newLine();
@@ -199,7 +199,7 @@ public class MainTestUtil {
                     bw.write("--------  PLA EXTENSIBILITY -----------");
                     bw.newLine();
                     bw.newLine();
-                    bw.write("PLA EXTENSIBILITY: " + metrics.evaluatePLAEXTENSIBILITY(arch));
+                    bw.write("PLA EXTENSIBILITY: " + metrics.evaluateEXT(arch));
                     bw.newLine();
 
                     bw.write("-----  FEATURE-DRIVEN METRICS ----------");

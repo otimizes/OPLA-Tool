@@ -75,13 +75,13 @@ public class Persistence {
     }
 
     public void save(AllMetrics allMetrics, List<String> list) {
-        if (list.contains(Metrics.ELEGANCE.toString()))
+        if (list.contains(Metrics.ELEG.toString()))
             eleganceMetricService.saveAll(allMetrics.getElegance());
         if (list.contains(Metrics.FM.toString()))
             featureDrivenMetricService.saveAll(allMetrics.getFm());
-        if (list.contains(Metrics.CONVENTIONAL.toString()))
+        if (list.contains(Metrics.CM.toString()))
             conventionalMetricService.saveAll(allMetrics.getConventional());
-        if (list.contains(Metrics.PLAEXTENSIBILITY.toString()))
+        if (list.contains(Metrics.EXT.toString()))
             plaExtensibilityMetricService.saveAll(allMetrics.getPlaExtensibility());
         if (list.contains(Metrics.WOCSCLASS.toString()))
             wocsclassMetricService.saveAll(allMetrics.getWocsclass());
@@ -89,11 +89,11 @@ public class Persistence {
             wocsinterfaceMetricService.saveAll(allMetrics.getWocsinterface());
         if (list.contains(Metrics.CBCS.toString()))
             cbcsMetricService.saveAll(allMetrics.getCbcs());
-        if (list.contains(Metrics.SSC.toString()))
+        if (list.contains(Metrics.SD.toString()))
             sscMetricService.saveAll(allMetrics.getSsc());
-        if (list.contains(Metrics.SVC.toString()))
+        if (list.contains(Metrics.SV.toString()))
             svcMetricService.saveAll(allMetrics.getSvc());
-        if (list.contains(Metrics.AV.toString()))
+        if (list.contains(Metrics.TV.toString()))
             avMetricService.saveAll(allMetrics.getAv());
     }
 

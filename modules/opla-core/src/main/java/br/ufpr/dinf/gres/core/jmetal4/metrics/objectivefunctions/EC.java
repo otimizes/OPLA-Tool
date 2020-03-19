@@ -1,10 +1,20 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
 
-public class EC extends BaseMetricResults {
+/**
+ * Feature Interaction (Santos et al., 2015)
+ * <p>
+ * It aims to measure the intertwining of characteristics in a PLA,
+ * adding the numbers of the characteristics with which an interest
+ * shares at least with an architectural element, such as component,
+ * interface and operation.
+ * <p>
+ * (CIBC, IIBC, OOBC)
+ */
+public class EC extends ObjectiveFunctionBase {
 
     public EC(Architecture architecture) {
         super(architecture);

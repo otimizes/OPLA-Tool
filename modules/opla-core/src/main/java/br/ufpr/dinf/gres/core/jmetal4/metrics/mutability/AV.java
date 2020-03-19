@@ -1,11 +1,18 @@
-package br.ufpr.dinf.gres.core.jmetal4.metrics.all;
+package br.ufpr.dinf.gres.core.jmetal4.metrics.mutability;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 
-public class AV extends BaseMetricResults {
+/**
+ * Architecture Variability (Zhang et al., 2008)
+ * <p>
+ * It measures the total variability of the PLA.
+ * <p>
+ * (|Cv| + sum AV)
+ */
+public class AV extends ObjectiveFunctionBase {
 
     public AV(Architecture architecture) {
         super(architecture);

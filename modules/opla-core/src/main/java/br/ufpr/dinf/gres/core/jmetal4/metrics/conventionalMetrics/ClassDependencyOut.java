@@ -7,12 +7,12 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRela
 import br.ufpr.dinf.gres.architecture.representation.relationship.RealizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.UsageRelationship;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassDependencyOut extends BaseMetricResults {
+public class ClassDependencyOut extends ObjectiveFunctionBase {
 
     public ClassDependencyOut(Architecture architecture) {
         super(architecture);

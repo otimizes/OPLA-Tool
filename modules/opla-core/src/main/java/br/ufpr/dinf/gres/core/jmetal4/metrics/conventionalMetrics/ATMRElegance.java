@@ -2,9 +2,9 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.BaseMetricResults;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
 
-public class ATMRElegance extends BaseMetricResults {
+public class ATMRElegance extends ObjectiveFunctionBase {
 
     public ATMRElegance(Architecture architecture) {
         super(architecture);

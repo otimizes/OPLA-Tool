@@ -4,7 +4,7 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Fitness;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Metrics;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.all.*;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.CDAC;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.CDAClass;
@@ -14,12 +14,12 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBe
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.IIBC;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.OOBC;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.all.PLAExtensibility;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.EXT;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MetricsEvaluation {
+public class ObjectiveFunctionEvaluation {
 
     public static List<Fitness> evaluate(List<String> selectedMetrics, Solution solution) {
         List<Fitness> fitnesses = new ArrayList<>();
@@ -28,58 +28,55 @@ public class MetricsEvaluation {
             Metrics metric = Metrics.valueOf(selectedMetric);
             switch (metric) {
                 case ACLASS:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateACLASS((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateACLASS((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case ACOMP:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateACOMP((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateACOMP((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                case AV:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateAV((Architecture) solution.getDecisionVariables()[0])));
+                case TV:
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateTV((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case CBCS:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateCBCS((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateCBCS((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case COE:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateCOE((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateCOE((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                case CONVENTIONAL:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateCONVENTIONAL((Architecture) solution.getDecisionVariables()[0])));
+                case CM:
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateCONVENTIONAL((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case DC:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateDC((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateDC((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case EC:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateEC((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateEC((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                case ELEGANCE:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateELEGANCE((Architecture) solution.getDecisionVariables()[0])));
+                case ELEG:
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateELEG((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case FM:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateFM((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateFM((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case LCC:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateLCC((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateLCC((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                case MSIDESIGNOUTSET:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateMSIDESIGNOUTSET((Architecture) solution.getDecisionVariables()[0])));
+                case EXT:
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateEXT((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                case PLAEXTENSIBILITY:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluatePLAEXTENSIBILITY((Architecture) solution.getDecisionVariables()[0])));
+                case SD:
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateSD((Architecture) solution.getDecisionVariables()[0])));
                     break;
-                case SSC:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateSSC((Architecture) solution.getDecisionVariables()[0])));
-                    break;
-                case SVC:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateSVC((Architecture) solution.getDecisionVariables()[0])));
+                case SV:
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateSV((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case TAM:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateTAM((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateTAM((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case WOCSCLASS:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateWOCSCLASS((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateWOCSCLASS((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 case WOCSINTERFACE:
-                    fitnesses.add(new Fitness(MetricsEvaluation.evaluateWOCSINTERFFACE((Architecture) solution.getDecisionVariables()[0])));
+                    fitnesses.add(new Fitness(ObjectiveFunctionEvaluation.evaluateWOCSINTERFFACE((Architecture) solution.getDecisionVariables()[0])));
                     break;
                 default:
             }
@@ -99,12 +96,12 @@ public class MetricsEvaluation {
         return new NACElegance(architecture).getResults();
     }
 
-    public static Double evaluateELEGANCE(Architecture architecture) {
-        return new Elegance(architecture).getResults();
+    public static Double evaluateELEG(Architecture architecture) {
+        return new ELEG(architecture).getResults();
     }
 
-    public static Double evaluatePLAEXTENSIBILITY(Architecture architecture) {
-        return new PLAExtensibility(architecture).getResults();
+    public static Double evaluateEXT(Architecture architecture) {
+        return new EXT(architecture).getResults();
     }
 
     public static Double evaluateCIBC(Architecture architecture) {
@@ -192,12 +189,12 @@ public class MetricsEvaluation {
     }
 
     public static Double evaluateWOCSCLASS(Architecture architecture) {
-        return new WOCSClass(architecture).getResults();
+        return new WOCSCLASS(architecture).getResults();
     }
 
 
     public static Double evaluateWOCSINTERFFACE(Architecture architecture) {
-        return new WOCSInterface(architecture).getResults();
+        return new WOCSINTERFACE(architecture).getResults();
     }
 
 
@@ -205,16 +202,16 @@ public class MetricsEvaluation {
         return new CBCS(architecture).getResults();
     }
 
-    public static Double evaluateSVC(Architecture architecture) {
-        return new SVC(architecture).getResults();
+    public static Double evaluateSV(Architecture architecture) {
+        return new SV(architecture).getResults();
     }
 
-    public static Double evaluateSSC(Architecture architecture) {
-        return new SSC(architecture).getResults();
+    public static Double evaluateSD(Architecture architecture) {
+        return new SD(architecture).getResults();
     }
 
-    public static Double evaluateAV(Architecture architecture) {
-        return new AV(architecture).getResults();
+    public static Double evaluateTV(Architecture architecture) {
+        return new TV(architecture).getResults();
     }
 
     public static Double evaluateDepIN(Architecture architecture) {
@@ -230,7 +227,7 @@ public class MetricsEvaluation {
     }
 
     public static Double evaluateCONVENTIONAL(Architecture architecture) {
-        return new Conventional(architecture).getResults();
+        return new CM(architecture).getResults();
     }
 
     public static Double evaluateCOE(Architecture architecture) {
@@ -238,6 +235,6 @@ public class MetricsEvaluation {
     }
 
     public static Double evaluateMSIDESIGNOUTSET(Architecture architecture) {
-        return new MSIDesignOutset(architecture).getResults();
+        return new MSIDESIGNOUTSET(architecture).getResults();
     }
 }
