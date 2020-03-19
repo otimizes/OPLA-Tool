@@ -10,7 +10,7 @@ import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import java.util.*;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public abstract class ElementHelper {
 
@@ -30,6 +30,7 @@ public abstract class ElementHelper {
         types.put("abstraction", UMLPackage.Literals.ABSTRACTION);
         types.put("AssociationClass", UMLPackage.Literals.ASSOCIATION_CLASS);
         types.put("usage", UMLPackage.Literals.USAGE);
+        types.put("connector", UMLPackage.Literals.LINK_ACTION);
     }
 
     /**
@@ -40,7 +41,7 @@ public abstract class ElementHelper {
      * @return
      */
     @SuppressWarnings("unchecked")
-    protected static <T> List<T> getAllElementsByType(NamedElement model, String type) {
+    public static <T> List<T> getAllElementsByType(NamedElement model, String type) {
         EList<Element> ownedElements = model.getOwnedElements();
         List<T> elements = new ArrayList<T>();
 

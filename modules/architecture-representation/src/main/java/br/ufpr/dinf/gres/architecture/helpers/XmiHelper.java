@@ -1,19 +1,25 @@
 package br.ufpr.dinf.gres.architecture.helpers;
 
 import br.ufpr.dinf.gres.architecture.exceptions.NodeIdNotFound;
+import br.ufpr.dinf.gres.architecture.exceptions.VariationPointElementTypeErrorException;
+import br.ufpr.dinf.gres.architecture.flyweights.VariationPointFlyweight;
 import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.architecture.touml.VariabilityStereotype;
 import com.google.common.base.Joiner;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
+import org.eclipse.uml2.uml.internal.impl.CommentImpl;
 import org.eclipse.uml2.uml.internal.impl.OperationImpl;
 import org.eclipse.uml2.uml.internal.impl.PropertyImpl;
 import org.w3c.dom.Document;
@@ -26,11 +32,16 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.List;
-import java.util.Random;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
- * @author edipofederle<edipofederle               @               gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class XmiHelper {
 
@@ -278,6 +289,7 @@ public class XmiHelper {
         if (element instanceof Class || element instanceof Interface) {
             EList<Comment> ownedCommentsPackage = ((ClassImpl) modelElement).getPackage().getOwnedComments();
             ownedComments.addAll(ownedCommentsPackage);
+            applyAnotherComments(modelElement, element, ownedComments);
         }
         if (element instanceof Attribute) {
             EList<Comment> ownedCommentsPackage = ((PropertyImpl) modelElement).getClass_().getOwnedComments();
@@ -291,6 +303,98 @@ public class XmiHelper {
         for (Comment ownedComment : ownedComments) {
             element.setComments(element.getComments() + "\n" + ownedComment.getBody());
         }
+    }
+
+    private static void applyAnotherComments(NamedElement modelElement, Element element, EList<Comment> ownedComments) {
+        String variability = getVariabilityXmiLine(modelElement, element);
+        if (variability != null) {
+
+            Comment ownedComment = modelElement.createOwnedComment();
+            ownedComment.setBody(variability);
+            ownedComments.add(ownedComment);
+            ((ClassImpl) modelElement).getPackage().createOwnedComment();
+
+
+//            VariationPointFlyweight variationPointFlyweight = VariationPointFlyweight.getInstance();
+//            variationPointFlyweight.setArchitecture(element.getArchitecture());
+//            VariationPoint variationPoint = null;
+//            try {
+//                variationPoint = variationPointFlyweight.getOrCreateVariationPoint((ClassImpl) modelElement);
+//            } catch (VariationPointElementTypeErrorException e) {
+//                e.printStackTrace();
+//            }
+//            Stereotype varitionPointSte = StereotypeHelper.getStereotypeByName(modelElement, "variationPoint");
+//            Variability variabilityMap = getVariabilityMap(variability, modelElement, element);
+//            VariabilityStereotype variabilityStereotype = new VariabilityStereotype(variabilityMap);
+//            variabilityMap.setVariationPoint(variationPoint);
+        }
+    }
+
+    private static Variability getVariabilityMap(String variability, NamedElement modelElement, Element element) {
+        String[] split = variability.split("\"");
+        String name = null;
+        String minSelection = null;
+        String maxSelection = null;
+        String bindingTime = "DESIGN_TIME";
+        Boolean allowAddingVar = null;
+        String variants = null;
+        for (int i = 0; i < split.length; i++) {
+            if (i < split.length - 1) {
+                switch (split[i]) {
+                    case " name=":
+                        name = split[i + 1];
+                        break;
+                    case " minSelection=":
+                        minSelection = split[i + 1];
+                        break;
+                    case " maxSelection=":
+                        maxSelection = split[i + 1];
+                        break;
+                    case " allowAddingVar=":
+                        allowAddingVar = Boolean.valueOf(split[i + 1]);
+                        break;
+                    case " variants=":
+                        variants = split[i + 1];
+                        break;
+                    case " bindingTime=":
+                        bindingTime = split[i + 1];
+                        break;
+                    default:
+                }
+            }
+        }
+        return new Variability(name, minSelection, maxSelection, bindingTime, allowAddingVar,
+                element.getName(), XmiHelper.getXmiId(((ClassImpl) modelElement).getPackage()));
+    }
+
+    private static String getVariabilityXmiLine(NamedElement modelElement, Element element) {
+        URI uri = modelElement.eContainer().eResource().getURI();
+        Path path = Paths.get(uri.toFileString());
+        List<String> collect = null;
+        try {
+            collect = Files.lines(path).filter(txt -> txt.contains("smarty:variability") || txt.contains("<ownedComment")).collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String variabilityStr = collect.stream().filter(ln -> ln.contains(element.getId())).findFirst().orElse(null);
+        if (variabilityStr == null) return null;
+
+        Pattern compile = Pattern.compile("xmi\\:id\\=\\\".*\" ");
+        Matcher matcher = compile.matcher(variabilityStr);
+        String finded = null;
+        if (matcher.find()) {
+            finded = matcher.group(0).replace("xmi:id=", "");
+        }
+        String finalFinded = finded;
+        String findedStr = collect.stream().filter(txt -> txt.contains("smarty:variability") && txt.contains(finalFinded))
+                .findFirst().orElse(null);
+
+
+        Pattern compile1 = Pattern.compile("xmi\\:id\\=\\\".*");
+        Matcher matcher1 = compile1.matcher(findedStr);
+        matcher1.find();
+        return matcher1.group(0).replace("/>", "");
     }
 
 

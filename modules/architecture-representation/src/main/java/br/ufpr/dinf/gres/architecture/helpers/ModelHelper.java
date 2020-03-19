@@ -63,6 +63,16 @@ public class ModelHelper extends ElementHelper {
         return classes;
     }
 
+    /**
+     * Retorna todas as classes de um modelo e seus pacotes
+     *
+     * @param model
+     * @return {@link List}
+     */
+    public List<br.ufpr.dinf.gres.architecture.representation.Element> getAllConnectors(NamedElement model) {
+        return getAllElementsByType(model, CONNECTOR);
+    }
+
 
     public List<Property> getAllAttributesForAClass(NamedElement aClass) {
         List<Property> allPropertys = new ArrayList<Property>();
@@ -73,7 +83,7 @@ public class ModelHelper extends ElementHelper {
     }
 
     public List<org.eclipse.uml2.uml.Class> getAllInterfaces(NamedElement model) {
-        return getAllElementsByType(model, INTERFACE);
+        return getAllElementsByType(model, CONNECTOR);
     }
 
     public List<Usage> getAllUsage(Package model) {
@@ -289,6 +299,10 @@ public class ModelHelper extends ElementHelper {
 
     public Package loadConcernProfile() {
         return uml2Helper.get().loadConcernProfile();
+    }
+
+    public Profile loadSmarty() {
+        return uml2Helper.get().loadSMartyProfile();
     }
 
 }

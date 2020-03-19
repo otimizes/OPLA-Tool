@@ -4,8 +4,9 @@ import br.ufpr.dinf.gres.architecture.helpers.ModelElementHelper;
 import br.ufpr.dinf.gres.architecture.helpers.ModelHelper;
 import br.ufpr.dinf.gres.architecture.helpers.ModelHelperFactory;
 import br.ufpr.dinf.gres.architecture.helpers.XmiHelper;
-import br.ufpr.dinf.gres.architecture.representation.*;
+import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
+import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import org.eclipse.uml2.uml.NamedElement;
 
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Builder responsável por criar element do tipo Pacote.
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class PackageBuilder extends ElementBuilder<Package> {
 

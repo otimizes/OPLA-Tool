@@ -4,6 +4,7 @@ import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilder;
 import br.ufpr.dinf.gres.architecture.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.architecture.io.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
+import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.util.Constants;
 import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
@@ -25,32 +26,21 @@ public class MetricsTest {
 
     //    TODO Verificar com Thelma métricas zeradas
     @Test
-    public void evaluateAGM() {
-        String agm = Thread.currentThread().getContextClassLoader().getResource("agm").getFile();
+    public void evaluateAGM() throws Exception {
+//        AV, SSC, SVC depends of variabilities and variation points
+//        String agm = Thread.currentThread().getContextClassLoader().getResource("agm").getFile();
+        String agm = "/home/wmfsystem/workspace/asdasd/plas/newagm";
         ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
-        applicationYamlConfig.setPathToProfile(agm + Constants.FILE_SEPARATOR + "smarty.profile.uml");
-        applicationYamlConfig.setPathToProfileConcern(agm + Constants.FILE_SEPARATOR + "concerns.profile.uml");
-        applicationYamlConfig.setPathToProfilePatterns(agm + Constants.FILE_SEPARATOR + "patterns.profile.uml");
-        applicationYamlConfig.setPathToProfileRelationships(agm + Constants.FILE_SEPARATOR + "relationships.profile.uml");
+        applicationYamlConfig.setPathToProfile(agm + Constants.FILE_SEPARATOR + "resources/smarty.profile.uml");
+        applicationYamlConfig.setPathToProfileConcern(agm + Constants.FILE_SEPARATOR + "resources/concerns.profile.uml");
+        applicationYamlConfig.setPathToProfilePatterns(agm + Constants.FILE_SEPARATOR + "resources/patterns.profile.uml");
+        applicationYamlConfig.setPathToProfileRelationships(agm + Constants.FILE_SEPARATOR + "resources/relationships.profile.uml");
+        applicationYamlConfig.setDirectoryToExportModels("/home/wmfsystem/oplatool/output/");
+        applicationYamlConfig.setDirectoryToSaveModels("/home/wmfsystem/oplatool/temp/");
+        applicationYamlConfig.setPathToTemplateModelsDirectory("/home/wmfsystem/oplatool/templates/");
         OPLAThreadScope.setConfig(applicationYamlConfig);
-
-        List<String> xmis = Arrays.asList(
-                agm + Constants.FILE_SEPARATOR + "agm.uml"
-        );
-
-        ArchitectureBuilder architectureBuilder = new ArchitectureBuilder();
-        List<Architecture> arrayList = xmis.stream().map(x -> {
-            try {
-                return architectureBuilder.create(x);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }).collect(Collectors.toList());
-
-        Architecture architecture = arrayList.get(0);
-        OPLA opla = new OPLA();
-        opla.setArchitecture_(architecture);
+        OPLA opla = new OPLA(agm + Constants.FILE_SEPARATOR + "agm.uml");
+        Architecture architecture = opla.getArchitecture_();
 
         Metrics[] values = Metrics.values();
         SolutionSet solutionSet = new SolutionSet();
@@ -89,7 +79,7 @@ public class MetricsTest {
         assertEquals(resultsCBCS, Double.valueOf(solution.getObjective(3)));
 
         Double resultsCOE = new COE(architecture).getResults();
-        assertEquals(new Double(33.0), resultsCOE);
+        assertEquals(new Double(7.0), resultsCOE);
         assertEquals(resultsCOE, MetricsEvaluation.evaluateCOE(architecture));
         assertEquals(resultsCOE, Double.valueOf(solution.getObjective(4)));
 
@@ -157,9 +147,5 @@ public class MetricsTest {
         assertEquals(new Double(0.2857142857142857), resultswinterface);
         assertEquals(resultswinterface, MetricsEvaluation.evaluateWOCSINTERFFACE(architecture));
         assertEquals(resultswinterface, Double.valueOf(solution.getObjective(17)));
-
-        Double resultsHRelationalCohesion = new RelationalCohesion(architecture).getResults();
-        assertEquals(new Double(7.0), resultsHRelationalCohesion);
-        assertEquals(resultsHRelationalCohesion, MetricsEvaluation.evaluateHCohesion(architecture));
     }
 }

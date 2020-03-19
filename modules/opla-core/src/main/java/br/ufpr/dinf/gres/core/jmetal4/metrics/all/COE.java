@@ -8,14 +8,8 @@ public class COE extends BaseMetricResults {
 
     public COE(Architecture architecture) {
         super(architecture);
-        double coeFitness = 0.0;
-
         RelationalCohesion rc = new RelationalCohesion(architecture);
-
-        LCC lcc = new LCC(architecture);
-
-        coeFitness = rc.getResults() + lcc.getResults();
-        this.setResults(coeFitness);
+        this.setResults(rc.getResults() );
     }
 
 }

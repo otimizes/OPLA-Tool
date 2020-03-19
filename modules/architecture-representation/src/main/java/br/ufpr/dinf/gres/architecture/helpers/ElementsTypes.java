@@ -18,5 +18,6 @@ public class ElementsTypes {
     public static final String ASSOCIATIONCLASS = "AssociationClass";
     public static final String USAGE = "usage";
     public static final String GENERALIZATION = "generalization";
+    public static final String CONNECTOR = "connector";
 
 }

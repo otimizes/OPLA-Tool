@@ -12,17 +12,16 @@ import br.ufpr.dinf.gres.architecture.helpers.ModelHelper;
 import br.ufpr.dinf.gres.architecture.helpers.ModelHelperFactory;
 import br.ufpr.dinf.gres.architecture.helpers.StereotypeHelper;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationClassRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import com.rits.cloning.Cloner;
-
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.uml2.uml.*;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,11 +30,11 @@ import java.util.List;
 /**
  * Builder responsável por criar a br.ufpr.dinf.gres.arquitetura.
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ArchitectureBuilder {
-	
-	private static final Logger LOGGER = Logger.getLogger(ArchitectureBuilder.class);
+
+    private static final Logger LOGGER = Logger.getLogger(ArchitectureBuilder.class);
 
     private Package model;
     private PackageBuilder packageBuilder;
@@ -57,7 +56,7 @@ public class ArchitectureBuilder {
      */
     public ArchitectureBuilder() {
         // RelationshipHolder.clearLists();
-    	LOGGER.info("Clean Relationships");
+        LOGGER.info("Clean Relationships");
         ConcernHolder.INSTANCE.clear();
 
         // Load configure file. Call this method only once
@@ -99,7 +98,7 @@ public class ArchitectureBuilder {
      */
     public Architecture create(String xmiFilePath) throws Exception {
         try {
-        	LOGGER.info("Criando Architecture");
+            LOGGER.info("Criando Architecture");
             model = modelHelper.getModel(xmiFilePath);
             VariationPointFlyweight.getInstance().addModel(model);
             VariabilityFlyweight.getInstance().addModel(model);
@@ -110,7 +109,7 @@ public class ArchitectureBuilder {
             initialize(architecture);
 
             if (ReaderConfig.hasConcernsProfile()) {
-            	LOGGER.info("Config Concerns");
+                LOGGER.info("Config Concerns");
                 Package concerns = modelHelper.loadConcernProfile();
                 EList<Stereotype> concernsAllowed = concerns.getOwnedStereotypes();
                 for (Stereotype stereotype : concernsAllowed)
@@ -283,9 +282,11 @@ public class ArchitectureBuilder {
         List<Variability> variabilities = new ArrayList<Variability>();
         List<org.eclipse.uml2.uml.Class> allClasses = modelHelper.getAllClasses(model);
 
-        for (Classifier classifier : allClasses)
+
+        for (Classifier classifier : allClasses) {
             if (StereotypeHelper.isVariability(classifier))
                 variabilityBuilder.create(classifier);
+        }
 
         VariabilityFlyweight.getInstance().createVariants();
         variabilities.addAll(VariabilityFlyweight.getInstance().getVariabilities());

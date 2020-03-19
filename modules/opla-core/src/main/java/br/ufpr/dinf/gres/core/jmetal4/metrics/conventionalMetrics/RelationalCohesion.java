@@ -82,7 +82,7 @@ public class RelationalCohesion extends BaseMetricResults {
         for (Class c : classes) {
             List<Attribute> allAttributes = new ArrayList<>(source.getAllAttributes());
             for (Attribute attribute : allAttributes) {
-                if (attribute.getType().equals(c.getName())) {
+                if (c.getName().equals(attribute.getType())) {
                     if (!(attribDepClasses.contains(c)))
                         attribDepClasses.add(c);
                 }
@@ -92,7 +92,7 @@ public class RelationalCohesion extends BaseMetricResults {
         for (Interface itf : interfaces) {
             List<Attribute> allAttributes = new ArrayList<Attribute>(source.getAllAttributes());
             for (Attribute attribute : allAttributes) {
-                if (attribute.getType().equals(itf.getName())) {
+                if (itf.getName().equals(attribute.getType())) {
                     if (!(attribDepInterfaces.contains(itf)))
                         attribDepInterfaces.add(itf);
                 }

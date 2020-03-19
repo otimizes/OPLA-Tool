@@ -5,6 +5,7 @@ import br.ufpr.dinf.gres.architecture.exceptions.ModelIncompleteException;
 import br.ufpr.dinf.gres.architecture.exceptions.ModelNotFoundException;
 import br.ufpr.dinf.gres.architecture.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.*;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
@@ -66,6 +67,9 @@ public class StereotypeHelper {
          */
         List<Comment> belongsComments = new ArrayList<Comment>();
         EList<Comment> comments = ((Class) element).getPackage().getOwnedComments();
+        if (element.getName().equalsIgnoreCase("MovableSprites")) {
+            System.out.println("dsjdhfksdf");
+        }
         for (Comment comment : comments) {
             if (comment.getAnnotatedElements().contains(element)) {
                 for (Stereotype stereotype : comment.getAppliedStereotypes())
