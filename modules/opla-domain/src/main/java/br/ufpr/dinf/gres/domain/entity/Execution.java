@@ -1,16 +1,17 @@
 package br.ufpr.dinf.gres.domain.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-
-import javax.persistence.*;
-
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.BaseObjectiveFunction;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Entity
 @Table(name = "executions")
@@ -40,7 +41,7 @@ public class Execution implements Serializable {
     @Transient
     private List<Info> infos;
     @Transient
-    private AllMetrics allMetrics;
+    private Map<String, List<BaseObjectiveFunction>> allMetrics;
 
     public Execution() {
     }
@@ -129,11 +130,11 @@ public class Execution implements Serializable {
         this.infos = infos;
     }
 
-    public AllMetrics getAllMetrics() {
+    public Map<String, List<BaseObjectiveFunction>> getAllMetrics() {
         return allMetrics;
     }
 
-    public void setAllMetrics(AllMetrics allMetrics) {
+    public void setAllMetrics(Map<String, List<BaseObjectiveFunction>> allMetrics) {
         this.allMetrics = allMetrics;
     }
 }

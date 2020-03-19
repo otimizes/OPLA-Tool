@@ -40,7 +40,8 @@ import java.nio.file.Paths;
         "br.ufpr.dinf.gres.api.resource",
         "br.ufpr.dinf.gres.persistence.service",
         "br.ufpr.dinf.gres.core.jmetal4.experiments",
-        "br.ufpr.dinf.gres.core.persistence"
+        "br.ufpr.dinf.gres.core.persistence",
+        "br.ufpr.dinf.gres.core.jmetal4.metrics"
 })
 @EnableAsync
 public class OplaApiApplication {

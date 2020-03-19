@@ -21,6 +21,7 @@ import br.ufpr.dinf.gres.domain.entity.Info;
 import br.ufpr.dinf.gres.core.learning.Moment;
 import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.BaseObjectiveFunction;
 import br.ufpr.dinf.gres.loglog.Level;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig> {
@@ -146,7 +148,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                 List<Info> infos = result.getInformations(resultFront.getSolutionSet(), execution, experiment);
                 infos = mp.saveInfoAll(infos);
                 execution.setInfos(infos);
-                AllMetrics allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
+                Map<String, List<BaseObjectiveFunction>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
                         experiment, selectedObjectiveFunctions);
                 execution.setTime(estimatedTime);
 
@@ -186,7 +188,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
             infos = mp.saveInfoAll(infos);
             LOGGER.info("saveInfoAll()");
 
-            AllMetrics allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
+            Map<String, List<BaseObjectiveFunction>> allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);
             mp.save(allMetrics, configs.getOplaConfigs().getSelectedObjectiveFunctions());
             LOGGER.info("getMetrics()");

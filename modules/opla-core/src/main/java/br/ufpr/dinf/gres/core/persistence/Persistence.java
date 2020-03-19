@@ -2,15 +2,19 @@ package br.ufpr.dinf.gres.core.persistence;
 
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.Metrics;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctions;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionsLink;
 import br.ufpr.dinf.gres.core.jmetal4.util.NonDominatedSolutionList;
 import br.ufpr.dinf.gres.domain.entity.*;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.BaseObjectiveFunction;
+import br.ufpr.dinf.gres.persistence.base.BaseService;
 import br.ufpr.dinf.gres.persistence.service.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,39 +23,22 @@ public class Persistence {
     private final ExperimentService experimentService;
     private final ExperimentConfigurationService experimentConfigurationService;
     private final MapObjectiveNameService mapObjectiveNameService;
-    private final InfoService infoService;
-    private final AvMetricService avMetricService;
-    private final CbcsMetricService cbcsMetricService;
-    private final ConventionalMetricService conventionalMetricService;
-    private final DistanceEuclideanService distanceEuclideanService;
-    private final EleganceMetricService eleganceMetricService;
     private final ExecutionService executionService;
     private final ObjectiveService objectiveService;
-    private final PLAExtensibilityMetricService plaExtensibilityMetricService;
-    private final SscMetricService sscMetricService;
-    private final SvcMetricService svcMetricService;
-    private final WocsclassMetricService wocsclassMetricService;
-    private final WocsinterfaceMetricService wocsinterfaceMetricService;
-    private final FeatureDrivenMetricService featureDrivenMetricService;
+    private final InfoService infoService;
+    private final DistanceEuclideanService distanceEuclideanService;
 
-    public Persistence(AvMetricService avMetricService, ExperimentService experimentService, ExperimentConfigurationService experimentConfigurationService, MapObjectiveNameService mapObjectiveNameService, SscMetricService sscMetricService, WocsclassMetricService wocsclassMetricService, InfoService infoService, CbcsMetricService cbcsMetricService, WocsinterfaceMetricService wocsinterfaceMetricService, ConventionalMetricService conventionalMetricService, DistanceEuclideanService distanceEuclideanService, EleganceMetricService eleganceMetricService, SvcMetricService svcMetricService, ExecutionService executionService, PLAExtensibilityMetricService plaExtensibilityMetricService, ObjectiveService objectiveService, FeatureDrivenMetricService featureDrivenMetricService) {
-        this.avMetricService = avMetricService;
+    public Persistence( ObjectiveService objectiveService, InfoService infoService, ExperimentService experimentService,
+                        DistanceEuclideanService distanceEuclideanService,
+                        ExecutionService executionService,
+                        ExperimentConfigurationService experimentConfigurationService, MapObjectiveNameService mapObjectiveNameService) {
         this.experimentService = experimentService;
         this.experimentConfigurationService = experimentConfigurationService;
         this.mapObjectiveNameService = mapObjectiveNameService;
-        this.sscMetricService = sscMetricService;
-        this.wocsclassMetricService = wocsclassMetricService;
-        this.infoService = infoService;
-        this.cbcsMetricService = cbcsMetricService;
-        this.wocsinterfaceMetricService = wocsinterfaceMetricService;
-        this.conventionalMetricService = conventionalMetricService;
-        this.distanceEuclideanService = distanceEuclideanService;
-        this.eleganceMetricService = eleganceMetricService;
-        this.svcMetricService = svcMetricService;
         this.executionService = executionService;
-        this.plaExtensibilityMetricService = plaExtensibilityMetricService;
         this.objectiveService = objectiveService;
-        this.featureDrivenMetricService = featureDrivenMetricService;
+        this.infoService = infoService;
+        this.distanceEuclideanService = distanceEuclideanService;
     }
 
     public List<Info> saveInfoAll(List<Info> infoResults) {
@@ -74,27 +61,13 @@ public class Persistence {
         return experimentResults;
     }
 
-    public void save(AllMetrics allMetrics, List<String> list) {
-        if (list.contains(Metrics.ELEG.toString()))
-            eleganceMetricService.saveAll(allMetrics.getElegance());
-        if (list.contains(Metrics.FM.toString()))
-            featureDrivenMetricService.saveAll(allMetrics.getFm());
-        if (list.contains(Metrics.CM.toString()))
-            conventionalMetricService.saveAll(allMetrics.getConventional());
-        if (list.contains(Metrics.EXT.toString()))
-            plaExtensibilityMetricService.saveAll(allMetrics.getPlaExtensibility());
-        if (list.contains(Metrics.WOCSCLASS.toString()))
-            wocsclassMetricService.saveAll(allMetrics.getWocsclass());
-        if (list.contains(Metrics.WOCSINTERFACE.toString()))
-            wocsinterfaceMetricService.saveAll(allMetrics.getWocsinterface());
-        if (list.contains(Metrics.CBCS.toString()))
-            cbcsMetricService.saveAll(allMetrics.getCbcs());
-        if (list.contains(Metrics.SD.toString()))
-            sscMetricService.saveAll(allMetrics.getSsc());
-        if (list.contains(Metrics.SV.toString()))
-            svcMetricService.saveAll(allMetrics.getSvc());
-        if (list.contains(Metrics.TV.toString()))
-            avMetricService.saveAll(allMetrics.getAv());
+    public void save(Map<String, List<BaseObjectiveFunction>> allMetrics, List<String> list) {
+        for (Map.Entry<String, List<BaseObjectiveFunction>> stringListEntry : allMetrics.entrySet()) {
+            ObjectiveFunctions key = ObjectiveFunctions.valueOf(stringListEntry.getKey());
+            for (BaseObjectiveFunction baseObjectiveFunction : stringListEntry.getValue()) {
+                key.getService().save(baseObjectiveFunction);
+            }
+        }
     }
 
     public MapObjectiveName saveObjectivesNames(List<String> selectedMetrics, String experimentId) throws Exception {

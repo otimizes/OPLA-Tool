@@ -69,7 +69,7 @@ https://github.com/SBSE-UEM/OPLA-Tool/blob/master/Contributing.pdf
 ```java
 @Entity
 @Table(name = "myobj_metrics")
-public class MyObjMetric extends BaseMetric {
+public class MYOBJObjectiveFunction extends BaseMetric {
 
     private static final long serialVersionUID = 1L;
 
@@ -79,7 +79,7 @@ public class MyObjMetric extends BaseMetric {
     @Column(name = "value2")
     private Double value2;
 
-    public AcompMetric(String idSolution, Execution execution, Experiment experiement) {
+    public MyObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
     // GETTERS AND SETTERS
@@ -89,18 +89,11 @@ public class MyObjMetric extends BaseMetric {
 - Create the service and repository of your objective function into the opla-persistence
 - Create the resource inside the opla-api.
 
-- Add the metric into Metrics Enum 
+- The implementation of metrics must be inside a package in opla-core > jmetal4 > metrics.
+- The implementation of your objective function must be in opla-core > jmetal4 > metrics > objectivefunctions.
+- The class must inherit the BaseObjectiveFunction and must be UPPERCASE. Read the comments in the code below.
 ```java
-public enum Metrics {
-    // another,
-    MYOBJ;
-}
-```
-
-- The implementation of metrics and the objective function must be in opla-core > jmetal4 > metrics.
-- The class must inherit the BaseMetricResults. Read the comments in the code below.
-```java
-public class MYOBJ extends BaseMetricResults {
+public class MYOBJ extends BaseObjectiveFunction {
 
     public MYOBJ(Architecture architecture) {
         super(architecture);
@@ -115,63 +108,36 @@ public class MYOBJ extends BaseMetricResults {
 }
 ```
 
+- Add your metrics into Metrics Enum and the Objective Function into the ObjectiveFunctions Enum.
+```java
+public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
+    ACLASS {
+        @Autowired
+        private MYOBJObjectiveFunctionService myobjObjectiveFunctionService;
+
+        @Override
+        public Double evaluate(Architecture architecture) {
+            return new MYOBJ(architecture).getResults();
+        }
+
+        @Override
+        public ACLASSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement,
+                                             Architecture arch) {
+            MYOBJObjectiveFunction myobj = new MYOBJObjectiveFunction(idSolution, Execution, experiement);
+            myobj.setSumClassesDepIn(Metrics.SumClassDepIn.evaluate(arch));
+            myobj.setSumClassesDepOut(Metrics.SumClassDepOut.evaluate(arch));
+            return aclass;
+        }
+
+        @Override
+        public MYOBJObjectiveFunctionService getService() {
+            return myobjObjectiveFunctionService;
+        }
+    }
+}
+```
+
+
+
 - Add the instance your obj. function inside the class MetricsEvaluation as a static method that returns a Double value. 
-- Also add 
-```java
-public class MetricsEvaluation {
-    public static List<Fitness> evaluate(List<String> selectedMetrics, Solution solution) {
-             // ... inside the for, add you method call
-                 switch (metric) {
-                     case MYOBJ:
-                        fitnesses.add(new Fitness(MetricsEvaluation.evaluateMYOBJ((Architecture) solution.getDecisionVariables()[0])));
-                 }
-            //..
-    }
-
-    //...
-    public static Double evaluateMYOBJ(Architecture architecture) {
-        return new MYOBJ(architecture).getResults();
-    }
-    //...
-}
-```
-
-- Add the list of metrics that contains your persistent objective 
-```java
-public class AllMetrics {
-    
-    private List<MyObjMetric> myObj = new ArrayList<>();
-    // GETTERS AND SETTERS
-}
-```
-
-- Add the link of the core with the persistence in class opla-core > persistence > Persistence
-```java
-@Service
-public class Persistence {
-
-    private final MyObjService myObjService;
-    // constructor and another methods
-    
-    public void save(AllMetrics allMetrics, List<String> list) {
-    // ...
-            if (list.contains(Metrics.MYOBJ))
-                myObjService.saveAll(allMetrics.getMyObj());
-    }
-}
-```
 - Implement the tests in the core inside the MetricsTest
-```java
-@Service
-public class Persistence {
-
-    private final MyObjService myObjService;
-    // constructor and another methods
-    
-    public void save(AllMetrics allMetrics, List<String> list) {
-    // ...
-            if (list.contains(Metrics.MYOBJ))
-                myObjService.saveAll(allMetrics.getMyObj());
-    }
-}
-```

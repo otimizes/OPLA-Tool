@@ -7,10 +7,10 @@ import java.util.List;
 
 public class AllMetrics {
 
-    private List<CMObjectiveFunction> conventional = new ArrayList<>();
-    private List<ELEGObjectiveFunction> elegance = new ArrayList<>();
+    private List<CMObjectiveFunction> cm = new ArrayList<>();
+    private List<ELEGObjectiveFunction> eleg = new ArrayList<>();
     private List<FMObjectiveFunction> fm = new ArrayList<>();
-    private List<EXTObjectiveFunction> plaExtensibility = new ArrayList<>();
+    private List<EXTObjectiveFunction> ext = new ArrayList<>();
     private List<ACOMPObjectiveFunction> acomp = new ArrayList<>();
     private List<ACLASSObjectiveFunction> aclass = new ArrayList<>();
     private List<LCCObjectiveFunction> lcc = new ArrayList<>();
@@ -20,25 +20,25 @@ public class AllMetrics {
     private List<ECObjectiveFunction> ec = new ArrayList<>();
     private List<WOCSCLASSObjectiveFunction> wocsclass = new ArrayList<>(); //addYni
     private List<WOCSINTERFACEObjectiveFunction> wocsinterface = new ArrayList<>(); //addYni
-    private List<RCCObjectiveFunction> cbcs = new ArrayList<>(); //addYni
-    private List<SVObjectiveFunction> svc = new ArrayList<>(); //addYni
-    private List<SDObjectiveFunction> ssc = new ArrayList<>(); //addYni
-    private List<TVObjectiveFunction> av = new ArrayList<>(); //addYni
+    private List<RCCObjectiveFunction> rcc = new ArrayList<>(); //addYni
+    private List<SVObjectiveFunction> sv = new ArrayList<>(); //addYni
+    private List<SDObjectiveFunction> sd = new ArrayList<>(); //addYni
+    private List<TVObjectiveFunction> tv = new ArrayList<>(); //addYni
 
-    public List<CMObjectiveFunction> getConventional() {
-        return conventional;
+    public List<CMObjectiveFunction> getCm() {
+        return cm;
     }
 
-    public void setConventional(List<CMObjectiveFunction> conventional) {
-        this.conventional = conventional;
+    public void setCm(List<CMObjectiveFunction> cm) {
+        this.cm = cm;
     }
 
-    public List<ELEGObjectiveFunction> getElegance() {
-        return elegance;
+    public List<ELEGObjectiveFunction> getEleg() {
+        return eleg;
     }
 
-    public void setElegance(List<ELEGObjectiveFunction> elegance) {
-        this.elegance = elegance;
+    public void setEleg(List<ELEGObjectiveFunction> eleg) {
+        this.eleg = eleg;
     }
 
     public List<FMObjectiveFunction> getFm() {
@@ -49,12 +49,12 @@ public class AllMetrics {
         this.fm = fm;
     }
 
-    public List<EXTObjectiveFunction> getPlaExtensibility() {
-        return plaExtensibility;
+    public List<EXTObjectiveFunction> getExt() {
+        return ext;
     }
 
-    public void setPlaExtensibility(List<EXTObjectiveFunction> plaExtensibility) {
-        this.plaExtensibility = plaExtensibility;
+    public void setExt(List<EXTObjectiveFunction> ext) {
+        this.ext = ext;
     }
 
     public List<LCCObjectiveFunction> getLcc() {
@@ -129,45 +129,45 @@ public class AllMetrics {
         this.wocsinterface = wocsi;
     }
 
-    public List<RCCObjectiveFunction> getCbcs() {
-        return cbcs;
+    public List<RCCObjectiveFunction> getRcc() {
+        return rcc;
     }
 
-    public void setCbcs(List<RCCObjectiveFunction> cbcs) {
-        this.cbcs = cbcs;
+    public void setRcc(List<RCCObjectiveFunction> rcc) {
+        this.rcc = rcc;
     }
 
-    public List<SVObjectiveFunction> getSvc() {
-        return svc;
+    public List<SVObjectiveFunction> getSv() {
+        return sv;
     }
 
-    public void setSvc(List<SVObjectiveFunction> svc) {
-        this.svc = svc;
+    public void setSv(List<SVObjectiveFunction> sv) {
+        this.sv = sv;
     }
 
-    public List<SDObjectiveFunction> getSsc() {
-        return ssc;
+    public List<SDObjectiveFunction> getSd() {
+        return sd;
     }
 
-    public void setSsc(List<SDObjectiveFunction> ssc) {
-        this.ssc = ssc;
+    public void setSd(List<SDObjectiveFunction> sd) {
+        this.sd = sd;
     }
 
-    public List<TVObjectiveFunction> getAv() {
-        return av;
+    public List<TVObjectiveFunction> getTv() {
+        return tv;
     }
 
-    public void setAv(List<TVObjectiveFunction> av) {
-        this.av = av;
+    public void setTv(List<TVObjectiveFunction> tv) {
+        this.tv = tv;
     }
 
     @Override
     public String toString() {
         return "AllMetrics{" +
-                "\nconventional=" + conventional +
-                ", \nelegance=" + elegance +
+                "\nconventional=" + cm +
+                ", \nelegance=" + eleg +
                 ", \nfeatureDriven=" + fm +
-                ", \nplaExtensibility=" + plaExtensibility +
+                ", \nplaExtensibility=" + ext +
                 ", \nacomp=" + acomp +
                 ", \naclass=" + aclass +
                 ", \ntam=" + tam +
@@ -179,10 +179,10 @@ public class AllMetrics {
 
 
     public void remove(Integer id) {
-        if (this.conventional.size() > id) this.conventional.remove(id);
-        if (this.elegance.size() > id) this.elegance.remove(id);
+        if (this.cm.size() > id) this.cm.remove(id);
+        if (this.eleg.size() > id) this.eleg.remove(id);
         if (this.fm.size() > id) this.fm.remove(id);
-        if (this.plaExtensibility.size() > id) this.plaExtensibility.remove(id);
+        if (this.ext.size() > id) this.ext.remove(id);
         if (this.acomp.size() > id) this.acomp.remove(id);
         if (this.aclass.size() > id) this.aclass.remove(id);
         if (this.tam.size() > id) this.tam.remove(id);
@@ -192,9 +192,9 @@ public class AllMetrics {
         if (this.wocsclass.size() > id) this.wocsclass.remove(id);
         if (this.lcc.size() > id) this.lcc.remove(id);
         if (this.wocsinterface.size() > id) this.wocsinterface.remove(id);
-        if (this.cbcs.size() > id) this.cbcs.remove(id);
-        if (this.svc.size() > id) this.svc.remove(id);
-        if (this.ssc.size() > id) this.ssc.remove(id);
-        if (this.av.size() > id) this.av.remove(id);
+        if (this.rcc.size() > id) this.rcc.remove(id);
+        if (this.sv.size() > id) this.sv.remove(id);
+        if (this.sd.size() > id) this.sd.remove(id);
+        if (this.tv.size() > id) this.tv.remove(id);
     }
 }
