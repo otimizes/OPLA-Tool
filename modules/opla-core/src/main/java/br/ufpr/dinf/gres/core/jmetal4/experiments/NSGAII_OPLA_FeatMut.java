@@ -158,7 +158,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                     configs.getInteractiveFunction().run(resultFront);
                 }
 
-//                resultFront.saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
+                resultFront.saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
 
                 execution.setInfos(infos);
                 execution.setAllMetrics(allMetrics);
