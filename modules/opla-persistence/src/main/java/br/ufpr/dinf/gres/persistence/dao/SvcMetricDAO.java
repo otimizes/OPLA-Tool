@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.persistence.dao;
 
-import br.ufpr.dinf.gres.domain.entity.metric.SvcMetric;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.SVObjectiveFunction;
 import br.ufpr.dinf.gres.persistence.util.GenericDAOImpl;
 import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
 import org.apache.log4j.Logger;
@@ -11,28 +11,28 @@ import java.util.List;
 /**
  * @author Fernando
  */
-public class SvcMetricDAO extends GenericDAOImpl<SvcMetric>
-        implements GenericMetricDAO<SvcMetric> {
+public class SvcMetricDAO extends GenericDAOImpl<SVObjectiveFunction>
+        implements GenericMetricDAO<SVObjectiveFunction> {
 
     private static final Logger LOGGER = Logger.getLogger(SvcMetricDAO.class);
 
     private static final long serialVersionUID = 1L;
 
     public SvcMetricDAO() {
-        super(SvcMetric.class);
+        super(SVObjectiveFunction.class);
     }
 
     @Override
-    public List<SvcMetric> findBySolution(String solution) {
+    public List<SVObjectiveFunction> findBySolution(String solution) {
         LOGGER.debug("Finding metric date for: " + solution);
 
         String idSolution = solution.split("-")[1];
 
-        TypedQuery<SvcMetric> query = getEntityManager().createQuery(
-                "SELECT o FROM SvcMetric o WHERE o.idSolution = :idSolution", SvcMetric.class);
+        TypedQuery<SVObjectiveFunction> query = getEntityManager().createQuery(
+                "SELECT o FROM SvcMetric o WHERE o.idSolution = :idSolution", SVObjectiveFunction.class);
         query.setParameter("idSolution", idSolution);
 
-        List<SvcMetric> resultList = query.getResultList();
+        List<SVObjectiveFunction> resultList = query.getResultList();
         LOGGER.debug("Number of br.ufpr.dinf.gres.core.jmetal4.results: " + resultList.size());
         return resultList;
     }

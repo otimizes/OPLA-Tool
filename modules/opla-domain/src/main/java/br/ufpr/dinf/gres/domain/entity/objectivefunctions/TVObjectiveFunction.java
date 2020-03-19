@@ -1,25 +1,20 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "av_metrics")
-public class AvMetric extends BaseMetric {
+@Table(name = "tv_obj")
+public class TVObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
     @Column(name = "av")
     private Double av;
 
-    public AvMetric(String idSolution, Execution execution, Experiment experiement) {
+    public TVObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

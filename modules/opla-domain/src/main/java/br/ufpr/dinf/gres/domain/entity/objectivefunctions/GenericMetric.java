@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;

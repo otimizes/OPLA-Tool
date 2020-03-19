@@ -6,7 +6,7 @@ import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
 
-import br.ufpr.dinf.gres.domain.entity.metric.EleganceMetric;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.ELEGObjectiveFunction;
 import br.ufpr.dinf.gres.persistence.util.GenericDAOImpl;
 import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
 
@@ -15,27 +15,27 @@ import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
  * @author Fernando
  *
  */
-public class EleganceMetricDAO extends GenericDAOImpl<EleganceMetric> implements GenericMetricDAO<EleganceMetric> {
+public class EleganceMetricDAO extends GenericDAOImpl<ELEGObjectiveFunction> implements GenericMetricDAO<ELEGObjectiveFunction> {
 
 	private static final Logger LOGGER = Logger.getLogger(EleganceMetricDAO.class);
 
 	private static final long serialVersionUID = 1L;
 
 	public EleganceMetricDAO() {
-		super(EleganceMetric.class);
+		super(ELEGObjectiveFunction.class);
 	}
 
 	@Override
-	public List<EleganceMetric> findBySolution(String solution) {
+	public List<ELEGObjectiveFunction> findBySolution(String solution) {
 		LOGGER.debug("Finding metric date for: " + solution);
 
 		String idSolution = solution.split("-")[1];
 
-		TypedQuery<EleganceMetric> query = getEntityManager()
-				.createQuery("SELECT o FROM EleganceMetric o WHERE o.idSolution = :idSolution", EleganceMetric.class);
+		TypedQuery<ELEGObjectiveFunction> query = getEntityManager()
+				.createQuery("SELECT o FROM EleganceMetric o WHERE o.idSolution = :idSolution", ELEGObjectiveFunction.class);
 		query.setParameter("idSolution", idSolution);
 
-		List<EleganceMetric> resultList = query.getResultList();
+		List<ELEGObjectiveFunction> resultList = query.getResultList();
 		LOGGER.debug("Number of br.ufpr.dinf.gres.core.jmetal4.results: " + resultList.size());
 		return resultList;
 	}

@@ -31,7 +31,7 @@ import java.nio.file.Paths;
 //@EnableTransactionManagement(proxyTargetClass = true)
 @EntityScan(basePackages = {
         "br.ufpr.dinf.gres.domain.entity",
-        "br.ufpr.dinf.gres.domain.entity.metric"
+        "br.ufpr.dinf.gres.domain.entity.objectivefunctions"
 })
 @EnableJpaRepositories(basePackages = {
         "br.ufpr.dinf.gres.persistence.repository"

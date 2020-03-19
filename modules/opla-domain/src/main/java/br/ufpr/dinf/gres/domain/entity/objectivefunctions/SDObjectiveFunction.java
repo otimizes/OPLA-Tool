@@ -1,25 +1,20 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "ssc_metrics")
-public class SscMetric extends BaseMetric {
+@Table(name = "sd_obj")
+public class SDObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
     @Column(name = "ssc")
     private Double ssc;
 
-    public SscMetric(String idSolution, Execution execution, Experiment experiement) {
+    public SDObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

@@ -6,7 +6,7 @@ import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
 
-import br.ufpr.dinf.gres.domain.entity.metric.ConventionalMetric;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.CMObjectiveFunction;
 import br.ufpr.dinf.gres.persistence.util.GenericDAOImpl;
 import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
 
@@ -15,28 +15,28 @@ import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
  * @author Fernando
  *
  */
-public class ConventionalMetricDAO extends GenericDAOImpl<ConventionalMetric>
-		implements GenericMetricDAO<ConventionalMetric> {
+public class ConventionalMetricDAO extends GenericDAOImpl<CMObjectiveFunction>
+		implements GenericMetricDAO<CMObjectiveFunction> {
 
 	private static final Logger LOGGER = Logger.getLogger(ConventionalMetricDAO.class);
 
 	private static final long serialVersionUID = 1L;
 
 	public ConventionalMetricDAO() {
-		super(ConventionalMetric.class);
+		super(CMObjectiveFunction.class);
 	}
 
 	@Override
-	public List<ConventionalMetric> findBySolution(String solution) {
+	public List<CMObjectiveFunction> findBySolution(String solution) {
 		LOGGER.debug("Finding metric date for: " + solution);
 
 		String idSolution = solution.split("-")[1];
 
-		TypedQuery<ConventionalMetric> query = getEntityManager().createQuery(
-				"SELECT o FROM ConventionalMetric o WHERE o.idSolution = :idSolution", ConventionalMetric.class);
+		TypedQuery<CMObjectiveFunction> query = getEntityManager().createQuery(
+				"SELECT o FROM ConventionalMetric o WHERE o.idSolution = :idSolution", CMObjectiveFunction.class);
 		query.setParameter("idSolution", idSolution);
 
-		List<ConventionalMetric> resultList = query.getResultList();
+		List<CMObjectiveFunction> resultList = query.getResultList();
 		LOGGER.debug("Number of br.ufpr.dinf.gres.core.jmetal4.results: " + resultList.size());
 		return resultList;
 	}

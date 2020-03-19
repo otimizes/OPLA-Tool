@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
@@ -8,15 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "wocsinterface_metrics")
-public class WocsinterfaceMetric extends BaseMetric {
+@Table(name = "wocsinterface_obj")
+public class WOCSINTERFACEObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
     @Column(name = "wocsinterface")
     private Double wocsinterface;
 
-    public WocsinterfaceMetric(String idSolution, Execution execution, Experiment experiement) {
+    public WOCSINTERFACEObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

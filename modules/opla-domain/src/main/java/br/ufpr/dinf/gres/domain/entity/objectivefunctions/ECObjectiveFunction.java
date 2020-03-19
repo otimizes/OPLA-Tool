@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ec_metrics")
-public class EcMetric extends BaseMetric {
+@Table(name = "ec_obj")
+public class ECObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,7 +20,7 @@ public class EcMetric extends BaseMetric {
     @Column(name = "oobc")
     private Double oobc;
 
-    public EcMetric(String idSolution, Execution execution, Experiment experiement) {
+    public ECObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

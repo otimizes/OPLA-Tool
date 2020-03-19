@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
@@ -8,13 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "lcc_metrics")
-public class LCCMetric extends BaseMetric {
+@Table(name = "lcc_obj")
+public class LCCObjectiveFunction extends BaseObjectiveFunction {
 
     @Column(name = "lcc")
     private Double lcc;
 
-    public LCCMetric(String idSolution, Execution execution, Experiment experiement) {
+    public LCCObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.domain.util;
 
 import br.ufpr.dinf.gres.domain.entity.*;
-import br.ufpr.dinf.gres.domain.entity.metric.*;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.*;
 
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -31,23 +31,23 @@ public class JpaExporter {
         MetadataSources metadataSources = new MetadataSources(
                 new StandardServiceRegistryBuilder().applySettings(map).build());
 
-        metadataSources.addAnnotatedClass(ConventionalMetric.class);
+        metadataSources.addAnnotatedClass(CMObjectiveFunction.class);
         metadataSources.addAnnotatedClass(DistanceEuclidean.class);
-        metadataSources.addAnnotatedClass(EleganceMetric.class);
+        metadataSources.addAnnotatedClass(ELEGObjectiveFunction.class);
         metadataSources.addAnnotatedClass(Execution.class);
         metadataSources.addAnnotatedClass(Experiment.class);
         metadataSources.addAnnotatedClass(ExperimentConfiguration.class);
-        metadataSources.addAnnotatedClass(FeatureDrivenMetric.class);
+        metadataSources.addAnnotatedClass(FMObjectiveFunction.class);
         metadataSources.addAnnotatedClass(Info.class);
         metadataSources.addAnnotatedClass(MapObjectiveName.class);
         metadataSources.addAnnotatedClass(Objective.class);
-        metadataSources.addAnnotatedClass(PLAExtensibilityMetric.class);
-        metadataSources.addAnnotatedClass(AvMetric.class);
-        metadataSources.addAnnotatedClass(CbcsMetric.class);
-        metadataSources.addAnnotatedClass(SscMetric.class);
-        metadataSources.addAnnotatedClass(SvcMetric.class);
-        metadataSources.addAnnotatedClass(WocsclassMetric.class);
-        metadataSources.addAnnotatedClass(WocsinterfaceMetric.class);
+        metadataSources.addAnnotatedClass(EXTObjectiveFunction.class);
+        metadataSources.addAnnotatedClass(TVObjectiveFunction.class);
+        metadataSources.addAnnotatedClass(RCCObjectiveFunction.class);
+        metadataSources.addAnnotatedClass(SDObjectiveFunction.class);
+        metadataSources.addAnnotatedClass(SVObjectiveFunction.class);
+        metadataSources.addAnnotatedClass(WOCSCLASSObjectiveFunction.class);
+        metadataSources.addAnnotatedClass(WOCSINTERFACEObjectiveFunction.class);
 
         new File(OUTPUT).delete();
 

@@ -1,9 +1,9 @@
 package br.ufpr.dinf.gres.persistence.repository;
 
-import br.ufpr.dinf.gres.domain.entity.metric.FeatureDrivenMetric;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.FMObjectiveFunction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FeatureDrivenMetricRepository extends JpaRepository<FeatureDrivenMetric, String> {
+public interface FeatureDrivenMetricRepository extends JpaRepository<FMObjectiveFunction, String> {
 }

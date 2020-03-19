@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
@@ -8,15 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "plaextensibility_metrics")
-public class PLAExtensibilityMetric extends BaseMetric {
+@Table(name = "ext_obj")
+public class EXTObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "plaExtensibility")
+    @Column(name = "pla_extensibility")
     private Double plaExtensibility;
 
-    public PLAExtensibilityMetric(String idSolution, Execution execution, Experiment experiement) {
+    public EXTObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

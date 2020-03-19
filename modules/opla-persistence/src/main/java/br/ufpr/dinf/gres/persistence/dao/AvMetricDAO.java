@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.persistence.dao;
 
-import br.ufpr.dinf.gres.domain.entity.metric.AvMetric;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.TVObjectiveFunction;
 import br.ufpr.dinf.gres.persistence.util.GenericDAOImpl;
 import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
 import org.apache.log4j.Logger;
@@ -11,28 +11,28 @@ import java.util.List;
 /**
  * @author Fernando
  */
-public class AvMetricDAO extends GenericDAOImpl<AvMetric>
-        implements GenericMetricDAO<AvMetric> {
+public class AvMetricDAO extends GenericDAOImpl<TVObjectiveFunction>
+        implements GenericMetricDAO<TVObjectiveFunction> {
 
     private static final Logger LOGGER = Logger.getLogger(AvMetricDAO.class);
 
     private static final long serialVersionUID = 1L;
 
     public AvMetricDAO() {
-        super(AvMetric.class);
+        super(TVObjectiveFunction.class);
     }
 
     @Override
-    public List<AvMetric> findBySolution(String solution) {
+    public List<TVObjectiveFunction> findBySolution(String solution) {
         LOGGER.debug("Finding metric date for: " + solution);
 
         String idSolution = solution.split("-")[1];
 
-        TypedQuery<AvMetric> query = getEntityManager().createQuery(
-                "SELECT o FROM AvMetric o WHERE o.idSolution = :idSolution", AvMetric.class);
+        TypedQuery<TVObjectiveFunction> query = getEntityManager().createQuery(
+                "SELECT o FROM AvMetric o WHERE o.idSolution = :idSolution", TVObjectiveFunction.class);
         query.setParameter("idSolution", idSolution);
 
-        List<AvMetric> resultList = query.getResultList();
+        List<TVObjectiveFunction> resultList = query.getResultList();
         LOGGER.debug("Number of br.ufpr.dinf.gres.core.jmetal4.results: " + resultList.size());
         return resultList;
     }

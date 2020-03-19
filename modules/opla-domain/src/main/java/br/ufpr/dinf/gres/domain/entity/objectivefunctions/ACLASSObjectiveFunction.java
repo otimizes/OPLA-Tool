@@ -1,16 +1,14 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "aclass_metrics")
-public class AclassMetric extends BaseMetric {
+@Table(name = "aclass_obj")
+public class ACLASSObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,7 +17,7 @@ public class AclassMetric extends BaseMetric {
     @Column(name = "sumclassdepout")
     private Double sumClassesDepOut;
 
-    public AclassMetric(String idSolution, Execution execution, Experiment experiement) {
+    public ACLASSObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 
@@ -55,7 +53,7 @@ public class AclassMetric extends BaseMetric {
         if (!getClass().equals(other.getClass())) {
             return false;
         }
-        AclassMetric castOther = (AclassMetric) other;
+        ACLASSObjectiveFunction castOther = (ACLASSObjectiveFunction) other;
         return Objects.equals(getId(), castOther.getId()) && Objects.equals(getExecution(), castOther.getExecution())
                 && Objects.equals(getExperiment(), castOther.getExperiment()) && Objects.equals(getIsAll(), castOther.getIsAll())
                 && Objects.equals(getIdSolution(), castOther.getIdSolution())

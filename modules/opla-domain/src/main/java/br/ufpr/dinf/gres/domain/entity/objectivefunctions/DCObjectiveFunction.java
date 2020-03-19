@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "dc_metrics")
-public class DcMetric extends BaseMetric {
+@Table(name = "dc_obj")
+public class DCObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,7 +20,7 @@ public class DcMetric extends BaseMetric {
     @Column(name = "cdao")
     private Double cdao;
 
-    public DcMetric(String idSolution, Execution execution, Experiment experiement) {
+    public DCObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

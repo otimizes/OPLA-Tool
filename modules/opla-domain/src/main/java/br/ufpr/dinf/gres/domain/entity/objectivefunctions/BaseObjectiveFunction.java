@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @MappedSuperclass
-public class BaseMetric implements GenericMetric {
+public class BaseObjectiveFunction implements GenericMetric {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,7 +71,7 @@ public class BaseMetric implements GenericMetric {
         this.idSolution = idSolution;
     }
 
-    public BaseMetric(String idSolution, Execution execution, Experiment experiement) {
+    public BaseObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         this.idSolution = idSolution;
         this.execution = execution;
         this.experiment = experiement;
@@ -81,7 +81,7 @@ public class BaseMetric implements GenericMetric {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BaseMetric that = (BaseMetric) o;
+        BaseObjectiveFunction that = (BaseObjectiveFunction) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(execution, that.execution) &&
                 Objects.equals(experiment, that.experiment) &&

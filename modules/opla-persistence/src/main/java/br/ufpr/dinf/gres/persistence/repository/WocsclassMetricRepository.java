@@ -1,9 +1,9 @@
 package br.ufpr.dinf.gres.persistence.repository;
 
-import br.ufpr.dinf.gres.domain.entity.metric.WocsclassMetric;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.WOCSCLASSObjectiveFunction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WocsclassMetricRepository extends JpaRepository<WocsclassMetric, String> {
+public interface WocsclassMetricRepository extends JpaRepository<WOCSCLASSObjectiveFunction, String> {
 }

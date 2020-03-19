@@ -283,7 +283,7 @@ public class MainTestUtil {
                     bw.write("------  COE METRICS -----------");
                     bw.newLine();
                     bw.newLine();
-                    bw.write("Relational Cohesion: " + metrics.evaluateHCohesion(arch));
+                    bw.write("Relational Cohesion: " + metrics.evaluateCOE(arch));
                     bw.newLine();
                     bw.write("Lcc: " + metrics.evaluateLCC(arch));
                     bw.newLine();

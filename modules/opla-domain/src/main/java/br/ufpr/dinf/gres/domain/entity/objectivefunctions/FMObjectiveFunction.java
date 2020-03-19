@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
@@ -8,12 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "feature_driven_metrics")
-public class FeatureDrivenMetric extends BaseMetric {
+@Table(name = "fm_obj")
+public class FMObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "msiAggregation")
+    @Column(name = "msi_aggregation")
     private Double msiAggregation;
 
     @Column(name = "cdac")
@@ -37,16 +37,16 @@ public class FeatureDrivenMetric extends BaseMetric {
     @Column(name = "lcc")
     private Double lcc;
 
-    @Column(name = "lccClass")
+    @Column(name = "lcc_class")
     private Double lccClass;
 
-    @Column(name = "cdaClass")
+    @Column(name = "cda_class")
     private Double cdaClass;
 
-    @Column(name = "cibClass")
+    @Column(name = "cib_class")
     private Double cibClass;
 
-    public FeatureDrivenMetric(String idSolution, Execution execution, Experiment experiement) {
+    public FMObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

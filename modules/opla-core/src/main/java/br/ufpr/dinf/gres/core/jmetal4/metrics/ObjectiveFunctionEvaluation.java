@@ -164,10 +164,6 @@ public class ObjectiveFunctionEvaluation {
         return new DependencyOut(architecture).getResults();
     }
 
-    public static Double evaluateHCohesion(Architecture architecture) {
-        return new RelationalCohesion(architecture).getResults();
-    }
-
     public static Double evaluateACOMP(Architecture architecture) {
         return new ACOMP(architecture).getResults();
     }

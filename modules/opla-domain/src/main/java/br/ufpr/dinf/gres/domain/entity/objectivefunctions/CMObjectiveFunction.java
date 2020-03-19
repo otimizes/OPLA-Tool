@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "conventional_metrics")
-public class ConventionalMetric extends BaseMetric {
+@Table(name = "cm_obj")
+public class CMObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class ConventionalMetric extends BaseMetric {
     @Column(name = "sumDepOut")
     private Double sumDepOut;
 
-    public ConventionalMetric(String idSolution, Execution execution, Experiment experiement) {
+    public CMObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

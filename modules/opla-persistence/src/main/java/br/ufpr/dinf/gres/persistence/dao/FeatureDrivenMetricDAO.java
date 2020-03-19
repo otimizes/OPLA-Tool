@@ -6,7 +6,7 @@ import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
 
-import br.ufpr.dinf.gres.domain.entity.metric.FeatureDrivenMetric;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.FMObjectiveFunction;
 import br.ufpr.dinf.gres.persistence.util.GenericDAOImpl;
 import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
 
@@ -15,28 +15,28 @@ import br.ufpr.dinf.gres.persistence.util.GenericMetricDAO;
  * @author Fernando
  *
  */
-public class FeatureDrivenMetricDAO extends GenericDAOImpl<FeatureDrivenMetric>
-		implements GenericMetricDAO<FeatureDrivenMetric> {
+public class FeatureDrivenMetricDAO extends GenericDAOImpl<FMObjectiveFunction>
+		implements GenericMetricDAO<FMObjectiveFunction> {
 	
 	private static final Logger LOGGER = Logger.getLogger(FeatureDrivenMetricDAO.class);
 
 	private static final long serialVersionUID = 1L;
 
 	public FeatureDrivenMetricDAO() {
-		super(FeatureDrivenMetric.class);
+		super(FMObjectiveFunction.class);
 	}
 
 	@Override
-	public List<FeatureDrivenMetric> findBySolution(String solution) {
+	public List<FMObjectiveFunction> findBySolution(String solution) {
 		LOGGER.debug("Finding metric date for: " + solution);
 
 		String idSolution = solution.split("-")[1];
 
-		TypedQuery<FeatureDrivenMetric> query = getEntityManager().createQuery(
-				"SELECT o FROM FeatureDrivenMetric o WHERE o.idSolution = :idSolution", FeatureDrivenMetric.class);
+		TypedQuery<FMObjectiveFunction> query = getEntityManager().createQuery(
+				"SELECT o FROM FeatureDrivenMetric o WHERE o.idSolution = :idSolution", FMObjectiveFunction.class);
 		query.setParameter("idSolution", idSolution);
 
-		List<FeatureDrivenMetric> resultList = query.getResultList();
+		List<FMObjectiveFunction> resultList = query.getResultList();
 		LOGGER.debug("Number of br.ufpr.dinf.gres.core.jmetal4.results: " + resultList.size());
 		return resultList;
 	}

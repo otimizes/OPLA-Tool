@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.domain.entity.metric;
+package br.ufpr.dinf.gres.domain.entity.objectivefunctions;
 
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "acomp_metrics")
-public class AcompMetric extends BaseMetric {
+@Table(name = "acomp_obj")
+public class ACOMPObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,7 +18,7 @@ public class AcompMetric extends BaseMetric {
     @Column(name = "sumdepout")
     private Double sumDepOut;
 
-    public AcompMetric(String idSolution, Execution execution, Experiment experiement) {
+    public ACOMPObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

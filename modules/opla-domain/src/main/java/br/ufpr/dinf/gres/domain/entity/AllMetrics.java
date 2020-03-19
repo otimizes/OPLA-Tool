@@ -1,163 +1,163 @@
 package br.ufpr.dinf.gres.domain.entity;
 
-import br.ufpr.dinf.gres.domain.entity.metric.*;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AllMetrics {
 
-    private List<ConventionalMetric> conventional = new ArrayList<>();
-    private List<EleganceMetric> elegance = new ArrayList<>();
-    private List<FeatureDrivenMetric> fm = new ArrayList<>();
-    private List<PLAExtensibilityMetric> plaExtensibility = new ArrayList<>();
-    private List<AcompMetric> acomp = new ArrayList<>();
-    private List<AclassMetric> aclass = new ArrayList<>();
-    private List<LCCMetric> lcc = new ArrayList<>();
-    private List<TamMetric> tam = new ArrayList<>();
-    private List<CoeMetric> coe = new ArrayList<>();
-    private List<DcMetric> dc = new ArrayList<>();
-    private List<EcMetric> ec = new ArrayList<>();
-    private List<WocsclassMetric> wocsclass = new ArrayList<>(); //addYni
-    private List<WocsinterfaceMetric> wocsinterface = new ArrayList<>(); //addYni
-    private List<CbcsMetric> cbcs = new ArrayList<>(); //addYni
-    private List<SvcMetric> svc = new ArrayList<>(); //addYni
-    private List<SscMetric> ssc = new ArrayList<>(); //addYni
-    private List<AvMetric> av = new ArrayList<>(); //addYni
+    private List<CMObjectiveFunction> conventional = new ArrayList<>();
+    private List<ELEGObjectiveFunction> elegance = new ArrayList<>();
+    private List<FMObjectiveFunction> fm = new ArrayList<>();
+    private List<EXTObjectiveFunction> plaExtensibility = new ArrayList<>();
+    private List<ACOMPObjectiveFunction> acomp = new ArrayList<>();
+    private List<ACLASSObjectiveFunction> aclass = new ArrayList<>();
+    private List<LCCObjectiveFunction> lcc = new ArrayList<>();
+    private List<TAMObjectiveFunction> tam = new ArrayList<>();
+    private List<COEObjectiveFunction> coe = new ArrayList<>();
+    private List<DCObjectiveFunction> dc = new ArrayList<>();
+    private List<ECObjectiveFunction> ec = new ArrayList<>();
+    private List<WOCSCLASSObjectiveFunction> wocsclass = new ArrayList<>(); //addYni
+    private List<WOCSINTERFACEObjectiveFunction> wocsinterface = new ArrayList<>(); //addYni
+    private List<RCCObjectiveFunction> cbcs = new ArrayList<>(); //addYni
+    private List<SVObjectiveFunction> svc = new ArrayList<>(); //addYni
+    private List<SDObjectiveFunction> ssc = new ArrayList<>(); //addYni
+    private List<TVObjectiveFunction> av = new ArrayList<>(); //addYni
 
-    public List<ConventionalMetric> getConventional() {
+    public List<CMObjectiveFunction> getConventional() {
         return conventional;
     }
 
-    public void setConventional(List<ConventionalMetric> conventional) {
+    public void setConventional(List<CMObjectiveFunction> conventional) {
         this.conventional = conventional;
     }
 
-    public List<EleganceMetric> getElegance() {
+    public List<ELEGObjectiveFunction> getElegance() {
         return elegance;
     }
 
-    public void setElegance(List<EleganceMetric> elegance) {
+    public void setElegance(List<ELEGObjectiveFunction> elegance) {
         this.elegance = elegance;
     }
 
-    public List<FeatureDrivenMetric> getFm() {
+    public List<FMObjectiveFunction> getFm() {
         return fm;
     }
 
-    public void setFm(List<FeatureDrivenMetric> fm) {
+    public void setFm(List<FMObjectiveFunction> fm) {
         this.fm = fm;
     }
 
-    public List<PLAExtensibilityMetric> getPlaExtensibility() {
+    public List<EXTObjectiveFunction> getPlaExtensibility() {
         return plaExtensibility;
     }
 
-    public void setPlaExtensibility(List<PLAExtensibilityMetric> plaExtensibility) {
+    public void setPlaExtensibility(List<EXTObjectiveFunction> plaExtensibility) {
         this.plaExtensibility = plaExtensibility;
     }
 
-    public List<LCCMetric> getLcc() {
+    public List<LCCObjectiveFunction> getLcc() {
         return lcc;
     }
 
-    public void setLcc(List<LCCMetric> lcc) {
+    public void setLcc(List<LCCObjectiveFunction> lcc) {
         this.lcc = lcc;
     }
 
-    public List<AcompMetric> getAcomp() {
+    public List<ACOMPObjectiveFunction> getAcomp() {
         return acomp;
     }
 
-    public void setAcomp(List<AcompMetric> acomp) {
+    public void setAcomp(List<ACOMPObjectiveFunction> acomp) {
         this.acomp = acomp;
     }
 
-    public List<AclassMetric> getAclass() {
+    public List<ACLASSObjectiveFunction> getAclass() {
         return aclass;
     }
 
-    public void setAclass(List<AclassMetric> aclass) {
+    public void setAclass(List<ACLASSObjectiveFunction> aclass) {
         this.aclass = aclass;
     }
 
-    public List<TamMetric> getTam() {
+    public List<TAMObjectiveFunction> getTam() {
         return tam;
     }
 
-    public void setTam(List<TamMetric> tam) {
+    public void setTam(List<TAMObjectiveFunction> tam) {
         this.tam = tam;
     }
 
-    public List<CoeMetric> getCoe() {
+    public List<COEObjectiveFunction> getCoe() {
         return coe;
     }
 
-    public void setCoe(List<CoeMetric> coe) {
+    public void setCoe(List<COEObjectiveFunction> coe) {
         this.coe = coe;
     }
 
-    public List<DcMetric> getDc() {
+    public List<DCObjectiveFunction> getDc() {
         return dc;
     }
 
-    public void setDc(List<DcMetric> dc) {
+    public void setDc(List<DCObjectiveFunction> dc) {
         this.dc = dc;
     }
 
-    public List<EcMetric> getEc() {
+    public List<ECObjectiveFunction> getEc() {
         return ec;
     }
 
-    public void setEc(List<EcMetric> ec) {
+    public void setEc(List<ECObjectiveFunction> ec) {
         this.ec = ec;
     }
 
-    public List<WocsclassMetric> getWocsclass() {
+    public List<WOCSCLASSObjectiveFunction> getWocsclass() {
         return wocsclass;
     }
 
-    public void setWocsclass(List<WocsclassMetric> wocsc) {
+    public void setWocsclass(List<WOCSCLASSObjectiveFunction> wocsc) {
         this.wocsclass = wocsc;
     }
 
-    public List<WocsinterfaceMetric> getWocsinterface() {
+    public List<WOCSINTERFACEObjectiveFunction> getWocsinterface() {
         return wocsinterface;
     }
 
-    public void setWocsinterface(List<WocsinterfaceMetric> wocsi) {
+    public void setWocsinterface(List<WOCSINTERFACEObjectiveFunction> wocsi) {
         this.wocsinterface = wocsi;
     }
 
-    public List<CbcsMetric> getCbcs() {
+    public List<RCCObjectiveFunction> getCbcs() {
         return cbcs;
     }
 
-    public void setCbcs(List<CbcsMetric> cbcs) {
+    public void setCbcs(List<RCCObjectiveFunction> cbcs) {
         this.cbcs = cbcs;
     }
 
-    public List<SvcMetric> getSvc() {
+    public List<SVObjectiveFunction> getSvc() {
         return svc;
     }
 
-    public void setSvc(List<SvcMetric> svc) {
+    public void setSvc(List<SVObjectiveFunction> svc) {
         this.svc = svc;
     }
 
-    public List<SscMetric> getSsc() {
+    public List<SDObjectiveFunction> getSsc() {
         return ssc;
     }
 
-    public void setSsc(List<SscMetric> ssc) {
+    public void setSsc(List<SDObjectiveFunction> ssc) {
         this.ssc = ssc;
     }
 
-    public List<AvMetric> getAv() {
+    public List<TVObjectiveFunction> getAv() {
         return av;
     }
 
-    public void setAv(List<AvMetric> av) {
+    public void setAv(List<TVObjectiveFunction> av) {
         this.av = av;
     }
 
