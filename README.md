@@ -68,7 +68,7 @@ https://github.com/SBSE-UEM/OPLA-Tool/blob/master/Contributing.pdf
 
 ```java
 @Entity
-@Table(name = "myobj_metrics")
+@Table(name = "myobj_obj")
 public class MYOBJObjectiveFunction extends BaseObjectiveFunction {
 
     private static final long serialVersionUID = 1L;

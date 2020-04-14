@@ -12,7 +12,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBe
  * It aims to measure the modularization of characteristics and, for this,
  * it is composed of a set of various metrics directed to the characteristics
  * proposed in (Sant'Anna, 2008).
- * (LCC, CDAC, CDAI, CDAO, CIBC, IIBC , OOBC)
+ * Sum of (LCC, CDAC, CDAI, CDAO, CIBC, IIBC , OOBC)
  */
 public class FM extends ObjectiveFunctionBase {
 
