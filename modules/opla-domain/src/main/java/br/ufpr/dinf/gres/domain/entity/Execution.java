@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.domain.entity;
 
-import br.ufpr.dinf.gres.domain.entity.objectivefunctions.BaseObjectiveFunction;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.ObjectiveFunctionDomain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.NotFound;
@@ -41,7 +41,7 @@ public class Execution implements Serializable {
     @Transient
     private List<Info> infos;
     @Transient
-    private Map<String, List<BaseObjectiveFunction>> allMetrics;
+    private Map<String, List<ObjectiveFunctionDomain>> allMetrics;
 
     public Execution() {
     }
@@ -130,11 +130,11 @@ public class Execution implements Serializable {
         this.infos = infos;
     }
 
-    public Map<String, List<BaseObjectiveFunction>> getAllMetrics() {
+    public Map<String, List<ObjectiveFunctionDomain>> getAllMetrics() {
         return allMetrics;
     }
 
-    public void setAllMetrics(Map<String, List<BaseObjectiveFunction>> allMetrics) {
+    public void setAllMetrics(Map<String, List<ObjectiveFunctionDomain>> allMetrics) {
         this.allMetrics = allMetrics;
     }
 }

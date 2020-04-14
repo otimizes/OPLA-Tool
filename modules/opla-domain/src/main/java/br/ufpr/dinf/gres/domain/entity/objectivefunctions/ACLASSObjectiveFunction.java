@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "aclass_obj")
-public class ACLASSObjectiveFunction extends BaseObjectiveFunction {
+public class ACLASSObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 

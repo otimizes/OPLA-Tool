@@ -3,7 +3,7 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.mutability;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
 /**
  * Architecture Variability (Zhang et al., 2008)
@@ -12,7 +12,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
  * <p>
  * (|Cv| + sum AV)
  */
-public class AV extends ObjectiveFunctionBase {
+public class AV extends ObjectiveFunctionImplementation {
 
     public AV(Architecture architecture) {
         super(architecture);

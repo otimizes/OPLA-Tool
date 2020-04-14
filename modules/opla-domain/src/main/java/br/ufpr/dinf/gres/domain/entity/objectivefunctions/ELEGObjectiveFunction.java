@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "eleg_obj")
-public class ELEGObjectiveFunction extends BaseObjectiveFunction {
+public class ELEGObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 

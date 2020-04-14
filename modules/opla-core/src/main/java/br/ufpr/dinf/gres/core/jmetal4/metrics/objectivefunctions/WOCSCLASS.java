@@ -4,7 +4,7 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Method;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
 /**
  * Weighted Operations per Component or Service (Ribeiro et al., 2010)
@@ -17,7 +17,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
  * with many formal parameters are more likely to be complex than operations
  * that require fewer parameters.
  */
-public class WOCSCLASS extends ObjectiveFunctionBase {
+public class WOCSCLASS extends ObjectiveFunctionImplementation {
 
     public WOCSCLASS(Architecture architecture) {
         super(architecture);

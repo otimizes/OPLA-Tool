@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "dc_obj")
-public class DCObjectiveFunction extends BaseObjectiveFunction {
+public class DCObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 

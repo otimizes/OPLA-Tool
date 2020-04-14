@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "coe_obj")
-public class COEObjectiveFunction extends BaseObjectiveFunction {
+public class COEObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 

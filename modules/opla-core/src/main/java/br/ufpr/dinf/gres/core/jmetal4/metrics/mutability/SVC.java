@@ -3,7 +3,7 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.mutability;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
 /**
  * Structure Variability Coefficient (Zhang et al., 2008)
@@ -12,7 +12,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
  * <p>
  * (|Cv| / |Cc| + |Cv|)
  */
-public class SVC extends ObjectiveFunctionBase {
+public class SVC extends ObjectiveFunctionImplementation {
 
     public SVC(Architecture architecture) {
         super(architecture);

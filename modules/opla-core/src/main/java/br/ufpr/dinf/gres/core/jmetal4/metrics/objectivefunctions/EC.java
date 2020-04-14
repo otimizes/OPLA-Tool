@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
 
 /**
@@ -14,7 +14,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBe
  * <p>
  * (CIBC, IIBC, OOBC)
  */
-public class EC extends ObjectiveFunctionBase {
+public class EC extends ObjectiveFunctionImplementation {
 
     public EC(Architecture architecture) {
         super(architecture);

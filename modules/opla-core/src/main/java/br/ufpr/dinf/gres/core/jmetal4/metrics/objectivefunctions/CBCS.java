@@ -2,7 +2,7 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
 /**
  * Coupling Between Components or Services (Ribeiro et al., 2010)
@@ -11,7 +11,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
  * a service A, for example and other services.
  * (Sum AiBj)
  */
-public class CBCS extends ObjectiveFunctionBase {
+public class CBCS extends ObjectiveFunctionImplementation {
 
     public CBCS(Architecture architecture) {
         super(architecture);

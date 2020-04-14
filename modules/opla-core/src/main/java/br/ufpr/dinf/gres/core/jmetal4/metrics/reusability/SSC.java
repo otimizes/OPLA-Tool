@@ -3,7 +3,7 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.reusability;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
 /**
  * Structure Similarity Coefficient (Zhang et al., 2008)
@@ -12,7 +12,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
  * <p>
  * (|Cc| / |Cc| + |Cv|)
  */
-public class SSC extends ObjectiveFunctionBase {
+public class SSC extends ObjectiveFunctionImplementation {
 
     public SSC(Architecture architecture) {
         super(architecture);

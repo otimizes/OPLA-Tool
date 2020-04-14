@@ -4,7 +4,7 @@ import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.*;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +33,7 @@ import java.util.List;
  * knows D and vice versa. By convention, associations that indicate no
  * navigability at either end are considered to be bidirectional.
  */
-public class RelationalCohesion extends ObjectiveFunctionBase {
+public class RelationalCohesion extends ObjectiveFunctionImplementation {
 
     public Double evaluateICohesion() {
         Double results = this.getResults();

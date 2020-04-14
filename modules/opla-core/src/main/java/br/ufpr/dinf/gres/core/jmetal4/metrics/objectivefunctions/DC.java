@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.*;
 
 /**
@@ -13,7 +13,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffus
  * <p>
  * (CDAI + CDAO + CDAC)
  */
-public class DC extends ObjectiveFunctionBase {
+public class DC extends ObjectiveFunctionImplementation {
 
     public DC(Architecture architecture) {
         super(architecture);

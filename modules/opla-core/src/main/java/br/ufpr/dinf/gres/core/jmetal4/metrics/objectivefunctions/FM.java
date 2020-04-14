@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
@@ -14,7 +14,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBe
  * proposed in (Sant'Anna, 2008).
  * Sum of (LCC, CDAC, CDAI, CDAO, CIBC, IIBC , OOBC)
  */
-public class FM extends ObjectiveFunctionBase {
+public class FM extends ObjectiveFunctionImplementation {
 
     public FM(Architecture architecture) {
         super(architecture);

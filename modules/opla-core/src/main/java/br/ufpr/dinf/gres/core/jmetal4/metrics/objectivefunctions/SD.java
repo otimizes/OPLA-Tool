@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.reusability.SSC;
 
 /**
@@ -11,7 +11,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.reusability.SSC;
  * <p>
  * (|Cc| / |Cc| + |Cv|)
  */
-public class SD extends ObjectiveFunctionBase {
+public class SD extends ObjectiveFunctionImplementation {
 
     public SD(Architecture architecture) {
         super(architecture);

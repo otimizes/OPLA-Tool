@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.ClassDependencyIn;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.ClassDependencyOut;
 
@@ -13,7 +13,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.ClassDependenc
  * <p>
  * (CDepIn + CDedOut)
  */
-public class ACLASS extends ObjectiveFunctionBase {
+public class ACLASS extends ObjectiveFunctionImplementation {
 
     public ACLASS(Architecture architecture) {
         super(architecture);

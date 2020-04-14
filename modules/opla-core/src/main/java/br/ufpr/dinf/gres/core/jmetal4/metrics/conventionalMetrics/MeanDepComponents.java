@@ -4,12 +4,12 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeanDepComponents extends ObjectiveFunctionBase {
+public class MeanDepComponents extends ObjectiveFunctionImplementation {
     public MeanDepComponents(Architecture architecture) {
         super(architecture);
         this.setResults(0.0);

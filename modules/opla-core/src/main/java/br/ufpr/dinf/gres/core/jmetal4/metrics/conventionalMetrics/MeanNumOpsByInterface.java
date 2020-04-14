@@ -2,10 +2,10 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
 
-public class MeanNumOpsByInterface extends ObjectiveFunctionBase {
+public class MeanNumOpsByInterface extends ObjectiveFunctionImplementation {
 
     public MeanNumOpsByInterface(Architecture architecture) {
         super(architecture);

@@ -2,7 +2,7 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility.ExtensVarComponent;
 
 /**
@@ -11,7 +11,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility.ExtensVarComponent;
  * It aims to indicate the degree of extensibility of the LPS.
  * (1 / ExtensPLA)
  */
-public class EXT extends ObjectiveFunctionBase {
+public class EXT extends ObjectiveFunctionImplementation {
 
     public EXT(Architecture architecture) {
         super(architecture);

@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.DependencyIn;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.DependencyOut;
 
@@ -12,7 +12,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.DependencyOut;
  * <p>
  * (DepIn + DepOut)
  */
-public class ACOMP extends ObjectiveFunctionBase {
+public class ACOMP extends ObjectiveFunctionImplementation {
 
     public ACOMP(Architecture architecture) {
         super(architecture);

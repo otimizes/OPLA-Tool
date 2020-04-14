@@ -1,13 +1,13 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.LCC;
 
-public class MSIDESIGNOUTSET extends ObjectiveFunctionBase {
+public class MSIDESIGNOUTSET extends ObjectiveFunctionImplementation {
 
     public MSIDESIGNOUTSET(Architecture architecture) {
         super(architecture);

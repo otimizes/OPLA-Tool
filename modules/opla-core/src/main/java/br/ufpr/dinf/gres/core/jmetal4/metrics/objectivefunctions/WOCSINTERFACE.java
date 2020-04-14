@@ -2,7 +2,7 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 /**
  * Weighted Operations per Component or Service (Ribeiro et al., 2010)
  * <p>
@@ -14,7 +14,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
  * with many formal parameters are more likely to be complex than operations
  * that require fewer parameters.
  */
-public class WOCSINTERFACE extends ObjectiveFunctionBase {
+public class WOCSINTERFACE extends ObjectiveFunctionImplementation {
 
     public WOCSINTERFACE(Architecture architecture) {
         super(architecture);

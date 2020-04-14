@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @MappedSuperclass
-public class BaseObjectiveFunction implements GenericMetric {
+public class ObjectiveFunctionDomain implements GenericMetric {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,7 +71,7 @@ public class BaseObjectiveFunction implements GenericMetric {
         this.idSolution = idSolution;
     }
 
-    public BaseObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
+    public ObjectiveFunctionDomain(String idSolution, Execution execution, Experiment experiement) {
         this.idSolution = idSolution;
         this.execution = execution;
         this.experiment = experiement;
@@ -81,7 +81,7 @@ public class BaseObjectiveFunction implements GenericMetric {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BaseObjectiveFunction that = (BaseObjectiveFunction) o;
+        ObjectiveFunctionDomain that = (ObjectiveFunctionDomain) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(execution, that.execution) &&
                 Objects.equals(experiment, that.experiment) &&

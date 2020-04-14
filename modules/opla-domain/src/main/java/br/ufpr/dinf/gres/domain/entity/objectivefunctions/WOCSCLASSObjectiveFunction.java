@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "wocsclass_obj")
-public class WOCSCLASSObjectiveFunction extends BaseObjectiveFunction {
+public class WOCSCLASSObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 

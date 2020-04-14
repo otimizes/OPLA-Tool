@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "sd_obj")
-public class SDObjectiveFunction extends BaseObjectiveFunction {
+public class SDObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 

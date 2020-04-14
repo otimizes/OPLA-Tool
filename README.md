@@ -69,7 +69,7 @@ https://github.com/SBSE-UEM/OPLA-Tool/blob/master/Contributing.pdf
 ```java
 @Entity
 @Table(name = "myobj_obj")
-public class MYOBJObjectiveFunction extends BaseObjectiveFunction {
+public class MYOBJObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 
@@ -93,7 +93,7 @@ public class MYOBJObjectiveFunction extends BaseObjectiveFunction {
 - The implementation of your objective function must be in opla-core > jmetal4 > metrics > objectivefunctions.
 - The implementation class must inherit the BaseObjectiveFunction and must be UPPERCASE. Read the comments in the code below.
 ```java
-public class MYOBJ extends BaseObjectiveFunction {
+public class MYOBJ extends ObjectiveFunctionImplementation {
 
     public MYOBJ(Architecture architecture) {
         super(architecture);

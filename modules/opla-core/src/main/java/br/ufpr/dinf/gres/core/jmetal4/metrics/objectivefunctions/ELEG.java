@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.ATMRElegance;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.ECElegance;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.NACElegance;
@@ -12,7 +12,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.NACElegance;
  * Aims to provide indicators of the elegance of object-oriented design.
  * (NAC + EC + ATMR)
  */
-public class ELEG extends ObjectiveFunctionBase {
+public class ELEG extends ObjectiveFunctionImplementation {
 
     public ELEG(Architecture architecture) {
         super(architecture);

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "acomp_obj")
-public class ACOMPObjectiveFunction extends BaseObjectiveFunction {
+public class ACOMPObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 

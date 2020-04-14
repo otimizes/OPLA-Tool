@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.*;
 
 /**
@@ -11,7 +11,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.*;
  * CM (pla) is formed by an aggregation of various metrics extracted from (W¨ust, 2016)
  * (DepIn, DepOut, CDepIn, CDepOut, DepPack, NumOps, H)
  */
-public class CM extends ObjectiveFunctionBase {
+public class CM extends ObjectiveFunctionImplementation {
 
     public CM(Architecture architecture) {
         super(architecture);

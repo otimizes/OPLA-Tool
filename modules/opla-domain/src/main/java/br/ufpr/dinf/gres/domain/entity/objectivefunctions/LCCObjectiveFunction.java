@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "lcc_obj")
-public class LCCObjectiveFunction extends BaseObjectiveFunction {
+public class LCCObjectiveFunction extends ObjectiveFunctionDomain {
 
     @Column(name = "lcc")
     private Double lcc;

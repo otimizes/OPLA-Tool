@@ -2,7 +2,7 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCComponentResult;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.Collection;
  * <p>
  * (LCC)
  */
-public class LCC extends ObjectiveFunctionBase {
+public class LCC extends ObjectiveFunctionImplementation {
 
     public LCC(Architecture architecture) {
         super(architecture);

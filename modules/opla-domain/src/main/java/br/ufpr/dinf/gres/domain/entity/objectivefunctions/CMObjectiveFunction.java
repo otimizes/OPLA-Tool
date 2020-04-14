@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cm_obj")
-public class CMObjectiveFunction extends BaseObjectiveFunction {
+public class CMObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 

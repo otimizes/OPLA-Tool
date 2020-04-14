@@ -1,9 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.architecture.representation.Element;
-import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.mutability.SVC;
 
 /**
@@ -13,7 +11,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.mutability.SVC;
  * <p>
  * (|Cv| / |Cc| + |Cv|)
  */
-public class SV extends ObjectiveFunctionBase {
+public class SV extends ObjectiveFunctionImplementation {
 
     public SV(Architecture architecture) {
         super(architecture);

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sv_obj")
-public class SVObjectiveFunction extends BaseObjectiveFunction {
+public class SVObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 

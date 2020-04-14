@@ -1,9 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.architecture.representation.Element;
-import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.mutability.AV;
 
 /**
@@ -13,7 +11,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.mutability.AV;
  * <p>
  * (|Cv| + sum AV)
  */
-public class TV extends ObjectiveFunctionBase {
+public class TV extends ObjectiveFunctionImplementation {
 
     public TV(Architecture architecture) {
         super(architecture);

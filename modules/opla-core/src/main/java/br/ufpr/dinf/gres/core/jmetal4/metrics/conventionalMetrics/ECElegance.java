@@ -6,12 +6,12 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationEnd
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionBase;
+import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ECElegance extends ObjectiveFunctionBase {
+public class ECElegance extends ObjectiveFunctionImplementation {
 
     public ECElegance(Architecture architecture) {
         super(architecture);
