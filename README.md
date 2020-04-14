@@ -64,7 +64,7 @@ https://github.com/SBSE-UEM/OPLA-Tool/blob/master/Contributing.pdf
 ### Implementing a new Objective Function
 
 - Create the persistent entity into the opla-domain > objectivefunctions.
-- Every Objective Function must inherit the class BaseObjectiveFunction.
+- Every Objective Function must inherit the class ObjectiveFunctionDomain.
 
 ```java
 @Entity
@@ -91,7 +91,7 @@ public class MYOBJObjectiveFunction extends ObjectiveFunctionDomain {
 
 - The implementation of metrics must be inside a package in opla-core > jmetal4 > metrics.
 - The implementation of your objective function must be in opla-core > jmetal4 > metrics > objectivefunctions.
-- The implementation class must inherit the BaseObjectiveFunction and must be UPPERCASE. Read the comments in the code below.
+- The implementation class must inherit the ObjectiveFunctionImplementation and must be UPPERCASE. Read the comments in the code below.
 ```java
 public class MYOBJ extends ObjectiveFunctionImplementation {
 
