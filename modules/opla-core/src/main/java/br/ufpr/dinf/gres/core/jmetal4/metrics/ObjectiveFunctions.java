@@ -55,7 +55,7 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
     CBCS {
         @Override
         public Double evaluate(Architecture architecture) {
-            return new CBCS(architecture).getResults();
+            return new RCC(architecture).getResults();
         }
 
         @Override
