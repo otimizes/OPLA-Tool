@@ -34,6 +34,9 @@ import {MatListModule} from "@angular/material/list";
 import { ReplaceallPipe } from './pipes/replaceall.pipe';
 import { NgVarDirective } from './directives/ng-var.directive';
 import {MatBadgeModule} from "@angular/material/badge";
+import {LoginComponent} from "./login/login.component";
+import {OplaComponent} from "./opla/opla.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -47,6 +50,8 @@ import {MatBadgeModule} from "@angular/material/badge";
     DragDropDirectiveDirective,
     ReplaceallPipe,
     NgVarDirective,
+    LoginComponent,
+    OplaComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +79,9 @@ import {MatBadgeModule} from "@angular/material/badge";
     CommonModule,
     MatExpansionModule,
     MatListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    AppRoutingModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

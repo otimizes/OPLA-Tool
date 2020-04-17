@@ -1,17 +1,19 @@
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {PersistenceService} from "./persistence.service";
 import {Observable} from "rxjs";
-import {catchError} from "rxjs/operators";
 import {OptimizationService} from "./optimization.service";
-import {UserService} from "./user.service";
+import {catchError} from "rxjs/operators";
 
-export class PersistenceService {
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
 
-  protected collection = '';
-  protected http: HttpClient;
-
-  constructor(collection: string, http: HttpClient) {
-    this.collection = collection;
-    this.http = http;
+  public static user = null;
+  protected collection = 'user';
+  constructor(public http: HttpClient) {
+    UserService.user = this.getCurrentlyUser();
   }
 
   errorHandler(error) {
@@ -19,10 +21,8 @@ export class PersistenceService {
   }
 
   createAuthorizationHeader(): HttpHeaders {
-    console.log("Auth ---", UserService.user)
     return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'authorization': UserService.user.token
+      'Content-Type': 'application/json'
     });
   }
 
@@ -62,5 +62,24 @@ export class PersistenceService {
       .pipe(catchError(this.errorHandler));
   }
 
+  login(loginInput: any, passwordInput: any): Observable<any> {
+    return this.http.post(`${OptimizationService.baseUrl}/${this.collection}/login`,
+      {login: loginInput, password: passwordInput}, {headers: this.createAuthorizationHeader()})
+      .pipe(catchError(this.errorHandler));
+  }
 
+  setCurrentlyUser(user: any) {
+    UserService.user = user;
+    window.localStorage.setItem("user", JSON.stringify(user));
+  }
+
+  getCurrentlyUser() {
+    let user = window.localStorage.getItem("user");
+    return user != null ? JSON.parse(user) : null;
+  }
+
+  logout() {
+    sessionStorage.clear();
+    localStorage.clear();
+  }
 }

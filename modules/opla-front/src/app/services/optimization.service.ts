@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Config} from "../dto/config";
 import {OptimizationDto} from "../dto/optimization-dto";
 import {OptimizationInfo} from "../dto/optimization-info";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -86,7 +87,8 @@ export class OptimizationService {
 
   createAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'authorization': UserService.user.token
     });
   }
 

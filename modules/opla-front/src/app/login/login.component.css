@@ -1,0 +1,23 @@
+
+/* Arquivo gerado utilizando VICGERADOR por munif as 28/02/2018 01:55:26 */
+/* Para não gerar o arquivo novamente coloque na primeira linha um comentário com  VICIGNORE , pode ser essa mesmo */
+.footer{
+  float: right !important;
+  border: 1px 0px 0px 0px solid black;
+  text-align: right;
+}
+
+.margin-bottom{
+  margin-bottom: 20px;
+}
+
+.login-card {
+  margin-top: 10vh;
+  width: 30vw;
+}
+
+@media screen and (max-width: 900px) {
+  .login-card {
+    width: 100vw;
+  }
+}
