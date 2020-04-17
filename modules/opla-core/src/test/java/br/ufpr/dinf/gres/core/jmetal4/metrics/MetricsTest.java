@@ -129,9 +129,9 @@ public class MetricsTest {
         assertEquals(resultswclass, ObjectiveFunctions.WOCSCLASS.evaluate(architecture));
         assertEquals(resultswclass, Double.valueOf(solution.getObjective(15)));
 
-        Double resultswinterface = new WOCSINTERFACE(architecture).getResults();
+        Double resultswinterface = new CS(architecture).getResults();
         assertEquals(new Double(0.2857142857142857), resultswinterface);
-        assertEquals(resultswinterface, ObjectiveFunctions.WOCSINTERFACE.evaluate(architecture));
+        assertEquals(resultswinterface, ObjectiveFunctions.CS.evaluate(architecture));
         assertEquals(resultswinterface, Double.valueOf(solution.getObjective(16)));
     }
 }

@@ -14,9 +14,9 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
  * with many formal parameters are more likely to be complex than operations
  * that require fewer parameters.
  */
-public class WOCSINTERFACE extends ObjectiveFunctionImplementation {
+public class CS extends ObjectiveFunctionImplementation {
 
-    public WOCSINTERFACE(Architecture architecture) {
+    public CS(Architecture architecture) {
         super(architecture);
         double valorwocsi;
         double tcomplexidade = 0;

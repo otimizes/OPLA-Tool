@@ -246,16 +246,16 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             return wocsClass;
         }
     },
-    WOCSINTERFACE {
+    CS {
         @Override
         public Double evaluate(Architecture architecture) {
-            return new WOCSINTERFACE(architecture).getResults();
+            return new CS(architecture).getResults();
         }
 
         @Override
-        public WOCSINTERFACEObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            WOCSINTERFACEObjectiveFunction wocsInterface = new WOCSINTERFACEObjectiveFunction(idSolution, Execution, experiement);
-            wocsInterface.setWocsinterface(ObjectiveFunctions.WOCSINTERFACE.evaluate(arch));
+        public CSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+            CSObjectiveFunction wocsInterface = new CSObjectiveFunction(idSolution, Execution, experiement);
+            wocsInterface.setWocsinterface(ObjectiveFunctions.CS.evaluate(arch));
             return wocsInterface;
         }
     };

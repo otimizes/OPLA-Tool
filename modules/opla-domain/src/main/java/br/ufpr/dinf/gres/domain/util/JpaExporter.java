@@ -47,7 +47,7 @@ public class JpaExporter {
         metadataSources.addAnnotatedClass(SDObjectiveFunction.class);
         metadataSources.addAnnotatedClass(SVObjectiveFunction.class);
         metadataSources.addAnnotatedClass(WOCSCLASSObjectiveFunction.class);
-        metadataSources.addAnnotatedClass(WOCSINTERFACEObjectiveFunction.class);
+        metadataSources.addAnnotatedClass(CSObjectiveFunction.class);
 
         new File(OUTPUT).delete();
 

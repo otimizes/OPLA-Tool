@@ -19,7 +19,7 @@ public class AllMetrics {
     private List<DCObjectiveFunction> dc = new ArrayList<>();
     private List<ECObjectiveFunction> ec = new ArrayList<>();
     private List<WOCSCLASSObjectiveFunction> wocsclass = new ArrayList<>(); //addYni
-    private List<WOCSINTERFACEObjectiveFunction> wocsinterface = new ArrayList<>(); //addYni
+    private List<CSObjectiveFunction> wocsinterface = new ArrayList<>(); //addYni
     private List<RCCObjectiveFunction> rcc = new ArrayList<>(); //addYni
     private List<SVObjectiveFunction> sv = new ArrayList<>(); //addYni
     private List<SDObjectiveFunction> sd = new ArrayList<>(); //addYni
@@ -121,11 +121,11 @@ public class AllMetrics {
         this.wocsclass = wocsc;
     }
 
-    public List<WOCSINTERFACEObjectiveFunction> getWocsinterface() {
+    public List<CSObjectiveFunction> getWocsinterface() {
         return wocsinterface;
     }
 
-    public void setWocsinterface(List<WOCSINTERFACEObjectiveFunction> wocsi) {
+    public void setWocsinterface(List<CSObjectiveFunction> wocsi) {
         this.wocsinterface = wocsi;
     }
 

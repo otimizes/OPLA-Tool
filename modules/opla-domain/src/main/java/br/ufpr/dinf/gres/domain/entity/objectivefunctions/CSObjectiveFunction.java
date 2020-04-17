@@ -8,15 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "wocsinterface_obj")
-public class WOCSINTERFACEObjectiveFunction extends ObjectiveFunctionDomain {
+@Table(name = "cs_obj")
+public class CSObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 
     @Column(name = "wocsinterface")
     private Double wocsinterface;
 
-    public WOCSINTERFACEObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
+    public CSObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 
