@@ -134,6 +134,17 @@ tr.example-element-row:not(.example-expanded-row):active {
   opacity: 0.5;
   text-decoration: underline;
   cursor: pointer;
+}
 
+.opla-grid-list, opla-grid-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.opla-grid-tile, opla-grid-tile {
+  flex: 1 0 21%;
+  min-width: 300px;
+  margin: 3px;
+  display: flex;
 }
 

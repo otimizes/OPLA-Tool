@@ -1,7 +1,7 @@
 <div class="example-container" *ngIf="optimizationDto">
   <form [formGroup]="formGroup">
-    <mat-grid-list cols="3" rowHeight="500px">
-      <mat-grid-tile>
+    <opla-grid-list>
+      <opla-grid-tile>
         <mat-card>
           <h5>Settings</h5>
           <div>
@@ -42,8 +42,8 @@
             </mat-form-field>
           </div>
         </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
+      </opla-grid-tile>
+      <opla-grid-tile>
         <mat-card>
           <h5>
             Objective Functions
@@ -52,13 +52,13 @@
             </mat-error>
           </h5>
           <div class="operators-functions">
-            <div *ngFor="let obj of optimizationOptions.objectiveFunctions">
+            <div *ngFor="let obj of optimizationOptions?.objectiveFunctions">
               <mat-checkbox (change)="changeObjFunction(obj, $event.checked)">{{obj}}</mat-checkbox>
             </div>
           </div>
         </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
+      </opla-grid-tile>
+      <opla-grid-tile>
         <mat-card>
           <h5>Interaction - Learning Settings</h5>
           <div>
@@ -97,10 +97,10 @@
             </mat-form-field>
           </div>
         </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="3" rowHeight="550px">
-      <mat-grid-tile>
+      </opla-grid-tile>
+    </opla-grid-list>
+    <opla-grid-list>
+      <opla-grid-tile>
         <mat-card>
           <h5>Operators</h5>
           <mat-checkbox [(ngModel)]="optimizationDto.mutation"
@@ -136,8 +136,8 @@
             [vertical]="false">
           </mat-slider>
         </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
+      </opla-grid-tile>
+      <opla-grid-tile>
         <mat-card>
           <h5>
             Mutation Operators
@@ -166,8 +166,8 @@
             </mat-checkbox>
           </div>
         </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
+      </opla-grid-tile>
+      <opla-grid-tile>
         <mat-card>
           <h5>Paths</h5>
           <div>
@@ -195,8 +195,8 @@
             </mat-form-field>
           </div>
         </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+      </opla-grid-tile>
+    </opla-grid-list>
 
   </form>
 </div>

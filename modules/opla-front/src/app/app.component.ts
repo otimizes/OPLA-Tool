@@ -9,11 +9,15 @@ import {ExperimentService} from "./services/experiment.service";
 import {ExperimentConfigurationService} from "./services/experiment-configuration.service";
 import {ObjectiveService} from "./services/objective.service";
 import {InfoService} from "./services/info.service";
+import {STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
+  }]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'static';
@@ -79,11 +83,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.experimentService.getAll().subscribe(experiments => {
       this.experiments = experiments.values;
-      for (let experiment of this.experiments) {
+      // for (let experiment of this.experiments) {
         // this.persistenceService.getExecutionsByExperiment(experiment.id).subscribe(executions => {
         //   experiment.executions = executions;
         // })
-      }
+      // }
     })
   }
 

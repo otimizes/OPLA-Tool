@@ -46,8 +46,8 @@
               </mat-list-item>
             </mat-list>
             <h2>Solutions:</h2>
-            <mat-grid-list cols="2" rowHeight="200px">
-              <mat-grid-tile *ngFor="let info of (element.info | async)?.values; let i = index">
+            <opla-grid-list>
+              <opla-grid-tile *ngFor="let info of (element.info | async)?.values; let i = index">
                 <mat-card style="height: 150px; width: 360px;">
                   <mat-card-content>
                     <span [matBadge]="info.isAll" matBadgeOverlap="false"> {{info.name | replaceall:'INFO_':''}} </span>
@@ -65,8 +65,8 @@
                     <b>Objective Values:</b> {{info.objectives}} &nbsp;
                   </mat-card-content>
                 </mat-card>
-              </mat-grid-tile>
-            </mat-grid-list>
+              </opla-grid-tile>
+            </opla-grid-list>
             <br>
           </div>
         </div>
