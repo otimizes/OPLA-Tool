@@ -107,9 +107,9 @@ public class Result {
         return concernsList.substring(0, concernsList.length() - 1);
     }
 
-    public Map<String, List<BaseObjectiveFunction>> getMetrics(List<Info> funResults, List<Solution> list, Execution Execution, Experiment experiement, List<String> objectiveFuncs) {
+    public Map<String, List<ObjectiveFunctionDomain>> getMetrics(List<Info> funResults, List<Solution> list, Execution Execution, Experiment experiement, List<String> objectiveFuncs) {
 
-        Map<String, List<BaseObjectiveFunction>> allMetrics = new HashMap<>();
+        Map<String, List<ObjectiveFunctionDomain>> allMetrics = new HashMap<>();
         int numberOfVariables = list.get(0).getDecisionVariables().length;
         List<ObjectiveFunctions> collect = objectiveFuncs.stream().map(ObjectiveFunctions::valueOf).collect(Collectors.toList());
 
@@ -118,7 +118,7 @@ public class Result {
                 Architecture arch = (Architecture) list.get(i).getDecisionVariables()[j];
                 String idSolution = funResults.get(i).getId();
                 for (ObjectiveFunctions fn : collect) {
-                    BaseObjectiveFunction build = fn.build(idSolution, Execution, experiement, arch);
+                    ObjectiveFunctionDomain build = fn.build(idSolution, Execution, experiement, arch);
                     allMetrics.computeIfAbsent(fn.toString(), f -> new ArrayList<>()).add(build);
 
                 }

@@ -43,7 +43,7 @@ public class JpaExporter {
         metadataSources.addAnnotatedClass(Objective.class);
         metadataSources.addAnnotatedClass(EXTObjectiveFunction.class);
         metadataSources.addAnnotatedClass(TVObjectiveFunction.class);
-        metadataSources.addAnnotatedClass(CBCSObjectiveFunction.class);
+        metadataSources.addAnnotatedClass(RCCObjectiveFunction.class);
         metadataSources.addAnnotatedClass(SDObjectiveFunction.class);
         metadataSources.addAnnotatedClass(SVObjectiveFunction.class);
         metadataSources.addAnnotatedClass(WOCSCLASSObjectiveFunction.class);

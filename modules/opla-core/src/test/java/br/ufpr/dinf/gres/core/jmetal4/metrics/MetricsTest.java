@@ -66,7 +66,7 @@ public class MetricsTest {
 
         Double resultsCBCS = new RCC(architecture).getResults();
         assertEquals(new Double(2.0), resultsCBCS);
-        assertEquals(resultsCBCS, ObjectiveFunctions.CBCS.evaluate(architecture));
+        assertEquals(resultsCBCS, ObjectiveFunctions.RCC.evaluate(architecture));
         assertEquals(resultsCBCS, Double.valueOf(solution.getObjective(3)));
 
         Double resultsCOE = new COE(architecture).getResults();

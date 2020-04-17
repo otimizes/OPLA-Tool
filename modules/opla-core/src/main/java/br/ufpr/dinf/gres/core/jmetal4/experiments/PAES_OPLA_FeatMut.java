@@ -19,7 +19,7 @@ import br.ufpr.dinf.gres.domain.entity.AllMetrics;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.Info;
-import br.ufpr.dinf.gres.domain.entity.objectivefunctions.BaseObjectiveFunction;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.ObjectiveFunctionDomain;
 import br.ufpr.dinf.gres.loglog.Level;
 import org.springframework.stereotype.Service;
 
@@ -148,7 +148,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
                 execution.setTime(estimatedTime);
 
                 List<Info> Info = result.getInformations(resultFront.getSolutionSet(), execution, experiement);
-                Map<String, List<BaseObjectiveFunction>> allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), execution, experiement, selectedObjectiveFunctions);
+                Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), execution, experiement, selectedObjectiveFunctions);
 
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", Info, this.configs.getLogger(), true);
 
@@ -178,7 +178,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
             List<Info> Info = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
             mp.saveInfoAll(Info);
 
-            Map<String, List<BaseObjectiveFunction>> allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,
+            Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiement,
                     selectedObjectiveFunctions);
             mp.save(allMetrics, this.configs.getOplaConfigs().getSelectedObjectiveFunctions());
             mp = null;

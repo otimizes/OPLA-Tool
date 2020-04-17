@@ -5,7 +5,7 @@ import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctions;
 import br.ufpr.dinf.gres.core.jmetal4.util.NonDominatedSolutionList;
 import br.ufpr.dinf.gres.domain.entity.*;
-import br.ufpr.dinf.gres.domain.entity.objectivefunctions.BaseObjectiveFunction;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.ObjectiveFunctionDomain;
 import br.ufpr.dinf.gres.persistence.base.BaseService;
 import br.ufpr.dinf.gres.persistence.service.*;
 import org.springframework.context.ApplicationContext;
@@ -63,12 +63,12 @@ public class Persistence {
         return experimentResults;
     }
 
-    public void save(Map<String, List<BaseObjectiveFunction>> allMetrics, List<String> list) {
-        for (Map.Entry<String, List<BaseObjectiveFunction>> stringListEntry : allMetrics.entrySet()) {
+    public void save(Map<String, List<ObjectiveFunctionDomain>> allMetrics, List<String> list) {
+        for (Map.Entry<String, List<ObjectiveFunctionDomain>> stringListEntry : allMetrics.entrySet()) {
             ObjectiveFunctions key = ObjectiveFunctions.valueOf(stringListEntry.getKey());
-            for (BaseObjectiveFunction baseObjectiveFunction : stringListEntry.getValue()) {
+            for (ObjectiveFunctionDomain ObjectiveFunctionDomain : stringListEntry.getValue()) {
                 BaseService bean = (BaseService) applicationContext.getBean(key.name() + "ObjectiveFunctionService");
-                bean.save(baseObjectiveFunction);
+                bean.save(ObjectiveFunctionDomain);
             }
         }
     }

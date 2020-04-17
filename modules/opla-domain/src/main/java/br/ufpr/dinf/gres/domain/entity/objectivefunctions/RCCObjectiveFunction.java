@@ -9,14 +9,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cbcs_obj")
-public class CBCSObjectiveFunction extends ObjectiveFunctionDomain {
+public class RCCObjectiveFunction extends ObjectiveFunctionDomain {
 
     private static final long serialVersionUID = 1L;
 
     @Column(name = "cbcs")
     private Double cbcs;
 
-    public CBCSObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
+    public RCCObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
         super(idSolution, execution, experiement);
     }
 

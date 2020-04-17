@@ -52,16 +52,16 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             return aV;
         }
     },
-    CBCS {
+    RCC {
         @Override
         public Double evaluate(Architecture architecture) {
             return new RCC(architecture).getResults();
         }
 
         @Override
-        public CBCSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            CBCSObjectiveFunction cBcs = new CBCSObjectiveFunction(idSolution, Execution, experiement);
-            cBcs.setCbcs(ObjectiveFunctions.CBCS.evaluate(arch));
+        public RCCObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+            RCCObjectiveFunction cBcs = new RCCObjectiveFunction(idSolution, Execution, experiement);
+            cBcs.setCbcs(ObjectiveFunctions.RCC.evaluate(arch));
             return cBcs;
         }
     },

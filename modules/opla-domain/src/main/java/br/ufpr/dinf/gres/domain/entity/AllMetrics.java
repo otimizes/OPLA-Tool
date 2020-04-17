@@ -20,7 +20,7 @@ public class AllMetrics {
     private List<ECObjectiveFunction> ec = new ArrayList<>();
     private List<WOCSCLASSObjectiveFunction> wocsclass = new ArrayList<>(); //addYni
     private List<WOCSINTERFACEObjectiveFunction> wocsinterface = new ArrayList<>(); //addYni
-    private List<CBCSObjectiveFunction> rcc = new ArrayList<>(); //addYni
+    private List<RCCObjectiveFunction> rcc = new ArrayList<>(); //addYni
     private List<SVObjectiveFunction> sv = new ArrayList<>(); //addYni
     private List<SDObjectiveFunction> sd = new ArrayList<>(); //addYni
     private List<TVObjectiveFunction> tv = new ArrayList<>(); //addYni
@@ -129,11 +129,11 @@ public class AllMetrics {
         this.wocsinterface = wocsi;
     }
 
-    public List<CBCSObjectiveFunction> getRcc() {
+    public List<RCCObjectiveFunction> getRcc() {
         return rcc;
     }
 
-    public void setRcc(List<CBCSObjectiveFunction> rcc) {
+    public void setRcc(List<RCCObjectiveFunction> rcc) {
         this.rcc = rcc;
     }
 

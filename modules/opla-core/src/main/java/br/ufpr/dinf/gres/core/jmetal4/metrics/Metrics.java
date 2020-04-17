@@ -9,7 +9,8 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBe
 import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.*;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
-import br.ufpr.dinf.gres.domain.entity.objectivefunctions.BaseObjectiveFunction;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.ObjectiveFunctionDomain;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.ObjectiveFunctionDomain;
 
 public enum Metrics implements ObjectiveFunctionsLink {
     ATMRElegance {
@@ -19,7 +20,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -30,7 +31,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -41,7 +42,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -52,7 +53,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -63,7 +64,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -74,7 +75,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -85,7 +86,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -96,7 +97,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -107,7 +108,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -118,7 +119,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -129,7 +130,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -140,7 +141,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -151,7 +152,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -162,7 +163,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -173,7 +174,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -184,7 +185,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -195,7 +196,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     },
@@ -206,7 +207,7 @@ public enum Metrics implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public BaseObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
             return null;
         }
     }
