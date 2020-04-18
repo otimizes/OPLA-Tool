@@ -320,9 +320,9 @@
 
     <repositories>
         <repository>
-            <id>bintray-godoy-opla-tool</id>
-            <url>http://dl.bintray.com/godoy/opla-tool</url>
-            <name>LogLog-Repository</name>
+            <id>zapix</id>
+            <url>https://nexus.zapix.com.br/repository/maven-releases/</url>
+            <name>Zapix-Repository</name>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -330,6 +330,19 @@
                 <enabled>true</enabled>
             </releases>
         </repository>
+        
+<!--         <repository> -->
+<!--             <id>bintray-godoy-opla-tool</id> -->
+<!--             <url>http://dl.bintray.com/godoy/opla-tool</url> -->
+<!--             <name>LogLog-Repository</name> -->
+<!--             <snapshots> -->
+<!--                 <enabled>false</enabled> -->
+<!--             </snapshots> -->
+<!--             <releases> -->
+<!--                 <enabled>true</enabled> -->
+<!--             </releases> -->
+<!--         </repository> -->
+        
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>

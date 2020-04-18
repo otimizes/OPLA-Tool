@@ -23,108 +23,108 @@
       </resource>
     </resources>
     <plugins>
-      <plugin>
-        <artifactId>maven-install-plugin</artifactId>
-        <version>2.5.2</version>
-        <executions>
-          <execution>
-            <id>install-external</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <file>${basedir}/src/main/resources/lib/uml2-resources-4.0.0.jar</file>
-              <repositoryLayout>default</repositoryLayout>
-              <groupId>org.uml2.resources4</groupId>
-              <artifactId>uml2-resources</artifactId>
-              <version>4.0.0</version>
-              <packaging>jar</packaging>
-              <generatePom>true</generatePom>
-            </configuration>
-          </execution>
-          <execution>
-            <id>install-external2</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <file>${basedir}/src/main/resources/lib/uml2-uml24-4.0.0.jar</file>
-              <repositoryLayout>default</repositoryLayout>
-              <groupId>org.uml2.uml24</groupId>
-              <artifactId>uml2-uml24</artifactId>
-              <version>4.0.0</version>
-              <packaging>jar</packaging>
-              <generatePom>true</generatePom>
-            </configuration>
-          </execution>
-          <execution>
-            <id>install-external3</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <file>${basedir}/src/main/resources/lib/uml2-profilel3-1.0.0.jar</file>
-              <repositoryLayout>default</repositoryLayout>
-              <groupId>org.uml2.profile.l3</groupId>
-              <artifactId>uml2-profilel3</artifactId>
-              <version>1.0.0</version>
-              <packaging>jar</packaging>
-              <generatePom>true</generatePom>
-            </configuration>
-          </execution>
-          <execution>
-            <id>install-external4</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <file>${basedir}/src/main/resources/lib/uml2-profilel2-1.0.0.jar</file>
-              <repositoryLayout>default</repositoryLayout>
-              <groupId>org.uml2.profile.l2</groupId>
-              <artifactId>uml2-profilel2</artifactId>
-              <version>1.0.0</version>
-              <packaging>jar</packaging>
-              <generatePom>true</generatePom>
-            </configuration>
-          </execution>
-          <execution>
-            <id>install-external5</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <file>${basedir}/src/main/resources/lib/uml2-common-1.7.0.jar</file>
-              <repositoryLayout>default</repositoryLayout>
-              <groupId>org.uml2.common</groupId>
-              <artifactId>uml2-br.ufpr.dinf.gres.common</artifactId>
-              <version>1.7.0</version>
-              <packaging>jar</packaging>
-              <generatePom>true</generatePom>
-            </configuration>
-          </execution>
-          <execution>
-            <id>install-external6</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>install-file</goal>
-            </goals>
-            <configuration>
-              <file>${basedir}/src/main/resources/lib/uml2-types-1.0.0.jar</file>
-              <repositoryLayout>default</repositoryLayout>
-              <groupId>org.uml2.types</groupId>
-              <artifactId>uml2-types</artifactId>
-              <version>1.0.0</version>
-              <packaging>jar</packaging>
-              <generatePom>true</generatePom>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+<!--       <plugin> -->
+<!--         <artifactId>maven-install-plugin</artifactId> -->
+<!--         <version>2.5.2</version> -->
+<!--         <executions> -->
+<!--           <execution> -->
+<!--             <id>install-external</id> -->
+<!--             <phase>clean</phase> -->
+<!--             <goals> -->
+<!--               <goal>install-file</goal> -->
+<!--             </goals> -->
+<!--             <configuration> -->
+<!--               <file>${basedir}/src/main/resources/lib/uml2-resources-4.0.0.jar</file> -->
+<!--               <repositoryLayout>default</repositoryLayout> -->
+<!--               <groupId>org.uml2.resources4</groupId> -->
+<!--               <artifactId>uml2-resources</artifactId> -->
+<!--               <version>4.0.0</version> -->
+<!--               <packaging>jar</packaging> -->
+<!--               <generatePom>true</generatePom> -->
+<!--             </configuration> -->
+<!--           </execution> -->
+<!--           <execution> -->
+<!--             <id>install-external2</id> -->
+<!--             <phase>clean</phase> -->
+<!--             <goals> -->
+<!--               <goal>install-file</goal> -->
+<!--             </goals> -->
+<!--             <configuration> -->
+<!--               <file>${basedir}/src/main/resources/lib/uml2-uml24-4.0.0.jar</file> -->
+<!--               <repositoryLayout>default</repositoryLayout> -->
+<!--               <groupId>org.uml2.uml24</groupId> -->
+<!--               <artifactId>uml2-uml24</artifactId> -->
+<!--               <version>4.0.0</version> -->
+<!--               <packaging>jar</packaging> -->
+<!--               <generatePom>true</generatePom> -->
+<!--             </configuration> -->
+<!--           </execution> -->
+<!--           <execution> -->
+<!--             <id>install-external3</id> -->
+<!--             <phase>clean</phase> -->
+<!--             <goals> -->
+<!--               <goal>install-file</goal> -->
+<!--             </goals> -->
+<!--             <configuration> -->
+<!--               <file>${basedir}/src/main/resources/lib/uml2-profilel3-1.0.0.jar</file> -->
+<!--               <repositoryLayout>default</repositoryLayout> -->
+<!--               <groupId>org.uml2.profile.l3</groupId> -->
+<!--               <artifactId>uml2-profilel3</artifactId> -->
+<!--               <version>1.0.0</version> -->
+<!--               <packaging>jar</packaging> -->
+<!--               <generatePom>true</generatePom> -->
+<!--             </configuration> -->
+<!--           </execution> -->
+<!--           <execution> -->
+<!--             <id>install-external4</id> -->
+<!--             <phase>clean</phase> -->
+<!--             <goals> -->
+<!--               <goal>install-file</goal> -->
+<!--             </goals> -->
+<!--             <configuration> -->
+<!--               <file>${basedir}/src/main/resources/lib/uml2-profilel2-1.0.0.jar</file> -->
+<!--               <repositoryLayout>default</repositoryLayout> -->
+<!--               <groupId>org.uml2.profile.l2</groupId> -->
+<!--               <artifactId>uml2-profilel2</artifactId> -->
+<!--               <version>1.0.0</version> -->
+<!--               <packaging>jar</packaging> -->
+<!--               <generatePom>true</generatePom> -->
+<!--             </configuration> -->
+<!--           </execution> -->
+<!--           <execution> -->
+<!--             <id>install-external5</id> -->
+<!--             <phase>clean</phase> -->
+<!--             <goals> -->
+<!--               <goal>install-file</goal> -->
+<!--             </goals> -->
+<!--             <configuration> -->
+<!--               <file>${basedir}/src/main/resources/lib/uml2-common-1.7.0.jar</file> -->
+<!--               <repositoryLayout>default</repositoryLayout> -->
+<!--               <groupId>org.uml2.common</groupId> -->
+<!--               <artifactId>uml2-br.ufpr.dinf.gres.common</artifactId> -->
+<!--               <version>1.7.0</version> -->
+<!--               <packaging>jar</packaging> -->
+<!--               <generatePom>true</generatePom> -->
+<!--             </configuration> -->
+<!--           </execution> -->
+<!--           <execution> -->
+<!--             <id>install-external6</id> -->
+<!--             <phase>clean</phase> -->
+<!--             <goals> -->
+<!--               <goal>install-file</goal> -->
+<!--             </goals> -->
+<!--             <configuration> -->
+<!--               <file>${basedir}/src/main/resources/lib/uml2-types-1.0.0.jar</file> -->
+<!--               <repositoryLayout>default</repositoryLayout> -->
+<!--               <groupId>org.uml2.types</groupId> -->
+<!--               <artifactId>uml2-types</artifactId> -->
+<!--               <version>1.0.0</version> -->
+<!--               <packaging>jar</packaging> -->
+<!--               <generatePom>true</generatePom> -->
+<!--             </configuration> -->
+<!--           </execution> -->
+<!--         </executions> -->
+<!--       </plugin> -->
       <plugin>
         <artifactId>maven-eclipse-plugin</artifactId>
       </plugin>
