@@ -95,13 +95,13 @@ THE SOFTWARE.
 
 @angular/material/form-field
 
-@angular/material/grid-list
-
 @angular/material/icon
 
 @angular/material/list
 
 @angular/material/progress-bar
+
+@angular/material/progress-spinner
 
 @angular/material/radio
 

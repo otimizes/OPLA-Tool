@@ -44,11 +44,10 @@ public class OptimizationResource {
         this.optimizationService = optimizationService;
     }
 
-    @GetMapping(value = "/download/{hash}", produces = "application/zip")
-    public void zipFiles(@PathVariable String hash, HttpServletResponse response) throws IOException {
+    @GetMapping(value = "/download/{token}/{hash}", produces = "application/zip")
+    public void zipFiles(@PathVariable String token, @PathVariable String hash, HttpServletResponse response) throws IOException {
         PathConfig config = ApplicationFile.getInstance().getConfig();
-        String url = config.getDirectoryToExportModels().toString().concat(Constants.FILE_SEPARATOR + hash);
-        //setting headers
+        String url = config.getDirectoryToExportModels().toString().concat(Constants.FILE_SEPARATOR + token + Constants.FILE_SEPARATOR + hash);
         response.setStatus(HttpServletResponse.SC_OK);
         response.addHeader("Content-Disposition", "attachment; filename=\"" + hash + ".zip\"");
         ZipFiles zipFiles = new ZipFiles();

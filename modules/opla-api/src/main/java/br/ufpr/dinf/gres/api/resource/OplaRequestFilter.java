@@ -13,16 +13,20 @@ import java.io.IOException;
 
 @Component
 @Order(1)
-public class OplaFilter extends OncePerRequestFilter {
+public class OplaRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS,HEAD");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, authorization, Connection, group");
         String token = getAuthorization(request);
         OPLAThreadScope.token.set(token);
-        if (token != null || request.getMethod().equals("OPTIONS") || request.getRequestURI().equals("/api/user/login")) {
-            filterChain.doFilter(request, response);
-        } else {
+        if (request.getRequestURI().equals("/api/user/login")) filterChain.doFilter(request, response);
+        if (token == null && (request.getRequestURI().startsWith("/api") || request.getRequestURI().startsWith("/api"))) {
             String s = "METHOD: " + request.getMethod() + " URI: " + request.getRequestURI();
             throw new RuntimeException("NOT_ALLOWED::" + s);
+        } else {
+            filterChain.doFilter(request, response);
         }
     }
 
