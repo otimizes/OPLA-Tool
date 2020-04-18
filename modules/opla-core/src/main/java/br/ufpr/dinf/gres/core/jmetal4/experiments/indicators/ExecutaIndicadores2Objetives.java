@@ -50,7 +50,7 @@ public class ExecutaIndicadores2Objetives {
                 // nas 30 runs por um algoritmo
 
                 double[][] melhoresSolucoesAlgoritmo = mu
-                        .readFront(caminho + software + "/teste/" + algorithm + "/" + algorithm + "All.txt");
+                        .readFront(caminho + software + "/teste/" + algorithm + System.getProperty("file.separator") + algorithm + "All.txt");
                 // retorna a solucao minima de cada objetivo do conjunto // de
                 // pareto real
                 double[] min = mu.getMinimumValues(ss.writeObjectivesToMatrix(), 2);
@@ -75,11 +75,11 @@ public class ExecutaIndicadores2Objetives {
 
                         QualityIndicator indicators = new QualityIndicator(problem,
                                 caminho + software + "/teste/" + algorithm
-                                        + "/" + algorithm + "/" + run + ".txt");
+                                        + System.getProperty("file.separator") + algorithm + System.getProperty("file.separator") + run + ".txt");
 
                         SolutionSet front = mu
                                 .readNonDominatedSolutionSet(caminho + software + "/teste/" + algorithm
-                                        + "/" + algorithm + "/" + run + ".txt");
+                                        + System.getProperty("file.separator") + algorithm + System.getProperty("file.separator") + run + ".txt");
 
                         value = indicators.getIGD(front, ss, 2);
 

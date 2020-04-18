@@ -52,7 +52,7 @@ export class OptimizationService {
   startEventListener(optimizationInfo: OptimizationInfo) {
     localStorage.setItem("optimizationInfo", JSON.stringify(optimizationInfo));
     if (!!window['EventSource'] && optimizationInfo.status != "COMPLETE") {
-      let source = new EventSource(`${OptimizationService.baseUrl}/optimization/optimization-info/${optimizationInfo.threadId}`);
+      let source = new EventSource(`${OptimizationService.baseUrl}/optimization/optimization-info/${optimizationInfo.threadId}?authorization=${UserService.user.token}`);
       source.addEventListener('message', (e) => {
         if (e.data) {
           localStorage.setItem("optimizationInfo", e.data);
@@ -112,7 +112,7 @@ export class OptimizationService {
   }
 
   download(id): Observable<any> {
-    return this.http.get(`${OptimizationService.baseUrl}/optimization/download/${id}`, {responseType: 'arraybuffer'});
+    return this.http.get(`${OptimizationService.baseUrl}/optimization/download/${id}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
   }
 
   optimize(dto: OptimizationDto): Observable<OptimizationInfo> {
@@ -142,7 +142,7 @@ export class OptimizationService {
     }
 
     return this.http.post(`${OptimizationService.baseUrl}/optimization/upload-pla`, formData, {
-      headers: new HttpHeaders({'enctype': 'multipart/form-data'})
+      headers: new HttpHeaders({'enctype': 'multipart/form-data', "authorization": UserService.user.token})
     });
   }
 }

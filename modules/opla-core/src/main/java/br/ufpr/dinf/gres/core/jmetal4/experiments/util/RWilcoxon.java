@@ -45,7 +45,7 @@ public class RWilcoxon {
     // STEP 1. Creating R output directory
 
     String rDirectory = "R";
-    rDirectory = experiment.experimentBaseDirectory_ + "/" + rDirectory;
+    rDirectory = experiment.experimentBaseDirectory_ + System.getProperty("file.separator") + rDirectory;
     System.out.println("R    : " + rDirectory);
     File rOutput;
     rOutput = new File(rDirectory);
@@ -56,8 +56,8 @@ public class RWilcoxon {
 
     for (int indicator = 0; indicator < experiment.indicatorList_.length; indicator++) {
       System.out.println("Indicator: " + experiment.indicatorList_[indicator]);
-      String rFile = rDirectory + "/" + prefix + "." + experiment.indicatorList_[indicator] + ".Wilcox.R";
-      String texFile = rDirectory + "/" + prefix + "." + experiment.indicatorList_[indicator] + ".Wilcox.tex";
+      String rFile = rDirectory + System.getProperty("file.separator") + prefix + "." + experiment.indicatorList_[indicator] + ".Wilcox.R";
+      String texFile = rDirectory + System.getProperty("file.separator") + prefix + "." + experiment.indicatorList_[indicator] + ".Wilcox.tex";
 
       FileWriter os = new FileWriter(rFile, false);
       String output = "write(\"\", \"" + texFile + "\",append=FALSE)";

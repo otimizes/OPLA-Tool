@@ -53,7 +53,7 @@ public class RBoxplot {
     // STEP 1. Creating R output directory
 
     String rDirectory = "R";
-    rDirectory = experiment.experimentBaseDirectory_ + "/" +  rDirectory;
+    rDirectory = experiment.experimentBaseDirectory_ + System.getProperty("file.separator") +  rDirectory;
     System.out.println("R    : " + rDirectory);
     File rOutput;
     rOutput = new File(rDirectory);
@@ -64,7 +64,7 @@ public class RBoxplot {
 
     for (int indicator = 0; indicator <  experiment.indicatorList_.length; indicator++) {
       System.out.println("Indicator: " +  experiment.indicatorList_[indicator]);
-      String rFile =  rDirectory + "/" + prefix + "." +  experiment.indicatorList_[indicator] + ".Boxplot.R";
+      String rFile =  rDirectory + System.getProperty("file.separator") + prefix + "." +  experiment.indicatorList_[indicator] + ".Boxplot.R";
 
       FileWriter os = new FileWriter(rFile, false);
       os.write("postscript(\"" + prefix + "." +

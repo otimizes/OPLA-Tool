@@ -205,7 +205,7 @@ public abstract class Experiment {
     ;
 
     public void generateLatexTables() throws FileNotFoundException, IOException {
-        latexDirectory_ = experimentBaseDirectory_ + "/" + latexDirectory_;
+        latexDirectory_ = experimentBaseDirectory_ + System.getProperty("file.separator") + latexDirectory_;
         System.out.println("latex directory: " + latexDirectory_);
 
         Vector[][][] data = new Vector[indicatorList_.length][][];
@@ -221,9 +221,9 @@ public abstract class Experiment {
 
                     String directory = experimentBaseDirectory_;
                     directory += "/data/";
-                    directory += "/" + algorithmNameList_[algorithm];
-                    directory += "/" + problemList_[problem];
-                    directory += "/" + indicatorList_[indicator];
+                    directory += System.getProperty("file.separator") + algorithmNameList_[algorithm];
+                    directory += System.getProperty("file.separator") + problemList_[problem];
+                    directory += System.getProperty("file.separator") + indicatorList_[indicator];
                     // Read values from data files
                     FileInputStream fis = new FileInputStream(directory);
                     InputStreamReader isr = new InputStreamReader(fis);
@@ -288,9 +288,9 @@ public abstract class Experiment {
                     Collections.sort(data[indicator][problem][algorithm]);
 
                     String directory = experimentBaseDirectory_;
-                    directory += "/" + algorithmNameList_[algorithm];
-                    directory += "/" + problemList_[problem];
-                    directory += "/" + indicatorList_[indicator];
+                    directory += System.getProperty("file.separator") + algorithmNameList_[algorithm];
+                    directory += System.getProperty("file.separator") + problemList_[problem];
+                    directory += System.getProperty("file.separator") + indicatorList_[indicator];
 
                     // System.out.println("----" + directory + "-----");
                     // calculateStatistics(data[indicator][problem][algorithm],
@@ -330,7 +330,7 @@ public abstract class Experiment {
             System.out.println("Creating " + latexDirectory_ + " directory");
         }
         System.out.println("Experiment name: " + experimentName_);
-        String latexFile = latexDirectory_ + "/" + experimentName_ + ".tex";
+        String latexFile = latexDirectory_ + System.getProperty("file.separator") + experimentName_ + ".tex";
         printHeaderLatexCommands(latexFile);
         for (int i = 0; i < indicatorList_.length; i++) {
             printMeanStdDev(latexFile, i, mean, stdDeviation);

@@ -293,8 +293,8 @@ public class NSGAII_OPLA_Multithread {
                             context,
                             mutationOperator,
                             "false");
-                    final File destination = new File("experiment/" + NSGAII_OPLA.getPlaName(pla) + "/" + context + "/SYSTEM_OUTPUT.txt");
-                    final File errorDestination = new File("experiment/" + NSGAII_OPLA.getPlaName(pla) + "/" + context + "/SYSTEM_ERROR.txt");
+                    final File destination = new File("experiment/" + NSGAII_OPLA.getPlaName(pla) + System.getProperty("file.separator") + context + "/SYSTEM_OUTPUT.txt");
+                    final File errorDestination = new File("experiment/" + NSGAII_OPLA.getPlaName(pla) + System.getProperty("file.separator") + context + "/SYSTEM_ERROR.txt");
                     {
                         final File parentFile = destination.getParentFile();
                         if (!parentFile.exists()) {

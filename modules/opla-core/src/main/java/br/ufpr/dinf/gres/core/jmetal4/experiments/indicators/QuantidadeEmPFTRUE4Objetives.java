@@ -54,9 +54,9 @@ public class QuantidadeEmPFTRUE4Objetives {
                         MetricsUtil mu = new MetricsUtil();
 
                         //le o conjunto com as solucoes de PFtrue - melhores encontradas por todos os MOEAS
-                        double[][] PFtrue = mu.readFront("resultado/" + abordagem + "/" + software + "_trueParetoFront.txt");
+                        double[][] PFtrue = mu.readFront("resultado/" + abordagem + System.getProperty("file.separator") + software + "_trueParetoFront.txt");
                         //le o conjunto com as solucoes de PFknow - melhores encontradas por um MOEA
-                        double[][] PFknown = mu.readFront("resultado/" + abordagem + "/" + algorithm + "/" + software + contexto + "/All_FUN_" + algorithm + "-" + software);
+                        double[][] PFknown = mu.readFront("resultado/" + abordagem + System.getProperty("file.separator") + algorithm + System.getProperty("file.separator") + software + contexto + "/All_FUN_" + algorithm + "-" + software);
 
                         quantidadeSolucoes = 0;
 

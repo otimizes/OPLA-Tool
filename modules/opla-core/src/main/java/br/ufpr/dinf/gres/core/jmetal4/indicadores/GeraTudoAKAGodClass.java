@@ -30,11 +30,11 @@ public class GeraTudoAKAGodClass {
 
         for (String pla : plas) {
 
-            String directoryPath = "experiment/" + pla + "/";
+            String directoryPath = "experiment/" + pla + System.getProperty("file.separator");
 
             try (FileWriter funAll = new FileWriter(directoryPath + "FUN_All_" + pla + ".txt")) {
                 for (String contexto : contexts) {
-                    double[][] front = mu.readFront(directoryPath + contexto + "/" + "FUN_All_" + pla + ".txt");
+                    double[][] front = mu.readFront(directoryPath + contexto + System.getProperty("file.separator") + "FUN_All_" + pla + ".txt");
                     for (double[] solucao : front) {
                         funAll.write(solucao[0] + " " + solucao[1] + "\n");
                     }
@@ -67,7 +67,7 @@ public class GeraTudoAKAGodClass {
                     // double[quantidadeSolucoes][numObjetivos];
                     // for(solucoes)for(objetivos)solucoes[solucaoI][numObjJ] =
                     // valor do banco;
-                    double[][] front = mu.readFront(directoryPath + contexto + "/" + "FUN_All_" + pla + ".txt");
+                    double[][] front = mu.readFront(directoryPath + contexto + System.getProperty("file.separator") + "FUN_All_" + pla + ".txt");
                     for (int i = 0; i < front.length; i++) {
                         double distanciaEuclidiana = mu.distance(min, front[i]);
                         todosEds.write(distanciaEuclidiana + "\n");

@@ -60,7 +60,7 @@ public class OptimizationResource {
     public ResponseEntity<List<String>> save(
             @RequestParam("file") List<MultipartFile> files) {
 
-        String OUT_PATH = ApplicationFile.getInstance().getConfig().getDirectoryToExportModels().toString() + "/";
+        String OUT_PATH = ApplicationFile.getInstance().getConfig().getDirectoryToExportModels().toString() + System.getProperty("file.separator");
         List<String> paths = new ArrayList<>();
 
         try {

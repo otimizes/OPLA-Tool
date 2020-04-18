@@ -103,12 +103,12 @@ public class NSGAII_OPLA_PLAThenDPM {
 
         String plaName = getPlaName(pla);
 
-        File directory = ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + "/" + context + "/");
-        ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + "/" + context + "/manipulation");
-        ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + "/" + context + "/output");
+        File directory = ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + System.getProperty("file.separator") + context + System.getProperty("file.separator"));
+        ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + System.getProperty("file.separator") + context + "/manipulation");
+        ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + System.getProperty("file.separator") + context + "/output");
 
-        ReaderConfig.setDirTarget("experiment/" + plaName + "/" + context + "/manipulation");
-        ReaderConfig.setDirExportTarget("experiment/" + plaName + "/" + context + "/output");
+        ReaderConfig.setDirTarget("experiment/" + plaName + System.getProperty("file.separator") + context + "/manipulation");
+        ReaderConfig.setDirExportTarget("experiment/" + plaName + System.getProperty("file.separator") + context + "/output");
 
         String plaDirectory = getPlaDirectory(pla);
         ReaderConfig.setPathToTemplateModelsDirectory(plaDirectory);

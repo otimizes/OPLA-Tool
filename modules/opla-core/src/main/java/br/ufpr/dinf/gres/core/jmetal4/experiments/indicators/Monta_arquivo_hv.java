@@ -40,9 +40,9 @@ public class Monta_arquivo_hv {
 
             for (String algorithm : algoritmos) {
                 for (String contexto : contextos) {
-                    String outFile = "resultado/hypervolume/" + software + "/" + software + "_" + algorithm + contexto + "_allruns.txt";
+                    String outFile = "resultado/hypervolume/" + software + System.getProperty("file.separator") + software + "_" + algorithm + contexto + "_allruns.txt";
                     for (int run = 0; run < 30; run++) {
-                        String srcFile = "resultado/" + algorithm + "/" + software + contexto + "/FUN_" + algorithm + "-" + software + "-" + run + ".NaoDominadas";
+                        String srcFile = "resultado/" + algorithm + System.getProperty("file.separator") + software + contexto + "/FUN_" + algorithm + "-" + software + "-" + run + ".NaoDominadas";
                         mergeFiles(srcFile, outFile, "\n");
                         mergeFiles(srcFile, allalgorithms_allruns, "");
                     }

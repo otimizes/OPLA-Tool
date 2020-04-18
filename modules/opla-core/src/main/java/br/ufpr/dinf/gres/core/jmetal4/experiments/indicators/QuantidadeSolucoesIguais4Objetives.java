@@ -38,8 +38,8 @@ public class QuantidadeSolucoesIguais4Objetives {
                     int quantidadeSolucoes;
                     MetricsUtil mu = new MetricsUtil();
 
-                    double[][] PFComb = mu.readFront("resultado/" + abordagem + "/" + software + "/All_FUN_" + algorithm + "-" + software + "_com");
-                    double[][] PFInc = mu.readFront("resultado/" + abordagem + "/" + software + "/All_FUN_" + algorithm + "-" + software + "_inc");
+                    double[][] PFComb = mu.readFront("resultado/" + abordagem + System.getProperty("file.separator") + software + "/All_FUN_" + algorithm + "-" + software + "_com");
+                    double[][] PFInc = mu.readFront("resultado/" + abordagem + System.getProperty("file.separator") + software + "/All_FUN_" + algorithm + "-" + software + "_inc");
 
                     quantidadeSolucoes = 0;
 

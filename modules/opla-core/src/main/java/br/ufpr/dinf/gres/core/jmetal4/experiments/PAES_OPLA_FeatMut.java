@@ -49,7 +49,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
     }
 
     private static String getPlaName(String pla) {
-        int beginIndex = pla.lastIndexOf("/") + 1;
+        int beginIndex = pla.lastIndexOf(System.getProperty("file.separator")) + 1;
         int endIndex = pla.length() - 4;
         return pla.substring(beginIndex, endIndex);
     }
@@ -223,7 +223,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
     private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
         String dir;
         if (executionID != null)
-            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + experimentID + "/" + executionID + "/Hypervolume/";
+            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + experimentID + System.getProperty("file.separator") + executionID + "/Hypervolume/";
         else
             dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + experimentID + "/Hypervolume/";
 

@@ -43,7 +43,7 @@ public class CalculaMediaSolucoesRuns {
                 for (String algorithm : algorithms) {
                     float total = 0;
                     for (int run = 0; run < 30; run++) {
-                        BufferedReader buff = new BufferedReader(new FileReader("resultado/" + abordagem + "/" + algorithm + "/" + software + contexto + "/FUN_" + algorithm + "-" + software + "-" + run + ".NaoDominadas"));
+                        BufferedReader buff = new BufferedReader(new FileReader("resultado/" + abordagem + System.getProperty("file.separator") + algorithm + System.getProperty("file.separator") + software + contexto + "/FUN_" + algorithm + "-" + software + "-" + run + ".NaoDominadas"));
 
                         int contador = 0;
                         while (buff.ready()) {

@@ -1,13 +1,12 @@
 package br.ufpr.dinf.gres.api.resource;
 
+import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.*;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.*;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.LogLogData;
 import br.ufpr.dinf.gres.loglog.Logger;
-import br.ufpr.dinf.gres.api.dto.OptimizationDto;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.OPLAConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.*;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -30,7 +29,9 @@ public class OptimizationService {
     }
 
     public Mono<OptimizationInfo> executeNSGAII(OptimizationDto optimizationDto) {
+        String token = OPLAThreadScope.token.get();
         Thread thread = new Thread(() -> {
+            OPLAThreadScope.token.set(token);
             OPLAThreadScope.mainThreadId.set(Thread.currentThread().getId());
             OPLAThreadScope.setConfig(optimizationDto.getConfig());
             executeNSGAIIAlgorithm(optimizationDto);
@@ -40,7 +41,9 @@ public class OptimizationService {
     }
 
     public Mono<OptimizationInfo> executePAES(OptimizationDto optimizationDto) {
+        String token = OPLAThreadScope.token.get();
         Thread thread = new Thread(() -> {
+            OPLAThreadScope.token.set(token);
             OPLAThreadScope.mainThreadId.set(Thread.currentThread().getId());
             OPLAThreadScope.setConfig(optimizationDto.getConfig());
             executePAESAlgorithm(optimizationDto);
