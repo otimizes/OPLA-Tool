@@ -1,9 +1,9 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isRunning()"></mat-progress-bar>
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
   <mat-step state="execution">
     <ng-template matStepLabel><span class="hide-on-mobile">Execution Configuration</span></ng-template>
     <app-execution [optimizationOptions]="optimizationOptions" [formGroup]="executionFormGroup"
-                   [optimizationDto]="optimizationDto"></app-execution>
+                   [(optimizationDto)]="optimizationDto"></app-execution>
   </mat-step>
   <mat-step state="patterns">
     <ng-template matStepLabel><span class="hide-on-mobile">Design Patterns</span></ng-template>
@@ -50,10 +50,28 @@
   <ng-template matStepperIcon="logs">
     <mat-icon>bug_report</mat-icon>
   </ng-template>
+  <ng-template matStepperIcon="edit" let-index="index">
+    <mat-icon *ngIf="index === 0">settings</mat-icon>
+    <mat-icon *ngIf="index === 1">call_end</mat-icon>
+    <mat-icon *ngIf="index === 2">unfold_more</mat-icon>
+    <mat-icon *ngIf="index === 3">backup</mat-icon>
+    <mat-icon *ngIf="index === 4">show_chart</mat-icon>
+    <mat-icon *ngIf="index === 5">bug_report</mat-icon>
+  </ng-template>
+  <ng-template matStepperIcon="done" let-index="index">
+    <mat-icon *ngIf="index === 0">settings</mat-icon>
+    <mat-icon *ngIf="index === 1">call_end</mat-icon>
+    <mat-icon *ngIf="index === 2">unfold_more</mat-icon>
+    <mat-icon *ngIf="index === 3">backup</mat-icon>
+    <mat-icon *ngIf="index === 4">show_chart</mat-icon>
+    <mat-icon *ngIf="index === 5">bug_report</mat-icon>
+  </ng-template>
 </mat-horizontal-stepper>
 
-<button fixedVicButton matTooltip="Optimize" *ngIf="!optimizationInfo || optimizationInfo.status != 'COMPLETE'"
-        [disabled]="isRunning()" color="primary" mat-fab aria-label="Optimize" (click)="run(optimizationDto)">
+<button fixedVicButton matTooltip="Optimize"
+        *ngIf="!optimizationInfo || optimizationInfo.status != 'COMPLETE'"
+        [disabled]="isRunning() || executionFormGroup.invalid || optimizationDto.objectiveFunctions.length <= 0 || optimizationDto.mutationOperators.length <= 0"
+        color="primary" mat-fab aria-label="Optimize" (click)="run(optimizationDto)">
   <mat-icon>cloud_done</mat-icon>
 </button>
 

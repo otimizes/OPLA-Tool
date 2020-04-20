@@ -28,7 +28,7 @@ export class ExperimentsComponent implements OnInit {
   @Input() objectiveService: ObjectiveService;
   @Input() infoService: InfoService;
   @Input() experimentConfigurationService: ExperimentConfigurationService;
-  columnsToDisplay = ['id', 'name', 'algorithm', 'createdAt', 'description'];
+  columnsToDisplay = ['id', 'name', 'algorithm', 'createdAt'];
   expandedElement: any | null;
 
   constructor(private snackBar: MatSnackBar) {

@@ -2,8 +2,12 @@
 
 }
 
+.operators-functions > opla-grid-tile {
+  min-width: 100px;
+}
+
 .operators-functions mat-checkbox {
-  margin: 20px;
+
 }
 
 .operators-functions .mat-checkbox-layout {

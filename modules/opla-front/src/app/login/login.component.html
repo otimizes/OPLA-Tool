@@ -25,14 +25,14 @@
           </mat-form-field>
         </form>
       </mat-card-content>
-      <mat-card-actions>
+      <mat-card-actions style="display: flex; justify-content: space-between;">
+        <button mat-button (click)="logar()">I forgot my password</button>
         <button mat-raised-button (click)="logar()" color="primary">
           <mat-icon [style.display]="showSpinner ? 'inline-block' : 'none'">
             <mat-spinner color="warn" diameter="20"></mat-spinner>
           </mat-icon>
           Entrar
         </button>
-        <button mat-button (click)="logar()">I forgot my password</button>
       </mat-card-actions>
     </mat-card>
   </opla-grid-tile>

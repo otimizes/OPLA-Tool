@@ -1,3 +1,4 @@
-table {
-  width: 98%;
+.pla-info > div {
+  border-bottom: 1px dashed #e8e8e8;
+  padding: 5px;
 }

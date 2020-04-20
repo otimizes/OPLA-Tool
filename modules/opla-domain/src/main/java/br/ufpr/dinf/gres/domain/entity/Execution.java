@@ -33,7 +33,7 @@ public class Execution implements Serializable {
 
     @Column(name = "time", nullable = true)
     @NotFound(action = NotFoundAction.IGNORE)
-    private Long time;
+    private Long time = 0L;
 
     @Column(name = "runs")
     private int runs;

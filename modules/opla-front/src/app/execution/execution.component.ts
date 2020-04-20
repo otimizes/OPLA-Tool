@@ -1,4 +1,4 @@
-import {AfterContentChecked, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterContentChecked, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {OptimizationDto} from "../dto/optimization-dto";
 import {OptimizationService} from "../services/optimization.service";
@@ -13,15 +13,14 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
 
   @Input() formGroup: FormGroup;
   @Input() optimizationDto: OptimizationDto;
+  @Output() optimizationDtoChange = new EventEmitter<OptimizationDto>();
   @Input() optimizationOptions: any;
   @ViewChild('fileInput', {static: false}) fileInput;
-  hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
 
   constructor(fb: FormBuilder, protected service: OptimizationService, private snackBar: MatSnackBar) {
     OptimizationService.onSelectPLA.asObservable().subscribe(list => {
       this.selectProfiles(list);
-      // this.plaFiles = list;
     });
   }
 
@@ -82,7 +81,6 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
   }
 
   onFileSelected() {
-    // this.service.optimize(new OptimizationDto())
     this.service.uploadPLA(this.fileInput.nativeElement.files)
       .subscribe(res => {
         OptimizationService.setPLA(res);

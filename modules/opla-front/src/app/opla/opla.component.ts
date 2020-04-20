@@ -134,4 +134,8 @@ export class OplaComponent implements OnInit, AfterViewInit {
     this.userService.logout();
     this.router.navigate(['/login']);
   }
+
+  isValid() {
+    return this.optimizationDto.objectiveFunctions.length > 0;
+  }
 }

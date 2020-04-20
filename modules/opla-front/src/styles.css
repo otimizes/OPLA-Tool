@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100%;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-stepper-horizontal {
@@ -106,12 +106,12 @@ tr.example-element-row:not(.example-expanded-row):active {
   border-bottom-width: 0;
 }
 
-.example-element-detail {
+.table-column-element-detail {
   overflow: hidden;
   display: flex;
 }
 
-.example-element-diagram {
+.table-column-element-diagram {
   min-width: 80px;
   border: 2px solid black;
   padding: 8px;
@@ -120,17 +120,17 @@ tr.example-element-row:not(.example-expanded-row):active {
   height: 104px;
 }
 
-.example-element-symbol {
+.table-column-element-symbol {
   font-weight: bold;
   font-size: 40px;
   line-height: normal;
 }
 
-.example-element-description {
+.table-column-element-description {
   padding: 16px;
 }
 
-.example-element-description-attribution {
+.table-element-description-attribution {
   opacity: 0.5;
   text-decoration: underline;
   cursor: pointer;
@@ -148,3 +148,14 @@ tr.example-element-row:not(.example-expanded-row):active {
   display: flex;
 }
 
+@media screen and (max-width: 900px) {
+  .hide-on-tablet {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
