@@ -12,10 +12,6 @@ public class OPLAConfigThreadScope {
     public static ThreadLocal<String> pla = new ThreadLocal<>();
 
     public static void setConfig(ApplicationYamlConfig config) {
-        config.setPathToProfile(config.getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + config.getPathToProfile());
-        config.setPathToProfileRelationships(config.getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + config.getPathToProfileRelationships());
-        config.setPathToProfilePatterns(config.getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + config.getPathToProfilePatterns());
-        config.setPathToProfileConcern(config.getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + config.getPathToProfileConcern());
         config.setDirectoryToExportModels(config.getDirectoryToExportModels() + OPLAThreadScope.hash.get() + System.getProperty("file.separator"));
         config.setDirectoryToSaveModels(config.getDirectoryToSaveModels() + OPLAThreadScope.hash.get() + System.getProperty("file.separator"));
         OPLAConfigThreadScope.config.set(config);

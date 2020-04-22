@@ -52,16 +52,14 @@
       <opla-grid-tile>
         <mat-form-field [floatLabel]="floatLabelControl.value">
           <mat-label>Template Configuration</mat-label>
-          <input matInput placeholder="Directory: /home/..."
-                 [(ngModel)]="optimizationDto.config.pathToTemplateModelsDirectory"
-                 formControlName="pathToTemplateModelsDirectory">
+          <input [disabled]="true"  matInput placeholder="Directory: /home/..."
+                 [value]="optimizationDto.config.pathToTemplateModelsDirectory">
         </mat-form-field>
       </opla-grid-tile>
       <opla-grid-tile>
         <mat-form-field [floatLabel]="floatLabelControl.value">
           <mat-label>Manipulation Configuration</mat-label>
-          <input matInput placeholder="Directory: /home/..." [(ngModel)]="optimizationDto.config.directoryToSaveModels"
-                 formControlName="directoryToSaveModels">
+          <input [disabled]="true" matInput placeholder="Directory: /home/..." [value]="optimizationDto.config.directoryToSaveModels">
         </mat-form-field>
       </opla-grid-tile>
     </opla-grid-list>

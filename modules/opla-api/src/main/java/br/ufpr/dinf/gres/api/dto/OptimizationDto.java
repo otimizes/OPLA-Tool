@@ -6,6 +6,7 @@ import br.ufpr.dinf.gres.core.jmetal4.experiments.OptimizationAlgorithm;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
 import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.core.learning.Moment;
+import br.ufpr.dinf.gres.patterns.strategies.ScopeSelection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,8 +33,10 @@ public class OptimizationDto {
     private InteractiveFunction interactiveFunction;
     private List<String> mutationOperators = Arrays.asList("featureMutation", "moveMethodMutation", "moveAttributeMutation", "moveOperationMutation", "addClassMutation", "addManagerClassMutation");
     private List<String> patterns = new ArrayList<>();
+    private ScopeSelection scopeSelection = ScopeSelection.RANDOM;
     private List<String> objectiveFunctions = new ArrayList<>();
     public ApplicationYamlConfig config = ApplicationFile.getInstance().getApplicationYaml();
+
 
     public OptimizationDto() {
     }
@@ -212,5 +215,13 @@ public class OptimizationDto {
 
     public void setArchiveSize(Integer archiveSize) {
         this.archiveSize = archiveSize;
+    }
+
+    public ScopeSelection getScopeSelection() {
+        return scopeSelection;
+    }
+
+    public void setScopeSelection(ScopeSelection scopeSelection) {
+        this.scopeSelection = scopeSelection;
     }
 }

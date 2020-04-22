@@ -10,12 +10,19 @@
       <opla-grid-tile>
         <mat-checkbox [formControl]="hideRequiredControl" (change)="changePatterns('bridge', $event.checked)">Bridge</mat-checkbox>
       </opla-grid-tile>
+      <opla-grid-tile>
+        <mat-checkbox [formControl]="hideRequiredControl" (change)="changePatterns('facade', $event.checked)">Facade</mat-checkbox>
+      </opla-grid-tile>
+      <opla-grid-tile>
+        <mat-checkbox [formControl]="hideRequiredControl" (change)="changePatterns('adapter', $event.checked)">Adapter</mat-checkbox>
+      </opla-grid-tile>
     </opla-grid-list>
     <opla-grid-list>
       <opla-grid-tile>
-        <mat-radio-group aria-label="Scope Selection">
-          <mat-radio-button value="1">Random</mat-radio-button> &nbsp;
-          <mat-radio-button value="2">Elements with same design pattern or none</mat-radio-button>
+        <mat-radio-group aria-label="Scope Selection" (change)="changeScopeSelection($event)">
+          <mat-radio-button value="RANDOM">Random</mat-radio-button> &nbsp;
+          <mat-radio-button value="WHOLE">Whole</mat-radio-button>
+          <mat-radio-button value="WHOLE_WITHOUT_PACKAGE">Whole without package</mat-radio-button>
         </mat-radio-group>
       </opla-grid-tile>
     </opla-grid-list>

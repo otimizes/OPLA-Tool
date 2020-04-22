@@ -22,6 +22,7 @@ export class OptimizationDto {
   patterns: string[] = [];
   objectiveFunctions: string[] = [];
   config: Config = new Config();
+  scopeSelection: string;
 
   constructor() {}
 }

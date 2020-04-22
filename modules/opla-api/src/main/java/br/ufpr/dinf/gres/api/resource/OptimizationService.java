@@ -8,6 +8,7 @@ import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.LogLogData;
 import br.ufpr.dinf.gres.loglog.Logger;
+import br.ufpr.dinf.gres.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -36,6 +37,10 @@ public class OptimizationService {
             OPLAThreadScope.mainThreadId.set(Thread.currentThread().getId());
             OPLAConfigThreadScope.userDir.set(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator"));
             OPLAConfigThreadScope.pla.set(OPLAConfigThreadScope.userDir.get() + optimizationDto.getInputArchitecture());
+            optimizationDto.getConfig().setPathToProfile(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfile());
+            optimizationDto.getConfig().setPathToProfileRelationships(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfileRelationships());
+            optimizationDto.getConfig().setPathToProfilePatterns(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfilePatterns());
+            optimizationDto.getConfig().setPathToProfileConcern(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfileConcern());
             OPLAConfigThreadScope.setConfig(optimizationDto.getConfig());
             optimizationDto.setInputArchitecture(OPLAConfigThreadScope.pla.get());
             executeNSGAIIAlgorithm(optimizationDto);
@@ -52,6 +57,10 @@ public class OptimizationService {
             OPLAConfigThreadScope.userDir.set(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator"));
             OPLAConfigThreadScope.pla.set(OPLAConfigThreadScope.userDir.get() + optimizationDto.getInputArchitecture());
             optimizationDto.setInputArchitecture(OPLAConfigThreadScope.pla.get());
+            optimizationDto.getConfig().setPathToProfile(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfile());
+            optimizationDto.getConfig().setPathToProfileRelationships(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfileRelationships());
+            optimizationDto.getConfig().setPathToProfilePatterns(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfilePatterns());
+            optimizationDto.getConfig().setPathToProfileConcern(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfileConcern());
             OPLAConfigThreadScope.setConfig(optimizationDto.getConfig());
             executePAESAlgorithm(optimizationDto);
         });
@@ -115,8 +124,7 @@ public class OptimizationService {
             LOGGER.info("Instanciando o campo do Patterns - oplatool classe nsgaii");
             String[] array = new String[optimizationDto.getPatterns().size()];
             configs.setPatterns(optimizationDto.getPatterns().toArray(array));
-//                configs.setDesignPatternStrategy(VolatileConfs.getScopePatterns()); TODO
-
+            configs.setDesignPatternStrategy(new ElementsWithSameDesignPatternSelection(optimizationDto.getScopeSelection().get()));
         }
 
         List<String> operadores = configs.getMutationOperators();
@@ -201,7 +209,7 @@ public class OptimizationService {
         if (optimizationDto.getMutationOperators().contains(FeatureMutationOperators.DESIGN_PATTERNS.getOperatorName())) {
             String[] array = new String[optimizationDto.getPatterns().size()];
             configs.setPatterns(optimizationDto.getPatterns().toArray(array));
-//            configs.setDesignPatternStrategy(VolatileConfs.getScopePatterns());
+            configs.setDesignPatternStrategy(new ElementsWithSameDesignPatternSelection(optimizationDto.getScopeSelection().get()));
         }
 
         //Configura onde o br.ufpr.dinf.gres.opla.db esta localizado
