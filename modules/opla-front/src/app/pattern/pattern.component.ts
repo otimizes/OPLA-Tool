@@ -20,4 +20,23 @@ export class PatternComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  changePatterns(obj: string, checked: boolean) {
+    if (checked) {
+      this.addPattern(obj);
+    } else {
+      this.removePattern(obj);
+    }
+  }
+
+  addPattern(obj) {
+    if (!this.optimizationDto.patterns.includes(obj)) {
+      this.optimizationDto.patterns.push(obj);
+    }
+  }
+
+  removePattern(obj) {
+    this.optimizationDto.patterns.splice(this.optimizationDto.patterns.indexOf(obj), 1);
+  }
+
 }

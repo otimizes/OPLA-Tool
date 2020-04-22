@@ -2,13 +2,13 @@
   <form [formGroup]="formGroup">
     <opla-grid-list>
       <opla-grid-tile>
-        <mat-checkbox [formControl]="hideRequiredControl">Mediator</mat-checkbox>
+        <mat-checkbox [formControl]="hideRequiredControl" (change)="changePatterns('mediator', $event.checked)" >Mediator</mat-checkbox>
       </opla-grid-tile>
       <opla-grid-tile>
-        <mat-checkbox [formControl]="hideRequiredControl">Strategy</mat-checkbox>
+        <mat-checkbox [formControl]="hideRequiredControl" (change)="changePatterns('strategy', $event.checked)">Strategy</mat-checkbox>
       </opla-grid-tile>
       <opla-grid-tile>
-        <mat-checkbox [formControl]="hideRequiredControl">Bridge</mat-checkbox>
+        <mat-checkbox [formControl]="hideRequiredControl" (change)="changePatterns('bridge', $event.checked)">Bridge</mat-checkbox>
       </opla-grid-tile>
     </opla-grid-list>
     <opla-grid-list>

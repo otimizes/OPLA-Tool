@@ -9,6 +9,7 @@ import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
 import br.ufpr.dinf.gres.architecture.util.Constants;
 import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.api.dto.OptimizationOptionsDTO;
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -59,14 +60,14 @@ public class OptimizationResource {
     public ResponseEntity<List<String>> save(
             @RequestParam("file") List<MultipartFile> files) {
 
-        String OUT_PATH = ApplicationFile.getInstance().getConfig().getDirectoryToExportModels().toString() + System.getProperty("file.separator");
+        String OUT_PATH = ApplicationFile.getInstance().getConfig().getDirectoryToExportModels().toString() + System.getProperty("file.separator") + OPLAThreadScope.token.get() + System.getProperty("file.separator");
         List<String> paths = new ArrayList<>();
 
         try {
             for (MultipartFile mf : files) {
                 byte[] bytes = mf.getBytes();
                 String s = OUT_PATH + mf.getOriginalFilename();
-                paths.add(s);
+                paths.add(mf.getOriginalFilename());
                 createPathIfNotExists(s.substring(0, s.lastIndexOf(Constants.FILE_SEPARATOR)));
                 Path path = Paths.get(s);
                 Files.write(path, bytes);

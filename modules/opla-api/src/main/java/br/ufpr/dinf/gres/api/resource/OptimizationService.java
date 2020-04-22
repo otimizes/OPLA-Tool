@@ -34,7 +34,10 @@ public class OptimizationService {
         Thread thread = new Thread(() -> {
             OPLAThreadScope.token.set(token);
             OPLAThreadScope.mainThreadId.set(Thread.currentThread().getId());
+            OPLAConfigThreadScope.userDir.set(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator"));
+            OPLAConfigThreadScope.pla.set(OPLAConfigThreadScope.userDir.get() + optimizationDto.getInputArchitecture());
             OPLAConfigThreadScope.setConfig(optimizationDto.getConfig());
+            optimizationDto.setInputArchitecture(OPLAConfigThreadScope.pla.get());
             executeNSGAIIAlgorithm(optimizationDto);
         });
         thread.start();
@@ -46,6 +49,9 @@ public class OptimizationService {
         Thread thread = new Thread(() -> {
             OPLAThreadScope.token.set(token);
             OPLAThreadScope.mainThreadId.set(Thread.currentThread().getId());
+            OPLAConfigThreadScope.userDir.set(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator"));
+            OPLAConfigThreadScope.pla.set(OPLAConfigThreadScope.userDir.get() + optimizationDto.getInputArchitecture());
+            optimizationDto.setInputArchitecture(OPLAConfigThreadScope.pla.get());
             OPLAConfigThreadScope.setConfig(optimizationDto.getConfig());
             executePAESAlgorithm(optimizationDto);
         });
