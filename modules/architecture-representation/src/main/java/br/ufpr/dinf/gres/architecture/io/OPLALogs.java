@@ -1,5 +1,7 @@
 package br.ufpr.dinf.gres.architecture.io;
 
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

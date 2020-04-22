@@ -43,7 +43,7 @@ public class ReaderConfig {
         if (dirTarget != null) {
             return dirTarget;
         }
-        return OPLAThreadScope.config.get().getDirectoryToSaveModels();
+        return OPLAConfigThreadScope.config.get().getDirectoryToSaveModels();
     }
 
     public static void setDirTarget(String path) {
@@ -60,7 +60,7 @@ public class ReaderConfig {
         if (dirExportTarget != null) {
             return dirExportTarget;
         }
-        return OPLAThreadScope.config.get().getDirectoryToExportModels();
+        return OPLAConfigThreadScope.config.get().getDirectoryToExportModels();
     }
 
     public static void setDirExportTarget(String path) {
@@ -76,7 +76,7 @@ public class ReaderConfig {
         if (pathToProfileSMarty != null) {
             return pathToProfileSMarty;
         }
-        return OPLAThreadScope.config.get().getPathToProfile();
+        return OPLAConfigThreadScope.config.get().getPathToProfile();
     }
 
     public static void setPathToProfileSMarty(String path) {
@@ -92,7 +92,7 @@ public class ReaderConfig {
         if (pathToProfileConcerns != null) {
             return pathToProfileConcerns;
         }
-        return OPLAThreadScope.config.get().getPathToProfileConcern();
+        return OPLAConfigThreadScope.config.get().getPathToProfileConcern();
     }
 
     public static void setPathToProfileConcerns(String path) {
@@ -112,7 +112,7 @@ public class ReaderConfig {
         if (pathToTemplateModelsDirectory != null) {
             return pathToTemplateModelsDirectory;
         }
-        return OPLAThreadScope.config.get().getPathToTemplateModelsDirectory();
+        return OPLAConfigThreadScope.config.get().getPathToTemplateModelsDirectory();
     }
 
     public static void setPathToTemplateModelsDirectory(String path) {
@@ -125,7 +125,7 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasSmartyProfile() {
-        return OPLAThreadScope.config.get().getPathToProfile().isEmpty() || getPathToProfileSMarty() == null ? false : true;
+        return !OPLAConfigThreadScope.config.get().getPathToProfile().isEmpty() && getPathToProfileSMarty() != null;
     }
 
     /**
@@ -134,7 +134,7 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasConcernsProfile() {
-        return OPLAThreadScope.config.get().getPathToProfileConcern().isEmpty() || getPathToProfileConcerns() == null ? false : true;
+        return !OPLAConfigThreadScope.config.get().getPathToProfileConcern().isEmpty() && getPathToProfileConcerns() != null;
     }
 
     /**
@@ -143,17 +143,17 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasRelationsShipProfile() {
-        return OPLAThreadScope.config.get().getPathToProfileRelationships().isEmpty() || getPathToProfileRelationships() == null ? false : true;
+        return !OPLAConfigThreadScope.config.get().getPathToProfileRelationships().isEmpty() && getPathToProfileRelationships() != null;
     }
 
     public static boolean hasPatternsProfile() {
-        return OPLAThreadScope.config.get().getPathToProfilePatterns().isEmpty() || getPathToProfilePatterns() == null ? false : true;
+        return !OPLAConfigThreadScope.config.get().getPathToProfilePatterns().isEmpty() && getPathToProfilePatterns() != null;
     }
 
     public static String getPathToProfileRelationships() {
         if (pathToProfileRelationships != null)
             return pathToProfileRelationships;
-        return OPLAThreadScope.config.get().getPathToProfileRelationships();
+        return OPLAConfigThreadScope.config.get().getPathToProfileRelationships();
     }
 
     public static void setPathProfileRelationship(String path) {
@@ -163,7 +163,7 @@ public class ReaderConfig {
     public static String getPathToProfilePatterns() {
         if (pathToProfilePatterns != null)
             return pathToProfilePatterns;
-        return OPLAThreadScope.config.get().getPathToProfilePatterns();
+        return OPLAConfigThreadScope.config.get().getPathToProfilePatterns();
     }
 
     public static void setPathToProfilePatterns(String path) {

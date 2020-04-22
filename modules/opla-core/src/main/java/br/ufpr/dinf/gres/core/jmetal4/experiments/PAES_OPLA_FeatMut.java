@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
-import br.ufpr.dinf.gres.architecture.io.OPLAThreadScope;
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
@@ -15,7 +15,6 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
-import br.ufpr.dinf.gres.domain.entity.AllMetrics;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.Info;

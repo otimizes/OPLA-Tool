@@ -4,6 +4,7 @@ import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.*;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.*;
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.LogLogData;
 import br.ufpr.dinf.gres.loglog.Logger;
@@ -33,7 +34,7 @@ public class OptimizationService {
         Thread thread = new Thread(() -> {
             OPLAThreadScope.token.set(token);
             OPLAThreadScope.mainThreadId.set(Thread.currentThread().getId());
-            OPLAThreadScope.setConfig(optimizationDto.getConfig());
+            OPLAConfigThreadScope.setConfig(optimizationDto.getConfig());
             executeNSGAIIAlgorithm(optimizationDto);
         });
         thread.start();
@@ -45,7 +46,7 @@ public class OptimizationService {
         Thread thread = new Thread(() -> {
             OPLAThreadScope.token.set(token);
             OPLAThreadScope.mainThreadId.set(Thread.currentThread().getId());
-            OPLAThreadScope.setConfig(optimizationDto.getConfig());
+            OPLAConfigThreadScope.setConfig(optimizationDto.getConfig());
             executePAESAlgorithm(optimizationDto);
         });
         thread.start();

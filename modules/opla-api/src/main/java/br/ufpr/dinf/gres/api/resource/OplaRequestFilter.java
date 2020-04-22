@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.api.resource;
 
-import br.ufpr.dinf.gres.architecture.io.OPLAThreadScope;
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;

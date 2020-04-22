@@ -1,5 +1,7 @@
 package br.ufpr.dinf.gres.architecture.io;
 
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
+
 public class OptimizationInfo {
     public Long threadId;
     public String logs;

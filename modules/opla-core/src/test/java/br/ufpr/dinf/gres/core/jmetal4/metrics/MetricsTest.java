@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
 import br.ufpr.dinf.gres.architecture.config.ApplicationYamlConfig;
-import br.ufpr.dinf.gres.architecture.io.OPLAThreadScope;
+import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.util.Constants;
 import br.ufpr.dinf.gres.common.Variable;
@@ -29,7 +29,7 @@ public class MetricsTest {
         applicationYamlConfig.setDirectoryToExportModels("/home/wmfsystem/oplatool/output/");
         applicationYamlConfig.setDirectoryToSaveModels("/home/wmfsystem/oplatool/temp/");
         applicationYamlConfig.setPathToTemplateModelsDirectory("/home/wmfsystem/oplatool/templates/");
-        OPLAThreadScope.setConfig(applicationYamlConfig);
+        OPLAConfigThreadScope.setConfig(applicationYamlConfig);
         OPLA opla = new OPLA(agm + Constants.FILE_SEPARATOR + "agm.uml");
         Architecture architecture = opla.getArchitecture_();
 

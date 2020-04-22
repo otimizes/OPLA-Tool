@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.persistence.base;
 
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
@@ -11,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +51,20 @@ public abstract class BaseService<T> {
     }
 
     public List<T> findAll() {
-        return repository.findAll();
+        String where = "";
+        if (doesObjectContainField(domain, "hash")) {
+            where = " obj where obj.hash like '" + OPLAThreadScope.token.get() + "/%'";
+        } else if (doesObjectContainField(domain, "experiment")) {
+            where = " obj where obj.experiment.hash like '" + OPLAThreadScope.token.get() + "/%'";
+        }
+        String select = "from " + domain.getName();
+        Query query = entityManager.createQuery(select + where);
+        return query.getResultList();
+    }
+
+    public boolean doesObjectContainField(Class object, String fieldName) {
+        return Arrays.stream(object.getDeclaredFields())
+                .anyMatch(f -> f.getName().equals(fieldName));
     }
 
     public List<T> findAllById(Iterable<String> var1) {

@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
-import br.ufpr.dinf.gres.architecture.io.OPLAThreadScope;
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;

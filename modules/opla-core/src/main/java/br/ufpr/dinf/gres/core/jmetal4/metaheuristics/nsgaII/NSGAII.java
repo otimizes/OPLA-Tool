@@ -22,7 +22,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII;
 
 import br.ufpr.dinf.gres.architecture.io.OPLALogs;
-import br.ufpr.dinf.gres.architecture.io.OPLAThreadScope;
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfo;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
 import com.rits.cloning.Cloner;
