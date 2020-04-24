@@ -10,10 +10,9 @@ import {catchError} from "rxjs/operators";
 })
 export class UserService {
 
-  public static user = null;
   protected collection = 'user';
   constructor(public http: HttpClient) {
-    UserService.user = this.getCurrentlyUser();
+    OptimizationService.user = this.getCurrentlyUser();
   }
 
   errorHandler(error) {
@@ -69,7 +68,7 @@ export class UserService {
   }
 
   setCurrentlyUser(user: any) {
-    UserService.user = user;
+    OptimizationService.user = user;
     window.localStorage.setItem("user", JSON.stringify(user));
   }
 

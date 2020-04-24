@@ -19,10 +19,10 @@ export class PersistenceService {
   }
 
   createAuthorizationHeader(): HttpHeaders {
-    console.log("Auth ---", UserService.user)
+    console.log("Auth ---", OptimizationService.user)
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'authorization': UserService.user.token
+      'authorization': OptimizationService.user.token
     });
   }
 
