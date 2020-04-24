@@ -22,12 +22,13 @@ public class OptimizationService {
     private static final LogLog VIEW_LOGGER = Logger.getLogger();
 
     private final NSGAII_OPLA_FeatMutInitializer nsgaii;
-
     private final PAES_OPLA_FeatMutInitializer paes;
+    private final InteractiveEmail interactiveEmail;
 
-    public OptimizationService(NSGAII_OPLA_FeatMutInitializer nsgaii, PAES_OPLA_FeatMutInitializer paes) {
+    public OptimizationService(NSGAII_OPLA_FeatMutInitializer nsgaii, PAES_OPLA_FeatMutInitializer paes, InteractiveEmail interactiveEmail) {
         this.nsgaii = nsgaii;
         this.paes = paes;
+        this.interactiveEmail = interactiveEmail;
     }
 
     public Mono<OptimizationInfo> executeNSGAII(OptimizationDto optimizationDto) {
@@ -43,6 +44,7 @@ public class OptimizationService {
             optimizationDto.getConfig().setPathToProfileConcern(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfileConcern());
             OPLAConfigThreadScope.setConfig(optimizationDto.getConfig());
             optimizationDto.setInputArchitecture(OPLAConfigThreadScope.pla.get());
+            optimizationDto.setInteractiveFunction(solutionSet -> interactiveEmail.run(solutionSet, optimizationDto));
             executeNSGAIIAlgorithm(optimizationDto);
         });
         thread.start();
@@ -62,6 +64,8 @@ public class OptimizationService {
             optimizationDto.getConfig().setPathToProfilePatterns(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfilePatterns());
             optimizationDto.getConfig().setPathToProfileConcern(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfileConcern());
             OPLAConfigThreadScope.setConfig(optimizationDto.getConfig());
+            optimizationDto.setInputArchitecture(OPLAConfigThreadScope.pla.get());
+            optimizationDto.setInteractiveFunction(solutionSet -> interactiveEmail.run(solutionSet, optimizationDto));
             executePAESAlgorithm(optimizationDto);
         });
         thread.start();

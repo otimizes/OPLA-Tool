@@ -5,19 +5,17 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Config} from "../dto/config";
 import {OptimizationDto} from "../dto/optimization-dto";
 import {OptimizationInfo} from "../dto/optimization-info";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OptimizationService {
-
-  public static user = null;
-  public static baseUrl = location.origin.replace("4200", "8080").concat("/api");
   public static optimizationInfo: OptimizationInfo;
   public static onOptimizationInfo: EventEmitter<OptimizationInfo> = new EventEmitter<OptimizationInfo>();
   public static onSelectPLA: EventEmitter<string[]> = new EventEmitter<string[]>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
     if (OptimizationService.isRunning()) {
       OptimizationService.optimizationInfo = OptimizationService.getOptimizationInfo()
       this.startEventListener(OptimizationService.optimizationInfo);
@@ -52,7 +50,7 @@ export class OptimizationService {
   startEventListener(optimizationInfo: OptimizationInfo) {
     localStorage.setItem("optimizationInfo", JSON.stringify(optimizationInfo));
     if (!!window['EventSource'] && optimizationInfo.status != "COMPLETE") {
-      let source = new EventSource(`${OptimizationService.baseUrl}/optimization/optimization-info/${optimizationInfo.threadId}?authorization=${OptimizationService.user.token}`);
+      let source = new EventSource(`${UserService.baseUrl}/optimization/optimization-info/${optimizationInfo.threadId}?authorization=${UserService.user.token}`);
       source.addEventListener('message', (e) => {
         if (e.data) {
           localStorage.setItem("optimizationInfo", e.data);
@@ -88,7 +86,7 @@ export class OptimizationService {
   createAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'authorization': OptimizationService.user.token
+      'authorization': UserService.user.token
     });
   }
 
@@ -97,26 +95,36 @@ export class OptimizationService {
   }
 
   getConfig(): Observable<Config> {
-    return this.http.get<Config>(`${OptimizationService.baseUrl}/optimization/config`, {headers: this.createAuthorizationHeader()})
+    return this.http.get<Config>(`${UserService.baseUrl}/optimization/config`, {headers: this.createAuthorizationHeader()})
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getInteraction(id): Observable<any> {
+    return this.http.get<Config>(`${UserService.baseUrl}/optimization/interaction/{id}`, {headers: this.createAuthorizationHeader()})
+      .pipe(catchError(this.errorHandler));
+  }
+
+  putInteraction(id, solutionSet): Observable<any> {
+    return this.http.put<Config>(`${UserService.baseUrl}/optimization/interaction/{id}`, solutionSet, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
   getOptimizationOptions(): Observable<any> {
-    return this.http.get<any>(`${OptimizationService.baseUrl}/optimization/optimization-options`, {headers: this.createAuthorizationHeader()})
+    return this.http.get<any>(`${UserService.baseUrl}/optimization/optimization-options`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
   getDto(): Observable<OptimizationDto> {
-    return this.http.get<OptimizationDto>(`${OptimizationService.baseUrl}/optimization/dto`, {headers: this.createAuthorizationHeader()})
+    return this.http.get<OptimizationDto>(`${UserService.baseUrl}/optimization/dto`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
   download(id): Observable<any> {
-    return this.http.get(`${OptimizationService.baseUrl}/optimization/download/${id}?authorization=${OptimizationService.user.token}`, {responseType: 'arraybuffer'});
+    return this.http.get(`${UserService.baseUrl}/optimization/download/${id}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
   }
 
   optimize(dto: OptimizationDto): Observable<OptimizationInfo> {
-    return this.http.post<OptimizationInfo>(`${OptimizationService.baseUrl}/optimization/optimize`, dto, {headers: this.createAuthorizationHeader()})
+    return this.http.post<OptimizationInfo>(`${UserService.baseUrl}/optimization/optimize`, dto, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler), tap(data => {
         this.startEventListener(data);
       }));
@@ -141,8 +149,8 @@ export class OptimizationService {
       }
     }
 
-    return this.http.post(`${OptimizationService.baseUrl}/optimization/upload-pla`, formData, {
-      headers: new HttpHeaders({'enctype': 'multipart/form-data', "authorization": OptimizationService.user.token})
+    return this.http.post(`${UserService.baseUrl}/optimization/upload-pla`, formData, {
+      headers: new HttpHeaders({'enctype': 'multipart/form-data', "authorization": UserService.user.token})
     });
   }
 }

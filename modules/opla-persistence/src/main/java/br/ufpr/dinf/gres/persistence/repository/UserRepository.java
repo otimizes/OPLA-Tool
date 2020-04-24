@@ -11,4 +11,5 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, String> {
 
     public List<User> findAllByLogin(String login);
+    public List<User> findAllByToken(String token);
 }

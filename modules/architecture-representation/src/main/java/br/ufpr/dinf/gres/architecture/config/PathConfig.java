@@ -33,6 +33,8 @@ public class PathConfig {
     private Path dirExportTarget;
 
     private Path pathLastOptimizationInput;
+    private String emailUser;
+    private String emailPassword;
 
     private int archiveSize;
 
@@ -49,6 +51,8 @@ public class PathConfig {
         this.pathToProfilePatterns = Paths.get(applicationYaml.getPathToProfilePatterns());
         this.pathToProfileRelationships = Paths.get(applicationYaml.getPathToProfileRelationships());
         this.pathToTemplateModelsDirectory = Paths.get(applicationYaml.getPathToTemplateModelsDirectory());
+        this.emailUser = applicationYaml.getEmailUser();
+        this.emailPassword = applicationYaml.getEmailPassword();
     }
 
     public Path getDirectoryToSaveModels() {
@@ -171,5 +175,19 @@ public class PathConfig {
         this.pathPapyrus = pathPapyrus;
     }
 
+    public String getEmailUser() {
+        return emailUser;
+    }
 
+    public void setEmailUser(String emailUser) {
+        this.emailUser = emailUser;
+    }
+
+    public String getEmailPassword() {
+        return emailPassword;
+    }
+
+    public void setEmailPassword(String emailPassword) {
+        this.emailPassword = emailPassword;
+    }
 }

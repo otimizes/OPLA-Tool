@@ -13,9 +13,9 @@ export class OptimizationDto {
   crossover: boolean;
   crossoverProbability: boolean;
   interactive: boolean = false;
-  maxInteractions: number = 0;
-  firstInteraction: number = 0;
-  intervalInteraction: number = 0;
+  maxInteractions: number = 3;
+  firstInteraction: number = 3;
+  intervalInteraction: number = 3 ;
   clusteringAlgorithm: string = "KMEANS";
   clusteringMoment: string = "POSTERIORI";
   mutationOperators: string[] = ["featureMutation","moveMethodMutation","addClassMutation","addManagerClassMutation","moveOperationMutation"];

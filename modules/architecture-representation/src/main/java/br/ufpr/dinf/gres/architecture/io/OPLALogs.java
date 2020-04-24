@@ -10,7 +10,6 @@ import java.util.Map;
 public class OPLALogs {
     public static Map<Long, List<OptimizationInfo>> lastLogs = new HashMap<>();
 
-
     public static void add(OptimizationInfo info) {
         OPLALogs.lastLogs.computeIfAbsent(OPLAThreadScope.mainThreadId.get(), k -> new ArrayList<>()).add(info);
     }

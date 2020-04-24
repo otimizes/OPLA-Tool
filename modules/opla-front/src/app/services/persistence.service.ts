@@ -19,46 +19,46 @@ export class PersistenceService {
   }
 
   createAuthorizationHeader(): HttpHeaders {
-    console.log("Auth ---", OptimizationService.user)
+    console.log("Auth ---", UserService.user)
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'authorization': OptimizationService.user.token
+      'authorization': UserService.user.token
     });
   }
 
   post(obj): Observable<any> {
-    return this.http.post(`${OptimizationService.baseUrl}/${this.collection}/async`, obj, {headers: this.createAuthorizationHeader()})
+    return this.http.post(`${UserService.baseUrl}/${this.collection}/async`, obj, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
   put(obj): Observable<any> {
-    return this.http.post(`${OptimizationService.baseUrl}/${this.collection}/async`, obj, {headers: this.createAuthorizationHeader()})
+    return this.http.post(`${UserService.baseUrl}/${this.collection}/async`, obj, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
   delete(id): Observable<any> {
-    return this.http.delete(`${OptimizationService.baseUrl}/${this.collection}/${id}`, {headers: this.createAuthorizationHeader()})
+    return this.http.delete(`${UserService.baseUrl}/${this.collection}/${id}`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
   get(id): Observable<any> {
-    return this.http.get(`${OptimizationService.baseUrl}/${this.collection}/${id}`, {headers: this.createAuthorizationHeader()})
+    return this.http.get(`${UserService.baseUrl}/${this.collection}/${id}`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
   getAll(): Observable<any> {
-    return this.http.get(`${OptimizationService.baseUrl}/${this.collection}`, {headers: this.createAuthorizationHeader()})
+    return this.http.get(`${UserService.baseUrl}/${this.collection}`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
   count(): Observable<any> {
-    return this.http.get(`${OptimizationService.baseUrl}/${this.collection}/count`, {headers: this.createAuthorizationHeader()})
+    return this.http.get(`${UserService.baseUrl}/${this.collection}/count`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
 
   findByExperiment(experimentId): Observable<any> {
-    return this.http.get(`${OptimizationService.baseUrl}/${this.collection}/by-experiment/${experimentId}`, {headers: this.createAuthorizationHeader()})
+    return this.http.get(`${UserService.baseUrl}/${this.collection}/by-experiment/${experimentId}`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 

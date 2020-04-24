@@ -37,6 +37,18 @@ public class UserService extends BaseService<User> {
         return new LoginResultDto(repository.save(new User(loginDto.login, loginDto.password, getTokenByLogin(loginDto))), LoginStatusDto.CREATED);
     }
 
+    @Transactional(readOnly = true)
+    public User findUserByEmail(String email) {
+        List<User> allByLogin = repository.findAllByLogin(email);
+        return allByLogin.size() > 0 ? allByLogin.get(0) : null;
+    }
+
+    @Transactional(readOnly = true)
+    public User findUserByToken(String token) {
+        List<User> allByToken = repository.findAllByToken(token);
+        return allByToken.size() > 0 ? allByToken.get(0) : null;
+    }
+
     private String getTokenByLogin(LoginDto loginDto) {
         return DigestUtils.md5DigestAsHex((loginDto.login + loginDto.password + LocalDateTime.now().toString()).getBytes());
     }

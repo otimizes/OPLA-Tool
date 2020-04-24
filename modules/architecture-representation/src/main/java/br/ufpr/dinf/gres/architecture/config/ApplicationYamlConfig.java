@@ -19,6 +19,8 @@ public class ApplicationYamlConfig {
     private String pathToProfileRelationships;
     private String pathToProfilePatterns;
     private String pathLastOptimizationInput;
+    private String emailUser;
+    private String emailPassword;
     private Boolean smarty = true;
     private Boolean feature = true;
     private Boolean patterns = true;
@@ -134,5 +136,21 @@ public class ApplicationYamlConfig {
 
     public void setRelationships(Boolean relationships) {
         this.relationships = relationships;
+    }
+
+    public String getEmailUser() {
+        return emailUser;
+    }
+
+    public void setEmailUser(String emailUser) {
+        this.emailUser = emailUser;
+    }
+
+    public String getEmailPassword() {
+        return emailPassword;
+    }
+
+    public void setEmailPassword(String emailPassword) {
+        this.emailPassword = emailPassword;
     }
 }

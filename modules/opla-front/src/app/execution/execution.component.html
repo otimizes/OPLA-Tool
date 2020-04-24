@@ -65,6 +65,9 @@
             <mat-card>
               <h5>Interaction - Learning Settings</h5>
               <div>
+                <mat-checkbox (change)="optimizationDto.interactive = $event.checked">
+                  Interact during the optmization
+                </mat-checkbox>
                 <mat-form-field>
                   <mat-label>Select the clustering moment</mat-label>
                   <mat-select [(value)]="optimizationDto.clusteringMoment">
@@ -76,28 +79,36 @@
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field>
-                  <mat-label>Select the clustering moment</mat-label>
+                  <mat-label>Select the clustering algorithm</mat-label>
                   <mat-select [(value)]="optimizationDto.clusteringAlgorithm">
                     <mat-option value="KMEANS">KMEANS</mat-option>
                     <mat-option value="DBSCAN">DBSCAN</mat-option>
                     <mat-option value="OPTICS">OPTICS</mat-option>
                   </mat-select>
                 </mat-form-field>
-                <mat-form-field [floatLabel]="floatLabelControl.value">
-                  <mat-label>Max interactions</mat-label>
-                  <input matInput placeholder="3..." [(ngModel)]="optimizationDto.maxInteractions"
-                         formControlName="maxInteractions">
-                </mat-form-field>
-                <mat-form-field [floatLabel]="floatLabelControl.value">
-                  <mat-label>First interaction</mat-label>
-                  <input matInput placeholder="3..." [(ngModel)]="optimizationDto.firstInteraction"
-                         formControlName="firstInteraction">
-                </mat-form-field>
-                <mat-form-field [floatLabel]="floatLabelControl.value">
-                  <mat-label>Interval</mat-label>
-                  <input matInput placeholder="3..." [(ngModel)]="optimizationDto.intervalInteraction"
-                         formControlName="intervalInteraction">
-                </mat-form-field>
+                <opla-grid-list class="operators-functions">
+                  <opla-grid-tile>
+                    <mat-form-field [floatLabel]="floatLabelControl.value">
+                      <mat-label>Max interactions</mat-label>
+                      <input matInput placeholder="3..." [(ngModel)]="optimizationDto.maxInteractions"
+                             formControlName="maxInteractions">
+                    </mat-form-field>
+                  </opla-grid-tile>
+                  <opla-grid-tile>
+                    <mat-form-field [floatLabel]="floatLabelControl.value">
+                      <mat-label>First interaction</mat-label>
+                      <input matInput placeholder="3..." [(ngModel)]="optimizationDto.firstInteraction"
+                             formControlName="firstInteraction">
+                    </mat-form-field>
+                  </opla-grid-tile>
+                  <opla-grid-tile>
+                    <mat-form-field [floatLabel]="floatLabelControl.value">
+                      <mat-label>Interval</mat-label>
+                      <input matInput placeholder="3..." [(ngModel)]="optimizationDto.intervalInteraction"
+                             formControlName="intervalInteraction">
+                    </mat-form-field>
+                  </opla-grid-tile>
+                </opla-grid-list>
               </div>
             </mat-card>
           </opla-grid-tile>

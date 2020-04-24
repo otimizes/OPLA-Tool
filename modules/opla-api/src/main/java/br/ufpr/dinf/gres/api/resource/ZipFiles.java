@@ -43,6 +43,18 @@ public class ZipFiles {
         }
     }
 
+    public File zipDirectory(String fileDir) {
+        File file = new File(fileDir + ".zip");
+        FileOutputStream baos = null;
+        try {
+            baos = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        zipDirectoryStream(new File(fileDir), baos);
+        return file;
+    }
+
     public void zipDirectoryStream(File dir, OutputStream fos) {
         try {
             populateFilesList(dir);

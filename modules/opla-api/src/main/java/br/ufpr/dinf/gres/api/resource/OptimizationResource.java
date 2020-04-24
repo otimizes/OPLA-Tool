@@ -1,5 +1,9 @@
 package br.ufpr.dinf.gres.api.resource;
 
+import br.ufpr.dinf.gres.api.dto.OptimizationDto;
+import br.ufpr.dinf.gres.api.dto.OptimizationOptionsDTO;
+import br.ufpr.dinf.gres.api.utils.Interaction;
+import br.ufpr.dinf.gres.api.utils.Interactions;
 import br.ufpr.dinf.gres.architecture.config.ApplicationFile;
 import br.ufpr.dinf.gres.architecture.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.architecture.config.PathConfig;
@@ -7,8 +11,7 @@ import br.ufpr.dinf.gres.architecture.io.OPLALogs;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfo;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
 import br.ufpr.dinf.gres.architecture.util.Constants;
-import br.ufpr.dinf.gres.api.dto.OptimizationDto;
-import br.ufpr.dinf.gres.api.dto.OptimizationOptionsDTO;
+import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.http.HttpStatus;
@@ -101,6 +104,17 @@ public class OptimizationResource {
     @GetMapping("/config")
     public Mono<ApplicationYamlConfig> config() {
         return Mono.just(ApplicationFile.getInstance().getApplicationYaml()).subscribeOn(Schedulers.elastic());
+    }
+
+    @GetMapping("/interaction/{id}")
+    public Mono<Interaction> getInteraction(@PathVariable Long id) {
+        return Mono.just(Interactions.interactions.get(id)).subscribeOn(Schedulers.elastic());
+    }
+
+    @PutMapping("/interaction/{id}")
+    public Mono<Object> interaction(@PathVariable Long id, @RequestBody SolutionSet solutionSet) {
+        Interactions.interactions.put(id, new Interaction(true, solutionSet));
+        return Mono.empty().subscribeOn(Schedulers.elastic());
     }
 
     @GetMapping("/optimization-options")
