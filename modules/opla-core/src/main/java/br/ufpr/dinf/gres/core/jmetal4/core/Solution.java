@@ -27,6 +27,8 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.variable.Binary;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 
@@ -352,6 +354,7 @@ public class Solution implements Serializable {
         return objective_;
     }
 
+    @JsonIgnore
     public Problem getProblem() {
         return problem_;
     }
@@ -451,6 +454,7 @@ public class Solution implements Serializable {
      * @return the <code>DecisionVariables</code> object representing the
      * decision variables of the solution.
      */
+    @JsonIgnore
     public Variable[] getDecisionVariables() {
         return variable_;
     } // getDecisionVariables
@@ -584,6 +588,7 @@ public class Solution implements Serializable {
      *
      * @return the type of the variable
      */
+    @JsonIgnore
     public SolutionType getType() {
         return type_;
     } // getType
@@ -630,8 +635,8 @@ public class Solution implements Serializable {
 
         for (int i = 0; i < variable_.length; i++)
             try {
-                if ((variable_[i].getVariableType() == Class.forName("br.ufpr.dinf.gres.core.jmetal4.base.variable.Binary"))
-                        || (variable_[i].getVariableType() == Class.forName("br.ufpr.dinf.gres.core.jmetal4.base.variable.BinaryReal")))
+                if ((variable_[i].getVariableType() == Class.forName("br.ufpr.dinf.gres.core.jmetal4.encodings.variable.Binary"))
+                        || (variable_[i].getVariableType() == Class.forName("br.ufpr.dinf.gres.core.jmetal4.encodings.variable.BinaryReal")))
                     bits += ((Binary) (variable_[i])).getNumberOfBits();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -680,6 +685,10 @@ public class Solution implements Serializable {
         return false;
     }
 
+    @JsonIgnoreProperties({"elements", "elementsWithPackages", "allConcerns", "allPackages", "allMethods",
+            "allPackagesAllowedMofification", "interfaces", "allInterfaces", "classes", "allClasses",
+            "allVariationPoints", "allVariants", "allVariabilities", "freezedElements", "LOGGER", "relationshipHolder",
+            "atributtes", "allAtributtes", "upperBound", "lowerBound", "variableType", "value"})
     public Architecture getAlternativeArchitecture() {
         return (Architecture) getDecisionVariables()[0];
     }

@@ -1,9 +1,18 @@
 package br.ufpr.dinf.gres.api.resource;
 
 import br.ufpr.dinf.gres.api.dto.OptimizationDto;
+import br.ufpr.dinf.gres.api.utils.Interactions;
+import br.ufpr.dinf.gres.architecture.config.ApplicationFile;
+import br.ufpr.dinf.gres.architecture.config.PathConfig;
 import br.ufpr.dinf.gres.architecture.io.*;
+import br.ufpr.dinf.gres.architecture.representation.Architecture;
+import br.ufpr.dinf.gres.architecture.util.Constants;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
+import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
+import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.*;
+import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
+import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.LogLogData;
@@ -13,6 +22,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.io.File;
 import java.util.List;
 
 @Service
@@ -239,5 +249,24 @@ public class OptimizationService {
         LOGGER.info("Fim Execução NSGAII");
         OPLALogs.lastLogs.get(OPLAThreadScope.mainThreadId.get()).clear();
         OPLALogs.add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), "Fin", OptimizationInfoStatus.COMPLETE));
+    }
+
+    public File downloadAlternative(Long threadId, Integer id) {
+        SolutionSet solutionSet = Interactions.interactions.get(threadId).solutionSet;
+        Solution solution = solutionSet.get(id);
+        String plaNameOnAnalyses = "Interaction_" + OPLAThreadScope.currentGeneration.get() + "_" + solution.getAlternativeArchitecture().getName();
+        String fileOnAnalyses = OPLAConfigThreadScope.config.get().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getAlternativeArchitecture().getName() + ".di");
+//        File file = new File();
+        return null;
+    }
+
+    public File downloadAllAlternative(Long threadId) {
+        SolutionSet solutionSet = Interactions.interactions.get(threadId).solutionSet;
+        for (int i = 0; i < solutionSet.size(); i++) {
+            downloadAlternative(threadId, i);
+        }
+        PathConfig config = ApplicationFile.getInstance().getConfig();
+        String url = config.getDirectoryToExportModels().toString().concat(OPLAThreadScope.hash.get());
+        return new File(url);
     }
 }

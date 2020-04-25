@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ExecutionComponent} from './execution/execution.component';
@@ -31,12 +31,14 @@ import {MatTableModule} from "@angular/material/table";
 import {CommonModule} from "@angular/common";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatListModule} from "@angular/material/list";
-import { ReplaceallPipe } from './pipes/replaceall.pipe';
-import { NgVarDirective } from './directives/ng-var.directive';
+import {ReplaceallPipe} from './pipes/replaceall.pipe';
+import {NgVarDirective} from './directives/ng-var.directive';
 import {MatBadgeModule} from "@angular/material/badge";
 import {LoginComponent} from "./login/login.component";
 import {OplaComponent} from "./opla/opla.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {InteractionDialogComponent} from "./dialogs/interaction/interaction-dialog.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     ReplaceallPipe,
     NgVarDirective,
     LoginComponent,
-    OplaComponent
+    OplaComponent,
+    InteractionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,11 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatListModule,
     MatBadgeModule,
     AppRoutingModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    InteractionDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

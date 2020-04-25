@@ -49,7 +49,7 @@ export class OptimizationService {
 
   startEventListener(optimizationInfo: OptimizationInfo) {
     localStorage.setItem("optimizationInfo", JSON.stringify(optimizationInfo));
-    if (!!window['EventSource'] && optimizationInfo.status != "COMPLETE") {
+    if (!!window['EventSource'] && optimizationInfo.status != "COMPLETE" && optimizationInfo.status != 'INTERACT') {
       let source = new EventSource(`${UserService.baseUrl}/optimization/optimization-info/${optimizationInfo.threadId}?authorization=${UserService.user.token}`);
       source.addEventListener('message', (e) => {
         if (e.data) {
@@ -57,7 +57,7 @@ export class OptimizationService {
           let json = JSON.parse(e.data);
           OptimizationService.optimizationInfo = Object.assign(new OptimizationInfo(), json);
           OptimizationService.onOptimizationInfo.emit(OptimizationService.optimizationInfo);
-          if (json.status === "COMPLETE") {
+          if (json.status === "COMPLETE" || json.status === 'INTERACT') {
             source.close();
             e.stopImmediatePropagation();
             e.stopPropagation();
@@ -100,7 +100,7 @@ export class OptimizationService {
   }
 
   getInteraction(id): Observable<any> {
-    return this.http.get<Config>(`${UserService.baseUrl}/optimization/interaction/{id}`, {headers: this.createAuthorizationHeader()})
+    return this.http.get<Config>(`${UserService.baseUrl}/optimization/interaction/${id}`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
@@ -121,6 +121,32 @@ export class OptimizationService {
 
   download(id): Observable<any> {
     return this.http.get(`${UserService.baseUrl}/optimization/download/${id}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
+  }
+
+  downloadAlternative(threadId, id): Observable<any> {
+    if (!id) return this.downloadAllAlternative(threadId);
+    else return this.downloadOneAlternative(threadId, id);
+  }
+
+  downloadOneAlternative(threadId, id): Observable<any> {
+    return this.http.get(`${UserService.baseUrl}/optimization/download-alternative/${threadId}/${id}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
+  }
+
+  downloadAllAlternative(threadId): Observable<any> {
+    return this.http.get(`${UserService.baseUrl}/optimization/download-all-alternative/${threadId}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
+  }
+
+  openAlternative(threadId, id): Observable<any> {
+    if (!id) return this.openAllAlternative(threadId);
+    else return this.openOneAlternative(threadId, id);
+  }
+
+  openOneAlternative(threadId, id): Observable<any> {
+    return this.http.get(`${UserService.baseUrl}/optimization/open-alternative/${threadId}/${id}?authorization=${UserService.user.token}`);
+  }
+
+  openAllAlternative(threadId): Observable<any> {
+    return this.http.get(`${UserService.baseUrl}/optimization/open-all-alternative/${threadId}?authorization=${UserService.user.token}`);
   }
 
   optimize(dto: OptimizationDto): Observable<OptimizationInfo> {

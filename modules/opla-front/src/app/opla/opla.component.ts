@@ -12,6 +12,8 @@ import {ExperimentConfigurationService} from "../services/experiment-configurati
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
+import {InteractionDialogComponent} from "../dialogs/interaction/interaction-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'opla',
@@ -44,6 +46,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
               public infoService: InfoService,
               public objectiveService: ObjectiveService,
               public experimentConfigurationService: ExperimentConfigurationService,
+              public dialog: MatDialog,
               private snackBar: MatSnackBar, fb: FormBuilder) {
     this.executionFormGroup = fb.group({
       mutation: ['', Validators.compose([Validators.required])],
@@ -81,7 +84,9 @@ export class OplaComponent implements OnInit, AfterViewInit {
       this.optimizationOptions = options;
     });
 
+    this.optimizationInfo = OptimizationService.getOptimizationInfo();
     OptimizationService.onOptimizationInfo.asObservable().subscribe(optimizationInfo => {
+      this.verifyInteraction(optimizationInfo);
       this.optimizationInfo = optimizationInfo;
     });
 
@@ -95,7 +100,23 @@ export class OplaComponent implements OnInit, AfterViewInit {
     })
   }
 
+  verifyInteraction(optimizationInfo) {
+    if (optimizationInfo && optimizationInfo.status === "INTERACT") {
+      this.optimizationService.getInteraction(optimizationInfo.threadId).subscribe(interaction => {
+        const dialogRef = this.dialog.open(InteractionDialogComponent, {
+          panelClass: 'opla-dialog-full-panel',
+          data: {info: optimizationInfo, interaction:interaction}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          console.log(result)
+        });
+      });
+    }
+  }
+
   ngAfterViewInit(): void {
+    this.verifyInteraction(this.optimizationInfo);
     this.stepper.selectedIndex = 0;
   }
 

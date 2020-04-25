@@ -787,8 +787,11 @@ public class Architecture extends Variable {
         return (double) (values.stream().mapToInt(Integer::intValue).sum());
     }
 
+    public String getDetailedString() {
+        return this.getDetailedString(true);
+    }
 
-    public String toDetailedString(boolean withAttrs) {
+    public String getDetailedString(boolean withAttrs) {
         List<Integer> qtdAtributosPorClasse = new ArrayList<>();
         List<Integer> qtdMetodosPorClasse = new ArrayList<>();
         int qtdClassesSemAttr = 0;

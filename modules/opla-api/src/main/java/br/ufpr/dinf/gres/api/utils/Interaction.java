@@ -14,4 +14,11 @@ public class Interaction {
     public Interaction(SolutionSet solutionSet) {
         this.solutionSet = solutionSet;
     }
+
+    public Interaction(boolean updated) {
+        this.updated = updated;
+    }
+
+    public Interaction() {
+    }
 }

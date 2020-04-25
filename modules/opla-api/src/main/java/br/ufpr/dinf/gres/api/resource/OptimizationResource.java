@@ -32,6 +32,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/optimization")
@@ -56,6 +57,24 @@ public class OptimizationResource {
         response.addHeader("Content-Disposition", "attachment; filename=\"" + hash + ".zip\"");
         ZipFiles zipFiles = new ZipFiles();
         zipFiles.zipDirectoryStream(new File(url), response.getOutputStream());
+    }
+
+    @GetMapping(value = "/download-alternative/{threadId}/{id}", produces = "application/zip")
+    public void downloadAlternative(@PathVariable Long threadId, @PathVariable Integer id, HttpServletResponse response) throws IOException {
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.addHeader("Content-Disposition", "attachment; filename=\"alternatives.zip\"");
+        File file = optimizationService.downloadAlternative(threadId, id);
+        ZipFiles zipFiles = new ZipFiles();
+        zipFiles.zipDirectoryStream(file, response.getOutputStream());
+    }
+
+    @GetMapping(value = "/download-all-alternative/{threadId}", produces = "application/zip")
+    public void downloadAllAlternative(@PathVariable Long threadId, HttpServletResponse response) throws IOException {
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.addHeader("Content-Disposition", "attachment; filename=\"alternatives.zip\"");
+        File file = optimizationService.downloadAllAlternative(threadId);
+        ZipFiles zipFiles = new ZipFiles();
+        zipFiles.zipDirectoryStream(file, response.getOutputStream());
     }
 
 
@@ -97,7 +116,7 @@ public class OptimizationResource {
                         return OptimizationInfoStatus.COMPLETE.equals(optimizationInfo.status)
                                 ? optimizationInfo : OPLALogs.lastLogs.get(id).remove(0);
                     }
-                    return new OptimizationInfo(id, "", OptimizationInfoStatus.RUNNING);
+                    return new OptimizationInfo(id, "", !(Optional.ofNullable(Interactions.interactions.get(id)).orElse(new Interaction(true)).updated) ? OptimizationInfoStatus.INTERACT : OptimizationInfoStatus.RUNNING);
                 });
     }
 

@@ -148,6 +148,17 @@ tr.example-element-row:not(.example-expanded-row):active {
   display: flex;
 }
 
+.opla-dialog-panel {
+  width: 60vw;
+  height: 85vh;
+}
+
+.opla-dialog-full-panel {
+  width: 97vw !important;
+  max-width: 100vw !important;
+  height: 85vh;
+}
+
 @media screen and (max-width: 900px) {
   .hide-on-tablet {
     display: none;
@@ -157,5 +168,9 @@ tr.example-element-row:not(.example-expanded-row):active {
 @media screen and (max-width: 600px) {
   .hide-on-mobile {
     display: none;
+  }
+  .opla-dialog-panel {
+    width: 97vw !important;
+    max-width: 100vw !important;
   }
 }
