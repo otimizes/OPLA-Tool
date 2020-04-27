@@ -24,7 +24,7 @@
             <div>
               <mat-form-field>
                 <mat-label>Evaluation (Between 1-5)</mat-label>
-                <input matInput [value]="solution.evaluation" (change)="solution.evaluation = $event.target.value"
+                <input matInput [value]="solution.evaluation" (change)="solution.evaluation = getNumber($event.target.value)"
                        placeholder="Ex. 1-5" type="number" [max]="5" [min]="0">
               </mat-form-field>
               <button mat-flat-button color="primary" (click)="download(j)">
@@ -55,3 +55,9 @@
     </opla-grid-list>
   </opla-grid-tile>
 </opla-grid-list>
+<br><br>
+<div style="width: 100%;">
+  <button mat-flat-button color="primary" (click)="close(solutionSet)" style="float: right">
+    <mat-icon>cloud_done</mat-icon> Confirm evaluation
+  </button>
+</div>

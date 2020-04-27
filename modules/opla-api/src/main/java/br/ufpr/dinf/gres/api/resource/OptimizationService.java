@@ -252,7 +252,7 @@ public class OptimizationService {
     }
 
     public File downloadAlternative(Long threadId, Integer id) {
-        SolutionSet solutionSet = Interactions.interactions.get(threadId).solutionSet;
+        SolutionSet solutionSet = Interactions.get(threadId).solutionSet;
         Solution solution = solutionSet.get(id);
         String plaNameOnAnalyses = "Interaction_" + OPLAThreadScope.currentGeneration.get() + "_" + solution.getAlternativeArchitecture().getName();
         String fileOnAnalyses = OPLAConfigThreadScope.config.get().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getAlternativeArchitecture().getName() + ".di");
@@ -261,7 +261,7 @@ public class OptimizationService {
     }
 
     public File downloadAllAlternative(Long threadId) {
-        SolutionSet solutionSet = Interactions.interactions.get(threadId).solutionSet;
+        SolutionSet solutionSet = Interactions.get(threadId).solutionSet;
         for (int i = 0; i < solutionSet.size(); i++) {
             downloadAlternative(threadId, i);
         }

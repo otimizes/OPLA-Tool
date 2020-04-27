@@ -27,6 +27,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
   title = 'static';
   isLinear = false;
   generalFormGroup: FormGroup;
+  isOnInteraction = false;
   executionFormGroup: FormGroup;
   patternFormGroup: FormGroup;
   resultsFormGroup: FormGroup;
@@ -101,16 +102,25 @@ export class OplaComponent implements OnInit, AfterViewInit {
   }
 
   verifyInteraction(optimizationInfo) {
-    if (optimizationInfo && optimizationInfo.status === "INTERACT") {
+    if (optimizationInfo && optimizationInfo.status === "INTERACT" && !this.isOnInteraction) {
       this.optimizationService.getInteraction(optimizationInfo.threadId).subscribe(interaction => {
-        const dialogRef = this.dialog.open(InteractionDialogComponent, {
-          panelClass: 'opla-dialog-full-panel',
-          data: {info: optimizationInfo, interaction:interaction}
-        });
+        if (interaction.solutionSet) {
+          this.isOnInteraction = true;
+          const dialogRef = this.dialog.open(InteractionDialogComponent, {
+            panelClass: 'opla-dialog-full-panel',
+            data: {info: optimizationInfo, interaction: interaction}
+          });
 
-        dialogRef.afterClosed().subscribe(result => {
-          console.log(result)
-        });
+          dialogRef.afterClosed().subscribe(result => {
+            console.log("finish", result);
+            this.optimizationService.postInteraction(optimizationInfo.threadId, {
+              solutionSet: result
+            }).subscribe(putInt => {
+              console.log("put", putInt);
+              this.isOnInteraction = false;
+            })
+          });
+        }
       });
     }
   }

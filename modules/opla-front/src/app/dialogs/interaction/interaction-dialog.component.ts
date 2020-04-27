@@ -57,4 +57,8 @@ export class InteractionDialogComponent implements OnInit {
       console.log("Open", result)
     })
   }
+
+  getNumber(value: any) {
+    return Number(value);
+  }
 }

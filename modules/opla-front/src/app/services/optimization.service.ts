@@ -17,7 +17,7 @@ export class OptimizationService {
 
   constructor(private http: HttpClient, private userService: UserService) {
     if (OptimizationService.isRunning()) {
-      OptimizationService.optimizationInfo = OptimizationService.getOptimizationInfo()
+      OptimizationService.optimizationInfo = OptimizationService.getOptimizationInfo();
       this.startEventListener(OptimizationService.optimizationInfo);
     }
     if (OptimizationService.getPLA()) {
@@ -35,7 +35,7 @@ export class OptimizationService {
   }
 
   public static isRunning() {
-    return localStorage.getItem("optimizationInfo") != null && this.getOptimizationInfo().status === "RUNNING";
+    return localStorage.getItem("optimizationInfo") != null && (this.getOptimizationInfo().status === "RUNNING" || this.getOptimizationInfo().status === 'INTERACT');
   }
 
   public static setPLA(listOfFiles) {
@@ -49,7 +49,7 @@ export class OptimizationService {
 
   startEventListener(optimizationInfo: OptimizationInfo) {
     localStorage.setItem("optimizationInfo", JSON.stringify(optimizationInfo));
-    if (!!window['EventSource'] && optimizationInfo.status != "COMPLETE" && optimizationInfo.status != 'INTERACT') {
+    if (!!window['EventSource'] && optimizationInfo.status != "COMPLETE") {
       let source = new EventSource(`${UserService.baseUrl}/optimization/optimization-info/${optimizationInfo.threadId}?authorization=${UserService.user.token}`);
       source.addEventListener('message', (e) => {
         if (e.data) {
@@ -57,7 +57,7 @@ export class OptimizationService {
           let json = JSON.parse(e.data);
           OptimizationService.optimizationInfo = Object.assign(new OptimizationInfo(), json);
           OptimizationService.onOptimizationInfo.emit(OptimizationService.optimizationInfo);
-          if (json.status === "COMPLETE" || json.status === 'INTERACT') {
+          if (json.status === "COMPLETE") {
             source.close();
             e.stopImmediatePropagation();
             e.stopPropagation();
@@ -100,12 +100,12 @@ export class OptimizationService {
   }
 
   getInteraction(id): Observable<any> {
-    return this.http.get<Config>(`${UserService.baseUrl}/optimization/interaction/${id}`, {headers: this.createAuthorizationHeader()})
+    return this.http.get<any>(`${UserService.baseUrl}/optimization/interaction/${id}`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
-  putInteraction(id, solutionSet): Observable<any> {
-    return this.http.put<Config>(`${UserService.baseUrl}/optimization/interaction/{id}`, solutionSet, {headers: this.createAuthorizationHeader()})
+  postInteraction(id, solutionSet): Observable<any> {
+    return this.http.post<any>(`${UserService.baseUrl}/optimization/interaction/${id}`, solutionSet, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 

@@ -116,7 +116,7 @@ public class OptimizationResource {
                         return OptimizationInfoStatus.COMPLETE.equals(optimizationInfo.status)
                                 ? optimizationInfo : OPLALogs.lastLogs.get(id).remove(0);
                     }
-                    return new OptimizationInfo(id, "", !(Optional.ofNullable(Interactions.interactions.get(id)).orElse(new Interaction(true)).updated) ? OptimizationInfoStatus.INTERACT : OptimizationInfoStatus.RUNNING);
+                    return new OptimizationInfo(id, "", !(Optional.ofNullable(Interactions.get(id)).orElse(new Interaction(true)).updated) ? OptimizationInfoStatus.INTERACT : OptimizationInfoStatus.RUNNING);
                 });
     }
 
@@ -127,12 +127,12 @@ public class OptimizationResource {
 
     @GetMapping("/interaction/{id}")
     public Mono<Interaction> getInteraction(@PathVariable Long id) {
-        return Mono.just(Interactions.interactions.get(id)).subscribeOn(Schedulers.elastic());
+        return Mono.just(Interactions.get(id)).subscribeOn(Schedulers.elastic());
     }
 
-    @PutMapping("/interaction/{id}")
-    public Mono<Object> interaction(@PathVariable Long id, @RequestBody SolutionSet solutionSet) {
-        Interactions.interactions.put(id, new Interaction(true, solutionSet));
+    @PostMapping("/interaction/{id}")
+    public Mono<Object> postInteraction(@PathVariable Long id, @RequestBody Interaction interaction) {
+        Interactions.update(id, interaction.solutionSet);
         return Mono.empty().subscribeOn(Schedulers.elastic());
     }
 
