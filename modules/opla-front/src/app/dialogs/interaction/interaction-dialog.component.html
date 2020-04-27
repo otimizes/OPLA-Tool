@@ -1,63 +1,69 @@
 <div>
   <button mat-flat-button color="primary" (click)="download()">
-    <mat-icon>cloud_download</mat-icon> Download All
+    <mat-icon>cloud_download</mat-icon>
+    Download All
   </button>
   &nbsp;
   <button mat-flat-button color="accent" (click)="open()">
-    <mat-icon>open_in_new</mat-icon> Open All PLA
+    <mat-icon>open_in_new</mat-icon>
+    Open All PLA
   </button>
 </div>
 <br>
-<opla-grid-list *ngFor="let cluster of clusters; index as i">
-  <b>Cluster {{i}}</b>
-  <opla-grid-tile>
-    <opla-grid-list>
-      <opla-grid-tile *ngFor="let solution of filter(cluster); index as j">
-        <mat-card>
-          <mat-card-header>
-            <b>Solution {{j}} - {{solution.alternativeArchitecture.name}}</b>
-          </mat-card-header>
-          <hr>
-          <mat-card-content>
-            <span>Objectives: {{solution.objectives | json}}</span>
-            <br><br>
-            <div>
-              <mat-form-field>
-                <mat-label>Evaluation (Between 1-5)</mat-label>
-                <input matInput [value]="solution.evaluation" (change)="solution.evaluation = getNumber($event.target.value)"
-                       placeholder="Ex. 1-5" type="number" [max]="5" [min]="0">
-              </mat-form-field>
-              <button mat-flat-button color="primary" (click)="download(j)">
-                <mat-icon>cloud_download</mat-icon> Download
-              </button>
-              &nbsp;
-              <button mat-flat-button color="accent" (click)="open(j)">
-                <mat-icon>open_in_new</mat-icon> Open PLA
-              </button>
-            </div>
-            <br>
-            <mat-accordion *ngIf="solution.alternativeArchitecture && solution.alternativeArchitecture.detailedString">
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Info
-                  </mat-panel-title>
-                  <mat-panel-description>
-                    Click to show more
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-                <pre style="width: 300px; height: 300px; overflow: scroll">{{solution.alternativeArchitecture.detailedString}}</pre>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </mat-card-content>
-        </mat-card>
-      </opla-grid-tile>
-    </opla-grid-list>
-  </opla-grid-tile>
-</opla-grid-list>
+<div *ngFor="let cluster of clusters; index as i">
+  <b>Cluster {{i}}</b><br>
+      <opla-grid-list>
+        <opla-grid-tile *ngFor="let solution of filter(cluster); index as j">
+          <mat-card style="max-width: 90%;">
+            <mat-card-header>
+              <b>Solution {{j}} - {{solution.alternativeArchitecture.name}}</b>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+              <span>Objectives: {{solution.objectives | json}}</span>
+              <br><br>
+              <div>
+                <mat-form-field>
+                  <mat-label>Evaluation (Between 1-5)</mat-label>
+                  <input matInput [value]="solution.evaluation"
+                         (change)="solution.evaluation = getNumber($event.target.value)"
+                         placeholder="Ex. 1-5" type="number" [max]="5" [min]="0">
+                </mat-form-field>
+                <button mat-flat-button color="primary" (click)="download(j)">
+                  <mat-icon>cloud_download</mat-icon>
+                  Download
+                </button>
+                &nbsp;
+                <button mat-flat-button color="accent" (click)="open(j)">
+                  <mat-icon>open_in_new</mat-icon>
+                  Open PLA
+                </button>
+              </div>
+              <br>
+              <mat-accordion
+                *ngIf="solution.alternativeArchitecture && solution.alternativeArchitecture.detailedString">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Info
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      Click to show more
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <pre
+                    style="width: 400px; height: 300px; overflow: scroll">{{solution.alternativeArchitecture.detailedString}}</pre>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </mat-card-content>
+          </mat-card>
+        </opla-grid-tile>
+      </opla-grid-list>
+</div>
 <br><br>
 <div style="width: 100%;">
   <button mat-flat-button color="primary" (click)="close(solutionSet)" style="float: right">
-    <mat-icon>cloud_done</mat-icon> Confirm evaluation
+    <mat-icon>cloud_done</mat-icon>
+    Confirm evaluation
   </button>
 </div>

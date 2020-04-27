@@ -1,68 +1,80 @@
-<div class="example-container" *ngIf="optimizationDto">
-  <form [formGroup]="formGroup">
-    <opla-grid-list>
-      <opla-grid-tile>
-        <mat-checkbox [(ngModel)]="optimizationDto.config.smarty" formControlName="smarty">SMarty</mat-checkbox>
-      </opla-grid-tile>
-      <opla-grid-tile>
-        <mat-checkbox [(ngModel)]="optimizationDto.config.feature" formControlName="feature">Feature</mat-checkbox>
-      </opla-grid-tile>
-      <opla-grid-tile>
-        <mat-checkbox [(ngModel)]="optimizationDto.config.patterns" formControlName="patterns">Patterns</mat-checkbox>
-      </opla-grid-tile>
-      <opla-grid-tile>
-        <mat-checkbox [(ngModel)]="optimizationDto.config.relationships" formControlName="relationships">Relationships
-        </mat-checkbox>
-      </opla-grid-tile>
-    </opla-grid-list>
-    <opla-grid-list>
-      <opla-grid-tile>
-        <mat-form-field [floatLabel]="floatLabelControl.value">
-          <mat-label>Smarty Profile</mat-label>
-          <input matInput placeholder="Directory: /home/..." [(ngModel)]="optimizationDto.config.pathToProfile"
-                 formControlName="pathToProfile">
-        </mat-form-field>
-      </opla-grid-tile>
-      <opla-grid-tile>
-        <mat-form-field [floatLabel]="floatLabelControl.value">
-          <mat-label>Feature Profile</mat-label>
-          <input matInput placeholder="Directory: /home/..." [(ngModel)]="optimizationDto.config.pathToProfileConcern"
-                 formControlName="pathToProfileConcern">
-        </mat-form-field>
-      </opla-grid-tile>
-    </opla-grid-list>
-    <opla-grid-list>
-      <opla-grid-tile>
-        <mat-form-field [floatLabel]="floatLabelControl.value">
-          <mat-label>Pattern Profile</mat-label>
-          <input matInput placeholder="Directory: /home/..." [(ngModel)]="optimizationDto.config.pathToProfilePatterns"
-                 formControlName="pathToProfilePatterns">
-        </mat-form-field>
-      </opla-grid-tile>
-      <opla-grid-tile>
-        <mat-form-field [floatLabel]="floatLabelControl.value">
-          <mat-label>Relationship Configuration</mat-label>
-          <input matInput placeholder="Directory: /home/..."
-                 [(ngModel)]="optimizationDto.config.pathToProfileRelationships"
-                 formControlName="pathToProfileRelationships">
-        </mat-form-field>
-      </opla-grid-tile>
-    </opla-grid-list>
-    <opla-grid-list>
-      <opla-grid-tile>
-        <mat-form-field [floatLabel]="floatLabelControl.value">
-          <mat-label>Template Configuration</mat-label>
-          <input [disabled]="true"  matInput placeholder="Directory: /home/..."
-                 [value]="optimizationDto.config.pathToTemplateModelsDirectory">
-        </mat-form-field>
-      </opla-grid-tile>
-      <opla-grid-tile>
-        <mat-form-field [floatLabel]="floatLabelControl.value">
-          <mat-label>Manipulation Configuration</mat-label>
-          <input [disabled]="true" matInput placeholder="Directory: /home/..." [value]="optimizationDto.config.directoryToSaveModels">
-        </mat-form-field>
-      </opla-grid-tile>
-    </opla-grid-list>
+<opla-grid-list>
+  <opla-grid-tile>
+    <mat-card>
+      <div class="example-container" *ngIf="optimizationDto">
+        <form [formGroup]="formGroup">
+          <opla-grid-list>
+            <opla-grid-tile>
+              <mat-checkbox [(ngModel)]="optimizationDto.config.smarty" formControlName="smarty">SMarty</mat-checkbox>
+            </opla-grid-tile>
+            <opla-grid-tile>
+              <mat-checkbox [(ngModel)]="optimizationDto.config.feature" formControlName="feature">Feature
+              </mat-checkbox>
+            </opla-grid-tile>
+            <opla-grid-tile>
+              <mat-checkbox [(ngModel)]="optimizationDto.config.patterns" formControlName="patterns">Patterns
+              </mat-checkbox>
+            </opla-grid-tile>
+            <opla-grid-tile>
+              <mat-checkbox [(ngModel)]="optimizationDto.config.relationships" formControlName="relationships">
+                Relationships
+              </mat-checkbox>
+            </opla-grid-tile>
+          </opla-grid-list>
+          <opla-grid-list>
+            <opla-grid-tile>
+              <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-label>Smarty Profile</mat-label>
+                <input matInput placeholder="Directory: /home/..." [(ngModel)]="optimizationDto.config.pathToProfile"
+                       formControlName="pathToProfile">
+              </mat-form-field>
+            </opla-grid-tile>
+            <opla-grid-tile>
+              <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-label>Feature Profile</mat-label>
+                <input matInput placeholder="Directory: /home/..."
+                       [(ngModel)]="optimizationDto.config.pathToProfileConcern"
+                       formControlName="pathToProfileConcern">
+              </mat-form-field>
+            </opla-grid-tile>
+          </opla-grid-list>
+          <opla-grid-list>
+            <opla-grid-tile>
+              <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-label>Pattern Profile</mat-label>
+                <input matInput placeholder="Directory: /home/..."
+                       [(ngModel)]="optimizationDto.config.pathToProfilePatterns"
+                       formControlName="pathToProfilePatterns">
+              </mat-form-field>
+            </opla-grid-tile>
+            <opla-grid-tile>
+              <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-label>Relationship Configuration</mat-label>
+                <input matInput placeholder="Directory: /home/..."
+                       [(ngModel)]="optimizationDto.config.pathToProfileRelationships"
+                       formControlName="pathToProfileRelationships">
+              </mat-form-field>
+            </opla-grid-tile>
+          </opla-grid-list>
+          <opla-grid-list>
+            <opla-grid-tile>
+              <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-label>Template Configuration</mat-label>
+                <input [disabled]="true" matInput placeholder="Directory: /home/..."
+                       [value]="optimizationDto.config.pathToTemplateModelsDirectory">
+              </mat-form-field>
+            </opla-grid-tile>
+            <opla-grid-tile>
+              <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-label>Manipulation Configuration</mat-label>
+                <input [disabled]="true" matInput placeholder="Directory: /home/..."
+                       [value]="optimizationDto.config.directoryToSaveModels">
+              </mat-form-field>
+            </opla-grid-tile>
+          </opla-grid-list>
 
-  </form>
-</div>
+        </form>
+      </div>
+    </mat-card>
+  </opla-grid-tile>
+</opla-grid-list>

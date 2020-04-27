@@ -50,9 +50,9 @@ export class ExperimentsComponent implements OnInit {
   }
 
   showInfo(experiment) {
-    experiment.experimentConfiguration = this.experimentConfigurationService.findByExperiment(experiment.id)
-    experiment.objective = this.objectiveService.findByExperiment(experiment.id)
-    experiment.info = this.infoService.findByExperiment(experiment.id)
+    experiment.experimentConfiguration = this.experimentConfigurationService.findByExperiment(experiment.id);
+    experiment.objective = this.objectiveService.findByExperiment(experiment.id);
+    experiment.info = this.infoService.findByExperiment(experiment.id);
   }
 
   downloadInfo(experiment) {

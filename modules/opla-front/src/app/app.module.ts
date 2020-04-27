@@ -39,6 +39,9 @@ import {OplaComponent} from "./opla/opla.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {InteractionDialogComponent} from "./dialogs/interaction/interaction-dialog.component";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {NgxChartsModule} from "@swimlane/ngx-charts";
 
 @NgModule({
   declarations: [
@@ -59,6 +62,7 @@ import {MatDialogModule} from "@angular/material/dialog";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxChartsModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatStepperModule,
@@ -85,7 +89,9 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatBadgeModule,
     AppRoutingModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   entryComponents: [
     InteractionDialogComponent
