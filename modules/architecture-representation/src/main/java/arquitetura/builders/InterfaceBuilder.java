@@ -30,7 +30,7 @@ public class InterfaceBuilder extends ElementBuilder<arquitetura.representation.
         List<Operation> elements = ((org.eclipse.uml2.uml.Class) modelElement).getOperations();
 
         for (Operation operation : elements)
-            interfacee.addExternalOperation(methodBuilder.create(operation));
+            interfacee.addExternalMethod(methodBuilder.create(operation));
 
         interfacee.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));
         return interfacee;

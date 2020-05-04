@@ -1,10 +1,13 @@
 package arquitetura.representation;
 
+import arquitetura.exceptions.AttributeNotFoundException;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.RelationshiopCommons;
 import arquitetura.representation.relationship.Relationship;
+import arquitetura.touml.Types;
+import arquitetura.touml.VisibilityKind;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -19,7 +22,8 @@ public class Interface extends Element {
     private static final long serialVersionUID = -1779316062511432020L;
 
     static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
-    private final Set<Method> operations = new HashSet<Method>();
+    private final Set<Attribute> attributes = new HashSet<Attribute>();
+    private final Set<Method> methods = new HashSet<Method>();
     private RelationshipsHolder relationshipHolder;
     private PatternsOperations patternsOperations;
 
@@ -35,9 +39,9 @@ public class Interface extends Element {
      * OBS 1: O ID para esta interface será gerado automaticamente.<br/>
      * OBS 2: Esse construtor NAO adicionar a interface na arquitetura<br/>
      *
-     * @param architecture       Architecture em questão
+     * @param relationshipHolder RelationshipHolder
      * @param name               - Nome da interface
-     * @param relationshipHolder
+     * @param packagee Package
      */
     public Interface(RelationshipsHolder relationshipHolder, String name, Package packagee) {
         this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), packagee.getName()), UtilResources.getRandonUUID());
@@ -67,47 +71,115 @@ public class Interface extends Element {
         this.setPatternOperations(new PatternsOperations());
     }
 
-    public Set<Method> getOperations() {
-        return Collections.unmodifiableSet(operations);
+
+    public Attribute createAttribute(String name, Types.Type type, VisibilityKind visibility) {
+        String id = UtilResources.getRandonUUID();
+        Attribute a = new Attribute(name, visibility.toString(), type.getName(), ArchitectureHolder.getName() + "::"
+                + this.getName(), id);
+        addExternalAttribute(a);
+        return a;
     }
 
-    public boolean removeOperation(Method operation) {
-        if (operations.remove(operation)) {
-            LOGGER.info("Removeu operação '" + operation + "', da interface: " + this.getName());
+    public void setAttribute(Attribute attr) {
+        this.attributes.add(attr);
+    }
+
+    public Set<Attribute> getAllAttributes() {
+        if (attributes.isEmpty())
+            return Collections.emptySet();
+        return Collections.unmodifiableSet(attributes);
+    }
+
+    public Attribute findAttributeByName(String name) throws AttributeNotFoundException {
+        String message = "atributo '" + name + "' não encontrado na classe '" + this.getName() + "'.\n";
+
+        for (Attribute att : getAllAttributes())
+            if (name.equalsIgnoreCase(att.getName()))
+                return att;
+        LOGGER.info(message);
+        throw new AttributeNotFoundException(message);
+    }
+
+    public boolean moveAttributeToInterface(Attribute attribute, Class destinationKlass) {
+        if (!destinationKlass.addExternalAttribute(attribute))
+            return false;
+
+        if (!removeAttribute(attribute)) {
+            destinationKlass.removeAttribute(attribute);
+            return false;
+        }
+        attribute.setNamespace(ArchitectureHolder.getName() + "::" + destinationKlass.getName());
+        LOGGER.info("Moveu atributo: " + attribute.getName() + " de " + this.getName() + " para "
+                + destinationKlass.getName());
+        return true;
+    }
+
+    public boolean addExternalAttribute(Attribute a) {
+        if (this.attributes.add(a)) {
+            LOGGER.info("Atributo: " + a.getName() + " adicionado na classe: " + this.getName());
             return true;
         } else {
-            LOGGER.info("TENTOU removeu operação '" + operation + "', da interface: " + this.getName() + " porém não conseguiu");
+            LOGGER.info("TENTOU remover o Atributo: " + a.getName() + " da classe: " + this.getName()
+                    + " porém não consegiu");
             return false;
         }
     }
 
-    public Method createOperation(String operationName) throws Exception {
-        Method operation = new Method(operationName, false, null, "void", false, null, "", ""); //Receber id
-        operations.add(operation);
-        return operation;
-    }
-
-    public boolean moveOperationToInterface(Method operation, Interface interfaceToMove) {
-        if (!interfaceToMove.addExternalOperation(operation))
-            return false;
-
-        if (!removeOperation(operation)) {
-            interfaceToMove.removeOperation(operation);
+    public boolean removeAttribute(Attribute attribute) {
+        if (this.attributes.remove(attribute)) {
+            LOGGER.info("Atributo: " + attribute.getName() + " removido da classe: " + this.getName());
+            return true;
+        } else {
+            LOGGER.info("TENTOU remover o atributo: " + attribute.getName() + " classe: " + this.getName()
+                    + " porém não consegiu");
             return false;
         }
-        operation.setNamespace(ArchitectureHolder.getName() + "::" + interfaceToMove.getName());
-        LOGGER.info("Moveu operação: " + operation.getName() + " de " + this.getName() + " para " + interfaceToMove.getName());
+    }
+
+
+
+
+    public Set<Method> getMethods() {
+        return Collections.unmodifiableSet(methods);
+    }
+
+    public boolean removeMethod(Method method) {
+        if (methods.remove(method)) {
+            LOGGER.info("Removeu operação '" + method + "', da interface: " + this.getName());
+            return true;
+        } else {
+            LOGGER.info("TENTOU removeu operação '" + method + "', da interface: " + this.getName() + " porém não conseguiu");
+            return false;
+        }
+    }
+
+    public Method createMethod(String methodName) throws Exception {
+        Method method = new Method(methodName, false, null, "void", false, null, "", ""); //Receber id
+        methods.add(method);
+        return method;
+    }
+
+    public boolean moveMethodToInterface(Method method, Interface interfaceToMove) {
+        if (!interfaceToMove.addExternalMethod(method))
+            return false;
+
+        if (!removeMethod(method)) {
+            interfaceToMove.removeMethod(method);
+            return false;
+        }
+        method.setNamespace(ArchitectureHolder.getName() + "::" + interfaceToMove.getName());
+        LOGGER.info("Moveu operação: " + method.getName() + " de " + this.getName() + " para " + interfaceToMove.getName());
         return true;
 
     }
 
 
-    public boolean addExternalOperation(Method operation) {
-        if (operations.add(operation)) {
-            LOGGER.info("Operação " + operation.getName() + " adicionado na interface " + this.getName());
+    public boolean addExternalMethod(Method method) {
+        if (methods.add(method)) {
+            LOGGER.info("Operação " + method.getName() + " adicionado na interface " + this.getName());
             return true;
         } else {
-            LOGGER.info("TENTOU remover a operação: " + operation.getName() + " da interface: " + this.getName() + " porém não consegiu");
+            LOGGER.info("TENTOU remover a operação: " + method.getName() + " da interface: " + this.getName() + " porém não consegiu");
             return false;
         }
 
@@ -134,7 +206,7 @@ public class Interface extends Element {
 
 //	public Set<Element> getRealImplementors() {
 //		Set<Element> implementors = new HashSet<Element>();
-//		
+//
 //		for(Package p : getArchitecture().getAllPackages()){
 //			for(RealizationRelationship r : getArchitecture().getAllRealizations()){
 //				if(r.getClient().equals(p)){
@@ -142,7 +214,7 @@ public class Interface extends Element {
 //				}
 //			}
 //		}
-//					
+//
 //		return Collections.unmodifiableSet(implementors);
 //	}
 
@@ -165,8 +237,8 @@ public class Interface extends Element {
     @Override
     public Set<Concern> getAllConcerns() {
         Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());
-        for (Method operation : getOperations())
-            concerns.addAll(operation.getAllConcerns());
+        for (Method method : getMethods())
+            concerns.addAll(method.getAllConcerns());
         concerns.addAll(this.getOwnConcerns());
 
         return Collections.unmodifiableSet(concerns);
@@ -188,7 +260,6 @@ public class Interface extends Element {
      * implementam a interface em questão ou que a requerem a interface em questão e a remove da lista de interfaces implementadas
      * ou requeridas
      *
-     * @param interfacee
      */
     public void removeInterfaceFromRequiredOrImplemented() {
         for (Iterator<Relationship> i = getRelationshipHolder().getRelationships().iterator(); i.hasNext(); ) {

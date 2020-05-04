@@ -1,0 +1,7 @@
+
+
+Discart Variability null - ranking:
+Type: optional, Binding Time: DESIGN_TIME, Allow Binding Var:true
+Variation Point NULL
+Variabilidade do tipo optional será convertido para stereótipo optional
+Variabilidade do tipo mandatory será convertido para stereótipo mandatory

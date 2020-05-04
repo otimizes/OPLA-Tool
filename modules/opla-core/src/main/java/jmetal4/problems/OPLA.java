@@ -1,6 +1,7 @@
 package jmetal4.problems;
 
 import arquitetura.builders.ArchitectureBuilder;
+import arquitetura.builders.ArchitectureBuilderSMarty;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Interface;
@@ -65,7 +66,12 @@ public class OPLA extends Problem {
         LOGGER.info("Instanciando Builder");
         ArchitectureBuilder architectureBuilder = new ArchitectureBuilder();
         LOGGER.info("Construindo arquitetura by XML: " + xmiFilePath);
-        architecture_ = architectureBuilder.create(xmiFilePath);
+        if(xmiFilePath.contains(".smty")){
+            architecture_ = new ArchitectureBuilderSMarty().create(xmiFilePath);
+
+        } else {
+            architecture_ = architectureBuilder.create(xmiFilePath);
+        }
         LOGGER.info("Recuperando Metricas");
         selectedMetrics = oplaConfig.getOplaConfigs().getSelectedObjectiveFunctions();
     }
@@ -587,10 +593,10 @@ public class OPLA extends Problem {
                     boolean ultimaInterface = false;
                     if (comp.getImplementedInterfaces().size() == 1)
                         ultimaInterface = true;
-                    if (itf.getOperations().isEmpty() && !ultimaInterface) {
+                    if (itf.getMethods().isEmpty() && !ultimaInterface) {
                         ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
                     }
-                    if (itf.getOperations().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
+                    if (itf.getMethods().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
                         ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
                     }
                 }
@@ -603,10 +609,10 @@ public class OPLA extends Problem {
                 boolean ultimaInterface = false;
                 if (comp.getImplementedInterfaces().size() == 1)
                     ultimaInterface = true;
-                if (itf.getOperations().isEmpty() && !ultimaInterface) {
+                if (itf.getMethods().isEmpty() && !ultimaInterface) {
                     ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
                 }
-                if (itf.getOperations().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
+                if (itf.getMethods().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
                     ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
                 }
             }

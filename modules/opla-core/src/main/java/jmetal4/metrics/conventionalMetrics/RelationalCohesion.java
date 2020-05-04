@@ -147,7 +147,7 @@ public class RelationalCohesion {
         List<Interface> operationDepInterfaces = new ArrayList<Interface>();
         for (Class c : classes) {
 
-            List<Method> allOperations = new ArrayList<Method>(source.getOperations());
+            List<Method> allOperations = new ArrayList<Method>(source.getMethods());
             for (Method operation : allOperations) {
 
                 Collection<ParameterMethod> parameters = operation.getParameters();
@@ -160,7 +160,7 @@ public class RelationalCohesion {
         }
 
         for (Interface itf : interfaces) {
-            List<Method> allOperations = new ArrayList<Method>(source.getOperations());
+            List<Method> allOperations = new ArrayList<Method>(source.getMethods());
 
             for (Method operation : allOperations) {
 

@@ -350,7 +350,7 @@ public class PLACrossover2 extends Crossover {
     private void addOperationsRealizingFeatureToOffspring(Concern feature, Interface interfaceComp, Package comp, Architecture offspring, Architecture parent) throws Exception {
         Interface targetInterface = offspring.findInterfaceByName(interfaceComp.getName());
 
-        Iterator<Method> iteratorOperations = interfaceComp.getOperations().iterator();
+        Iterator<Method> iteratorOperations = interfaceComp.getMethods().iterator();
         while (iteratorOperations.hasNext()) {
             Method operation = iteratorOperations.next();
             if (operation.containsConcern(feature) && operation.getOwnConcerns().size() == 1) {
@@ -370,7 +370,7 @@ public class PLACrossover2 extends Crossover {
                     saveAllRelationshiopForElement(interfaceComp, parent, offspring);
                 }
                 //interfaceComp.moveOperationToInterface(operation, targetInterface);
-                targetInterface.addExternalOperation(operation);
+                targetInterface.addExternalMethod(operation);
             }
         }
     }
@@ -616,7 +616,7 @@ public class PLACrossover2 extends Crossover {
         final List<Interface> allInterfaces = new ArrayList<Interface>(solution.getAllInterfaces());
         if (!allInterfaces.isEmpty()) {
             for (Interface itf : allInterfaces) {
-                if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())) {
+                if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getMethods().isEmpty())) {
                     return false;
                 }
             }

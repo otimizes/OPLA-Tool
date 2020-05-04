@@ -40,7 +40,7 @@ public class InterfaceUtil {
             }
             List<Method> methodsFromSetOfElements = MethodUtil.createMethodsFromSetOfElements(participants);
             for (Method method : methodsFromSetOfElements) {
-                anInterface.addExternalOperation(method);
+                anInterface.addExternalMethod(method);
             }
             for (Concern concern : ElementUtil.getOwnAndMethodsConcerns(participants)) {
                 if (!anInterface.containsConcern(concern)) {

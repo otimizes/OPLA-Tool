@@ -56,7 +56,7 @@ public abstract class AbstractMutationOperator extends Mutation {
         List<Interface> allInterfaces = new ArrayList<>(solution.getAllInterfaces());
         if (!allInterfaces.isEmpty()) {
             for (Interface itf : allInterfaces) {
-                if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())) {
+                if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getMethods().isEmpty())) {
                     return false;
                 }
             }

@@ -34,7 +34,7 @@ public abstract class ConcernDiffusionResult<T extends Element> {
     }
 
     protected boolean interfaceContainsConcernViaOperation(Interface i) {
-        for (Method operation : i.getOperations()) {
+        for (Method operation : i.getMethods()) {
             if (operation.containsConcern(concern))
                 return true;
         }

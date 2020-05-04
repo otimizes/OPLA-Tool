@@ -165,13 +165,13 @@ public class CrossoverUtils {
     }
 
     private void removeOperationsOfInterfaceRealizingFeature(Interface interfaceComp, Concern feature) {
-        List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getOperations());
+        List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getMethods());
         if (!operationsInterfaceComp.isEmpty()) {
             Iterator<Method> iteratorOperations = operationsInterfaceComp.iterator();
             while (iteratorOperations.hasNext()) {
                 Method operation = iteratorOperations.next();
                 if (operation.containsConcern(feature) && operation.getOwnConcerns().size() == 1)
-                    interfaceComp.removeOperation(operation);
+                    interfaceComp.removeMethod(operation);
             }
         }
     }

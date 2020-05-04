@@ -26,7 +26,7 @@ public class CIBClass {
     private void inspectInterfaces(Class cls, Collection<Interface> interfaces) {
         for (Interface i : interfaces) {
             inspectConcernsOfElement(i, cls);
-            for (Method operation : i.getOperations()) {
+            for (Method operation : i.getMethods()) {
                 inspectConcernsOfElement(operation, cls);
             }
         }

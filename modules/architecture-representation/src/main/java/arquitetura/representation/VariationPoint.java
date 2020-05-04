@@ -21,7 +21,6 @@ public class VariationPoint {
      * @param variationPointElement {@link Element}
      * @param variants              {@link List}<{@link Element}>
      * @param bindingTime
-     * @param type
      * @throws VariationPointElementTypeErrorException
      */
     public VariationPoint(Element variationPointElement, List<Variant> variants, String bindingTime) throws VariationPointElementTypeErrorException {
@@ -52,6 +51,10 @@ public class VariationPoint {
         return variants;
     }
 
+    public void addVariant(Variant variant){
+        variants.add(variant);
+    }
+
     public int getNumberOfVariants() {
         return this.variants.size();
     }
@@ -74,10 +77,12 @@ public class VariationPoint {
         this.variationPointElement = newVPElement;
     }
 
+
+
 //	@Override
 //	public String toString() {
 //		StringBuilder builder = new StringBuilder();
-//				
+//
 //		if (!getVariants().isEmpty()) {
 //			builder.append("Variants: ");
 //			Element[] variantsArray = getVariants().toArray(new Element[0]);

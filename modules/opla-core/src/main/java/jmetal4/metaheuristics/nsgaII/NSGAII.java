@@ -21,9 +21,12 @@
 
 package jmetal4.metaheuristics.nsgaII;
 
+import arquitetura.io.ReaderConfig;
+import arquitetura.representation.Architecture;
 import com.rits.cloning.Cloner;
 import jmetal4.core.*;
 import jmetal4.interactive.InteractiveFunction;
+import jmetal4.problems.OPLA;
 import jmetal4.qualityIndicator.QualityIndicator;
 import jmetal4.util.Distance;
 import jmetal4.util.JMException;
@@ -36,6 +39,9 @@ import org.apache.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.stream.Collectors;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 /**
  * This class implements the NSGA-II algorithm.
@@ -109,6 +115,16 @@ public class NSGAII extends Algorithm {
         selectionOperator = operators_.get("selection");
 
         try {
+
+            Solution solution_base = new Solution(problem_);
+            Architecture architecture = (Architecture)solution_base.getDecisionVariables()[0];
+            //architecture.save2(architecture,"ServiceAndSupportSystemAtual");
+            //architecture.openTempArch();
+            problem_.evaluateConstraints(solution_base);
+            problem_.evaluate(solution_base);
+            saveBaseHypervolume(solution_base, (OPLA)problem_);
+
+
             LOGGER.info("Criando População");
             // Create the initial solutionSet
             Solution newSolution;
@@ -295,4 +311,37 @@ public class NSGAII extends Algorithm {
         problem_.evaluateConstraints(newSolution);
         return newSolution;
     }
+
+    private void createLogDir(){
+        String directory = ReaderConfig.getDirExportTarget() + "/Logs";
+        File file = new File(directory);
+        boolean dirCreated = file.mkdir();
+    }
+
+    private void saveBaseHypervolume(Solution solution, OPLA opla){
+        createLogDir();
+        String path = ReaderConfig.getDirExportTarget()+"/Logs/hypervolume_base.txt";
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            String met = "";
+            for(String metric : opla.getSelectedMetrics()){
+                met += metric;
+                met += " ";
+            }
+            met +="\n";
+            printWriter.write(met);
+            for(Double fit : solution.getObjectives()) {
+                printWriter.write(fit.toString());
+                printWriter.write(" ");
+            }
+            printWriter.close();
+            fileWriter.close();
+        }catch (Exception ex){
+            System.out.println(ex);
+            ex.printStackTrace();
+        }
+    }
+
 } // NSGA-II

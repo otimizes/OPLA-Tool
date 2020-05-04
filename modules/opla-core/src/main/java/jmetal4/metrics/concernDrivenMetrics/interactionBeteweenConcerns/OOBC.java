@@ -22,7 +22,7 @@ public class OOBC {
 
     private void inspectInterfacesOperations(Collection<Interface> interfaces) {
         for (Interface i : interfaces) {
-            for (Method operation : i.getOperations()) {
+            for (Method operation : i.getMethods()) {
                 inspectConcernsOfOperation(operation);
             }
         }

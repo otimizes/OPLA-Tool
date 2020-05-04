@@ -26,6 +26,10 @@ public class AssociationEnd implements Serializable {
     private Multiplicity multiplicity;
     private String name;
 
+    private String posX;
+    private String posY;
+    private String visibility = "";
+
     public AssociationEnd(Element klass, boolean isNavigable, String aggregation, Multiplicity multiplicity, String name) {
         setCLSClass(klass);
         setNavigable(isNavigable);
@@ -35,6 +39,30 @@ public class AssociationEnd implements Serializable {
     }
 
     public AssociationEnd() {
+    }
+
+    public String getPosX() {
+        return posX;
+    }
+
+    public void setPosX(String posX) {
+        this.posX = posX;
+    }
+
+    public String getPosY() {
+        return posY;
+    }
+
+    public void setPosY(String posY) {
+        this.posY = posY;
+    }
+
+    public String getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
     }
 
     public Element getCLSClass() {
@@ -87,6 +115,7 @@ public class AssociationEnd implements Serializable {
             return "none";
 
     }
+
 
     public void replaceCLSClass(Class c) {
         setCLSClass(c);

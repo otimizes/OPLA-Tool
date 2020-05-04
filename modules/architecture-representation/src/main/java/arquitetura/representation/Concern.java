@@ -6,9 +6,35 @@ package arquitetura.representation;
  */
 public class Concern {
 
+    private String id;
+    private Boolean isPrimitive = false;
+
     private String name;
 
     public Concern(String name) {
+        this.name = name;
+    }
+
+    public Concern() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Boolean getPrimitive() {
+        return isPrimitive;
+    }
+
+    public void setPrimitive(Boolean primitive) {
+        isPrimitive = primitive;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 

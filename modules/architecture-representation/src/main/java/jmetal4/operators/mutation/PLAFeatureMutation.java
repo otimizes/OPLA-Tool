@@ -245,9 +245,9 @@ public class PLAFeatureMutation extends Mutation {
 
                             if (targetInterface != sourceInterface) {
                                 List<Method> OpsInterface = new ArrayList<Method>();
-                                OpsInterface.addAll(sourceInterface.getOperations());
+                                OpsInterface.addAll(sourceInterface.getMethods());
                                 if (OpsInterface.size() >= 1) {
-                                    sourceInterface.moveOperationToInterface(randomObject(OpsInterface), targetInterface);
+                                    sourceInterface.moveMethodToInterface(randomObject(OpsInterface), targetInterface);
                                     for (Element implementor : sourceInterface.getImplementors()) {
                                         if (implementor instanceof Package) {
                                             arch.addImplementedInterface(targetInterface, (Package) implementor);
@@ -416,7 +416,7 @@ public class PLAFeatureMutation extends Mutation {
                     if (InterfacesComp.size() >= 1) {
                         Interface sourceInterface = randomObject(InterfacesComp);
                         List<Method> OpsInterface = new ArrayList<Method>();
-                        OpsInterface.addAll(sourceInterface.getOperations());
+                        OpsInterface.addAll(sourceInterface.getMethods());
                         if (OpsInterface.size() >= 1) {
                             Method op = randomObject(OpsInterface);
 
@@ -424,7 +424,7 @@ public class PLAFeatureMutation extends Mutation {
                             OPLA.contComp_++;
                             Interface newInterface = newComp.createInterface("Interface" + OPLA.contInt_++);
 
-                            sourceInterface.moveOperationToInterface(op, newInterface);
+                            sourceInterface.moveMethodToInterface(op, newInterface);
 
                             for (Element implementor : sourceInterface.getImplementors()) {
                                 if (implementor instanceof Package) {
@@ -535,7 +535,7 @@ public class PLAFeatureMutation extends Mutation {
                         if (interfaceComp.getOwnConcerns().size() == 1 && interfaceComp.containsConcern(concern)) {
                             moveInterfaceToComponent(interfaceComp, targetComponent, comp, arch, concern); // EDIPO TESTADO
                         } else if (!interfaceComp.getPatternsOperations().hasPatternApplied()) {
-                            List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getOperations());
+                            List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getMethods());
                             Iterator<Method> itrOperation = operationsInterfaceComp.iterator();
                             while (itrOperation.hasNext()) {
                                 Method operation = itrOperation.next();
@@ -694,10 +694,10 @@ public class PLAFeatureMutation extends Mutation {
 
         if (targetInterface == null) {
             targetInterface = targetComp.createInterface("Interface" + OPLA.contInt_++);
-            sourceInterface.moveOperationToInterface(operation, targetInterface);
+            sourceInterface.moveMethodToInterface(operation, targetInterface);
             targetInterface.addConcern(concern.getName());
         } else {
-            sourceInterface.moveOperationToInterface(operation, targetInterface);
+            sourceInterface.moveMethodToInterface(operation, targetInterface);
         }
 
         addRelationship(sourceInterface, targetComp, sourceComp, architecture, concern, targetInterface);
@@ -1030,7 +1030,7 @@ public class PLAFeatureMutation extends Mutation {
         List<Interface> allInterfaces = new ArrayList<Interface>(solution.getAllInterfaces());
         if (!allInterfaces.isEmpty()) {
             for (Interface itf : allInterfaces) {
-                if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())) {
+                if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getMethods().isEmpty())) {
                     return false;
                 }
             }

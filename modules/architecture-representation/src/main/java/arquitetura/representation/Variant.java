@@ -41,7 +41,7 @@ public class Variant implements Stereotype {
     }
 
     /**
-     * @param variantType the variantType to set
+     * @param name String
      */
     private void setVariantName(String name) {
         this.name = name;
@@ -105,6 +105,10 @@ public class Variant implements Stereotype {
         return variabilities;
     }
 
+    public void addVariability(Variability variability){
+        variabilities.add(variability);
+    }
+
     /**
      * @param variabilities the variabilities to set
      */
@@ -150,6 +154,10 @@ public class Variant implements Stereotype {
      */
     public List<VariationPoint> getVariationPoints() {
         return variationPoints;
+    }
+
+    public void addVariationPoint(VariationPoint vp){
+        variationPoints.add(vp);
     }
 
     /**

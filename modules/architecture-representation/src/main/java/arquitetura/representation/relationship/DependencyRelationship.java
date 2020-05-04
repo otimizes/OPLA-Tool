@@ -53,7 +53,7 @@ public class DependencyRelationship extends Relationship {
      * Retorna o {@link Package}
      *
      * @return Package se existir.
-     * @throws arquitetura.exceptions.NotFoundException caso não exista pacote envolvido na dependencia.
+     * @throws NotFoundException caso não exista pacote envolvido na dependencia.
      */
     public Package getPackageOfDependency() throws NotFoundException {
         if (this.client instanceof Package)
@@ -68,7 +68,7 @@ public class DependencyRelationship extends Relationship {
      * Retorna a {@link Interface}
      *
      * @return Interface se existir.
-     * @throws arquitetura.exceptions.NotFoundException caso não exista interface envolvido na dependencia.
+     * @throws NotFoundException caso não exista interface envolvido na dependencia.
      */
     public Interface getInterfaceOfDependency() throws NotFoundException {
         if (this.client instanceof Interface)

@@ -27,6 +27,7 @@ public class Class extends Element {
     private final Set<Attribute> attributes = new HashSet<Attribute>();
     private final Set<Method> methods = new HashSet<Method>();
     private boolean isAbstract;
+
     private Set<Interface> implementedInterfaces = new HashSet<Interface>();
     private Set<Interface> requiredInterfaces = new HashSet<Interface>();
 
@@ -34,14 +35,12 @@ public class Class extends Element {
     private RelationshipsHolder relationshipHolder;
 
     /**
-     * @param architecture
+     * @param relationshipHolder
      * @param name
-     * @param isVariationPoint
      * @param variantType
      * @param isAbstract
-     * @param parent
-     * @param interfacee
-     * @param packageName
+     * @param namespace
+     * @param id
      */
     public Class(RelationshipsHolder relationshipHolder, String name, Variant variantType, boolean isAbstract,
                  String namespace, String id) {
@@ -62,6 +61,9 @@ public class Class extends Element {
                 packageName), UtilResources.getRandonUUID());
         this.setPatternOperations(new PatternsOperations());
     }
+
+
+
 
     public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
         String id = UtilResources.getRandonUUID();
@@ -127,7 +129,7 @@ public class Class extends Element {
      * @return -false se o método a ser movido não existir na classe.<br/>
      * -true se o método for movido com sucesso.
      */
-    public boolean moveMethodToClass(Method method, arquitetura.representation.Class destinationKlass) {
+    public boolean moveMethodToClass(Method method, Class destinationKlass) {
         if (!destinationKlass.addExternalMethod(method))
             return false;
 
@@ -182,7 +184,7 @@ public class Class extends Element {
             LOGGER.info("Metodo " + method.getName() + " adicionado na classe " + this.getName());
             return true;
         } else {
-            LOGGER.info("TENTOU remover o Método: " + method.getName() + " da classe: " + this.getName()
+            LOGGER.info("TENTOU adicionar o Método: " + method.getName() + " para a classe: " + this.getName()
                     + " porém não consegiu");
             return false;
         }
@@ -194,7 +196,7 @@ public class Class extends Element {
             LOGGER.info("Atributo: " + a.getName() + " adicionado na classe: " + this.getName());
             return true;
         } else {
-            LOGGER.info("TENTOU remover o Atributo: " + a.getName() + " da classe: " + this.getName()
+            LOGGER.info("TENTOU adicionar o Atributo: " + a.getName() + " para a classe: " + this.getName()
                     + " porém não consegiu");
             return false;
         }
@@ -269,12 +271,17 @@ public class Class extends Element {
      * @return String (ex: alternative_OR).
      */
     public String getVariantType() {
+        if(getVariant() != null){
+            return getVariant().getVariantType();
+        }
+        return  null;
+        /*
         for (Variant v : VariantFlyweight.getInstance().getVariants()) {
             if (v.getName().equalsIgnoreCase(this.getName()))
                 return v.getVariantType();
         }
-
         return null;
+         */
     }
 
     // getAllConcerns: os interesses anotados na classe, nos atributos da
@@ -285,7 +292,7 @@ public class Class extends Element {
     // interface.
 
     /**
-     * Retorna todo os interesses da classe, como "todos", entende-se:<br/>
+     * Return all concern (stereotype) of class:<br/>
      * <ul>
      * <li>Interesses anotados na classe</li>
      * <li>Interesses anotados nos atributos e métodos da classe</li>

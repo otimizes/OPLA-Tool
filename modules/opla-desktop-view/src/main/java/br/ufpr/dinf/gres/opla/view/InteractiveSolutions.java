@@ -42,7 +42,17 @@ public class InteractiveSolutions extends JDialog {
         getContentPane().revalidate();
         getContentPane().repaint();
 
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                System.out.println("Closed");
+                solutionSet.get(0).getOPLAProblem().getArchitecture_().deleteTempFolder();
+                e.getWindow().dispose();
+            }
+        });
+        //setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         pack();
 
         setVisible(true);
@@ -74,6 +84,9 @@ public class InteractiveSolutions extends JDialog {
             DefaultMutableTreeNode elem4 = new DefaultMutableTreeNode("Info: " + solutionSet.get(i).getOPLAProblem().getArchitecture_().toString(), true);
             elem.add(elem4);
             root.add(elem);
+
+            // save solution in smty format
+            solutionSet.get(i).getOPLAProblem().getArchitecture_().save2(solutionSet.get(i).getOPLAProblem().getArchitecture_(), "TEMP/"+ plaName);
         }
         int row = tree.getRowCount();
         while (row >= 0) {
@@ -180,7 +193,18 @@ public class InteractiveSolutions extends JDialog {
                 open = new JMenuItem("Open");
                 open.addActionListener(e -> {
                     LOGGER.info("Opened solution " + nodeInfo.toString());
-                    Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + nodeInfo.toString().concat(".di"));
+                    if(config.getApplicationYaml().getPathPapyrus().contains("SMartyModeling")){
+                        try {
+                            Process proc = Runtime.getRuntime().exec("java -jar "+config.getApplicationYaml().getPathPapyrus() +" "+config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") +"TEMP" + System.getProperty("file.separator") + nodeInfo.toString().concat(".smty"));
+                            System.out.println(config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + nodeInfo.toString().concat(".smty"));
+                            return;
+                        }
+                        catch (Exception ex){
+                            System.out.println(ex.fillInStackTrace());
+                        }
+                    }else {
+                        Utils.executePapyrus(config.getApplicationYaml().getPathPapyrus(), config.getApplicationYaml().getDirectoryToExportModels() + System.getProperty("file.separator") + nodeInfo.toString().concat(".di"));
+                    }
                 });
                 add(open);
 

@@ -21,6 +21,7 @@
 
 package jmetal4.core;
 
+import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Concern;
 import br.ufpr.dinf.gres.loglog.Level;
@@ -107,7 +108,7 @@ public class SolutionSet implements Serializable {
      *
      * @param i Position of the solution to obtain.
      * @return The <code>Solution</code> at the position i.
-     * @throws IndexOutOfBoundsException.
+     //* @throws IndexOutOfBoundsException.
      */
     public Solution get(int i) {
         if (i >= solutionsList_.size()) {
@@ -336,9 +337,31 @@ public class SolutionSet implements Serializable {
         }
     } // printVariablesToFile
 
+
+    private void createLogDir(){
+        String directory = ReaderConfig.getDirExportTarget() + "/Logs";
+        File file = new File(directory);
+        file.mkdir();
+    }
+
+    public static void appendStrToFile(String fileName,String str){
+        try {
+            // Open given file in append mode.
+            BufferedWriter out = new BufferedWriter(new FileWriter(fileName, true));
+            out.write(str);
+            out.close();
+        }
+        catch (IOException e) {
+            System.out.println("exception occoured" + e);
+        }
+    }
+
     // added by Thelma october/2012
     public void saveVariablesToFile(String path, List<FunResults> funResults, LogLog logger, boolean generate) {
         int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
+
+        createLogDir();
+        String logPath = ReaderConfig.getDirExportTarget() + "/Logs/linkHypervolume.txt";
 
         if (logger != null)
             logger.putLog("Number of solutions: " + solutionsList_.size(), Level.INFO);
@@ -347,8 +370,10 @@ public class SolutionSet implements Serializable {
                 Architecture arch = (Architecture) solutionsList_.get(i).getDecisionVariables()[j];
                 String pathToSave = path;
                 funResults.get(i).setSolution_name(pathToSave + arch.getName() + "-" + funResults.get(i).getId());
-                if (generate)
+                if (generate) {
                     arch.save(arch, pathToSave, "-" + funResults.get(i).getId());
+                    appendStrToFile(logPath,"\n" + pathToSave + funResults.get(i).getId() + "\t" + solutionsList_.get(i).toString());
+                }
             }
         }
     }

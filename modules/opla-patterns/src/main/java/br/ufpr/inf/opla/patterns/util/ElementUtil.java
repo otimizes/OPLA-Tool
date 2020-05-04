@@ -333,7 +333,7 @@ public class ElementUtil {
             arquitetura.representation.Class childClass = (arquitetura.representation.Class) child;
             if (!childClass.isAbstract()) {
                 MethodArrayList childMethods = new MethodArrayList(new ArrayList<>(childClass.getAllMethods()));
-                for (Method interfaceMethod : anInterface.getOperations()) {
+                for (Method interfaceMethod : anInterface.getMethods()) {
                     if (!childMethods.containsSameSignature(interfaceMethod)) {
                         childClass.addExternalMethod(MethodUtil.cloneMethod(interfaceMethod));
                     }

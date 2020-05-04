@@ -120,14 +120,14 @@ public class PLAComplementaryCrossover extends Crossover {
 		LOG.info("Pai: Clases: " + fatherClasses.size() + ", Interfaces: " + fatherInterfaces.size());
 		LOG.info("Pai: Clases: Atributos: " + fatherClasses.stream().map(Class::getAllAttributes).count());
 		LOG.info("Pai: Clases: Metodos: " + fatherClasses.stream().map(Class::getAllMethods).count());
-		LOG.info("Pai: Interfaces: Metodos: " + fatherInterfaces.stream().map(Interface::getOperations).count());
+		LOG.info("Pai: Interfaces: Metodos: " + fatherInterfaces.stream().map(Interface::getMethods).count());
 
 		Set<Class> motherClasses = architectureMother.getAllClasses();
 		Set<Interface> motherInterfaces = architectureMother.getAllInterfaces();
 		LOG.info("Mãe: Clases: " + motherClasses.size() + ", Interfaces: " + motherInterfaces.size());
 		LOG.info("Mãe: Clases: Atributos: " + motherClasses.stream().map(Class::getAllAttributes).count());
 		LOG.info("Mãe: Clases: Metodos: " + motherClasses.stream().map(Class::getAllMethods).count());
-		LOG.info("Mãe: Interfaces: Metodos: " + motherInterfaces.stream().map(Interface::getOperations).count());
+		LOG.info("Mãe: Interfaces: Metodos: " + motherInterfaces.stream().map(Interface::getMethods).count());
 
 		int cpClassesFather = PseudoRandom.randInt(0, fatherClasses.size() - 1);
 		int cpInterfacesFather = PseudoRandom.randInt(0, fatherInterfaces.size() - 1);
@@ -152,7 +152,7 @@ public class PLAComplementaryCrossover extends Crossover {
 		LOG.info("Descendete: Clases: " + offSpring.getAllClasses().size() + ", Interfaces: " + offSpring.getAllInterfaces().size());
 		LOG.info("Descendete: Clases: Atributos: " + offSpring.getAllClasses().stream().map(Class::getAllAttributes).count());
 		LOG.info("Descendete: Clases: Metodos: " + offSpring.getAllClasses().stream().map(Class::getAllMethods).count());
-		LOG.info("Descendete: Interfaces: Metodos: " + offSpring.getAllInterfaces().stream().map(Interface::getOperations).count());
+		LOG.info("Descendete: Interfaces: Metodos: " + offSpring.getAllInterfaces().stream().map(Interface::getMethods).count());
 
 		father.getDecisionVariables()[0] = offSpring;
 	}

@@ -17,7 +17,7 @@ public class MeanNumOpsByInterface {
         this.numberInterfaces = 0;
         for (arquitetura.representation.Package component : this.architecture.getAllPackages()) {
             for (Interface itf : component.getImplementedInterfaces()) {
-                this.results += itf.getOperations().size();
+                this.results += itf.getMethods().size();
                 this.numberInterfaces++;
             }
         }

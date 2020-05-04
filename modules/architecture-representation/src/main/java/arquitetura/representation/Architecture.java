@@ -5,7 +5,9 @@ import arquitetura.flyweights.VariabilityFlyweight;
 import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.flyweights.VariationPointFlyweight;
 import arquitetura.helpers.UtilResources;
+import arquitetura.io.ReaderConfig;
 import arquitetura.main.GenerateArchitecture;
+import arquitetura.main.GenerateArchitectureSMarty;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
@@ -13,6 +15,7 @@ import com.rits.cloning.Cloner;
 import jmetal4.core.Variable;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,18 +28,244 @@ public class Architecture extends Variable {
     private static final long serialVersionUID = -7764906574709840088L;
     public static String ARCHITECTURE_TYPE = "arquitetura.representation.Architecture";
     private Cloner cloner;
-    private Set<Package> packages = new HashSet<Package>();
-    private Set<Class> classes = new HashSet<Class>();
-    private Set<Interface> interfaces = new HashSet<Interface>();
+    private Set<Package> packages = new HashSet<Package>(); // pacotes (pacote tem classes e interfaces)
+    private Set<Class> classes = new HashSet<Class>();  /// classes fora de pacote
+    private Set<Interface> interfaces = new HashSet<Interface>();  // interface fora de pacote
     private String name;
     private boolean appliedPatterns;
 
     private RelationshipsHolder relationshipHolder = new RelationshipsHolder();
 
 
+    // MAMORU
+    private ArrayList<Concern> lstConcerns = new ArrayList<>();
+    private ArrayList<TypeSmarty> lstTypes= new ArrayList<>();
+    private boolean isSMarty = false;
+
+
+    private boolean toSMarty = false;   // variável para dizer se utiliza o decoding para SMarty ou não
+
+
+    private String projectID = "5b729c3f25e758ce87cf8d710761283c";
+    private String projectName = "Project0";
+    private String projectVersion = "1.0";
+    private String diagramID = "DIAGRAM#1";
+    private String diagramName = "DIAGRAM#1";
+
+
+    private List<VariationPoint> lstVariationPoint = new ArrayList<>();
+    private List<Variability> lstVariability = new ArrayList<>();
+    private List<Variant> lstVariant = new ArrayList<>();
+    //
+
+
     public Architecture(String name) {
         setName(name);
     }
+
+    public ArrayList<Concern> getLstConcerns() {
+        return lstConcerns;
+    }
+
+    public void setLstConcerns(ArrayList<Concern> lstConcerns) {
+        this.lstConcerns = lstConcerns;
+        ConcernHolder.INSTANCE.getConcerns().clear();
+        ConcernHolder.INSTANCE.allowedConcerns().clear();
+        for(Concern c : this.lstConcerns) {
+            if(!c.getPrimitive()) {
+                ConcernHolder.INSTANCE.getConcerns().put(c.getName(), c);
+                ConcernHolder.INSTANCE.allowedConcerns().add(c);
+            }
+        }
+    }
+
+    public Concern findConcernByName(String name){
+        for(Concern c : lstConcerns){
+            if(c.getName().equalsIgnoreCase(name)){
+                return c;
+            }
+        }return null;
+    }
+
+    public boolean hasDuplicateInterface(){
+        ArrayList<String> interfacesID = new ArrayList<>();
+        /*
+        for(Interface inter : getAllInterfaces()){
+            if(interfaces.contains(inter.getId())){
+                System.out.println("Interface Duplicada: "+inter.getId()+" - "+inter.getName());
+                return  true;
+            }
+            interfacesID.add((inter.getId()));
+        }
+        */
+        for(Interface inter : getInterfaces()){
+            if(interfacesID.contains(inter.getId())){
+                System.out.println("Interface Duplicada: "+inter.getId()+" - "+inter.getName());
+                return  true;
+            }
+            interfacesID.add((inter.getId()));
+        }
+        for(Package pkg : getAllPackages()){
+            for(Interface inter : pkg.getAllInterfaces()){
+                if(interfacesID.contains(inter.getId())){
+                    System.out.println("Interface Duplicada: "+inter.getId()+" - "+inter.getName());
+                    return  true;
+                }
+                interfacesID.add((inter.getId()));
+            }
+        }
+        //System.out.println(interfacesID);
+        return  false;
+    }
+
+    public ArrayList<Interface> getDuplicateInterface(){
+        ArrayList<String> interfacesID = new ArrayList<>();
+        ArrayList<Interface> interfacesDup = new ArrayList<>();
+
+        for(Interface inter : getInterfaces()){
+            if(interfacesID.contains(inter.getId())){
+                System.out.println("Interface Duplicada: "+inter.getId()+" - "+inter.getName());
+                interfacesDup.add(inter);
+            }
+            interfacesID.add((inter.getId()));
+        }
+        for(Package pkg : getAllPackages()){
+            for(Interface inter : pkg.getAllInterfaces()){
+                if(interfacesID.contains(inter.getId())){
+                    System.out.println("Interface Duplicada: "+inter.getId()+" - "+inter.getName());
+                    interfacesDup.add(inter);
+                }
+                interfacesID.add((inter.getId()));
+            }
+        }
+        //System.out.println(interfacesID);
+        return  interfacesDup;
+    }
+
+    public ArrayList<TypeSmarty> getLstTypes() {
+        return lstTypes;
+    }
+
+    public void setLstTypes(ArrayList<TypeSmarty> lstTypes) {
+        this.lstTypes = lstTypes;
+    }
+
+    public TypeSmarty findTypeSMartyByID(String id){
+        for(TypeSmarty typeSmarty : lstTypes){
+            if(typeSmarty.getId().equals(id))
+                return typeSmarty;
+        }
+        return null;
+    }
+
+    public TypeSmarty findTypeSMartyByName(String name){
+        for(TypeSmarty typeSmarty : lstTypes){
+            //System.out.println(typeSmarty.getName());
+            if(typeSmarty.getName().equals(name))
+                return typeSmarty;
+        }
+        //System.out.println("tipo: "+name+" não encontrado. Retornando tipo Object");
+        return  findObjectType();
+        //return null;
+        //return findObjectType();
+    }
+
+    public TypeSmarty findReturnTypeSMartyByName(String name){
+        if(name == null){
+            return findVoidType();
+        }
+        if(name.length() == 0){
+            return  findVoidType();
+        }
+        for(TypeSmarty typeSmarty : lstTypes){
+            //System.out.println(typeSmarty.getName());
+            if(typeSmarty.getName().equals(name))
+                return typeSmarty;
+        }
+        //System.out.println("tipo: "+name+" não encontrado. Retornando tipo Object");
+        return  findObjectType();
+    }
+
+    public TypeSmarty findObjectType(){
+        for(TypeSmarty typeSmarty : lstTypes){
+            if(typeSmarty.getName().equals("Object"))
+                return typeSmarty;
+        }
+        return null;
+    }
+
+    public TypeSmarty findVoidType(){
+        for(TypeSmarty typeSmarty : lstTypes){
+            if(typeSmarty.getName().equals("void"))
+                return typeSmarty;
+        }
+        return null;
+    }
+
+    public boolean isSMarty() {
+        return isSMarty;
+    }
+
+    public void setSMarty(boolean SMarty) {
+        isSMarty = SMarty;
+    }
+
+    public boolean isToSMarty() {
+        return toSMarty;
+    }
+
+    public void setToSMarty(boolean toSMarty) {
+        this.toSMarty = toSMarty;
+    }
+
+    public String getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(String projectID) {
+        this.projectID = projectID;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getProjectVersion() {
+        return projectVersion;
+    }
+
+    public void setProjectVersion(String projectVersion) {
+        this.projectVersion = projectVersion;
+    }
+
+    public String getDiagramID() {
+        return diagramID;
+    }
+
+    public void setDiagramID(String diagramID) {
+        this.diagramID = diagramID;
+    }
+
+    public String getDiagramName() {
+        return diagramName;
+    }
+
+    public void setDiagramName(String diagramName) {
+        this.diagramName = diagramName;
+    }
+
+    public void clearArchitecture(){
+        this.getClasses().clear();
+        this.interfaces.clear();
+        this.packages.clear();;
+        this.relationshipHolder.getAllRelationships().clear();
+    }
+
+
 
     public String getName() {
         return name;
@@ -238,6 +467,55 @@ public class Architecture extends Variable {
         return element;
     }
 
+    public Element findElementByName2(String elementName) {
+
+        //System.out.println("Element:"+elementName);
+        for(Class clazz_ : this.classes){
+            if(clazz_.getName().equals(elementName))
+                return  clazz_;
+        }
+        for(Interface clazz_ : this.interfaces){
+            if(clazz_.getName().equals(elementName))
+                return  clazz_;
+        }
+
+        for(Package pkg : this.packages){
+            for(Class clazz_ : pkg.getAllClasses()){
+                if(clazz_.getName().equals(elementName))
+                    return  clazz_;
+            }
+            for(Interface clazz_ : pkg.getAllInterfaces()){
+                if(clazz_.getName().equals(elementName))
+                    return  clazz_;
+            }
+            Element e1 = findElementByName2InSubPackage(pkg, elementName);
+            if(e1 != null)
+                return e1;
+        }
+        return  null;
+    }
+
+    public Element findElementByName2InSubPackage(Package pkg1, String elementName) {
+
+
+
+        for(Package pkg : pkg1.getNestedPackages()){
+            for(Class clazz_ : pkg.getAllClasses()){
+                if(clazz_.getName().equals(elementName))
+                    return  clazz_;
+            }
+            for(Interface clazz_ : pkg.getAllInterfaces()){
+                if(clazz_.getName().equals(elementName))
+                    return  clazz_;
+            }
+            Element e1 = findElementByName2InSubPackage(pkg, elementName);
+            if(e1 != null)
+                return e1;
+        }
+        return  null;
+    }
+
+
     private Element searchRecursivellyInPackage(Set<Package> packages, String elementName) {
         for (Package p : packages) {
             for (Element element : p.getElements()) {
@@ -271,7 +549,7 @@ public class Architecture extends Variable {
      *
      * @param packageName
      * @return Package
-     * @throws Retorna null caso pacote não existir.
+     * @throws return null if package not exists.
      */
     public Package findPackageByName(String packageName) {
         for (Package pkg : getAllPackages())
@@ -281,6 +559,33 @@ public class Architecture extends Variable {
         return null;
     }
 
+    public Package findPackageByID(String id) {
+        for (Package pkg : getAllPackages()) {
+            if (id.equalsIgnoreCase(pkg.getId()))
+                return pkg;
+
+            for (Package subP : pkg.getNestedPackages()){
+                Package subPkg = findSubPackageByID(subP, id);
+                if(subPkg != null)
+                    return  subPkg;
+            }
+
+        }
+        return null;
+    }
+
+    public Package findSubPackageByID(Package subPkg, String id) {
+        if(subPkg.getId().equals(id))
+            return subPkg;
+        for (Package pkg : subPkg.getNestedPackages()) {
+            if (id.equalsIgnoreCase(pkg.getId()))
+                return pkg;
+            Package subP1 = findSubPackageByID(pkg, id);
+            if(subP1 != null)
+                return  subP1;
+        }
+        return null;
+    }
 
     public Package createPackage(String packageName) {
         Package pkg = new Package(getRelationshipHolder(), packageName);
@@ -335,6 +640,26 @@ public class Architecture extends Variable {
         }
     }
 
+    public void removeInterfaceByID(String id) {
+
+        Set<Interface> newHash = new HashSet<>();
+
+        for(Interface i: getInterfaces()){
+            if(!i.getId().equals(id)){
+                newHash.add(i);
+            }
+            else{
+                relationshipHolder.removeRelatedRelationships(i);
+            }
+        }
+        this.interfaces.clear();
+        this.interfaces.addAll(newHash);
+        for(Package pkg : this.packages){
+            pkg.removeInterfaceByID(id);
+        }
+
+    }
+
 
     private boolean removeInterfaceFromArch(Interface interfacee) {
         if (this.interfaces.remove(interfacee))
@@ -360,14 +685,25 @@ public class Architecture extends Variable {
     }
 
     public List<VariationPoint> getAllVariationPoints() {
+        if(isSMarty){
+            return lstVariationPoint;
+        }
         return VariationPointFlyweight.getInstance().getVariationPoints();
     }
 
     public List<Variant> getAllVariants() {
+        if(isSMarty){
+            return lstVariant;
+        }
         return VariantFlyweight.getInstance().getVariants();
     }
 
     public List<Variability> getAllVariabilities() {
+        //System.out.println("Is SMarty: "+isSMarty());
+        if(isSMarty){
+            //System.out.println(lstVariability);
+            return lstVariability;
+        }
         return VariabilityFlyweight.getInstance().getVariabilities();
     }
 
@@ -436,6 +772,47 @@ public class Architecture extends Variable {
         klass.setNamespace(ArchitectureHolder.getName() + "::" + pkg.getName());
     }
 
+
+
+    public void movePackageToParent(String packageID, String parentID) {
+
+
+        Package origin = findPackageByID(packageID);
+        Package originParent;
+        Package newParent = findPackageByID(parentID);
+
+        for(Package pkg : this.packages){
+            if (packageID.equalsIgnoreCase(pkg.getId())) {
+                this.packages.remove(origin);
+                newParent.getNestedPackages().add(origin);
+                return;
+            }
+            for (Package subP : pkg.getNestedPackages()){
+                if (packageID.equalsIgnoreCase(pkg.getId())){
+                    subP.getNestedPackages().remove(pkg);
+                    newParent.getNestedPackages().add(origin);
+                    return;
+                }
+                removeSubPackageByID(subP, packageID);
+            }
+
+        }
+
+    }
+
+    public void removeSubPackageByID(Package subPkg, String id) {
+
+        for (Package pkg : subPkg.getNestedPackages()) {
+            if (id.equalsIgnoreCase(pkg.getId())){
+                subPkg.getNestedPackages().remove(pkg);
+                return;
+            }
+            removeSubPackageByID(pkg, id);
+        }
+    }
+
+
+
     private void addClassOrInterface(Element klass, Package pkg) {
         if (klass instanceof Class) {
             pkg.addExternalClass((Class) klass);
@@ -484,6 +861,8 @@ public class Architecture extends Variable {
         if (cloner == null)
             cloner = new Cloner();
         Architecture newArchitecture = cloner.deepClone(this);
+        //System.out.println("VA:"+getAllVariabilities());
+        //System.out.println("VN:"+newArchitecture.getAllVariabilities());
         return newArchitecture;
     }
 
@@ -583,9 +962,96 @@ public class Architecture extends Variable {
         return findPackageByName(packageName);
     }
 
+    public Package findPackageOfElement(String id){
+        for(Class c1 : this.classes){
+            if(c1.getId().equals(id))
+                return null;
+        }
+        for(Interface c1 : this.interfaces){
+            if(c1.getId().equals(id))
+                return null;
+        }
+        for(Package pkg : this.getAllPackages()){
+            for(Class clazz : pkg.getAllClasses()){
+                if(clazz.getId().equals(id))
+                    return pkg;
+            }
+            for(Interface c1 : pkg.getAllInterfaces()){
+                if(c1.getId().equals(id))
+                    return null;
+            }
+        }
+        return null;
+    }
+
+
+
+
     public void save(Architecture architecture, String pathToSave, String i) {
-        GenerateArchitecture generate = new GenerateArchitecture();
-        generate.generate(architecture, pathToSave + architecture.getName() + i);
+        //GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
+        //generate.generate(architecture, pathToSave + architecture.getName() + i);
+
+        if(this.toSMarty){
+            GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
+            generate.generate(architecture, pathToSave + architecture.getName() + i);
+
+        }else {
+            GenerateArchitecture generate = new GenerateArchitecture();
+            generate.generate(architecture, pathToSave + architecture.getName() + i);
+        }
+
+
+    }
+
+    public void save2(Architecture architecture, String pathToSave) {
+        GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
+        generate.generate(architecture, pathToSave);
+        /*
+        if(this.toSMarty){
+            GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
+            generate.generate(architecture, pathToSave);
+
+        }else {
+            GenerateArchitecture generate = new GenerateArchitecture();
+            generate.generate(architecture, pathToSave);
+        }
+        */
+    }
+
+    private void createTempDir(){
+        String directory = ReaderConfig.getDirExportTarget() + "/TEMP";
+        File file = new File(directory);
+        file.mkdir();
+    }
+
+
+    // open a temporary PLA in execution. Stop execution of OPLA-Tool while PLA is open in SMarty Modeling
+    public void openTempArch(){
+        createTempDir();
+        save2(this, "TEMP/TEMP");
+        System.out.println("Saved");
+        try {
+            System.out.println(ReaderConfig.getDirExportTarget() +System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
+            Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar " + ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
+            //Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar");
+            proc.waitFor();
+        }catch (Exception ex){
+            System.out.println("Exception Open");
+            System.out.println(ex.getStackTrace());
+
+        }
+    }
+
+    public static void deleteTempFolder() {
+        String directory = ReaderConfig.getDirExportTarget() + "/TEMP";
+        File folder = new File(directory);
+        File[] files = folder.listFiles();
+        if(files!=null) { //some JVMs return null for empty dirs
+            for(File f: files) {
+                f.delete();
+            }
+        }
+        folder.delete();
     }
 
     /**
@@ -596,6 +1062,110 @@ public class Architecture extends Variable {
      * @param xmiId
      * @return
      */
+    public Element findElementById(String xmiId) {
+        for (Class element : this.classes) {
+            if (element.getId().equals(xmiId))
+                return element;
+            for(Method m : element.getAllMethods()){
+                if(m.getId().equals(xmiId))
+                    return m;
+            }
+            for(Attribute m : element.getAllAttributes()){
+                if(m.getId().equals(xmiId))
+                    return m;
+            }
+        }
+        for (Interface element : this.interfaces) {
+            if (element.getId().equals(xmiId))
+                return element;
+            for(Method m : element.getMethods()){
+                if(m.getId().equals(xmiId))
+                    return m;
+            }
+            for(Attribute m : element.getAllAttributes()){
+                if(m.getId().equals(xmiId))
+                    return m;
+            }
+        }
+
+        for (Package p : getAllPackages()) {
+            if (p.getId().equalsIgnoreCase(xmiId))
+                return p;
+            for (Class element : p.getAllClasses()) {
+                if (element.getId().equals(xmiId))
+                    return element;
+                for(Method m : element.getAllMethods()){
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+                for(Attribute m : element.getAllAttributes()){
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+            }
+            for (Interface element : p.getAllInterfaces()) {
+                if (element.getId().equals(xmiId))
+                    return element;
+                for(Method m : element.getMethods()){
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+                for(Attribute m : element.getAllAttributes()){
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+            }
+            Element e1 = findElementInSubPackageById(p, xmiId);
+            if(e1 != null)
+                return  e1;
+        }
+
+        return null;
+    }
+
+    public Element findElementInSubPackageById(Package pkg, String xmiId) {
+
+        if(pkg.getId().equals(xmiId)){
+            return pkg;
+        }
+
+        for (Package p : pkg.getNestedPackages()) {
+            if (p.getId().equalsIgnoreCase(xmiId))
+                return p;
+            for (Class element : p.getAllClasses()) {
+                if (element.getId().equals(xmiId))
+                    return element;
+                for(Method m : element.getAllMethods()){
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+                for(Attribute m : element.getAllAttributes()){
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+            }
+            for (Interface element : p.getAllInterfaces()) {
+                if (element.getId().equals(xmiId))
+                    return element;
+                for(Method m : element.getMethods()){
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+                for(Attribute m : element.getAllAttributes()){
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+            }
+            Element e1 = findElementInSubPackageById(p, xmiId);
+            if(e1 != null)
+                return  e1;
+
+        }
+
+        return null;
+    }
+
+    /*
     public Element findElementById(String xmiId) {
         for (Class element : this.classes) {
             if (element.getId().equals(xmiId))
@@ -620,12 +1190,150 @@ public class Architecture extends Variable {
         return null;
     }
 
+     */
+
+    /**
+     * Procura um Method por ID.<br>
+     * Este método busca por elementos diretamente no primeiro nível da arquitetura (Ex: classes que não possuem pacotes)
+     * , e também em pacotes.<br/><br/>
+     *
+     * @param xmiId
+     * @return
+     */
+    public Element findMethodInSubPackageById(Package pkg, String xmiId) {
+
+        for (Package p : pkg.getNestedPackages()) {
+            for (Class element : p.getAllClasses()) {
+                for(Method m : element.getAllMethods()){
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+            }
+            for (Interface element : p.getAllInterfaces()) {
+                //System.out.println("Interface:"+element.getName());
+                for(Method m : element.getMethods()){
+                    //System.out.println("method:"+m.getId()+"-"+m.getName());
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+            }
+            Element mx = findMethodInSubPackageById(p, xmiId);
+            if(mx != null)
+                return  mx;
+        }
+        return null;
+    }
+
+
+    public Element findMethodById(String xmiId) {
+        for (Class element : this.classes) {
+            for(Method m : element.getAllMethods()){
+                if(m.getId().equals(xmiId))
+                    return m;
+            }
+        }
+        for (Interface element : this.interfaces) {
+            for(Method m : element.getMethods()){
+                if(m.getId().equals(xmiId))
+                    return m;
+            }
+        }
+        for (Package p : getAllPackages()) {
+            for (Class element : p.getAllClasses()) {
+                for(Method m : element.getAllMethods()){
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+            }
+            for (Interface element : p.getAllInterfaces()) {
+                //System.out.println("Interface:"+element.getName());
+                for(Method m : element.getMethods()){
+                    //System.out.println("method:"+m.getId()+"-"+m.getName());
+                    if(m.getId().equals(xmiId))
+                        return m;
+                }
+            }
+            Element mx = findMethodInSubPackageById(p, xmiId);
+            if(mx != null)
+                return  mx;
+        }
+
+        return null;
+    }
+
+
+
+    /**
+     * Procura um Method por ID.<br>
+     * Este método busca por elementos diretamente no primeiro nível da arquitetura (Ex: classes que não possuem pacotes)
+     * , e também em pacotes.<br/><br/>
+     *
+     * @param xmiId
+     * @return
+     */
+    public Element findAttributeById(String xmiId) {
+        for (Class element : this.classes) {
+            for(Attribute a : element.getAllAttributes()){
+                if(a.getId().equals(xmiId))
+                    return a;
+            }
+        }
+        for (Interface element : this.interfaces) {
+            for(Attribute a : element.getAllAttributes()){
+                if(a.getId().equals(xmiId))
+                    return a;
+            }
+        }
+        for (Package p : getAllPackages()) {
+            for (Class element : p.getAllClasses()) {
+                for(Attribute a : element.getAllAttributes()){
+                    if(a.getId().equals(xmiId))
+                        return a;
+                }
+            }
+            for (Interface element : p.getAllInterfaces()) {
+                for(Attribute a : element.getAllAttributes()){
+                    if(a.getId().equals(xmiId))
+                        return a;
+                }
+            }
+            Element e1 = findAttributeInSubpackageById(p,xmiId);
+            if(e1 != null)
+                return e1;
+        }
+
+        return null;
+    }
+
+    public Element findAttributeInSubpackageById(Package pkg, String xmiId) {
+
+        for (Package p : pkg.getNestedPackages()) {
+            for (Class element : p.getAllClasses()) {
+                for(Attribute a : element.getAllAttributes()){
+                    if(a.getId().equals(xmiId))
+                        return a;
+                }
+            }
+            for (Interface element : p.getAllInterfaces()) {
+                for(Attribute a : element.getAllAttributes()){
+                    if(a.getId().equals(xmiId))
+                        return a;
+                }
+            }
+            Element e1 = findAttributeInSubpackageById(p,xmiId);
+            if(e1 != null)
+                return e1;
+        }
+
+        return null;
+    }
+
     /**
      * Adiciona um pacote na lista de pacotes
      *
      * @param {@link Package}
      */
-    public void addPackage(arquitetura.representation.Package p) {
+    public void addPackage(Package p) {
         if (this.packages.add(p))
             LOGGER.info("Pacote: " + p.getName() + " adicionado na arquitetura");
         else

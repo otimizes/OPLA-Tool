@@ -25,7 +25,7 @@ public class WocsInterface {
 				int cantparame = 0;
 				int complexidade = 0;
 				
-				for(Method metodo : interfa.getOperations()){
+				for(Method metodo : interfa.getMethods()){
 					
 					cantparame = metodo.getParameters().size() + 1;
 					complexidade += cantparame;

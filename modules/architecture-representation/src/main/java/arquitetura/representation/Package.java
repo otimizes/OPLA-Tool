@@ -19,8 +19,8 @@ import java.util.Set;
  * @author edipofederle <edipofederle@gmail.com>
  */
 public class Package extends Element {
-	
-	private static final Logger LOGGER = Logger.getLogger(Package.class);
+
+    private static final Logger LOGGER = Logger.getLogger(Package.class);
 
     private static final long serialVersionUID = -3080328928563871488L;
     public Set<Package> nestedPackages = new HashSet<Package>();
@@ -33,11 +33,11 @@ public class Package extends Element {
     /**
      * Construtor Para um Elemento do Tipo Pacote
      *
-     * @param architecture     - A qual arquitetura pertence
+     * @param relationshipHolder     - RelationshipHolder
      * @param name             - Nome do Pacote
-     * @param isVariationPoint - Se o mesmo é um ponto de variação
      * @param variantType      - Qual o tipo ( {@link VariantType} ) da variante
-     * @param parent           - Qual o {@link Element} pai
+     * @param namespace     - Namespace
+     * @param id           - id
      */
     public Package(RelationshipsHolder relationshipHolder, String name, Variant variantType, String namespace, String id) {
         super(name, variantType, "package", namespace, id);
@@ -188,6 +188,10 @@ public class Package extends Element {
         return concerns;
     }
 
+    public Set<Concern> getOwnConcerns2() {
+        return super.getOwnConcerns();
+    }
+
     public void moveClassToPackage(Class klass, Package packageToMove) {
         packageToMove.addExternalClass(klass);
         this.classes.remove(klass);
@@ -198,8 +202,18 @@ public class Package extends Element {
         klass.setNamespace(ArchitectureHolder.getName() + "::" + packageName);
     }
 
+    public boolean findInterfaceByID(String id){
+        for(Interface inter : interfaces){
+            if(inter.getId().equals(id))
+                return true;
+        }
+        return false;
+    }
+
     public boolean moveInterfaceToPackage(Interface inter, Package packageToMove) {
         if (!interfaces.contains(inter)) return false;
+        if (!findInterfaceByID(inter.getId())) return false;
+        if (packageToMove.findInterfaceByID(inter.getId())) return false;
         packageToMove.addExternalInterface(inter);
         this.interfaces.remove(inter);
         updateNamespace(inter, packageToMove.getName());
@@ -231,6 +245,25 @@ public class Package extends Element {
             return true;
         }
         return false;
+    }
+
+    public void removeInterfaceByID(String id) {
+        //Interface interfacee = null;
+
+        Set<Interface> newHash = new HashSet<>();
+        for(Interface i: this.interfaces) {
+            if(!i.getId().equals(id)){
+                newHash.add(i);
+            }
+            else{
+                relationshipHolder.removeRelatedRelationships(i);
+            }
+
+
+
+        }
+        this.interfaces.clear();
+        this.interfaces.addAll(newHash);
     }
 
     public boolean removeImplementedInterface(Interface interface_) {
