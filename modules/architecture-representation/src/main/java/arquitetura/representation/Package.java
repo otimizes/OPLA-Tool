@@ -210,21 +210,35 @@ public class Package extends Element {
         return false;
     }
 
+    public boolean findClassByID(String id){
+        for(Class inter : classes){
+            if(inter.getId().equals(id))
+                return true;
+        }
+        return false;
+    }
+
     public boolean moveInterfaceToPackage(Interface inter, Package packageToMove) {
+        if(this.getId().equals(packageToMove.getId())) return false;
         if (!interfaces.contains(inter)) return false;
         if (!findInterfaceByID(inter.getId())) return false;
         if (packageToMove.findInterfaceByID(inter.getId())) return false;
         packageToMove.addExternalInterface(inter);
         this.interfaces.remove(inter);
+        this.removeInterfaceByID(inter.getId());
         updateNamespace(inter, packageToMove.getName());
         return true;
     }
 
     public void addExternalClass(Class klass) {
+        if (classes.contains(klass)) return;
+        if (findClassByID(klass.getId())) return;
         classes.add(klass);
     }
 
     public void addExternalInterface(Interface inter) {
+        if (interfaces.contains(inter)) return;
+        if (findInterfaceByID(inter.getId())) return;
         interfaces.add(inter);
     }
 

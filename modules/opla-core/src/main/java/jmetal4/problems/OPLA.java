@@ -64,13 +64,13 @@ public class OPLA extends Problem {
         LOGGER.info("Criando ARCHITECTURE_TYPE");
         variableType_[0] = java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE);
         LOGGER.info("Instanciando Builder");
-        ArchitectureBuilder architectureBuilder = new ArchitectureBuilder();
+        //ArchitectureBuilder architectureBuilder = new ArchitectureBuilder();
         LOGGER.info("Construindo arquitetura by XML: " + xmiFilePath);
         if(xmiFilePath.contains(".smty")){
             architecture_ = new ArchitectureBuilderSMarty().create(xmiFilePath);
 
         } else {
-            architecture_ = architectureBuilder.create(xmiFilePath);
+            architecture_ = new ArchitectureBuilder().create(xmiFilePath);
         }
         LOGGER.info("Recuperando Metricas");
         selectedMetrics = oplaConfig.getOplaConfigs().getSelectedObjectiveFunctions();

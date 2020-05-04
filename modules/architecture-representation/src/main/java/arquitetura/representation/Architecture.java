@@ -729,6 +729,13 @@ public class Architecture extends Variable {
     }
 
     public void addExternalInterface(Interface interface_) {
+        boolean exist = false;
+        for(Interface i : interfaces){
+            if(i.getId().equals(interface_.getId()))
+                exist = true;
+        }
+        if(exist)
+            return;
         if (interfaces.add(interface_))
             LOGGER.info("Interface: " + interface_.getName() + " adicionada na arquiteutra");
         else
@@ -755,6 +762,14 @@ public class Architecture extends Variable {
     public void moveElementToPackage(Element klass, Package pkg) {
         if (pkg.getElements().contains(klass)) {
             return;
+        }
+        for(Class clazz : this.classes){
+            if(clazz.getId().equals(klass.getId()))
+                return;
+        }
+        for(Interface clazz : this.interfaces){
+            if(clazz.getId().equals(klass.getId()))
+                return;
         }
         String oldPackageName = UtilResources.extractPackageName(klass.getNamespace());
         if (this.packages.contains(pkg)) {
