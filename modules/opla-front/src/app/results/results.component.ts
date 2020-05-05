@@ -31,7 +31,7 @@ export class ResultsComponent implements OnInit {
   view: any[] = [700, 400];
   showXAxis: boolean = true;
   showYAxis: boolean = true;
-  gradient: boolean = true;
+  gradient: boolean = false;
   showLegend: boolean = true;
   showXAxisLabel: boolean = true;
   showYAxisLabel: boolean = true;
@@ -40,7 +40,6 @@ export class ResultsComponent implements OnInit {
   disabled = [];
 
   onSelect(data): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
     for (let i = 0; i < this.multi.length; i++) {
       for (let j = 0; j < this.multi[i].series.length; j++) {
         if (this.multi[i].series[j].name === data) {
@@ -52,7 +51,6 @@ export class ResultsComponent implements OnInit {
         }
       }
     }
-    console.log("---", this.disabled)
     let newMulti = Object.assign([], this.multi);
     for (let disabled of this.disabled) {
       console.log(disabled, newMulti[disabled.i].series[disabled.j]);
@@ -95,6 +93,10 @@ export class ResultsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.searchExperiments();
+  }
+
+  searchExperiments() {
     this.experimentService.getAll().subscribe(results => {
       this.experiments = results.values;
       this.filteredExperiments = this.experimentCtrl.valueChanges.pipe(

@@ -9,7 +9,7 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {GeneralComponent} from './general/general.component';
+import {AnotherComponent} from './another/another.component';
 import {PatternComponent} from './pattern/pattern.component';
 import {ResultsComponent} from './results/results.component';
 import {ExperimentsComponent} from './experiments/experiments.component';
@@ -47,7 +47,7 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
   declarations: [
     AppComponent,
     ExecutionComponent,
-    GeneralComponent,
+    AnotherComponent,
     PatternComponent,
     ResultsComponent,
     ExperimentsComponent,

@@ -9,33 +9,21 @@ import java.nio.file.Paths;
 public class PathConfig {
 
     private Path directoryToSaveModels;
-
     private Path directoryToInteraction;
-
     private Path pathPapyrus;
-
+    private Path pathSmarty;
     private Path directoryToExportModels;
-
     private Path pathToProfileConcern;
-
     private Path pathToTemplateModelsDirectory;
-
     private Path pathToProfileRelationships;
-
     private Path pathToProfilePatterns;
-
     private Path pahtToProfileSmarty;
-
     private Path pathToNewConfigurations;
-
     private Path dirTarget;
-
     private Path dirExportTarget;
-
     private Path pathLastOptimizationInput;
     private String emailUser;
     private String emailPassword;
-
     private int archiveSize;
 
     public PathConfig() {
@@ -44,6 +32,7 @@ public class PathConfig {
     public PathConfig(ApplicationYamlConfig applicationYaml) {
         this.directoryToSaveModels = Paths.get(applicationYaml.getDirectoryToSaveModels());
         this.pathPapyrus = Paths.get(applicationYaml.getPathPapyrus());
+        this.pathSmarty = Paths.get(applicationYaml.getPathSmarty());
         this.directoryToInteraction = Paths.get(applicationYaml.getDirectoryToInteraction());
         this.directoryToExportModels = Paths.get(applicationYaml.getDirectoryToExportModels());
         this.pahtToProfileSmarty = Paths.get(applicationYaml.getPathToProfile());
@@ -189,5 +178,13 @@ public class PathConfig {
 
     public void setEmailPassword(String emailPassword) {
         this.emailPassword = emailPassword;
+    }
+
+    public Path getPathSmarty() {
+        return pathSmarty;
+    }
+
+    public void setPathSmarty(Path pathSmarty) {
+        this.pathSmarty = pathSmarty;
     }
 }

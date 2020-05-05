@@ -2,17 +2,12 @@ package br.ufpr.dinf.gres.api.resource;
 
 import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.api.utils.Interactions;
-import br.ufpr.dinf.gres.architecture.config.ApplicationFile;
-import br.ufpr.dinf.gres.architecture.config.PathConfig;
+import br.ufpr.dinf.gres.api.utils.OpenPLA;
 import br.ufpr.dinf.gres.architecture.io.*;
-import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.architecture.util.Constants;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.*;
-import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.LogLogData;
@@ -254,19 +249,50 @@ public class OptimizationService {
     public File downloadAlternative(Long threadId, Integer id) {
         SolutionSet solutionSet = Interactions.get(threadId).solutionSet;
         Solution solution = solutionSet.get(id);
-        String plaNameOnAnalyses = "Interaction_" + OPLAThreadScope.currentGeneration.get() + "_" + solution.getAlternativeArchitecture().getName();
-        String fileOnAnalyses = OPLAConfigThreadScope.config.get().getDirectoryToExportModels() + System.getProperty("file.separator") + plaNameOnAnalyses.concat(solutionSet.get(0).getAlternativeArchitecture().getName() + ".di");
-//        File file = new File();
-        return null;
+        String plaNameOnAnalyses = "Interaction_" + threadId + "_" + id + "_" + solution.getAlternativeArchitecture().getName();
+        String dirOnAnalyses = OPLAConfigThreadScope.config.get().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/";
+        boolean delete = deleteDirectory(new File(dirOnAnalyses));
+        boolean create = new File(dirOnAnalyses).mkdir();
+        SolutionSet solutionSet1 = new SolutionSet();
+        solutionSet1.setCapacity(1);
+        solutionSet1.add(solution);
+        solutionSet1.saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
+        File file = new File(dirOnAnalyses);
+        return file;
+    }
+
+    public void openAlternative(Long threadId, Integer id) {
+        File file = downloadAlternative(threadId, id);
+        File[] files = file.listFiles();
+        File fileToOpen = files[0];
+        String pathSmarty = OPLAConfigThreadScope.config.get().getPathSmarty();
+        OpenPLA.executeJar(pathSmarty, fileToOpen.getAbsolutePath());
+    }
+
+    public boolean deleteDirectory(File dir) {
+        if (dir.isDirectory()) {
+            File[] children = dir.listFiles();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDirectory(children[i]);
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+
+        // either file or an empty directory
+        System.out.println("removing file or directory : " + dir.getName());
+        return dir.delete();
     }
 
     public File downloadAllAlternative(Long threadId) {
         SolutionSet solutionSet = Interactions.get(threadId).solutionSet;
-        for (int i = 0; i < solutionSet.size(); i++) {
-            downloadAlternative(threadId, i);
-        }
-        PathConfig config = ApplicationFile.getInstance().getConfig();
-        String url = config.getDirectoryToExportModels().toString().concat(OPLAThreadScope.hash.get());
-        return new File(url);
+        String plaNameOnAnalyses = "Interaction_" + threadId + "_" + "_" + solutionSet.get(0).getAlternativeArchitecture().getName();
+        String dirOnAnalyses = OPLAConfigThreadScope.config.get().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/";
+        boolean delete = deleteDirectory(new File(dirOnAnalyses));
+        boolean create = new File(dirOnAnalyses).mkdir();
+        solutionSet.saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
+        File file = new File(dirOnAnalyses);
+        return file;
     }
 }

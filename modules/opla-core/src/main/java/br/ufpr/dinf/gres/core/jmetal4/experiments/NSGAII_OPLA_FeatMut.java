@@ -151,10 +151,6 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                         experiment, selectedObjectiveFunctions);
                 execution.setTime(estimatedTime);
 
-                if (Moment.POSTERIORI.equals(configs.getClusteringMoment())) {
-                    configs.getInteractiveFunction().run(resultFront);
-                }
-
                 resultFront.saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
 
                 execution.setInfos(infos);
@@ -203,6 +199,10 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
             // Util.moveAllFilesToExecutionDirectory(experiementId, null);
             LOGGER.info("saveHypervolume()");
             saveHypervolume(experiment.getId(), null, allRuns, plaName);
+
+            if (Moment.POSTERIORI.equals(configs.getClusteringMoment())) {
+                configs.getInteractiveFunction().run(allRuns);
+            }
         }
 
         // Util.moveResourceToExperimentFolder(this.experiementId);

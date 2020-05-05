@@ -11,7 +11,6 @@ import br.ufpr.dinf.gres.architecture.io.OPLALogs;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfo;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
 import br.ufpr.dinf.gres.architecture.util.Constants;
-import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.http.HttpStatus;
@@ -66,6 +65,11 @@ public class OptimizationResource {
         File file = optimizationService.downloadAlternative(threadId, id);
         ZipFiles zipFiles = new ZipFiles();
         zipFiles.zipDirectoryStream(file, response.getOutputStream());
+    }
+
+    @GetMapping(value = "/open-alternative/{threadId}/{id}", produces = "application/zip")
+    public void openAlternative(@PathVariable Long threadId, @PathVariable Integer id) throws IOException {
+        optimizationService.openAlternative(threadId, id);
     }
 
     @GetMapping(value = "/download-all-alternative/{threadId}", produces = "application/zip")

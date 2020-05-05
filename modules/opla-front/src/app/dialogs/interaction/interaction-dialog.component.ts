@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from "@angular/core";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -14,7 +14,7 @@ import {OptimizationInfo} from "../../dto/optimization-info";
 export class InteractionDialogComponent implements OnInit {
   solutionSet: any = {};
   solutions = [];
-  info:OptimizationInfo;
+  info: OptimizationInfo;
   clusters: number[] = [];
   selff: any;
 
@@ -47,18 +47,43 @@ export class InteractionDialogComponent implements OnInit {
   }
 
   download(id?) {
-    this.optimizationService.downloadAlternative(this.info.threadId, id).subscribe(result => {
-      console.log("Download", result)
+    this.optimizationService.downloadOneAlternative(this.info.threadId, id).subscribe(result => {
+      this.snackBar.open("Your download is available", null, {
+        duration: 2000
+      });
+      const blob = new Blob([result], {
+        type: 'application/zip'
+      });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+      OptimizationService.clearOptimizationInfo();
+    })
+  }
+
+  downloadAll() {
+    this.optimizationService.downloadAllAlternative(this.info.threadId).subscribe(result => {
+      this.snackBar.open("Your download is available", null, {
+        duration: 2000
+      });
+      const blob = new Blob([result], {
+        type: 'application/zip'
+      });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+      OptimizationService.clearOptimizationInfo();
     })
   }
 
   open(id?) {
-    this.optimizationService.openAlternative(this.info.threadId, id).subscribe(result => {
-      console.log("Open", result)
+    this.optimizationService.openOneAlternative(this.info.threadId, id).subscribe(result => {
+      this.snackBar.open("Your PLA is opening, wait a minute", "OK", {
+        duration: 5000
+      });
     })
   }
 
   getNumber(value: any) {
     return Number(value);
   }
+
 }

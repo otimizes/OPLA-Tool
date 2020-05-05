@@ -9,8 +9,8 @@ export class Config {
   pathToProfileRelationships: string;
   pathToProfilePatterns: string;
   pathLastOptimizationInput: string;
-  smarty:boolean = true;
-  feature:boolean = true;
-  patterns:boolean = true;
-  relationships:boolean = true;
+  smarty:boolean = false;
+  feature:boolean = false;
+  patterns:boolean = false;
+  relationships:boolean = false;
 }

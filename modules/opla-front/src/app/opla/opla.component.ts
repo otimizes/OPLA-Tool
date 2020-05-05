@@ -67,10 +67,6 @@ export class OplaComponent implements OnInit, AfterViewInit {
     this.generalFormGroup = fb.group({
       pathToTemplateModelsDirectory: new FormControl(),
       directoryToSaveModels: new FormControl(),
-      pathToProfileConcern: new FormControl(),
-      pathToProfile: new FormControl(),
-      pathToProfileRelationships: new FormControl(),
-      pathToProfilePatterns: new FormControl(),
       smarty: new FormControl(),
       feature: new FormControl(),
       patterns: new FormControl(),

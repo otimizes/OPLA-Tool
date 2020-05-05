@@ -123,22 +123,12 @@ export class OptimizationService {
     return this.http.get(`${UserService.baseUrl}/optimization/download/${id}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
   }
 
-  downloadAlternative(threadId, id): Observable<any> {
-    if (!id) return this.downloadAllAlternative(threadId);
-    else return this.downloadOneAlternative(threadId, id);
-  }
-
   downloadOneAlternative(threadId, id): Observable<any> {
     return this.http.get(`${UserService.baseUrl}/optimization/download-alternative/${threadId}/${id}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
   }
 
   downloadAllAlternative(threadId): Observable<any> {
     return this.http.get(`${UserService.baseUrl}/optimization/download-all-alternative/${threadId}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
-  }
-
-  openAlternative(threadId, id): Observable<any> {
-    if (!id) return this.openAllAlternative(threadId);
-    else return this.openOneAlternative(threadId, id);
   }
 
   openOneAlternative(threadId, id): Observable<any> {

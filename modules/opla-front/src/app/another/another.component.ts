@@ -3,11 +3,11 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {OptimizationDto} from "../dto/optimization-dto";
 
 @Component({
-  selector: 'app-general',
-  templateUrl: './general.component.html',
-  styleUrls: ['./general.component.css']
+  selector: 'app-another',
+  templateUrl: './another.component.html',
+  styleUrls: ['./another.component.css']
 })
-export class GeneralComponent implements OnInit {
+export class AnotherComponent implements OnInit {
 
   @Input() formGroup: FormGroup;
   hideRequiredControl = new FormControl(false);

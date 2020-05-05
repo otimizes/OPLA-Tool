@@ -13,6 +13,7 @@ public class ApplicationYamlConfig {
     private String directoryToSaveModels;
     private String directoryToInteraction;
     private String pathPapyrus;
+    private String pathSmarty;
     private String directoryToExportModels;
     private String pathToProfile;
     private String pathToProfileConcern;
@@ -21,10 +22,10 @@ public class ApplicationYamlConfig {
     private String pathLastOptimizationInput;
     private String emailUser;
     private String emailPassword;
-    private Boolean smarty = true;
-    private Boolean feature = true;
-    private Boolean patterns = true;
-    private Boolean relationships = true;
+    private Boolean smarty = false;
+    private Boolean feature = false;
+    private Boolean patterns = false;
+    private Boolean relationships = false;
 
     public String getPathToTemplateModelsDirectory() {
         return StringUtils.defaultString(pathToTemplateModelsDirectory);
@@ -152,5 +153,13 @@ public class ApplicationYamlConfig {
 
     public void setEmailPassword(String emailPassword) {
         this.emailPassword = emailPassword;
+    }
+
+    public String getPathSmarty() {
+        return StringUtils.defaultString(pathSmarty);
+    }
+
+    public void setPathSmarty(String pathSmarty) {
+        this.pathSmarty = pathSmarty;
     }
 }

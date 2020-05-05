@@ -25,7 +25,11 @@ public class InteractiveEmail {
 
     public SolutionSet run(SolutionSet solutionSet, OptimizationDto optimizationDto) {
         OPLALogs.add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), "Your optimization is waiting for evaluation.", OptimizationInfoStatus.INTERACT));
-        emailService.send(new EmailDto(OPLAThreadScope.token.get(), "Your optimization is waiting for evaluation.", "Your optimization is waiting for evaluation."));
+        try {
+            emailService.send(new EmailDto(OPLAThreadScope.token.get(), "Your optimization is waiting for evaluation.", "Your optimization is waiting for evaluation."));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             Clustering clustering = new Clustering(solutionSet, optimizationDto.getClusteringAlgorithm());
             clustering.setNumClusters(solutionSet.getSolutionSet().get(0).numberOfObjectives() + 1);
