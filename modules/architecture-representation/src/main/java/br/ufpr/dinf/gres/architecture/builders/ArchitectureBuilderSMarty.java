@@ -212,8 +212,11 @@ public class ArchitectureBuilderSMarty {
             br.ufpr.dinf.gres.architecture.representation.Element target = architecture.findElementById(id_element);
             for (Concern c1 : lstConcern) {
                 if (c1.getId().equals(id_stereotype) && !c1.getPrimitive()) {
-                    //System.out.println(target.getId()+" - "+c1.getId());
-                    target.addExternalConcern(c1);
+                    try {
+                        target.addExternalConcern(c1);
+                    } catch (NullPointerException ex) {
+                        System.out.println("Impossible to add the concern " + c1 + " on " + id_element);
+                    }
                 } else {
                     if (c1.getId().equals(id_stereotype)) {
                         // fix variant point ou variant

@@ -1125,24 +1125,24 @@ public class Architecture extends Variable {
         for (Class element : this.classes) {
             if (element.getId().equals(xmiId))
                 return element;
-            for (Method m : element.getAllMethods()) {
-                if (m.getId().equals(xmiId))
+            for(Method m : element.getAllMethods()){
+                if(m.getId().equals(xmiId))
                     return m;
             }
-            for (Attribute m : element.getAllAttributes()) {
-                if (m.getId().equals(xmiId))
+            for(Attribute m : element.getAllAttributes()){
+                if(m.getId().equals(xmiId))
                     return m;
             }
         }
         for (Interface element : this.interfaces) {
             if (element.getId().equals(xmiId))
                 return element;
-            for (Method m : element.getMethods()) {
-                if (m.getId().equals(xmiId))
+            for(Method m : element.getMethods()){
+                if(m.getId().equals(xmiId))
                     return m;
             }
-            for (Attribute m : element.getAllAttributes()) {
-                if (m.getId().equals(xmiId))
+            for(Attribute m : element.getAllAttributes()){
+                if(m.getId().equals(xmiId))
                     return m;
             }
         }
@@ -1153,30 +1153,30 @@ public class Architecture extends Variable {
             for (Class element : p.getAllClasses()) {
                 if (element.getId().equals(xmiId))
                     return element;
-                for (Method m : element.getAllMethods()) {
-                    if (m.getId().equals(xmiId))
+                for(Method m : element.getAllMethods()){
+                    if(m.getId().equals(xmiId))
                         return m;
                 }
-                for (Attribute m : element.getAllAttributes()) {
-                    if (m.getId().equals(xmiId))
+                for(Attribute m : element.getAllAttributes()){
+                    if(m.getId().equals(xmiId))
                         return m;
                 }
             }
             for (Interface element : p.getAllInterfaces()) {
                 if (element.getId().equals(xmiId))
                     return element;
-                for (Method m : element.getMethods()) {
-                    if (m.getId().equals(xmiId))
+                for(Method m : element.getMethods()){
+                    if(m.getId().equals(xmiId))
                         return m;
                 }
-                for (Attribute m : element.getAllAttributes()) {
-                    if (m.getId().equals(xmiId))
+                for(Attribute m : element.getAllAttributes()){
+                    if(m.getId().equals(xmiId))
                         return m;
                 }
             }
             Element e1 = findElementInSubPackageById(p, xmiId);
-            if (e1 != null)
-                return e1;
+            if(e1 != null)
+                return  e1;
         }
 
         return null;

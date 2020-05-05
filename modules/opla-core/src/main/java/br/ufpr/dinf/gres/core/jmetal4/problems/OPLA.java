@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.problems;
 
 import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilder;
+import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilderSMarty;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
@@ -53,7 +54,11 @@ public class OPLA extends Problem {
         variableType_[0] = java.lang.Class
                 .forName(Architecture.ARCHITECTURE_TYPE);
 
-        architecture_ = new ArchitectureBuilder().create(xmiFilePath);
+        if (xmiFilePath.contains(".smty")) {
+            architecture_ = new ArchitectureBuilderSMarty().create(xmiFilePath);
+        } else {
+            architecture_ = new ArchitectureBuilder().create(xmiFilePath);
+        }
     }
 
 
@@ -74,7 +79,11 @@ public class OPLA extends Problem {
         LOGGER.info("Instanciando Builder");
         ArchitectureBuilder architectureBuilder = new ArchitectureBuilder();
         LOGGER.info("Construindo br.ufpr.dinf.gres.arquitetura by XML: " + xmiFilePath);
-        architecture_ = architectureBuilder.create(xmiFilePath);
+        if (xmiFilePath.contains(".smty")) {
+            architecture_ = new ArchitectureBuilderSMarty().create(xmiFilePath);
+        } else {
+            architecture_ = new ArchitectureBuilder().create(xmiFilePath);
+        }
         LOGGER.info("Recuperando Metricas");
         selectedMetrics = oplaConfig.getOplaConfigs().getSelectedObjectiveFunctions();
     }
@@ -91,7 +100,6 @@ public class OPLA extends Problem {
             solution.setObjective(i, fitnesses.get(i).getValue());
         }
     }
-
 
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

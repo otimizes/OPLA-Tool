@@ -1,0 +1,1134 @@
+<project id="5b729c3f25e758ce87cf8d710761283c" name="Project0" version="1.0">
+  <types>
+    <type id="CLASS#8" path="AnimationLoopMgr" name="AnimationLoopMgr" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#29" path="java.util" name="Arrays" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#10" path="java.lang" name="Boolean" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#15" path="BowlingGame" name="BowlingGame" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#29" path="Brick" name="Brick" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#28" path="BrickPile" name="BrickPile" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#17" path="BricklesGame" name="BricklesGame" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#11" path="java.lang" name="Byte" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#25" path="Ceiling" name="Ceiling" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#12" path="java.lang" name="Character" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#30" path="java.util" name="Collections" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#31" path="java.util" name="Date" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#19" path="Display" name="Display" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#13" path="java.lang" name="Double" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#14" path="java.lang" name="Enum" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#32" path="java.util" name="EnumMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#33" path="java.util" name="EnumSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#34" path="java.util" name="EventListener" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#15" path="java.lang" name="Exception" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#16" path="java.lang" name="Float" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#27" path="Floor" name="Floor" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#13" path="Game" name="Game" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#3" path="GameBoard" name="GameBoard" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#18" path="GameBoardCtrl" name="GameBoardCtrl" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#6" path="GameBoardGUI" name="GameBoardGUI" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#9" path="GameBoardMgr" name="GameBoardMgr" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#1" path="GameCtrl" name="GameCtrl" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#2" path="GameGUI" name="GameGUI" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#14" path="GameMgr" name="GameMgr" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#35" path="java.util" name="HashMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#36" path="java.util" name="HashSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#37" path="java.util" name="Hashtable" value="null" primitive="false" standard="true"/>
+    <type id="INTERFACE#9" path="IAnimationLoopMgt" name="IAnimationLoopMgt" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#12" path="ICheckScore" name="ICheckScore" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#2" path="IExitGame" name="IExitGame" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#14" path="IGameBoardData" name="IGameBoardData" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#10" path="IGameBoardMgt" name="IGameBoardMgt" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#11" path="IGameMgt" name="IGameMgt" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#8" path="IInitializationMgt" name="IInitializationMgt" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#5" path="IInstallGame" name="IInstallGame" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#1" path="IPlayBowling" name="IPlayBowling" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#4" path="IPlayBrickles" name="IPlayBrickles" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#3" path="IPlayPong" name="IPlayPong" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#6" path="ISaveGame" name="ISaveGame" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#13" path="ISaveScore" name="ISaveScore" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#7" path="IUninstallGame" name="IUninstallGame" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#5" path="InitializationMgr" name="InitializationMgr" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#17" path="java.lang" name="Integer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#38" path="java.util" name="LinkedHashMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#39" path="java.util" name="LinkedHashSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#40" path="java.util" name="LinkedList" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#41" path="java.util" name="List" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#18" path="java.lang" name="Long" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#42" path="java.util" name="Map" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#4" path="Match" name="Match" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#19" path="java.lang" name="Math" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#20" path="MovableSprites" name="MovableSprites" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#20" path="java.lang" name="Number" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#21" path="java.lang" name="Object" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#22" path="java.lang" name="Package" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#23" path="Paddle" name="Paddle" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#7" path="PlayGameGUI" name="PlayGameGUI" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#11" path="Point" name="Point" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#16" path="PongGame" name="PongGame" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#22" path="Puck" name="Puck" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#43" path="java.util" name="Queue" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#44" path="java.util" name="Random" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#45" path="java.util" name="Scanner" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#12" path="Score" name="Score" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#46" path="java.util" name="Set" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#23" path="java.lang" name="Short" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#10" path="Sprite" name="Sprite" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#47" path="java.util" name="Stack" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#24" path="StationarySprite" name="StationarySprite" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#24" path="java.lang" name="String" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#25" path="java.lang" name="StringBuffer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#26" path="java.lang" name="StringBuilder" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#27" path="java.lang" name="Thread" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#48" path="java.util" name="Timer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#49" path="java.util" name="TreeMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#50" path="java.util" name="TreeSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#51" path="java.util" name="Vector" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#21" path="Velocity" name="Velocity" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#28" path="java.lang" name="Void" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#26" path="Wall" name="Wall" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#1" path="" name="boolean" value="false" primitive="true" standard="true"/>
+    <type id="TYPE#2" path="" name="byte" value="'0'" primitive="true" standard="true"/>
+    <type id="TYPE#3" path="" name="char" value="' '" primitive="true" standard="true"/>
+    <type id="TYPE#4" path="" name="double" value="0.0d" primitive="true" standard="true"/>
+    <type id="TYPE#5" path="" name="float" value="0.0f" primitive="true" standard="true"/>
+    <type id="TYPE#6" path="" name="int" value="0" primitive="true" standard="true"/>
+    <type id="TYPE#7" path="" name="long" value="0.0l" primitive="true" standard="true"/>
+    <type id="TYPE#8" path="" name="short" value="0" primitive="true" standard="true"/>
+    <type id="TYPE#9" path="" name="void" value="" primitive="true" standard="true"/>
+  </types>
+  <stereotypes>
+    <stereotype id="STEREOTYPE#4" name="alternative_OR" primitive="true"/>
+    <stereotype id="STEREOTYPE#5" name="alternative_XOR" primitive="true"/>
+    <stereotype id="STEREOTYPE#11" name="bowling" primitive="false"/>
+    <stereotype id="STEREOTYPE#14" name="brickles" primitive="false"/>
+    <stereotype id="STEREOTYPE#18" name="collision" primitive="false"/>
+    <stereotype id="STEREOTYPE#9" name="configuration" primitive="false"/>
+    <stereotype id="STEREOTYPE#21" name="display" primitive="false"/>
+    <stereotype id="STEREOTYPE#20" name="gui" primitive="false"/>
+    <stereotype id="STEREOTYPE#12" name="logging" primitive="false"/>
+    <stereotype id="STEREOTYPE#1" name="mandatory" primitive="true"/>
+    <stereotype id="STEREOTYPE#17" name="movement" primitive="false"/>
+    <stereotype id="STEREOTYPE#7" name="mutex" primitive="true"/>
+    <stereotype id="STEREOTYPE#2" name="optional" primitive="true"/>
+    <stereotype id="STEREOTYPE#16" name="pause" primitive="false"/>
+    <stereotype id="STEREOTYPE#10" name="play" primitive="false"/>
+    <stereotype id="STEREOTYPE#22" name="point" primitive="false"/>
+    <stereotype id="STEREOTYPE#13" name="pong" primitive="false"/>
+    <stereotype id="STEREOTYPE#19" name="ranking" primitive="false"/>
+    <stereotype id="STEREOTYPE#6" name="requires" primitive="true"/>
+    <stereotype id="STEREOTYPE#15" name="save" primitive="false"/>
+    <stereotype id="STEREOTYPE#8" name="stereotype" primitive="false"/>
+    <stereotype id="STEREOTYPE#3" name="variationPoint" primitive="true"/>
+  </stereotypes>
+  <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5" requires="STEREOTYPE#6" mutex="STEREOTYPE#7"/>
+  <diagram id="DIAGRAM#1" name="Diagram1" type="Class">
+    <package id="PACKAGE#2" name="GameGUI" mandatory="true" x="880" y="2380" globalX="880" globalY="2380" height="300" width="312"/>
+    <package id="PACKAGE#1" name="GameCtrl" mandatory="true" x="1220" y="2380" globalX="1220" globalY="2380" height="680" width="1511"/>
+    <package id="PACKAGE#4" name="GameBoardGUI" mandatory="true" x="500" y="500" globalX="500" globalY="500" height="300" width="300"/>
+    <package id="PACKAGE#3" name="InitializeMgr" mandatory="true" x="380" y="3100" globalX="380" globalY="3100" height="300" width="900"/>
+    <package id="PACKAGE#6" name="AnimationLoopMgr" mandatory="true" x="1320" y="3100" globalX="1320" globalY="3100" height="300" width="900"/>
+    <package id="PACKAGE#5" name="PlayGameGUI" mandatory="true" x="40" y="3100" globalX="40" globalY="3100" height="300" width="300"/>
+    <package id="PACKAGE#8" name="GameMgr" mandatory="true" x="3100" y="500" globalX="3100" globalY="500" height="1060" width="1240"/>
+    <package id="PACKAGE#7" name="GameBoardMgr" mandatory="true" x="20" y="2160" globalX="20" globalY="2160" height="700" width="660"/>
+    <package id="PACKAGE#9" name="GameBoardCtrl" mandatory="true" x="840" y="500" globalX="840" globalY="500" height="1840" width="2220"/>
+    <class id="CLASS#11" name="Point" mandatory="true" x="380" y="1560" globalX="1220" globalY="2060" abstract="false" final="false" height="160" width="200" parent="PACKAGE#9">
+      <attribute id="ATTRIBUTE#2" name="y" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#1" name="x" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="METHOD#179" name="point" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#10" name="Sprite" mandatory="true" x="820" y="360" globalX="1660" globalY="860" abstract="false" final="false" height="240" width="500" parent="PACKAGE#9">
+      <attribute id="ATTRIBUTE#32" name="icon" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#31" name="localization" type="CLASS#11" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#33" name="name" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <method id="METHOD#116" name="overlaps" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#115" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#114" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#15" name="BowlingGame" mandatory="true" x="280" y="360" globalX="3380" globalY="860" abstract="false" final="false" height="240" width="400" parent="PACKAGE#8">
+      <attribute id="ATTRIBUTE#8" name="numberoftruns" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#9" name="gamecode" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="METHOD#60" name="savegame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#62" name="savescore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#63" name="viewtopscores" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#61" name="loadgame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#14" name="GameMgr" mandatory="true" x="160" y="720" globalX="3260" globalY="1220" abstract="false" final="false" height="180" width="440" parent="PACKAGE#8">
+      <method id="METHOD#174" name="gamemgr" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#13" name="Game" mandatory="true" x="480" y="60" globalX="3580" globalY="560" abstract="false" final="false" height="260" width="300" parent="PACKAGE#8">
+      <attribute id="ATTRIBUTE#6" name="gamecode" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="METHOD#49" name="savescore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#46" name="exitgame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#47" name="viewtopscores" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#44" name="savegame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#48" name="getgame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#45" name="loadgame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#12" name="Score" mandatory="true" x="1060" y="60" globalX="1900" globalY="560" abstract="false" final="false" height="180" width="300" parent="PACKAGE#9">
+      <attribute id="ATTRIBUTE#30" name="score" type="TYPE#4" visibility="private" static="false" final="false"/>
+      <method id="METHOD#102" name="incscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#101" name="resetscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#19" name="Display" mandatory="true" x="820" y="60" globalX="1660" globalY="560" abstract="false" final="false" height="120" width="210" parent="PACKAGE#9">
+      <method id="METHOD#178" name="display" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#18" name="GameBoardCtrl" mandatory="true" x="1280" y="770" globalX="2120" globalY="1270" abstract="false" final="false" height="140" width="330" parent="PACKAGE#9">
+      <method id="METHOD#175" name="gameboardctrl" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#17" name="BricklesGame" mandatory="true" x="820" y="60" globalX="3920" globalY="560" abstract="false" final="false" height="240" width="400" parent="PACKAGE#8">
+      <attribute id="ATTRIBUTE#13" name="numberofballs" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#14" name="gamecode" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="METHOD#69" name="loadgame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#68" name="savegame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#71" name="viewtopscores" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#70" name="savescore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#16" name="PongGame" mandatory="true" x="40" y="60" globalX="3140" globalY="560" abstract="false" final="false" height="260" width="400" parent="PACKAGE#8">
+      <attribute id="ATTRIBUTE#10" name="numberofsets" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#12" name="gamecode" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#11" name="setpoints" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="METHOD#67" name="viewtopscores" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#64" name="savegame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#65" name="loadgame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#66" name="savescore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#22" name="Puck" mandatory="true" x="1700" y="360" globalX="2540" globalY="860" abstract="false" final="false" height="300" width="500" parent="PACKAGE#9">
+      <attribute id="ATTRIBUTE#42" name="isdead" type="TYPE#10" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#41" name="puckdimension" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="METHOD#134" name="getsavedata" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#133" name="setdirection" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#129" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#131" name="move" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#130" name="delete" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#132" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#135" name="setsavedata" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#7" name="PlayGameGUI" mandatory="true" x="40" y="60" globalX="80" globalY="3160" abstract="false" final="false" height="140" width="200" parent="PACKAGE#5">
+      <method id="METHOD#26" name="play" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#171" name="playgamegui" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#21" name="Velocity" mandatory="true" x="1200" y="1180" globalX="2040" globalY="1680" abstract="false" final="false" height="280" width="300" parent="PACKAGE#9">
+      <attribute id="ATTRIBUTE#37" name="speed" type="TYPE#4" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#38" name="direction" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#39" name="dx" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#40" name="dy" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="METHOD#125" name="isheadingup" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#128" name="isheadingright" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#126" name="isheadingdown" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#127" name="isreadingleft" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#8" name="AnimationLoopMgr" mandatory="true" x="40" y="60" globalX="1360" globalY="3160" abstract="false" final="false" height="180" width="400" parent="PACKAGE#6">
+      <method id="METHOD#27" name="startanimation" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#28" name="stopanimation" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+    </class>
+    <class id="CLASS#20" name="MovableSprites" mandatory="true" x="40" y="1180" globalX="880" globalY="1680" abstract="false" final="false" height="340" width="300" parent="PACKAGE#9">
+      <attribute id="ATTRIBUTE#36" name="lastPosition" type="CLASS#11" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#35" name="currentvelocity" type="CLASS#21" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#34" name="ismoving" type="TYPE#10" visibility="private" static="false" final="false"/>
+      <method id="METHOD#123" name="startmoving" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#119" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#118" name="moving" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#121" name="setdirection" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#122" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#124" name="stopmoving" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#120" name="move" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#9" name="GameBoardMgr" mandatory="true" x="40" y="60" globalX="60" globalY="2220" abstract="false" final="false" height="180" width="530" parent="PACKAGE#7">
+      <method id="METHOD#172" name="gameboardmgr" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#3" name="GameBoard" mandatory="true" x="380" y="360" globalX="1220" globalY="860" abstract="false" final="false" height="780" width="400" parent="PACKAGE#9">
+      <attribute id="ATTRIBUTE#22" name="display" type="CLASS#19" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#20" name="moving" type="TYPE#10" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#19" name="speed" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#23" name="menu" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#25" name="image" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#17" name="movablecomponents" type="TYPE#51" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#24" name="score" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#18" name="stationarycomponents" type="TYPE#51" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#26" name="gameover" type="TYPE#10" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#21" name="collisionlist" type="TYPE#51" visibility="private" static="false" final="false"/>
+      <method id="METHOD#92" name="checkforcollision" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#81" name="startmovement" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#78" name="getscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#88" name="removemovablepiece" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#93" name="handletick" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#82" name="stopmovement" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#97" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#87" name="addmovablepiece" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#90" name="removestationarypiece" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#98" name="run" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#99" name="setmenu" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#95" name="alreadycollided" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#79" name="setscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#94" name="buildgameboard" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#85" name="getgameover" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#96" name="initializecollisionlist" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#100" name="getmenu" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#83" name="setspeed" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#89" name="addstationarypiece" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#91" name="resetlist" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#80" name="exitgame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#84" name="getspeed" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#86" name="tick" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#26" name="Wall" mandatory="true" x="1360" y="360" globalX="2200" globalY="860" abstract="false" final="false" height="200" width="300" parent="PACKAGE#9">
+      <method id="METHOD#145" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#144" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#146" name="absorb" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#4" name="Match" mandatory="true" x="480" y="60" globalX="1320" globalY="560" abstract="false" final="false" height="260" width="300" parent="PACKAGE#9">
+      <attribute id="ATTRIBUTE#16" name="numberofmatches" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="METHOD#76" name="setpartialscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#74" name="getpartialscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#73" name="endmatch" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#77" name="setfinalscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#75" name="getfinalscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#72" name="startmatch" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#25" name="Ceiling" mandatory="true" x="1400" y="60" globalX="2240" globalY="560" abstract="false" final="false" height="180" width="300" parent="PACKAGE#9">
+      <method id="METHOD#142" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#143" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#24" name="StationarySprite" mandatory="true" x="620" y="1180" globalX="1460" globalY="1680" abstract="false" final="false" height="160" width="200" parent="PACKAGE#9">
+    </class>
+    <class id="CLASS#5" name="InitializationMgr" mandatory="true" x="40" y="60" globalX="420" globalY="3160" abstract="false" final="false" height="140" width="400" parent="PACKAGE#3">
+      <method id="METHOD#22" name="initialize" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+    </class>
+    <class id="CLASS#6" name="GameBoardGUI" mandatory="true" x="40" y="60" globalX="540" globalY="560" abstract="false" final="false" height="160" width="231" parent="PACKAGE#4">
+      <method id="METHOD#173" name="gameboardgui" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#25" name="checkscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#24" name="savescore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#23" name="Paddle" mandatory="true" x="40" y="1560" globalX="880" globalY="2060" abstract="false" final="false" height="260" width="300" parent="PACKAGE#9">
+      <method id="METHOD#141" name="setsavedata" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#137" name="moveleft" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#170" name="move" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#139" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#138" name="moveright" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#136" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#140" name="getsavedata" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#1" name="GameCtrl" mandatory="true" x="900" y="470" globalX="2120" globalY="2850" abstract="false" final="false" height="200" width="570" parent="PACKAGE#1">
+      <method id="METHOD#177" name="gamectrl" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#2" name="GameGUI" mandatory="true" x="40" y="60" globalX="920" globalY="2440" abstract="false" final="false" height="180" width="252" parent="PACKAGE#2">
+      <method id="METHOD#19" name="install" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#20" name="save" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#21" name="exit" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#176" name="gamegui" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#29" name="Brick" mandatory="true" x="40" y="60" globalX="880" globalY="560" abstract="false" final="false" height="260" width="400" parent="PACKAGE#9">
+      <attribute id="ATTRIBUTE#48" name="isbroken" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="METHOD#158" name="hitbypuck" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#160" name="getsavedata" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#156" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#157" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#161" name="setsavedata" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#159" name="die" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#28" name="BrickPile" mandatory="true" x="40" y="360" globalX="880" globalY="860" abstract="false" final="false" height="340" width="300" parent="PACKAGE#9">
+      <attribute id="ATTRIBUTE#46" name="numberofbricks" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#47" name="numleft" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#44" name="numrows" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#45" name="numofbricksperrow" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#43" name="pile" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="METHOD#154" name="getsavedata" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#150" name="getboundingbox" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#152" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#155" name="setsavedata" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#151" name="paintbricks" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#153" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#27" name="Floor" mandatory="true" x="860" y="1180" globalX="1700" globalY="1680" abstract="false" final="false" height="200" width="300" parent="PACKAGE#9">
+      <method id="METHOD#147" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#148" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#149" name="absorb" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <interface id="INTERFACE#1" name="IPlayBowling" mandatory="true" x="580" y="260" globalX="1800" globalY="2640" height="180" width="400" parent="PACKAGE#1">
+      <method id="METHOD#2" name="play" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#1" name="checkinstallation" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </interface>
+    <interface id="INTERFACE#4" name="IPlayBrickles" mandatory="true" x="1020" y="260" globalX="2240" globalY="2640" height="180" width="400" parent="PACKAGE#1">
+      <method id="METHOD#9" name="checkinstallation" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#10" name="play" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </interface>
+    <interface id="INTERFACE#5" name="IInstallGame" mandatory="true" x="720" y="60" globalX="1940" globalY="2440" height="160" width="400" parent="PACKAGE#1">
+      <method id="METHOD#12" name="checkgame" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#13" name="install" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#2" name="IExitGame" mandatory="true" x="40" y="480" globalX="1260" globalY="2860" height="160" width="400" parent="PACKAGE#1">
+      <method id="METHOD#4" name="exit" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#5" name="checkgameboard" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="gameboard"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#3" name="IPlayPong" mandatory="true" x="480" y="480" globalX="1700" globalY="2860" height="180" width="400" parent="PACKAGE#1">
+      <method id="METHOD#7" name="play" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#6" name="checkinstallation" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </interface>
+    <interface id="INTERFACE#8" name="IInitializationMgt" mandatory="true" x="480" y="60" globalX="860" globalY="3160" height="140" width="400" parent="PACKAGE#3">
+      <method id="METHOD#23" name="initialize" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#9" name="IAnimationLoopMgt" mandatory="true" x="480" y="60" globalX="1800" globalY="3160" height="180" width="400" parent="PACKAGE#6">
+      <method id="METHOD#30" name="stopanimation" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#29" name="startanimation" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#6" name="ISaveGame" mandatory="true" x="40" y="260" globalX="1260" globalY="2640" height="180" width="500" parent="PACKAGE#1">
+      <method id="METHOD#16" name="savegame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="gameboard"/>
+        <parameter type="CLASS#4" name="match"/>
+      </method>
+      <method id="METHOD#15" name="checkmatch" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#4" name="match"/>
+      </method>
+      <method id="METHOD#14" name="checkgameboard" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="gameboard"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#7" name="IUninstallGame" mandatory="true" x="280" y="60" globalX="1500" globalY="2440" height="160" width="400" parent="PACKAGE#1">
+      <method id="METHOD#17" name="checkgame" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#18" name="uninstall" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#10" name="IGameBoardMgt" mandatory="true" x="60" y="270" globalX="80" globalY="2430" height="420" width="500" parent="PACKAGE#7">
+      <method id="METHOD#38" name="setpartialscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#12" name="score"/>
+      </method>
+      <method id="METHOD#33" name="remsprite" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#10" name="sprite"/>
+      </method>
+      <method id="METHOD#34" name="getsprite" return="CLASS#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#10" name="sprite"/>
+      </method>
+      <method id="METHOD#41" name="setfinalscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#12" name="score"/>
+      </method>
+      <method id="METHOD#40" name="getfinalscore" return="CLASS#12" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#4" name="match"/>
+      </method>
+      <method id="METHOD#37" name="endmatch" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#31" name="setgameboard" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#10" name="sprite[]"/>
+        <parameter type="CLASS#4" name="match"/>
+      </method>
+      <method id="METHOD#35" name="getlocation" return="CLASS#11" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#10" name="sprite"/>
+      </method>
+      <method id="METHOD#36" name="startgameboard" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#10" name="sprite[]"/>
+        <parameter type="CLASS#4" name="match"/>
+      </method>
+      <method id="METHOD#169" name="startmatch" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#42" name="savescore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#12" name="score"/>
+      </method>
+      <method id="METHOD#43" name="showscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#13" name="game"/>
+      </method>
+      <method id="METHOD#32" name="addsprite" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#10" name="sprite"/>
+      </method>
+      <method id="METHOD#39" name="getpartialscore" return="CLASS#12" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#4" name="match"/>
+      </method>
+      <method id="METHOD#168" name="getgameboard" return="CLASS#3" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </interface>
+    <interface id="INTERFACE#12" name="ICheckScore" mandatory="true" x="620" y="1560" globalX="1460" globalY="2060" height="180" width="400" parent="PACKAGE#9">
+      <method id="METHOD#105" name="hasscore" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#13" name="game"/>
+      </method>
+      <method id="METHOD#106" name="showscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#13" name="game"/>
+      </method>
+      <method id="METHOD#104" name="getgame" return="CLASS#13" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#11" name="IGameMgt" mandatory="true" x="720" y="360" globalX="3820" globalY="860" height="360" width="500" parent="PACKAGE#8">
+      <method id="METHOD#57" name="checkinstallation" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#54" name="exit" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#50" name="addgame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#58" name="uninstall" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#51" name="remgame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#53" name="play" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+        <parameter type="CLASS#4" name="match"/>
+      </method>
+      <method id="METHOD#55" name="savegame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="gameboard"/>
+        <parameter type="CLASS#4" name="match"/>
+      </method>
+      <method id="METHOD#59" name="install" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#52" name="getgame" return="CLASS#13" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+      <method id="METHOD#56" name="loadgame" return="CLASS#13" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#13" name="game"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#14" name="IGameBoardData" mandatory="true" x="1060" y="1560" globalX="1900" globalY="2060" height="140" width="400" parent="PACKAGE#9">
+      <method id="METHOD#117" name="getgameboard" return="CLASS#3" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gamecode"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#13" name="ISaveScore" mandatory="true" x="1530" y="1040" globalX="2370" globalY="1540" height="240" width="500" parent="PACKAGE#9">
+      <method id="METHOD#111" name="isarankingscore" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#12" name="score"/>
+      </method>
+      <method id="METHOD#112" name="saveinginranking" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#24" name="login"/>
+        <parameter type="CLASS#13" name="game"/>
+      </method>
+      <method id="METHOD#108" name="getscore" return="CLASS#12" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#109" name="isgameplayed" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="gameboard"/>
+        <parameter type="CLASS#4" name="match"/>
+      </method>
+      <method id="METHOD#113" name="setdateranking" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#24" name="login"/>
+        <parameter type="CLASS#13" name="game"/>
+      </method>
+      <method id="METHOD#110" name="savescore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#12" name="score"/>
+      </method>
+    </interface>
+    <association id="ASSOCIATION#1" name="" category="normal" direction="false">
+      <source entity="CLASS#19" sourceVisibility="private" sourceName="Display" sourceMin="1" sourceMax="1" sourceX="1766" sourceY="624"/>
+      <target entity="CLASS#3" targetVisibility="private" targetName="GameBoard" targetMin="1" targetMax="1" targetX="1420" targetY="1255"/>
+    </association>
+    <association id="ASSOCIATION#2" name="" category="normal" direction="false">
+      <source entity="CLASS#4" sourceVisibility="private" sourceName="Match" sourceMin="1" sourceMax="1" sourceX="1470" sourceY="697"/>
+      <target entity="CLASS#12" targetVisibility="private" targetName="Score" targetMin="1" targetMax="1" targetX="2053" targetY="651"/>
+    </association>
+    <association id="ASSOCIATION#3" name="" category="composition" direction="true">
+      <source entity="CLASS#28" sourceVisibility="private" sourceName="BrickPile" sourceMin="1" sourceMax="1" sourceX="1035" sourceY="1034"/>
+      <target entity="CLASS#29" targetVisibility="private" targetName="Brick" targetMin="1" targetMax="1" targetX="1083" targetY="695"/>
+    </association>
+    <association id="ASSOCIATION#4" name="" category="normal" direction="false">
+      <source entity="CLASS#11" sourceVisibility="private" sourceName="Point" sourceMin="1" sourceMax="1" sourceX="1325" sourceY="2142"/>
+      <target entity="CLASS#10" targetVisibility="private" targetName="Sprite" targetMin="1" targetMax="1" targetX="1916" targetY="982"/>
+    </association>
+    <association id="ASSOCIATION#5" name="" category="aggregation" direction="false">
+      <source entity="CLASS#3" sourceVisibility="private" sourceName="GameBoard" sourceMin="1" sourceMax="1" sourceX="1420" sourceY="1255"/>
+      <target entity="CLASS#4" targetVisibility="private" targetName="Match" targetMin="1" targetMax="1" targetX="1475" targetY="697"/>
+    </association>
+    <association id="ASSOCIATION#6" name="" category="normal" direction="true">
+      <source entity="CLASS#20" sourceVisibility="private" sourceName="MovableSprites" sourceMin="1" sourceMax="1" sourceX="1035" sourceY="1851"/>
+      <target entity="CLASS#21" targetVisibility="private" targetName="Velocity" targetMin="1" targetMax="1" targetX="2194" targetY="1820"/>
+    </association>
+    <association id="ASSOCIATION#7" name="" category="composition" direction="false">
+      <source entity="CLASS#3" sourceVisibility="private" sourceName="GameBoard" sourceMin="1" sourceMax="1" sourceX="1421" sourceY="1255"/>
+      <target entity="CLASS#10" targetVisibility="private" targetName="Sprit" targetMin="1" targetMax="1" targetX="1917" targetY="985"/>
+    </association>
+    <association id="ASSOCIATION#8" name="" category="normal" direction="false">
+      <source entity="CLASS#13" sourceVisibility="private" sourceName="Game" sourceMin="1" sourceMax="1" sourceX="3739" sourceY="699"/>
+      <target entity="CLASS#14" targetVisibility="private" targetName="GameMgr" targetMin="1" targetMax="1" targetX="3367" targetY="1288"/>
+    </association>
+    <dependency id="DEPENDENCY#10" source="CLASS#2" target="INTERFACE#2">
+    </dependency>
+    <dependency id="DEPENDENCY#11" source="CLASS#8" target="INTERFACE#8">
+    </dependency>
+    <dependency id="DEPENDENCY#12" source="CLASS#1" target="INTERFACE#13">
+    </dependency>
+    <dependency id="DEPENDENCY#13" source="CLASS#6" target="INTERFACE#12">
+    </dependency>
+    <dependency id="DEPENDENCY#14" source="CLASS#1" target="INTERFACE#14">
+    </dependency>
+    <dependency id="DEPENDENCY#15" source="CLASS#7" target="INTERFACE#4">
+    </dependency>
+    <dependency id="DEPENDENCY#16" source="CLASS#2" target="INTERFACE#7">
+    </dependency>
+    <dependency id="DEPENDENCY#17" source="CLASS#2" target="INTERFACE#6">
+    </dependency>
+    <dependency id="DEPENDENCY#18" source="CLASS#7" target="INTERFACE#1">
+    </dependency>
+    <dependency id="DEPENDENCY#19" source="CLASS#7" target="INTERFACE#3">
+    </dependency>
+    <dependency id="DEPENDENCY#20" source="CLASS#6" target="INTERFACE#13">
+    </dependency>
+    <dependency id="DEPENDENCY#21" source="CLASS#9" target="INTERFACE#8">
+    </dependency>
+    <dependency id="DEPENDENCY#22" source="CLASS#2" target="INTERFACE#5">
+    </dependency>
+    <dependency id="DEPENDENCY#9" source="CLASS#1" target="INTERFACE#11">
+    </dependency>
+    <generalization id="GENERALIZATION#23" source="CLASS#23" target="CLASS#20">
+    </generalization>
+    <generalization id="GENERALIZATION#24" source="CLASS#26" target="CLASS#24">
+    </generalization>
+    <generalization id="GENERALIZATION#25" source="CLASS#25" target="CLASS#24">
+    </generalization>
+    <generalization id="GENERALIZATION#26" source="CLASS#15" target="CLASS#13">
+    </generalization>
+    <generalization id="GENERALIZATION#27" source="CLASS#27" target="CLASS#24">
+    </generalization>
+    <generalization id="GENERALIZATION#28" source="CLASS#24" target="CLASS#10">
+    </generalization>
+    <generalization id="GENERALIZATION#29" source="CLASS#16" target="CLASS#13">
+    </generalization>
+    <generalization id="GENERALIZATION#30" source="CLASS#22" target="CLASS#20">
+    </generalization>
+    <generalization id="GENERALIZATION#31" source="CLASS#28" target="CLASS#24">
+    </generalization>
+    <generalization id="GENERALIZATION#32" source="CLASS#17" target="CLASS#13">
+    </generalization>
+    <generalization id="GENERALIZATION#33" source="CLASS#20" target="CLASS#10">
+    </generalization>
+    <generalization id="GENERALIZATION#34" source="CLASS#29" target="CLASS#24">
+    </generalization>
+    <realization id="REALIZATION#35" class="CLASS#1" interface="INTERFACE#7">
+    </realization>
+    <realization id="REALIZATION#36" class="CLASS#18" interface="INTERFACE#14">
+    </realization>
+    <realization id="REALIZATION#37" class="CLASS#1" interface="INTERFACE#5">
+    </realization>
+    <realization id="REALIZATION#38" class="CLASS#9" interface="INTERFACE#10">
+    </realization>
+    <realization id="REALIZATION#39" class="CLASS#1" interface="INTERFACE#4">
+    </realization>
+    <realization id="REALIZATION#40" class="CLASS#1" interface="INTERFACE#2">
+    </realization>
+    <realization id="REALIZATION#41" class="CLASS#18" interface="INTERFACE#13">
+    </realization>
+    <realization id="REALIZATION#42" class="CLASS#1" interface="INTERFACE#1">
+    </realization>
+    <realization id="REALIZATION#43" class="CLASS#5" interface="INTERFACE#8">
+    </realization>
+    <realization id="REALIZATION#44" class="CLASS#18" interface="INTERFACE#12">
+    </realization>
+    <realization id="REALIZATION#45" class="CLASS#14" interface="INTERFACE#11">
+    </realization>
+    <realization id="REALIZATION#46" class="CLASS#1" interface="INTERFACE#3">
+    </realization>
+    <realization id="REALIZATION#47" class="CLASS#1" interface="INTERFACE#6">
+    </realization>
+    <realization id="REALIZATION#48" class="CLASS#8" interface="INTERFACE#9">
+    </realization>
+    <variability id="VARIABILITY#1" name="game" variationPoint="CLASS#13" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="3">
+      <variant id="CLASS#15"/>
+      <variant id="CLASS#16"/>
+      <variant id="CLASS#17"/>
+    </variability>
+    <variability id="VARIABILITY#2" name="movable_sprit" variationPoint="CLASS#20" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="2">
+      <variant id="CLASS#22"/>
+      <variant id="CLASS#23"/>
+    </variability>
+    <variability id="VARIABILITY#3" name="sprit" variationPoint="CLASS#10" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="2">
+      <variant id="CLASS#20"/>
+      <variant id="CLASS#24"/>
+    </variability>
+    <variability id="VARIABILITY#4" name="stationary_sprit" variationPoint="CLASS#24" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="5">
+      <variant id="CLASS#25"/>
+      <variant id="CLASS#27"/>
+      <variant id="CLASS#26"/>
+      <variant id="CLASS#29"/>
+      <variant id="CLASS#28"/>
+    </variability>
+  </diagram>
+  <links>
+    <link element="METHOD#116" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#130" stereotype="STEREOTYPE#11"/>
+    <link element="CLASS#15" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#62" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#63" stereotype="STEREOTYPE#11"/>
+    <link element="ATTRIBUTE#8" stereotype="STEREOTYPE#11"/>
+    <link element="ATTRIBUTE#9" stereotype="STEREOTYPE#11"/>
+    <link element="INTERFACE#1" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#2" stereotype="STEREOTYPE#11"/>
+    <link element="CLASS#9" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#172" stereotype="STEREOTYPE#11"/>
+    <link element="CLASS#14" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#174" stereotype="STEREOTYPE#11"/>
+    <link element="CLASS#1" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#177" stereotype="STEREOTYPE#11"/>
+    <link element="CLASS#29" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#158" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#160" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#161" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#159" stereotype="STEREOTYPE#14"/>
+    <link element="ATTRIBUTE#48" stereotype="STEREOTYPE#14"/>
+    <link element="CLASS#25" stereotype="STEREOTYPE#14"/>
+    <link element="CLASS#28" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#150" stereotype="STEREOTYPE#14"/>
+    <link element="ATTRIBUTE#46" stereotype="STEREOTYPE#14"/>
+    <link element="ATTRIBUTE#47" stereotype="STEREOTYPE#14"/>
+    <link element="ATTRIBUTE#44" stereotype="STEREOTYPE#14"/>
+    <link element="ATTRIBUTE#45" stereotype="STEREOTYPE#14"/>
+    <link element="ATTRIBUTE#43" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#116" stereotype="STEREOTYPE#14"/>
+    <link element="CLASS#26" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#130" stereotype="STEREOTYPE#14"/>
+    <link element="CLASS#24" stereotype="STEREOTYPE#14"/>
+    <link element="CLASS#27" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#149" stereotype="STEREOTYPE#14"/>
+    <link element="CLASS#17" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#71" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#70" stereotype="STEREOTYPE#14"/>
+    <link element="ATTRIBUTE#13" stereotype="STEREOTYPE#14"/>
+    <link element="ATTRIBUTE#14" stereotype="STEREOTYPE#14"/>
+    <link element="INTERFACE#4" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#10" stereotype="STEREOTYPE#14"/>
+    <link element="CLASS#9" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#172" stereotype="STEREOTYPE#14"/>
+    <link element="CLASS#14" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#174" stereotype="STEREOTYPE#14"/>
+    <link element="CLASS#1" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#177" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#157" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#142" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#152" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#92" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#95" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#96" stereotype="STEREOTYPE#18"/>
+    <link element="ATTRIBUTE#21" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#114" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#144" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#129" stereotype="STEREOTYPE#18"/>
+    <link element="CLASS#20" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#122" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#147" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#136" stereotype="STEREOTYPE#18"/>
+    <link element="INTERFACE#11" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#57" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#58" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#59" stereotype="STEREOTYPE#9"/>
+    <link element="INTERFACE#7" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#17" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#18" stereotype="STEREOTYPE#9"/>
+    <link element="INTERFACE#5" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#12" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#13" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#1" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#9" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#6" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#19" stereotype="STEREOTYPE#9"/>
+    <link element="CLASS#1" stereotype="STEREOTYPE#9"/>
+    <link element="METHOD#177" stereotype="STEREOTYPE#9"/>
+    <link element="CLASS#19" stereotype="STEREOTYPE#21"/>
+    <link element="METHOD#178" stereotype="STEREOTYPE#21"/>
+    <link element="CLASS#6" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#173" stereotype="STEREOTYPE#20"/>
+    <link element="CLASS#2" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#176" stereotype="STEREOTYPE#20"/>
+    <link element="CLASS#7" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#171" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#81" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#82" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#83" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#84" stereotype="STEREOTYPE#17"/>
+    <link element="ATTRIBUTE#20" stereotype="STEREOTYPE#17"/>
+    <link element="ATTRIBUTE#19" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#133" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#131" stereotype="STEREOTYPE#17"/>
+    <link element="CLASS#20" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#123" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#118" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#121" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#124" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#120" stereotype="STEREOTYPE#17"/>
+    <link element="ATTRIBUTE#36" stereotype="STEREOTYPE#17"/>
+    <link element="ATTRIBUTE#35" stereotype="STEREOTYPE#17"/>
+    <link element="ATTRIBUTE#34" stereotype="STEREOTYPE#17"/>
+    <link element="CLASS#21" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#125" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#128" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#126" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#127" stereotype="STEREOTYPE#17"/>
+    <link element="ATTRIBUTE#37" stereotype="STEREOTYPE#17"/>
+    <link element="ATTRIBUTE#38" stereotype="STEREOTYPE#17"/>
+    <link element="ATTRIBUTE#39" stereotype="STEREOTYPE#17"/>
+    <link element="ATTRIBUTE#40" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#137" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#170" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#138" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#82" stereotype="STEREOTYPE#16"/>
+    <link element="INTERFACE#11" stereotype="STEREOTYPE#16"/>
+    <link element="CLASS#8" stereotype="STEREOTYPE#16"/>
+    <link element="METHOD#28" stereotype="STEREOTYPE#16"/>
+    <link element="INTERFACE#9" stereotype="STEREOTYPE#16"/>
+    <link element="METHOD#30" stereotype="STEREOTYPE#16"/>
+    <link element="METHOD#156" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#4" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#76" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#74" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#73" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#77" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#75" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#72" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#16" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#143" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#151" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#153" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#3" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#78" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#88" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#93" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#97" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#87" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#90" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#98" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#99" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#79" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#94" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#85" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#100" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#89" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#91" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#80" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#86" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#22" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#23" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#25" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#17" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#24" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#18" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#26" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#10" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#115" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#32" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#31" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#33" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#145" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#22" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#132" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#42" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#41" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#119" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#24" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#148" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#23" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#139" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#12" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#105" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#106" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#104" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#14" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#117" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#65" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#13" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#46" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#48" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#45" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#6" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#69" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#61" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#11" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#54" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#50" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#53" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#52" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#10" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#38" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#33" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#34" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#41" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#40" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#37" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#31" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#35" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#36" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#169" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#32" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#39" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#168" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#6" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#1" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#2" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#4" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#10" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#2" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#4" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#5" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#3" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#7" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#5" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#22" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#8" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#23" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#8" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#27" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#9" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#29" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#9" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#172" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#21" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#14" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#174" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#18" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#175" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#26" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#1" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#177" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#2" stereotype="STEREOTYPE#22"/>
+    <link element="CLASS#11" stereotype="STEREOTYPE#22"/>
+    <link element="METHOD#179" stereotype="STEREOTYPE#22"/>
+    <link element="ATTRIBUTE#1" stereotype="STEREOTYPE#22"/>
+    <link element="CLASS#25" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#116" stereotype="STEREOTYPE#13"/>
+    <link element="CLASS#26" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#146" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#130" stereotype="STEREOTYPE#13"/>
+    <link element="CLASS#24" stereotype="STEREOTYPE#13"/>
+    <link element="CLASS#27" stereotype="STEREOTYPE#13"/>
+    <link element="CLASS#16" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#67" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#66" stereotype="STEREOTYPE#13"/>
+    <link element="ATTRIBUTE#10" stereotype="STEREOTYPE#13"/>
+    <link element="ATTRIBUTE#12" stereotype="STEREOTYPE#13"/>
+    <link element="ATTRIBUTE#11" stereotype="STEREOTYPE#13"/>
+    <link element="INTERFACE#3" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#7" stereotype="STEREOTYPE#13"/>
+    <link element="CLASS#9" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#172" stereotype="STEREOTYPE#13"/>
+    <link element="CLASS#14" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#174" stereotype="STEREOTYPE#13"/>
+    <link element="CLASS#1" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#177" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#111" stereotype="STEREOTYPE#19"/>
+    <link element="METHOD#112" stereotype="STEREOTYPE#19"/>
+    <link element="METHOD#113" stereotype="STEREOTYPE#19"/>
+    <link element="METHOD#25" stereotype="STEREOTYPE#19"/>
+    <link element="METHOD#160" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#161" stereotype="STEREOTYPE#15"/>
+    <link element="CLASS#12" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#102" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#101" stereotype="STEREOTYPE#15"/>
+    <link element="ATTRIBUTE#30" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#154" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#155" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#134" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#135" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#141" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#140" stereotype="STEREOTYPE#15"/>
+    <link element="INTERFACE#13" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#108" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#109" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#110" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#67" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#64" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#66" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#49" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#47" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#44" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#68" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#71" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#70" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#60" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#62" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#63" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#51" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#55" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#56" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#42" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#43" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#16" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#15" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#14" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#24" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#20" stereotype="STEREOTYPE#15"/>
+    <link element="CLASS#18" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#175" stereotype="STEREOTYPE#15"/>
+    <link element="CLASS#15" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#29" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#28" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#17" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#25" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#27" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#20" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#23" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#16" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#22" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#24" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#26" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#8" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#19" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#3" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#18" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#6" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#9" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#1" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#2" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#14" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#5" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#4" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#7" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#11" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#12" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#21" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#9" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#12" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#2" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#14" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#10" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#11" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#8" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#5" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#1" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#4" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#3" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#6" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#13" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#7" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#13" stereotype="STEREOTYPE#3"/>
+    <link element="CLASS#20" stereotype="STEREOTYPE#3"/>
+    <link element="CLASS#10" stereotype="STEREOTYPE#3"/>
+    <link element="CLASS#24" stereotype="STEREOTYPE#3"/>
+  </links>
+  <products>
+  </products>
+</project>
