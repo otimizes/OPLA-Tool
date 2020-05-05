@@ -1,0 +1,13 @@
+
+
+Discart Variability null - LimitePassagensCartao:
+Type: optional, Binding Time: DESIGN_TIME, Allow Binding Var:false
+Variation Point NULL
+Variabilidade do tipo optional será convertido para stereótipo optional
+Variabilidade do tipo mandatory será convertido para stereótipo mandatory
+
+Discart Variability null - NumeroCartoes:
+Type: optional, Binding Time: DESIGN_TIME, Allow Binding Var:false
+Variation Point NULL
+Variabilidade do tipo optional será convertido para stereótipo optional
+Variabilidade do tipo mandatory será convertido para stereótipo mandatory

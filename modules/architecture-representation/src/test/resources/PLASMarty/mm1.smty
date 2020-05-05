@@ -1,0 +1,989 @@
+<project id="c2b53ea2c2e1bd30faba80ce69dd72f5" name="Project0" version="1.0">
+  <types>
+    <type id="CLASS#4" path="Album" name="Album" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#5" path="AlbumCtrl" name="AlbumCtrl" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#6" path="AlbumGUI" name="AlbumGUI" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#29" path="java.util" name="Arrays" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#10" path="java.lang" name="Boolean" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#11" path="java.lang" name="Byte" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#12" path="java.lang" name="Character" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#30" path="java.util" name="Collections" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#31" path="java.util" name="Date" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#13" path="java.lang" name="Double" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#10" path="Entry" name="Entry" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#14" path="EntryMgr" name="EntryMgr" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#14" path="java.lang" name="Enum" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#32" path="java.util" name="EnumMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#33" path="java.util" name="EnumSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#34" path="java.util" name="EventListener" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#15" path="java.lang" name="Exception" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#16" path="java.lang" name="Float" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#35" path="java.util" name="HashMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#36" path="java.util" name="HashSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#37" path="java.util" name="Hashtable" value="null" primitive="false" standard="true"/>
+    <type id="INTERFACE#4" path="IAddMediaAlbum" name="IAddMediaAlbum" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#5" path="IAlbumGUI" name="IAlbumGUI" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#2" path="IAlbumMgt" name="IAlbumMgt" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#15" path="IEntryMgt" name="IEntryMgt" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#8" path="IHearMedia" name="IHearMedia" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#12" path="ILabelFiles" name="ILabelFiles" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#14" path="ILinkMedia" name="ILinkMedia" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#3" path="IManageAlbum" name="IManageAlbum" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#11" path="IManageFavouriteMedia" name="IManageFavouriteMedia" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#10" path="IManageMedia" name="IManageMedia" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#7" path="IMediaGUI" name="IMediaGUI" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#6" path="IMediaMgt" name="IMediaMgt" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#17" path="IMusicMgt" name="IMusicMgt" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#18" path="IPhotoMgt" name="IPhotoMgt" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#9" path="IPlayMedia" name="IPlayMedia" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#13" path="ISendMedia" name="ISendMedia" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#1" path="IUserMgt" name="IUserMgt" value="null" primitive="false" standard="false"/>
+    <type id="INTERFACE#16" path="IVideoMgt" name="IVideoMgt" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#17" path="java.lang" name="Integer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#38" path="java.util" name="LinkedHashMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#39" path="java.util" name="LinkedHashSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#40" path="java.util" name="LinkedList" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#41" path="java.util" name="List" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#18" path="java.lang" name="Long" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#42" path="java.util" name="Map" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#19" path="java.lang" name="Math" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#3" path="Media" name="Media" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#13" path="MediaCtrl" name="MediaCtrl" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#12" path="MediaGUI" name="MediaGUI" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#11" path="MediaMgr" name="MediaMgr" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#9" path="Music" name="Music" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#16" path="MusicMgr" name="MusicMgr" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#20" path="java.lang" name="Number" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#21" path="java.lang" name="Object" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#22" path="java.lang" name="Package" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#17" path="PhotMgr" name="PhotMgr" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#8" path="Photo" name="Photo" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#43" path="java.util" name="Queue" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#44" path="java.util" name="Random" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#45" path="java.util" name="Scanner" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#46" path="java.util" name="Set" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#23" path="java.lang" name="Short" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#47" path="java.util" name="Stack" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#24" path="java.lang" name="String" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#25" path="java.lang" name="StringBuffer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#26" path="java.lang" name="StringBuilder" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#27" path="java.lang" name="Thread" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#48" path="java.util" name="Timer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#49" path="java.util" name="TreeMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#50" path="java.util" name="TreeSet" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#2" path="User" name="User" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#1" path="UserMgr" name="UserMgr" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#51" path="java.util" name="Vector" value="null" primitive="false" standard="true"/>
+    <type id="CLASS#7" path="Video" name="Video" value="null" primitive="false" standard="false"/>
+    <type id="CLASS#15" path="VideoMgr" name="VideoMgr" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#28" path="java.lang" name="Void" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#1" path="" name="boolean" value="false" primitive="true" standard="true"/>
+    <type id="TYPE#2" path="" name="byte" value="'0'" primitive="true" standard="true"/>
+    <type id="TYPE#3" path="" name="char" value="' '" primitive="true" standard="true"/>
+    <type id="TYPE#4" path="" name="double" value="0.0d" primitive="true" standard="true"/>
+    <type id="TYPE#5" path="" name="float" value="0.0f" primitive="true" standard="true"/>
+    <type id="TYPE#6" path="" name="int" value="0" primitive="true" standard="true"/>
+    <type id="TYPE#7" path="" name="long" value="0.0l" primitive="true" standard="true"/>
+    <type id="TYPE#8" path="" name="short" value="0" primitive="true" standard="true"/>
+    <type id="TYPE#9" path="" name="void" value="" primitive="true" standard="true"/>
+  </types>
+  <stereotypes>
+    <stereotype id="STEREOTYPE#4" name="alternative_OR" primitive="true"/>
+    <stereotype id="STEREOTYPE#5" name="alternative_XOR" primitive="true"/>
+    <stereotype id="STEREOTYPE#21" name="copymedia" primitive="false"/>
+    <stereotype id="STEREOTYPE#11" name="create_delete" primitive="false"/>
+    <stereotype id="STEREOTYPE#14" name="favourites" primitive="false"/>
+    <stereotype id="STEREOTYPE#17" name="gui" primitive="false"/>
+    <stereotype id="STEREOTYPE#13" name="labemmedia" primitive="false"/>
+    <stereotype id="STEREOTYPE#15" name="linkmedia" primitive="false"/>
+    <stereotype id="STEREOTYPE#1" name="mandatory" primitive="true"/>
+    <stereotype id="STEREOTYPE#22" name="media" primitive="false"/>
+    <stereotype id="STEREOTYPE#10" name="mediamanagement" primitive="false"/>
+    <stereotype id="STEREOTYPE#18" name="music" primitive="false"/>
+    <stereotype id="STEREOTYPE#7" name="mutex" primitive="true"/>
+    <stereotype id="STEREOTYPE#2" name="optional" primitive="true"/>
+    <stereotype id="STEREOTYPE#19" name="photo" primitive="false"/>
+    <stereotype id="STEREOTYPE#6" name="requires" primitive="true"/>
+    <stereotype id="STEREOTYPE#16" name="smstransfer" primitive="false"/>
+    <stereotype id="STEREOTYPE#8" name="stereotype" primitive="false"/>
+    <stereotype id="STEREOTYPE#3" name="variationPoint" primitive="true"/>
+    <stereotype id="STEREOTYPE#20" name="video" primitive="false"/>
+    <stereotype id="STEREOTYPE#12" name="viewplaymedia" primitive="false"/>
+  </stereotypes>
+  <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5" requires="STEREOTYPE#6" mutex="STEREOTYPE#7"/>
+  <diagram id="DIAGRAM#1" name="Diagram1" type="Class">
+    <package id="PACKAGE#2" name="AlbumMgr" mandatory="true" x="20" y="490" globalX="20" globalY="490" height="380" width="1340"/>
+    <package id="PACKAGE#11" name="PhotoMgr" mandatory="true" x="40" y="1560" globalX="40" globalY="1560" height="520" width="700"/>
+    <package id="PACKAGE#10" name="MusicMgr" mandatory="true" x="780" y="1560" globalX="780" globalY="1560" height="520" width="800"/>
+    <package id="PACKAGE#1" name="UserMgr" mandatory="true" x="1620" y="1560" globalX="1620" globalY="1560" height="460" width="940"/>
+    <package id="PACKAGE#4" name="AlbumGUI" mandatory="true" x="1460" y="490" globalX="1460" globalY="490" height="300" width="500"/>
+    <package id="PACKAGE#3" name="AlbumCtrl" mandatory="true" x="580" y="2180" globalX="580" globalY="2180" height="580" width="920"/>
+    <package id="PACKAGE#6" name="MediaGUI" mandatory="true" x="40" y="2180" globalX="40" globalY="2180" height="320" width="517"/>
+    <package id="PACKAGE#5" name="MediaMgr" mandatory="true" x="3660" y="500" globalX="3660" globalY="500" height="950" width="1000"/>
+    <package id="PACKAGE#8" name="EntryMgr" mandatory="true" x="2700" y="1560" globalX="2700" globalY="1560" height="580" width="1000"/>
+    <package id="PACKAGE#7" name="MediaCtrl" mandatory="true" x="2080" y="500" globalX="2080" globalY="500" height="1020" width="1570"/>
+    <package id="PACKAGE#9" name="VideoMgr" mandatory="true" x="1860" y="2220" globalX="1860" globalY="2220" height="500" width="800"/>
+    <class id="CLASS#11" name="MediaMgr" mandatory="true" x="40" y="60" globalX="3700" globalY="560" abstract="false" final="false" height="280" width="440" parent="PACKAGE#5">
+      <method id="METHOD#54" name="showmedias" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#48" name="aretheremedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#55" name="ismediaused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="METHOD#61" name="islabelused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="label"/>
+      </method>
+      <method id="METHOD#58" name="hasmemory" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#50" name="aretherefavouritemedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#59" name="ismediafavourite" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#53" name="islabeled" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+    </class>
+    <class id="CLASS#7" name="Video" mandatory="true" x="40" y="60" globalX="1900" globalY="2280" abstract="false" final="false" height="160" width="400" parent="PACKAGE#9">
+      <attribute id="ATTRIBUTE#9" name="videofile" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <method id="METHOD#40" name="getmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#8" name="Photo" mandatory="true" x="280" y="60" globalX="320" globalY="1620" abstract="false" final="false" height="160" width="400" parent="PACKAGE#11">
+      <attribute id="ATTRIBUTE#7" name="photofile" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <method id="METHOD#38" name="getmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#10" name="Entry" mandatory="false" x="580" y="60" globalX="3280" globalY="1620" abstract="false" final="false" height="240" width="400" parent="PACKAGE#8">
+      <attribute id="ATTRIBUTE#18" name="number" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#17" name="name" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <method id="METHOD#91" name="getentry" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#89" name="hasmediaassociated" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#92" name="showentry" return="TYPE#41" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#90" name="linkmediaentry" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+    </class>
+    <class id="CLASS#9" name="Music" mandatory="true" x="380" y="60" globalX="1160" globalY="1620" abstract="false" final="false" height="160" width="400" parent="PACKAGE#10">
+      <attribute id="ATTRIBUTE#8" name="musicfile" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <method id="METHOD#39" name="getmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#3" name="Media" mandatory="true" x="570" y="60" globalX="4230" globalY="560" abstract="false" final="false" height="360" width="400" parent="PACKAGE#5">
+      <attribute id="ATTRIBUTE#15" name="label" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#10" name="name" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#14" name="numberofexecutions" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#12" name="favourite" type="TYPE#10" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#13" name="size" type="TYPE#16" visibility="private" static="false" final="false"/>
+      <method id="METHOD#45" name="getmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#46" name="addmedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#43" name="setlabel" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="label"/>
+      </method>
+      <method id="METHOD#41" name="setfavourite" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="METHOD#44" name="showmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#42" name="copymedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#47" name="removemedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#15" name="VideoMgr" mandatory="true" x="480" y="60" globalX="2340" globalY="2280" abstract="false" final="false" height="140" width="300" parent="PACKAGE#9">
+      <method id="METHOD#147" name="aretherevideos" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#148" name="showvideos" return="TYPE#41" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#4" name="Album" mandatory="true" x="40" y="60" globalX="60" globalY="550" abstract="false" final="false" height="300" width="480" parent="PACKAGE#2">
+      <attribute id="ATTRIBUTE#5" name="media" type="CLASS#3" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#6" name="name" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <method id="METHOD#8" name="hasalbumthismedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#6" name="getalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#5" name="addalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="CLASS#4" name="album"/>
+      </method>
+      <method id="METHOD#7" name="showalbum" return="TYPE#41" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#11" name="isalbumempty" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#9" name="removealbum" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#10" name="addmediaalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+    </class>
+    <class id="CLASS#14" name="EntryMgr" mandatory="true" x="40" y="60" globalX="2740" globalY="1620" abstract="false" final="false" height="180" width="500" parent="PACKAGE#8">
+      <method id="METHOD#93" name="linkmediaentry" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="CLASS#10" name="entry"/>
+      </method>
+      <method id="METHOD#95" name="showentries" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#94" name="arethereentries" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#13" name="MediaCtrl" mandatory="true" x="40" y="60" globalX="2120" globalY="560" abstract="false" final="false" height="240" width="340" parent="PACKAGE#7">
+      <method id="METHOD#102" name="managefavouritemedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#103" name="linkmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#104" name="managemedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#106" name="hearmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#107" name="labelmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#105" name="playmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#101" name="sendmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#5" name="AlbumCtrl" mandatory="true" x="40" y="60" globalX="620" globalY="2240" abstract="false" final="false" height="180" width="200" parent="PACKAGE#3">
+      <method id="METHOD#170" name="albumctrl" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#21" name="managealbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#22" name="addmediaalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#6" name="AlbumGUI" mandatory="true" x="40" y="60" globalX="1500" globalY="550" abstract="false" final="false" height="180" width="200" parent="PACKAGE#4">
+      <method id="METHOD#34" name="addmediaalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#35" name="managealbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#12" name="MediaGUI" mandatory="true" x="40" y="60" globalX="80" globalY="2240" abstract="false" final="false" height="240" width="200" parent="PACKAGE#6">
+      <method id="METHOD#79" name="managefavouritemedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#80" name="sendmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#81" name="playmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#77" name="hearmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#78" name="linkmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#82" name="managemedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#1" name="UserMgr" mandatory="true" x="40" y="60" globalX="1660" globalY="1620" abstract="false" final="false" height="140" width="300" parent="PACKAGE#1">
+      <method id="METHOD#4" name="getuser" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#2" name="User" mandatory="true" x="380" y="60" globalX="2000" globalY="1620" abstract="false" final="false" height="200" width="480" parent="PACKAGE#1">
+      <attribute id="ATTRIBUTE#2" name="password" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <attribute id="ATTRIBUTE#3" name="login" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <method id="METHOD#3" name="checkpassword" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="password"/>
+      </method>
+      <method id="METHOD#2" name="checklogin" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="login"/>
+      </method>
+    </class>
+    <class id="CLASS#17" name="PhotMgr" mandatory="true" x="40" y="60" globalX="80" globalY="1620" abstract="false" final="false" height="140" width="200" parent="PACKAGE#11">
+      <method id="METHOD#162" name="aretherephotos" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#163" name="showphotos" return="TYPE#41" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="CLASS#16" name="MusicMgr" mandatory="true" x="40" y="60" globalX="820" globalY="1620" abstract="false" final="false" height="160" width="300" parent="PACKAGE#10">
+      <method id="METHOD#161" name="showmusics" return="TYPE#41" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="METHOD#160" name="aretheremusics" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <interface id="INTERFACE#18" name="IPhotoMgt" mandatory="true" x="40" y="260" globalX="80" globalY="1820" height="240" width="400" parent="PACKAGE#11">
+      <method id="METHOD#168" name="isphotoused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#8" name="photo"/>
+      </method>
+      <method id="METHOD#164" name="addphoto" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#8" name="photo"/>
+      </method>
+      <method id="METHOD#167" name="aretherephotos" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#169" name="showphotos" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#166" name="getphoto" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#8" name="photo"/>
+      </method>
+      <method id="METHOD#165" name="removephoto" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#8" name="photo"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#17" name="IMusicMgt" mandatory="true" x="40" y="260" globalX="820" globalY="1820" height="240" width="400" parent="PACKAGE#10">
+      <method id="METHOD#155" name="removemusic" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#9" name="music"/>
+      </method>
+      <method id="METHOD#157" name="aretheremusics" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#159" name="showmusics" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#156" name="getmusic" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#9" name="music"/>
+      </method>
+      <method id="METHOD#158" name="ismusicused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#9" name="music"/>
+      </method>
+      <method id="METHOD#154" name="addmusic" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#9" name="music"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#1" name="IUserMgt" mandatory="true" x="40" y="300" globalX="1660" globalY="1860" height="140" width="400" parent="PACKAGE#1">
+      <method id="METHOD#1" name="getuser" return="CLASS#2" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#2" name="user"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#4" name="IAddMediaAlbum" mandatory="true" x="40" y="340" globalX="620" globalY="2520" height="220" width="580" parent="PACKAGE#3">
+      <method id="METHOD#31" name="arethesealbuns" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#33" name="hasalbumthismedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="CLASS#4" name="album"/>
+      </method>
+      <method id="METHOD#32" name="addmediaalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="CLASS#4" name="albun"/>
+      </method>
+      <method id="METHOD#30" name="showalbuns" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#29" name="copymedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#5" name="IAlbumGUI" mandatory="true" x="280" y="60" globalX="1740" globalY="550" height="180" width="200" parent="PACKAGE#4">
+      <method id="METHOD#37" name="addmediaalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#36" name="managealbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </interface>
+    <interface id="INTERFACE#2" name="IAlbumMgt" mandatory="true" x="620" y="60" globalX="640" globalY="550" height="300" width="590" parent="PACKAGE#2">
+      <method id="METHOD#20" name="arethesealbuns" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#12" name="getalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#4" name="album"/>
+      </method>
+      <method id="METHOD#13" name="isalbumempty" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#4" name="album"/>
+      </method>
+      <method id="METHOD#16" name="hasalbumthismedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="CLASS#4" name="album"/>
+      </method>
+      <method id="METHOD#15" name="removealbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#4" name="album"/>
+      </method>
+      <method id="METHOD#17" name="addmediaalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="CLASS#4" name="album"/>
+      </method>
+      <method id="METHOD#19" name="showalbuns" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#18" name="isnameused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="METHOD#14" name="addalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#4" name="album"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#3" name="IManageAlbum" mandatory="true" x="280" y="60" globalX="860" globalY="2240" height="240" width="500" parent="PACKAGE#3">
+      <method id="METHOD#23" name="createalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#4" name="album"/>
+      </method>
+      <method id="METHOD#28" name="deletealbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#4" name="album"/>
+      </method>
+      <method id="METHOD#27" name="isalbumempty" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#4" name="album"/>
+      </method>
+      <method id="METHOD#24" name="isnameused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="METHOD#26" name="showalbuns" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#25" name="arethesealbuns" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </interface>
+    <interface id="INTERFACE#8" name="IHearMedia" mandatory="true" x="580" y="560" globalX="2660" globalY="1060" height="180" width="525" parent="PACKAGE#7">
+      <method id="METHOD#131" name="playmusic" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#9" name="music"/>
+      </method>
+      <method id="METHOD#132" name="visualizephoto" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#8" name="photo"/>
+      </method>
+      <method id="METHOD#133" name="hasmediaassociated" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#10" name="entry"/>
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#9" name="IPlayMedia" mandatory="true" x="1150" y="780" globalX="3230" globalY="1280" height="180" width="400" parent="PACKAGE#7">
+      <method id="METHOD#128" name="visualizephoto" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#8" name="photo"/>
+      </method>
+      <method id="METHOD#130" name="playmusic" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#9" name="music"/>
+      </method>
+      <method id="METHOD#129" name="playvideo" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#7" name="video"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#6" name="IMediaMgt" mandatory="true" x="40" y="460" globalX="3700" globalY="960" height="440" width="500" parent="PACKAGE#5">
+      <method id="METHOD#67" name="aretherefavouritemedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#62" name="addmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#69" name="copymedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#73" name="showmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#24" name="classType"/>
+      </method>
+      <method id="METHOD#71" name="sendmediaemail" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="TYPE#24" name="email"/>
+      </method>
+      <method id="METHOD#68" name="aretheremedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#24" name="classtype"/>
+      </method>
+      <method id="METHOD#65" name="ismediafavourite" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#63" name="islabelused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="METHOD#64" name="ismediaused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#66" name="islabeled" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#76" name="sendmediasms" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="TYPE#24" name="number"/>
+      </method>
+      <method id="METHOD#146" name="setfavourite" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#75" name="setlabel" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="METHOD#70" name="hasmemory" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#74" name="removemedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#72" name="getmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#7" name="IMediaGUI" mandatory="true" x="280" y="60" globalX="320" globalY="2240" height="240" width="217" parent="PACKAGE#6">
+      <method id="METHOD#83" name="playmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#85" name="hearmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#86" name="managemedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#87" name="linkmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#84" name="managefavouritemedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#88" name="sendmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </interface>
+    <interface id="INTERFACE#10" name="IManageMedia" mandatory="true" x="1000" y="70" globalX="3080" globalY="570" height="460" width="440" parent="PACKAGE#7">
+      <method id="METHOD#112" name="ismusicused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#9" name="music"/>
+      </method>
+      <method id="METHOD#116" name="login" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#2" name="user"/>
+      </method>
+      <method id="METHOD#122" name="aretherephotos" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#123" name="createmusic" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#9" name="music"/>
+      </method>
+      <method id="METHOD#117" name="showvideos" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#121" name="showphotos" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#118" name="showmusics" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#126" name="isphotoused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#8" name="photo"/>
+      </method>
+      <method id="METHOD#125" name="deletevideo" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#7" name="video"/>
+      </method>
+      <method id="METHOD#114" name="deletephoto" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#8" name="photo"/>
+      </method>
+      <method id="METHOD#113" name="aretherevideos" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#124" name="aretheremusics" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#115" name="deletemusic" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#9" name="music"/>
+      </method>
+      <method id="METHOD#120" name="createvideo" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#7" name="video"/>
+      </method>
+      <method id="METHOD#119" name="createphoto" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#8" name="photo"/>
+      </method>
+      <method id="METHOD#127" name="hasmemory" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#12" name="ILabelFiles" mandatory="true" x="40" y="560" globalX="2120" globalY="1060" height="200" width="500" parent="PACKAGE#7">
+      <method id="METHOD#140" name="islabelused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="METHOD#141" name="setlabel" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="METHOD#139" name="islabelblank" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="METHOD#138" name="islabeled" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#11" name="IManageFavouriteMedia" mandatory="true" x="480" y="800" globalX="2560" globalY="1300" height="200" width="400" parent="PACKAGE#7">
+      <method id="METHOD#142" name="setfavourite" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#143" name="aretrerefavouritemedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#145" name="ismediafavourite" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#144" name="showfavouritemedias" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </interface>
+    <interface id="INTERFACE#14" name="ILinkMedia" mandatory="true" x="440" y="60" globalX="2520" globalY="560" height="200" width="500" parent="PACKAGE#7">
+      <method id="METHOD#136" name="showentries" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#137" name="arethereentries" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#134" name="linkmediaentry" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="CLASS#10" name="entry"/>
+      </method>
+      <method id="METHOD#135" name="ismediassociated" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="CLASS#10" name="entry"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#13" name="ISendMedia" mandatory="true" x="40" y="800" globalX="2120" globalY="1300" height="200" width="400" parent="PACKAGE#7">
+      <method id="METHOD#111" name="sendmediaemail" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+      <method id="METHOD#109" name="getnumber" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#110" name="getemail" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#108" name="sendmediasms" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#16" name="IVideoMgt" mandatory="true" x="40" y="260" globalX="1900" globalY="2480" height="220" width="400" parent="PACKAGE#9">
+      <method id="METHOD#153" name="showvideos" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#152" name="aretherevideos" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#151" name="getvideo" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#7" name="video"/>
+      </method>
+      <method id="METHOD#150" name="removevideo" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#7" name="video"/>
+      </method>
+      <method id="METHOD#149" name="addvideo" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#7" name="video"/>
+      </method>
+    </interface>
+    <interface id="INTERFACE#15" name="IEntryMgt" mandatory="true" x="40" y="340" globalX="2740" globalY="1900" height="220" width="500" parent="PACKAGE#8">
+      <method id="METHOD#97" name="getentry" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#10" name="entry"/>
+      </method>
+      <method id="METHOD#100" name="showentries" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#98" name="arethereentries" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="METHOD#96" name="hasmediaassociated" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="CLASS#10" name="entry"/>
+      </method>
+      <method id="METHOD#99" name="linkmediaentry" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="CLASS#3" name="media"/>
+        <parameter type="CLASS#10" name="entry"/>
+      </method>
+    </interface>
+    <association id="ASSOCIATION#1" name="Media_Entry_1" category="normal" direction="true">
+      <source entity="CLASS#3" sourceVisibility="private" sourceName="media" sourceMin="0" sourceMax="1" sourceX="4435" sourceY="740"/>
+      <target entity="CLASS#10" targetVisibility="private" targetName="entry" targetMin="0" targetMax="2147483647" targetX="3246" targetY="1743"/>
+    </association>
+    <association id="ASSOCIATION#2" name="album_media_1" category="normal" direction="true">
+      <source entity="CLASS#4" sourceVisibility="private" sourceName="album" sourceMin="1" sourceMax="1" sourceX="749" sourceY="712"/>
+      <target entity="CLASS#3" targetVisibility="private" targetName="media" targetMin="0" targetMax="2147483647" targetX="4432" targetY="746"/>
+    </association>
+    <association id="ASSOCIATION#3" name="" category="aggregation" direction="false">
+      <source entity="CLASS#16" sourceVisibility="private" sourceName="MusicMgr" sourceMin="0" sourceMax="2147483647" sourceX="971" sourceY="1708"/>
+      <target entity="CLASS#9" targetVisibility="private" targetName="Music" targetMin="1" targetMax="1" targetX="1364" targetY="1703"/>
+    </association>
+    <association id="ASSOCIATION#4" name="megiamgr_media" category="aggregation" direction="true">
+      <source entity="CLASS#11" sourceVisibility="private" sourceName="MediaMgr" sourceMin="1" sourceMax="1" sourceX="3901" sourceY="700"/>
+      <target entity="CLASS#3" targetVisibility="private" targetName="Media" targetMin="0" targetMax="2147483647" targetX="4430" targetY="740"/>
+    </association>
+    <association id="ASSOCIATION#5" name="" category="aggregation" direction="false">
+      <source entity="CLASS#17" sourceVisibility="private" sourceName="PhotMgr" sourceMin="0" sourceMax="2147483647" sourceX="186" sourceY="1698"/>
+      <target entity="CLASS#8" targetVisibility="private" targetName="Photo" targetMin="1" targetMax="1" targetX="523" targetY="1701"/>
+    </association>
+    <association id="ASSOCIATION#6" name="user_media_1" category="normal" direction="true">
+      <source entity="CLASS#2" sourceVisibility="private" sourceName="user" sourceMin="1" sourceMax="2147483647" sourceX="2200" sourceY="1726"/>
+      <target entity="CLASS#3" targetVisibility="private" targetName="media" targetMin="0" targetMax="2147483647" targetX="4435" targetY="740"/>
+    </association>
+    <association id="ASSOCIATION#7" name="" category="aggregation" direction="false">
+      <source entity="CLASS#15" sourceVisibility="private" sourceName="VideoMgr" sourceMin="0" sourceMax="2147483647" sourceX="1956" sourceY="2318"/>
+      <target entity="CLASS#7" targetVisibility="private" targetName="Video" targetMin="1" targetMax="1" targetX="2270" targetY="2170"/>
+    </association>
+    <association id="ASSOCIATION#8" name="usermgr_user_1" category="aggregation" direction="true">
+      <source entity="CLASS#1" sourceVisibility="private" sourceName="UserMgr" sourceMin="1" sourceMax="1" sourceX="1812" sourceY="1695"/>
+      <target entity="CLASS#2" targetVisibility="private" targetName="User" targetMin="1" targetMax="2147483647" targetX="2200" targetY="1728"/>
+    </association>
+    <association id="ASSOCIATION#9" name="entrymgr_entry" category="aggregation" direction="true">
+      <source entity="CLASS#14" sourceVisibility="private" sourceName="entrymgr" sourceMin="1" sourceMax="1" sourceX="2751" sourceY="1716"/>
+      <target entity="CLASS#10" targetVisibility="private" targetName="entry" targetMin="0" targetMax="2147483647" targetX="3248" targetY="1749"/>
+    </association>
+    <dependency id="DEPENDENCY#10" source="CLASS#12" target="INTERFACE#14">
+    </dependency>
+    <dependency id="DEPENDENCY#11" source="CLASS#12" target="INTERFACE#11">
+    </dependency>
+    <dependency id="DEPENDENCY#12" source="CLASS#5" target="INTERFACE#6">
+    </dependency>
+    <dependency id="DEPENDENCY#13" source="CLASS#12" target="INTERFACE#13">
+    </dependency>
+    <dependency id="DEPENDENCY#14" source="CLASS#6" target="INTERFACE#3">
+    </dependency>
+    <dependency id="DEPENDENCY#15" source="CLASS#6" target="INTERFACE#4">
+    </dependency>
+    <dependency id="DEPENDENCY#16" source="CLASS#13" target="INTERFACE#6">
+    </dependency>
+    <dependency id="DEPENDENCY#17" source="CLASS#12" target="INTERFACE#10">
+    </dependency>
+    <dependency id="DEPENDENCY#18" source="CLASS#13" target="INTERFACE#15">
+    </dependency>
+    <dependency id="DEPENDENCY#19" source="CLASS#12" target="INTERFACE#9">
+    </dependency>
+    <dependency id="DEPENDENCY#20" source="CLASS#12" target="INTERFACE#12">
+    </dependency>
+    <dependency id="DEPENDENCY#21" source="CLASS#12" target="INTERFACE#8">
+    </dependency>
+    <dependency id="DEPENDENCY#22" source="CLASS#13" target="INTERFACE#1">
+    </dependency>
+    <dependency id="DEPENDENCY#23" source="CLASS#5" target="INTERFACE#2">
+    </dependency>
+    <generalization id="GENERALIZATION#24" source="CLASS#7" target="CLASS#3">
+    </generalization>
+    <generalization id="GENERALIZATION#25" source="CLASS#8" target="CLASS#3">
+    </generalization>
+    <generalization id="GENERALIZATION#26" source="CLASS#9" target="CLASS#3">
+    </generalization>
+    <realization id="REALIZATION#27" class="CLASS#1" interface="INTERFACE#1">
+    </realization>
+    <realization id="REALIZATION#28" class="CLASS#16" interface="INTERFACE#17">
+    </realization>
+    <realization id="REALIZATION#29" class="CLASS#17" interface="INTERFACE#18">
+    </realization>
+    <realization id="REALIZATION#30" class="CLASS#13" interface="INTERFACE#14">
+    </realization>
+    <realization id="REALIZATION#31" class="CLASS#12" interface="INTERFACE#7">
+    </realization>
+    <realization id="REALIZATION#32" class="CLASS#5" interface="INTERFACE#3">
+    </realization>
+    <realization id="REALIZATION#33" class="CLASS#5" interface="INTERFACE#4">
+    </realization>
+    <realization id="REALIZATION#34" class="CLASS#13" interface="INTERFACE#10">
+    </realization>
+    <realization id="REALIZATION#35" class="CLASS#13" interface="INTERFACE#11">
+    </realization>
+    <realization id="REALIZATION#36" class="CLASS#6" interface="INTERFACE#5">
+    </realization>
+    <realization id="REALIZATION#37" class="CLASS#13" interface="INTERFACE#13">
+    </realization>
+    <realization id="REALIZATION#38" class="CLASS#14" interface="INTERFACE#15">
+    </realization>
+    <realization id="REALIZATION#39" class="CLASS#11" interface="INTERFACE#6">
+    </realization>
+    <realization id="REALIZATION#40" class="CLASS#15" interface="INTERFACE#16">
+    </realization>
+    <realization id="REALIZATION#41" class="CLASS#4" interface="INTERFACE#2">
+    </realization>
+    <realization id="REALIZATION#42" class="CLASS#13" interface="INTERFACE#9">
+    </realization>
+    <realization id="REALIZATION#43" class="CLASS#13" interface="INTERFACE#12">
+    </realization>
+    <realization id="REALIZATION#44" class="CLASS#13" interface="INTERFACE#8">
+    </realization>
+    <variability id="VARIABILITY#1" name="ManaingMedia" variationPoint="CLASS#3" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="3">
+      <variant id="CLASS#8"/>
+      <variant id="CLASS#9"/>
+      <variant id="CLASS#7"/>
+    </variability>
+    <variability id="VARIABILITY#2" name="ViewPlayMedia" variationPoint="CLASS#3" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="3">
+      <variant id="CLASS#8"/>
+      <variant id="CLASS#9"/>
+      <variant id="CLASS#7"/>
+    </variability>
+  </diagram>
+  <links>
+    <link element="METHOD#42" stereotype="STEREOTYPE#21"/>
+    <link element="METHOD#69" stereotype="STEREOTYPE#21"/>
+    <link element="METHOD#29" stereotype="STEREOTYPE#21"/>
+    <link element="METHOD#104" stereotype="STEREOTYPE#11"/>
+    <link element="INTERFACE#10" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#123" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#125" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#114" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#115" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#120" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#119" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#127" stereotype="STEREOTYPE#11"/>
+    <link element="CLASS#3" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#46" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#47" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#62" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#74" stereotype="STEREOTYPE#11"/>
+    <link element="METHOD#102" stereotype="STEREOTYPE#14"/>
+    <link element="INTERFACE#11" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#142" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#143" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#145" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#144" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#50" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#59" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#41" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#67" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#65" stereotype="STEREOTYPE#14"/>
+    <link element="METHOD#146" stereotype="STEREOTYPE#14"/>
+    <link element="CLASS#6" stereotype="STEREOTYPE#17"/>
+    <link element="INTERFACE#5" stereotype="STEREOTYPE#17"/>
+    <link element="CLASS#12" stereotype="STEREOTYPE#17"/>
+    <link element="INTERFACE#7" stereotype="STEREOTYPE#17"/>
+    <link element="METHOD#107" stereotype="STEREOTYPE#13"/>
+    <link element="INTERFACE#12" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#140" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#141" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#139" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#138" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#61" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#53" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#43" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#63" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#66" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#75" stereotype="STEREOTYPE#13"/>
+    <link element="METHOD#103" stereotype="STEREOTYPE#15"/>
+    <link element="INTERFACE#14" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#136" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#137" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#134" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#135" stereotype="STEREOTYPE#15"/>
+    <link element="CLASS#14" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#93" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#95" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#94" stereotype="STEREOTYPE#15"/>
+    <link element="CLASS#10" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#91" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#89" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#92" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#90" stereotype="STEREOTYPE#15"/>
+    <link element="ATTRIBUTE#18" stereotype="STEREOTYPE#15"/>
+    <link element="ATTRIBUTE#17" stereotype="STEREOTYPE#15"/>
+    <link element="INTERFACE#15" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#97" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#100" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#98" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#96" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#99" stereotype="STEREOTYPE#15"/>
+    <link element="METHOD#45" stereotype="STEREOTYPE#22"/>
+    <link element="METHOD#44" stereotype="STEREOTYPE#22"/>
+    <link element="ATTRIBUTE#15" stereotype="STEREOTYPE#22"/>
+    <link element="ATTRIBUTE#10" stereotype="STEREOTYPE#22"/>
+    <link element="ATTRIBUTE#14" stereotype="STEREOTYPE#22"/>
+    <link element="ATTRIBUTE#12" stereotype="STEREOTYPE#22"/>
+    <link element="ATTRIBUTE#13" stereotype="STEREOTYPE#22"/>
+    <link element="METHOD#38" stereotype="STEREOTYPE#22"/>
+    <link element="METHOD#39" stereotype="STEREOTYPE#22"/>
+    <link element="METHOD#40" stereotype="STEREOTYPE#22"/>
+    <link element="CLASS#4" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#8" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#6" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#5" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#7" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#11" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#9" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#10" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#6" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#2" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#20" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#12" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#13" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#16" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#15" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#17" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#19" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#18" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#14" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#6" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#5" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#10" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#112" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#116" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#122" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#117" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#121" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#118" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#126" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#113" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#124" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#11" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#54" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#48" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#55" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#58" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#44" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#6" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#68" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#64" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#70" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#72" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#1" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#4" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#2" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#3" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#2" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#2" stereotype="STEREOTYPE#10"/>
+    <link element="ATTRIBUTE#3" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#1" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#1" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#5" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#3" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#23" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#28" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#27" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#24" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#26" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#25" stereotype="STEREOTYPE#10"/>
+    <link element="INTERFACE#4" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#31" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#33" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#32" stereotype="STEREOTYPE#10"/>
+    <link element="METHOD#30" stereotype="STEREOTYPE#10"/>
+    <link element="CLASS#16" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#161" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#160" stereotype="STEREOTYPE#18"/>
+    <link element="CLASS#9" stereotype="STEREOTYPE#18"/>
+    <link element="ATTRIBUTE#8" stereotype="STEREOTYPE#18"/>
+    <link element="INTERFACE#17" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#155" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#157" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#159" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#156" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#158" stereotype="STEREOTYPE#18"/>
+    <link element="METHOD#154" stereotype="STEREOTYPE#18"/>
+    <link element="CLASS#8" stereotype="STEREOTYPE#19"/>
+    <link element="ATTRIBUTE#7" stereotype="STEREOTYPE#19"/>
+    <link element="INTERFACE#18" stereotype="STEREOTYPE#19"/>
+    <link element="METHOD#168" stereotype="STEREOTYPE#19"/>
+    <link element="METHOD#164" stereotype="STEREOTYPE#19"/>
+    <link element="METHOD#167" stereotype="STEREOTYPE#19"/>
+    <link element="METHOD#169" stereotype="STEREOTYPE#19"/>
+    <link element="METHOD#166" stereotype="STEREOTYPE#19"/>
+    <link element="METHOD#165" stereotype="STEREOTYPE#19"/>
+    <link element="METHOD#101" stereotype="STEREOTYPE#16"/>
+    <link element="INTERFACE#13" stereotype="STEREOTYPE#16"/>
+    <link element="METHOD#111" stereotype="STEREOTYPE#16"/>
+    <link element="METHOD#109" stereotype="STEREOTYPE#16"/>
+    <link element="METHOD#110" stereotype="STEREOTYPE#16"/>
+    <link element="METHOD#108" stereotype="STEREOTYPE#16"/>
+    <link element="METHOD#71" stereotype="STEREOTYPE#16"/>
+    <link element="METHOD#76" stereotype="STEREOTYPE#16"/>
+    <link element="CLASS#7" stereotype="STEREOTYPE#20"/>
+    <link element="ATTRIBUTE#9" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#147" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#148" stereotype="STEREOTYPE#20"/>
+    <link element="INTERFACE#16" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#153" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#152" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#151" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#150" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#149" stereotype="STEREOTYPE#20"/>
+    <link element="METHOD#106" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#105" stereotype="STEREOTYPE#12"/>
+    <link element="INTERFACE#8" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#131" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#132" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#133" stereotype="STEREOTYPE#12"/>
+    <link element="INTERFACE#9" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#128" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#130" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#129" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#45" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#73" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#38" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#39" stereotype="STEREOTYPE#12"/>
+    <link element="METHOD#40" stereotype="STEREOTYPE#12"/>
+    <link element="CLASS#9" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#8" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#7" stereotype="STEREOTYPE#4"/>
+    <link element="CLASS#4" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#5" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#6" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#14" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#13" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#12" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#11" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#16" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#17" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#2" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#1" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#15" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#4" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#5" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#2" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#15" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#8" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#12" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#14" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#3" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#11" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#10" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#7" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#6" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#17" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#18" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#9" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#13" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#1" stereotype="STEREOTYPE#1"/>
+    <link element="INTERFACE#16" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#10" stereotype="STEREOTYPE#2"/>
+    <link element="CLASS#3" stereotype="STEREOTYPE#3"/>
+  </links>
+  <products>
+  </products>
+</project>
