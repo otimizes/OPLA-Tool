@@ -78,7 +78,7 @@ public class GenerateArchitecture extends ArchitectureBase {
         if (klass instanceof Class) {
             methodsClass = ((Class) klass).getAllMethods();
         } else {
-            methodsClass = ((Interface) klass).getOperations();
+            methodsClass = ((Interface) klass).getMethods();
         }
         for (br.ufpr.dinf.gres.architecture.representation.Method method : methodsClass) {
 
@@ -278,7 +278,7 @@ public class GenerateArchitecture extends ArchitectureBase {
 
             for (Interface inter : a.getAllInterfaces()) {
                 // Adiciona Interesses nos métodos da interface
-                for (br.ufpr.dinf.gres.architecture.representation.Method operation : inter.getOperations()) {
+                for (br.ufpr.dinf.gres.architecture.representation.Method operation : inter.getMethods()) {
                     op.forConcerns().withStereotypes(operation.getOwnConcerns(), operation.getId());
                 }
                 op.forConcerns().withStereotypes(inter.getOwnConcerns(), inter.getId());

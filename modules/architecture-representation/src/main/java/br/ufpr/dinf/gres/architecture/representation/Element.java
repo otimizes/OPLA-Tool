@@ -25,6 +25,15 @@ public abstract class Element implements Serializable {
     private boolean belongsToGeneralization;
     private String comments = "";
     private boolean freezedByCluster = false;
+    private String posX = "0";
+    private String posY = "0";
+    private String globalPosX = "0";
+    private String globalPosY = "0";
+    private String height = "0";
+    private String width = "0";
+    private boolean mandatory = true;
+    private boolean isStatic;
+    private boolean isFinal;
 
     public Element(String name, Variant variant, String typeElement, String namespace, String id) {
         setId(id);
@@ -32,6 +41,79 @@ public abstract class Element implements Serializable {
         setVariant(variant);
         setTypeElement(typeElement);
         setNamespace(namespace);
+    }
+
+
+    public String getPosX() {
+        return posX;
+    }
+
+    public void setPosX(String posX) {
+        this.posX = posX;
+    }
+
+    public String getPosY() {
+        return posY;
+    }
+
+    public void setPosY(String posY) {
+        this.posY = posY;
+    }
+
+    public String getGlobalPosX() {
+        return globalPosX;
+    }
+
+    public void setGlobalPosX(String globalPosX) {
+        this.globalPosX = globalPosX;
+    }
+
+    public String getGlobalPosY() {
+        return globalPosY;
+    }
+
+    public void setGlobalPosY(String globalPosY) {
+        this.globalPosY = globalPosY;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getWidth() {
+        return width;
+    }
+
+    public void setWidth(String width) {
+        this.width = width;
+    }
+
+    public boolean isMandatory() {
+        return mandatory;
+    }
+
+    public void setMandatory(boolean mandatory) {
+        this.mandatory = mandatory;
+    }
+
+    public boolean isStatic() {
+        return isStatic;
+    }
+
+    public void setStatic(boolean aStatic) {
+        isStatic = aStatic;
+    }
+
+    public boolean isFinal() {
+        return isFinal;
+    }
+
+    public void setFinal(boolean aFinal) {
+        isFinal = aFinal;
     }
 
     public abstract Collection<Concern> getAllConcerns();
@@ -118,6 +200,12 @@ public abstract class Element implements Serializable {
         for (String name : concernsNames)
             addConcern(name);
     }
+
+    public void addExternalConcern(Concern concern){
+        if(!concerns.contains(concern))
+            concerns.add(concern);
+    }
+
 
     /**
      * Adiciona um interesse a classe.<br/>

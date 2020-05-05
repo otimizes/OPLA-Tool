@@ -1,17 +1,20 @@
 package br.ufpr.dinf.gres.architecture.representation;
 
+import br.ufpr.dinf.gres.architecture.exceptions.AttributeNotFoundException;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
 import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.RealizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.RelationshiopCommons;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
+import br.ufpr.dinf.gres.architecture.touml.Types;
+import br.ufpr.dinf.gres.architecture.touml.VisibilityKind;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.util.*;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Interface extends Element {
 
@@ -19,7 +22,8 @@ public class Interface extends Element {
     private static final long serialVersionUID = -1779316062511432020L;
 
     static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
-    private final Set<Method> operations = new HashSet<Method>();
+    private final Set<Method> methods = new HashSet<Method>();
+    private final Set<Attribute> attributes = new HashSet<Attribute>();
     private RelationshipsHolder relationshipHolder;
     private PatternsOperations patternsOperations;
 
@@ -67,12 +71,78 @@ public class Interface extends Element {
         this.setPatternOperations(new PatternsOperations());
     }
 
-    public Set<Method> getOperations() {
-        return Collections.unmodifiableSet(operations);
+
+    public Attribute createAttribute(String name, Types.Type type, VisibilityKind visibility) {
+        String id = UtilResources.getRandonUUID();
+        Attribute a = new Attribute(name, visibility.toString(), type.getName(), ArchitectureHolder.getName() + "::"
+                + this.getName(), id);
+        addExternalAttribute(a);
+        return a;
+    }
+
+    public void setAttribute(Attribute attr) {
+        this.attributes.add(attr);
+    }
+
+    public Set<Attribute> getAllAttributes() {
+        if (attributes.isEmpty())
+            return Collections.emptySet();
+        return Collections.unmodifiableSet(attributes);
+    }
+
+    public Attribute findAttributeByName(String name) throws AttributeNotFoundException {
+        String message = "atributo '" + name + "' não encontrado na classe '" + this.getName() + "'.\n";
+
+        for (Attribute att : getAllAttributes())
+            if (name.equalsIgnoreCase(att.getName()))
+                return att;
+        LOGGER.info(message);
+        throw new AttributeNotFoundException(message);
+    }
+
+    public boolean moveAttributeToInterface(Attribute attribute, Class destinationKlass) {
+        if (!destinationKlass.addExternalAttribute(attribute))
+            return false;
+
+        if (!removeAttribute(attribute)) {
+            destinationKlass.removeAttribute(attribute);
+            return false;
+        }
+        attribute.setNamespace(ArchitectureHolder.getName() + "::" + destinationKlass.getName());
+        LOGGER.info("Moveu atributo: " + attribute.getName() + " de " + this.getName() + " para "
+                + destinationKlass.getName());
+        return true;
+    }
+
+    public boolean addExternalAttribute(Attribute a) {
+        if (this.attributes.add(a)) {
+            LOGGER.info("Atributo: " + a.getName() + " adicionado na classe: " + this.getName());
+            return true;
+        } else {
+            LOGGER.info("TENTOU remover o Atributo: " + a.getName() + " da classe: " + this.getName()
+                    + " porém não consegiu");
+            return false;
+        }
+    }
+
+    public boolean removeAttribute(Attribute attribute) {
+        if (this.attributes.remove(attribute)) {
+            LOGGER.info("Atributo: " + attribute.getName() + " removido da classe: " + this.getName());
+            return true;
+        } else {
+            LOGGER.info("TENTOU remover o atributo: " + attribute.getName() + " classe: " + this.getName()
+                    + " porém não consegiu");
+            return false;
+        }
+    }
+
+
+    public Set<Method> getMethods() {
+        return Collections.unmodifiableSet(methods);
     }
 
     public boolean removeOperation(Method operation) {
-        if (operations.remove(operation)) {
+        if (methods.remove(operation)) {
             LOGGER.info("Removeu operação '" + operation + "', da interface: " + this.getName());
             return true;
         } else {
@@ -83,7 +153,7 @@ public class Interface extends Element {
 
     public Method createOperation(String operationName) throws Exception {
         Method operation = new Method(operationName, false, null, "void", false, null, "", ""); //Receber id
-        operations.add(operation);
+        methods.add(operation);
         return operation;
     }
 
@@ -103,7 +173,7 @@ public class Interface extends Element {
 
 
     public boolean addExternalOperation(Method operation) {
-        if (operations.add(operation)) {
+        if (methods.add(operation)) {
             LOGGER.info("Operação " + operation.getName() + " adicionado na interface " + this.getName());
             return true;
         } else {
@@ -165,7 +235,7 @@ public class Interface extends Element {
     @Override
     public Set<Concern> getAllConcerns() {
         Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());
-        for (Method operation : getOperations())
+        for (Method operation : getMethods())
             concerns.addAll(operation.getAllConcerns());
         concerns.addAll(this.getOwnConcerns());
 
@@ -181,6 +251,16 @@ public class Interface extends Element {
         }
 
         return dependencies;
+    }
+
+    public boolean addExternalMethod(Method method) {
+        if (methods.add(method)) {
+            LOGGER.info("Operação " + method.getName() + " adicionado na interface " + this.getName());
+            return true;
+        } else {
+            LOGGER.info("TENTOU remover a operação: " + method.getName() + " da interface: " + this.getName() + " porém não consegiu");
+            return false;
+        }
     }
 
     /**

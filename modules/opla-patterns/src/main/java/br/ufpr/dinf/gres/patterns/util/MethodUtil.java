@@ -21,7 +21,7 @@ public class MethodUtil {
             iMethods = iClass.getAllMethods();
         } else if (element instanceof Interface) {
             Interface iInterface = (Interface) element;
-            iMethods = iInterface.getOperations();
+            iMethods = iInterface.getMethods();
         } else {
             return null;
         }
@@ -35,7 +35,7 @@ public class MethodUtil {
             iMethods.addAll(iClass.getAllMethods());
         } else if (element instanceof Interface) {
             Interface iInterface = (Interface) element;
-            iMethods.addAll(iInterface.getOperations());
+            iMethods.addAll(iInterface.getMethods());
         }
         List<Element> parents = ElementUtil.getAllExtendedElements(element);
         for (Element parent : parents) {

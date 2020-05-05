@@ -13,7 +13,7 @@ public class MeanNumOpsByInterface extends ObjectiveFunctionImplementation {
         int numberInterfaces = 0;
         for (br.ufpr.dinf.gres.architecture.representation.Package component : architecture.getAllPackages()) {
             for (Interface itf : component.getImplementedInterfaces()) {
-                this.addToResults(itf.getOperations().size());
+                this.addToResults(itf.getMethods().size());
                 numberInterfaces++;
             }
         }

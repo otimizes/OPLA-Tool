@@ -8,7 +8,7 @@ import java.util.List;
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Method extends Element {
 
@@ -16,6 +16,8 @@ public class Method extends Element {
     private final List<ParameterMethod> parameters = new ArrayList<ParameterMethod>();
     private String returnType;
     private boolean isAbstract;
+    private boolean isConstructor;
+    private String visibility;
 
     public Method(String name, Variant variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, String namespace, String id) {
         super(name, variantType, "method", namespace, id);
@@ -32,6 +34,22 @@ public class Method extends Element {
         super(name, null, "method", UtilResources.createNamespace(ArchitectureHolder.getName(), className), id);
         setReturnType(type);
         setAbstract(isAbstract);
+    }
+
+    public boolean isConstructor() {
+        return isConstructor;
+    }
+
+    public void setConstructor(boolean constructor) {
+        isConstructor = constructor;
+    }
+
+    public String getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
     }
 
     private void setParams(List<ParameterMethod> paramsMethod) {

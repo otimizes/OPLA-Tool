@@ -2,14 +2,38 @@ package br.ufpr.dinf.gres.architecture.representation;
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Concern {
-
+    private String id;
+    private Boolean isPrimitive = false;
     private String name;
 
     public Concern(String name) {
         this.name = name;
+    }
+
+    public Concern() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Boolean getPrimitive() {
+        return isPrimitive;
+    }
+
+    public void setPrimitive(Boolean primitive) {
+        isPrimitive = primitive;
     }
 
     public String getName() {

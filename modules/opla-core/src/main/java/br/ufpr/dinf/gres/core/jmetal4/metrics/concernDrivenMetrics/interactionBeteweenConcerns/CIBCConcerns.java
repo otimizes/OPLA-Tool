@@ -26,7 +26,7 @@ public class CIBCConcerns {
     private void inspectInterfaces(Package component, Collection<Interface> interfaces) {
         for (Interface i : interfaces) {
             inspectConcernsOfElement(i, component);
-            for (Method operation : i.getOperations()) {
+            for (Method operation : i.getMethods()) {
                 inspectConcernsOfElement(operation, component);
             }
         }

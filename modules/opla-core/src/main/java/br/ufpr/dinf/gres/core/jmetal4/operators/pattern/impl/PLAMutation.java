@@ -250,7 +250,7 @@ public class PLAMutation extends AbstractMutationOperator {
 
                             if (targetInterface != sourceInterface) {
                                 List<Method> OpsInterface = new ArrayList<Method>();
-                                OpsInterface.addAll(sourceInterface.getOperations());
+                                OpsInterface.addAll(sourceInterface.getMethods());
                                 if (OpsInterface.size() >= 1) {
                                     sourceInterface.moveOperationToInterface(randomObject(OpsInterface), targetInterface);
                                     for (Element implementor : sourceInterface.getImplementors()) {
@@ -425,7 +425,7 @@ public class PLAMutation extends AbstractMutationOperator {
                     if (InterfacesComp.size() >= 1) {
                         Interface sourceInterface = randomObject(InterfacesComp);
                         List<Method> OpsInterface = new ArrayList<Method>();
-                        OpsInterface.addAll(sourceInterface.getOperations());
+                        OpsInterface.addAll(sourceInterface.getMethods());
                         if (OpsInterface.size() >= 1) {
                             Method op = randomObject(OpsInterface);
 
@@ -548,7 +548,7 @@ public class PLAMutation extends AbstractMutationOperator {
                         if (interfaceComp.getOwnConcerns().size() == 1 && interfaceComp.containsConcern(concern)) {
                             moveInterfaceToComponent(interfaceComp, targetComponent, comp, arch, concern); // EDIPO TESTADO
                         } else if (!interfaceComp.getPatternsOperations().hasPatternApplied()) {
-                            List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getOperations());
+                            List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getMethods());
                             Iterator<Method> itrOperation = operationsInterfaceComp.iterator();
                             while (itrOperation.hasNext()) {
                                 Method operation = itrOperation.next();

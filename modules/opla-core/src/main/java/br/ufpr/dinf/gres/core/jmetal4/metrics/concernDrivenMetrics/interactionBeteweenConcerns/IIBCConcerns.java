@@ -23,7 +23,7 @@ public class IIBCConcerns {
     private void inspectInterfacesOperations(Package component, Collection<Interface> interfaces) {
         for (Interface i : interfaces) {
             inspectConcernsOfElement(i, i);
-            for (Method operation : i.getOperations()) {
+            for (Method operation : i.getMethods()) {
                 inspectConcernsOfElement(operation, i);
             }
         }

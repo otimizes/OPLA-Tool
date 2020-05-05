@@ -579,7 +579,7 @@ public class SolutionSet implements Serializable {
         elm[3] = element instanceof Package ? (double) ((Package) element).getAllInterfaces().size() : 0;
         elm[4] = element instanceof Class ? (double) ((Class) element).getAllAttributes().size() : 0;
         elm[5] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() :
-                element instanceof Interface ? (double) ((Interface) element).getOperations().size() : 0;
+                element instanceof Interface ? (double) ((Interface) element).getMethods().size() : 0;
         try {
             double[] doubles = generateSolutionFromElementsAndGetDoubles(element, solution);
             elm = ArrayUtils.addAll(elm, doubles);

@@ -25,6 +25,9 @@ public class Variability implements Serializable {
     private VariationPoint variationPoint;
     private List<Variant> variants = new ArrayList<Variant>();
 
+    private  String id;
+    public String constraint;
+
     public Variability(String name, String minSelection, String maxSelection, String bindingTime, boolean allowsAddingVar, String ownerClass, String idPackageOwner) {
         setName(name);
         setMinSelection(minSelection);
@@ -33,6 +36,23 @@ public class Variability implements Serializable {
         setBindingTime(bindingTime);
         setOwner(ownerClass);
         setIdPackageOwner(idPackageOwner);
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getConstraint() {
+        return constraint;
+    }
+
+    public void setConstraint(String constraint) {
+        this.constraint = constraint;
     }
 
     private void setOwner(String ownerClass) {
@@ -46,7 +66,7 @@ public class Variability implements Serializable {
         return idPackageOwner;
     }
 
-    private void setIdPackageOwner(String idPackageOwner) {
+    public void setIdPackageOwner(String idPackageOwner) {
         this.idPackageOwner = idPackageOwner;
     }
 
@@ -55,6 +75,10 @@ public class Variability implements Serializable {
      */
     public String getBindingTime() {
         return bindingTime;
+    }
+
+    public void addVariant(Variant variant){
+        variants.add(variant);
     }
 
     private void setBindingTime(String bindingTime) {

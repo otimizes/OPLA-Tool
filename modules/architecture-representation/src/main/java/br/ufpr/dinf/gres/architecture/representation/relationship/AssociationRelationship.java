@@ -9,7 +9,7 @@ import java.util.List;
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class AssociationRelationship extends Relationship {
 
@@ -21,14 +21,20 @@ public class AssociationRelationship extends Relationship {
 
     public AssociationRelationship(Element class1, Element class2) {
         setId(UtilResources.getRandonUUID());
-        getParticipants().add(new AssociationEnd(class1, false, "association", null, ""));
-        getParticipants().add(new AssociationEnd(class2, false, "association", null, ""));
+        Multiplicity mul1 = new Multiplicity("1", "1");
+        Multiplicity mul2 = new Multiplicity("1", "1");
+        getParticipants().add(new AssociationEnd(class1, false, "association", mul1, ""));
+        getParticipants().add(new AssociationEnd(class2, false, "association", mul2, ""));
 
         super.setType(ElementsTypes.ASSOCIATION);
 
     }
 
     public AssociationRelationship() {
+    }
+
+    public void SetAssociationEnd(AssociationEnd ae) {
+        participants.add(ae);
     }
 
     public List<AssociationEnd> getParticipants() {
@@ -43,6 +49,7 @@ public class AssociationRelationship extends Relationship {
                 + ((participants == null) ? 0 : participants.hashCode());
         return result;
     }
+
 
     @Override
     public boolean equals(Object obj) {

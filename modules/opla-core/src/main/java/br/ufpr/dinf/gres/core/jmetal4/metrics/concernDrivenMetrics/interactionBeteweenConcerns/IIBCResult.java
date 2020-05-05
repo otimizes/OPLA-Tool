@@ -31,7 +31,7 @@ public class IIBCResult {
     }
 
     private void inspectOperations(Interface i) {
-        for (Method operation : i.getOperations()) {
+        for (Method operation : i.getMethods()) {
             getInterlacedConcerns().addAll(operation.getOwnConcerns());
         }
     }

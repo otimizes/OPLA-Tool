@@ -165,7 +165,7 @@ public class CrossoverUtils {
 
 
     private void removeOperationsOfInterfaceRealizingFeature(Interface interfaceComp, Concern feature) {
-        List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getOperations());
+        List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getMethods());
         if (!operationsInterfaceComp.isEmpty()) {
             Iterator<Method> iteratorOperations = operationsInterfaceComp.iterator();
             while (iteratorOperations.hasNext()) {

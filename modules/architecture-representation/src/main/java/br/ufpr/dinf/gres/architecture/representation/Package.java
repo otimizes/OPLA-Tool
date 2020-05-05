@@ -18,8 +18,8 @@ import java.util.Set;
  * @author edipofederle <edipofederle@gmail.com>
  */
 public class Package extends Element {
-	
-	private static final Logger LOGGER = Logger.getLogger(Package.class);
+
+    private static final Logger LOGGER = Logger.getLogger(Package.class);
 
     private static final long serialVersionUID = -3080328928563871488L;
     public Set<Package> nestedPackages = new HashSet<Package>();
@@ -63,7 +63,7 @@ public class Package extends Element {
     /**
      * Retorna todas {@link Class} que pertencem ao pacote.
      *
-     * @return List<{@link Class}>
+     * @return List<{ @ link Class }>
      */
     public Set<Class> getAllClasses() {
         return this.classes;
@@ -72,7 +72,7 @@ public class Package extends Element {
     /**
      * Retorna todos {@link Package} dentro do pacote em questão.
      *
-     * @return List<{@link Package}>
+     * @return List<{ @ link Package }>
      */
     public Set<Package> getNestedPackages() {
         return this.nestedPackages;
@@ -173,6 +173,11 @@ public class Package extends Element {
         return concerns;
     }
 
+
+    public Set<Concern> getOwnConcerns2() {
+        return super.getOwnConcerns();
+    }
+
     @Override
     public Set<Concern> getOwnConcerns() {
         Set<Concern> concerns = new HashSet<Concern>();
@@ -236,6 +241,22 @@ public class Package extends Element {
             }
         }
         return false;
+    }
+
+
+    public void removeInterfaceByID(String id) {
+        //Interface interfacee = null;
+
+        Set<Interface> newHash = new HashSet<>();
+        for (Interface i : this.interfaces) {
+            if (!i.getId().equals(id)) {
+                newHash.add(i);
+            } else {
+                relationshipHolder.removeRelatedRelationships(i);
+            }
+        }
+        this.interfaces.clear();
+        this.interfaces.addAll(newHash);
     }
 
     public boolean removeImplementedInterface(Interface interface_) {

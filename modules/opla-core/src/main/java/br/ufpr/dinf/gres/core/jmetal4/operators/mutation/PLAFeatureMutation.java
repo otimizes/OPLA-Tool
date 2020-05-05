@@ -322,7 +322,7 @@ public class PLAFeatureMutation extends Mutation {
                             if (searchPatternsInterface(targetInterface) && searchPatternsInterface(sourceInterface)) {
                                 if (targetInterface != sourceInterface) {
                                     List<Method> OpsInterface = new ArrayList<Method>();
-                                    OpsInterface.addAll(sourceInterface.getOperations().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
+                                    OpsInterface.addAll(sourceInterface.getMethods().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
                                     if (OpsInterface.size() >= 1) {
                                         sourceInterface.moveOperationToInterface(getRandomMethod(OpsInterface),
                                                 targetInterface);
@@ -523,7 +523,7 @@ public class PLAFeatureMutation extends Mutation {
                         // joao\
                         if (searchPatternsInterface(sourceInterface)) {
                             List<Method> OpsInterface = new ArrayList<Method>();
-                            OpsInterface.addAll(sourceInterface.getOperations().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
+                            OpsInterface.addAll(sourceInterface.getMethods().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
                             if (OpsInterface.size() >= 1) {
                                 Method op = getRandomMethod(OpsInterface);
 
@@ -699,7 +699,7 @@ public class PLAFeatureMutation extends Mutation {
                                 // TESTADO
                             } else if (!interfaceComp.getPatternsOperations().hasPatternApplied()) {
                                 List<Method> operationsInterfaceComp = new ArrayList<Method>(
-                                        interfaceComp.getOperations().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
+                                        interfaceComp.getMethods().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
                                 Iterator<Method> itrOperation = operationsInterfaceComp.iterator();
                                 while (itrOperation.hasNext()) {
                                     Method operation = itrOperation.next();
@@ -1264,7 +1264,7 @@ public class PLAFeatureMutation extends Mutation {
         if (!allInterfaces.isEmpty()) {
             for (Interface itf : allInterfaces) {
                 if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty())
-                        && (!itf.getOperations().isEmpty())) {
+                        && (!itf.getMethods().isEmpty())) {
                     return false;
                 }
             }

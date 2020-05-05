@@ -27,7 +27,7 @@ public class CDAOResult extends ConcernDiffusionResult<Method> {
         ArrayList<Method> operations = new ArrayList<Method>();
 
         for (Interface i : component.getImplementedInterfaces())
-            operations.addAll(i.getOperations());
+            operations.addAll(i.getMethods());
 
         return operations;
     }
@@ -35,14 +35,14 @@ public class CDAOResult extends ConcernDiffusionResult<Method> {
     private void inspectInterfaces(Package component) {
         for (Interface i : component.getImplementedInterfaces()) {
             if (interfaceContainsConcern(i))
-                getElements().addAll(i.getOperations());
+                getElements().addAll(i.getMethods());
             else
                 inspectOperations(i);
         }
     }
 
     private void inspectOperations(Interface i) {
-        for (Method operation : i.getOperations()) {
+        for (Method operation : i.getMethods()) {
             if (operation.containsConcern(getConcern()))
                 getElements().add(operation);
         }

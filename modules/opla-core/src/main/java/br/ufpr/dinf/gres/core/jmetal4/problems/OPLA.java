@@ -291,10 +291,10 @@ public class OPLA extends Problem {
                     boolean ultimaInterface = false;
                     if (comp.getImplementedInterfaces().size() == 1)
                         ultimaInterface = true;
-                    if (itf.getOperations().isEmpty() && !ultimaInterface) {
+                    if (itf.getMethods().isEmpty() && !ultimaInterface) {
                         ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
                     }
-                    if (itf.getOperations().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
+                    if (itf.getMethods().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
                         ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
                     }
                 }
@@ -307,10 +307,10 @@ public class OPLA extends Problem {
                 boolean ultimaInterface = false;
                 if (comp.getImplementedInterfaces().size() == 1)
                     ultimaInterface = true;
-                if (itf.getOperations().isEmpty() && !ultimaInterface) {
+                if (itf.getMethods().isEmpty() && !ultimaInterface) {
                     ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
                 }
-                if (itf.getOperations().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
+                if (itf.getMethods().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
                     ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
                 }
             }

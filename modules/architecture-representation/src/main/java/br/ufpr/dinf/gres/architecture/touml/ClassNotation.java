@@ -220,7 +220,7 @@ public class ClassNotation extends XmiHelper {
                 YClass += 10;
             }
         } else {
-            for (Method ignored : ((Interface) aClass).getOperations()) {
+            for (Method ignored : ((Interface) aClass).getMethods()) {
                 YClass += 10;
             }
         }
@@ -230,7 +230,7 @@ public class ClassNotation extends XmiHelper {
     private int getWidthClass(br.ufpr.dinf.gres.architecture.representation.Element aClass) {
         int XClass = 1;
         int i = 0;
-        int[] XClasss = new int[aClass instanceof Class ? ((Class) aClass).getAllAttributes().size() + ((Class) aClass).getAllMethods().size() : ((Interface) aClass).getOperations().size()];
+        int[] XClasss = new int[aClass instanceof Class ? ((Class) aClass).getAllAttributes().size() + ((Class) aClass).getAllMethods().size() : ((Interface) aClass).getMethods().size()];
         if (aClass instanceof Class) {
             for (Attribute allAttribute : ((Class) aClass).getAllAttributes()) {
                 XClasss[i] += (allAttribute.getType().length() + allAttribute.getAllConcerns().toString().length() + allAttribute.getVisibility().length() + allAttribute.getName().length());
@@ -239,7 +239,7 @@ public class ClassNotation extends XmiHelper {
                 XClasss[i] += (method.getParameters().toString().length() + method.getAllConcerns().toString().length() + method.getReturnType().length() + method.getName().length());
             }
         } else {
-            for (Method operation : ((Interface) aClass).getOperations()) {
+            for (Method operation : ((Interface) aClass).getMethods()) {
                 XClasss[i] += (operation.toString().length() + operation.getName().length() + operation.getAllConcerns().toString().length() + operation.getTypeElement().length());
             }
         }

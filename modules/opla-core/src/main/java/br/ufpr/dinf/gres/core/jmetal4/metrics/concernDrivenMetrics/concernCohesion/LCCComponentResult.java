@@ -19,7 +19,7 @@ public class LCCComponentResult {
         for (Interface i : component.getImplementedInterfaces()) {
             addConcerns(i.getOwnConcerns());
 
-            for (Method method : i.getOperations()) {
+            for (Method method : i.getMethods()) {
                 addConcerns(method.getOwnConcerns());
             }
         }
