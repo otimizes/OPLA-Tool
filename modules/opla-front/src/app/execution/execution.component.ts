@@ -25,18 +25,22 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
   }
 
   selectProfiles(list) {
-    for (let string of list) {
-      if (string.includes("smarty.profile")) {
-        this.optimizationDto.config.pathToProfile = string;
-      } else if (string.includes("concerns.profile")) {
-        this.optimizationDto.config.pathToProfileConcern = string;
-      } else if (string.includes("patterns")) {
-        this.optimizationDto.config.pathToProfilePatterns = string;
-      } else if (string.includes("relationships.profile")) {
-        this.optimizationDto.config.pathToProfileRelationships = string;
+    if (list && list.length === 1) {
+      this.optimizationDto.inputArchitecture = list[0];
+    } else {
+      for (let string of list) {
+        if (string.includes("smarty.profile")) {
+          this.optimizationDto.config.pathToProfile = string;
+        } else if (string.includes("concerns.profile")) {
+          this.optimizationDto.config.pathToProfileConcern = string;
+        } else if (string.includes("patterns")) {
+          this.optimizationDto.config.pathToProfilePatterns = string;
+        } else if (string.includes("relationships.profile")) {
+          this.optimizationDto.config.pathToProfileRelationships = string;
+        }
       }
+      this.optimizationDto.inputArchitecture = list.filter(t => !t.includes("simples") && !t.includes("profile") && !t.includes("model.uml") && t.endsWith(".uml"))[0];
     }
-    this.optimizationDto.inputArchitecture = list.filter(t => !t.includes("simples") && !t.includes("profile") && !t.includes("model.uml") && t.endsWith(".uml"))[0];
   }
 
   changeObjFunction(obj, selected) {

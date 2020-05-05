@@ -20,8 +20,8 @@ public class OptimizationDto {
     private Double mutationProbability = 0.9;
     private String inputArchitecture = "";
     private Integer numberRuns = 1;
-    private Integer populationSize = 4;
-    private Integer maxEvaluations = 12;
+    private Integer populationSize = 20;
+    private Integer maxEvaluations = 300;
     private Boolean crossover = false;
     private Double crossoverProbability = 0.0;
     private Boolean interactive = false;

@@ -1,0 +1,881 @@
+<project id="5b729c3f25e758ce87cf8d710761283c" name="Project0" version="1.0">
+  <types>
+    <type id="TYPE#1" path="" name="boolean" value="false" primitive="true" standard="true"/>
+    <type id="TYPE#2" path="" name="byte" value="'0'" primitive="true" standard="true"/>
+    <type id="TYPE#3" path="" name="char" value="' '" primitive="true" standard="true"/>
+    <type id="TYPE#4" path="" name="double" value="0.0d" primitive="true" standard="true"/>
+    <type id="TYPE#5" path="" name="float" value="0.0f" primitive="true" standard="true"/>
+    <type id="TYPE#6" path="" name="int" value="0" primitive="true" standard="true"/>
+    <type id="TYPE#7" path="" name="long" value="0.0l" primitive="true" standard="true"/>
+    <type id="TYPE#8" path="" name="short" value="0" primitive="true" standard="true"/>
+    <type id="TYPE#9" path="" name="void" value="" primitive="true" standard="true"/>
+    <type id="TYPE#10" path="java.lang" name="Boolean" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#11" path="java.lang" name="Byte" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#12" path="java.lang" name="Character" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#13" path="java.lang" name="Double" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#14" path="java.lang" name="Enum" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#15" path="java.lang" name="Exception" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#16" path="java.lang" name="Float" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#17" path="java.lang" name="Integer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#18" path="java.lang" name="Long" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#19" path="java.lang" name="Math" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#20" path="java.lang" name="Number" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#21" path="java.lang" name="Object" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#22" path="java.lang" name="Package" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#23" path="java.lang" name="Short" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#24" path="java.lang" name="String" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#25" path="java.lang" name="StringBuffer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#26" path="java.lang" name="StringBuilder" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#27" path="java.lang" name="Thread" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#28" path="java.lang" name="Void" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#29" path="java.util" name="Arrays" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#30" path="java.util" name="Collections" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#31" path="java.util" name="Date" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#32" path="java.util" name="EnumMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#33" path="java.util" name="EnumSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#34" path="java.util" name="EventListener" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#35" path="java.util" name="HashMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#36" path="java.util" name="HashSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#37" path="java.util" name="HashTable" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#38" path="java.util" name="LinkedHashMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#39" path="java.util" name="LinkedHashSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#40" path="java.util" name="LinkedList" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#41" path="java.util" name="List" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#42" path="java.util" name="Map" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#43" path="java.util" name="Queue" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#44" path="java.util" name="Random" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#45" path="java.util" name="Scanner" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#46" path="java.util" name="Set" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#47" path="java.util" name="Stack" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#48" path="java.util" name="Timer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#49" path="java.util" name="TreeMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#50" path="java.util" name="TreeSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#51" path="java.util" name="Vector" value="null" primitive="false" standard="true"/>
+    <type id="_HvV3YGazEeS5PLUVl44fEg" path="MediaCtrl" name="MediaCtrl" value="null" primitive="false" standard="false"/>
+    <type id="_O41P8P1zEeOFY93jb2lkbw" path="ISendMedia" name="ISendMedia" value="null" primitive="false" standard="false"/>
+    <type id="_xsQJYP1kEeOFY93jb2lkbw" path="IManageMedia" name="IManageMedia" value="null" primitive="false" standard="false"/>
+    <type id="_HkackP1yEeOFY93jb2lkbw" path="IPlayMedia" name="IPlayMedia" value="null" primitive="false" standard="false"/>
+    <type id="_E31PoP10EeOFY93jb2lkbw" path="IHearMedia" name="IHearMedia" value="null" primitive="false" standard="false"/>
+    <type id="_5rcaQP10EeOFY93jb2lkbw" path="ILinkMedia" name="ILinkMedia" value="null" primitive="false" standard="false"/>
+    <type id="_gXk-wP1zEeOFY93jb2lkbw" path="ILabelFiles" name="ILabelFiles" value="null" primitive="false" standard="false"/>
+    <type id="_aIplEP14EeOFY93jb2lkbw" path="IManageFavouriteMedia" name="IManageFavouriteMedia" value="null" primitive="false" standard="false"/>
+    <type id="_-ZXnIP1iEeOFY93jb2lkbw" path="Album" name="Album" value="null" primitive="false" standard="false"/>
+    <type id="_7rQ3kP1hEeOFY93jb2lkbw" path="IAlbumMgt" name="IAlbumMgt" value="null" primitive="false" standard="false"/>
+    <type id="_GdijMGaxEeS5PLUVl44fEg" path="AlbumGUI" name="AlbumGUI" value="null" primitive="false" standard="false"/>
+    <type id="_0LR08P2CEeOFY93jb2lkbw" path="IAlbumGUI" name="IAlbumGUI" value="null" primitive="false" standard="false"/>
+    <type id="_xFubQP1sEeOFY93jb2lkbw" path="MediaMgr" name="MediaMgr" value="null" primitive="false" standard="false"/>
+    <type id="_RIjNoP1kEeOFY93jb2lkbw" path="Media" name="Media" value="null" primitive="false" standard="false"/>
+    <type id="_RQFjkP1lEeOFY93jb2lkbw" path="Music" name="Music" value="null" primitive="false" standard="false"/>
+    <type id="_RwI8oP1lEeOFY93jb2lkbw" path="Photo" name="Photo" value="null" primitive="false" standard="false"/>
+    <type id="_SnyWUP1lEeOFY93jb2lkbw" path="Video" name="Video" value="null" primitive="false" standard="false"/>
+    <type id="_risp0P1nEeOFY93jb2lkbw" path="IMediaMgt" name="IMediaMgt" value="null" primitive="false" standard="false"/>
+    <type id="_em2IUP1wEeOFY93jb2lkbw" path="UserMgr" name="UserMgr" value="null" primitive="false" standard="false"/>
+    <type id="_fuJHkP1wEeOFY93jb2lkbw" path="User" name="User" value="null" primitive="false" standard="false"/>
+    <type id="_umF5oP14EeOFY93jb2lkbw" path="IUserMgt" name="IUserMgt" value="null" primitive="false" standard="false"/>
+    <type id="_ZPyHkP1xEeOFY93jb2lkbw" path="Entry" name="Entry" value="null" primitive="false" standard="false"/>
+    <type id="_Lfm8QP1xEeOFY93jb2lkbw" path="EntryMgr" name="EntryMgr" value="null" primitive="false" standard="false"/>
+    <type id="_cUPPsP10EeOFY93jb2lkbw" path="IEntryMgt" name="IEntryMgt" value="null" primitive="false" standard="false"/>
+    <type id="_nP_soGaxEeS5PLUVl44fEg" path="MediaGUI" name="MediaGUI" value="null" primitive="false" standard="false"/>
+    <type id="_8gP70P2CEeOFY93jb2lkbw" path="IMediaGUI" name="IMediaGUI" value="null" primitive="false" standard="false"/>
+    <type id="_5fqM8GavEeS5PLUVl44fEg" path="AlbumCtrl" name="AlbumCtrl" value="null" primitive="false" standard="false"/>
+    <type id="_Q-ugEP1gEeOFY93jb2lkbw" path="IAddMediaAlbum" name="IAddMediaAlbum" value="null" primitive="false" standard="false"/>
+    <type id="_yru4IP1eEeOFY93jb2lkbw" path="IManageAlbum" name="IManageAlbum" value="null" primitive="false" standard="false"/>
+  </types>
+  <stereotypes>
+	<stereotype id="STEREOTYPE#1" name="mandatory" primitive="true"/>
+	<stereotype id="STEREOTYPE#2" name="optional" primitive="true"/>
+	<stereotype id="STEREOTYPE#3" name="variationPoint" primitive="true"/>
+	<stereotype id="STEREOTYPE#4" name="alternative_OR" primitive="true"/>
+	<stereotype id="STEREOTYPE#5" name="alternative_XOR" primitive="false"/>
+	<stereotype id="STEREOTYPE#6" name="requires" primitive="true"/>
+	<stereotype id="STEREOTYPE#7" name="mutex" primitive="true"/>
+	<stereotype id="STEREOTYPE#8" name="MM" primitive="false"/>
+	<stereotype id="STEREOTYPE#9" name="Favourites" primitive="false"/>
+	<stereotype id="STEREOTYPE#10" name="LinkMedia" primitive="false"/>
+	<stereotype id="STEREOTYPE#11" name="Photo" primitive="false"/>
+	<stereotype id="STEREOTYPE#12" name="Video" primitive="false"/>
+	<stereotype id="STEREOTYPE#13" name="Create_Delete" primitive="false"/>
+	<stereotype id="STEREOTYPE#14" name="Media" primitive="false"/>
+	<stereotype id="STEREOTYPE#15" name="AlbumManagement" primitive="false"/>
+	<stereotype id="STEREOTYPE#16" name="CopyMedia" primitive="false"/>
+	<stereotype id="STEREOTYPE#17" name="Music" primitive="false"/>
+	<stereotype id="STEREOTYPE#18" name="GUI" primitive="false"/>
+	<stereotype id="STEREOTYPE#19" name="SMSTransfer" primitive="false"/>
+	<stereotype id="STEREOTYPE#20" name="LabelMedia" primitive="false"/>
+	<stereotype id="STEREOTYPE#21" name="ViewPlayMedia" primitive="false"/>
+  </stereotypes>
+  <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5" requires="STEREOTYPE#6" mutex="STEREOTYPE#7"/>
+  <diagram id="DIAGRAM#1" name="DIAGRAM#1" type="Class">
+    <package id="_uLcO4P2BEeOFY93jb2lkbw" name="MediaCtrl" mandatory="true" x="40" y="40" globalX="40" globalY="40" height="1000" width="1740"/>
+    <package id="_8CeoQP1iEeOFY93jb2lkbw" name="AlbumMgr" mandatory="true" x="1820" y="40" globalX="1820" globalY="40" height="380" width="1200"/>
+    <package id="_j14wUP2BEeOFY93jb2lkbw" name="AlbumGUI" mandatory="true" x="3060" y="40" globalX="3060" globalY="40" height="300" width="500"/>
+    <package id="_iOprkP1nEeOFY93jb2lkbw" name="MediaMgr" mandatory="true" x="40" y="1080" globalX="40" globalY="1080" height="980" width="1540"/>
+    <package id="_Yq_08P1wEeOFY93jb2lkbw" name="UserMgr" mandatory="true" x="1620" y="1080" globalX="1620" globalY="1080" height="480" width="900"/>
+    <package id="_JeNFMP1xEeOFY93jb2lkbw" name="EntryMgr" mandatory="true" x="2560" y="1080" globalX="2560" globalY="1080" height="580" width="1000"/>
+    <package id="_HrVJoP2CEeOFY93jb2lkbw" name="MediaGUI" mandatory="true" x="40" y="2100" globalX="40" globalY="2100" height="320" width="500"/>
+    <package id="_6k4tQP2AEeOFY93jb2lkbw" name="AlbumCtrl" mandatory="true" x="580" y="2100" globalX="580" globalY="2100" height="580" width="900"/>
+    <class id="_HvV3YGazEeS5PLUVl44fEg" name="MediaCtrl" mandatory="true" x="40" y="60" globalX="80" globalY="100" abstract="false" final="false" height="240" width="300" parent="_uLcO4P2BEeOFY93jb2lkbw">
+      <method id="_l3bsUGazEeS5PLUVl44fEg" name="sendMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_wfugsGazEeS5PLUVl44fEg" name="manageFavouriteMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_t6VLwGazEeS5PLUVl44fEg" name="linkMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_fC0k8GazEeS5PLUVl44fEg" name="manageMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_glWusGazEeS5PLUVl44fEg" name="playMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_rsvS0GazEeS5PLUVl44fEg" name="hearMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_oR0rIGazEeS5PLUVl44fEg" name="labelMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_-ZXnIP1iEeOFY93jb2lkbw" name="Album" mandatory="true" x="40" y="60" globalX="1860" globalY="100" abstract="false" final="false" height="300" width="500" parent="_8CeoQP1iEeOFY93jb2lkbw">
+      <attribute id="899baf56-e399-482e-811a-edceb7a6fa06" name="name" type="TYPE#24" visibility="public" static="false" final="false"/>
+      <attribute id="dbc694ee-0f14-4b4a-b950-364b5c3a0a3e" name="media" type="_RIjNoP1kEeOFY93jb2lkbw" visibility="public" static="false" final="false"/>
+      <method id="_fnQvYP1jEeOFY93jb2lkbw" name="hasAlbumThisMedia" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_fnR9gv1jEeOFY93jb2lkbw" name="isAlbumEmpty" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_fnSkkP1jEeOFY93jb2lkbw" name="addAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+      <method id="_fnR9hf1jEeOFY93jb2lkbw" name="getAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_fnMd8P1jEeOFY93jb2lkbw" name="addMediaAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_fnTLoP1jEeOFY93jb2lkbw" name="showAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_fnRWcP1jEeOFY93jb2lkbw" name="removeAlbum" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_GdijMGaxEeS5PLUVl44fEg" name="AlbumGUI" mandatory="true" x="40" y="60" globalX="3100" globalY="100" abstract="false" final="false" height="180" width="200" parent="_j14wUP2BEeOFY93jb2lkbw">
+      <method id="_aZTuEGaxEeS5PLUVl44fEg" name="addMediaAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_ZVC0sGaxEeS5PLUVl44fEg" name="manageAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_xFubQP1sEeOFY93jb2lkbw" name="MediaMgr" mandatory="true" x="40" y="60" globalX="80" globalY="1140" abstract="false" final="false" height="420" width="500" parent="_iOprkP1nEeOFY93jb2lkbw">
+      <attribute id="fcf70856-1a81-40f6-b373-947a200e4ad7" name="media" type="_RIjNoP1kEeOFY93jb2lkbw" visibility="public" static="false" final="false"/>
+      <method id="_98SMEP1uEeOFY93jb2lkbw" name="isMediaUsed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="_MoN1AP1vEeOFY93jb2lkbw" name="showVideos" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="__41_YP1uEeOFY93jb2lkbw" name="isMediaFavourite" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_-7XqgP1uEeOFY93jb2lkbw" name="hasMemory" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_BDwTUP1vEeOFY93jb2lkbw" name="isLabelUsed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="label"/>
+      </method>
+      <method id="_D6aXYP1vEeOFY93jb2lkbw" name="isLabeled" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_G3biIP1vEeOFY93jb2lkbw" name="areThereFavouriteMedia" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_FaMvIP1vEeOFY93jb2lkbw" name="areThereMedia" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_Oung0P1vEeOFY93jb2lkbw" name="areThereMusics" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_KthC4P1vEeOFY93jb2lkbw" name="areThereVideos" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_STadQP1vEeOFY93jb2lkbw" name="areTherePhotos" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_TRFmcP1vEeOFY93jb2lkbw" name="showPhotos" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_RqKr8P1vEeOFY93jb2lkbw" name="showMusics" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_IwCpkP1vEeOFY93jb2lkbw" name="showMedias" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_RIjNoP1kEeOFY93jb2lkbw" name="Media" mandatory="true" x="580" y="60" globalX="620" globalY="1140" abstract="false" final="false" height="380" width="500" parent="_iOprkP1nEeOFY93jb2lkbw">
+      <attribute id="b3182814-a2da-443b-b1b9-5bfa2cd3e50d" name="favourite" type="TYPE#10" visibility="public" static="false" final="false"/>
+      <attribute id="f6f3429f-ed8f-4600-b66b-8657a81cdf71" name="size" type="TYPE#21" visibility="public" static="false" final="false"/>
+      <attribute id="bc4e26c1-587a-47e0-bfcc-d1d4bd532e89" name="name" type="TYPE#24" visibility="public" static="false" final="false"/>
+      <attribute id="afb41364-e426-4a17-bdbd-281c83b76a75" name="entry" type="_ZPyHkP1xEeOFY93jb2lkbw" visibility="public" static="false" final="false"/>
+      <attribute id="e44a029f-5829-47b9-99de-e2b7962bbd84" name="label" type="TYPE#24" visibility="public" static="false" final="false"/>
+      <attribute id="1ddf0b96-ab37-480f-8d4a-d63da8a96244" name="numberOfExecutions" type="TYPE#17" visibility="public" static="false" final="false"/>
+      <method id="_hha1UP1rEeOFY93jb2lkbw" name="setFavourite" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="_WEzBAP1rEeOFY93jb2lkbw" name="addMedia" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_Wu4f0P1rEeOFY93jb2lkbw" name="removeMedia" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_f4E48P1rEeOFY93jb2lkbw" name="copyMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_cYbiQP1rEeOFY93jb2lkbw" name="showMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_griWMP1rEeOFY93jb2lkbw" name="setLabel" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="label"/>
+      </method>
+      <method id="_Xg6ZsP1rEeOFY93jb2lkbw" name="getMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </class>
+    <class id="_RQFjkP1lEeOFY93jb2lkbw" name="Music" mandatory="true" x="1120" y="60" globalX="1160" globalY="1140" abstract="false" final="false" height="160" width="400" parent="_iOprkP1nEeOFY93jb2lkbw">
+      <attribute id="0600e347-9da8-4ea1-86c2-8131bf81d936" name="musicFile" type="TYPE#24" visibility="public" static="false" final="false"/>
+      <method id="_gVqXYP1sEeOFY93jb2lkbw" name="getMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_RwI8oP1lEeOFY93jb2lkbw" name="Photo" mandatory="true" x="40" y="520" globalX="80" globalY="1600" abstract="false" final="false" height="160" width="400" parent="_iOprkP1nEeOFY93jb2lkbw">
+      <attribute id="13ca6426-430b-4fec-91ad-faa56f7a0f64" name="photoFile" type="TYPE#24" visibility="public" static="false" final="false"/>
+      <method id="_qsjSsP1sEeOFY93jb2lkbw" name="getMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_SnyWUP1lEeOFY93jb2lkbw" name="Video" mandatory="true" x="480" y="520" globalX="520" globalY="1600" abstract="false" final="false" height="160" width="400" parent="_iOprkP1nEeOFY93jb2lkbw">
+      <attribute id="9b50dd95-3182-41e9-a399-ae979fa69c84" name="videoFile" type="TYPE#24" visibility="public" static="false" final="false"/>
+      <method id="_TeIrUP1sEeOFY93jb2lkbw" name="getMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_em2IUP1wEeOFY93jb2lkbw" name="UserMgr" mandatory="true" x="40" y="60" globalX="1660" globalY="1140" abstract="false" final="false" height="160" width="300" parent="_Yq_08P1wEeOFY93jb2lkbw">
+      <attribute id="664794e2-291b-42d6-8dae-d82137a47417" name="user" type="_fuJHkP1wEeOFY93jb2lkbw" visibility="public" static="false" final="false"/>
+      <method id="_DJSKgP1xEeOFY93jb2lkbw" name="getUser" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_fuJHkP1wEeOFY93jb2lkbw" name="User" mandatory="true" x="380" y="60" globalX="2000" globalY="1140" abstract="false" final="false" height="220" width="500" parent="_Yq_08P1wEeOFY93jb2lkbw">
+      <attribute id="5995daaf-b1e5-40bd-9bfd-85474464189f" name="media" type="_RIjNoP1kEeOFY93jb2lkbw" visibility="public" static="false" final="false"/>
+      <attribute id="ab75c92b-28b0-4a60-8f5b-9e7ad5041883" name="login" type="TYPE#24" visibility="public" static="false" final="false"/>
+      <attribute id="f01d1ea8-fe26-4f38-b725-68440468f436" name="password" type="TYPE#24" visibility="public" static="false" final="false"/>
+      <method id="_nOLKgP1wEeOFY93jb2lkbw" name="checkPassword" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="password"/>
+      </method>
+      <method id="_mQFxoP1wEeOFY93jb2lkbw" name="checkLogin" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="login"/>
+      </method>
+    </class>
+    <class id="_ZPyHkP1xEeOFY93jb2lkbw" name="Entry" mandatory="false" x="40" y="60" globalX="2600" globalY="1140" abstract="false" final="false" height="240" width="400" parent="_JeNFMP1xEeOFY93jb2lkbw">
+      <attribute id="d37ba876-33ef-43ea-8f92-3f2bddd3be8b" name="name" type="TYPE#24" visibility="public" static="false" final="false"/>
+      <attribute id="f797b313-cfd7-43d0-ad5c-818b2ae3a3e5" name="number" type="TYPE#24" visibility="public" static="false" final="false"/>
+      <method id="_m2aVUP1xEeOFY93jb2lkbw" name="hasMediaAssociated" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_jnKyIP1xEeOFY93jb2lkbw" name="showEntry" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_oMpvgP1xEeOFY93jb2lkbw" name="linkMediaEntry" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_jAZGAP1xEeOFY93jb2lkbw" name="getEntry" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_Lfm8QP1xEeOFY93jb2lkbw" name="EntryMgr" mandatory="true" x="480" y="60" globalX="3040" globalY="1140" abstract="false" final="false" height="200" width="500" parent="_JeNFMP1xEeOFY93jb2lkbw">
+      <attribute id="0dc99192-8a2c-435b-aea3-6f8dbb90c7b3" name="entry" type="_ZPyHkP1xEeOFY93jb2lkbw" visibility="public" static="false" final="false"/>
+      <method id="_SnGjYP1xEeOFY93jb2lkbw" name="areThereEntries" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_QLmxUP1xEeOFY93jb2lkbw" name="showEntries" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_RBeCUP1xEeOFY93jb2lkbw" name="linkMediaEntry" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="entry"/>
+      </method>
+    </class>
+    <class id="_nP_soGaxEeS5PLUVl44fEg" name="MediaGUI" mandatory="true" x="40" y="60" globalX="80" globalY="2160" abstract="false" final="false" height="240" width="200" parent="_HrVJoP2CEeOFY93jb2lkbw">
+      <method id="_t7jlsGaxEeS5PLUVl44fEg" name="sendMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_yGBbAGaxEeS5PLUVl44fEg" name="linkMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_yrpQkGaxEeS5PLUVl44fEg" name="manageFavouriteMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_r6iwMGaxEeS5PLUVl44fEg" name="hearMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_tPyE0GaxEeS5PLUVl44fEg" name="playMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_rDRxAGaxEeS5PLUVl44fEg" name="manageMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_5fqM8GavEeS5PLUVl44fEg" name="AlbumCtrl" mandatory="true" x="40" y="60" globalX="620" globalY="2160" abstract="false" final="false" height="160" width="200" parent="_6k4tQP2AEeOFY93jb2lkbw">
+      <method id="_FyFn4GawEeS5PLUVl44fEg" name="addMediaAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_E54NgGawEeS5PLUVl44fEg" name="manageAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <interface id="_O41P8P1zEeOFY93jb2lkbw" name="ISendMedia" mandatory="true" x="380" y="60" globalX="420" globalY="100" height="200" width="400" parent="_uLcO4P2BEeOFY93jb2lkbw">
+      <method id="_SOC4QP1zEeOFY93jb2lkbw" name="sendMediaSMS" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_TTh5oP1zEeOFY93jb2lkbw" name="getNumber" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_VhAd0P1zEeOFY93jb2lkbw" name="getEmail" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_UD5moP1zEeOFY93jb2lkbw" name="sendMediaEmail" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+    </interface>
+    <interface id="_xsQJYP1kEeOFY93jb2lkbw" name="IManageMedia" mandatory="true" x="820" y="60" globalX="860" globalY="100" height="440" width="500" parent="_uLcO4P2BEeOFY93jb2lkbw">
+      <method id="_L8zPkP1mEeOFY93jb2lkbw" name="isMusicUsed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="music"/>
+      </method>
+      <method id="_Qrkr0P1mEeOFY93jb2lkbw" name="areThereVideos" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_CL-OsP1mEeOFY93jb2lkbw" name="deletePhoto" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="photo"/>
+      </method>
+      <method id="_GhsRwP1mEeOFY93jb2lkbw" name="deleteMusic" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="music"/>
+      </method>
+      <method id="_AoiGAP1mEeOFY93jb2lkbw" name="logIn" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="user"/>
+      </method>
+      <method id="_RndsUP1mEeOFY93jb2lkbw" name="showVideos" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_J8NQ0P1mEeOFY93jb2lkbw" name="showMusics" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_7_7jMP1lEeOFY93jb2lkbw" name="createPhoto" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="photo"/>
+      </method>
+      <method id="_OMokMP1mEeOFY93jb2lkbw" name="createVideo" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="video"/>
+      </method>
+      <method id="_E_rFYP1mEeOFY93jb2lkbw" name="showPhotos" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_EE7UYP1mEeOFY93jb2lkbw" name="areTherePhotos" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_JKticP1mEeOFY93jb2lkbw" name="createMusic" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="music"/>
+      </method>
+      <method id="_K7p7oP1mEeOFY93jb2lkbw" name="areThereMusics" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_PdZBcP1mEeOFY93jb2lkbw" name="deleteVideo" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="video"/>
+      </method>
+      <method id="_DKDAgP1mEeOFY93jb2lkbw" name="isPhotoUsed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="photo"/>
+      </method>
+      <method id="__o_7oP1lEeOFY93jb2lkbw" name="hasMemory" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </interface>
+    <interface id="_HkackP1yEeOFY93jb2lkbw" name="IPlayMedia" mandatory="true" x="40" y="540" globalX="80" globalY="580" height="180" width="400" parent="_uLcO4P2BEeOFY93jb2lkbw">
+      <method id="_NtdecP1yEeOFY93jb2lkbw" name="visualizePhoto" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="photo"/>
+      </method>
+      <method id="_MFxH4P1yEeOFY93jb2lkbw" name="playVideo" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="video"/>
+      </method>
+      <method id="_M8acAP1yEeOFY93jb2lkbw" name="playMusic" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="music"/>
+      </method>
+    </interface>
+    <interface id="_E31PoP10EeOFY93jb2lkbw" name="IHearMedia" mandatory="true" x="480" y="540" globalX="520" globalY="580" height="180" width="600" parent="_uLcO4P2BEeOFY93jb2lkbw">
+      <method id="_IujCgP10EeOFY93jb2lkbw" name="playMusic" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="music"/>
+      </method>
+      <method id="_K4RvIP10EeOFY93jb2lkbw" name="visualizePhoto" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="photo"/>
+      </method>
+      <method id="_Jr9tAP10EeOFY93jb2lkbw" name="hasMediaAssociated" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="entry"/>
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+    </interface>
+    <interface id="_5rcaQP10EeOFY93jb2lkbw" name="ILinkMedia" mandatory="true" x="1120" y="540" globalX="1160" globalY="580" height="200" width="600" parent="_uLcO4P2BEeOFY93jb2lkbw">
+      <method id="_94XtsP10EeOFY93jb2lkbw" name="linkMediaEntry" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="entry"/>
+      </method>
+      <method id="_BJFQgP11EeOFY93jb2lkbw" name="isMediaAssociated" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="entry"/>
+      </method>
+      <method id="__CZ34P10EeOFY93jb2lkbw" name="showEntries" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="__0Jd4P10EeOFY93jb2lkbw" name="areThereEntries" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </interface>
+    <interface id="_gXk-wP1zEeOFY93jb2lkbw" name="ILabelFiles" mandatory="true" x="40" y="780" globalX="80" globalY="820" height="200" width="500" parent="_uLcO4P2BEeOFY93jb2lkbw">
+      <method id="_uWTjcP1zEeOFY93jb2lkbw" name="isLabeled" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_tItu8P1zEeOFY93jb2lkbw" name="isLabelBlank" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="_wMpaAP1zEeOFY93jb2lkbw" name="isLabelUsed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="label"/>
+      </method>
+      <method id="_l5XMUP1zEeOFY93jb2lkbw" name="setLabel" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="label"/>
+      </method>
+    </interface>
+    <interface id="_aIplEP14EeOFY93jb2lkbw" name="IManageFavouriteMedia" mandatory="true" x="580" y="780" globalX="620" globalY="820" height="200" width="500" parent="_uLcO4P2BEeOFY93jb2lkbw">
+      <method id="_eacKYP14EeOFY93jb2lkbw" name="setFavourite" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_fW2IQP14EeOFY93jb2lkbw" name="areThereFavouriteMedias" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_hD8jQP14EeOFY93jb2lkbw" name="showFavouriteMedias" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_dEPMcP14EeOFY93jb2lkbw" name="isMediaFavourite" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+    </interface>
+    <interface id="_7rQ3kP1hEeOFY93jb2lkbw" name="IAlbumMgt" mandatory="true" x="580" y="60" globalX="2400" globalY="100" height="300" width="600" parent="_8CeoQP1iEeOFY93jb2lkbw">
+      <method id="_LCRd0P1iEeOFY93jb2lkbw" name="isAlbumEmpty" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+      <method id="_EbAO4P1iEeOFY93jb2lkbw" name="showAlbuns" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_Cqc3QP1iEeOFY93jb2lkbw" name="getAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+      <method id="_KH0nwP1iEeOFY93jb2lkbw" name="isNameUsed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="_B1C5QP1iEeOFY93jb2lkbw" name="removeAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+      <method id="_HjMu4P1iEeOFY93jb2lkbw" name="hasAlbumThisMedia" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+      <method id="_JHz8QP1iEeOFY93jb2lkbw" name="addMediaAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+      <method id="_DlfjMP1iEeOFY93jb2lkbw" name="areThereAlbuns" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_BGZDgP1iEeOFY93jb2lkbw" name="addAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+    </interface>
+    <interface id="_0LR08P2CEeOFY93jb2lkbw" name="IAlbumGUI" mandatory="true" x="280" y="60" globalX="3340" globalY="100" height="180" width="200" parent="_j14wUP2BEeOFY93jb2lkbw">
+      <method id="_WRba4P2DEeOFY93jb2lkbw" name="manageAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_VyIuoGaxEeS5PLUVl44fEg" name="addMediaAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </interface>
+    <interface id="_risp0P1nEeOFY93jb2lkbw" name="IMediaMgt" mandatory="true" x="920" y="520" globalX="960" globalY="1600" height="440" width="500" parent="_iOprkP1nEeOFY93jb2lkbw">
+      <method id="_uwYt0P1nEeOFY93jb2lkbw" name="addMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_5POEMP1nEeOFY93jb2lkbw" name="isLabelUsed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="label"/>
+      </method>
+      <method id="_TAwvoP1oEeOFY93jb2lkbw" name="isMediaUsed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_6N2PoP1nEeOFY93jb2lkbw" name="isMediaFavourite" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_4szToP1nEeOFY93jb2lkbw" name="isLabeled" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_yzW0AP1nEeOFY93jb2lkbw" name="areThereFavouriteMedia" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_0cjmcP1nEeOFY93jb2lkbw" name="areThereMedia" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="classType"/>
+      </method>
+      <method id="_2WuNEP1nEeOFY93jb2lkbw" name="copyMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_8h8ZMP1nEeOFY93jb2lkbw" name="hasMemory" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_UHpfMP1oEeOFY93jb2lkbw" name="sendMediaEmail" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="email"/>
+      </method>
+      <method id="_x0zhEP1nEeOFY93jb2lkbw" name="getMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_11ZosP1nEeOFY93jb2lkbw" name="showMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="classType"/>
+      </method>
+      <method id="_v3Vu0P1nEeOFY93jb2lkbw" name="removeMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_30ZsAP1nEeOFY93jb2lkbw" name="setLabel" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="label"/>
+      </method>
+      <method id="_VIq3UP1oEeOFY93jb2lkbw" name="sendMediaSMS" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="number"/>
+      </method>
+      <method id="_7a_YMP1nEeOFY93jb2lkbw" name="setFavourite" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+    </interface>
+    <interface id="_umF5oP14EeOFY93jb2lkbw" name="IUserMgt" mandatory="true" x="40" y="320" globalX="1660" globalY="1400" height="140" width="400" parent="_Yq_08P1wEeOFY93jb2lkbw">
+      <method id="_x3IMkP14EeOFY93jb2lkbw" name="getUser" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="user"/>
+      </method>
+    </interface>
+    <interface id="_cUPPsP10EeOFY93jb2lkbw" name="IEntryMgt" mandatory="true" x="40" y="340" globalX="2600" globalY="1420" height="220" width="600" parent="_JeNFMP1xEeOFY93jb2lkbw">
+      <method id="_i1v04P10EeOFY93jb2lkbw" name="getEntry" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="entry"/>
+      </method>
+      <method id="_m0Y0sP10EeOFY93jb2lkbw" name="hasMediaAssociated" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="entry"/>
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_lwKXkP10EeOFY93jb2lkbw" name="showEntries" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_oDoPAP10EeOFY93jb2lkbw" name="linkMediaEntry" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="entry"/>
+      </method>
+      <method id="_jpBE4P10EeOFY93jb2lkbw" name="areThereEntries" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </interface>
+    <interface id="_8gP70P2CEeOFY93jb2lkbw" name="IMediaGUI" mandatory="true" x="280" y="60" globalX="320" globalY="2160" height="240" width="200" parent="_HrVJoP2CEeOFY93jb2lkbw">
+      <method id="_6Zr6UGaxEeS5PLUVl44fEg" name="manageFavouriteMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_40vVwGaxEeS5PLUVl44fEg" name="sendMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_SrX6MP2DEeOFY93jb2lkbw" name="manageMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_3yhq0GaxEeS5PLUVl44fEg" name="playMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_2-mTgGaxEeS5PLUVl44fEg" name="hearMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_5nMtcGaxEeS5PLUVl44fEg" name="linkMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </interface>
+    <interface id="_Q-ugEP1gEeOFY93jb2lkbw" name="IAddMediaAlbum" mandatory="true" x="280" y="60" globalX="860" globalY="2160" height="220" width="600" parent="_6k4tQP2AEeOFY93jb2lkbw">
+      <method id="_ym_QIP1gEeOFY93jb2lkbw" name="copyMedia" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+      </method>
+      <method id="_mDlZ8P1gEeOFY93jb2lkbw" name="addMediaAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+      <method id="_oMQWoP1gEeOFY93jb2lkbw" name="showAlbuns" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_sRXx4P1gEeOFY93jb2lkbw" name="hasAlbumThisMedia" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="media"/>
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+      <method id="_xsc6gP1gEeOFY93jb2lkbw" name="areThereAlbuns" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </interface>
+    <interface id="_yru4IP1eEeOFY93jb2lkbw" name="IManageAlbum" mandatory="true" x="40" y="320" globalX="620" globalY="2420" height="240" width="500" parent="_6k4tQP2AEeOFY93jb2lkbw">
+      <method id="_hyWDsP1fEeOFY93jb2lkbw" name="isNameUsed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="name"/>
+      </method>
+      <method id="_kXb2oP1fEeOFY93jb2lkbw" name="createAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+      <method id="_lYIeoP1fEeOFY93jb2lkbw" name="deleteAlbum" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+      <method id="_feX18P1fEeOFY93jb2lkbw" name="areThereAlbuns" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_g5d68P1fEeOFY93jb2lkbw" name="showAlbuns" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_i3HTZP1fEeOFY93jb2lkbw" name="isAlbumEmpty" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#24" name="album"/>
+      </method>
+    </interface>
+    <association id="3b0ab6d3-36ea-482a-acee-19aadc299cc4" name="album_media_1" category="normal" direction="false">
+      <source entity="_-ZXnIP1iEeOFY93jb2lkbw" sourceVisibility="private" sourceName="Album" sourceMin="1" sourceMax="1" sourceX="2119" sourceY="253"/>
+      <target entity="_RIjNoP1kEeOFY93jb2lkbw" targetVisibility="private" targetName="Media" targetMin="0" targetMax="*" targetX="874" targetY="1333"/>
+    </association>
+    <association id="3773f95a-4fc7-44e9-9bc0-72ac059d9e2c" name="mediaMgr_media_1" category="aggregation" direction="true">
+      <source entity="_RIjNoP1kEeOFY93jb2lkbw" sourceVisibility="private" sourceName="Media" sourceMin="0" sourceMax="*" sourceX="879" sourceY="1332"/>
+      <target entity="_xFubQP1sEeOFY93jb2lkbw" targetVisibility="private" targetName="MediaMgr" targetMin="1" targetMax="1" targetX="335" targetY="1359"/>
+    </association>
+    <association id="3b884644-ff83-40cb-9f32-d8e5f12b0c87" name="userMgr_user_1" category="aggregation" direction="true">
+      <source entity="_fuJHkP1wEeOFY93jb2lkbw" sourceVisibility="private" sourceName="User" sourceMin="1" sourceMax="*" sourceX="2254" sourceY="1251"/>
+      <target entity="_em2IUP1wEeOFY93jb2lkbw" targetVisibility="private" targetName="UserMgr" targetMin="1" targetMax="1" targetX="1812" targetY="1220"/>
+    </association>
+    <association id="d8bce4eb-e21e-429a-979c-43e5cf9f7bce" name="entryMgr_entry_1" category="aggregation" direction="true">
+      <source entity="_ZPyHkP1xEeOFY93jb2lkbw" sourceVisibility="private" sourceName="Entry" sourceMin="0" sourceMax="*" sourceX="2808" sourceY="1264"/>
+      <target entity="_Lfm8QP1xEeOFY93jb2lkbw" targetVisibility="private" targetName="EntryMgr" targetMin="1" targetMax="1" targetX="3290" targetY="1246"/>
+    </association>
+    <association id="e9f99909-3a71-4c80-9785-a92255159391" name="media_entry_1" category="normal" direction="false">
+      <source entity="_RIjNoP1kEeOFY93jb2lkbw" sourceVisibility="private" sourceName="Media" sourceMin="0" sourceMax="1" sourceX="873" sourceY="1331"/>
+      <target entity="_ZPyHkP1xEeOFY93jb2lkbw" targetVisibility="private" targetName="Entry" targetMin="0" targetMax="*" targetX="2804" targetY="1266"/>
+    </association>
+    <association id="a0b46ddd-bd40-4f95-a717-9de42bc1e81a" name="user_media_1" category="normal" direction="false">
+      <source entity="_fuJHkP1wEeOFY93jb2lkbw" sourceVisibility="private" sourceName="User" sourceMin="1" sourceMax="*" sourceX="2253" sourceY="1259"/>
+      <target entity="_RIjNoP1kEeOFY93jb2lkbw" targetVisibility="private" targetName="Media" targetMin="0" targetMax="*" targetX="874" targetY="1336"/>
+    </association>
+    <dependency id="2a453761-e3cc-4f52-a8b9-6a513f9372d2" source="_nP_soGaxEeS5PLUVl44fEg" target="_O41P8P1zEeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="8f747eca-3563-447e-be74-eb36d7d69766" source="_nP_soGaxEeS5PLUVl44fEg" target="_xsQJYP1kEeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="e2a93c91-a1b0-431f-a911-ec6f970c7b3b" source="_GdijMGaxEeS5PLUVl44fEg" target="_yru4IP1eEeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="5f238139-5b31-4714-a64c-b1830dd10963" source="_nP_soGaxEeS5PLUVl44fEg" target="_HkackP1yEeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="326594c0-01d2-4ad3-a4b3-c3da5619003d" source="_HvV3YGazEeS5PLUVl44fEg" target="_risp0P1nEeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="9a011f25-02c2-48e7-a776-459e69be5c60" source="_5fqM8GavEeS5PLUVl44fEg" target="_risp0P1nEeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="555aee4f-d741-4d13-b5b4-c44fef0e8130" source="_nP_soGaxEeS5PLUVl44fEg" target="_aIplEP14EeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="7b534575-dd76-4edf-b6f8-8953cff77fba" source="_nP_soGaxEeS5PLUVl44fEg" target="_5rcaQP10EeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="556791fc-3ecd-4920-be55-7c07838e969c" source="_GdijMGaxEeS5PLUVl44fEg" target="_Q-ugEP1gEeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="cc57185d-c593-426c-a08f-6a9887bff94f" source="_nP_soGaxEeS5PLUVl44fEg" target="_E31PoP10EeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="7904d339-b784-4699-a41a-38485333fd50" source="_HvV3YGazEeS5PLUVl44fEg" target="_umF5oP14EeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="7a8dbfd6-ccc8-444e-b200-ebcf3eb02a6c" source="_nP_soGaxEeS5PLUVl44fEg" target="_gXk-wP1zEeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="98c7c109-91fe-44b7-88e2-e4e915068770" source="_5fqM8GavEeS5PLUVl44fEg" target="_7rQ3kP1hEeOFY93jb2lkbw">
+    </dependency>
+    <dependency id="c80e5c02-ab97-4d7c-8dcf-42a3e02aa07b" source="_HvV3YGazEeS5PLUVl44fEg" target="_cUPPsP10EeOFY93jb2lkbw">
+    </dependency>
+    <generalization id="9cfdf380-c728-4fac-884f-914a18c1dda8" source="_RQFjkP1lEeOFY93jb2lkbw" target="_RIjNoP1kEeOFY93jb2lkbw">
+    </generalization>
+    <generalization id="1162a4ae-3f8e-4364-aaab-1c7ad8f7e7e2" source="_SnyWUP1lEeOFY93jb2lkbw" target="_RIjNoP1kEeOFY93jb2lkbw">
+    </generalization>
+    <generalization id="a34aa4a2-cb04-45c9-9b94-fe39b09a41fb" source="_RwI8oP1lEeOFY93jb2lkbw" target="_RIjNoP1kEeOFY93jb2lkbw">
+    </generalization>
+    <realization id="bb86388b-f606-453d-a36e-d6bbdf73025b" class="_HvV3YGazEeS5PLUVl44fEg" interface="_aIplEP14EeOFY93jb2lkbw">
+    </realization>
+    <realization id="3377179f-ccdd-405a-b194-a7ed4d5bb882" class="_GdijMGaxEeS5PLUVl44fEg" interface="_0LR08P2CEeOFY93jb2lkbw">
+    </realization>
+    <realization id="6c6f3abb-c254-4729-86c4-11262125172a" class="_-ZXnIP1iEeOFY93jb2lkbw" interface="_7rQ3kP1hEeOFY93jb2lkbw">
+    </realization>
+    <realization id="5d84d955-907a-4f48-be6a-37a67d4e0583" class="_5fqM8GavEeS5PLUVl44fEg" interface="_yru4IP1eEeOFY93jb2lkbw">
+    </realization>
+    <realization id="24f73150-e843-45dd-b3b9-26b157488e67" class="_em2IUP1wEeOFY93jb2lkbw" interface="_umF5oP14EeOFY93jb2lkbw">
+    </realization>
+    <realization id="d32c885b-85da-4dcb-a752-266397f21109" class="_HvV3YGazEeS5PLUVl44fEg" interface="_gXk-wP1zEeOFY93jb2lkbw">
+    </realization>
+    <realization id="4a7f4257-d7ed-4051-923e-eb46918a4685" class="_5fqM8GavEeS5PLUVl44fEg" interface="_Q-ugEP1gEeOFY93jb2lkbw">
+    </realization>
+    <realization id="8e96febb-b0d5-4ca9-a46e-12014622b914" class="_HvV3YGazEeS5PLUVl44fEg" interface="_xsQJYP1kEeOFY93jb2lkbw">
+    </realization>
+    <realization id="04591978-b2b6-4cae-a5a3-7d80acef05d4" class="_xFubQP1sEeOFY93jb2lkbw" interface="_risp0P1nEeOFY93jb2lkbw">
+    </realization>
+    <realization id="a8e0ec49-53a8-4780-8d97-95530f4b121b" class="_nP_soGaxEeS5PLUVl44fEg" interface="_8gP70P2CEeOFY93jb2lkbw">
+    </realization>
+    <realization id="30e29e44-32d5-4cf3-9c01-ba9e0bca2f6e" class="_Lfm8QP1xEeOFY93jb2lkbw" interface="_cUPPsP10EeOFY93jb2lkbw">
+    </realization>
+    <realization id="05836f14-f546-48b8-9e57-26f931dfdffc" class="_HvV3YGazEeS5PLUVl44fEg" interface="_HkackP1yEeOFY93jb2lkbw">
+    </realization>
+    <realization id="37d6cf2a-3fac-4288-a777-6cc61fd514b7" class="_HvV3YGazEeS5PLUVl44fEg" interface="_O41P8P1zEeOFY93jb2lkbw">
+    </realization>
+    <realization id="49cb84fb-5e3a-4db6-b720-92b80feadcbd" class="_HvV3YGazEeS5PLUVl44fEg" interface="_E31PoP10EeOFY93jb2lkbw">
+    </realization>
+    <realization id="f6f5e57c-201f-480e-8531-560e144d5e74" class="_HvV3YGazEeS5PLUVl44fEg" interface="_5rcaQP10EeOFY93jb2lkbw">
+    </realization>
+    <variability id="VARIABILITY#1" name="ManagingMedia" variationPoint="_RIjNoP1kEeOFY93jb2lkbw" constraint="Inclusive" bindingTime="DESIGN_TIME" allowsBindingVar="false" min="1" max="3">
+      <variant id="_RwI8oP1lEeOFY93jb2lkbw"/>
+      <variant id="_RQFjkP1lEeOFY93jb2lkbw"/>
+      <variant id="_SnyWUP1lEeOFY93jb2lkbw"/>
+    </variability>
+    <variability id="VARIABILITY#2" name="ViewPlayMedia" variationPoint="_RIjNoP1kEeOFY93jb2lkbw" constraint="Inclusive" bindingTime="DESIGN_TIME" allowsBindingVar="false" min="1" max="3">
+      <variant id="_RwI8oP1lEeOFY93jb2lkbw"/>
+      <variant id="_SnyWUP1lEeOFY93jb2lkbw"/>
+      <variant id="_RQFjkP1lEeOFY93jb2lkbw"/>
+    </variability>
+  </diagram>
+  <links>
+    <link element="_HvV3YGazEeS5PLUVl44fEg" stereotype="STEREOTYPE#1"/>
+    <link element="_l3bsUGazEeS5PLUVl44fEg" stereotype="STEREOTYPE#19"/>
+    <link element="_wfugsGazEeS5PLUVl44fEg" stereotype="STEREOTYPE#9"/>
+    <link element="_t6VLwGazEeS5PLUVl44fEg" stereotype="STEREOTYPE#10"/>
+    <link element="_fC0k8GazEeS5PLUVl44fEg" stereotype="STEREOTYPE#13"/>
+    <link element="_glWusGazEeS5PLUVl44fEg" stereotype="STEREOTYPE#21"/>
+    <link element="_rsvS0GazEeS5PLUVl44fEg" stereotype="STEREOTYPE#21"/>
+    <link element="_oR0rIGazEeS5PLUVl44fEg" stereotype="STEREOTYPE#20"/>
+    <link element="_O41P8P1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_O41P8P1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#19"/>
+    <link element="_SOC4QP1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#19"/>
+    <link element="_TTh5oP1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#19"/>
+    <link element="_VhAd0P1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#19"/>
+    <link element="_UD5moP1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#19"/>
+    <link element="_xsQJYP1kEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_xsQJYP1kEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_L8zPkP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#17"/>
+    <link element="_Qrkr0P1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_CL-OsP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_GhsRwP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_AoiGAP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#8"/>
+    <link element="_RndsUP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_J8NQ0P1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_7_7jMP1lEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_OMokMP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_E_rFYP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_EE7UYP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_JKticP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_K7p7oP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_PdZBcP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_DKDAgP1mEeOFY93jb2lkbw" stereotype="STEREOTYPE#11"/>
+    <link element="__o_7oP1lEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_HkackP1yEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_HkackP1yEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_NtdecP1yEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_MFxH4P1yEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_M8acAP1yEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_E31PoP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_E31PoP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_IujCgP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_K4RvIP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_Jr9tAP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_5rcaQP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_5rcaQP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_94XtsP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_BJFQgP11EeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="__CZ34P10EeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="__0Jd4P10EeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_gXk-wP1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_gXk-wP1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#20"/>
+    <link element="_uWTjcP1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#20"/>
+    <link element="_tItu8P1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#20"/>
+    <link element="_wMpaAP1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#20"/>
+    <link element="_l5XMUP1zEeOFY93jb2lkbw" stereotype="STEREOTYPE#20"/>
+    <link element="_aIplEP14EeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_aIplEP14EeOFY93jb2lkbw" stereotype="STEREOTYPE#9"/>
+    <link element="_eacKYP14EeOFY93jb2lkbw" stereotype="STEREOTYPE#9"/>
+    <link element="_fW2IQP14EeOFY93jb2lkbw" stereotype="STEREOTYPE#9"/>
+    <link element="_hD8jQP14EeOFY93jb2lkbw" stereotype="STEREOTYPE#9"/>
+    <link element="_dEPMcP14EeOFY93jb2lkbw" stereotype="STEREOTYPE#9"/>
+    <link element="_-ZXnIP1iEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_-ZXnIP1iEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_fnQvYP1jEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_fnR9gv1jEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_fnSkkP1jEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_fnR9hf1jEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_fnMd8P1jEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_fnTLoP1jEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_fnRWcP1jEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="899baf56-e399-482e-811a-edceb7a6fa06" stereotype="STEREOTYPE#15"/>
+    <link element="_7rQ3kP1hEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_7rQ3kP1hEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_LCRd0P1iEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_EbAO4P1iEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_Cqc3QP1iEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_KH0nwP1iEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_B1C5QP1iEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_HjMu4P1iEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_JHz8QP1iEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_DlfjMP1iEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_BGZDgP1iEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_GdijMGaxEeS5PLUVl44fEg" stereotype="STEREOTYPE#1"/>
+    <link element="_GdijMGaxEeS5PLUVl44fEg" stereotype="STEREOTYPE#15"/>
+    <link element="_GdijMGaxEeS5PLUVl44fEg" stereotype="STEREOTYPE#18"/>
+    <link element="_0LR08P2CEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_0LR08P2CEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_0LR08P2CEeOFY93jb2lkbw" stereotype="STEREOTYPE#18"/>
+    <link element="_xFubQP1sEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_xFubQP1sEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_98SMEP1uEeOFY93jb2lkbw" stereotype="STEREOTYPE#8"/>
+    <link element="_MoN1AP1vEeOFY93jb2lkbw" stereotype="STEREOTYPE#12"/>
+    <link element="__41_YP1uEeOFY93jb2lkbw" stereotype="STEREOTYPE#9"/>
+    <link element="_-7XqgP1uEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_BDwTUP1vEeOFY93jb2lkbw" stereotype="STEREOTYPE#20"/>
+    <link element="_D6aXYP1vEeOFY93jb2lkbw" stereotype="STEREOTYPE#20"/>
+    <link element="_G3biIP1vEeOFY93jb2lkbw" stereotype="STEREOTYPE#9"/>
+    <link element="_FaMvIP1vEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_Oung0P1vEeOFY93jb2lkbw" stereotype="STEREOTYPE#17"/>
+    <link element="_KthC4P1vEeOFY93jb2lkbw" stereotype="STEREOTYPE#12"/>
+    <link element="_STadQP1vEeOFY93jb2lkbw" stereotype="STEREOTYPE#11"/>
+    <link element="_TRFmcP1vEeOFY93jb2lkbw" stereotype="STEREOTYPE#11"/>
+    <link element="_RqKr8P1vEeOFY93jb2lkbw" stereotype="STEREOTYPE#17"/>
+    <link element="_IwCpkP1vEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_RIjNoP1kEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_hha1UP1rEeOFY93jb2lkbw" stereotype="STEREOTYPE#9"/>
+    <link element="_WEzBAP1rEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_Wu4f0P1rEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_f4E48P1rEeOFY93jb2lkbw" stereotype="STEREOTYPE#16"/>
+    <link element="_cYbiQP1rEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_griWMP1rEeOFY93jb2lkbw" stereotype="STEREOTYPE#20"/>
+    <link element="_Xg6ZsP1rEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_Xg6ZsP1rEeOFY93jb2lkbw" stereotype="STEREOTYPE#14"/>
+    <link element="b3182814-a2da-443b-b1b9-5bfa2cd3e50d" stereotype="STEREOTYPE#13"/>
+    <link element="f6f3429f-ed8f-4600-b66b-8657a81cdf71" stereotype="STEREOTYPE#13"/>
+    <link element="bc4e26c1-587a-47e0-bfcc-d1d4bd532e89" stereotype="STEREOTYPE#13"/>
+    <link element="e44a029f-5829-47b9-99de-e2b7962bbd84" stereotype="STEREOTYPE#20"/>
+    <link element="1ddf0b96-ab37-480f-8d4a-d63da8a96244" stereotype="STEREOTYPE#13"/>
+    <link element="_RQFjkP1lEeOFY93jb2lkbw" stereotype="STEREOTYPE#17"/>
+    <link element="_gVqXYP1sEeOFY93jb2lkbw" stereotype="STEREOTYPE#17"/>
+    <link element="_gVqXYP1sEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="0600e347-9da8-4ea1-86c2-8131bf81d936" stereotype="STEREOTYPE#17"/>
+    <link element="_RwI8oP1lEeOFY93jb2lkbw" stereotype="STEREOTYPE#11"/>
+    <link element="_qsjSsP1sEeOFY93jb2lkbw" stereotype="STEREOTYPE#11"/>
+    <link element="_qsjSsP1sEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="13ca6426-430b-4fec-91ad-faa56f7a0f64" stereotype="STEREOTYPE#11"/>
+    <link element="_SnyWUP1lEeOFY93jb2lkbw" stereotype="STEREOTYPE#12"/>
+    <link element="_TeIrUP1sEeOFY93jb2lkbw" stereotype="STEREOTYPE#12"/>
+    <link element="_TeIrUP1sEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="9b50dd95-3182-41e9-a399-ae979fa69c84" stereotype="STEREOTYPE#12"/>
+    <link element="_risp0P1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_risp0P1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_uwYt0P1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_5POEMP1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#20"/>
+    <link element="_TAwvoP1oEeOFY93jb2lkbw" stereotype="STEREOTYPE#8"/>
+    <link element="_6N2PoP1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#9"/>
+    <link element="_4szToP1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#20"/>
+    <link element="_yzW0AP1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#9"/>
+    <link element="_0cjmcP1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_2WuNEP1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#16"/>
+    <link element="_8h8ZMP1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_UHpfMP1oEeOFY93jb2lkbw" stereotype="STEREOTYPE#19"/>
+    <link element="_x0zhEP1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#12"/>
+    <link element="_11ZosP1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#21"/>
+    <link element="_v3Vu0P1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#13"/>
+    <link element="_30ZsAP1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#20"/>
+    <link element="_VIq3UP1oEeOFY93jb2lkbw" stereotype="STEREOTYPE#19"/>
+    <link element="_7a_YMP1nEeOFY93jb2lkbw" stereotype="STEREOTYPE#9"/>
+    <link element="_em2IUP1wEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_em2IUP1wEeOFY93jb2lkbw" stereotype="STEREOTYPE#8"/>
+    <link element="_DJSKgP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#8"/>
+    <link element="_fuJHkP1wEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_fuJHkP1wEeOFY93jb2lkbw" stereotype="STEREOTYPE#8"/>
+    <link element="_nOLKgP1wEeOFY93jb2lkbw" stereotype="STEREOTYPE#8"/>
+    <link element="_mQFxoP1wEeOFY93jb2lkbw" stereotype="STEREOTYPE#8"/>
+    <link element="ab75c92b-28b0-4a60-8f5b-9e7ad5041883" stereotype="STEREOTYPE#8"/>
+    <link element="f01d1ea8-fe26-4f38-b725-68440468f436" stereotype="STEREOTYPE#8"/>
+    <link element="_umF5oP14EeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_umF5oP14EeOFY93jb2lkbw" stereotype="STEREOTYPE#8"/>
+    <link element="_x3IMkP14EeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_ZPyHkP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#2"/>
+    <link element="_ZPyHkP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_m2aVUP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_jnKyIP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_oMpvgP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_jAZGAP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="d37ba876-33ef-43ea-8f92-3f2bddd3be8b" stereotype="STEREOTYPE#10"/>
+    <link element="f797b313-cfd7-43d0-ad5c-818b2ae3a3e5" stereotype="STEREOTYPE#10"/>
+    <link element="_Lfm8QP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_Lfm8QP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_SnGjYP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_QLmxUP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_RBeCUP1xEeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_cUPPsP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_cUPPsP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_i1v04P10EeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_m0Y0sP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_lwKXkP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_oDoPAP10EeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_jpBE4P10EeOFY93jb2lkbw" stereotype="STEREOTYPE#10"/>
+    <link element="_nP_soGaxEeS5PLUVl44fEg" stereotype="STEREOTYPE#1"/>
+    <link element="_nP_soGaxEeS5PLUVl44fEg" stereotype="STEREOTYPE#18"/>
+    <link element="_8gP70P2CEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_8gP70P2CEeOFY93jb2lkbw" stereotype="STEREOTYPE#18"/>
+    <link element="_5fqM8GavEeS5PLUVl44fEg" stereotype="STEREOTYPE#1"/>
+    <link element="_5fqM8GavEeS5PLUVl44fEg" stereotype="STEREOTYPE#15"/>
+    <link element="_Q-ugEP1gEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_Q-ugEP1gEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_ym_QIP1gEeOFY93jb2lkbw" stereotype="STEREOTYPE#16"/>
+    <link element="_mDlZ8P1gEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_oMQWoP1gEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_sRXx4P1gEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_xsc6gP1gEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_yru4IP1eEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+    <link element="_yru4IP1eEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_hyWDsP1fEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_kXb2oP1fEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_lYIeoP1fEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_feX18P1fEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_g5d68P1fEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_i3HTZP1fEeOFY93jb2lkbw" stereotype="STEREOTYPE#15"/>
+    <link element="_RIjNoP1kEeOFY93jb2lkbw" stereotype="STEREOTYPE#3"/>
+    <link element="_RwI8oP1lEeOFY93jb2lkbw" stereotype="STEREOTYPE#4"/>
+    <link element="_RQFjkP1lEeOFY93jb2lkbw" stereotype="STEREOTYPE#4"/>
+    <link element="_SnyWUP1lEeOFY93jb2lkbw" stereotype="STEREOTYPE#4"/>
+    <link element="_RIjNoP1kEeOFY93jb2lkbw" stereotype="STEREOTYPE#1"/>
+  </links>
+  <products>
+  </products>
+</project>

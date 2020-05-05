@@ -167,11 +167,14 @@ export class OptimizationService {
   }
 
   uploadPLA(files: FileList): Observable<any> {
-
     let formData = new FormData();
-    for (let filesKey in files) {
-      if (files[filesKey] instanceof Blob) {
-        formData.append("file", files[filesKey], files[filesKey]['webkitRelativePath']);
+    if (files.length === 1) {
+      formData.append('file', files.item(0));
+    } else {
+      for (let filesKey in files) {
+        if (files[filesKey] instanceof Blob) {
+          formData.append("file", files[filesKey], files[filesKey]['webkitRelativePath']);
+        }
       }
     }
 

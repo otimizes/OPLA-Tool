@@ -1,0 +1,31 @@
+
+
+Discart Variability null - SMSTransfer:
+Type: mandatory, Binding Time: DESIGN_TIME, Allow Binding Var:false
+Variation Point NULL
+Variabilidade do tipo optional será convertido para stereótipo optional
+Variabilidade do tipo mandatory será convertido para stereótipo mandatory
+
+Discart Variability null - CustomizingMedia:
+Type: optional, Binding Time: DESIGN_TIME, Allow Binding Var:false
+Variation Point NULL
+Variabilidade do tipo optional será convertido para stereótipo optional
+Variabilidade do tipo mandatory será convertido para stereótipo mandatory
+
+Discart Variability null - LinkingMedia:
+Type: optional, Binding Time: DESIGN_TIME, Allow Binding Var:false
+Variation Point NULL
+Variabilidade do tipo optional será convertido para stereótipo optional
+Variabilidade do tipo mandatory será convertido para stereótipo mandatory
+
+Discart Variability null - Favourites:
+Type: mandatory, Binding Time: DESIGN_TIME, Allow Binding Var:false
+Variation Point NULL
+Variabilidade do tipo optional será convertido para stereótipo optional
+Variabilidade do tipo mandatory será convertido para stereótipo mandatory
+
+Discart Variability null - LabelMedia:
+Type: mandatory, Binding Time: DESIGN_TIME, Allow Binding Var:false
+Variation Point NULL
+Variabilidade do tipo optional será convertido para stereótipo optional
+Variabilidade do tipo mandatory será convertido para stereótipo mandatory

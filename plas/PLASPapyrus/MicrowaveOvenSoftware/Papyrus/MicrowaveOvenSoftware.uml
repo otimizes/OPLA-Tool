@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19" xmlns:smarty="http:///schemas/smarty/_cl6_wI9OEeO5S8PTmh49hw/3" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19 perfilConcerns.profile.uml#_SsrrURWgEeObs-pQrJ2skQ http:///schemas/smarty/_cl6_wI9OEeO5S8PTmh49hw/3 smarty.profile.uml#_cl7m0I9OEeO5S8PTmh49hw">
+
+
+  <uml:Model xmi:id="_dx4GsBSmEeOYorUb5NKqTw" name="model">
+    <packageImport xmi:id="_cH7wkBSqEeOYorUb5NKqTw">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_XzJHUBS6EeOYorUb5NKqTw">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_h1DRIBS6EeOYorUb5NKqTw">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+
+
+    <packagedElement xmi:type="uml:Package" xmi:id="_4z6OUJmoEeOaWL3_pov7wg" name="BeeperComponent">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_HazmQJmpEeOaWL3_pov7wg" annotatedElement="__7SgsJmoEeOaWL3_pov7wg">
+        <body> </body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_7uz5MJmoEeOaWL3_pov7wg" name="IBeeper">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_-jJpEJmoEeOaWL3_pov7wg" name="initialize"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="__JWtcJmoEeOaWL3_pov7wg" name="beep"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="__7SgsJmoEeOaWL3_pov7wg" name="BeeperInterface">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_D-Hc8JmpEeOaWL3_pov7wg" name="initialize"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_EoIqUJmpEeOaWL3_pov7wg" name="beep"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_F94VQJmpEeOaWL3_pov7wg" name="Realization1" client="__7SgsJmoEeOaWL3_pov7wg" supplier="_7uz5MJmoEeOaWL3_pov7wg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_1eReUJmfEeOaWL3_pov7wg" name="WeightComponent">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_Jlz0UJmgEeOaWL3_pov7wg" annotatedElement="_4fyukJmfEeOaWL3_pov7wg">
+        <body> </body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_4fyukJmfEeOaWL3_pov7wg" name="WeightSensorInterface" isAbstract="true"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_86_ukJmfEeOaWL3_pov7wg" name="BooleanWeightSensorInterface">
+        <generalization xmi:type="uml:Generalization" xmi:id="_IYeegJmgEeOaWL3_pov7wg" general="_4fyukJmfEeOaWL3_pov7wg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_-fpYMJmfEeOaWL3_pov7wg" name="AnalogWeightSensorInterface">
+        <generalization xmi:type="uml:Generalization" xmi:id="_I6MrgJmgEeOaWL3_pov7wg" general="_4fyukJmfEeOaWL3_pov7wg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_0hg9UJmuEeOaWL3_pov7wg" name="Usage1" client="_4fyukJmfEeOaWL3_pov7wg" supplier="_XEk_MJmjEeOaWL3_pov7wg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_o7jvMJmgEeOaWL3_pov7wg" name="HeatingElementComponent">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_Vm-1QJmiEeOaWL3_pov7wg" annotatedElement="_kClYoJmhEeOaWL3_pov7wg">
+        <body> </body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_51ReUJmgEeOaWL3_pov7wg" name="IHeatingElement">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_BBYfsJmhEeOaWL3_pov7wg" name="initialize"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_cJnRQJmhEeOaWL3_pov7wg" name="startCooking">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_g-umEJmhEeOaWL3_pov7wg" name="level">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_deG_AJmhEeOaWL3_pov7wg" name="stopCooking"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_kClYoJmhEeOaWL3_pov7wg" name="HeatingElementInterface" isAbstract="true">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_sZTL8JmhEeOaWL3_pov7wg" name="stopCooking" isAbstract="true"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_sZTL8ZmhEeOaWL3_pov7wg" name="initialize" isAbstract="true"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_sZTL8pmhEeOaWL3_pov7wg" name="startCooking" isAbstract="true">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_sZTL85mhEeOaWL3_pov7wg" name="level">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_0TQx0JmhEeOaWL3_pov7wg" name="Realization1" client="_kClYoJmhEeOaWL3_pov7wg" supplier="_51ReUJmgEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_3-zPcJmhEeOaWL3_pov7wg" name="One-LevelHeatingElementInterface">
+        <generalization xmi:type="uml:Generalization" xmi:id="_SV5fAJmiEeOaWL3_pov7wg" general="_kClYoJmhEeOaWL3_pov7wg"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_BgH0sJmiEeOaWL3_pov7wg" name="initialize"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_BgIbwJmiEeOaWL3_pov7wg" name="startCooking">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_BgIbwZmiEeOaWL3_pov7wg" name="level">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_BgIbwpmiEeOaWL3_pov7wg" name="stopCooking"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_I_H84JmiEeOaWL3_pov7wg" name="Multi-LevelHeatingElementInterface">
+        <generalization xmi:type="uml:Generalization" xmi:id="_SyU8UJmiEeOaWL3_pov7wg" general="_kClYoJmhEeOaWL3_pov7wg"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_I_H84ZmiEeOaWL3_pov7wg" name="initialize"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_I_H84pmiEeOaWL3_pov7wg" name="startCooking">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_I_H845miEeOaWL3_pov7wg" name="level">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_I_H85JmiEeOaWL3_pov7wg" name="stopCooking"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_sHxpAJmfEeOaWL3_pov7wg" name="DoorComponent">
+      <packagedElement xmi:type="uml:Class" xmi:id="_toJPkJmfEeOaWL3_pov7wg" name="DoorSensorInterface"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_zLovgJmuEeOaWL3_pov7wg" name="Usage1" client="_toJPkJmfEeOaWL3_pov7wg" supplier="_XEk_MJmjEeOaWL3_pov7wg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_6LKKkJmnEeOaWL3_pov7wg" name="LampComponent">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_K9gGYJmoEeOaWL3_pov7wg" annotatedElement="_CJ4UoJmoEeOaWL3_pov7wg">
+        <body> </body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_8S0aoJmnEeOaWL3_pov7wg" name="ILamp">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="__XgToJmnEeOaWL3_pov7wg" name="initialize"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_APWhoJmoEeOaWL3_pov7wg" name="switchOn"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_BB1ugJmoEeOaWL3_pov7wg" name="switchOff"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_CJ4UoJmoEeOaWL3_pov7wg" name="LampInterface">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_G7x9YJmoEeOaWL3_pov7wg" name="switchOff"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_G7x9YZmoEeOaWL3_pov7wg" name="initialize"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_G7x9YpmoEeOaWL3_pov7wg" name="switchOn"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_FYOf8JmoEeOaWL3_pov7wg" name="Realization1" client="_CJ4UoJmoEeOaWL3_pov7wg" supplier="_8S0aoJmnEeOaWL3_pov7wg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_a0Rx0JmoEeOaWL3_pov7wg" name="TurntableComponent">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_wc-YkJmoEeOaWL3_pov7wg" annotatedElement="_nSHLgJmoEeOaWL3_pov7wg">
+        <body> </body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_d1kYkJmoEeOaWL3_pov7wg" name="ITurntable">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_gKawEJmoEeOaWL3_pov7wg" name="initialize"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_hFyzMJmoEeOaWL3_pov7wg" name="startTurning"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_h6p-oJmoEeOaWL3_pov7wg" name="stopTurning"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_nSHLgJmoEeOaWL3_pov7wg" name="TurntableInterface">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_sJX1YJmoEeOaWL3_pov7wg" name="initialize"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_s69qYJmoEeOaWL3_pov7wg" name="startTurning"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_tq5SgJmoEeOaWL3_pov7wg" name="stopTurning"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_rlKVEJmoEeOaWL3_pov7wg" name="Realization1" client="_nSHLgJmoEeOaWL3_pov7wg" supplier="_d1kYkJmoEeOaWL3_pov7wg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Z5F1kJmgEeOaWL3_pov7wg" name="KeypadComponent">
+      <packagedElement xmi:type="uml:Class" xmi:id="_dAedQJmgEeOaWL3_pov7wg" name="KeypadInterface"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_3UkTwJmuEeOaWL3_pov7wg" name="Usage1" client="_dAedQJmgEeOaWL3_pov7wg" supplier="_XEk_MJmjEeOaWL3_pov7wg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_8CR2gJmiEeOaWL3_pov7wg" name="OvenTimer">
+      <packagedElement xmi:type="uml:Class" xmi:id="_-3PRcJmiEeOaWL3_pov7wg" name="IOvenTimer">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_BtE2IJmjEeOaWL3_pov7wg" name="sendTimerRequest">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ExIdAJmjEeOaWL3_pov7wg" name="timerRequest">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_HlW4IJmjEeOaWL3_pov7wg" name="OvenTimer">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_PF54cJmjEeOaWL3_pov7wg" name="sendTimerRequest">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_PF54cZmjEeOaWL3_pov7wg" name="timerRequest">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_R6XkIJmjEeOaWL3_pov7wg" name="Realization1" client="_HlW4IJmjEeOaWL3_pov7wg" supplier="_-3PRcJmiEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_SPg3QJmvEeOaWL3_pov7wg" name="Usage1" client="_HlW4IJmjEeOaWL3_pov7wg" supplier="__AI5UJmjEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_SzGsgJmvEeOaWL3_pov7wg" name="Usage2" client="_HlW4IJmjEeOaWL3_pov7wg" supplier="_VChycJmkEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_WReQ0JmvEeOaWL3_pov7wg" name="Usage3" client="_HlW4IJmjEeOaWL3_pov7wg" supplier="_Qr9zIJmqEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_YiobIJmvEeOaWL3_pov7wg" name="Usage4" client="_HlW4IJmjEeOaWL3_pov7wg" supplier="_XEk_MJmjEeOaWL3_pov7wg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Uis4UJmjEeOaWL3_pov7wg" name="MicrowaveOvenControl">
+      <packagedElement xmi:type="uml:Class" xmi:id="_XEk_MJmjEeOaWL3_pov7wg" name="IMWControl">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_iJdo8JmjEeOaWL3_pov7wg" name="sendControlRequest">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_lABmYJmjEeOaWL3_pov7wg" name="controlRequest">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_mq3-oJmjEeOaWL3_pov7wg" name="MicrowaveOvenControl">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_vGmNwJmjEeOaWL3_pov7wg" name="sendControlRequest">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_vGmNwZmjEeOaWL3_pov7wg" name="controlRequest">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_xcE3YJmjEeOaWL3_pov7wg" name="Realization1" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_XEk_MJmjEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_5yZBEJmuEeOaWL3_pov7wg" name="Usage1" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_51ReUJmgEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_93U2IJmuEeOaWL3_pov7wg" name="Usage2" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_8S0aoJmnEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_CaPAoJmvEeOaWL3_pov7wg" name="Usage3" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_d1kYkJmoEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_C_lwcJmvEeOaWL3_pov7wg" name="Usage4" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_7uz5MJmoEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_G-BU4JmvEeOaWL3_pov7wg" name="Usage5" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_WeZMIJmnEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_LeEYoJmvEeOaWL3_pov7wg" name="Usage6" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_9rF8gJmkEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_MZmMwJmvEeOaWL3_pov7wg" name="Usage7" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_h-tVAJmkEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_NQQvAJmvEeOaWL3_pov7wg" name="Usage8" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_VChycJmkEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_OMGFIJmvEeOaWL3_pov7wg" name="Usage9" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="__AI5UJmjEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_PJ6YQJmvEeOaWL3_pov7wg" name="Usage10" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_ulmkEJmkEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_VPpAYJmvEeOaWL3_pov7wg" name="Usage11" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_Qr9zIJmqEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_ZBGf0JmvEeOaWL3_pov7wg" name="Usage12" client="_mq3-oJmjEeOaWL3_pov7wg" supplier="_-3PRcJmiEeOaWL3_pov7wg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_4oxHkJmjEeOaWL3_pov7wg" name="OvenData">
+      <packagedElement xmi:type="uml:Class" xmi:id="__AI5UJmjEeOaWL3_pov7wg" name="ICookingTimeData">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_B8U9oJmkEeOaWL3_pov7wg" name="clearCookingTime"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_DVK_4JmkEeOaWL3_pov7wg" name="updateCookingTime">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_Me6yoJmkEeOaWL3_pov7wg" name="time">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_EqJ10JmkEeOaWL3_pov7wg" name="incrementCookingTime">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_SMrmsJmkEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_IRWmAJmkEeOaWL3_pov7wg" name="decrementCookingTime">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_TxfBUJmkEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_VChycJmkEeOaWL3_pov7wg" name="IRecipeData">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ab8uMJmkEeOaWL3_pov7wg" name="clearRecipe"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ce4PQJmkEeOaWL3_pov7wg" name="selectRecipe">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_fCjF4JmkEeOaWL3_pov7wg" name="recipeID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_frIv4JmkEeOaWL3_pov7wg" name="nextStep"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_h-tVAJmkEeOaWL3_pov7wg" name="IPowerData">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_loKH8JmkEeOaWL3_pov7wg" name="clearPower"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_mWTnYJmkEeOaWL3_pov7wg" name="setPower" visibility="public">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_rXnlIJmkEeOaWL3_pov7wg" name="level">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_nMbXEJmkEeOaWL3_pov7wg" name="readPower">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_s2xqwJmkEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_ulmkEJmkEeOaWL3_pov7wg" name="ITODData">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_y_sJwJmkEeOaWL3_pov7wg" name="clearTOD"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_z6iocJmkEeOaWL3_pov7wg" name="updateTOD">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_4w5TYJmkEeOaWL3_pov7wg" name="time">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_1JgV8JmkEeOaWL3_pov7wg" name="incrementTOD">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_6NQjsJmkEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_9rF8gJmkEeOaWL3_pov7wg" name="IWeightData">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_CungwJmlEeOaWL3_pov7wg" name="clearWeight"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_EGy0oJmlEeOaWL3_pov7wg" name="setWeight">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_H9RW8JmlEeOaWL3_pov7wg" name="weight">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Ir27QJmlEeOaWL3_pov7wg" name="OvenData">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_y8iSoJmlEeOaWL3_pov7wg" name="cookingTime" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_zm0lwJmlEeOaWL3_pov7wg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_zm1z4JmlEeOaWL3_pov7wg" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_zm3CAJmlEeOaWL3_pov7wg">
+            <value xsi:nil="true"/>
+          </defaultValue>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_29FW8JmlEeOaWL3_pov7wg" name="selectedPowe" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4vd6kJmlEeOaWL3_pov7wg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4vehoJmlEeOaWL3_pov7wg" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_4vhk8JmlEeOaWL3_pov7wg">
+            <value xsi:nil="true"/>
+          </defaultValue>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_5FTnsJmlEeOaWL3_pov7wg" name="itemWeight" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_61H_gJmlEeOaWL3_pov7wg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_61ImkJmlEeOaWL3_pov7wg" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_61Lp4JmlEeOaWL3_pov7wg">
+            <value xsi:nil="true"/>
+          </defaultValue>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_7McTUJmlEeOaWL3_pov7wg" name="selectedRecipe" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-qLlgJmlEeOaWL3_pov7wg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-qMzoJmlEeOaWL3_pov7wg" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_-qZA4JmlEeOaWL3_pov7wg">
+            <value xsi:nil="true"/>
+          </defaultValue>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="__TQ-wJmlEeOaWL3_pov7wg" name="TODValue" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AjJSQJmmEeOaWL3_pov7wg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AjJSQZmmEeOaWL3_pov7wg" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_AjMVkJmmEeOaWL3_pov7wg">
+            <value xsi:nil="true"/>
+          </defaultValue>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_A3aSEJmmEeOaWL3_pov7wg" name="TODMaxHour" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C29H-ZmmEeOaWL3_pov7wg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C29vCJmmEeOaWL3_pov7wg" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_C3Fq0ZmmEeOaWL3_pov7wg">
+            <value xsi:nil="true"/>
+          </defaultValue>
+        </ownedAttribute>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtJSAJmlEeOaWL3_pov7wg" name="setPower" visibility="public">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZtJSAZmlEeOaWL3_pov7wg" name="level">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtJSApmlEeOaWL3_pov7wg" name="clearTOD"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtJ5EJmlEeOaWL3_pov7wg" name="selectRecipe">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZtJ5EZmlEeOaWL3_pov7wg" name="recipeID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtJ5EpmlEeOaWL3_pov7wg" name="incrementCookingTime">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZtJ5E5mlEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtJ5FJmlEeOaWL3_pov7wg" name="updateCookingTime">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZtJ5FZmlEeOaWL3_pov7wg" name="time">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtJ5FpmlEeOaWL3_pov7wg" name="updateTOD">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZtJ5F5mlEeOaWL3_pov7wg" name="time">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtKgIJmlEeOaWL3_pov7wg" name="readPower">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZtKgIZmlEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtKgIpmlEeOaWL3_pov7wg" name="decrementCookingTime">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZtKgI5mlEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtKgJJmlEeOaWL3_pov7wg" name="clearPower"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtKgJZmlEeOaWL3_pov7wg" name="setWeight">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZtKgJpmlEeOaWL3_pov7wg" name="weight">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtLHMJmlEeOaWL3_pov7wg" name="clearWeight"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtLHMZmlEeOaWL3_pov7wg" name="incrementTOD">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZtLHMpmlEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtLHM5mlEeOaWL3_pov7wg" name="clearRecipe"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtLHNJmlEeOaWL3_pov7wg" name="clearCookingTime"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ZtLHNZmlEeOaWL3_pov7wg" name="nextStep"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_SJ90cJmlEeOaWL3_pov7wg" name="Realization1" client="_Ir27QJmlEeOaWL3_pov7wg" supplier="_ulmkEJmkEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_SmcVEJmlEeOaWL3_pov7wg" name="Realization2" client="_Ir27QJmlEeOaWL3_pov7wg" supplier="__AI5UJmjEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_TEIWoJmlEeOaWL3_pov7wg" name="Realization3" client="_Ir27QJmlEeOaWL3_pov7wg" supplier="_VChycJmkEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_TlQtwJmlEeOaWL3_pov7wg" name="Realization4" client="_Ir27QJmlEeOaWL3_pov7wg" supplier="_h-tVAJmkEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_UAYjgJmlEeOaWL3_pov7wg" name="Realization5" client="_Ir27QJmlEeOaWL3_pov7wg" supplier="_9rF8gJmkEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_d6oakJmvEeOaWL3_pov7wg" name="Usage1" client="_Ir27QJmlEeOaWL3_pov7wg" supplier="_VazdoJmmEeOaWL3_pov7wg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Pp1IEJmnEeOaWL3_pov7wg" name="TODTimer">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_mt5goJmnEeOaWL3_pov7wg" annotatedElement="_c1wW0JmnEeOaWL3_pov7wg">
+        <body> </body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_m-L_YJmnEeOaWL3_pov7wg" annotatedElement="_c1wW0JmnEeOaWL3_pov7wg">
+        <body> </body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WeZMIJmnEeOaWL3_pov7wg" name="ITODTimer">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ah8hIJmnEeOaWL3_pov7wg" name="startTOD"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_bM0qIJmnEeOaWL3_pov7wg" name="stopTOD"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_c1wW0JmnEeOaWL3_pov7wg" name="TODTimer">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_iLpdcJmnEeOaWL3_pov7wg" name="startTOD"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_jfCX8JmnEeOaWL3_pov7wg" name="stopTOD"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_scVDEJmnEeOaWL3_pov7wg" name="Realization1" client="_c1wW0JmnEeOaWL3_pov7wg" supplier="_WeZMIJmnEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_lKG5AJmvEeOaWL3_pov7wg" name="Usage1" client="_c1wW0JmnEeOaWL3_pov7wg" supplier="_ulmkEJmkEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_oM7JwJmvEeOaWL3_pov7wg" name="Usage2" client="_c1wW0JmnEeOaWL3_pov7wg" supplier="_Qr9zIJmqEeOaWL3_pov7wg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_SIZRsJmmEeOaWL3_pov7wg" name="Recipes">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_EpF-gJmnEeOaWL3_pov7wg" annotatedElement="_jlh28JmmEeOaWL3_pov7wg">
+        <body> </body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_VazdoJmmEeOaWL3_pov7wg" name="IRecipe">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_XjlvEJmmEeOaWL3_pov7wg" name="getRecipe">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_cqW0kJmmEeOaWL3_pov7wg" name="recipeID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_tN9JwJmmEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_YaHucJmmEeOaWL3_pov7wg" name="addRecipe">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_gjWfYJmmEeOaWL3_pov7wg" name="recipeID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_iTQ90JmmEeOaWL3_pov7wg" name="recipeDetails">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_jlh28JmmEeOaWL3_pov7wg" name="Recipes">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_-_sGAJmmEeOaWL3_pov7wg" name="recipe" type="_2chLEJmmEeOaWL3_pov7wg" aggregation="shared" association="_-_t7MJmmEeOaWL3_pov7wg">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-_sGAZmmEeOaWL3_pov7wg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-_sGApmmEeOaWL3_pov7wg" value="*"/>
+        </ownedAttribute>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_yAr48JmmEeOaWL3_pov7wg" name="getRecipe">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_yAr48ZmmEeOaWL3_pov7wg" name="recipeID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_yAr48pmmEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_yAsgAJmmEeOaWL3_pov7wg" name="addRecipe">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_yAsgAZmmEeOaWL3_pov7wg" name="recipeID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_yAsgApmmEeOaWL3_pov7wg" name="recipeDetails">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_ubGSUJmmEeOaWL3_pov7wg" name="Realization1" client="_jlh28JmmEeOaWL3_pov7wg" supplier="_VazdoJmmEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_2chLEJmmEeOaWL3_pov7wg" name="Recipe">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_6Z18QJmmEeOaWL3_pov7wg" name="recipeID" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7ti_0JmmEeOaWL3_pov7wg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7tjm4JmmEeOaWL3_pov7wg" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_7tkN8JmmEeOaWL3_pov7wg">
+            <value xsi:nil="true"/>
+          </defaultValue>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_8IzYcJmmEeOaWL3_pov7wg" name="recipeDetails" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9ox9cJmmEeOaWL3_pov7wg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9ox9cZmmEeOaWL3_pov7wg" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_9oykgJmmEeOaWL3_pov7wg">
+            <value xsi:nil="true"/>
+          </defaultValue>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_-_t7MJmmEeOaWL3_pov7wg" name="recipes_recipe_1" memberEnd="_-_t7MZmmEeOaWL3_pov7wg _-_sGAJmmEeOaWL3_pov7wg">
+        <ownedEnd xmi:type="uml:Property" xmi:id="_-_t7MZmmEeOaWL3_pov7wg" name="recipes" type="_jlh28JmmEeOaWL3_pov7wg" association="_-_t7MJmmEeOaWL3_pov7wg">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-_t7MpmmEeOaWL3_pov7wg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-_t7M5mmEeOaWL3_pov7wg" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_YCd0sJmsEeOaWL3_pov7wg" name="DisplayPrompts">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_a8ttYJmuEeOaWL3_pov7wg" annotatedElement="_zo9PkJmsEeOaWL3_pov7wg">
+        <body> </body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_e5dhsJmsEeOaWL3_pov7wg" name="IDisplayPrompt">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_hxgs4JmsEeOaWL3_pov7wg" name="initialize">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_m3ehIJmsEeOaWL3_pov7wg" name="language">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_ikMHAJmsEeOaWL3_pov7wg" name="read">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_pGJYIJmsEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_rY8hMJmsEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_jER8UJmsEeOaWL3_pov7wg" name="addPrompt">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_te-ZkJmsEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_vdxokJmsEeOaWL3_pov7wg" name="promptText">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_zo9PkJmsEeOaWL3_pov7wg" name="DisplayPrompts" isAbstract="true">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_9GVI8JmsEeOaWL3_pov7wg" name="read" isAbstract="true">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_9GVI8ZmsEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_9GVI8pmsEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_9GVwAJmsEeOaWL3_pov7wg" name="initialize" isAbstract="true">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_9GVwAZmsEeOaWL3_pov7wg" name="language">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_9GVwApmsEeOaWL3_pov7wg" name="addPrompt" isAbstract="true">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_9GVwA5msEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_9GVwBJmsEeOaWL3_pov7wg" name="promptText">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_CkGZMJmtEeOaWL3_pov7wg" name="Realization1" client="_zo9PkJmsEeOaWL3_pov7wg" supplier="_e5dhsJmsEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_mo1LsJmtEeOaWL3_pov7wg" name="EnglishDisplayPrompts">
+        <generalization xmi:type="uml:Generalization" xmi:id="_ZnbVcJmuEeOaWL3_pov7wg" general="_zo9PkJmsEeOaWL3_pov7wg"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_taqr4JmtEeOaWL3_pov7wg" name="initialize">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_taqr4ZmtEeOaWL3_pov7wg" name="language">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_tarS8JmtEeOaWL3_pov7wg" name="addPrompt">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_tarS8ZmtEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_tarS8pmtEeOaWL3_pov7wg" name="promptText">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_tarS85mtEeOaWL3_pov7wg" name="read">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_tarS9JmtEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_tarS9ZmtEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_zUtBYJmtEeOaWL3_pov7wg" name="ItalianDisplayPrompts">
+        <generalization xmi:type="uml:Generalization" xmi:id="_ZRoEkJmuEeOaWL3_pov7wg" general="_zo9PkJmsEeOaWL3_pov7wg"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zUtBYZmtEeOaWL3_pov7wg" name="initialize">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zUtBYpmtEeOaWL3_pov7wg" name="language">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zUtBY5mtEeOaWL3_pov7wg" name="addPrompt">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zUtBZJmtEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zUtBZZmtEeOaWL3_pov7wg" name="promptText">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zUtBZpmtEeOaWL3_pov7wg" name="read">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zUtBZ5mtEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zUtBaJmtEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_zbHLYJmtEeOaWL3_pov7wg" name="FrenchDisplayPrompts">
+        <generalization xmi:type="uml:Generalization" xmi:id="_YJDS8JmuEeOaWL3_pov7wg" general="_zo9PkJmsEeOaWL3_pov7wg"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zbHLYZmtEeOaWL3_pov7wg" name="initialize">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zbHLYpmtEeOaWL3_pov7wg" name="language">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zbHLY5mtEeOaWL3_pov7wg" name="addPrompt">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zbHLZJmtEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zbHLZZmtEeOaWL3_pov7wg" name="promptText">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zbHLZpmtEeOaWL3_pov7wg" name="read">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zbHLZ5mtEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zbHLaJmtEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_zi2yIJmtEeOaWL3_pov7wg" name="SpanishDisplayPrompts">
+        <generalization xmi:type="uml:Generalization" xmi:id="_Y5dcMJmuEeOaWL3_pov7wg" general="_zo9PkJmsEeOaWL3_pov7wg"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zi2yIZmtEeOaWL3_pov7wg" name="initialize">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zi2yIpmtEeOaWL3_pov7wg" name="language">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zi2yI5mtEeOaWL3_pov7wg" name="addPrompt">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zi2yJJmtEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zi2yJZmtEeOaWL3_pov7wg" name="promptText">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zi2yJpmtEeOaWL3_pov7wg" name="read">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zi2yJ5mtEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zi2yKJmtEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_zo7k8JmtEeOaWL3_pov7wg" name="GermanDisplayPrompts">
+        <generalization xmi:type="uml:Generalization" xmi:id="_Yi-O0JmuEeOaWL3_pov7wg" general="_zo9PkJmsEeOaWL3_pov7wg"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zo7k8ZmtEeOaWL3_pov7wg" name="initialize">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zo7k8pmtEeOaWL3_pov7wg" name="language">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zo7k85mtEeOaWL3_pov7wg" name="addPrompt">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zo7k9JmtEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zo7k9ZmtEeOaWL3_pov7wg" name="promptText">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_zo7k9pmtEeOaWL3_pov7wg" name="read">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zo7k95mtEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zo7k-JmtEeOaWL3_pov7wg" name="" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Oc6hoJmqEeOaWL3_pov7wg" name="DisplayInterface">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_Ja5HUJmsEeOaWL3_pov7wg" annotatedElement="_apL0wJmrEeOaWL3_pov7wg">
+        <body> </body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Qr9zIJmqEeOaWL3_pov7wg" name="IDisplay">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_TtzzgJmqEeOaWL3_pov7wg" name="displayPrompt">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_WnpucJmqEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_XUjQsJmqEeOaWL3_pov7wg" name="displayTime">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_ZuF68JmqEeOaWL3_pov7wg" name="time">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_aTfHAJmqEeOaWL3_pov7wg" name="clearScreen"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_bLOnUJmqEeOaWL3_pov7wg" name="displayTOD">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_dh1SUJmqEeOaWL3_pov7wg" name="tod">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_apL0wJmrEeOaWL3_pov7wg" name="DisplayInterface" isAbstract="true">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_hJe5AJmrEeOaWL3_pov7wg" name="displayTOD" isAbstract="true">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_hJe5AZmrEeOaWL3_pov7wg" name="tod">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_hJe5ApmrEeOaWL3_pov7wg" name="clearScreen"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_hJe5A5mrEeOaWL3_pov7wg" name="displayTime">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_hJe5BJmrEeOaWL3_pov7wg" name="time">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_hJfgEJmrEeOaWL3_pov7wg" name="displayPrompt">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_hJfgEZmrEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_njfIAJmrEeOaWL3_pov7wg" name="Realization1" client="_apL0wJmrEeOaWL3_pov7wg" supplier="_Qr9zIJmqEeOaWL3_pov7wg"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_0Wh8sJmrEeOaWL3_pov7wg" name="One-LineDisplayInterface">
+        <generalization xmi:type="uml:Generalization" xmi:id="_Hwxu4JmsEeOaWL3_pov7wg" general="_apL0wJmrEeOaWL3_pov7wg"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_6df68JmrEeOaWL3_pov7wg" name="displayTOD">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_6df68ZmrEeOaWL3_pov7wg" name="tod">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_6dgiAJmrEeOaWL3_pov7wg" name="clearScreen"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_6dgiAZmrEeOaWL3_pov7wg" name="displayPrompt">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_6dgiApmrEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_6dgiA5mrEeOaWL3_pov7wg" name="displayTime">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_6dgiBJmrEeOaWL3_pov7wg" name="time">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_A2Hp4JmsEeOaWL3_pov7wg" name="Multi-LineDisplayInterface">
+        <generalization xmi:type="uml:Generalization" xmi:id="_ILLL4JmsEeOaWL3_pov7wg" general="_apL0wJmrEeOaWL3_pov7wg"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_A2Hp4ZmsEeOaWL3_pov7wg" name="displayTOD">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_A2Hp4pmsEeOaWL3_pov7wg" name="tod">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_A2Hp45msEeOaWL3_pov7wg" name="clearScreen"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_A2Hp5JmsEeOaWL3_pov7wg" name="displayPrompt">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_A2Hp5ZmsEeOaWL3_pov7wg" name="promptID">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_A2Hp5pmsEeOaWL3_pov7wg" name="displayTime">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_A2Hp55msEeOaWL3_pov7wg" name="time">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_qwQpMJmvEeOaWL3_pov7wg" name="Usage1" client="_apL0wJmrEeOaWL3_pov7wg" supplier="_e5dhsJmsEeOaWL3_pov7wg"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_oORn4JmfEeOaWL3_pov7wg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_oORn4ZmfEeOaWL3_pov7wg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="concerns.profile.uml#_kLy30JnJEeOxiNx1rb5-sA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="concerns.profile.uml#_9v_84HqaEeK1gM_kVgXLQw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_oORn4pmfEeOaWL3_pov7wg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_oORn45mfEeOaWL3_pov7wg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_li3_gJnJEeOxiNx1rb5-sA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="smarty.profile.uml#_9ppH0MeqEeK-FvYCaEYIKA"/>
+    </profileApplication>
+  </uml:Model>
+  
+  <smarty:variationPoint xmi:id="_7wNWcJmfEeOaWL3_pov7wg" base_Class="_4fyukJmfEeOaWL3_pov7wg" numberOfVariants="2" variants="BooleanWeightSensorInterface,AnalogWeightSensorInterface" variabilities="Weight Sensor"/>
+  <concerns:weightSensor xmi:id="_Dl1O4JmgEeOaWL3_pov7wg" base_Class="_86_ukJmfEeOaWL3_pov7wg"/>
+  <smarty:alternative_XOR xmi:id="_DmWzUJmgEeOaWL3_pov7wg" base_Class="_86_ukJmfEeOaWL3_pov7wg"/>
+  <concerns:weightSensor xmi:id="_GXGcoJmgEeOaWL3_pov7wg" base_Class="_-fpYMJmfEeOaWL3_pov7wg"/>
+  <smarty:alternative_XOR xmi:id="_GXnaAJmgEeOaWL3_pov7wg" base_Class="_-fpYMJmfEeOaWL3_pov7wg" rootVP="WeightSensorInterface" variabilities="Weight Sensor"/>
+  <smarty:variability xmi:id="_KgTtsJmgEeOaWL3_pov7wg" base_Comment="_Jlz0UJmgEeOaWL3_pov7wg" name="Weight Sensor" minSelection="1" maxSelection="1" allowAddingVar="true" variants="BooleanWeightSensorInterface,AnalogWeightSensorInterface"/>
+  <concerns:microwaveOvenKernel xmi:id="_hGKgQJmgEeOaWL3_pov7wg" base_Class="_dAedQJmgEeOaWL3_pov7wg"/>
+  <concerns:minutePlus xmi:id="_hGgegJmgEeOaWL3_pov7wg" base_Class="_dAedQJmgEeOaWL3_pov7wg"/>
+  <concerns:powerLevel xmi:id="_hG5gEJmgEeOaWL3_pov7wg" base_Class="_dAedQJmgEeOaWL3_pov7wg"/>
+  <concerns:todClock xmi:id="_hHLz8JmgEeOaWL3_pov7wg" base_Class="_dAedQJmgEeOaWL3_pov7wg"/>
+  <concerns:recipe xmi:id="_hHgkEJmgEeOaWL3_pov7wg" base_Class="_dAedQJmgEeOaWL3_pov7wg"/>
+  <smarty:mandatory xmi:id="_hH2iUJmgEeOaWL3_pov7wg" base_Class="_dAedQJmgEeOaWL3_pov7wg"/>
+  <smarty:interface xmi:id="_AQE-kJmhEeOaWL3_pov7wg" base_Class="_51ReUJmgEeOaWL3_pov7wg"/>
+  <concerns:microwaveOvenKernel xmi:id="_n1ozgJmhEeOaWL3_pov7wg" base_Class="_kClYoJmhEeOaWL3_pov7wg"/>
+  <smarty:mandatory xmi:id="_n1_Y0JmhEeOaWL3_pov7wg" base_Class="_kClYoJmhEeOaWL3_pov7wg"/>
+  <smarty:variationPoint xmi:id="_n2ZBcJmhEeOaWL3_pov7wg" base_Class="_kClYoJmhEeOaWL3_pov7wg" numberOfVariants="2" variants="One-LevelHeatingElementInterface,Multi-LevelHeatingElementInterface" variabilities="Heating Element"/>
+  <concerns:heatingElement xmi:id="_6duI8JmhEeOaWL3_pov7wg" base_Class="_3-zPcJmhEeOaWL3_pov7wg"/>
+  <smarty:alternative_XOR xmi:id="_6eNRIJmhEeOaWL3_pov7wg" base_Class="_3-zPcJmhEeOaWL3_pov7wg" rootVP="HeatingElementInterface" variabilities="Heating Element"/>
+  <concerns:heatingElement xmi:id="_I_JLAJmiEeOaWL3_pov7wg" base_Class="_I_H84JmiEeOaWL3_pov7wg"/>
+  <smarty:alternative_XOR xmi:id="_I_JLAZmiEeOaWL3_pov7wg" base_Class="_I_H84JmiEeOaWL3_pov7wg" rootVP="HeatingElementInterface" variabilities="Heating Element"/>
+  <smarty:variability xmi:id="_W54AgJmiEeOaWL3_pov7wg" base_Comment="_Vm-1QJmiEeOaWL3_pov7wg" name="Heating Element" minSelection="1" maxSelection="1" allowAddingVar="true" variants="One-LevelHeatingElementInterface,Multi-LevelHeatingElementInterface"/>
+  <smarty:interface xmi:id="_AekboJmjEeOaWL3_pov7wg" base_Class="_-3PRcJmiEeOaWL3_pov7wg"/>
+  <concerns:microwaveOvenKernel xmi:id="_L3sQAJmjEeOaWL3_pov7wg" base_Class="_HlW4IJmjEeOaWL3_pov7wg"/>
+  <concerns:minutePlus xmi:id="_L4DcYJmjEeOaWL3_pov7wg" base_Class="_HlW4IJmjEeOaWL3_pov7wg"/>
+  <concerns:recipe xmi:id="_L4aowJmjEeOaWL3_pov7wg" base_Class="_HlW4IJmjEeOaWL3_pov7wg"/>
+  <smarty:mandatory xmi:id="_L4ux0JmjEeOaWL3_pov7wg" base_Class="_HlW4IJmjEeOaWL3_pov7wg"/>
+  <smarty:interface xmi:id="_g_7OAJmjEeOaWL3_pov7wg" base_Class="_XEk_MJmjEeOaWL3_pov7wg"/>
+  <concerns:microwaveOvenKernel xmi:id="_s7dL4JmjEeOaWL3_pov7wg" base_Class="_mq3-oJmjEeOaWL3_pov7wg"/>
+  <concerns:light xmi:id="_s72NcJmjEeOaWL3_pov7wg" base_Class="_mq3-oJmjEeOaWL3_pov7wg"/>
+  <concerns:turntable xmi:id="_s8OA4JmjEeOaWL3_pov7wg" base_Class="_mq3-oJmjEeOaWL3_pov7wg"/>
+  <concerns:beeper xmi:id="_s8kmMJmjEeOaWL3_pov7wg" base_Class="_mq3-oJmjEeOaWL3_pov7wg"/>
+  <concerns:minutePlus xmi:id="_s87ykJmjEeOaWL3_pov7wg" base_Class="_mq3-oJmjEeOaWL3_pov7wg"/>
+  <concerns:heatingElement xmi:id="_s9VbMJmjEeOaWL3_pov7wg" base_Class="_mq3-oJmjEeOaWL3_pov7wg"/>
+  <concerns:powerLevel xmi:id="_s9t1sJmjEeOaWL3_pov7wg" base_Class="_mq3-oJmjEeOaWL3_pov7wg"/>
+  <concerns:todClock xmi:id="_s-J6kJmjEeOaWL3_pov7wg" base_Class="_mq3-oJmjEeOaWL3_pov7wg"/>
+  <concerns:recipe xmi:id="_s-l_cJmjEeOaWL3_pov7wg" base_Class="_mq3-oJmjEeOaWL3_pov7wg"/>
+  <smarty:mandatory xmi:id="_s--Z8JmjEeOaWL3_pov7wg" base_Class="_mq3-oJmjEeOaWL3_pov7wg"/>
+  <smarty:interface xmi:id="_AvldsJmkEeOaWL3_pov7wg" base_Class="__AI5UJmjEeOaWL3_pov7wg"/>
+  <smarty:interface xmi:id="_Y65LIJmkEeOaWL3_pov7wg" base_Class="_VChycJmkEeOaWL3_pov7wg"/>
+  <smarty:interface xmi:id="_k3sUUJmkEeOaWL3_pov7wg" base_Class="_h-tVAJmkEeOaWL3_pov7wg"/>
+  <smarty:interface xmi:id="_wt0NwJmkEeOaWL3_pov7wg" base_Class="_ulmkEJmkEeOaWL3_pov7wg"/>
+  <smarty:interface xmi:id="_B88zQJmlEeOaWL3_pov7wg" base_Class="_9rF8gJmkEeOaWL3_pov7wg"/>
+  <concerns:microwaveOvenKernel xmi:id="_RGT_EJmlEeOaWL3_pov7wg" base_Class="_Ir27QJmlEeOaWL3_pov7wg"/>
+  <concerns:minutePlus xmi:id="_RGsZkJmlEeOaWL3_pov7wg" base_Class="_Ir27QJmlEeOaWL3_pov7wg"/>
+  <concerns:weightSensor xmi:id="_RHDl8JmlEeOaWL3_pov7wg" base_Class="_Ir27QJmlEeOaWL3_pov7wg"/>
+  <concerns:heatingElement xmi:id="_RHYWEJmlEeOaWL3_pov7wg" base_Class="_Ir27QJmlEeOaWL3_pov7wg"/>
+  <concerns:todClock xmi:id="_RH0a8JmlEeOaWL3_pov7wg" base_Class="_Ir27QJmlEeOaWL3_pov7wg"/>
+  <concerns:recipe xmi:id="_RImeEJmlEeOaWL3_pov7wg" base_Class="_Ir27QJmlEeOaWL3_pov7wg"/>
+  <smarty:mandatory xmi:id="_RI_foJmlEeOaWL3_pov7wg" base_Class="_Ir27QJmlEeOaWL3_pov7wg"/>
+  <concerns:heatingElement xmi:id="_FT-kAJmmEeOaWL3_pov7wg" base_Property="_29FW8JmlEeOaWL3_pov7wg"/>
+  <concerns:weightSensor xmi:id="_GQFm8JmmEeOaWL3_pov7wg" base_Property="_5FTnsJmlEeOaWL3_pov7wg"/>
+  <concerns:recipe xmi:id="_HXiXMJmmEeOaWL3_pov7wg" base_Property="_7McTUJmlEeOaWL3_pov7wg"/>
+  <concerns:todClock xmi:id="_IWn1oJmmEeOaWL3_pov7wg" base_Property="__TQ-wJmlEeOaWL3_pov7wg"/>
+  <concerns:todClock xmi:id="_JPSjAJmmEeOaWL3_pov7wg" base_Property="_A3aSEJmmEeOaWL3_pov7wg"/>
+  <smarty:interface xmi:id="_Wrm-MJmmEeOaWL3_pov7wg" base_Class="_VazdoJmmEeOaWL3_pov7wg"/>
+  <concerns:recipe xmi:id="_neCZkJmmEeOaWL3_pov7wg" base_Class="_jlh28JmmEeOaWL3_pov7wg"/>
+  <smarty:optional xmi:id="_neg6sJmmEeOaWL3_pov7wg" base_Class="_jlh28JmmEeOaWL3_pov7wg" rootVP="Recipes" variabilities="Recipe"/>
+  <concerns:recipe xmi:id="_4QFacJmmEeOaWL3_pov7wg" base_Class="_2chLEJmmEeOaWL3_pov7wg"/>
+  <smarty:optional xmi:id="_4QfqIJmmEeOaWL3_pov7wg" base_Class="_2chLEJmmEeOaWL3_pov7wg" rootVP="Recipes" variabilities="Recipe"/>
+  <smarty:variability xmi:id="_FbymwJmnEeOaWL3_pov7wg" base_Comment="_EpF-gJmnEeOaWL3_pov7wg" name="Recipe" maxSelection="1" allowAddingVar="true" variants="Recipes"/>
+  <smarty:interface xmi:id="_Zs6WkJmnEeOaWL3_pov7wg" base_Class="_WeZMIJmnEeOaWL3_pov7wg"/>
+  <concerns:todClock xmi:id="_lYDvEJmnEeOaWL3_pov7wg" base_Class="_c1wW0JmnEeOaWL3_pov7wg"/>
+  <smarty:optional xmi:id="_lYa7cJmnEeOaWL3_pov7wg" base_Class="_c1wW0JmnEeOaWL3_pov7wg" rootVP="TODTimer" variabilities="12 24 Hour Clock, TOD Clock"/>
+  <smarty:variability xmi:id="_qY1hUJmnEeOaWL3_pov7wg" base_Comment="_mt5goJmnEeOaWL3_pov7wg" name="TOD Clock" maxSelection="1" allowAddingVar="true" variants="TODTimer"/>
+  <smarty:variability xmi:id="_q6dAoJmnEeOaWL3_pov7wg" base_Comment="_m-L_YJmnEeOaWL3_pov7wg" name="12 24 Hour Clock" maxSelection="1" allowAddingVar="true" variants="TODTimer"/>
+  <smarty:interface xmi:id="_9T0koJmnEeOaWL3_pov7wg" base_Class="_8S0aoJmnEeOaWL3_pov7wg"/>
+  <concerns:light xmi:id="_Dx9FsJmoEeOaWL3_pov7wg" base_Class="_CJ4UoJmoEeOaWL3_pov7wg"/>
+  <smarty:optional xmi:id="_DyTD8JmoEeOaWL3_pov7wg" base_Class="_CJ4UoJmoEeOaWL3_pov7wg" rootVP="LampInterface" variabilities="Light"/>
+  <smarty:variability xmi:id="_MgFTcJmoEeOaWL3_pov7wg" base_Comment="_K9gGYJmoEeOaWL3_pov7wg" name="Light" maxSelection="1" allowAddingVar="true" variants="LampInterface"/>
+  <smarty:interface xmi:id="_jXbeoJmoEeOaWL3_pov7wg" base_Class="_d1kYkJmoEeOaWL3_pov7wg"/>
+  <concerns:turntable xmi:id="_p69dEJmoEeOaWL3_pov7wg" base_Class="_nSHLgJmoEeOaWL3_pov7wg"/>
+  <smarty:optional xmi:id="_p7VQgJmoEeOaWL3_pov7wg" base_Class="_nSHLgJmoEeOaWL3_pov7wg" rootVP="TurntableInterface" variabilities="Turntable"/>
+  <smarty:variability xmi:id="_xMcGoJmoEeOaWL3_pov7wg" base_Comment="_wc-YkJmoEeOaWL3_pov7wg" name="Turntable" maxSelection="1" allowAddingVar="true" variants="TurntableInterface"/>
+  <smarty:interface xmi:id="_89ujYJmoEeOaWL3_pov7wg" base_Class="_7uz5MJmoEeOaWL3_pov7wg"/>
+  <concerns:beeper xmi:id="_DMucQJmpEeOaWL3_pov7wg" base_Class="__7SgsJmoEeOaWL3_pov7wg"/>
+  <smarty:optional xmi:id="_DNDMYJmpEeOaWL3_pov7wg" base_Class="__7SgsJmoEeOaWL3_pov7wg" rootVP="BeeperInterface" variabilities="Beeper"/>
+  <smarty:variability xmi:id="_H746EJmpEeOaWL3_pov7wg" base_Comment="_HazmQJmpEeOaWL3_pov7wg" name="Beeper" maxSelection="1" allowAddingVar="true" variants="BeeperInterface"/>
+  <smarty:interface xmi:id="_SceugJmqEeOaWL3_pov7wg" base_Class="_Qr9zIJmqEeOaWL3_pov7wg"/>
+  <concerns:microwaveOvenKernel xmi:id="_du2lMJmrEeOaWL3_pov7wg" base_Class="_apL0wJmrEeOaWL3_pov7wg"/>
+  <smarty:mandatory xmi:id="_dvXikJmrEeOaWL3_pov7wg" base_Class="_apL0wJmrEeOaWL3_pov7wg"/>
+  <smarty:variationPoint xmi:id="_dv0OgJmrEeOaWL3_pov7wg" base_Class="_apL0wJmrEeOaWL3_pov7wg" numberOfVariants="2" variants="One-LineDisplayInterface,Multi-LineDisplayInterface" variabilities="Display Unit"/>
+  <concerns:displayUnit xmi:id="_3PnpsJmrEeOaWL3_pov7wg" base_Class="_0Wh8sJmrEeOaWL3_pov7wg"/>
+  <smarty:alternative_XOR xmi:id="_3P_dIJmrEeOaWL3_pov7wg" base_Class="_0Wh8sJmrEeOaWL3_pov7wg" rootVP="DisplayInterface" variabilities="Display Unit"/>
+  <concerns:displayUnit xmi:id="_A2caAJmsEeOaWL3_pov7wg" base_Class="_A2Hp4JmsEeOaWL3_pov7wg"/>
+  <smarty:alternative_XOR xmi:id="_A2caAZmsEeOaWL3_pov7wg" base_Class="_A2Hp4JmsEeOaWL3_pov7wg" rootVP="DisplayInterface" variabilities="Display Unit"/>
+  <smarty:variability xmi:id="_KZZW8JmsEeOaWL3_pov7wg" base_Comment="_Ja5HUJmsEeOaWL3_pov7wg" name="Display Unit" minSelection="1" maxSelection="1" allowAddingVar="true" variants="One-LineDisplayInterface,Multi-LineDisplayInterface"/>
+  <smarty:interface xmi:id="_ys1lkJmsEeOaWL3_pov7wg" base_Class="_e5dhsJmsEeOaWL3_pov7wg"/>
+  <concerns:microwaveOvenKernel xmi:id="_5Mz5sJmsEeOaWL3_pov7wg" base_Class="_zo9PkJmsEeOaWL3_pov7wg"/>
+  <smarty:mandatory xmi:id="_5NJ38JmsEeOaWL3_pov7wg" base_Class="_zo9PkJmsEeOaWL3_pov7wg"/>
+  <smarty:variationPoint xmi:id="_5NiScJmsEeOaWL3_pov7wg" base_Class="_zo9PkJmsEeOaWL3_pov7wg" numberOfVariants="5" variants="EnglishDisplayPrompts, ItalianDisplayPrompts, SpanishDisplayPrompts, GermanDisplayPrompts, FrenchDisplayPrompts" variabilities="Display Language"/>
+  <concerns:displayLanguage xmi:id="_o02XUJmtEeOaWL3_pov7wg" base_Class="_mo1LsJmtEeOaWL3_pov7wg"/>
+  <smarty:alternative_XOR xmi:id="_o1LugJmtEeOaWL3_pov7wg" base_Class="_mo1LsJmtEeOaWL3_pov7wg" rootVP="DisplayPrompts" variabilities="Display Language"/>
+  <concerns:displayLanguage xmi:id="_zUuPgJmtEeOaWL3_pov7wg" base_Class="_zUtBYJmtEeOaWL3_pov7wg"/>
+  <smarty:alternative_XOR xmi:id="_zUuPgZmtEeOaWL3_pov7wg" base_Class="_zUtBYJmtEeOaWL3_pov7wg" rootVP="DisplayPrompts" variabilities="Display Language"/>
+  <concerns:displayLanguage xmi:id="_zbHycJmtEeOaWL3_pov7wg" base_Class="_zbHLYJmtEeOaWL3_pov7wg"/>
+  <smarty:alternative_XOR xmi:id="_zbHycZmtEeOaWL3_pov7wg" base_Class="_zbHLYJmtEeOaWL3_pov7wg" rootVP="DisplayPrompts" variabilities="Display Language"/>
+  <concerns:displayLanguage xmi:id="_zi3ZMJmtEeOaWL3_pov7wg" base_Class="_zi2yIJmtEeOaWL3_pov7wg"/>
+  <smarty:alternative_XOR xmi:id="_zi4AQJmtEeOaWL3_pov7wg" base_Class="_zi2yIJmtEeOaWL3_pov7wg" rootVP="DisplayPrompts" variabilities="Display Language"/>
+  <concerns:displayLanguage xmi:id="_zo8zEJmtEeOaWL3_pov7wg" base_Class="_zo7k8JmtEeOaWL3_pov7wg"/>
+  <smarty:alternative_XOR xmi:id="_zo8zEZmtEeOaWL3_pov7wg" base_Class="_zo7k8JmtEeOaWL3_pov7wg" rootVP="DisplayPrompts" variabilities="Display Language"/>
+  <smarty:variability xmi:id="_cZ-VkJmuEeOaWL3_pov7wg" base_Comment="_a8ttYJmuEeOaWL3_pov7wg" name="Display Language" minSelection="1" maxSelection="1" allowAddingVar="true" variants="EnglishDisplayPrompts, ItalianDisplayPrompts, SpanishDisplayPrompts, GermanDisplayPrompts, FrenchDisplayPrompts"/>
+  <concerns:hourClock xmi:id="_209n0JnIEeOxiNx1rb5-sA" base_Class="_Ir27QJmlEeOaWL3_pov7wg"/>
+  <concerns:microwaveOvenKernel xmi:id="_-Z0q8JnJEeOxiNx1rb5-sA" base_Class="_toJPkJmfEeOaWL3_pov7wg"/>
+  <smarty:mandatory xmi:id="_-aMeYJnJEeOxiNx1rb5-sA" base_Class="_toJPkJmfEeOaWL3_pov7wg"/>
+  <smarty:mandatory xmi:id="_Iah64JnKEeOxiNx1rb5-sA" base_Class="_4fyukJmfEeOaWL3_pov7wg"/>
+  <concerns:heatingElement xmi:id="_W6L5oDg_EeSxOMFRiP4ohw" base_Class="_51ReUJmgEeOaWL3_pov7wg"/>
+  <concerns:light xmi:id="_Xz0QUDg_EeSxOMFRiP4ohw" base_Class="_8S0aoJmnEeOaWL3_pov7wg"/>
+  <concerns:weightSensor xmi:id="_ZrsX8Dg_EeSxOMFRiP4ohw" base_Class="_4fyukJmfEeOaWL3_pov7wg"/>
+  <concerns:turntable xmi:id="_cl104Dg_EeSxOMFRiP4ohw" base_Class="_d1kYkJmoEeOaWL3_pov7wg"/>
+  <concerns:beeper xmi:id="_d-S1kDg_EeSxOMFRiP4ohw" base_Class="_7uz5MJmoEeOaWL3_pov7wg"/>
+  <concerns:todClock xmi:id="_fQxKEDg_EeSxOMFRiP4ohw" base_Class="_WeZMIJmnEeOaWL3_pov7wg"/>
+  <concerns:displayLanguage xmi:id="_hYKUYDg_EeSxOMFRiP4ohw" base_Class="_e5dhsJmsEeOaWL3_pov7wg"/>
+  <concerns:displayUnit xmi:id="_ifl2gDg_EeSxOMFRiP4ohw" base_Class="_Qr9zIJmqEeOaWL3_pov7wg"/>
+</xmi:XMI>

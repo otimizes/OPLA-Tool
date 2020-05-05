@@ -8,6 +8,7 @@ export class OptimizationDto {
   mutationProbability: number;
   inputArchitecture: string;
   numberRuns: number;
+  papyrus: boolean = false;
   populationSize: number;
   maxEvaluations: number;
   crossover: boolean;
