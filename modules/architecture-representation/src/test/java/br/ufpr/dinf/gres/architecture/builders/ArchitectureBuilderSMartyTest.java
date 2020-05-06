@@ -19,9 +19,9 @@ public class ArchitectureBuilderSMartyTest {
     public void buildAGM1onSmarty() throws Exception {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
-        applicationYamlConfig.setDirectoryToExportModels("/home/wmfsystem/oplatool/output/");
-        applicationYamlConfig.setDirectoryToSaveModels("/home/wmfsystem/oplatool/temp/");
-        applicationYamlConfig.setPathToTemplateModelsDirectory("/home/wmfsystem/oplatool/templates/");
+        applicationYamlConfig.setDirectoryToExportModels("");
+        applicationYamlConfig.setDirectoryToSaveModels("");
+        applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
         String xmiFilePath = agm + Constants.FILE_SEPARATOR + "agm1.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
@@ -55,9 +55,9 @@ public class ArchitectureBuilderSMartyTest {
     public void buildAGM2onSmarty() throws Exception {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
-        applicationYamlConfig.setDirectoryToExportModels("/home/wmfsystem/oplatool/output/");
-        applicationYamlConfig.setDirectoryToSaveModels("/home/wmfsystem/oplatool/temp/");
-        applicationYamlConfig.setPathToTemplateModelsDirectory("/home/wmfsystem/oplatool/templates/");
+        applicationYamlConfig.setDirectoryToExportModels("");
+        applicationYamlConfig.setDirectoryToSaveModels("");
+        applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
         String xmiFilePath = agm + Constants.FILE_SEPARATOR + "agm2.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
@@ -91,9 +91,9 @@ public class ArchitectureBuilderSMartyTest {
     public void buildAGMAtualonSmarty() throws Exception {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
-        applicationYamlConfig.setDirectoryToExportModels("/home/wmfsystem/oplatool/output/");
-        applicationYamlConfig.setDirectoryToSaveModels("/home/wmfsystem/oplatool/temp/");
-        applicationYamlConfig.setPathToTemplateModelsDirectory("/home/wmfsystem/oplatool/templates/");
+        applicationYamlConfig.setDirectoryToExportModels("");
+        applicationYamlConfig.setDirectoryToSaveModels("");
+        applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
         String xmiFilePath = agm + Constants.FILE_SEPARATOR + "AGMAtual.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
@@ -127,9 +127,9 @@ public class ArchitectureBuilderSMartyTest {
     public void buildBetAtualonSmarty() throws Exception {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
-        applicationYamlConfig.setDirectoryToExportModels("/home/wmfsystem/oplatool/output/");
-        applicationYamlConfig.setDirectoryToSaveModels("/home/wmfsystem/oplatool/temp/");
-        applicationYamlConfig.setPathToTemplateModelsDirectory("/home/wmfsystem/oplatool/templates/");
+        applicationYamlConfig.setDirectoryToExportModels("");
+        applicationYamlConfig.setDirectoryToSaveModels("");
+        applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
         String xmiFilePath = agm + Constants.FILE_SEPARATOR + "BetAtual.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
@@ -163,9 +163,9 @@ public class ArchitectureBuilderSMartyTest {
     public void buildMM1onSmarty() throws Exception {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
-        applicationYamlConfig.setDirectoryToExportModels("/home/wmfsystem/oplatool/output/");
-        applicationYamlConfig.setDirectoryToSaveModels("/home/wmfsystem/oplatool/temp/");
-        applicationYamlConfig.setPathToTemplateModelsDirectory("/home/wmfsystem/oplatool/templates/");
+        applicationYamlConfig.setDirectoryToExportModels("");
+        applicationYamlConfig.setDirectoryToSaveModels("");
+        applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
         String xmiFilePath = agm + Constants.FILE_SEPARATOR + "mm1.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
@@ -199,9 +199,9 @@ public class ArchitectureBuilderSMartyTest {
     public void buildMM2onSmarty() throws Exception {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
-        applicationYamlConfig.setDirectoryToExportModels("/home/wmfsystem/oplatool/output/");
-        applicationYamlConfig.setDirectoryToSaveModels("/home/wmfsystem/oplatool/temp/");
-        applicationYamlConfig.setPathToTemplateModelsDirectory("/home/wmfsystem/oplatool/templates/");
+        applicationYamlConfig.setDirectoryToExportModels("");
+        applicationYamlConfig.setDirectoryToSaveModels("");
+        applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
         String xmiFilePath = agm + Constants.FILE_SEPARATOR + "mm2.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
@@ -235,9 +235,9 @@ public class ArchitectureBuilderSMartyTest {
     public void buildMMAtualonSmarty() throws Exception {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
-        applicationYamlConfig.setDirectoryToExportModels("/home/wmfsystem/oplatool/output/");
-        applicationYamlConfig.setDirectoryToSaveModels("/home/wmfsystem/oplatool/temp/");
-        applicationYamlConfig.setPathToTemplateModelsDirectory("/home/wmfsystem/oplatool/templates/");
+        applicationYamlConfig.setDirectoryToExportModels("");
+        applicationYamlConfig.setDirectoryToSaveModels("");
+        applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
         String xmiFilePath = agm + Constants.FILE_SEPARATOR + "MMAtual.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
