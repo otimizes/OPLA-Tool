@@ -1,10 +1,10 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
-import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
@@ -17,6 +17,7 @@ import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.learning.Moment;
 import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.Info;
@@ -151,7 +152,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
                         experiment, selectedObjectiveFunctions);
                 execution.setTime(estimatedTime);
 
-                resultFront.saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
+                ((OPLASolutionSet) resultFront).saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
 
                 execution.setInfos(infos);
                 execution.setAllMetrics(allMetrics);
@@ -175,7 +176,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
 
             if (configs.getNumberOfRuns() > 1) {
                 LOGGER.info("saveVariablesToFile()");
-                allRuns.saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
+                ((OPLASolutionSet) allRuns).saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
             }
 
 
@@ -254,7 +255,7 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
         if (!newDir.exists())
             newDir.mkdirs();
 
-        allSolutions.printObjectivesToFile(dir + "/hypervolume.txt");
+        ((OPLASolutionSet) allSolutions).printObjectivesToFile(dir + "/hypervolume.txt");
     }
 
 }

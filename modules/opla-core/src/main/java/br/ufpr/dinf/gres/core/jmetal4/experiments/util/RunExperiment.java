@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Experiment;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Settings;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.QualityIndicator;
@@ -180,8 +181,8 @@ public class RunExperiment extends Thread {
 					}
 
 					// STEP 8: put the br.ufpr.dinf.gres.core.jmetal4.results in the output directory
-					resultFront.printObjectivesToFile(directory + System.getProperty("file.separator") + outputParetoFrontFile_ + "." + runs);
-					resultFront.printVariablesToFile(directory + System.getProperty("file.separator") + outputParetoSetFile_ + "." + runs);
+					((OPLASolutionSet) resultFront).printObjectivesToFile(directory + System.getProperty("file.separator") + outputParetoFrontFile_ + "." + runs);
+					((OPLASolutionSet) resultFront).printVariablesToFile(directory + System.getProperty("file.separator") + outputParetoSetFile_ + "." + runs);
 
 					// STEP 9: calculate quality indicators
 					if (indicatorList_.length > 0) {

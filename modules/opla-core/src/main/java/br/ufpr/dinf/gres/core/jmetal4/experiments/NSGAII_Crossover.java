@@ -1,7 +1,9 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
+import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.main.MainTestUtil;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
@@ -11,7 +13,6 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.MutationFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.Selection;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -136,11 +137,11 @@ public class NSGAII_Crossover {
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                resultFront.printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
+                ((OPLASolutionSet) resultFront).printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
                 //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
                 MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_" + PLAName + "_" + runs + ".txt");
                 // resultFront.saveVariablesToFile(directory + "/VAR_" + runs + "_");
-                resultFront.saveVariablesToFile("VAR_" + runs + "_");
+                ((OPLASolutionSet) resultFront).saveVariablesToFile("VAR_" + runs + "_");
 
                 //armazena as solucoes de todas runs
                 todasRuns = todasRuns.union(resultFront);
@@ -154,7 +155,7 @@ public class NSGAII_Crossover {
             }
             //Thelma - Dez2013 - duas proximas linhas
             String NameOfPLA = pla.substring(10, 15);
-            allSolutions.printObjectivesToFile(directory + "/Hypervolume/" + NameOfPLA + System.getProperty("file.separator") + NameOfPLA + "_HV_" + moea + ".txt");
+            ((OPLASolutionSet) allSolutions).printObjectivesToFile(directory + "/Hypervolume/" + NameOfPLA + System.getProperty("file.separator") + NameOfPLA + "_HV_" + moea + ".txt");
 
             MainTestUtil.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
             todasRuns = problem.removeDominadas(todasRuns);
@@ -162,10 +163,10 @@ public class NSGAII_Crossover {
 
 
             System.out.println("------    All Runs - Non-dominated solutions --------");
-            todasRuns.printObjectivesToFile(directory + "/FUN_All_" + PLAName + ".txt");
+            ((OPLASolutionSet) todasRuns).printObjectivesToFile(directory + "/FUN_All_" + PLAName + ".txt");
             //todasRuns.printVariablesToFile(directory + "/VAR_All");
             MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_All_" + PLAName + ".txt");
-            todasRuns.saveVariablesToFile("VAR_All_");
+            ((OPLASolutionSet) todasRuns).saveVariablesToFile("VAR_All_");
 
             //Thelma - Dez2013
             MainTestUtil.printMetricsToFile(allSolutions, directory + "/Metrics_All_" + PLAName + ".txt");

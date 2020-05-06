@@ -241,10 +241,10 @@ public class NSGAII extends Algorithm {
                 if (interactive && currentInteraction < maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
                     offspringPopulation = interactiveFunction.run(offspringPopulation);
                     if (subjectiveAnalyzeAlgorithm == null) {
-                        subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(offspringPopulation, ClassifierAlgorithm.CLUSTERING_MLP);
+                        subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm((OPLASolutionSet) offspringPopulation, ClassifierAlgorithm.CLUSTERING_MLP);
                         subjectiveAnalyzeAlgorithm.run(null, false);
                     } else {
-                        subjectiveAnalyzeAlgorithm.run(offspringPopulation, false);
+                        subjectiveAnalyzeAlgorithm.run((OPLASolutionSet) offspringPopulation, false);
                     }
                     bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5 && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
                     currentInteraction++;
@@ -252,7 +252,7 @@ public class NSGAII extends Algorithm {
 
 //              MID MLP
                 if (interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction) {
-                    subjectiveAnalyzeAlgorithm.run(offspringPopulation, true);
+                    subjectiveAnalyzeAlgorithm.run((OPLASolutionSet) offspringPopulation, true);
                 }
 
                 if (interactive && subjectiveAnalyzeAlgorithm != null && !subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions) {
@@ -261,7 +261,7 @@ public class NSGAII extends Algorithm {
                 }
 
                 if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
-                    subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(offspringPopulation, true);
+                    subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP((OPLASolutionSet) offspringPopulation, true);
                 }
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
@@ -299,7 +299,7 @@ public class NSGAII extends Algorithm {
 
         if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
             try {
-                subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(subfrontToReturn, false);
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP((OPLASolutionSet) subfrontToReturn, false);
             } catch (Exception e) {
                 e.printStackTrace();
             }

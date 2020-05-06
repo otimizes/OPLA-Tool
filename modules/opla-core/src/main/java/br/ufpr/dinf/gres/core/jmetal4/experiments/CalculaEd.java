@@ -1,20 +1,11 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
-import br.ufpr.dinf.gres.common.exceptions.MissingConfigurationException;
-import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
-import br.ufpr.dinf.gres.core.jmetal4.util.NonDominatedSolutionList;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.RoundingMode;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.NumberFormat;
 import java.util.HashMap;
 
@@ -56,7 +47,7 @@ public class CalculaEd {
      * @throws Exception
      */
     public HashMap<String, Double> calcula(String experimentId, int numberObjectives) throws Exception {
-        SolutionSet ss = persistence.queryNonDominatedSolutinsFromExperiment(experimentId);
+        OPLASolutionSet ss = persistence.queryNonDominatedSolutinsFromExperiment(experimentId);
         HashMap<String, Double> results = new HashMap<>();
 
         String[] names = new String[ss.size()];

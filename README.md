@@ -138,3 +138,6 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 - MUOBJObjectiveFuntionRepository -> Repository of the objective function
 - MYOBJObjectiveFunctionService -> Service of the objective function
 - MYOBJObjectiveFunctionResource -> Resource of the objective function
+
+### Implementing new Methods in JMetal
+- If you want to add new methods in SolutionSet, implement them at the core/OPLASolutionSet.java

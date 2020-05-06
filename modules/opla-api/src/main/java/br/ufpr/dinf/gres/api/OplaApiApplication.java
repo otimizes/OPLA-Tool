@@ -53,14 +53,6 @@ public class OplaApiApplication {
     }
 
     @Bean
-    public DataSource dataSource() {
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.sqlite.JDBC");
-        dataSource.setUrl("jdbc:sqlite:/home/wmfsystem/oplatool/db/oplatool.db");
-        return dataSource;
-    }
-
-    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override

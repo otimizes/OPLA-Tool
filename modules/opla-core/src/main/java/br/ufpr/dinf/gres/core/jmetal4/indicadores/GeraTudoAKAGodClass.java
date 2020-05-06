@@ -1,8 +1,9 @@
 package br.ufpr.dinf.gres.core.jmetal4.indicadores;
 
-import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -53,9 +54,9 @@ public class GeraTudoAKAGodClass {
         MetricsUtil mu = new MetricsUtil();
         SolutionSet ss = mu.readNonDominatedSolutionSet(directoryPath + "FUN_All_" + pla + ".txt");
         ss = removeDominadas(ss);
-        ss.printObjectivesToFile(directoryPath + "FUN_All_" + pla + ".txt");
+        ((OPLASolutionSet) ss).printObjectivesToFile(directoryPath + "FUN_All_" + pla + ".txt");
 
-        double[] min = mu.getMinimumValues(ss.writeObjectivesToMatrix(), 2);
+        double[] min = mu.getMinimumValues(((OPLASolutionSet) ss).writeObjectivesToMatrix(), 2);
         try (FileWriter todosEds = new FileWriter(directoryPath + "ALL_ED_" + pla + ".txt")) {
             try (FileWriter menoresEds = new FileWriter(directoryPath + "MIN_ED_" + pla + ".txt")) {
                 todosEds.write("--- " + min[0] + " " + min[1] + " ---" + "\n");

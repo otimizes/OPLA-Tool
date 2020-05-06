@@ -4,6 +4,7 @@ import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.factory.MutationOperatorFactory;
 import br.ufpr.dinf.gres.core.jmetal4.indicadores.Hypervolume;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
@@ -187,12 +188,12 @@ public class NSGAII_OPLA {
             resultFront = problem.removeDominadas(resultFront);
             resultFront = problem.removeRepetidas(resultFront);
 
-            resultFront.printObjectivesToFile(directory + "/FUN_" + plaName + "_" + runs + ".txt");
+            ((OPLASolutionSet) resultFront).printObjectivesToFile(directory + "/FUN_" + plaName + "_" + runs + ".txt");
             //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
             MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_" + plaName + "_" + runs + ".txt");
             // resultFront.saveVariablesToFile(directory + "/VAR_" + runs + "_");
             if (shouldPrintVariables) {
-                resultFront.saveVariablesToFile("VAR_" + runs + "_");
+                ((OPLASolutionSet) resultFront).saveVariablesToFile("VAR_" + runs + "_");
             }
 
             Hypervolume.printFormatedHypervolumeFile(resultFront, directory + "/HYPERVOLUME.txt", true);
@@ -212,12 +213,12 @@ public class NSGAII_OPLA {
         todasRuns = problem.removeRepetidas(todasRuns);
 
         System.out.println("------    All Runs - Non-dominated solutions --------");
-        todasRuns.printObjectivesToFile(directory + "/FUN_All_" + plaName + ".txt");
+        ((OPLASolutionSet) todasRuns).printObjectivesToFile(directory + "/FUN_All_" + plaName + ".txt");
         //todasRuns.printVariablesToFile(directory + "/VAR_All");
         MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_All_" + plaName + ".txt");
         //todasRuns.saveVariablesToFile(directory + "/VAR_All_");
         if (shouldPrintVariables) {
-            todasRuns.saveVariablesToFile("VAR_All_");
+            ((OPLASolutionSet) todasRuns).saveVariablesToFile("VAR_All_");
         }
 
         //Thelma - Dez2013

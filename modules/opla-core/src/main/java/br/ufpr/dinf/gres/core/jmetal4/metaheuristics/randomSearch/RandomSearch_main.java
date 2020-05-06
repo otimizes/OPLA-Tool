@@ -21,15 +21,12 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.metaheuristics.randomSearch;
 
-import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
-import br.ufpr.dinf.gres.core.jmetal4.core.Operator;
-import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
-import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.common.Configuration;
+import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.core.jmetal4.core.*;
 import br.ufpr.dinf.gres.core.jmetal4.problems.Kursawe;
 import br.ufpr.dinf.gres.core.jmetal4.problems.ProblemFactory;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.QualityIndicator;
-import br.ufpr.dinf.gres.common.Configuration;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
@@ -98,9 +95,9 @@ public class RandomSearch_main {
         // Result messages
         logger_.info("Total execution time: " + estimatedTime + "ms");
         logger_.info("Objectives values have been writen to file FUN");
-        population.printObjectivesToFile("FUN");
+        ((OPLASolutionSet) population).printObjectivesToFile("FUN");
         logger_.info("Variables values have been writen to file VAR");
-        population.printVariablesToFile("VAR");
+        ((OPLASolutionSet) population).printVariablesToFile("VAR");
 
         if (indicators != null) {
             logger_.info("Quality indicators");

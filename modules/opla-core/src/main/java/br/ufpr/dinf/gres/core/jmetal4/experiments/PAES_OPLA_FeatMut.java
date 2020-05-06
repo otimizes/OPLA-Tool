@@ -1,9 +1,9 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
-import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.paes.PAES;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
@@ -15,6 +15,7 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.Info;
@@ -149,7 +150,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
                 List<Info> Info = result.getInformations(resultFront.getSolutionSet(), execution, experiement);
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), execution, experiement, selectedObjectiveFunctions);
 
-                resultFront.saveVariablesToFile("VAR_" + runs + "_", Info, this.configs.getLogger(), true);
+                ((OPLASolutionSet) resultFront).saveVariablesToFile("VAR_" + runs + "_", Info, this.configs.getLogger(), true);
 
                 execution.setInfos(Info);
                 execution.setAllMetrics(allMetrics);
@@ -171,7 +172,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
             configs.getLogger().putLog("------All Runs - Non-dominated solutions --------");
             List<Info> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
 
-            todasRuns.saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
+            ((OPLASolutionSet) todasRuns).saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
 
 
             List<Info> Info = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
@@ -230,7 +231,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
         if (!newDir.exists())
             newDir.mkdirs();
 
-        allSolutions.printObjectivesToFile(dir + "/hypervolume.txt");
+        ((OPLASolutionSet) allSolutions).printObjectivesToFile(dir + "/hypervolume.txt");
     }
 
 

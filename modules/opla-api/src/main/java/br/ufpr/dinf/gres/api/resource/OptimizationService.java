@@ -7,6 +7,7 @@ import br.ufpr.dinf.gres.architecture.io.*;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.*;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.loglog.LogLog;
@@ -256,7 +257,7 @@ public class OptimizationService {
         SolutionSet solutionSet1 = new SolutionSet();
         solutionSet1.setCapacity(1);
         solutionSet1.add(solution);
-        solutionSet1.saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
+        ((OPLASolutionSet) solutionSet1).saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
         File file = new File(dirOnAnalyses);
         return file;
     }
@@ -291,7 +292,7 @@ public class OptimizationService {
         String dirOnAnalyses = OPLAConfigThreadScope.config.get().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/";
         boolean delete = deleteDirectory(new File(dirOnAnalyses));
         boolean create = new File(dirOnAnalyses).mkdir();
-        solutionSet.saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
+        ((OPLASolutionSet) solutionSet).saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
         File file = new File(dirOnAnalyses);
         return file;
     }
