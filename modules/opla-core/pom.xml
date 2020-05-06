@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>opla-core</artifactId>
@@ -21,14 +21,12 @@
 		<dependency>
 			<groupId>nz.ac.waikato.cms.weka</groupId>
 			<artifactId>weka-dev</artifactId>
-			<version>3.9.3</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/optics_dbScan -->
 		<dependency>
 			<groupId>nz.ac.waikato.cms.weka</groupId>
 			<artifactId>optics_dbScan</artifactId>
-			<version>1.0.4</version>
 		</dependency>
 
 		<dependency>
@@ -45,11 +43,11 @@
 		</dependency>
 
 
-<!--		<dependency>-->
-<!--			<artifactId>architecture-representation</artifactId>-->
-<!--			<groupId>br.ufpr.dinf.gres</groupId>-->
-<!--			<version>${project.version}</version>-->
-<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<artifactId>architecture-representation</artifactId>-->
+		<!--			<groupId>br.ufpr.dinf.gres</groupId>-->
+		<!--			<version>${project.version}</version>-->
+		<!--		</dependency>-->
 		<dependency>
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
@@ -76,18 +74,18 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>br.ufpr.dinf.gres</groupId>
-            <artifactId>opla-persistence</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <!--<scope>test</scope>-->
-        </dependency>
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>3.5.3</version>
-            <!--<scope>test</scope>-->
-        </dependency>
+		<dependency>
+			<groupId>br.ufpr.dinf.gres</groupId>
+			<artifactId>opla-persistence</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<!--<scope>test</scope>-->
+		</dependency>
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>3.5.3</version>
+			<!--<scope>test</scope>-->
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

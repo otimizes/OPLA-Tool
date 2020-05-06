@@ -24,7 +24,7 @@
         <module>modules/architecture-representation</module>
         <module>modules/opla-patterns</module>
         <module>modules/opla-core</module>
-<!--        <module>modules/opla-desktop-view</module>-->
+        <!-- <module>modules/opla-desktop-view</module> -->
         <module>modules/opla-api</module>
     </modules>
 
@@ -311,15 +311,23 @@
                 <version>3.6.1</version>
             </dependency>
             <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>1.23</version>
+                <groupId>nz.ac.waikato.cms.weka</groupId>
+                <artifactId>optics_dbScan</artifactId>
+                <version>1.0.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>nz.ac.waikato.cms.weka</groupId>
+                <artifactId>weka-dev</artifactId>
+                <version>3.9.4</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.mail</groupId>
                 <artifactId>javax.mail</artifactId>
                 <version>1.6.2</version>
             </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 
@@ -335,19 +343,19 @@
                 <enabled>true</enabled>
             </releases>
         </repository>
-        
-<!--         <repository> -->
-<!--             <id>bintray-godoy-opla-tool</id> -->
-<!--             <url>http://dl.bintray.com/godoy/opla-tool</url> -->
-<!--             <name>LogLog-Repository</name> -->
-<!--             <snapshots> -->
-<!--                 <enabled>false</enabled> -->
-<!--             </snapshots> -->
-<!--             <releases> -->
-<!--                 <enabled>true</enabled> -->
-<!--             </releases> -->
-<!--         </repository> -->
-        
+
+        <!-- <repository> -->
+        <!-- <id>bintray-godoy-opla-tool</id> -->
+        <!-- <url>http://dl.bintray.com/godoy/opla-tool</url> -->
+        <!-- <name>LogLog-Repository</name> -->
+        <!-- <snapshots> -->
+        <!-- <enabled>false</enabled> -->
+        <!-- </snapshots> -->
+        <!-- <releases> -->
+        <!-- <enabled>true</enabled> -->
+        <!-- </releases> -->
+        <!-- </repository> -->
+
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
