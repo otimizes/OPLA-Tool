@@ -2,9 +2,9 @@ package br.ufpr.dinf.gres.core.learning;
 
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.representation.Element;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import weka.classifiers.Evaluation;
@@ -14,7 +14,10 @@ import weka.core.DenseInstance;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 //https://stackoverflow.com/questions/28694971/using-neural-network-class-in-weka-in-java-code
 public class SubjectiveAnalyzeAlgorithm {
@@ -130,7 +133,7 @@ public class SubjectiveAnalyzeAlgorithm {
             }
             ArffExecution newArffSubjectiveMLP = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(), solutionSet.writeUserEvaluationsToMatrix(), null);
             newArffSubjectiveMLP.getData().setClassIndex(newArffSubjectiveMLP.getAttrIndices());
-            resultFront.getSolutionSet().addAll(solutionSet.getSolutionSet());
+            resultFront.getSolutionSet().getSolutionSet().addAll(solutionSet.getSolutionSet().getSolutionSet());
             subjectiveArffExecution.getData().addAll(newArffSubjectiveMLP.getData());
         }
         subjectiveArffExecution.getData().setClassIndex(subjectiveArffExecution.getAttrIndices());
@@ -154,7 +157,7 @@ public class SubjectiveAnalyzeAlgorithm {
         }
 
         LOGGER.info("-------------->>>>>>>>> Tempo: " + ((new Date().getTime() - startsIn) / 1000));
-        return resultFront;
+        return resultFront.getSolutionSet();
     }
 
     private void logMachineLearningModel() {
@@ -173,7 +176,7 @@ public class SubjectiveAnalyzeAlgorithm {
     public void evaluateSolutionSetSubjectiveMLP(OPLASolutionSet solutionSet) {
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
             try {
-                solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
+                solutionSet.getSolutionSet().get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -184,13 +187,13 @@ public class SubjectiveAnalyzeAlgorithm {
         LOGGER.info("evaluateSolutionSetSubjectiveAndArchitecturalMLP()");
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
             if (subjective) {
-                solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
+                solutionSet.getSolutionSet().get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
             }
-            for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElementsWithPackages()) {
-                double[] data = solutionSet.get(i).getObjectives();
-                data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element, solutionSet.get(i)));
+            for (Element element : solutionSet.getSolutionSet().get(i).getAlternativeArchitecture().getElementsWithPackages()) {
+                double[] data = solutionSet.getSolutionSet().get(i).getObjectives();
+                data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element, solutionSet.getSolutionSet().get(i)));
 
-                Solution solution = solutionSet.get(i);
+                Solution solution = solutionSet.getSolutionSet().getSolutionSet().get(i);
                 double[] objectives = new double[0];
                 try {
                     objectives = solutionSet.generateSolutionFromElementsAndGetDoubles(element, solution);
@@ -201,7 +204,7 @@ public class SubjectiveAnalyzeAlgorithm {
                 data = ArrayUtils.addAll(data, objectives);
 
                 data = ArrayUtils.addAll(data, new double[]{
-                        solutionSet.get(i).containsArchitecturalEvaluation() ? 1 : 0,
+                        solutionSet.getSolutionSet().get(i).containsArchitecturalEvaluation() ? 1 : 0,
                         element.isFreezeByDM() ? 1 : 0
                 });
                 DenseInstance denseInstance = new DenseInstance(1.0, data);

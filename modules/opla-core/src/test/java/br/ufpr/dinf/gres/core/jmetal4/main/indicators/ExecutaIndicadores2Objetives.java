@@ -45,7 +45,7 @@ public class ExecutaIndicadores2Objetives {
 //				JOptionPane.showMessageDialog(null, "true");
 
                 // escreve o conjunto de pareto real em um arquivo
-                ((OPLASolutionSet) ss).printObjectivesToFile(caminho + software + "/teste/" + software + "_trueParetoFront.txt");
+                new OPLASolutionSet(ss).printObjectivesToFile(caminho + software + "/teste/" + software + "_trueParetoFront.txt");
 
                 // le o arquivo com todas as melhores solucoes geradas
                 // nas 30 runs por um algoritmo
@@ -54,7 +54,7 @@ public class ExecutaIndicadores2Objetives {
                         .readFront(caminho + software + "/teste/" + algorithm + System.getProperty("file.separator") + algorithm + "All.txt");
                 // retorna a solucao minima de cada objetivo do conjunto // de
                 // pareto real
-                double[] min = mu.getMinimumValues(((OPLASolutionSet) ss).writeObjectivesToMatrix(), 2);
+                double[] min = mu.getMinimumValues(ss.writeObjectivesToMatrix(), 2);
 
                 // comparar o minimo em relacao as solucoes de cada //
                 // algoritmo para cada problema

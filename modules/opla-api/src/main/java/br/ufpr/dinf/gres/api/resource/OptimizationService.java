@@ -148,7 +148,7 @@ public class OptimizationService {
         SolutionSet solutionSet1 = new SolutionSet();
         solutionSet1.setCapacity(1);
         solutionSet1.add(solution);
-        ((OPLASolutionSet) solutionSet1).saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
+        new OPLASolutionSet(solutionSet1).saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
         File file = new File(dirOnAnalyses);
         return file;
     }
@@ -180,7 +180,7 @@ public class OptimizationService {
         String dirOnAnalyses = OPLAConfigThreadScope.config.get().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/";
         boolean delete = deleteDirectory(new File(dirOnAnalyses));
         boolean create = new File(dirOnAnalyses).mkdir();
-        ((OPLASolutionSet) solutionSet).saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
+        new OPLASolutionSet(solutionSet).saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
         File file = new File(dirOnAnalyses);
         return file;
     }

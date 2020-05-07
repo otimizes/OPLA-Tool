@@ -125,7 +125,7 @@ public class Persistence {
     }
 
 
-    public OPLASolutionSet queryNonDominatedSolutinsFromExperiment(String experimentID) throws Exception {
+    public SolutionSet queryNonDominatedSolutinsFromExperiment(String experimentID) throws Exception {
         List<Objective> byExperiment = objectiveService.findByExperiment(experimentID);
         SolutionSet solutionSet = new NonDominatedSolutionList();
 
@@ -141,6 +141,6 @@ public class Persistence {
             }
             solutionSet.add(solution);
         }
-        return (OPLASolutionSet) solutionSet;
+        return solutionSet;
     }
 }

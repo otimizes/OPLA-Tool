@@ -140,7 +140,7 @@ public class PAESOPLAFeatMut implements AlgorithmBaseExecution<PaesConfigs> {
                 List<Info> Info = result.getInformations(resultFront.getSolutionSet(), execution, experiement);
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), execution, experiement, selectedObjectiveFunctions);
 
-                ((OPLASolutionSet) resultFront).saveVariablesToFile("VAR_" + runs + "_", Info, this.configs.getLogger(), true);
+                new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_", Info, this.configs.getLogger(), true);
 
                 execution.setInfos(Info);
                 execution.setAllMetrics(allMetrics);
@@ -153,7 +153,7 @@ public class PAESOPLAFeatMut implements AlgorithmBaseExecution<PaesConfigs> {
             todasRuns = problem.removeRepetidas(todasRuns);
             configs.getLogger().putLog("------All Runs - Non-dominated solutions --------");
             List<Info> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
-            ((OPLASolutionSet) todasRuns).saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
+            new OPLASolutionSet(todasRuns).saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
 
             List<Info> Info = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
             mp.saveInfoAll(Info);
@@ -203,7 +203,7 @@ public class PAESOPLAFeatMut implements AlgorithmBaseExecution<PaesConfigs> {
         if (!newDir.exists())
             newDir.mkdirs();
 
-        ((OPLASolutionSet) allSolutions).printObjectivesToFile(dir + "/hypervolume.txt");
+        new OPLASolutionSet(allSolutions).printObjectivesToFile(dir + "/hypervolume.txt");
     }
 
 

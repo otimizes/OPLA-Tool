@@ -182,8 +182,8 @@ public class RunExperiment extends Thread {
                     }
 
                     // STEP 8: put the br.ufpr.dinf.gres.core.jmetal4.results in the output directory
-                    ((OPLASolutionSet) resultFront).printObjectivesToFile(directory + System.getProperty("file.separator") + outputParetoFrontFile_ + "." + runs);
-                    ((OPLASolutionSet) resultFront).printVariablesToFile(directory + System.getProperty("file.separator") + outputParetoSetFile_ + "." + runs);
+                    new OPLASolutionSet(resultFront).printObjectivesToFile(directory + System.getProperty("file.separator") + outputParetoFrontFile_ + "." + runs);
+                    new OPLASolutionSet(resultFront).printVariablesToFile(directory + System.getProperty("file.separator") + outputParetoSetFile_ + "." + runs);
 
                     // STEP 9: calculate quality indicators
                     if (indicatorList_.length > 0) {

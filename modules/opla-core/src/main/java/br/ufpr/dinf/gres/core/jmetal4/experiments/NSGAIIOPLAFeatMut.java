@@ -129,7 +129,7 @@ public class NSGAIIOPLAFeatMut implements AlgorithmBaseExecution<NSGAIIConfig> {
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
                         experiment, selectedObjectiveFunctions);
                 execution.setTime(estimatedTime);
-                ((OPLASolutionSet) resultFront).saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
+                new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
                 execution.setInfos(infos);
                 execution.setAllMetrics(allMetrics);
                 allRuns = allRuns.union(resultFront);
@@ -143,7 +143,7 @@ public class NSGAIIOPLAFeatMut implements AlgorithmBaseExecution<NSGAIIConfig> {
             List<Info> funResults = result.getObjectives(allRuns.getSolutionSet(), null, experiment);
 
             if (configs.getNumberOfRuns() > 1) {
-                ((OPLASolutionSet) allRuns).saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
+                new OPLASolutionSet(allRuns).saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
             }
 
             List<Info> infos = result.getInformations(allRuns.getSolutionSet(), null, experiment);
@@ -205,7 +205,7 @@ public class NSGAIIOPLAFeatMut implements AlgorithmBaseExecution<NSGAIIConfig> {
         if (!newDir.exists())
             newDir.mkdirs();
 
-        ((OPLASolutionSet) allSolutions).printObjectivesToFile(dir + "/hypervolume.txt");
+        new OPLASolutionSet(allSolutions).printObjectivesToFile(dir + "/hypervolume.txt");
     }
 
 }

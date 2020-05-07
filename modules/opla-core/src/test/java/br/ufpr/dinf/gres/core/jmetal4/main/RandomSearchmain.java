@@ -96,9 +96,9 @@ public class RandomSearchmain {
         // Result messages
         logger_.info("Total execution time: " + estimatedTime + "ms");
         logger_.info("Objectives values have been writen to file FUN");
-        ((OPLASolutionSet) population).printObjectivesToFile("FUN");
+        new OPLASolutionSet(population).printObjectivesToFile("FUN");
         logger_.info("Variables values have been writen to file VAR");
-        ((OPLASolutionSet) population).printVariablesToFile("VAR");
+        new OPLASolutionSet(population).printVariablesToFile("VAR");
 
         if (indicators != null) {
             logger_.info("Quality indicators");

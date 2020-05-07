@@ -18,7 +18,21 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class OPLASolutionSet extends SolutionSet {
+public class OPLASolutionSet {
+
+    private SolutionSet solutionSet;
+
+    public OPLASolutionSet(SolutionSet solutionSet) {
+        this.solutionSet = solutionSet;
+    }
+
+    public SolutionSet getSolutionSet() {
+        return solutionSet;
+    }
+
+    public void setSolutionSet(SolutionSet solutionSet) {
+        this.solutionSet = solutionSet;
+    }
 
     /**
      * Copies the objectives and Elements Number of the solution set to a matrix
@@ -28,19 +42,19 @@ public class OPLASolutionSet extends SolutionSet {
      * @return A matrix containing the objectives
      */
     public double[][] writeObjectivesAndElementsNumberToMatrix() {
-        double[][] doubles = writeObjectivesToMatrix();
+        double[][] doubles = solutionSet.writeObjectivesToMatrix();
         for (int i = 0; i < doubles.length; i++) {
             int length = doubles[i].length;
             double[] doublesObj = new double[length + 4 + 3];
             if (doubles[i].length >= 0) System.arraycopy(doubles[i], 0, doublesObj, 0, doubles[i].length);
-            doublesObj[length] = get(i).getAlternativeArchitecture().getAllClasses().size();
-            doublesObj[length + 1] = get(i).getAlternativeArchitecture().getAllConcerns().size();
-            doublesObj[length + 2] = get(i).getAlternativeArchitecture().getAllInterfaces().size();
-            doublesObj[length + 3] = get(i).getAlternativeArchitecture().getAllPackages().size();
+            doublesObj[length] = solutionSet.get(i).getAlternativeArchitecture().getAllClasses().size();
+            doublesObj[length + 1] = solutionSet.get(i).getAlternativeArchitecture().getAllConcerns().size();
+            doublesObj[length + 2] = solutionSet.get(i).getAlternativeArchitecture().getAllInterfaces().size();
+            doublesObj[length + 3] = solutionSet.get(i).getAlternativeArchitecture().getAllPackages().size();
 
-            doublesObj[length + 4] = get(i).getAlternativeArchitecture().getAllVariationPoints().size();
-            doublesObj[length + 5] = get(i).getAlternativeArchitecture().getAllVariants().size();
-            doublesObj[length + 6] = get(i).getAlternativeArchitecture().getAllVariabilities().size();
+            doublesObj[length + 4] = solutionSet.get(i).getAlternativeArchitecture().getAllVariationPoints().size();
+            doublesObj[length + 5] = solutionSet.get(i).getAlternativeArchitecture().getAllVariants().size();
+            doublesObj[length + 6] = solutionSet.get(i).getAlternativeArchitecture().getAllVariabilities().size();
             doubles[i] = doublesObj;
         }
         return doubles;
@@ -179,22 +193,22 @@ public class OPLASolutionSet extends SolutionSet {
      * @return List of objectives
      */
     public String toStringObjectives(String interaction) {
-        return Arrays.stream(writeObjectivesToMatrix()).map(p -> Arrays.asList(ArrayUtils.toObject(p)).toString().replace("]", interaction + "," + interaction + "\n").replace(",", "|").replace("[", interaction + "," + interaction + ",").replaceAll("\\.0", "").replaceAll(" ", "")).collect(Collectors.joining());
+        return Arrays.stream(solutionSet.writeObjectivesToMatrix()).map(p -> Arrays.asList(ArrayUtils.toObject(p)).toString().replace("]", interaction + "," + interaction + "\n").replace(",", "|").replace("[", interaction + "," + interaction + ",").replaceAll("\\.0", "").replaceAll(" ", "")).collect(Collectors.joining());
     }
 
     public double[][] writeObjectivesAndElementsNumberEvaluationToMatrix() {
         double[][] doubles = writeObjectivesAndElementsNumberToMatrix();
         for (int i = 0; i < doubles.length; i++) {
             doubles[i] = Arrays.copyOf(doubles[i], doubles[i].length + 1);
-            doubles[i][doubles[i].length - 1] = getSolutionSet().get(i).getEvaluation();
+            doubles[i][doubles[i].length - 1] = solutionSet.getSolutionSet().get(i).getEvaluation();
         }
         return doubles;
     } // writeObjectivesAndElementsNumberToMatrix
 
     public double[] writeUserEvaluationsToMatrix() {
-        double[] doubles = new double[solutionsList_.size()];
-        for (int i = 0; i < solutionsList_.size(); i++) {
-            doubles[i] = (double) solutionsList_.get(i).getEvaluation();
+        double[] doubles = new double[solutionSet.solutionsList_.size()];
+        for (int i = 0; i < solutionSet.solutionsList_.size(); i++) {
+            doubles[i] = (double) solutionSet.solutionsList_.get(i).getEvaluation();
         }
         return doubles;
     }
@@ -209,7 +223,7 @@ public class OPLASolutionSet extends SolutionSet {
 
     public Map<Double, Set<Integer>> getClusterIds() {
         Map<Double, Set<Integer>> clusters = new HashMap<>();
-        for (Solution solution : solutionsList_) {
+        for (Solution solution : solutionSet.solutionsList_) {
             if (solution.getClusterId() != null) {
                 Set<Integer> clusterId = clusters.getOrDefault(solution.getClusterId(), new HashSet<>());
                 clusterId.add(solution.getEvaluation());
@@ -233,7 +247,7 @@ public class OPLASolutionSet extends SolutionSet {
 
 
     public List<Solution> getArchitecturalSolutionsEvaluated() {
-        return getSolutionSet().stream().filter(Solution::containsArchitecturalEvaluation).collect(Collectors.toList());
+        return solutionSet.getSolutionSet().stream().filter(Solution::containsArchitecturalEvaluation).collect(Collectors.toList());
     }
 
     public List<Element> getArchitecturalElementsEvaluatedByClusterId(Double clusterId) {
@@ -254,7 +268,7 @@ public class OPLASolutionSet extends SolutionSet {
         if (DistributeUserEvaluation.NONE.equals(distributeUserEvaluation)) return;
         Map<Double, Set<Integer>> clusterIds = getClusterIds();
         if (hasUserEvaluation() && clusterIds.size() > 0) {
-            List<Solution> solutionsList_ = this.solutionsList_;
+            List<Solution> solutionsList_ = solutionSet.solutionsList_;
             if (DistributeUserEvaluation.MIDDLE.equals(distributeUserEvaluation))
                 solutionsList_ = solutionsList_.subList(0, Math.abs(solutionsList_.size() / 2));
             for (int i = 0; i < solutionsList_.size(); i++) {
@@ -280,7 +294,7 @@ public class OPLASolutionSet extends SolutionSet {
     private void freezeArchitecturalElementsAccordingSolution(Solution solution) {
         List<Element> evaluatedElements = solution.getAlternativeArchitecture().getFreezedElements();
         if (evaluatedElements.size() > 0) {
-            for (Solution sol : getSolutionSet()) {
+            for (Solution sol : solutionSet.getSolutionSet()) {
                 List<Element> collect = sol.getAlternativeArchitecture().getElementsWithPackages().stream()
                         .filter(e -> evaluatedElements.stream().anyMatch(ee -> ee.totalyEquals(e))).collect(Collectors.toList());
                 if (collect.size() > 0) {
@@ -294,7 +308,7 @@ public class OPLASolutionSet extends SolutionSet {
     }
 
     public List<Element> findElementWithNumberId(Double id) {
-        List<List<Element>> collect = getSolutionSet().stream().map(s -> s.getAlternativeArchitecture().findElementByNumberId(id)).collect(Collectors.toList());
+        List<List<Element>> collect = solutionSet.getSolutionSet().stream().map(s -> s.getAlternativeArchitecture().findElementByNumberId(id)).collect(Collectors.toList());
         List<Element> objects = new ArrayList<>();
         for (List<Element> elements : collect) {
             objects.addAll(elements);
@@ -328,8 +342,8 @@ public class OPLASolutionSet extends SolutionSet {
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
 
-            for (int i = 0; i < solutionsList_.size(); i++) {
-                bw.write(solutionsList_.get(i).toString().trim().replaceAll(" ", ", ")); // returns something
+            for (int i = 0; i < solutionSet.solutionsList_.size(); i++) {
+                bw.write(solutionSet.solutionsList_.get(i).toString().trim().replaceAll(" ", ", ")); // returns something
                 bw.newLine();
             }
             bw.close();
@@ -345,8 +359,8 @@ public class OPLASolutionSet extends SolutionSet {
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
 
-            for (int i = 0; i < solutionsList_.size(); i++) {
-                bw.write(solutionsList_.get(i).toStringObjectivesTemp());
+            for (int i = 0; i < solutionSet.solutionsList_.size(); i++) {
+                bw.write(solutionSet.solutionsList_.get(i).toStringObjectivesTemp());
                 bw.newLine();
             }
 
@@ -369,10 +383,10 @@ public class OPLASolutionSet extends SolutionSet {
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
 
-            int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
-            for (int i = 0; i < solutionsList_.size(); i++) {
+            int numberOfVariables = solutionSet.solutionsList_.get(0).getDecisionVariables().length;
+            for (int i = 0; i < solutionSet.solutionsList_.size(); i++) {
                 for (int j = 0; j < numberOfVariables; j++) {
-                    bw.write(((Architecture) solutionsList_.get(i).getDecisionVariables()[j]).getName());
+                    bw.write(((Architecture) solutionSet.solutionsList_.get(i).getDecisionVariables()[j]).getName());
                 }
                 bw.newLine();
             }
@@ -385,15 +399,15 @@ public class OPLASolutionSet extends SolutionSet {
     } // printVariablesToFile
 
     public void saveVariablesToFile(String path, List<Info> funResults, LogLog logger, boolean generate) {
-        int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
+        int numberOfVariables = solutionSet.solutionsList_.get(0).getDecisionVariables().length;
 
         if (logger != null)
-            logger.putLog("Number of solutions: " + solutionsList_.size(), Level.INFO);
-        for (int i = 0; i < solutionsList_.size(); i++) {
+            logger.putLog("Number of solutions: " + solutionSet.solutionsList_.size(), Level.INFO);
+        for (int i = 0; i < solutionSet.solutionsList_.size(); i++) {
             for (int j = 0; j < numberOfVariables; j++) {
-                Architecture arch = (Architecture) solutionsList_.get(i).getDecisionVariables()[j];
+                Architecture arch = (Architecture) solutionSet.solutionsList_.get(i).getDecisionVariables()[j];
                 String pathToSave = path;
-                String originalName = ((OPLA) solutionsList_.get(i).getProblem()).getArchitecture_().getName();
+                String originalName = ((OPLA) solutionSet.solutionsList_.get(i).getProblem()).getArchitecture_().getName();
                 funResults.get(i).setName(pathToSave + originalName);
                 if (generate)
                     arch.save(arch, pathToSave, "-" + funResults.get(i).getId());
@@ -403,11 +417,11 @@ public class OPLASolutionSet extends SolutionSet {
 
     public void saveVariablesToFile(String path) {
 
-        int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
-        System.out.println("Number of solutions: " + solutionsList_.size());
-        for (int i = 0; i < solutionsList_.size(); i++) {
+        int numberOfVariables = solutionSet.solutionsList_.get(0).getDecisionVariables().length;
+        System.out.println("Number of solutions: " + solutionSet.solutionsList_.size());
+        for (int i = 0; i < solutionSet.solutionsList_.size(); i++) {
             for (int j = 0; j < numberOfVariables; j++) {
-                Architecture arch = (Architecture) solutionsList_.get(i).getDecisionVariables()[j];
+                Architecture arch = (Architecture) solutionSet.solutionsList_.get(i).getDecisionVariables()[j];
                 String pathToSave = path;
                 arch.save(arch, pathToSave, String.valueOf(i));
             }

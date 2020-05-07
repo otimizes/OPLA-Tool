@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class EdCalculation {
     }
 
     public HashMap<String, Double> calculate(String experimentId, int numberObjectives) throws Exception {
-        OPLASolutionSet ss = persistence.queryNonDominatedSolutinsFromExperiment(experimentId);
+        SolutionSet ss = persistence.queryNonDominatedSolutinsFromExperiment(experimentId);
         HashMap<String, Double> results = new HashMap<>();
 
         String[] names = new String[ss.size()];

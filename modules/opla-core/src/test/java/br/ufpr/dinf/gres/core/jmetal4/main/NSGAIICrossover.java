@@ -136,11 +136,11 @@ public class NSGAIICrossover {
                 resultFront = problem.removeDominadas(resultFront);
                 resultFront = problem.removeRepetidas(resultFront);
 
-                ((OPLASolutionSet) resultFront).printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
+                new OPLASolutionSet(resultFront).printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
                 //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
                 MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_" + PLAName + "_" + runs + ".txt");
                 // resultFront.saveVariablesToFile(directory + "/VAR_" + runs + "_");
-                ((OPLASolutionSet) resultFront).saveVariablesToFile("VAR_" + runs + "_");
+                new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_");
 
                 //armazena as solucoes de todas runs
                 todasRuns = todasRuns.union(resultFront);
@@ -154,7 +154,7 @@ public class NSGAIICrossover {
             }
             //Thelma - Dez2013 - duas proximas linhas
             String NameOfPLA = pla.substring(10, 15);
-            ((OPLASolutionSet) allSolutions).printObjectivesToFile(directory + "/Hypervolume/" + NameOfPLA + System.getProperty("file.separator") + NameOfPLA + "_HV_" + moea + ".txt");
+            new OPLASolutionSet(allSolutions).printObjectivesToFile(directory + "/Hypervolume/" + NameOfPLA + System.getProperty("file.separator") + NameOfPLA + "_HV_" + moea + ".txt");
 
             MainTestUtil.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
             todasRuns = problem.removeDominadas(todasRuns);
@@ -162,10 +162,10 @@ public class NSGAIICrossover {
 
 
             System.out.println("------    All Runs - Non-dominated solutions --------");
-            ((OPLASolutionSet) todasRuns).printObjectivesToFile(directory + "/FUN_All_" + PLAName + ".txt");
+            new OPLASolutionSet(todasRuns).printObjectivesToFile(directory + "/FUN_All_" + PLAName + ".txt");
             //todasRuns.printVariablesToFile(directory + "/VAR_All");
             MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_All_" + PLAName + ".txt");
-            ((OPLASolutionSet) todasRuns).saveVariablesToFile("VAR_All_");
+            new OPLASolutionSet(todasRuns).saveVariablesToFile("VAR_All_");
 
             //Thelma - Dez2013
             MainTestUtil.printMetricsToFile(allSolutions, directory + "/Metrics_All_" + PLAName + ".txt");

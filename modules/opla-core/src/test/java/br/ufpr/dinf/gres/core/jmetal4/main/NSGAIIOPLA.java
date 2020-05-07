@@ -188,12 +188,12 @@ public class NSGAIIOPLA {
             resultFront = problem.removeDominadas(resultFront);
             resultFront = problem.removeRepetidas(resultFront);
 
-            ((OPLASolutionSet) resultFront).printObjectivesToFile(directory + "/FUN_" + plaName + "_" + runs + ".txt");
+            new OPLASolutionSet(resultFront).printObjectivesToFile(directory + "/FUN_" + plaName + "_" + runs + ".txt");
             //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
             MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_" + plaName + "_" + runs + ".txt");
             // resultFront.saveVariablesToFile(directory + "/VAR_" + runs + "_");
             if (shouldPrintVariables) {
-                ((OPLASolutionSet) resultFront).saveVariablesToFile("VAR_" + runs + "_");
+                new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_");
             }
 
             Hypervolume.printFormatedHypervolumeFile(resultFront, directory + "/HYPERVOLUME.txt", true);
@@ -213,12 +213,12 @@ public class NSGAIIOPLA {
         todasRuns = problem.removeRepetidas(todasRuns);
 
         System.out.println("------    All Runs - Non-dominated solutions --------");
-        ((OPLASolutionSet) todasRuns).printObjectivesToFile(directory + "/FUN_All_" + plaName + ".txt");
+        new OPLASolutionSet(todasRuns).printObjectivesToFile(directory + "/FUN_All_" + plaName + ".txt");
         //todasRuns.printVariablesToFile(directory + "/VAR_All");
         MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_All_" + plaName + ".txt");
         //todasRuns.saveVariablesToFile(directory + "/VAR_All_");
         if (shouldPrintVariables) {
-            ((OPLASolutionSet) todasRuns).saveVariablesToFile("VAR_All_");
+            new OPLASolutionSet(todasRuns).saveVariablesToFile("VAR_All_");
         }
 
         //Thelma - Dez2013

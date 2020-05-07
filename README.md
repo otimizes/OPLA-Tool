@@ -141,3 +141,7 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 
 ### Implementing new Methods in JMetal
 - If you want to add new methods in SolutionSet, implement them at the core/OPLASolutionSet.java
+
+### Implementing tests and main classes
+- Every created method need to be in the tests at the repective module
+- You do not need to remove the main classes, but maintain them in the package named main in tests
