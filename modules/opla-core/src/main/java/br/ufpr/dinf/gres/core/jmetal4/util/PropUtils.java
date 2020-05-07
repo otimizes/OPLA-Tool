@@ -24,7 +24,6 @@ package br.ufpr.dinf.gres.core.jmetal4.util;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Properties;
@@ -154,22 +153,6 @@ public abstract class PropUtils extends Object {
         return (str.indexOf(LABEL_LEFT_DELIMITER) == 0 &&
                 str.indexOf(LABEL_RIGHT_DELIMITER) == str.length() - 1);
     }
-
-    static public void main(String[] argv) throws Exception {
-        Properties base = new Properties();
-        Properties delta = new Properties();
-
-        InputStream isbase = new FileInputStream(argv[0]);
-        //InputStream isdelta = new FileInputStream (argv[1]);
-
-        base.load(isbase);
-        //delta.load(isdelta);
-
-        Properties res = dereferenceProperties(base);
-
-
-    }
-
 
     /**
      * @param file The file containing the properties

@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
  * @author elf
  */
 public class MathUtils {
-//
 
     public static HashMap<String, List<List<Double>>> normalize(HashMap<String, List<List<Double>>> listObjectivesValues, String[] objectives) {
 
@@ -123,12 +122,6 @@ public class MathUtils {
         return total / values.size();
     }
 
-    /**
-     * Desvio Padrão.
-     *
-     * @param values
-     * @return
-     */
     public static double stDev(List<Double> values) {
         double media = mean(values);
         double somatorio = 0d;

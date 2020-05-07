@@ -19,14 +19,16 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package br.ufpr.dinf.gres.core.jmetal4.experiments;
+package br.ufpr.dinf.gres.core.jmetal4.main;
 
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.Settings;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.SettingsFactory;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.QualityIndicator;
 
 import java.io.IOException;
@@ -40,16 +42,6 @@ public class Main {
     public static Logger logger_;      // Logger object
     public static FileHandler fileHandler_; // FileHandler object
 
-    /**
-     * @param args Command line arguments.
-     * @throws JMException
-     * @throws IOException
-     * @throws SecurityException      Usage: three options
-     *                                - br.ufpr.dinf.gres.core.jmetal4.experiments.Main algorithmName
-     *                                - br.ufpr.dinf.gres.core.jmetal4.experiments.Main algorithmName problemName
-     *                                - br.ufpr.dinf.gres.core.jmetal4.experiments.Main algorithmName problemName paretoFrontFile
-     * @throws ClassNotFoundException
-     */
     public static void main(String[] args) throws
             JMException, SecurityException, IOException,
             IllegalArgumentException, IllegalAccessException,
@@ -69,9 +61,9 @@ public class Main {
 
         if (args.length == 0) { //
             System.err.println("Sintax error. Usage:");
-            System.err.println("a) br.ufpr.dinf.gres.core.jmetal4.experiments.Main algorithmName ");
-            System.err.println("b) br.ufpr.dinf.gres.core.jmetal4.experiments.Main algorithmName problemName");
-            System.err.println("c) br.ufpr.dinf.gres.core.jmetal4.experiments.Main algorithmName problemName paretoFrontFile");
+            System.err.println("a) br.ufpr.dinf.gres.core.jmetal4.main.Main algorithmName ");
+            System.err.println("b) br.ufpr.dinf.gres.core.jmetal4.main.Main algorithmName problemName");
+            System.err.println("c) br.ufpr.dinf.gres.core.jmetal4.main.Main algorithmName problemName paretoFrontFile");
             System.exit(-1);
         } // if
         else if (args.length == 1) { // algorithmName

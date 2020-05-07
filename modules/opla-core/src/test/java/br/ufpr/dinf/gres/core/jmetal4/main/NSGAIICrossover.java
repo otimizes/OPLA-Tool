@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.core.jmetal4.experiments;
+package br.ufpr.dinf.gres.core.jmetal4.main;
 
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
@@ -21,14 +21,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class NSGAII_Crossover {
+public class NSGAIICrossover {
 
     public static int populationSize_;
     public static int maxEvaluations_;
     public static double mutationProbability_;
     public static double crossoverProbability_;
 
-    //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
     public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
 

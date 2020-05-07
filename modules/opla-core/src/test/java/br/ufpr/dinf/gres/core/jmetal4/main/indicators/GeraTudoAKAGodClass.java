@@ -1,8 +1,9 @@
-package br.ufpr.dinf.gres.core.jmetal4.indicadores;
+package br.ufpr.dinf.gres.core.jmetal4.main.indicators;
 
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.indicators.Hypervolume;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
 import org.apache.log4j.Logger;
 

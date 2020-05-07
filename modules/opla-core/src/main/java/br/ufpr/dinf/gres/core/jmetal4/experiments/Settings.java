@@ -21,10 +21,10 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
+import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.Operator;
 import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType.ArrayRealSolutionType;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType.BinaryRealSolutionType;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType.BinarySolutionType;
@@ -45,15 +45,9 @@ public abstract class Settings {
     protected String problemName_;
     protected String paretoFrontFile_;
 
-    /**
-     * Constructor
-     */
     public Settings() {
     } // Constructor
 
-    /**
-     * Constructor
-     */
     public Settings(String problemName) {
         problemName_ = problemName;
     } // Constructor
@@ -62,17 +56,17 @@ public abstract class Settings {
      * Default configure method
      *
      * @return A problem with the default configuration
-     * @throws JMException
+     * @throws JMException default exception
      */
     abstract public Algorithm configure() throws JMException;
 
     /**
      * Configure method. Change the default configuration
      *
-     * @param settings
+     * @param settings settings
      * @return A problem with the settings indicated as argument
-     * @throws JMException
-     * @throws ClassNotFoundException
+     * @throws JMException            default exception 1
+     * @throws ClassNotFoundException default exception 2
      */
     public final Algorithm configure(HashMap settings) throws JMException, IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
         if (settings != null) {
@@ -88,8 +82,6 @@ public abstract class Settings {
                         }
                     } else if (fields[i].getType().equals(double.class) ||
                             fields[i].getType().equals(Double.class)) {
-                        // The configuration field is a double
-                        //double value = Double.parseDouble(settings.getProperty(fields[i].getName(),""+fields[i].getDouble(this)));
                         Double value = (Double) settings.get(fields[i].getName());
 
                         if (settings.containsKey(fields[i].getName())) {
@@ -116,7 +108,6 @@ public abstract class Settings {
                             }
                         }
                     } else {
-                        //Object value = settings.getProperty(fields[i].getName(), null) ;
                         Object value = settings.get(fields[i].getName());
                         if (value != null) {
                             if (fields[i].getType().equals(Crossover.class)) {
@@ -135,21 +126,16 @@ public abstract class Settings {
                 }
             } // for
 
-            // At this point all the fields have been read from the properties
-            // parameter. Those fields representing crossover and mutations should also
-            // be initialized. However, there is still mandatory to configure them
             for (int i = 0; i < fields.length; i++) {
                 if (fields[i].getType().equals(Crossover.class) ||
                         fields[i].getType().equals(Mutation.class)) {
                     Operator operator = (Operator) fields[i].get(this);
-                    // This field stores a crossover operator
                     String tmp = fields[i].getName();
                     String aux = fields[i].getName().substring(0, tmp.length() - 1);
 
                     for (int j = 0; j < fields.length; j++) {
                         if (i != j) {
                             if (fields[j].getName().startsWith(aux)) {
-                                // The field is a configuration parameter of the crossover
                                 tmp = fields[j].getName().substring(aux.length(), fields[j].getName().length() - 1);
 
                                 if (
@@ -167,26 +153,8 @@ public abstract class Settings {
                     }
                 }
             }
-            //At this point, we should compare if the pareto front have been added
             paretoFrontFile_ = (String) settings.get("paretoFrontFile_");
         }
-
         return configure();
     } // configure
-
-    /**
-     * Returns the problem
-     */
-    Problem getProblem() {
-        return problem_;
-    } // getProblem
-
-    /**
-     * Changes the problem to solve
-     *
-     * @param problem
-     */
-    void setProblem(Problem problem) {
-        problem_ = problem;
-    } // setProblem
 } // Settings

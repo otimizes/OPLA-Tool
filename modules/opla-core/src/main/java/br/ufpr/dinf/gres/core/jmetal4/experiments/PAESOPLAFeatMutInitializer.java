@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class PAESOPLAFeatMutInitializer implements AlgorithmBase<PaesConfigs> {
 
-    private final PAES_OPLA_FeatMut paes;
+    private final PAESOPLAFeatMut paes;
 
-    public PAESOPLAFeatMutInitializer(PAES_OPLA_FeatMut paes) {
+    public PAESOPLAFeatMutInitializer(PAESOPLAFeatMut paes) {
         this.paes = paes;
     }
 

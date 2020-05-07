@@ -21,6 +21,8 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.qualityIndicator;
 
+import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
+
 /**
  * This class implements the unary epsilon additive indicator as proposed in
  * E. Zitzler, E. Thiele, L. Laummanns, M., Fonseca, C., and Grunert da Fonseca.
@@ -33,58 +35,19 @@ package br.ufpr.dinf.gres.core.jmetal4.qualityIndicator;
 
 public class Epsilon {
 
-    /* stores the number of objectives */
     int dim_;
-    /* obj_[i]=0 means objective i is to be minimized. This code always suposse
-     * the minimization of all the objectives
-     */
-    int[] obj_;     /* obj_[i] = 0 means objective i is to be minimized */
-    /* method_ = 0 means apply additive epsilon and method_ = 1 means multiplicative
-     * epsilon. This code always apply additive epsilon
-     */
+    int[] obj_;
     int method_;
-    /* stores a reference to  qualityIndicatorUtils */
-    br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil utils_ = new br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil();
-
-    /**
-     * Returns the additive-epsilon value of the paretoFront. This method call to the
-     * calculate epsilon-indicator one
-     *
-     * @param paretoFront        The pareto front
-     * @param paretoTrueFront    The true pareto front
-     * @param numberOfObjectives Number of objectives of the pareto front
-     */
-    public static void main(String[] args) {
-        double ind_value;
-
-        if (args.length < 2) {
-            System.err.println("Error using delta. Type: \n java AdditiveEpsilon " +
-                    "<FrontFile>" +
-                    "<TrueFrontFile> + <numberOfObjectives>");
-            System.exit(1);
-        }
-
-        Epsilon qualityIndicator = new Epsilon();
-        double[][] solutionFront = qualityIndicator.utils_.readFront(args[0]);
-        double[][] trueFront = qualityIndicator.utils_.readFront(args[1]);
-        //qualityIndicator.dim_ = trueParetoFront[0].length;
-        //qualityIndicator.set_params();
-
-        ind_value = qualityIndicator.epsilon(trueFront,
-                solutionFront,
-                new Integer(args[2]).intValue());
-
-        System.out.println(ind_value);
-    } // main
+    public MetricsUtil utils_ = new MetricsUtil();
 
     /**
      * Returns the epsilon indicator.
      *
-     * @param b. True Pareto front
-     * @param a. Solution front
+     * @param b True Pareto front
+     * @param a Solution front
      * @return the value of the epsilon indicator
      */
-    double epsilon(double[][] b, double[][] a, int dim) {
+    public double epsilon(double[][] b, double[][] a, int dim) {
         int i, j, k;
         double eps, eps_j = 0.0, eps_k = 0.0, eps_temp;
 
@@ -103,27 +66,20 @@ public class Epsilon {
                         case 0:
                             if (obj_[k] == 0)
                                 eps_temp = b[j][k] - a[i][k];
-                                //eps_temp = b[j * dim_ + k] - a[i * dim_ + k];
                             else
                                 eps_temp = a[i][k] - b[j][k];
-                            //eps_temp = a[i * dim_ + k] - b[j * dim_ + k];
                             break;
                         default:
                             if ((a[i][k] < 0 && b[j][k] > 0) ||
                                     (a[i][k] > 0 && b[j][k] < 0) ||
                                     (a[i][k] == 0 || b[j][k] == 0)) {
-                                //if ( (a[i * dim_ + k] < 0 && b[j * dim_ + k] > 0) ||
-                                //     (a[i * dim_ + k] > 0 && b[j * dim_ + k] < 0) ||
-                                //     (a[i * dim_ + k] == 0 || b[j * dim_ + k] == 0)) {
                                 System.err.println("error in data file");
                                 System.exit(0);
                             }
                             if (obj_[k] == 0)
                                 eps_temp = b[j][k] / a[i][k];
-                                //eps_temp = b[j * dim_ + k] / a[i * dim_ + k];
                             else
                                 eps_temp = a[i][k] / b[j][k];
-                            //eps_temp = a[i * dim_ + k] / b[j * dim_ + k];
                             break;
                     }
                     if (k == 0)

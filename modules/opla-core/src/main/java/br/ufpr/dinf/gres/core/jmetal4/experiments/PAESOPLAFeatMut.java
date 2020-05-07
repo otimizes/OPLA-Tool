@@ -2,8 +2,8 @@ package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
-import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.database.Result;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.paes.PAES;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
+public class PAESOPLAFeatMut implements AlgorithmBaseExecution<PaesConfigs> {
 
     public static int populationSize;
     public static int maxEvaluations;
@@ -37,14 +37,14 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
     public static double crossoverProbability;
     private static Persistence mp;
     private static Result result;
-    public String dirToSaveOutput; //Diretório que sera criado dentro do diretorio configurado no arquivo de configuracao
+    public String dirToSaveOutput;
 
     private PaesConfigs configs;
     private String experiementId;
     private int numberObjectives;
     private final EdCalculation c;
 
-    public PAES_OPLA_FeatMut(EdCalculation c) {
+    public PAESOPLAFeatMut(EdCalculation c) {
         this.c = c;
     }
 
@@ -95,32 +95,26 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
 
             algorithm = new PAES(problem);
 
-            // Algorithm parameters
             algorithm.setInputParameter("maxEvaluations", maxEvaluations);
             algorithm.setInputParameter("archiveSize", archiveSize);
             algorithm.setInputParameter("biSections", biSections);
 
-            // Mutation and Crossover
             parameters = new HashMap<String, Object>();
             parameters.put("probability", crossoverProbability);
-            //TODO avaliar configurações na execução do algoritmo
             crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parameters, this.configs);
 
             parameters = new HashMap<String, Object>();
             parameters.put("probability", mutationProbability);
             mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parameters, this.configs);
-
-            // Selection Operator
             parameters = null;
             selection = SelectionFactory.getSelectionOperator("BinaryTournament", parameters);
 
-            // Add the operators to the algorithm
             algorithm.addOperator("crossover", crossover);
             algorithm.addOperator("mutation", mutation);
             algorithm.addOperator("selection", selection);
 
             if (this.configs.isLog())
-                logInforamtions(context, pla);
+                logInformations(context, pla);
 
             List<String> selectedObjectiveFunctions = this.configs.getOplaConfigs().getSelectedObjectiveFunctions();
             mp.saveObjectivesNames(this.configs.getOplaConfigs().getSelectedObjectiveFunctions(), experiement.getId());
@@ -130,13 +124,9 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
             long time[] = new long[runsNumber];
 
             for (int runs = 0; runs < runsNumber; runs++) {
-
-                // Cria uma execução. Cada execução está ligada a um
-                // experiemento.
                 Execution execution = new Execution(experiement);
                 setDirToSaveOutput(experiement.getId(), execution.getId());
 
-                // Execute the Algorithm
                 long initTime = System.currentTimeMillis();
                 SolutionSet resultFront = algorithm.execute();
                 long estimatedTime = System.currentTimeMillis() - initTime;
@@ -156,24 +146,14 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
                 execution.setAllMetrics(allMetrics);
 
                 mp.save(execution);
-                // armazena as solucoes de todas runs
                 todasRuns = todasRuns.union(resultFront);
-
-                //Util.copyFolder(experiement.getId(), execution.getId());
-                //Util.moveAllFilesToExecutionDirectory(experiementId, execution.getId());
-
                 saveHypervolume(experiement.getId(), execution.getId(), resultFront, plaName);
-
             }
-
             todasRuns = problem.removeDominadas(todasRuns);
             todasRuns = problem.removeRepetidas(todasRuns);
-
             configs.getLogger().putLog("------All Runs - Non-dominated solutions --------");
             List<Info> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiement);
-
             ((OPLASolutionSet) todasRuns).saveVariablesToFile("VAR_All_", funResults, this.configs.getLogger(), true);
-
 
             List<Info> Info = result.getInformations(todasRuns.getSolutionSet(), null, experiement);
             mp.saveInfoAll(Info);
@@ -186,22 +166,15 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
             setDirToSaveOutput(experiement.getId(), null);
 
             mp.saveDistance(c.calculate(this.experiementId, this.numberObjectives), this.experiementId);
-            Info = null;
-            funResults = null;
-
-            //Util.moveAllFilesToExecutionDirectory(experiementId, null);
             saveHypervolume(experiement.getId(), null, todasRuns, plaName);
         }
-
-        //Util.moveResourceToExperimentFolder(this.experiementId);
-
     }
 
     private void intializeDependencies() throws Exception {
         result = new Result();
     }
 
-    private void logInforamtions(String context, String pla) {
+    private void logInformations(String context, String pla) {
         configs.getLogger().putLog("\n================ PAES ================", Level.INFO);
         configs.getLogger().putLog("Context: " + context, Level.INFO);
         configs.getLogger().putLog("PLA: " + pla, Level.INFO);
@@ -217,7 +190,6 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
     private void setDirToSaveOutput(String experimentID, String executionID) {
         this.experiementId = experimentID;
         CommonOPLAFeatMut.setDirToSaveOutput(experimentID, executionID);
-
     }
 
     private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {

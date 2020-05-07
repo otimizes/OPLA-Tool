@@ -12,12 +12,12 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationRel
 import br.ufpr.dinf.gres.architecture.representation.relationship.GeneralizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.RealizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.AbstractMutationOperator;
-import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.PLAFeatureMutation;
-import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
+import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.PLAFeatureMutation;
+import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.AbstractMutationOperator;
+import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -64,8 +64,6 @@ public class PLAMutation extends AbstractMutationOperator {
         return false;
     }
 
-    //--------------------------------------------------------------------------
-    //método para verificar se algum dos relacionamentos recebidos é generalização
     private boolean searchForGeneralizations(br.ufpr.dinf.gres.architecture.representation.Class cls) {
         for (Relationship relationship : cls.getRelationships()) {
             if (relationship instanceof GeneralizationRelationship) {
@@ -78,7 +76,6 @@ public class PLAMutation extends AbstractMutationOperator {
     }
 
     public boolean MoveAttributeMutation(double probability, Solution solution, String scope) throws JMException {
-        LOGGER.info("Executando MoveAttributeMutation");
         try {
             if (PseudoRandom.randDouble() < probability) {
                 if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
@@ -152,12 +149,10 @@ public class PLAMutation extends AbstractMutationOperator {
         attributesClass.clear();
     }
 
-    //Add por Édipo
     private void createAssociation(Architecture arch, br.ufpr.dinf.gres.architecture.representation.Class targetClass, br.ufpr.dinf.gres.architecture.representation.Class sourceClass) {
         arch.addRelationship(new AssociationRelationship(targetClass, sourceClass));
     }
 
-    //--------------------------------------------------------------------------
     public boolean MoveMethodMutation(double probability, Solution solution, String scope) throws JMException {
         if (PseudoRandom.randDouble() < probability) {
             final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
@@ -224,9 +219,7 @@ public class PLAMutation extends AbstractMutationOperator {
         MethodsClass.clear();
     }
 
-    //--------------------------------------------------------------------------
     public boolean MoveOperationMutation(double probability, Solution solution) throws JMException {
-        LOGGER.info("Executando MoveOperationMutation");
         try {
             if (PseudoRandom.randDouble() < probability) {
                 if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
@@ -284,9 +277,7 @@ public class PLAMutation extends AbstractMutationOperator {
         return false;
     }
 
-    //--------------------------------------------------------------------------
     public boolean AddClassMutation(double probability, Solution solution, String scope) throws JMException {
-        LOGGER.info("Executando AddClassMutation ");
         try {
             if (PseudoRandom.randDouble() < probability) {
                 if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
@@ -384,20 +375,6 @@ public class PLAMutation extends AbstractMutationOperator {
         createAssociation(arch, newClass, sourceClass);
     }
 
-    //	private void moveMethodAllComponents(Architecture arch, Class sourceClass, List<Method> MethodsClass, Class newClass) throws JMException {
-    //		Method targetMethod = randomObject (MethodsClass);
-    //		sourceClass.moveMethodToClass(targetMethod, newClass);
-    //		//if (targetMethod.isAbstract()) targetMethod.setAbstract(false);
-    //		for (Concern con: targetMethod.getOwnConcerns()){
-    //			try {
-    //				newClass.addConcern(con.getName());
-    //			} catch (ConcernNotFoundException e) {
-    //				e.printStackTrace();
-    //			}
-    //		}
-    //		AssociationRelationship newRelationship = new AssociationRelationship(newClass, sourceClass);
-    //		arch.getAllRelationships().add(newRelationship);
-    //	}
     private void moveAttributeToNewClass(Architecture arch, br.ufpr.dinf.gres.architecture.representation.Class sourceClass, List<Attribute> AttributesClass, br.ufpr.dinf.gres.architecture.representation.Class newClass) throws Exception {
         Attribute targetAttribute = randomObject(AttributesClass);
         sourceClass.moveAttributeToClass(targetAttribute, newClass);
@@ -408,9 +385,7 @@ public class PLAMutation extends AbstractMutationOperator {
 
     }
 
-    //--------------------------------------------------------------------------
     public boolean AddManagerClassMutation(double probability, Solution solution) throws JMException {
-        LOGGER.info("Executando AddManagerClassMutation");
         try {
             if (PseudoRandom.randDouble() < probability) {
                 if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
@@ -465,7 +440,6 @@ public class PLAMutation extends AbstractMutationOperator {
         return false;
     }
 
-    //--------------------------------------------------------------------------
     public boolean FeatureMutation(double probability, Solution solution, String scope) throws JMException {
         try {
             if (PseudoRandom.randDouble() < probability) {
@@ -624,7 +598,6 @@ public class PLAMutation extends AbstractMutationOperator {
         createAssociation(architecture, targetClass, classComp);
     }
 
-    //add por Édipo
     private br.ufpr.dinf.gres.architecture.representation.Class findOrCreateClassWithConcern(br.ufpr.dinf.gres.architecture.representation.Package targetComp, Concern concern) throws ConcernNotFoundException {
         br.ufpr.dinf.gres.architecture.representation.Class targetClass = null;
         for (br.ufpr.dinf.gres.architecture.representation.Class cls : targetComp.getAllClasses()) {
@@ -686,9 +659,9 @@ public class PLAMutation extends AbstractMutationOperator {
      * Retorna todas as classes que tiverem algum dos concerns presentes na
      * lista ownConcerns.
      *
-     * @param ownConcerns
-     * @param allClasses
-     * @return
+     * @param c          c
+     * @param allClasses allClasses
+     * @return classes
      */
     private List<br.ufpr.dinf.gres.architecture.representation.Class> allClassesWithConcerns(Concern c, Set<br.ufpr.dinf.gres.architecture.representation.Class> allClasses) {
         List<br.ufpr.dinf.gres.architecture.representation.Class> klasses = new ArrayList<br.ufpr.dinf.gres.architecture.representation.Class>();
@@ -721,16 +694,6 @@ public class PLAMutation extends AbstractMutationOperator {
         for (Element implementor : sourceInterface.getImplementors()) {
             // Se quem estiver implementando a interface que teve a operacao movida for um pacote.
             if (implementor instanceof br.ufpr.dinf.gres.architecture.representation.Package) {
-                /**
-                 * Verifica se o pacote tem somente um classe, recupera a mesma
-                 * e verifica se a interface destino (targetInterface) possui
-                 * algum interesse da classe recuperada. Caso tiver, remove
-                 * implemented interface (sourceInterface) de sourceComp.
-                 * Adiciona a interface tergetInterface em seu pacote ou na
-                 * br.ufpr.dinf.gres.arquitetura Verifica se já existe um relacionamento de
-                 * realização entre targetInterface e klass, caso não tiver
-                 * adiciona targetInterface como sendo implemenda por klass.
-                 */
                 if (targetComp.getAllClasses().size() == 1) {
                     final br.ufpr.dinf.gres.architecture.representation.Class klass = targetComp.getAllClasses().iterator().next();
                     for (Concern c : klass.getOwnConcerns()) {
@@ -741,17 +704,6 @@ public class PLAMutation extends AbstractMutationOperator {
                             return;
                         }
                     }
-
-                    /**
-                     * Caso o pacote destino tiver mais de uma classe. Busca
-                     * dentre essas classes todas com o interesse em questão
-                     * (concern), e seleciona um aleatoriamente. Remove
-                     * implemented interface (sourceInterface) de sourceComp.
-                     * Adiciona a interface tergetInterface em seu pacote ou na
-                     * br.ufpr.dinf.gres.arquitetura Verifica se já existe um relacionamento de
-                     * realização entre targetInterface e klass, caso não tiver
-                     * adiciona targetInterface como sendo implemenda por klass.
-                     */
                 } else if (targetComp.getAllClasses().size() > 1) {
                     final List<br.ufpr.dinf.gres.architecture.representation.Class> targetClasses = allClassesWithConcerns(concern, targetComp.getAllClasses());
                     final br.ufpr.dinf.gres.architecture.representation.Class klass = randonClass(targetClasses);
@@ -760,10 +712,6 @@ public class PLAMutation extends AbstractMutationOperator {
                     addImplementedInterface(targetComp, architecture, targetInterface, klass);
                     return;
                 } else {
-                    /**
-                     * Caso o pacote for vazio, faz um busca nas classes da
-                     * br.ufpr.dinf.gres.arquitetura como um todo.
-                     */
                     final List<br.ufpr.dinf.gres.architecture.representation.Class> targetClasses = allClassesWithConcerns(concern, architecture.getAllClasses());
                     final br.ufpr.dinf.gres.architecture.representation.Class klass = randonClass(targetClasses);
                     if (klass != null) {
@@ -773,14 +721,6 @@ public class PLAMutation extends AbstractMutationOperator {
                     }
                 }
             }
-
-            /**
-             * Recupera quem estava implementando a interface que teve a
-             * operacao movida e cria uma realizacao entre a interface que
-             * recebeu a operacao (targetInterface) e quem tava implementando a
-             * interface que teve a operacao movida (sourceInterface).
-             *
-             */
             if (implementor instanceof br.ufpr.dinf.gres.architecture.representation.Class) {
                 architecture.removeImplementedInterface(sourceInterface, sourceComp);
                 addExternalInterface(targetComp, architecture, targetInterface);
@@ -817,31 +757,6 @@ public class PLAMutation extends AbstractMutationOperator {
         return false;
     }
 
-    //	//Édipo
-    //	private void addConcernToNewInterface(Concern concern, Interface targetInterface, Interface sourceInterface) {
-    //		Set<Concern> interfaceConcerns = sourceInterface.getOwnConcerns();
-    //		try {
-    //			for(Concern c : interfaceConcerns)
-    //				targetInterface.addConcern(c.getName());
-    //		} catch (ConcernNotFoundException e) {
-    //			e.printStackTrace();
-    //		}
-    //
-    //		for(Method operation : sourceInterface.getOperations()){
-    //			Set<Concern> operationConcerns = operation.getOwnConcerns();
-    //			for(Method o : targetInterface.getOperations()){
-    //				for(Concern c : operationConcerns){
-    //					try {
-    //						o.addConcern(c.getName());
-    //					} catch (ConcernNotFoundException e) {
-    //						e.printStackTrace();
-    //					}
-    //				}
-    //			}
-    //
-    //		}
-    //	}
-    //Édipo Método
     private Interface searchForInterfaceWithConcern(Concern concern, br.ufpr.dinf.gres.architecture.representation.Package targetComp) {
         for (Interface itf : targetComp.getImplementedInterfaces()) {
             if (itf.containsConcern(concern)) {
@@ -854,11 +769,9 @@ public class PLAMutation extends AbstractMutationOperator {
                 return itf;
             }
         }
-
         return null;
     }
 
-    //-------------------------------------------------------------------------------------------------
     public <T> T randomObject(List<T> allObjects) {
         int numObjects = allObjects.size();
         int key;
@@ -872,8 +785,6 @@ public class PLAMutation extends AbstractMutationOperator {
         return object;
     }
 
-    //-------------------------------------------------------------------------------------------------
-    //Thelma: método adicionado para verificar se os componentes nos quais as mutacoes serao realizadas estao na mesma camada da br.ufpr.dinf.gres.arquitetura
     private boolean checkSameLayer(br.ufpr.dinf.gres.architecture.representation.Package source, br.ufpr.dinf.gres.architecture.representation.Package target) {
         boolean sameLayer = false;
         if ((source.getName().endsWith("Mgr") && target.getName().endsWith("Mgr"))
@@ -884,8 +795,6 @@ public class PLAMutation extends AbstractMutationOperator {
         return sameLayer;
     }
 
-    //-------------------------------------------------------------------------------------------------
-    //Thelma: método adicionado para retornar o sufixo do nome do componente
     private String getSuffix(br.ufpr.dinf.gres.architecture.representation.Package comp) {
         String suffix;
         if (comp.getName().endsWith("Mgr")) {
@@ -900,8 +809,6 @@ public class PLAMutation extends AbstractMutationOperator {
         return suffix;
     }
 
-    //-------------------------------------------------------------------------------------------------
-    //Thelma: método adicionado para verificar se a classe tem uma variabilidade relativa ao concern
     private boolean isVarPointOfConcern(Architecture arch, br.ufpr.dinf.gres.architecture.representation.Class cls, Concern concern) {
         boolean isVariationPointConcern = false;
         Collection<Variability> variabilities = arch.getAllVariabilities();
@@ -917,8 +824,6 @@ public class PLAMutation extends AbstractMutationOperator {
         return isVariationPointConcern;
     }
 
-    //-------------------------------------------------------------------------------------------------
-    //Thelma: método adicionado para verificar se a classe é variant de uma variabilidade relativa ao concern
     private boolean isVariantOfConcern(Architecture arch, br.ufpr.dinf.gres.architecture.representation.Class cls, Concern concern) {
         boolean isVariantConcern = false;
         Collection<Variability> variabilities = arch.getAllVariabilities();
@@ -956,8 +861,6 @@ public class PLAMutation extends AbstractMutationOperator {
         architecture.forGeneralization().moveGeneralizationToPackage(getGeneralizationRelationshipForClass(classComp), targetComp);
     }
 
-    //EDIPO Identifica quem é o parent para a classComp
-
     /**
      * Dado um {@link Element} retorna a {@link GeneralizationRelationship} no
      * qual o mesmo pertence.
@@ -977,7 +880,6 @@ public class PLAMutation extends AbstractMutationOperator {
         return null;
     }
 
-    // verificar se a classe é variant de uma variabilidade
     private boolean isOptional(Architecture arch, br.ufpr.dinf.gres.architecture.representation.Class cls) {
         boolean isOptional = false;
         if (cls.getVariantType() != null) {
@@ -987,8 +889,6 @@ public class PLAMutation extends AbstractMutationOperator {
         }
         return isOptional;
     }
-    //-------------------------------------------------------------------------------------------------
-    // verificar se a classe é variant de uma variabilidade
 
     private boolean isVariant(Architecture arch, br.ufpr.dinf.gres.architecture.representation.Class cls) {
         boolean isVariant = false;

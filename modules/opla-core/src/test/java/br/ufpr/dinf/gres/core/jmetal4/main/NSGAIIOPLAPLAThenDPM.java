@@ -6,7 +6,7 @@ import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.factory.MutationOperatorFactory;
-import br.ufpr.dinf.gres.core.jmetal4.indicadores.Hypervolume;
+import br.ufpr.dinf.gres.core.jmetal4.indicators.Hypervolume;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.CrossoverFactory;
@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class NSGAII_OPLA_PLAThenDPM {
+public class NSGAIIOPLAPLAThenDPM {
 
     public static int populationSize_;
     public static int maxEvaluations_;

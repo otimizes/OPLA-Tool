@@ -21,6 +21,8 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.qualityIndicator;
 
+import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
+
 /**
  * This class implements the inverted generational distance metric.
  * It can be used also as a command line by typing:
@@ -32,10 +34,8 @@ package br.ufpr.dinf.gres.core.jmetal4.qualityIndicator;
  * Inst. Technol. (1998)
  */
 public class InvertedGenerationalDistance {
-    static final double pow_ = 2.0;          //pow. This is the pow used for the
-    //MetricsUtil funcionalities
-    br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil utils_;  //utils_ is used to access to the
-    //distances
+    static final double pow_ = 2.0;
+    public MetricsUtil utils_;
 
     /**
      * Constructor.
@@ -44,35 +44,6 @@ public class InvertedGenerationalDistance {
     public InvertedGenerationalDistance() {
         utils_ = new br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil();
     } // GenerationalDistance
-
-    /**
-     * This class can be invoqued from the command line. Two params are required:
-     * 1) the name of the file containing the front, and 2) the name of the file
-     * containig the true Pareto front
-     **/
-    public static void main(String args[]) {
-        if (args.length < 2) {
-            System.err.println("InvertedGenerationalDistance::Main: Usage: java " +
-                    "InvertedGenerationalDistance <FrontFile> " +
-                    "<TrueFrontFile>  <numberOfObjectives>");
-            System.exit(1);
-        } // if
-
-        // STEP 1. Create an instance of Generational Distance
-        InvertedGenerationalDistance qualityIndicator = new InvertedGenerationalDistance();
-
-        // STEP 2. Read the fronts from the files
-        double[][] solutionFront = qualityIndicator.utils_.readFront(args[0]);
-        double[][] trueFront = qualityIndicator.utils_.readFront(args[1]);
-
-        // STEP 3. Obtain the metric value
-        double value = qualityIndicator.invertedGenerationalDistance(
-                solutionFront,
-                trueFront,
-                (new Integer(args[2])).intValue());
-
-        System.out.println(value);
-    } // main
 
     /**
      * Returns the inverted generational distance value for a given front

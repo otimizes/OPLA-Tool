@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.core.jmetal4.experiments.indicators;
+package br.ufpr.dinf.gres.core.jmetal4.main.indicators;
 
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 

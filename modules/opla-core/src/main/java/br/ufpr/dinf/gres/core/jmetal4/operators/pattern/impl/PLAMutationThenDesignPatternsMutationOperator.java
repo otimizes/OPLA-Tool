@@ -5,10 +5,10 @@
  */
 package br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl;
 
+import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.AbstractMutationOperator;
 import br.ufpr.dinf.gres.patterns.strategies.designpatternselection.DesignPatternSelectionStrategy;
 import br.ufpr.dinf.gres.patterns.strategies.scopeselection.ScopeSelectionStrategy;
-import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 
 import java.util.Map;
 
@@ -35,5 +35,4 @@ public class PLAMutationThenDesignPatternsMutationOperator extends AbstractMutat
         }
         return false;
     }
-
 }

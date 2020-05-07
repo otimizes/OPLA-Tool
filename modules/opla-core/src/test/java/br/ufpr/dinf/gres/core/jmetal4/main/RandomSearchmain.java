@@ -19,11 +19,12 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package br.ufpr.dinf.gres.core.jmetal4.metaheuristics.randomSearch;
+package br.ufpr.dinf.gres.core.jmetal4.main;
 
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.*;
+import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.randomSearch.RandomSearch;
 import br.ufpr.dinf.gres.core.jmetal4.problems.Kursawe;
 import br.ufpr.dinf.gres.core.jmetal4.problems.ProblemFactory;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.QualityIndicator;
@@ -35,7 +36,7 @@ import java.util.logging.Logger;
 /**
  * Class for configuring and running the RandomSearch algorithm
  */
-public class RandomSearch_main {
+public class RandomSearchmain {
     public static Logger logger_;      // Logger object
     public static FileHandler fileHandler_; // FileHandler object
 
@@ -44,8 +45,8 @@ public class RandomSearch_main {
      * @throws JMException
      * @throws IOException
      * @throws SecurityException Usage: three options
-     *                           - br.ufpr.dinf.gres.core.jmetal4.metaheuristics.randomSearch.RandomSearch_main
-     *                           - br.ufpr.dinf.gres.core.jmetal4.metaheuristics.randomSearch.RandomSearch_main problemName
+     *                           - br.ufpr.dinf.gres.core.jmetal4.main.RandomSearch_main
+     *                           - br.ufpr.dinf.gres.core.jmetal4.main.RandomSearch_main problemName
      */
     public static void main(String[] args) throws
             JMException, SecurityException, IOException, ClassNotFoundException {

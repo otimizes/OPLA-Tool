@@ -1,4 +1,4 @@
-////  NSGAII_main.java
+////  NSGAIImain.java
 ////
 ////  Author:
 ////       Antonio J. Nebro <antonio@lcc.uma.es>

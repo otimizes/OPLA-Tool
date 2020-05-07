@@ -5,11 +5,11 @@
  */
 package br.ufpr.dinf.gres.core.jmetal4.factory;
 
+import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternMutationOperator;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternsAndPLAMutationOperator;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.PLAMutation;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.PLAMutationThenDesignPatternsMutationOperator;
-import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
 
 import java.util.Map;
 
@@ -32,5 +32,4 @@ public class MutationOperatorFactory {
                 return null;
         }
     }
-
 }

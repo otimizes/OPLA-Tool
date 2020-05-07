@@ -19,11 +19,13 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package br.ufpr.dinf.gres.core.jmetal4.experiments;
+package br.ufpr.dinf.gres.core.jmetal4.main;
 
-import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.settings.NSGAII_Settings;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.Experiment;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.Settings;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.settings.NSGAII_Settings;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -50,22 +52,16 @@ public class NSGAIIStudy extends Experiment {
 
         int numberOfAlgorithms = exp.algorithmNameList_.length;
 
-        exp.experimentBaseDirectory_ = "/Users/antonio/Softw/pruebas/br.ufpr.dinf.gres.core.jmetal4/kk/" +
-                exp.experimentName_;
-        exp.paretoFrontDirectory_ = "/Users/antonio/Softw/pruebas/data/paretoFronts";
+        exp.experimentBaseDirectory_ = System.getProperty("user.home") + "/oplatool/output/";
+        exp.paretoFrontDirectory_ = System.getProperty("user.home") + "/oplatool/output/";
 
         exp.algorithmSettings_ = new Settings[numberOfAlgorithms];
 
         exp.independentRuns_ = 4;
 
-        // Run the experiments
         int numberOfThreads;
         exp.runExperiment(numberOfThreads = 1);
-
-        // Generate latex tables (comment this sentence is not desired)
         exp.generateLatexTables();
-
-        // Configure the R scripts to be generated
         int rows;
         int columns;
         String prefix;
@@ -81,23 +77,13 @@ public class NSGAIIStudy extends Experiment {
         exp.generateRWilcoxonScripts(problems, prefix, exp);
     } // main
 
-    /**
-     * Configures the algorithms in each independent run
-     *
-     * @param problem      The problem to solve
-     * @param problemIndex
-     * @param algorithm    Array containing the algorithms to run
-     * @throws ClassNotFoundException
-     */
     public synchronized void algorithmSettings(String problemName,
                                                int problemIndex,
                                                Algorithm[] algorithm)
             throws ClassNotFoundException {
         try {
             int numberOfAlgorithms = algorithmNameList_.length;
-
             HashMap[] parameters = new HashMap[numberOfAlgorithms];
-
             for (int i = 0; i < numberOfAlgorithms; i++) {
                 parameters[i] = new HashMap();
             } // for

@@ -21,10 +21,9 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.qualityIndicator;
 
-import org.apache.log4j.Logger;
-
 import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import org.apache.log4j.Logger;
 
 /**
  * QualityIndicator class

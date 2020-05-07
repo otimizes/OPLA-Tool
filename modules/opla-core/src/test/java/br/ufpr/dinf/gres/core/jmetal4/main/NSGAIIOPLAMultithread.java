@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 /**
  * @author giovaniguizzo
  */
-public class NSGAII_OPLA_Multithread {
+public class NSGAIIOPLAMultithread {
 
     private static final String[] PLAS = {
             ArchitectureRepository.MICROWAVE_OVEN_SOFTWARE,
@@ -156,7 +156,7 @@ public class NSGAII_OPLA_Multithread {
                         try {
                             Thread.sleep(10000);
                         } catch (InterruptedException ex) {
-                            Logger.getLogger(NSGAII_OPLA_Multithread.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(NSGAIIOPLAMultithread.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
 
@@ -293,8 +293,8 @@ public class NSGAII_OPLA_Multithread {
                             context,
                             mutationOperator,
                             "false");
-                    final File destination = new File("experiment/" + NSGAII_OPLA.getPlaName(pla) + System.getProperty("file.separator") + context + "/SYSTEM_OUTPUT.txt");
-                    final File errorDestination = new File("experiment/" + NSGAII_OPLA.getPlaName(pla) + System.getProperty("file.separator") + context + "/SYSTEM_ERROR.txt");
+                    final File destination = new File("experiment/" + NSGAIIOPLA.getPlaName(pla) + System.getProperty("file.separator") + context + "/SYSTEM_OUTPUT.txt");
+                    final File errorDestination = new File("experiment/" + NSGAIIOPLA.getPlaName(pla) + System.getProperty("file.separator") + context + "/SYSTEM_ERROR.txt");
                     {
                         final File parentFile = destination.getParentFile();
                         if (!parentFile.exists()) {
@@ -313,7 +313,7 @@ public class NSGAII_OPLA_Multithread {
                         FINISHED_THREADS.add(context);
                     }
                 } catch (IOException | InterruptedException ex) {
-                    Logger.getLogger(NSGAII_OPLA_Multithread.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NSGAIIOPLAMultithread.class.getName()).log(Level.SEVERE, null, ex);
                 } finally {
                     if (process != null) {
                         process.destroy();
@@ -402,7 +402,7 @@ public class NSGAII_OPLA_Multithread {
     }
 
     public static synchronized String getContext(String pla, String mutationOperator, String populationSize, String maxEvaluations, String mutationProbability) {
-        return NSGAII_OPLA.getPlaName(pla) + "_" + mutationOperator + "_" + populationSize + "_" + maxEvaluations + "_" + mutationProbability;
+        return NSGAIIOPLA.getPlaName(pla) + "_" + mutationOperator + "_" + populationSize + "_" + maxEvaluations + "_" + mutationProbability;
     }
 
     public static void main(String[] args) throws InterruptedException {

@@ -21,6 +21,15 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.experiments.util;
 
+import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
+import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.Experiment;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.Settings;
+import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.QualityIndicator;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,235 +37,227 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
-import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
-import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.Experiment;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.Settings;
-import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.QualityIndicator;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
 /**
  * Class implementing the steps to run an experiment
  */
 public class RunExperiment extends Thread {
 
-	public Experiment experiment_ ;
-	public int id_ ;
-	public HashMap<String, Object> map_ ;
-	public int numberOfThreads_ ;
-	public int numberOfProblems_ ;
+    public Experiment experiment_;
+    public int id_;
+    public HashMap<String, Object> map_;
+    public int numberOfThreads_;
+    public int numberOfProblems_;
 
-	int first_;
-	int last_;
+    int first_;
+    int last_;
 
-	String experimentName_;
-	String[] algorithmNameList_; // List of the names of the algorithms to be executed
-	String[] problemList_; // List of problems to be solved
-	String[] paretoFrontFile_; // List of the files containing the pareto fronts
-	// corresponding to the problems in problemList_
-	String[] indicatorList_; // List of the quality indicators to be applied
-	String experimentBaseDirectory_; // Directory to store the br.ufpr.dinf.gres.core.jmetal4.results
-	String latexDirectory_; // Directory to store the latex files
-	String rDirectory_; // Directory to store the generated R scripts
-	String paretoFrontDirectory_; // Directory containing the Pareto front files
-	String outputParetoFrontFile_; // Name of the file containing the output
-	// Pareto front
-	String outputParetoSetFile_; // Name of the file containing the output
-	// Pareto set
-	int independentRuns_; // Number of independent runs per algorithm
-	Settings[] algorithmSettings_; // Paremeter settings of each algorithm
+    String experimentName_;
+    String[] algorithmNameList_; // List of the names of the algorithms to be executed
+    String[] problemList_; // List of problems to be solved
+    String[] paretoFrontFile_; // List of the files containing the pareto fronts
+    // corresponding to the problems in problemList_
+    String[] indicatorList_; // List of the quality indicators to be applied
+    String experimentBaseDirectory_; // Directory to store the br.ufpr.dinf.gres.core.jmetal4.results
+    String latexDirectory_; // Directory to store the latex files
+    String rDirectory_; // Directory to store the generated R scripts
+    String paretoFrontDirectory_; // Directory containing the Pareto front files
+    String outputParetoFrontFile_; // Name of the file containing the output
+    // Pareto front
+    String outputParetoSetFile_; // Name of the file containing the output
+    // Pareto set
+    int independentRuns_; // Number of independent runs per algorithm
+    Settings[] algorithmSettings_; // Paremeter settings of each algorithm
 
-	public RunExperiment(Experiment experiment,
-			HashMap<String, Object> map,
-			int id,
-			int numberOfThreads,
-			int numberOfProblems) {
-		experiment_ = experiment ;
-		id_ = id ;
-		map_ = map ;
-		numberOfThreads_ = numberOfThreads  ;
-		numberOfProblems_ = numberOfProblems;
+    public RunExperiment(Experiment experiment,
+                         HashMap<String, Object> map,
+                         int id,
+                         int numberOfThreads,
+                         int numberOfProblems) {
+        experiment_ = experiment;
+        id_ = id;
+        map_ = map;
+        numberOfThreads_ = numberOfThreads;
+        numberOfProblems_ = numberOfProblems;
 
-		int partitions = numberOfProblems / numberOfThreads;
+        int partitions = numberOfProblems / numberOfThreads;
 
-		first_ = partitions * id;
-		if (id == (numberOfThreads - 1)) {
-			last_ = numberOfProblems - 1;
-		} else {
-			last_ = first_ + partitions - 1;
-		}
+        first_ = partitions * id;
+        if (id == (numberOfThreads - 1)) {
+            last_ = numberOfProblems - 1;
+        } else {
+            last_ = first_ + partitions - 1;
+        }
 
-		System.out.println("Id: " + id + "  Partitions: " + partitions +
-				" First: " + first_ + " Last: " + last_);
-	}
+        System.out.println("Id: " + id + "  Partitions: " + partitions +
+                " First: " + first_ + " Last: " + last_);
+    }
 
-	public void run() {
-		Algorithm[] algorithm; // jMetal algorithms to be executed
+    public void run() {
+        Algorithm[] algorithm; // jMetal algorithms to be executed
 
-		String experimentName = (String) map_.get("name");
-		experimentBaseDirectory_ = (String) map_.get("experimentDirectory");
-		algorithmNameList_ = (String[]) map_.get("algorithmNameList");
-		problemList_ = (String[]) map_.get("problemList");
-		indicatorList_ = (String[]) map_.get("indicatorList");
-		paretoFrontDirectory_ = (String) map_.get("paretoFrontDirectory");
-		paretoFrontFile_ = (String[]) map_.get("paretoFrontFile");
-		independentRuns_ = (Integer) map_.get("independentRuns");
-		outputParetoFrontFile_ = (String) map_.get("outputParetoFrontFile");
-		outputParetoSetFile_ = (String) map_.get("outputParetoSetFile");
+        String experimentName = (String) map_.get("name");
+        experimentBaseDirectory_ = (String) map_.get("experimentDirectory");
+        algorithmNameList_ = (String[]) map_.get("algorithmNameList");
+        problemList_ = (String[]) map_.get("problemList");
+        indicatorList_ = (String[]) map_.get("indicatorList");
+        paretoFrontDirectory_ = (String) map_.get("paretoFrontDirectory");
+        paretoFrontFile_ = (String[]) map_.get("paretoFrontFile");
+        independentRuns_ = (Integer) map_.get("independentRuns");
+        outputParetoFrontFile_ = (String) map_.get("outputParetoFrontFile");
+        outputParetoSetFile_ = (String) map_.get("outputParetoSetFile");
 
-		int numberOfAlgorithms = algorithmNameList_.length;
-		System.out.println("Experiment: Number of algorithms: " + numberOfAlgorithms) ;
-		System.out.println("Experiment: runs: " + independentRuns_) ;
-		algorithm = new Algorithm[numberOfAlgorithms] ;
+        int numberOfAlgorithms = algorithmNameList_.length;
+        System.out.println("Experiment: Number of algorithms: " + numberOfAlgorithms);
+        System.out.println("Experiment: runs: " + independentRuns_);
+        algorithm = new Algorithm[numberOfAlgorithms];
 
-		System.out.println("Nombre: " + experimentName);
-		System.out.println("experimentDirectory: " + experimentBaseDirectory_);
-		System.out.println("numberOfThreads_: " + numberOfThreads_);
-		System.out.println("numberOfProblems_: " + numberOfProblems_);
-		System.out.println("first: " + first_);
-		System.out.println("last: " + last_);
+        System.out.println("Nombre: " + experimentName);
+        System.out.println("experimentDirectory: " + experimentBaseDirectory_);
+        System.out.println("numberOfThreads_: " + numberOfThreads_);
+        System.out.println("numberOfProblems_: " + numberOfProblems_);
+        System.out.println("first: " + first_);
+        System.out.println("last: " + last_);
 
-		SolutionSet resultFront = null;
+        SolutionSet resultFront = null;
 
 
-		for (int problemId = first_; problemId <= last_; problemId++) {
-			Problem problem   ; // The problem to solve
-			String problemName;
+        for (int problemId = first_; problemId <= last_; problemId++) {
+            Problem problem; // The problem to solve
+            String problemName;
 
-			// STEP 2: get the problem from the list
-			problemName = problemList_[problemId] ;
+            // STEP 2: get the problem from the list
+            problemName = problemList_[problemId];
 
-			// STEP 3: check the file containing the Pareto front of the problem
-			synchronized(experiment_) {
-				if (indicatorList_.length > 0) {
-					File pfFile = new File(paretoFrontDirectory_ + System.getProperty("file.separator") + paretoFrontFile_[problemId]);
+            // STEP 3: check the file containing the Pareto front of the problem
+            synchronized (experiment_) {
+                if (indicatorList_.length > 0) {
+                    File pfFile = new File(paretoFrontDirectory_ + System.getProperty("file.separator") + paretoFrontFile_[problemId]);
 
-					if (pfFile.exists()) {
-						paretoFrontFile_[problemId] = paretoFrontDirectory_ + System.getProperty("file.separator") + paretoFrontFile_[problemId];
-					} else {
-						paretoFrontFile_[problemId] = "";
-					}
-				} // if
-			}
-			try {
-				experiment_.algorithmSettings(problemName, problemId, algorithm);
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			}
+                    if (pfFile.exists()) {
+                        paretoFrontFile_[problemId] = paretoFrontDirectory_ + System.getProperty("file.separator") + paretoFrontFile_[problemId];
+                    } else {
+                        paretoFrontFile_[problemId] = "";
+                    }
+                } // if
+            }
+            try {
+                experiment_.algorithmSettings(problemName, problemId, algorithm);
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
 
-			problem = algorithm[0].getProblem() ;
-			for (int runs = 0; runs < independentRuns_; runs++) {
-				System.out.println("Iruns: " + runs) ;
-				// STEP 4: configure the algorithms
+            problem = algorithm[0].getProblem();
+            for (int runs = 0; runs < independentRuns_; runs++) {
+                System.out.println("Iruns: " + runs);
+                // STEP 4: configure the algorithms
 
-				// STEP 5: run the algorithms
-				for (int i = 0; i < numberOfAlgorithms; i++) {
-					System.out.println(algorithm[i].getClass()) ;
-					// STEP 6: create output directories
-					File experimentDirectory;
-					String directory;
+                // STEP 5: run the algorithms
+                for (int i = 0; i < numberOfAlgorithms; i++) {
+                    System.out.println(algorithm[i].getClass());
+                    // STEP 6: create output directories
+                    File experimentDirectory;
+                    String directory;
 
-					directory = experimentBaseDirectory_ + "/data/" + algorithmNameList_[i] + System.getProperty("file.separator") +
-					problemList_[problemId];
+                    directory = experimentBaseDirectory_ + "/data/" + algorithmNameList_[i] + System.getProperty("file.separator") +
+                            problemList_[problemId];
 
-					experimentDirectory = new File(directory);
-					if (!experimentDirectory.exists()) {
-						boolean result = new File(directory).mkdirs();
-						System.out.println("Creating " + directory);
-					}
+                    experimentDirectory = new File(directory);
+                    if (!experimentDirectory.exists()) {
+                        boolean result = new File(directory).mkdirs();
+                        System.out.println("Creating " + directory);
+                    }
 
-					// STEP 7: run the algorithm
-					System.out.println("Running algorithm: " + algorithmNameList_[i] +
-							", problem: " + problemList_[problemId] +
-							", run: " + runs);
-					try {
-						try {
-							resultFront= algorithm[i].execute();
-						} catch (ClassNotFoundException e) {
-							e.printStackTrace();
-						}
-					} catch (JMException ex) {
-						Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
-					}
+                    // STEP 7: run the algorithm
+                    System.out.println("Running algorithm: " + algorithmNameList_[i] +
+                            ", problem: " + problemList_[problemId] +
+                            ", run: " + runs);
+                    try {
+                        try {
+                            resultFront = algorithm[i].execute();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    } catch (JMException ex) {
+                        Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
-					// STEP 8: put the br.ufpr.dinf.gres.core.jmetal4.results in the output directory
-					((OPLASolutionSet) resultFront).printObjectivesToFile(directory + System.getProperty("file.separator") + outputParetoFrontFile_ + "." + runs);
-					((OPLASolutionSet) resultFront).printVariablesToFile(directory + System.getProperty("file.separator") + outputParetoSetFile_ + "." + runs);
+                    // STEP 8: put the br.ufpr.dinf.gres.core.jmetal4.results in the output directory
+                    ((OPLASolutionSet) resultFront).printObjectivesToFile(directory + System.getProperty("file.separator") + outputParetoFrontFile_ + "." + runs);
+                    ((OPLASolutionSet) resultFront).printVariablesToFile(directory + System.getProperty("file.separator") + outputParetoSetFile_ + "." + runs);
 
-					// STEP 9: calculate quality indicators
-					if (indicatorList_.length > 0) {
-						QualityIndicator indicators;
-						//System.out.println("PF file: " + paretoFrontFile_[problemId]);
-						indicators = new QualityIndicator(problem, paretoFrontFile_[problemId]);
+                    // STEP 9: calculate quality indicators
+                    if (indicatorList_.length > 0) {
+                        QualityIndicator indicators;
+                        //System.out.println("PF file: " + paretoFrontFile_[problemId]);
+                        indicators = new QualityIndicator(problem, paretoFrontFile_[problemId]);
 
-						for (int j = 0; j < indicatorList_.length; j++) {
-							if (indicatorList_[j].equals("HV")) {
-								double value = indicators.getHypervolume(resultFront);
-								FileWriter os;
-								try {
-									os = new FileWriter(experimentDirectory + "/HV", true);
-									os.write("" + value + "\n");
-									os.close();
-								} catch (IOException ex) {
-									Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
-								}
-							}
-							if (indicatorList_[j].equals("SPREAD")) {
-								FileWriter os = null;
-								try {
-									double value = indicators.getSpread(resultFront);
-									os = new FileWriter(experimentDirectory + "/SPREAD", true);
-									os.write("" + value + "\n");
-									os.close();
-								} catch (IOException ex) {
-									Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
-								} finally {
-									try {
-										os.close();
-									} catch (IOException ex) {
-										Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
-									}
-								}
-							}
-							if (indicatorList_[j].equals("IGD")) {
-								FileWriter os = null;
-								try {
-									double value = indicators.getIGD(resultFront);
-									os = new FileWriter(experimentDirectory + "/IGD", true);
-									os.write("" + value + "\n");
-									os.close();
-								} catch (IOException ex) {
-									Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
-								} finally {
-									try {
-										os.close();
-									} catch (IOException ex) {
-										Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
-									}
-								}
-							}
-							if (indicatorList_[j].equals("EPSILON")) {
-								FileWriter os = null;
-								try {
-									double value = indicators.getEpsilon(resultFront);
-									os = new FileWriter(experimentDirectory + "/EPSILON", true);
-									os.write("" + value + "\n");
-									os.close();
-								} catch (IOException ex) {
-									Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
-								} finally {
-									try {
-										os.close();
-									} catch (IOException ex) {
-										Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
-									}
-								}
-							}
-						} // for
-					} // if
-				} // for
-			} // for
-		} //for
-	}
+                        for (int j = 0; j < indicatorList_.length; j++) {
+                            if (indicatorList_[j].equals("HV")) {
+                                double value = indicators.getHypervolume(resultFront);
+                                FileWriter os;
+                                try {
+                                    os = new FileWriter(experimentDirectory + "/HV", true);
+                                    os.write("" + value + "\n");
+                                    os.close();
+                                } catch (IOException ex) {
+                                    Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                            if (indicatorList_[j].equals("SPREAD")) {
+                                FileWriter os = null;
+                                try {
+                                    double value = indicators.getSpread(resultFront);
+                                    os = new FileWriter(experimentDirectory + "/SPREAD", true);
+                                    os.write("" + value + "\n");
+                                    os.close();
+                                } catch (IOException ex) {
+                                    Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
+                                } finally {
+                                    try {
+                                        os.close();
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+                            }
+                            if (indicatorList_[j].equals("IGD")) {
+                                FileWriter os = null;
+                                try {
+                                    double value = indicators.getIGD(resultFront);
+                                    os = new FileWriter(experimentDirectory + "/IGD", true);
+                                    os.write("" + value + "\n");
+                                    os.close();
+                                } catch (IOException ex) {
+                                    Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
+                                } finally {
+                                    try {
+                                        os.close();
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+                            }
+                            if (indicatorList_[j].equals("EPSILON")) {
+                                FileWriter os = null;
+                                try {
+                                    double value = indicators.getEpsilon(resultFront);
+                                    os = new FileWriter(experimentDirectory + "/EPSILON", true);
+                                    os.write("" + value + "\n");
+                                    os.close();
+                                } catch (IOException ex) {
+                                    Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
+                                } finally {
+                                    try {
+                                        os.close();
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(Experiment.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+                            }
+                        } // for
+                    } // if
+                } // for
+            } // for
+        } //for
+    }
 }
