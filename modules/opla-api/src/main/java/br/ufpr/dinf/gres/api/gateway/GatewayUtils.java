@@ -42,7 +42,7 @@ public class GatewayUtils {
         } else {
             configs.disableCrossover();
         }
-        if (optimizationDto.getMutationOperators().contains(FeatureMutationOperators.DESIGN_PATTERNS.getOperatorName())) {
+        if (optimizationDto.getMutationOperators().contains(FeatureMutationOperators.DESIGN_PATTERNS.toString())) {
             String[] array = new String[optimizationDto.getPatterns().size()];
             configs.setPatterns(optimizationDto.getPatterns().toArray(array));
             configs.setDesignPatternStrategy(new ElementsWithSameDesignPatternSelection(optimizationDto.getScopeSelection().get()));

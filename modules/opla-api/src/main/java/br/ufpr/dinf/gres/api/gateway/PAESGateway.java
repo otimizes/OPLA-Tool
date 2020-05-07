@@ -4,16 +4,16 @@ import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.OPLAConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.PAESOPLAFeatMut;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.PaesConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PAESOPLABase;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PaesConfigs;
 import br.ufpr.dinf.gres.loglog.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PAESGateway implements IGateway {
-    private final PAESOPLAFeatMut paes;
+    private final PAESOPLABase paes;
 
-    public PAESGateway(PAESOPLAFeatMut paes) {
+    public PAESGateway(PAESOPLABase paes) {
         this.paes = paes;
     }
 

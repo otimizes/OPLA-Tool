@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
+import br.ufpr.dinf.gres.core.jmetal4.experiments.OPLAConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
 import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.core.learning.Moment;
@@ -157,7 +158,7 @@ public abstract class ExperimentCommonConfigs {
     }
 
     public void excludeDesignPatternsFromMutationOperatorList() {
-        this.getMutationOperators().remove("DesignPatterns");
+        this.getMutationOperators().remove(FeatureMutationOperators.DESIGN_PATTERNS.toString());
     }
 
     protected void validateGreaterOrEqualOne(String arg, int numberOfRuns) {

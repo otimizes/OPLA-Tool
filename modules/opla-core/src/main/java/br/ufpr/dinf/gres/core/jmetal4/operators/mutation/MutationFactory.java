@@ -24,6 +24,7 @@ package br.ufpr.dinf.gres.core.jmetal4.operators.mutation;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.FeatureMutationOperators;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternMutationOperator;
 import br.ufpr.dinf.gres.patterns.strategies.designpatternselection.impl.CustomDesignPatternSelection;
 
@@ -32,7 +33,7 @@ import java.util.Map;
 
 public class MutationFactory {
 
-    private static final String DESIGN_PATTERNS = "DesignPatterns";
+    private static final String DESIGN_PATTERNS = FeatureMutationOperators.DESIGN_PATTERNS.toString();
 
     public static Mutation getMutationOperator(String name, HashMap<String, Object> parameters, ExperimentCommonConfigs configs) throws JMException {
         if (isOnlyDesignPattern(configs)) {

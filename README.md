@@ -139,6 +139,17 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 - MYOBJObjectiveFunctionService -> Service of the objective function
 - MYOBJObjectiveFunctionResource -> Resource of the objective function
 
+### Implementing new Optimization Algorithm approach
+- Put your metaheuristic in jmetal4 > metaheuristics > myoptalgpackage
+- Observe how was implemented the existent algorithms, following the current steps 
+- Create your config in jmetal4 > experiments > base inheriting the ExperimentCommonConfigs
+- Use the name of optimization algorithm config with the posfix Configs, ex: MyOptAlgConfigs
+- Create your base to the Optimization Algorithm in jmetal4 > experiments > base
+- Use the name of optimization algorithm base with the posfix OPLABase, ex: MyOptAlgOPLABase
+- In order to link the algorithm in the api, it is necessary to create the gateway into the opla-api > gateway
+- Use the name of the gateway with the posfix Gateway, ex: MyOptAlgGateway
+- Add the gateway class in enum OptimizationAlgorithm, implementing the method getType
+
 ### Implementing new Methods in JMetal
 - If you want to add new methods in SolutionSet, implement them at the core/OPLASolutionSet.java
 

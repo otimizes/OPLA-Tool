@@ -12,6 +12,7 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.FeatureMutationOperators;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import org.apache.log4j.LogManager;
@@ -55,20 +56,22 @@ public class PLAFeatureMutation extends Mutation {
             operatorMap.put(i, this.mutationOperators.get(i));
         String selectedOperator = operatorMap.get(r);
 
-        if (selectedOperator.equals("featureMutation")) {
+        if (selectedOperator.equals(FeatureMutationOperators.FEATURE_MUTATION.toString())) {
             java.lang.reflect.Method featureMut = PLAFeatureMutation.class.getMethod(selectedOperator, double.class,
                     Solution.class, String.class);
             featureMut.invoke(this, probability, solution, scopeLevels);
         }
 
-        List<String> withScope = Arrays.asList("moveMethodMutation", "addClassMutation", "moveAttributeMutation");
+        List<String> withScope = Arrays.asList(FeatureMutationOperators.MOVE_METHOD_MUTATION.toString(),
+                FeatureMutationOperators.ADD_CLASS_MUTATION.toString(), FeatureMutationOperators.MOVE_ATTRIBUTE_MUTATION.toString());
         if (withScope.contains(selectedOperator)) {
             java.lang.reflect.Method featureMut = PLAFeatureMutation.class.getMethod(selectedOperator, double.class,
                     Solution.class, String.class);
             featureMut.invoke(this, probability, solution, scope);
         }
 
-        List<String> withoutScope = Arrays.asList("moveOperationMutation", "addManagerClassMutation");
+        List<String> withoutScope = Arrays.asList(FeatureMutationOperators.MOVE_OPERATION_MUTATION.toString(),
+                FeatureMutationOperators.ADD_MANAGER_CLASS_MUTATION.toString());
         if (withoutScope.contains(selectedOperator)) {
             java.lang.reflect.Method featureMut = PLAFeatureMutation.class.getMethod(selectedOperator, double.class,
                     Solution.class);

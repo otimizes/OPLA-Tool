@@ -1,6 +1,8 @@
-package br.ufpr.dinf.gres.core.jmetal4.experiments;
+package br.ufpr.dinf.gres.core.jmetal4.experiments.base;
 
-public class NSGAIIConfig extends ExperimentCommonConfigs {
+import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
+
+public class NSGAIIConfigs extends ExperimentCommonConfigs {
 
     private int populationSize;
 

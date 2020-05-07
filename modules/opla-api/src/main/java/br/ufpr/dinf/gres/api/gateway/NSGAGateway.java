@@ -3,8 +3,8 @@ package br.ufpr.dinf.gres.api.gateway;
 import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.NSGAIIConfig;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.NSGAIIOPLAFeatMut;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIOPLABase;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.OPLAConfigs;
 import br.ufpr.dinf.gres.loglog.Logger;
 import org.springframework.stereotype.Component;
@@ -13,9 +13,9 @@ import java.util.List;
 
 @Component
 public class NSGAGateway implements IGateway {
-    private final NSGAIIOPLAFeatMut nsgaiiFeatMut;
+    private final NSGAIIOPLABase nsgaiiFeatMut;
 
-    public NSGAGateway(NSGAIIOPLAFeatMut nsgaiiFeatMut) {
+    public NSGAGateway(NSGAIIOPLABase nsgaiiFeatMut) {
         this.nsgaiiFeatMut = nsgaiiFeatMut;
     }
 
@@ -23,7 +23,7 @@ public class NSGAGateway implements IGateway {
         GatewayUtils.addListener();
         ReaderConfig.setPathToConfigurationFile(UserHome.getPathToConfigFile());
         ReaderConfig.load();
-        NSGAIIConfig configs = new NSGAIIConfig();
+        NSGAIIConfigs configs = new NSGAIIConfigs();
         configs.setLogger(Logger.getLogger());
         configs.activeLogs();
         configs.setDescription(optimizationDto.getDescription());

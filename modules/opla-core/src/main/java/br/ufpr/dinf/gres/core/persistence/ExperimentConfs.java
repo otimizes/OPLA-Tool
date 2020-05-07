@@ -1,8 +1,10 @@
 package br.ufpr.dinf.gres.core.persistence;
 
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.NSGAIIConfig;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.PaesConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.FeatureMutationOperators;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.MutationOperators;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PaesConfigs;
 
 /**
  * Classe responsável por guardar E persistir/recuperar informações referentes a
@@ -42,7 +44,7 @@ public class ExperimentConfs {
     public String getPatterns() {
         StringBuilder patternsList = new StringBuilder();
 
-        if (configs.getMutationOperators().contains("DesignPatterns")) {
+        if (configs.getMutationOperators().contains(FeatureMutationOperators.DESIGN_PATTERNS.toString())) {
             for (String p : configs.getPatterns()) {
                 patternsList.append(p);
                 patternsList.append(",");
@@ -73,7 +75,7 @@ public class ExperimentConfs {
 
     public int getPopulationSize() {
         if (this.algorithm.equalsIgnoreCase("NSGAII"))
-            return ((NSGAIIConfig) this.configs).getPopulationSize();
+            return ((NSGAIIConfigs) this.configs).getPopulationSize();
 
         return 0;
     }
@@ -100,7 +102,7 @@ public class ExperimentConfs {
     }
 
     public String getDesignPatternStrategy() {
-        if (configs.getMutationOperators().contains("DesignPatterns")) {
+        if (configs.getMutationOperators().contains(FeatureMutationOperators.DESIGN_PATTERNS.toString())) {
             if (configs.getDesignPatternStrategy() == null)
                 return "Random";
             if (configs.getDesignPatternStrategy() != null)
