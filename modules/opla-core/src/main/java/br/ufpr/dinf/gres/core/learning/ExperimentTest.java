@@ -4,20 +4,20 @@ import br.ufpr.dinf.gres.architecture.flyweights.VariabilityFlyweight;
 import br.ufpr.dinf.gres.architecture.flyweights.VariantFlyweight;
 import br.ufpr.dinf.gres.architecture.flyweights.VariationPointFlyweight;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.*;
-import br.ufpr.dinf.gres.domain.entity.Experiment;
-import br.ufpr.dinf.gres.domain.entity.Objective;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType.ArchitectureSolutionType;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import liquibase.util.csv.CSVReader;
-import org.apache.commons.lang.RandomStringUtils;
 import br.ufpr.dinf.gres.core.jmetal4.util.MathUtils;
 import br.ufpr.dinf.gres.core.jmetal4.util.QtdElements;
+import br.ufpr.dinf.gres.domain.entity.Experiment;
+import br.ufpr.dinf.gres.domain.entity.Objective;
+import liquibase.util.csv.CSVReader;
+import org.apache.commons.lang.RandomStringUtils;
 
 import java.io.*;
 import java.util.*;
@@ -37,14 +37,10 @@ public class ExperimentTest {
                     solution.setObjective(i, Double.parseDouble(split[i]));
                 }
 
-                try {
-                    solution.setType(new ArchitectureSolutionType(new OPLA()));
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                solution.setType(new ArchitectureSolutionType(new OPLA()));
                 solution.setProblem(new OPLA());
-                ((OPLA)solution.getProblem()).setArchitecture_(architecture);
-                ((OPLA)solution.getProblem()).setSelectedMetrics(metrics);
+                ((OPLA) solution.getProblem()).setArchitecture_(architecture);
+                ((OPLA) solution.getProblem()).setSelectedMetrics(metrics);
 
                 solution.setSolutionName(objective.getSolutionName());
                 solution.setExecutionId(objective.getExecution() != null ? objective.getExecution().getId() : "0");
@@ -79,14 +75,10 @@ public class ExperimentTest {
                 solution.setObjective(1, Double.parseDouble(split[1]));
                 solution.setObjective(2, Double.parseDouble(split[2]));
 
-                try {
-                    solution.setType(new ArchitectureSolutionType(new OPLA()));
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                solution.setType(new ArchitectureSolutionType(new OPLA()));
                 solution.setProblem(new OPLA());
-                ((OPLA)solution.getProblem()).setArchitecture_(architecture);
-                ((OPLA)solution.getProblem()).setSelectedMetrics(Arrays.asList("featureDriven", "aclass", "coe"));
+                ((OPLA) solution.getProblem()).setArchitecture_(architecture);
+                ((OPLA) solution.getProblem()).setSelectedMetrics(Arrays.asList("featureDriven", "aclass", "coe"));
 
                 solution.setSolutionName(objective.getSolutionName());
                 solution.setExecutionId(objective.getExecution() != null ? objective.getExecution().getId() : "0");
@@ -96,22 +88,22 @@ public class ExperimentTest {
                 if (elements != null) {
 
                     QtdElements qtdElements = elements.get(i.get());
-                    ((OPLA)solution.getProblem()).getArchitecture_().addAllClasses(generateRandomClass(qtdElements.classes));
-                    ((OPLA)solution.getProblem()).getArchitecture_().addAllInterfaces(generateRandomInterface(qtdElements.interfaces));
-                    ((OPLA)solution.getProblem()).getArchitecture_().addAllPackages(generateRandomPackage(qtdElements.packages));
+                    ((OPLA) solution.getProblem()).getArchitecture_().addAllClasses(generateRandomClass(qtdElements.classes));
+                    ((OPLA) solution.getProblem()).getArchitecture_().addAllInterfaces(generateRandomInterface(qtdElements.interfaces));
+                    ((OPLA) solution.getProblem()).getArchitecture_().addAllPackages(generateRandomPackage(qtdElements.packages));
                     VariationPointFlyweight.getInstance().setVariationPoints(generateVariationPoints(qtdElements.variationPoints));
                     VariantFlyweight.getInstance().setVariants(generateVariant(qtdElements.variants));
                     VariabilityFlyweight.getInstance().setVariabilities(generateVariabilities(qtdElements.variabilities));
                     generateConcerns(qtdElements.concerns);
 
                     for (int j = 0; j < qtdElements.realizations; j++) {
-                        ((OPLA)solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(new RealizationRelationship());
+                        ((OPLA) solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(new RealizationRelationship());
                     }
                     for (int j = 0; j < qtdElements.generalizations; j++) {
-                        ((OPLA)solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(new GeneralizationRelationship());
+                        ((OPLA) solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(new GeneralizationRelationship());
                     }
                     for (int j = 0; j < qtdElements.dependencies; j++) {
-                        ((OPLA)solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(new DependencyRelationship());
+                        ((OPLA) solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(new DependencyRelationship());
                     }
                     for (int j = 0; j < qtdElements.agregations; j++) {
                         AssociationRelationship associationRelationship = new AssociationRelationship();
@@ -121,7 +113,7 @@ public class ExperimentTest {
                         associationEnd2.setAggregation("shared");
                         associationRelationship.getParticipants().add(associationEnd);
                         associationRelationship.getParticipants().add(associationEnd2);
-                        ((OPLA)solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(associationRelationship);
+                        ((OPLA) solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(associationRelationship);
                     }
                     for (int j = 0; j < qtdElements.compositions; j++) {
                         AssociationRelationship associationRelationship = new AssociationRelationship();
@@ -131,9 +123,9 @@ public class ExperimentTest {
                         associationEnd2.setAggregation("composite");
                         associationRelationship.getParticipants().add(associationEnd);
                         associationRelationship.getParticipants().add(associationEnd2);
-                        ((OPLA)solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(associationRelationship);
+                        ((OPLA) solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(associationRelationship);
                     }
-                    int a = ((OPLA)solution.getProblem()).architecture_.getRelationshipHolder().getAllAssociations().size();
+                    int a = ((OPLA) solution.getProblem()).architecture_.getRelationshipHolder().getAllAssociations().size();
                     if (a < qtdElements.associations) {
                         for (int j = 0; j < qtdElements.associations - a; j++) {
                             AssociationRelationship associationRelationship = new AssociationRelationship();
@@ -143,16 +135,15 @@ public class ExperimentTest {
                             associationEnd2.setAggregation("none");
                             associationRelationship.getParticipants().add(associationEnd);
                             associationRelationship.getParticipants().add(associationEnd2);
-                            ((OPLA)solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(associationRelationship);
+                            ((OPLA) solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(associationRelationship);
                         }
                     }
                     for (int j = 0; j < qtdElements.abstractions; j++) {
-                        ((OPLA)solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(new AbstractionRelationship());
+                        ((OPLA) solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(new AbstractionRelationship());
                     }
                     for (int j = 0; j < qtdElements.usage; j++) {
-                        ((OPLA)solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(new UsageRelationship());
+                        ((OPLA) solution.getProblem()).architecture_.getRelationshipHolder().addRelationship(new UsageRelationship());
                     }
-
 
 
                 }
@@ -200,7 +191,7 @@ public class ExperimentTest {
     public static Set<Class> generateRandomClass(int classes) {
         HashSet<Class> objects = new HashSet<>();
         for (int j = 0; j < classes; j++) {
-            objects.add(new Class(null, RandomStringUtils.random(10),false,null));
+            objects.add(new Class(null, RandomStringUtils.random(10), false, null));
         }
         return objects;
     }
@@ -208,7 +199,7 @@ public class ExperimentTest {
     public static Set<Package> generateRandomPackage(int packages) {
         HashSet<Package> objects = new HashSet<>();
         for (int j = 0; j < packages; j++) {
-            objects.add(new Package(null,RandomStringUtils.random(10), null));
+            objects.add(new Package(null, RandomStringUtils.random(10), null));
         }
         return objects;
     }
@@ -230,7 +221,6 @@ public class ExperimentTest {
     }
 
 
-
     public static List<Objective> getObjectivesFromFile(String filename) throws IOException {
         File file = new File(Thread.currentThread().getContextClassLoader().getResource(filename).getFile());
         CSVReader reader = new CSVReader(new FileReader(file));
@@ -246,7 +236,7 @@ public class ExperimentTest {
         File file = new File(Thread.currentThread().getContextClassLoader().getResource(filename).getFile());
         CSVReader reader = new CSVReader(new FileReader(file));
         String[] nextLine;
-        List<QtdElements> objects= new ArrayList<>();
+        List<QtdElements> objects = new ArrayList<>();
         while ((nextLine = reader.readNext()) != null) {
             objects.add(new QtdElements(nextLine));
         }
