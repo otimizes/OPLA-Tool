@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
 
-public class PaesConfigs extends ExperimentCommomConfigs {
+public class PaesConfigs extends ExperimentCommonConfigs {
 
     private int archiveSize;
 

@@ -28,9 +28,6 @@ import br.ufpr.dinf.gres.common.Variable;
  */
 public class Permutation extends Variable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 2657470069340722041L;
 
     /**

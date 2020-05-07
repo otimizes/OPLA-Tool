@@ -21,9 +21,9 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType;
 
+import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionType;
-import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.variable.Int;
 
 /**
@@ -31,21 +31,10 @@ import br.ufpr.dinf.gres.core.jmetal4.encodings.variable.Int;
  */
 public class IntSolutionType extends SolutionType {
 
-    /**
-     * Constructor
-     *
-     * @param problem
-     * @throws ClassNotFoundException
-     */
     public IntSolutionType(Problem problem) throws ClassNotFoundException {
         super(problem);
     } // Constructor
 
-    /**
-     * Creates the variables of the solution
-     *
-     * @param decisionVariables
-     */
     public Variable[] createVariables() {
         Variable[] variables = new Variable[problem_.getNumberOfVariables()];
 

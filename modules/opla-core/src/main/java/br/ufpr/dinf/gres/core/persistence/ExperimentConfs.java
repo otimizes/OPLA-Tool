@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.core.persistence;
 
-import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommomConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.NSGAIIConfig;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.PaesConfigs;
 
@@ -15,10 +15,10 @@ import br.ufpr.dinf.gres.core.jmetal4.experiments.PaesConfigs;
 public class ExperimentConfs {
 
     private String experimentId;
-    private ExperimentCommomConfigs configs;
+    private ExperimentCommonConfigs configs;
     private String algorithm;
 
-    public ExperimentConfs(String experimentId, String algorithm, ExperimentCommomConfigs configs) {
+    public ExperimentConfs(String experimentId, String algorithm, ExperimentCommonConfigs configs) {
         this.experimentId = experimentId;
         this.configs = configs;
         this.algorithm = algorithm;
@@ -117,11 +117,11 @@ public class ExperimentConfs {
         this.experimentId = experimentId;
     }
 
-    public ExperimentCommomConfigs getConfigs() {
+    public ExperimentCommonConfigs getConfigs() {
         return configs;
     }
 
-    public void setConfigs(ExperimentCommomConfigs configs) {
+    public void setConfigs(ExperimentCommonConfigs configs) {
         this.configs = configs;
     }
 

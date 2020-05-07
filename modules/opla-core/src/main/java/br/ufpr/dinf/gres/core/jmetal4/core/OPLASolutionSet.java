@@ -324,22 +324,14 @@ public class OPLASolutionSet extends SolutionSet {
         File file = new File(path);
         file.getParentFile().mkdirs();
         try {
-            /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
 
             for (int i = 0; i < solutionsList_.size(); i++) {
-                // if (this.vector[i].getFitness()<1.0) {
                 bw.write(solutionsList_.get(i).toString().trim().replaceAll(" ", ", ")); // returns something
-                // like this: 744.0
-                // 6.142857142857143
                 bw.newLine();
-
-                // }
             }
-
-            /* Close the file */
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -349,19 +341,15 @@ public class OPLASolutionSet extends SolutionSet {
 
     public void printObjectivesTempToFile(String path) {
         try {
-            /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
 
             for (int i = 0; i < solutionsList_.size(); i++) {
-                // if (this.vector[i].getFitness()<1.0) {
                 bw.write(solutionsList_.get(i).toStringObjectivesTemp());
                 bw.newLine();
-                // }
             }
 
-            /* Close the file */
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -377,7 +365,6 @@ public class OPLASolutionSet extends SolutionSet {
      */
     public void printVariablesToFile(String path) {
         try {
-            /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
@@ -386,15 +373,10 @@ public class OPLASolutionSet extends SolutionSet {
             for (int i = 0; i < solutionsList_.size(); i++) {
                 for (int j = 0; j < numberOfVariables; j++) {
                     bw.write(((Architecture) solutionsList_.get(i).getDecisionVariables()[j]).getName());
-                    // bw.write(((Architecture)
-                    // solutionsList_.get(i).getDecisionVariables()[j]).getNumber());
-                    // bw.write(solutionsList_.get(i).getDecisionVariables()[j].toString()
-                    // + " ");
                 }
                 bw.newLine();
             }
 
-            /* Close the file */
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -402,7 +384,6 @@ public class OPLASolutionSet extends SolutionSet {
         }
     } // printVariablesToFile
 
-    // added by Thelma october/2012
     public void saveVariablesToFile(String path, List<Info> funResults, LogLog logger, boolean generate) {
         int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
 
@@ -432,5 +413,4 @@ public class OPLASolutionSet extends SolutionSet {
             }
         }
     }
-//    TODO REMOVE saveVaruablesToFile FROM HERE TO ANOTHER CLASS IN ORDER TO REDUCE ACLASS COUPLING
 }

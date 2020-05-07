@@ -21,9 +21,9 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType;
 
+import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionType;
-import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.variable.Int;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.variable.Real;
 
@@ -35,26 +35,12 @@ public class IntRealSolutionType extends SolutionType {
     private int intVariables_;
     private int realVariables_;
 
-    /**
-     * Constructor
-     *
-     * @param problem
-     * @param intVariables  Number of integer variables
-     * @param realVariables Number of real variables
-     * @throws ClassNotFoundException
-     */
     public IntRealSolutionType(Problem problem, int intVariables, int realVariables) throws ClassNotFoundException {
         super(problem);
         intVariables_ = intVariables;
         realVariables_ = realVariables;
     } // Constructor
 
-    /**
-     * Creates the variables of the solution
-     *
-     * @param decisionVariables
-     * @throws ClassNotFoundException
-     */
     public Variable[] createVariables() throws ClassNotFoundException {
         Variable[] variables = new Variable[problem_.getNumberOfVariables()];
 

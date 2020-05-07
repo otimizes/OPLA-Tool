@@ -10,14 +10,13 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 
 @Service
-public class CalculaEd {
+public class EdCalculation {
 
     private MetricsUtil mu;
     private NumberFormat format = NumberFormat.getInstance();
-
     private final Persistence persistence;
 
-    public CalculaEd(Persistence persistence) {
+    public EdCalculation(Persistence persistence) {
         mu = new MetricsUtil();
         format.setMaximumFractionDigits(2);
         format.setMinimumFractionDigits(2);
@@ -26,27 +25,19 @@ public class CalculaEd {
         this.persistence = persistence;
     }
 
-    private static double arredondar(double valor, int casas, int ceilOrFloor) {
-        double arredondado = valor;
-        arredondado *= (Math.pow(10, casas));
+    private static double round(double value, int cases, int ceilOrFloor) {
+        double rounded = value;
+        rounded *= (Math.pow(10, cases));
         if (ceilOrFloor == 0) {
-            arredondado = Math.ceil(arredondado);
+            rounded = Math.ceil(rounded);
         } else {
-            arredondado = Math.floor(arredondado);
+            rounded = Math.floor(rounded);
         }
-        arredondado /= (Math.pow(10, casas));
-        return arredondado;
+        rounded /= (Math.pow(10, cases));
+        return rounded;
     }
 
-    /**
-     * Calcule distance euclideans given a experiment id.
-     *
-     * @param experimentId
-     * @param numberObjectives
-     * @return {@link HashMap<String, Double>}. Solution Name, Distance Euclidean
-     * @throws Exception
-     */
-    public HashMap<String, Double> calcula(String experimentId, int numberObjectives) throws Exception {
+    public HashMap<String, Double> calculate(String experimentId, int numberObjectives) throws Exception {
         OPLASolutionSet ss = persistence.queryNonDominatedSolutinsFromExperiment(experimentId);
         HashMap<String, Double> results = new HashMap<>();
 
@@ -60,11 +51,10 @@ public class CalculaEd {
             System.out.println("->" + min[i] + ", ");
         }
         for (int i = 0; i < front.length; i++)
-            results.put(names[i], arredondar(mu.distance(min, front[i]), 4, 0));
+            results.put(names[i], round(mu.distance(min, front[i]), 4, 0));
 
         return results;
     }
-
 
 
 }

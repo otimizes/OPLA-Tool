@@ -4,21 +4,19 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NSGAII_OPLA_FeatMutInitializer implements AlgorithmBase<NSGAIIConfig> {
-    private static final Logger LOGGER = Logger.getLogger(NSGAII_OPLA_FeatMutInitializer.class);
+public class NSGAIIOPLAFeatMutInitializer implements AlgorithmBase<NSGAIIConfig> {
+    private static final Logger LOGGER = Logger.getLogger(NSGAIIOPLAFeatMutInitializer.class);
 
-    private final NSGAII_OPLA_FeatMut nsgaiiFeatMut;
+    private final NSGAIIOPLAFeatMut nsgaiiFeatMut;
 
-    public NSGAII_OPLA_FeatMutInitializer(NSGAII_OPLA_FeatMut nsgaiiFeatMut) {
+    public NSGAIIOPLAFeatMutInitializer(NSGAIIOPLAFeatMut nsgaiiFeatMut) {
         this.nsgaiiFeatMut = nsgaiiFeatMut;
     }
 
     @Override
     public void run(NSGAIIConfig experimentCommomConfigs) {
         try {
-            LOGGER.info("execute()");
             nsgaiiFeatMut.execute(experimentCommomConfigs);
-            LOGGER.info("Finished");
         } catch (Exception e) {
             LOGGER.error(e);
             e.printStackTrace();

@@ -3,11 +3,11 @@ package br.ufpr.dinf.gres.core.jmetal4.experiments;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PAES_OPLA_FeatMutInitializer implements AlgorithmBase<PaesConfigs> {
+public class PAESOPLAFeatMutInitializer implements AlgorithmBase<PaesConfigs> {
 
     private final PAES_OPLA_FeatMut paes;
 
-    public PAES_OPLA_FeatMutInitializer(PAES_OPLA_FeatMut paes) {
+    public PAESOPLAFeatMutInitializer(PAES_OPLA_FeatMut paes) {
         this.paes = paes;
     }
 

@@ -21,15 +21,10 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.core;
 
-import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.common.Configuration;
-import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import br.ufpr.dinf.gres.domain.entity.Info;
-import br.ufpr.dinf.gres.loglog.Level;
-import br.ufpr.dinf.gres.loglog.LogLog;
 import org.apache.log4j.Logger;
 
-import java.io.*;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -339,7 +334,6 @@ public class SolutionSet implements Serializable {
             }
         }
         return objectives;
-    } // writeObjectivesMatrix
-
-} // SolutionSet
+    }
+}
 

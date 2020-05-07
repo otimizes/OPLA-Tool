@@ -12,7 +12,7 @@ import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType.ArchitectureSolutionType;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommomConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Fitness;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctions;
 import org.apache.log4j.Logger;
@@ -23,21 +23,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//criado por Thelma em agosto/2012
 public class OPLA extends Problem {
 
     private static final Logger LOGGER = Logger.getLogger(OPLA.class);
     private static final long serialVersionUID = 884633138619836573L;
 
-    // variaveis para controlar os contadores de componentes e interfaces
     public static int contComp_ = 0;
     public static int contInt_ = 0;
     public static int contClass_ = 0;
     public static int contDiscardedSolutions_ = 0;
 
     public Architecture architecture_;
-    private List<String> selectedMetrics; // Vai vir da GUI
-    private ExperimentCommomConfigs configs;
+    private List<String> selectedMetrics;
+    private ExperimentCommonConfigs configs;
 
     public OPLA() {
     }
@@ -62,29 +60,22 @@ public class OPLA extends Problem {
     }
 
 
-    public OPLA(String xmiFilePath, ExperimentCommomConfigs oplaConfig) throws Exception {
-        LOGGER.info("Setando configurações");
+    public OPLA(String xmiFilePath, ExperimentCommonConfigs oplaConfig) throws Exception {
         this.configs = oplaConfig;
         numberOfVariables_ = 1;
-        LOGGER.info("Recuperando Numero de funcoes objetivo");
         numberOfObjectives_ = oplaConfig.getOplaConfigs().getNumberOfObjectives();
         numberOfConstraints_ = 0;
         problemName_ = "OPLA";
-        LOGGER.info("Criando Architecture Solution Type");
         solutionType_ = new ArchitectureSolutionType(this);
         variableType_ = new java.lang.Class[numberOfVariables_];
         length_ = new int[numberOfVariables_];
-        LOGGER.info("Criando ARCHITECTURE_TYPE");
         variableType_[0] = java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE);
-        LOGGER.info("Instanciando Builder");
         ArchitectureBuilder architectureBuilder = new ArchitectureBuilder();
-        LOGGER.info("Construindo br.ufpr.dinf.gres.arquitetura by XML: " + xmiFilePath);
         if (xmiFilePath.contains(".smty")) {
             architecture_ = new ArchitectureBuilderSMarty().create(xmiFilePath);
         } else {
             architecture_ = new ArchitectureBuilder().create(xmiFilePath);
         }
-        LOGGER.info("Recuperando Metricas");
         selectedMetrics = oplaConfig.getOplaConfigs().getSelectedObjectiveFunctions();
     }
 
@@ -101,11 +92,8 @@ public class OPLA extends Problem {
         }
     }
 
-
-    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     public SolutionSet removeDominadas(SolutionSet result) {
         List<Solution> collect = result.getSolutionSet().stream().filter(r -> (r.getEvaluation() >= 5)).collect(Collectors.toList());
-        LOGGER.info("removeDominadas()");
         boolean dominador, dominado;
         double valor1 = 0;
         double valor2 = 0;
@@ -133,26 +121,10 @@ public class OPLA extends Problem {
                 }
 
                 if (dominador) {
-                    // System.out.println("--------------------------------------------");
-                    // System.out.println("Solucao [" + i +
-                    // "] domina a Solucao [" + j + "]");
-                    // System.out.println("[" + i + "] " +
-                    // result.get(i).toString());
-                    // System.out.println("[" + j + "] " +
-                    // result.get(j).toString());
-
                     result.remove(j);
                     this.configs.getLogger().putLog("removido Dominada");
                     j = j - 1;
                 } else if (dominado) {
-                    // System.out.println("--------------------------------------------");
-                    // System.out.println("Solucao [" + j +
-                    // "] domina a Solucao [" + i + "]");
-                    // System.out.println("[" + i + "] " +
-                    // result.get(i).toString());
-                    // System.out.println("[" + j + "] " +
-                    // result.get(j).toString());
-
                     result.remove(i);
                     this.configs.getLogger().putLog("removido Dominada");
                     j = i;
@@ -171,10 +143,8 @@ public class OPLA extends Problem {
         return result;
     }
 
-    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     public SolutionSet removeRepetidas(SolutionSet result) {
         List<Solution> collect = result.getSolutionSet().stream().filter(r -> (r.getEvaluation() >= 5)).collect(Collectors.toList());
-        LOGGER.info("removeRepetidas()");
         String solucao;
 
         for (int i = 0; i < result.size() - 1; i++) {
@@ -199,10 +169,7 @@ public class OPLA extends Problem {
         return result;
     }
 
-    // m��todo para verificar se algum dos relacionamentos recebidos ���
-    // generaliza������o
     private boolean searchForGeneralizations(Class cls) { // ok
-        LOGGER.info("searchForGeneralizations()");
         Collection<Relationship> Relationships = cls.getRelationships();
         for (Relationship relationship : Relationships) {
             if (relationship instanceof GeneralizationRelationship) {
@@ -216,7 +183,6 @@ public class OPLA extends Problem {
 
     private void removeComponentRelationships(Package comp, Architecture architecture) {
         if (comp.isTotalyFreezed()) return;
-        LOGGER.info("removeComponentRelationships()");
         Relationship[] allInterElementRelationships = architecture.getRelationshipHolder().getAllRelationships()
                 .toArray(new Relationship[0]);
         for (Relationship relationship : allInterElementRelationships) {
@@ -237,7 +203,6 @@ public class OPLA extends Problem {
 
     private void removeClassRelationships(Class cls, Architecture architecture) {
         if (cls.isTotalyFreezed()) return;
-        LOGGER.info("removeClassRelationships()");
         List<Relationship> relationshipsCls = new ArrayList<Relationship>(cls.getRelationships());
         if (!relationshipsCls.isEmpty()) {
             Iterator<Relationship> iteratorRelationships = relationshipsCls.iterator();
@@ -267,13 +232,11 @@ public class OPLA extends Problem {
 
                     }
                 }
-
             }
         }
     }
 
     public void evaluateConstraints(Solution solution) throws JMException {
-        LOGGER.info("evaluateConstraints()");
         List<Package> allComponents = new ArrayList<Package>(((Architecture) solution.getDecisionVariables()[0]).getAllPackages());
         for (Package comp : allComponents) {
             List<Class> allClasses = new ArrayList<Class>(comp.getAllClasses());
@@ -332,45 +295,12 @@ public class OPLA extends Problem {
 
     }
 
-
     public static Logger getLOGGER() {
         return LOGGER;
     }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
-    }
-
-    public static int getContComp_() {
-        return contComp_;
-    }
-
-    public static void setContComp_(int contComp_) {
-        OPLA.contComp_ = contComp_;
-    }
-
-    public static int getContInt_() {
-        return contInt_;
-    }
-
-    public static void setContInt_(int contInt_) {
-        OPLA.contInt_ = contInt_;
-    }
-
-    public static int getContClass_() {
-        return contClass_;
-    }
-
-    public static void setContClass_(int contClass_) {
-        OPLA.contClass_ = contClass_;
-    }
-
-    public static int getContDiscardedSolutions_() {
-        return contDiscardedSolutions_;
-    }
-
-    public static void setContDiscardedSolutions_(int contDiscardedSolutions_) {
-        OPLA.contDiscardedSolutions_ = contDiscardedSolutions_;
     }
 
     public Architecture getArchitecture_() {
@@ -387,14 +317,6 @@ public class OPLA extends Problem {
 
     public void setSelectedMetrics(List<String> selectedMetrics) {
         this.selectedMetrics = selectedMetrics;
-    }
-
-    public ExperimentCommomConfigs getConfigs() {
-        return configs;
-    }
-
-    public void setConfigs(ExperimentCommomConfigs configs) {
-        this.configs = configs;
     }
 }
 

@@ -1,34 +1,25 @@
 package br.ufpr.dinf.gres.core.jmetal4.operators.mutation;
 
-import java.util.*;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import br.ufpr.dinf.gres.architecture.exceptions.ConcernNotFoundException;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.architecture.representation.Attribute;
 import br.ufpr.dinf.gres.architecture.representation.Class;
-import br.ufpr.dinf.gres.architecture.representation.Concern;
-import br.ufpr.dinf.gres.architecture.representation.Element;
-import br.ufpr.dinf.gres.architecture.representation.Interface;
-import br.ufpr.dinf.gres.architecture.representation.Method;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.architecture.representation.Variability;
-import br.ufpr.dinf.gres.architecture.representation.Variant;
-import br.ufpr.dinf.gres.architecture.representation.VariationPoint;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.GeneralizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.RealizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
+import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.util.*;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class PLAFeatureMutation extends Mutation {
 
@@ -49,26 +40,19 @@ public class PLAFeatureMutation extends Mutation {
 
     public PLAFeatureMutation(Map<String, Object> parameters) {
         super(parameters);
-
         if (parameters.get("probability") != null) {
             mutationProbability = (Double) parameters.get("probability");
         }
     }
 
     public void doMutation(double probability, Solution solution) throws Exception {
-        // "allComponents" usar "sameComponent para que a troca seja realizada
-        // dentro do mesmo componente da br.ufpr.dinf.gres.arquitetura
         String scope = "sameComponent";
-        // usar "oneLevel" para nao verificara presenca de interesses nos
-        // atributos e metodos
         String scopeLevels = "allLevels";
 
         int r = PseudoRandom.randInt(0, this.mutationOperators.size() - 1);
-
         HashMap<Integer, String> operatorMap = new HashMap<>();
         for (int i = 0; i < this.mutationOperators.size(); i++)
             operatorMap.put(i, this.mutationOperators.get(i));
-
         String selectedOperator = operatorMap.get(r);
 
         if (selectedOperator.equals("featureMutation")) {
@@ -95,9 +79,6 @@ public class PLAFeatureMutation extends Mutation {
         withoutScope = null;
     }
 
-    // --------------------------------------------------------------------------
-    // m��todo para verificar se algum dos relacionamentos recebidos ��
-    // generaliza����o
     private boolean searchForGeneralizations(Class cls) {
         for (Relationship relationship : cls.getRelationships()) {
             if (relationship instanceof GeneralizationRelationship) {
@@ -110,7 +91,6 @@ public class PLAFeatureMutation extends Mutation {
         return false;
     }
 
-    // joao verifica se existe padrao na classe
     private boolean searchPatternsClass(Class cls) {
         boolean ap = cls.getPatternsOperations().hasPatternApplied();
         if (ap) {
@@ -118,21 +98,16 @@ public class PLAFeatureMutation extends Mutation {
         }
         return true;
     }
-    // joao^
 
-    // joao verifica se existe padrao na classe
     private boolean searchPatternsInterface(Interface inter) {
         boolean ap = inter.getPatternsOperations().hasPatternApplied();
         if (ap) {
-            System.out.println("br.ufpr.dinf.gres.patterns aplicado");
             return false;
         }
         return true;
     }
-    // joao^
 
     public void moveAttributeMutation(double probability, Solution solution, String scope) throws JMException {
-        LOGGER.info("Executando MoveAttributeMutation");
         try {
             if (PseudoRandom.randDouble() < probability) {
                 if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class
@@ -144,7 +119,6 @@ public class PLAFeatureMutation extends Mutation {
                         if (ClassesComp.size() > 1) {
                             final Class targetClass = getRandomClass(ClassesComp);
                             final Class sourceClass = getRandomClass(ClassesComp);
-                            // joao\
                             if (searchPatternsClass(targetClass) && searchPatternsClass(sourceClass)) {
                                 if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
                                         && (sourceClass.getAllAttributes().size() > 1)
@@ -163,7 +137,6 @@ public class PLAFeatureMutation extends Mutation {
                             List<Class> ClassesSourceComp = new ArrayList<Class>(sourceComp.getAllClasses().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
                             if (ClassesSourceComp.size() >= 1) {
                                 Class sourceClass = getRandomClass(ClassesSourceComp);
-                                // joao\
                                 if (searchPatternsClass(sourceClass)) {
                                     if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
                                             && (sourceClass.getAllAttributes().size() > 1)
@@ -203,7 +176,6 @@ public class PLAFeatureMutation extends Mutation {
 
     private void moveAttribute(Architecture arch, Class targetClass, Class sourceClass) throws JMException, Exception {
         List<Attribute> attributesClass = new ArrayList<Attribute>(sourceClass.getAllAttributes().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
-        // joao\
         if (searchPatternsClass(targetClass) && searchPatternsClass(sourceClass)) {
             if (attributesClass.size() >= 1) {
                 if (sourceClass.moveAttributeToClass(randomObject(attributesClass), targetClass)) {
@@ -214,12 +186,10 @@ public class PLAFeatureMutation extends Mutation {
         attributesClass.clear();
     }
 
-    // Add por ��dipo
     private void createAssociation(Architecture arch, Class targetClass, Class sourceClass) {
         arch.addRelationship(new AssociationRelationship(targetClass, sourceClass));
     }
 
-    // --------------------------------------------------------------------------
     public void moveMethodMutation(double probability, Solution solution, String scope) throws JMException {
         if (PseudoRandom.randDouble() < probability) {
             final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
@@ -233,7 +203,6 @@ public class PLAFeatureMutation extends Mutation {
                     final Class targetClass = getRandomClass(ClassesComp);
                     final Class sourceClass = getRandomClass(ClassesComp);
 
-                    // joao\
                     if (searchPatternsClass(targetClass) && searchPatternsClass(sourceClass)) {
                         if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
                                 && (sourceClass.getAllAttributes().size() > 1)
@@ -253,7 +222,6 @@ public class PLAFeatureMutation extends Mutation {
                     removeClassesInPatternStructureFromArray(ClassesSourceComp);
                     if (ClassesSourceComp.size() >= 1) {
                         final Class sourceClass = getRandomClass(ClassesSourceComp);
-                        // joao\
                         if (searchPatternsClass(sourceClass)) {
                             if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
                                     && (sourceClass.getAllAttributes().size() > 1)
@@ -284,7 +252,6 @@ public class PLAFeatureMutation extends Mutation {
         final List<Method> MethodsClass = new ArrayList<Method>(sourceClass.getAllMethods().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
         if (MethodsClass.size() >= 1) {
             if (sourceClass.moveMethodToClass(getRandomMethod(MethodsClass), targetClass)) {
-                // joao\
                 if (searchPatternsClass(sourceClass)) {
                     createAssociation(arch, targetClass, sourceClass);
                 }
@@ -294,9 +261,7 @@ public class PLAFeatureMutation extends Mutation {
         MethodsClass.clear();
     }
 
-    // --------------------------------------------------------------------------
     public void moveOperationMutation(double probability, Solution solution) throws JMException {
-        LOGGER.info("Executando MoveOperationMutation");
         try {
             if (PseudoRandom.randDouble() < probability) {
                 if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class
@@ -337,7 +302,7 @@ public class PLAFeatureMutation extends Mutation {
                                         OpsInterface.clear();
                                     }
                                 }
-                            } // ^
+                            }
                         }
                         InterfacesTargetComp.clear();
                         InterfacesSourceComp.clear();
@@ -356,11 +321,7 @@ public class PLAFeatureMutation extends Mutation {
         }
     }
 
-    // --------------------------------------------------------------------------
-    // tem um metodo para excluir padroes da classe
-    // creio que aqui pede deixar como esta
     public void addClassMutation(double probability, Solution solution, String scope) throws JMException {
-        LOGGER.info("Executando AddClassMutation ");
         try {
             if (PseudoRandom.randDouble() < probability) {
                 if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class
@@ -378,7 +339,6 @@ public class PLAFeatureMutation extends Mutation {
                                 && (sourceClass.getAllAttributes().size() > 1)
                                 && (sourceClass.getAllMethods().size() > 1) && (!isVarPoint(arch, sourceClass))
                                 && (!isVariant(arch, sourceClass)) && (!isOptional(arch, sourceClass))) {
-                            // joao\
                             if (searchPatternsClass(sourceClass)) {
                                 if (PseudoRandom.randInt(0, 1) == 0) { // attribute
                                     List<Attribute> AttributesClass = new ArrayList<Attribute>(
@@ -398,9 +358,8 @@ public class PLAFeatureMutation extends Mutation {
                                         }
                                         AttributesClass.clear();
                                     }
-                                } // joao^
-                            } else { // method
-                                // joao\
+                                }
+                            } else {
                                 if (searchPatternsClass(sourceClass)) {
                                     List<Method> MethodsClass = new ArrayList<Method>(sourceClass.getAllMethods().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
                                     if (MethodsClass.size() >= 1) {
@@ -418,7 +377,7 @@ public class PLAFeatureMutation extends Mutation {
                                         }
                                         MethodsClass.clear();
                                     }
-                                } // joao^
+                                }
                             }
                         }
                     }
@@ -461,50 +420,25 @@ public class PLAFeatureMutation extends Mutation {
 
     private void moveMethodToNewClass(Architecture arch, Class sourceClass, List<Method> MethodsClass, Class newClass)
             throws Exception {
-        // joao\
-        // if (searchPatternsClass(sourceClass)) {
         Method targetMethod = getRandomMethod(MethodsClass);
         sourceClass.moveMethodToClass(targetMethod, newClass);
-        // if (targetMethod.isAbstract()) targetMethod.setAbstract(false);
         for (Concern con : targetMethod.getOwnConcerns()) {
             newClass.addConcern(con.getName());
         }
         createAssociation(arch, newClass, sourceClass);
-        // }
     }
 
-    // private void moveMethodAllComponents(Architecture arch, Class
-    // sourceClass, List<Method> MethodsClass, Class newClass) throws
-    // JMException {
-    // Method targetMethod = randomObject (MethodsClass);
-    // sourceClass.moveMethodToClass(targetMethod, newClass);
-    // //if (targetMethod.isAbstract()) targetMethod.setAbstract(false);
-    // for (Concern con: targetMethod.getOwnConcerns()){
-    // try {
-    // newClass.addConcern(con.getName());
-    // } catch (ConcernNotFoundException e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // AssociationRelationship newRelationship = new
-    // AssociationRelationship(newClass, sourceClass);
-    // arch.getAllRelationships().add(newRelationship);
-    // }
     private void moveAttributeToNewClass(Architecture arch, Class sourceClass, List<Attribute> AttributesClass,
                                          Class newClass) throws Exception {
-        // if (searchPatternsClass(sourceClass)) {
         Attribute targetAttribute = randomObject(AttributesClass);
         sourceClass.moveAttributeToClass(targetAttribute, newClass);
         for (Concern con : targetAttribute.getOwnConcerns()) {
             newClass.addConcern(con.getName());
         }
         createAssociation(arch, newClass, sourceClass);
-        // }
     }
 
-    // --------------------------------------------------------------------------
     public void addManagerClassMutation(double probability, Solution solution) throws JMException {
-        LOGGER.info("Executando AddManagerClassMutation");
         try {
             if (PseudoRandom.randDouble() < probability) {
                 if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class
@@ -520,7 +454,6 @@ public class PLAFeatureMutation extends Mutation {
 
                     if (InterfacesComp.size() >= 1) {
                         Interface sourceInterface = getRandomInterface(InterfacesComp);
-                        // joao\
                         if (searchPatternsInterface(sourceInterface)) {
                             List<Method> OpsInterface = new ArrayList<Method>();
                             OpsInterface.addAll(sourceInterface.getMethods().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
@@ -547,7 +480,7 @@ public class PLAFeatureMutation extends Mutation {
                                 }
                             }
                             OpsInterface.clear();
-                        } // joao^
+                        }
                     }
                 } else {
                     Configuration.logger_.log(Level.SEVERE,
@@ -603,8 +536,6 @@ public class PLAFeatureMutation extends Mutation {
         return method;
     }
 
-
-    // --------------------------------------------------------------------------
     public void featureMutation(double probability, Solution solution, String scope) throws JMException {
         try {
             if (PseudoRandom.randDouble() < probability) {
@@ -616,8 +547,7 @@ public class PLAFeatureMutation extends Mutation {
                     if (!allComponents.isEmpty()) {
                         final Package selectedComp = getRandomPackage(allComponents);
                         List<Concern> concernsSelectedComp = new ArrayList<Concern>(selectedComp.getAllConcerns());
-                        if (concernsSelectedComp.size() > 1) { // = somente para
-                            // testes
+                        if (concernsSelectedComp.size() > 1) {
                             final Concern selectedConcern = randomObject(concernsSelectedComp);
                             List<Package> allComponentsAssignedOnlyToConcern = new ArrayList<Package>(
                                     searchComponentsAssignedToConcern(selectedConcern, allComponents));
@@ -681,7 +611,6 @@ public class PLAFeatureMutation extends Mutation {
     private void modularizeConcernInComponent(List<Package> allComponents, Package targetComponent, Concern concern,
                                               Architecture arch) {
         try {
-
             Iterator<Package> itrComp = allComponents.iterator();
             while (itrComp.hasNext()) {
                 Package comp = itrComp.next();
@@ -692,11 +621,9 @@ public class PLAFeatureMutation extends Mutation {
                     Iterator<Interface> itrInterface = allInterfaces.iterator();
                     while (itrInterface.hasNext()) {
                         Interface interfaceComp = itrInterface.next();
-                        // JOAO\
                         if (searchPatternsInterface(interfaceComp)) {
                             if (interfaceComp.getOwnConcerns().size() == 1 && interfaceComp.containsConcern(concern)) {
                                 moveInterfaceToComponent(interfaceComp, targetComponent, comp, arch, concern); // EDIPO
-                                // TESTADO
                             } else if (!interfaceComp.getPatternsOperations().hasPatternApplied()) {
                                 List<Method> operationsInterfaceComp = new ArrayList<Method>(
                                         interfaceComp.getMethods().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
@@ -709,7 +636,7 @@ public class PLAFeatureMutation extends Mutation {
                                     }
                                 }
                             }
-                        } // JOAO^
+                        }
                     }
 
                     allInterfaces.clear();
@@ -717,7 +644,6 @@ public class PLAFeatureMutation extends Mutation {
                     Iterator<Class> ItrClass = allClasses.iterator();
                     while (ItrClass.hasNext()) {
                         Class classComp = ItrClass.next();
-                        //JOAO\
                         if (searchPatternsClass(classComp)) {
                             if (comp.getAllClasses().contains(classComp)) {
                                 if ((classComp.getOwnConcerns().size() == 1) && (classComp.containsConcern(concern))) {
@@ -760,7 +686,7 @@ public class PLAFeatureMutation extends Mutation {
                                     }
                                 }
                             }
-                        }//JOAO^
+                        }
                     }
                     allClasses.clear();
                 }
@@ -772,7 +698,6 @@ public class PLAFeatureMutation extends Mutation {
 
     private void moveClassToComponent(Class classComp, Package targetComp, Package sourceComp,
                                       Architecture architecture, Concern concern) {
-        // joao\
         if (searchPatternsClass(classComp)) {
             sourceComp.moveClassToPackage(classComp, targetComp);
         }
@@ -780,7 +705,6 @@ public class PLAFeatureMutation extends Mutation {
 
     private void moveAttributeToComponent(Attribute attribute, Class classComp, Package targetComp, Package sourceComp,
                                           Architecture architecture, Concern concern) throws ConcernNotFoundException {
-        // joao\
         if (searchPatternsClass(classComp)) {
             final Class targetClass = findOrCreateClassWithConcern(targetComp, concern);
             classComp.moveAttributeToClass(attribute, targetClass);
@@ -790,7 +714,6 @@ public class PLAFeatureMutation extends Mutation {
 
     private void moveMethodToComponent(Method method, Class classComp, Package targetComp, Package sourceComp,
                                        Architecture architecture, Concern concern) throws ConcernNotFoundException {
-        // joao\
         if (searchPatternsClass(classComp)) {
             final Class targetClass = findOrCreateClassWithConcern(targetComp, concern);
             classComp.moveMethodToClass(method, targetClass);
@@ -798,7 +721,6 @@ public class PLAFeatureMutation extends Mutation {
         }
     }
 
-    // add por ��dipo
     private Class findOrCreateClassWithConcern(Package targetComp, Concern concern) throws ConcernNotFoundException {
         Class targetClass = null;
         for (Class cls : targetComp.getAllClasses().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList())) {
@@ -816,7 +738,6 @@ public class PLAFeatureMutation extends Mutation {
 
     private void moveInterfaceToComponent(Interface interfaceComp, Package targetComp, Package sourceComp,
                                           Architecture architecture, Concern concernSelected) {
-        // joao\
         if (searchPatternsInterface(interfaceComp)) {
             if (!sourceComp.moveInterfaceToPackage(interfaceComp, targetComp)) {
                 architecture.moveElementToPackage(interfaceComp, targetComp);
@@ -837,16 +758,15 @@ public class PLAFeatureMutation extends Mutation {
                     } else if (targetComp.getAllClasses().size() > 1) {
                         final List<Class> targetClasses = allClassesWithConcerns(concernSelected,
                                 targetComp.getAllClasses()).stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList());
-                        final Class klass = randonClass(targetClasses);
+                        final Class klass = randomClass(targetClasses);
                         architecture.removeImplementedInterface(interfaceComp, sourceComp);
                         addExternalInterface(targetComp, architecture, interfaceComp);
                         addImplementedInterface(targetComp, architecture, interfaceComp, klass);
                         return;
                     } else {
-                        // Busca na br.ufpr.dinf.gres.arquitetura como um todo
                         final List<Class> targetClasses = allClassesWithConcerns(concernSelected,
                                 architecture.getAllClasses()).stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList());
-                        final Class klass = randonClass(targetClasses);
+                        final Class klass = randomClass(targetClasses);
                         architecture.removeImplementedInterface(interfaceComp, sourceComp);
                         addExternalInterface(targetComp, architecture, interfaceComp);
                         addImplementedInterface(targetComp, architecture, interfaceComp, klass);
@@ -856,20 +776,11 @@ public class PLAFeatureMutation extends Mutation {
         }
     }
 
-    private Class randonClass(List<Class> targetClasses) {
+    private Class randomClass(List<Class> targetClasses) {
         Collections.shuffle(targetClasses);
-        Class randonKlass = targetClasses.get(0);
-        return randonKlass;
+        return targetClasses.get(0);
     }
 
-    /**
-     * Retorna todas as classes que tiverem algum dos concerns presentes na
-     * lista ownConcerns.
-     *
-     * @param c
-     * @param allClasses
-     * @return
-     */
     private List<Class> allClassesWithConcerns(Concern c, Set<Class> allClasses) {
         List<Class> klasses = new ArrayList<Class>();
         for (Class klass : allClasses) {
@@ -885,7 +796,6 @@ public class PLAFeatureMutation extends Mutation {
     private void moveOperationToComponent(Method operation, Interface sourceInterface, Package targetComp,
                                           Package sourceComp, Architecture architecture, Concern concern) throws ConcernNotFoundException {
         Interface targetInterface = null;
-        // joao\
         if (searchPatternsInterface(sourceInterface)) {
             targetInterface = searchForInterfaceWithConcern(concern, targetComp);
 
@@ -898,32 +808,17 @@ public class PLAFeatureMutation extends Mutation {
             }
 
             addRelationship(sourceInterface, targetComp, sourceComp, architecture, concern, targetInterface);
-        } // joao^
+        }
     }
 
-    // duvida
     private void addRelationship(Interface sourceInterface, Package targetComp, Package sourceComp,
                                  Architecture architecture, Concern concern, Interface targetInterface) {
         for (Element implementor : sourceInterface.getImplementors()) {
-            // Se quem estiver implementando a interface que teve a operacao
-            // movida for um pacote.
             if (implementor instanceof Package) {
-                /**
-                 * Verifica se o pacote tem somente um classe, recupera a mesma
-                 * e verifica se a interface destino (targetInterface) possui
-                 * algum interesse da classe recuperada. Caso tiver, remove
-                 * implemented interface (sourceInterface) de sourceComp.
-                 * Adiciona a interface tergetInterface em seu pacote ou na
-                 * br.ufpr.dinf.gres.arquitetura Verifica se j�� existe um relacionamento de
-                 * realiza����o entre targetInterface e klass, caso n��o tiver
-                 * adiciona targetInterface como sendo implemenda por klass.
-                 */
                 if (targetComp.getAllClasses().size() == 1) {
                     final Class klass = targetComp.getAllClasses().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()).iterator().next();
-                    // joao
                     if (searchPatternsClass(klass)) {
                         for (Concern c : klass.getOwnConcerns()) {
-                            // joao
                             if (searchPatternsInterface(targetInterface)) {
                                 if (targetInterface.containsConcern(c)) {
                                     architecture.removeImplementedInterface(sourceInterface, sourceComp);
@@ -934,22 +829,9 @@ public class PLAFeatureMutation extends Mutation {
                             }
                         }
                     }
-
-                    /**
-                     * Caso o pacote destino tiver mais de uma classe. Busca
-                     * dentre essas classes todas com o interesse em quest��o
-                     * (concern), e seleciona um aleatoriamente. Remove
-                     * implemented interface (sourceInterface) de sourceComp.
-                     * Adiciona a interface tergetInterface em seu pacote ou na
-                     * br.ufpr.dinf.gres.arquitetura Verifica se j�� existe um relacionamento de
-                     * realiza����o entre targetInterface e klass, caso n��o
-                     * tiver adiciona targetInterface como sendo implemenda por
-                     * klass.
-                     */
                 } else if (targetComp.getAllClasses().size() > 1) {
                     final List<Class> targetClasses = allClassesWithConcerns(concern, targetComp.getAllClasses()).stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList());
-                    final Class klass = randonClass(targetClasses);
-                    // joao
+                    final Class klass = randomClass(targetClasses);
                     if (searchPatternsClass(klass)) {
                         architecture.removeImplementedInterface(sourceInterface, sourceComp);
                         addExternalInterface(targetComp, architecture, targetInterface);
@@ -957,12 +839,8 @@ public class PLAFeatureMutation extends Mutation {
                         return;
                     }
                 } else {
-                    /**
-                     * Caso o pacote for vazio, faz um busca nas classes da
-                     * br.ufpr.dinf.gres.arquitetura como um todo.
-                     */
                     final List<Class> targetClasses = allClassesWithConcerns(concern, architecture.getAllClasses()).stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList());
-                    final Class klass = randonClass(targetClasses);
+                    final Class klass = randomClass(targetClasses);
                     if (searchPatternsClass(klass)) {
                         if (klass != null) {
                             architecture.removeImplementedInterface(sourceInterface, sourceComp);
@@ -972,16 +850,7 @@ public class PLAFeatureMutation extends Mutation {
                     }
                 }
             }
-
-            /**
-             * Recupera quem estava implementando a interface que teve a
-             * operacao movida e cria uma realizacao entre a interface que
-             * recebeu a operacao (targetInterface) e quem tava implementando a
-             * interface que teve a operacao movida (sourceInterface).
-             *
-             */
             if (implementor instanceof Class) {
-                // joao\
                 if (searchPatternsInterface(sourceInterface) && searchPatternsInterface(targetInterface)) {
                     architecture.removeImplementedInterface(sourceInterface, sourceComp);
                     addExternalInterface(targetComp, architecture, targetInterface);
@@ -1020,46 +889,17 @@ public class PLAFeatureMutation extends Mutation {
         return false;
     }
 
-    // //��dipo
-    // private void addConcernToNewInterface(Concern concern, Interface
-    // targetInterface, Interface sourceInterface) {
-    // Set<Concern> interfaceConcerns = sourceInterface.getOwnConcerns();
-    // try {
-    // for(Concern c : interfaceConcerns)
-    // targetInterface.addConcern(c.getName());
-    // } catch (ConcernNotFoundException e) {
-    // e.printStackTrace();
-    // }
-    //
-    // for(Method operation : sourceInterface.getOperations()){
-    // Set<Concern> operationConcerns = operation.getOwnConcerns();
-    // for(Method o : targetInterface.getOperations()){
-    // for(Concern c : operationConcerns){
-    // try {
-    // o.addConcern(c.getName());
-    // } catch (ConcernNotFoundException e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // }
-    //
-    // }
-    // }
-
-    // ��dipo M��todo
     private Interface searchForInterfaceWithConcern(Concern concern, Package targetComp) {
         for (Interface itf : targetComp.getImplementedInterfaces().stream().filter(i -> !i.isTotalyFreezed()).collect(Collectors.toList())) {
             if (itf.containsConcern(concern)) {
                 return itf;
             }
         }
-
         for (Interface itf : targetComp.getAllInterfaces().stream().filter(i -> !i.isTotalyFreezed()).collect(Collectors.toList())) {
             if (itf.containsConcern(concern)) {
                 return itf;
             }
         }
-
         return null;
     }
 
@@ -1086,7 +926,6 @@ public class PLAFeatureMutation extends Mutation {
         return solution;
     }
 
-    // -------------------------------------------------------------------------------------------------
     public <T> T randomObject(List<T> allObjects) {
         int numObjects = allObjects.size();
         int key;
@@ -1100,9 +939,6 @@ public class PLAFeatureMutation extends Mutation {
         return object;
     }
 
-    // -------------------------------------------------------------------------------------------------
-    // Thelma: m��todo adicionado para verificar se os componentes nos quais as
-    // mutacoes serao realizadas estao na mesma camada da br.ufpr.dinf.gres.arquitetura
     private boolean checkSameLayer(Package source, Package target) {
         boolean sameLayer = false;
         if ((source.getName().endsWith("Mgr") && target.getName().endsWith("Mgr"))
@@ -1113,8 +949,6 @@ public class PLAFeatureMutation extends Mutation {
         return sameLayer;
     }
 
-    // -------------------------------------------------------------------------------------------------
-    // Thelma: m��todo adicionado para retornar o sufixo do nome do componente
     private String getSuffix(Package comp) {
         String suffix;
         if (comp.getName().endsWith("Mgr")) {
@@ -1129,9 +963,6 @@ public class PLAFeatureMutation extends Mutation {
         return suffix;
     }
 
-    // -------------------------------------------------------------------------------------------------
-    // Thelma: m��todo adicionado para verificar se a classe tem uma
-    // variabilidade relativa ao concern
     private boolean isVarPointOfConcern(Architecture arch, Class cls, Concern concern) {
         boolean isVariationPointConcern = false;
         Collection<Variability> variabilities = arch.getAllVariabilities();
@@ -1147,9 +978,6 @@ public class PLAFeatureMutation extends Mutation {
         return isVariationPointConcern;
     }
 
-    // -------------------------------------------------------------------------------------------------
-    // Thelma: m��todo adicionado para verificar se a classe �� variant de uma
-    // variabilidade relativa ao concern
     private boolean isVariantOfConcern(Architecture arch, Class cls, Concern concern) {
         boolean isVariantConcern = false;
         Collection<Variability> variabilities = arch.getAllVariabilities();
@@ -1173,31 +1001,12 @@ public class PLAFeatureMutation extends Mutation {
         return isVariantConcern;
     }
 
-    /**
-     * metodo que move a hierarquia de classes para um outro componente que esta
-     * modularizando o interesse concern
-     *
-     * @param classComp    - Classe selecionada
-     * @param targetComp   - Pacote destino
-     * @param sourceComp   - Pacote de origem
-     * @param architecture - arquiteutra
-     * @param concern      - interesse sendo modularizado
-     */
     private void moveHierarchyToComponent(Class classComp, Package targetComp, Package sourceComp,
                                           Architecture architecture, Concern concern) {
         architecture.forGeneralization().moveGeneralizationToPackage(getGeneralizationRelationshipForClass(classComp),
                 targetComp);
     }
 
-    // EDIPO Identifica quem �� o parent para a classComp
-
-    /**
-     * Dado um {@link Element} retorna a {@link GeneralizationRelationship} no
-     * qual o mesmo pertence.
-     *
-     * @param element
-     * @return {@link GeneralizationRelationship}
-     */
     private GeneralizationRelationship getGeneralizationRelationshipForClass(Element element) {
         for (Relationship r : ((Class) element).getRelationships()) {
             if (r instanceof GeneralizationRelationship) {
@@ -1210,7 +1019,6 @@ public class PLAFeatureMutation extends Mutation {
         return null;
     }
 
-    // verificar se a classe �� variant de uma variabilidade
     private boolean isOptional(Architecture arch, Class cls) {
         boolean isOptional = false;
         if (cls.getVariantType() != null) {
@@ -1220,9 +1028,6 @@ public class PLAFeatureMutation extends Mutation {
         }
         return isOptional;
     }
-
-    // -------------------------------------------------------------------------------------------------
-    // verificar se a classe �� variant de uma variabilidade
 
     private boolean isVariant(Architecture arch, Class cls) {
         boolean isVariant = false;
@@ -1255,9 +1060,6 @@ public class PLAFeatureMutation extends Mutation {
         return isVariationPoint;
     }
 
-    // Thelma - Dez2013 m��todo adicionado
-    // verify if the architecture contains a valid PLA design, i.e., if there is
-    // not any interface without relationships in the architecture.
     private boolean isValidSolution(Architecture solution) {
         boolean isValid = true;
         List<Interface> allInterfaces = new ArrayList<Interface>(solution.getAllInterfaces());
@@ -1275,5 +1077,4 @@ public class PLAFeatureMutation extends Mutation {
     public List<String> getMutationOperators() {
         return mutationOperators;
     }
-
 }

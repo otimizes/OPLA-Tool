@@ -1,21 +1,21 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
-import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
 import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.core.learning.Moment;
-import org.apache.commons.lang.WordUtils;
+import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
+import org.apache.commons.lang.WordUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class ExperimentCommomConfigs {
+public abstract class ExperimentCommonConfigs {
 
     private boolean log = false;
-    private LogLog logger; //Precisa para captar os logs na GUI.
+    private LogLog logger;
     private String pathToDb;
     private int numberOfRuns;
     private int maxEvaluations;
@@ -23,7 +23,7 @@ public abstract class ExperimentCommomConfigs {
     private double mutationProbability;
     private String plas;
     private OPLAConfigs oplaConfigs;
-    private String[] patterns = null; //OPLA-Patterns....
+    private String[] patterns = null;
     private String description;
     private InteractiveFunction interactiveFunction;
     private Boolean interactive;
@@ -32,7 +32,6 @@ public abstract class ExperimentCommomConfigs {
     public int intervalInteraction;
     public Moment clusteringMoment;
     public ClusteringAlgorithm clusteringAlgorithm;
-
     private List<String> mutationOperators = new ArrayList<String>();
     private ElementsWithSameDesignPatternSelection applyStrategy;
 
@@ -44,11 +43,6 @@ public abstract class ExperimentCommomConfigs {
         return this.plas;
     }
 
-    /**
-     * PLAs - Path to PLAs separated by comma.
-     *
-     * @param plas
-     */
     public void setPlas(String plas) {
         this.plas = plas;
     }
@@ -131,13 +125,6 @@ public abstract class ExperimentCommomConfigs {
         return patterns;
     }
 
-    /**
-     * Set br.ufpr.dinf.gres.patterns to use.
-     * <p>
-     * This method will normalize patternsList to downcase and capitalized.
-     *
-     * @param patternsList
-     */
     public void setPatterns(String... patternsList) {
         for (int i = 0; i < patternsList.length; i++) {
             patternsList[i] = WordUtils.capitalize(patternsList[i].toLowerCase());
@@ -153,22 +140,10 @@ public abstract class ExperimentCommomConfigs {
         return applyStrategy;
     }
 
-    /**
-     * Set the strategy to apply Design Patterns. Two possibilities:<br/>
-     * ElementsWithSameDesignPatternSelection or null for Random
-     *
-     * @param elementsWithSameDesignPatternSelection
-     */
     public void setDesignPatternStrategy(ElementsWithSameDesignPatternSelection elementsWithSameDesignPatternSelection) {
         this.applyStrategy = elementsWithSameDesignPatternSelection;
     }
 
-    /**
-     * If true execute log method NSGAII_OPLA_FeatMut.logInforamtions() or
-     * PAES_OPLA_FeatMut.logInforamtions();
-     *
-     * @return
-     */
     public boolean isLog() {
         return log && logger != null;
     }
@@ -195,11 +170,6 @@ public abstract class ExperimentCommomConfigs {
         return logger;
     }
 
-    /**
-     * Seta uma instância de {@link LogLog}.
-     *
-     * @param logLog
-     */
     public void setLogger(LogLog logLog) {
         this.logger = logLog;
     }

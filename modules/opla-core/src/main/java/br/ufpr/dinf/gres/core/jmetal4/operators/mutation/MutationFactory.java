@@ -21,9 +21,9 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.operators.mutation;
 
-import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommomConfigs;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternMutationOperator;
 import br.ufpr.dinf.gres.patterns.strategies.designpatternselection.impl.CustomDesignPatternSelection;
 
@@ -34,17 +34,7 @@ public class MutationFactory {
 
     private static final String DESIGN_PATTERNS = "DesignPatterns";
 
-    /**
-     * Gets a mutation operator through its name.
-     *
-     * @param name                           of the operator
-     * @param configs.getMutationOperators()
-     * @return the operator
-     * @throws JMException
-     * @params configs
-     */
-    public static Mutation getMutationOperator(String name, HashMap<String, Object> parameters, ExperimentCommomConfigs configs) throws JMException {
-        System.out.println("MUTATION " + name);
+    public static Mutation getMutationOperator(String name, HashMap<String, Object> parameters, ExperimentCommonConfigs configs) throws JMException {
         if (isOnlyDesignPattern(configs)) {
             return new DesignPatternMutationOperator(parameters, configs.getDesignPatternStrategy(), new CustomDesignPatternSelection(configs.getPatterns()));
         } else if (isDesignPatternAndPlaFeatureMutation(configs)) {
@@ -65,17 +55,18 @@ public class MutationFactory {
         }
     }
 
-    private static boolean isOnlyPLAFeatureMutation(ExperimentCommomConfigs configs) {
+    private static boolean isOnlyPLAFeatureMutation(ExperimentCommonConfigs configs) {
         return !configs.getMutationOperators().contains(DESIGN_PATTERNS) && configs.getMutationOperators().size() >= 1;
     }
 
-    private static boolean isDesignPatternAndPlaFeatureMutation(ExperimentCommomConfigs configs) {
+    private static boolean isDesignPatternAndPlaFeatureMutation(ExperimentCommonConfigs configs) {
         return configs.getMutationOperators().contains(DESIGN_PATTERNS) && configs.getMutationOperators().size() > 1;
     }
 
-    private static boolean isOnlyDesignPattern(ExperimentCommomConfigs configs) {
+    private static boolean isOnlyDesignPattern(ExperimentCommonConfigs configs) {
         return configs.getMutationOperators().contains(DESIGN_PATTERNS) && configs.getMutationOperators().size() == 1;
     }
+
     public static Mutation getMutationOperator(String name, Map<String, Object> parameters) throws JMException {
 
         if (name.equalsIgnoreCase("PLAFeatureMutation"))
@@ -86,5 +77,5 @@ public class MutationFactory {
             String name2 = cls.getName();
             throw new JMException("Exception in " + name2 + ".getMutationOperator()");
         }
-    } // getMutationOperator
+    }
 }

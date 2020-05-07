@@ -42,9 +42,9 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
     private PaesConfigs configs;
     private String experiementId;
     private int numberObjectives;
-    private final CalculaEd c;
+    private final EdCalculation c;
 
-    public PAES_OPLA_FeatMut(CalculaEd c) {
+    public PAES_OPLA_FeatMut(EdCalculation c) {
         this.c = c;
     }
 
@@ -185,7 +185,7 @@ public class PAES_OPLA_FeatMut implements AlgorithmBaseExecution<PaesConfigs> {
 
             setDirToSaveOutput(experiement.getId(), null);
 
-            mp.saveDistance(c.calcula(this.experiementId, this.numberObjectives), this.experiementId);
+            mp.saveDistance(c.calculate(this.experiementId, this.numberObjectives), this.experiementId);
             Info = null;
             funResults = null;
 
