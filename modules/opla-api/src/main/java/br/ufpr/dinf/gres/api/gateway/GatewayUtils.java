@@ -5,7 +5,7 @@ import br.ufpr.dinf.gres.architecture.io.OPLALogs;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfo;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.FeatureMutationOperators;
+import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.loglog.LogLogData;
 import br.ufpr.dinf.gres.loglog.Logger;

@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
-import br.ufpr.dinf.gres.core.jmetal4.experiments.OPLAConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
+import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
 import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.core.learning.Moment;
 import br.ufpr.dinf.gres.loglog.LogLog;

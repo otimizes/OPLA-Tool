@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.core.jmetal4.experiments;
+package br.ufpr.dinf.gres.core.jmetal4.operators.mutation;
 
 public class MutationOperators {
 

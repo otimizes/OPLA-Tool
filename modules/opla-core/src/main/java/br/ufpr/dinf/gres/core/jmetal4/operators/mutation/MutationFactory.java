@@ -24,7 +24,7 @@ package br.ufpr.dinf.gres.core.jmetal4.operators.mutation;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.FeatureMutationOperators;
+import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternMutationOperator;
 import br.ufpr.dinf.gres.patterns.strategies.designpatternselection.impl.CustomDesignPatternSelection;
 

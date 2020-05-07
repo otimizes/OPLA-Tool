@@ -3,7 +3,6 @@ package br.ufpr.dinf.gres.api.gateway;
 import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.FeatureMutationOperators;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIOPLABase;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.OPLAConfigs;
@@ -41,11 +40,6 @@ public class NSGAGateway implements IGateway {
         configs.setMaxEvaluations(optimizationDto.getMaxEvaluations());
         GatewayUtils.setOperators(optimizationDto, configs);
         List<String> operadores = configs.getMutationOperators();
-//        for (int i = 0; i < operadores.size(); i++) {
-//            if (operadores.get(i).equals(FeatureMutationOperators.DESIGN_PATTERNS.toString())) {
-//                operadores.remove(i);
-//            }
-//        }
         configs.setMutationOperators(operadores);
         configs.setPathToDb(UserHome.getPathToDb());
         OPLAConfigs oplaConfig = new OPLAConfigs();

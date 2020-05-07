@@ -1,8 +1,7 @@
 package br.ufpr.dinf.gres.core.persistence;
 
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.FeatureMutationOperators;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.MutationOperators;
+import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PaesConfigs;
 
