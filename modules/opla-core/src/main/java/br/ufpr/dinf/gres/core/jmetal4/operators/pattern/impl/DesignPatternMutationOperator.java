@@ -39,7 +39,7 @@ public class DesignPatternMutationOperator extends AbstractMutationOperator {
     }
 
     @Override
-    protected boolean hookMutation(Solution solution, Double probability) throws Exception {
+    public boolean hookMutation(Solution solution, Double probability) throws Exception {
         boolean applied = false;
         if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
             if (PseudoRandom.randDouble() < probability) {

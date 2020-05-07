@@ -15,7 +15,6 @@ import java.util.*;
 
 public class CrossoverOperations {
 
-
     private static Logger LOGGER = LogManager.getLogger(CrossoverOperations.class.getName());
 
     public static void addAttributesRealizingFeatureToOffspring(Concern feature, Class classComp, Package comp, Architecture offspring) {

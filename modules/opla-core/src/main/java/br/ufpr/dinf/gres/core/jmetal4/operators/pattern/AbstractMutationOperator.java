@@ -6,11 +6,10 @@ import br.ufpr.dinf.gres.architecture.exceptions.NotFoundException;
 import br.ufpr.dinf.gres.architecture.exceptions.PackageNotFound;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
-import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternsAndPLAMutationOperator;
-import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
+import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -21,7 +20,7 @@ import java.util.logging.Level;
 
 public abstract class AbstractMutationOperator extends Mutation {
 
-    public static final Logger LOGGER = LogManager.getLogger(DesignPatternsAndPLAMutationOperator.class);
+    public static final Logger LOGGER = LogManager.getLogger(AbstractMutationOperator.class);
     private static final long serialVersionUID = 1L;
 
     public AbstractMutationOperator(Map<String, Object> parameters) {

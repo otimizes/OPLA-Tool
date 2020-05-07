@@ -7,9 +7,9 @@ package br.ufpr.dinf.gres.core.jmetal4.main.factory;
 
 import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternMutationOperator;
-import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternsAndPLAMutationOperator;
-import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.PLAMutation;
-import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.PLAMutationThenDesignPatternsMutationOperator;
+import br.ufpr.dinf.gres.core.jmetal4.main.patterns.DesignPatternsAndPLAMutationOperator;
+import br.ufpr.dinf.gres.core.jmetal4.main.patterns.PLAMutation;
+import br.ufpr.dinf.gres.core.jmetal4.main.patterns.PLAMutationThenDesignPatternsMutationOperator;
 
 import java.util.Map;
 
