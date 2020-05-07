@@ -162,7 +162,7 @@
               <opla-grid-list>
                 <opla-grid-tile *ngFor="let fmo of optimizationOptions?.featureMutationOperators">
                   <mat-checkbox (change)="changeOperators(fmo, $event.checked)" [checked]="fmo !== 'DESIGN_PATTERNS'" *ngIf="fmo !== 'DESIGN_PATTERNS'">
-                    {{fmo}}
+                    {{fmo | replaceall:'_':' ' | titlecase}}
                   </mat-checkbox>
                 </opla-grid-tile>
 <!--                <opla-grid-tile>-->

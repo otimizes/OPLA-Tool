@@ -39,10 +39,10 @@ export class PatternComponent implements OnInit {
 
   cleanOperators() {
     if (this.optimizationDto.patterns.length > 0) {
-      if (!this.optimizationDto.mutationOperators.includes('DesignPatterns'))
-        this.optimizationDto.mutationOperators.push('DesignPatterns');
+      if (!this.optimizationDto.mutationOperators.includes('DESIGN_PATTERNS'))
+        this.optimizationDto.mutationOperators.push('DESIGN_PATTERNS');
     } else {
-      this.optimizationDto.mutationOperators.splice(this.optimizationDto.mutationOperators.indexOf('DesignPatterns', 1));
+      this.optimizationDto.mutationOperators.splice(this.optimizationDto.mutationOperators.indexOf('DESIGN_PATTERNS', 1));
     }
   }
 

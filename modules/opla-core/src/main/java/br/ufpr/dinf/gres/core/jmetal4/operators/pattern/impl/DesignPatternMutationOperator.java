@@ -83,11 +83,13 @@ public class DesignPatternMutationOperator extends AbstractMutationOperator {
     public Architecture mutateArchitecture(Architecture architecture, ScopeSelectionStrategy scopeSelectionStartegy, DesignPatternSelectionStrategy designPatternSelectionStrategy) {
         ArchitectureRepository.setCurrentArchitecture(architecture);
         DesignPattern designPattern = designPatternSelectionStrategy.selectDesignPattern();
-        Scope scope = scopeSelectionStartegy.selectScope(architecture, Patterns.valueOf(designPattern.getName().toUpperCase()));
-        if (designPattern.randomlyVerifyAsPSOrPSPLA(scope)) {
-            if (designPattern.apply(scope)) {
-                LOGGER.log(Priority.INFO,
-                        "Design Pattern " + designPattern.getName() + " applied to scope " + scope.getElements().toString() + " successfully!");
+        if (designPattern != null) {
+            Scope scope = scopeSelectionStartegy.selectScope(architecture, Patterns.valueOf(designPattern.getName().toUpperCase()));
+            if (designPattern.randomlyVerifyAsPSOrPSPLA(scope)) {
+                if (designPattern.apply(scope)) {
+                    LOGGER.log(Priority.INFO,
+                            "Design Pattern " + designPattern.getName() + " applied to scope " + scope.getElements().toString() + " successfully!");
+                }
             }
         }
         return architecture;

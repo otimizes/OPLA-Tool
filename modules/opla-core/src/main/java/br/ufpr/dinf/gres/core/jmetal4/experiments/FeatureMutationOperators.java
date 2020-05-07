@@ -1,33 +1,49 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
-import java.util.ArrayList;
-import java.util.List;
+import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.*;
 
-public enum FeatureMutationOperators {
+public enum FeatureMutationOperators implements IFeatureMutationOperators {
 
-    FEATURE_MUTATION("featureMutation"),
-    MOVE_METHOD_MUTATION("moveMethodMutation"),
-    MOVE_ATTRIBUTE_MUTATION("moveAttributeMutation"),
-    MOVE_OPERATION_MUTATION("moveOperationMutation"),
-    ADD_CLASS_MUTATION("addClassMutation"),
-    ADD_MANAGER_CLASS_MUTATION("addManagerClassMutation"),
-    DESIGN_PATTERNS("DesignPatterns");
-
-    private String name;
-
-    private FeatureMutationOperators(String name) {
-        this.name = name;
-    }
-
-    public String getOperatorName() {
-        return name;
-    }
-
-    public static List<String> list() {
-        List<String> vs = new ArrayList<>();
-        for (FeatureMutationOperators value : values()) {
-            vs.add(value.getOperatorName());
+    FEATURE_MUTATION {
+        @Override
+        public IMutationOperator getOperator() {
+            return new FeatureMutation();
         }
-        return vs;
-    }
+    },
+    MOVE_METHOD_MUTATION {
+        @Override
+        public IMutationOperator getOperator() {
+            return new MoveMethodMutation();
+        }
+    },
+    MOVE_ATTRIBUTE_MUTATION {
+        @Override
+        public IMutationOperator getOperator() {
+            return new MoveAttributeMutation();
+        }
+    },
+    MOVE_OPERATION_MUTATION {
+        @Override
+        public IMutationOperator getOperator() {
+            return new MoveOperationMutation();
+        }
+    },
+    ADD_CLASS_MUTATION {
+        @Override
+        public IMutationOperator getOperator() {
+            return new AddClassMutation();
+        }
+    },
+    ADD_MANAGER_CLASS_MUTATION {
+        @Override
+        public IMutationOperator getOperator() {
+            return new AddManagerClassMutation();
+        }
+    },
+    DESIGN_PATTERNS {
+        @Override
+        public IMutationOperator getOperator() {
+            return null;
+        }
+    };
 }

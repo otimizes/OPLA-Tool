@@ -5,7 +5,7 @@ import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.factory.MutationOperatorFactory;
+import br.ufpr.dinf.gres.core.jmetal4.main.factory.MutationOperatorFactory;
 import br.ufpr.dinf.gres.core.jmetal4.indicators.Hypervolume;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
