@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.api.dto;
 
-import br.ufpr.dinf.gres.core.jmetal4.experiments.OptimizationAlgorithm;
+import br.ufpr.dinf.gres.api.gateway.OptimizationAlgorithm;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.FeatureMutationOperators;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctions;
 

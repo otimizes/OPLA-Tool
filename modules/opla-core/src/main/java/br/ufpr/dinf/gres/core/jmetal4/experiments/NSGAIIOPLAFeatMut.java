@@ -32,13 +32,12 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class NSGAIIOPLAFeatMut implements AlgorithmBaseExecution<NSGAIIConfig> {
+public class NSGAIIOPLAFeatMut implements AlgorithmBase<NSGAIIConfig> {
 
     private static final Logger LOGGER = Logger.getLogger(NSGAIIOPLAFeatMut.class);
 
     private final Persistence mp;
     private final EdCalculation c;
-
 
     public NSGAIIOPLAFeatMut(Persistence mp, EdCalculation c) {
         this.mp = mp;
