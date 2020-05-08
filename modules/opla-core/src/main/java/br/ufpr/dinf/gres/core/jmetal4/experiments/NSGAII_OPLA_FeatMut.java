@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
+import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
@@ -199,6 +200,8 @@ public class NSGAII_OPLA_FeatMut implements AlgorithmBaseExecution<NSGAIIConfig>
             // Util.moveAllFilesToExecutionDirectory(experiementId, null);
             LOGGER.info("saveHypervolume()");
             saveHypervolume(experiment.getId(), null, allRuns, plaName);
+
+            SaveStringToFile.getInstance().deleteTempFolder();
 
             if (Moment.POSTERIORI.equals(configs.getClusteringMoment())) {
                 configs.getInteractiveFunction().run(allRuns);

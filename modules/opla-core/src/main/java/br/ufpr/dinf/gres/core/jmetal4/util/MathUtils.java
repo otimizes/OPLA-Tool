@@ -74,7 +74,7 @@ public class MathUtils {
         return resultFront.getSolutionSet().stream().map(r -> {
             List<Double> values = new ArrayList<>();
             for (int i = 0; i < r.numberOfObjectives(); i++) {
-                values.add(i, (maxs.get(i) - mins.get(i)) == 0 ? 0 : (r.getObjective(i) - mins.get(i)) / (maxs.get(i) - mins.get(i)));
+                values.add(i, (double)((maxs.get(i) - mins.get(i)) == 0 ? 0 : (r.getObjective(i) - mins.get(i)) / (maxs.get(i) - mins.get(i))));
             }
             return values;
         }).collect(Collectors.toList());

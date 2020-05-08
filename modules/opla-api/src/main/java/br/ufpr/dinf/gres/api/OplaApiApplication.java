@@ -56,7 +56,7 @@ public class OplaApiApplication {
     public DataSource dataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.sqlite.JDBC");
-        dataSource.setUrl("jdbc:sqlite:/home/wmfsystem/oplatool/db/oplatool.db");
+        dataSource.setUrl("jdbc:sqlite:/home/mamoru/oplatool/db/oplatool.db");
         return dataSource;
     }
 

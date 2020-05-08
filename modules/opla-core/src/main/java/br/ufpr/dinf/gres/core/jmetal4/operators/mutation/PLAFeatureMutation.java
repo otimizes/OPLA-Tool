@@ -1169,7 +1169,7 @@ public class PLAFeatureMutation extends Mutation {
                 }
             }
         }
-        variabilities.clear();
+        //variabilities.clear();
         return isVariantConcern;
     }
 

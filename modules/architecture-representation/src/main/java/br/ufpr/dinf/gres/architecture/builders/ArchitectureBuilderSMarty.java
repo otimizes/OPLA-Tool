@@ -28,17 +28,6 @@ public class ArchitectureBuilderSMarty {
     private static final Logger LOGGER = Logger.getLogger(ArchitectureBuilder.class);
 
     private Package model;
-    private PackageBuilder packageBuilder;
-    private ClassBuilder classBuilder;
-    private InterfaceBuilder intefaceBuilder;
-    private VariabilityBuilder variabilityBuilder;
-    private AssociationRelationshipBuilder associationRelationshipBuilder;
-    private AssociationClassRelationshipBuilder associationClassRelationshipBuilder;
-    private GeneralizationRelationshipBuilder generalizationRelationshipBuilder;
-    private DependencyRelationshipBuilder dependencyRelationshipBuilder;
-    private RealizationRelationshipBuilder realizationRelationshipBuilder;
-    private AbstractionRelationshipBuilder abstractionRelationshipBuilder;
-    private UsageRelationshipBuilder usageRelationshipBuilder;
 
     private ModelHelper modelHelper;
 
@@ -102,40 +91,33 @@ public class ArchitectureBuilderSMarty {
             modelHelper = null;
             model = null;
 
-
-            // udado para SMArty
+            // udado para SMarty
             File file = new File(xmiFilePath);
             document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
             document.getDocumentElement().normalize();
-
 
             expression = "/project";
             xPath = XPathFactory.newInstance().newXPath();
             nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
 
-
             int tam = xmiFilePath.split("/").length;
             String arquitectureName = xmiFilePath.split("/")[tam - 1].replace(".smty", "");
 
-            //Architecture architecture = new Architecture(xmiFilePath);
             Architecture architecture = new Architecture(arquitectureName);
 
             architecture.setSMarty(true);
             architecture.setToSMarty(true);
-
 
             Element element = (Element) this.nodeList.item(0);
             architecture.setProjectID(element.getAttribute("id"));
             architecture.setProjectName(element.getAttribute("name"));
             architecture.setProjectVersion(element.getAttribute("version"));
 
-
             ArrayList<Concern> lstConcerns = importStereotypesSMarty();
             ArrayList<TypeSmarty> lstTypes = importTypesSMarty();
 
             architecture.setLstConcerns(importStereotypesSMarty());
             architecture.setLstTypes(importTypesSMarty());
-
 
             importDiagrams(architecture);
 
@@ -144,10 +126,6 @@ public class ArchitectureBuilderSMarty {
             //VariabilityFlyweight.getInstance().getVariabilities().clear();
             //VariantFlyweight.getInstance().getVariants().clear();
             //VariationPointFlyweight.getInstance().getVariationPoints().clear();
-
-
-            //fixVarintType(architecture);
-
 
             for (Class clazz : architecture.getAllClasses()) {
                 clazz.setRelationshipHolder(architecture.getRelationshipHolder());
@@ -164,10 +142,7 @@ public class ArchitectureBuilderSMarty {
             LOGGER.info("Set name");
             ArchitectureHolder.setName(architecture.getName());
 
-            //Thread.sleep(100000);
             return architecture;
-
-
         } catch (Exception e) {
             LOGGER.error(e);
             e.printStackTrace();
@@ -183,15 +158,12 @@ public class ArchitectureBuilderSMarty {
 
             Element element = (Element) this.nodeList.item(i);
 
-
             String id_element = element.getAttribute("element");
             String id_stereotype = element.getAttribute("stereotype");
-            System.out.println("add:" + id_element + " - " + id_stereotype);
             if (id_element.contains("ATTRIBUTE")) {
                 br.ufpr.dinf.gres.architecture.representation.Element target = architecture.findAttributeById(id_element);
                 for (Concern c1 : lstConcern) {
                     if (c1.getId().equals(id_stereotype) && !c1.getPrimitive()) {
-                        //System.out.println(target.getId()+" - "+c1.getId());
                         target.addExternalConcern(c1);
                     }
                 }
@@ -201,9 +173,6 @@ public class ArchitectureBuilderSMarty {
                 br.ufpr.dinf.gres.architecture.representation.Element target = architecture.findMethodById(id_element);
                 for (Concern c1 : lstConcern) {
                     if (c1.getId().equals(id_stereotype) && !c1.getPrimitive()) {
-                        //System.out.println("add:"+target.getId()+" - "+c1.getId());
-                        System.out.println(target);
-                        System.out.println(c1);
                         target.addExternalConcern(c1);
                     }
                 }
@@ -220,7 +189,6 @@ public class ArchitectureBuilderSMarty {
                 } else {
                     if (c1.getId().equals(id_stereotype)) {
                         // fix variant point ou variant
-                        // System.out.println(target.getId() + " - " + c1.getId());
                         for (Variant variant : architecture.getAllVariants()) {
                             if (variant.getVariantElement().getId().equals(target.getId())) {
                                 // is variant point
@@ -241,11 +209,9 @@ public class ArchitectureBuilderSMarty {
                                 }
                             }
                         }
-
                     }
                 }
             }
-
         }
     }
 
@@ -308,7 +274,6 @@ public class ArchitectureBuilderSMarty {
                 this.importReferencePackage(element, architecture);
                 this.importVariability(element, architecture);
             }
-
         }
     }
 
@@ -321,8 +286,6 @@ public class ArchitectureBuilderSMarty {
             br.ufpr.dinf.gres.architecture.representation.Package package_ = new br.ufpr.dinf.gres.architecture.representation.Package(null, current.getAttribute("name"), null, "model", current.getAttribute("id"));
             package_.setPosX(current.getAttribute("x"));
             package_.setPosX(current.getAttribute("y"));
-            //package_.setGlobalPosX(current.getAttribute("globalX"));
-            //package_.setGlobalPosY(current.getAttribute("globalY"));
             package_.setWidth(current.getAttribute("width"));
             package_.setHeight(current.getAttribute("height"));
             package_.setMandatory(current.getAttribute("mandatory").equals("true"));
@@ -344,8 +307,6 @@ public class ArchitectureBuilderSMarty {
 
             class_.setPosX(current.getAttribute("x"));
             class_.setPosY(current.getAttribute("y"));
-            //class_.setGlobalPosX(current.getAttribute("globalX"));
-            //class_.setGlobalPosY(current.getAttribute("globalY"));
             class_.setWidth(current.getAttribute("width"));
             class_.setHeight(current.getAttribute("height"));
             class_.setMandatory(current.getAttribute("mandatory").equals("true"));
@@ -370,7 +331,6 @@ public class ArchitectureBuilderSMarty {
             String type = architecture.findTypeSMartyByID(current.getAttribute("type")).getName();
             Attribute attribute = new Attribute(current.getAttribute("name"), current.getAttribute("visibility"), null, type, class_.getNamespace() + "::" + class_.getName(), current.getAttribute("id"), false);
 
-            //Attribute attribute = new Attribute(current.getAttribute("name"),current.getAttribute("visibility"),null,current.getAttribute("type"),class_.getNamespace()+"::"+class_.getName(),current.getAttribute("id"),false);
             attribute.setStatic(current.getAttribute("static").equals("true"));
             attribute.setFinal(current.getAttribute("final").equals("true"));
 
@@ -384,7 +344,7 @@ public class ArchitectureBuilderSMarty {
      * @param node   W3C Element.
      * @param class_ Class.
      */
-    //private void importMethods(Element node, Class class_, Architecture architecture) {
+
     private void importMethods(Element node, Class class_, Architecture architecture) {
         NodeList methods = node.getElementsByTagName("method");
         for (int i = 0; i < methods.getLength(); i++) {
@@ -394,7 +354,6 @@ public class ArchitectureBuilderSMarty {
 
             String type = architecture.findTypeSMartyByID(current.getAttribute("return")).getName();
             Method method = new Method(current.getAttribute("name"), false, null, type, current.getAttribute("abstract").equals("true"), parameterMethodArrayList, class_.getNamespace() + "::" + class_.getName(), current.getAttribute("id"));
-            //Method method = new Method(current.getAttribute("name"),false,null,current.getAttribute("return"),current.getAttribute("abstract").equals("true"),parameterMethodArrayList,class_.getNamespace()+"::"+class_.getName(),current.getAttribute("id"));
             method.setStatic(current.getAttribute("static").equals("true"));
             method.setFinal(current.getAttribute("final").equals("true"));
             method.setConstructor(current.getAttribute("constructor").equals("true"));
@@ -414,9 +373,6 @@ public class ArchitectureBuilderSMarty {
 
             String type = architecture.findTypeSMartyByID(current.getAttribute("type")).getName();
             ParameterMethod parameterMethod = new ParameterMethod(current.getAttribute("name"), type, "in");
-            //ParameterMethod parameterMethod = new ParameterMethod(current.getAttribute("name"),current.getAttribute("type"),"in");
-            //System.out.println(current.getAttribute("type"));
-            //System.out.println(current.getAttribute("name"));
             parameterMethodArrayList.add(parameterMethod);
         }
         return parameterMethodArrayList;
@@ -431,55 +387,27 @@ public class ArchitectureBuilderSMarty {
             Element current = (Element) aClass.item(i);
 
             Interface newInterface = new Interface(null, current.getAttribute("name"), null, "model", current.getAttribute("id"));
-            //newInterface.setFinal(current.getAttribute("final").equals("true"));
 
             newInterface.setPosX(current.getAttribute("x"));
             newInterface.setPosY(current.getAttribute("y"));
-            //newInterface.setGlobalPosX(current.getAttribute("globalX"));
-            //newInterface.setGlobalPosY(current.getAttribute("globalY"));
             newInterface.setWidth(current.getAttribute("width"));
             newInterface.setHeight(current.getAttribute("height"));
             newInterface.setMandatory(current.getAttribute("mandatory").equals("true"));
 
             newInterface.setFinal(current.getAttribute("final").equals("true"));
 
-
             Set<String> stereotypes = new HashSet<>();
             newInterface.setPatternOperations(new PatternsOperations(stereotypes));
 
-            this.importAttributesInterface(current, newInterface, architecture);
             this.importMethodsInterface(current, newInterface, architecture);
             if (current.getAttribute("parent").equals("")) {
-                //System.out.println("Sem Pai");
                 architecture.addExternalInterface(newInterface);
             } else {
-                //System.out.println("Pai:" + current.getAttribute("parent"));
                 architecture.findPackageByID(current.getAttribute("parent")).addExternalInterface(newInterface);
                 newInterface.setNamespace("model::" + architecture.findPackageByID(current.getAttribute("parent")).getName());
             }
-            //System.out.println(newInterface.getId()+" adicionado");
-
-        }
-
-    }
-
-
-    private void importAttributesInterface(Element node, Interface interface_, Architecture architecture) {
-        NodeList attributes = node.getElementsByTagName("attribute");
-        for (int i = 0; i < attributes.getLength(); i++) {
-            Element current = (Element) attributes.item(i);
-
-            String type = architecture.findTypeSMartyByID(current.getAttribute("type")).getName();
-            Attribute attribute = new Attribute(current.getAttribute("name"), current.getAttribute("visibility"), null, type, interface_.getNamespace() + "::" + interface_.getName(), current.getAttribute("id"), false);
-
-            //Attribute attribute = new Attribute(current.getAttribute("name"),current.getAttribute("visibility"),null,current.getAttribute("type"),interface_.getNamespace()+"::"+interface_.getName(),current.getAttribute("id"),false);
-            attribute.setStatic(current.getAttribute("static").equals("true"));
-            attribute.setFinal(current.getAttribute("final").equals("true"));
-
-            interface_.addExternalAttribute(attribute);
         }
     }
-
 
     /**
      * Method responsible for importing the Methods.
@@ -496,7 +424,6 @@ public class ArchitectureBuilderSMarty {
 
             String type = architecture.findTypeSMartyByID(current.getAttribute("return")).getName();
             Method method = new Method(current.getAttribute("name"), false, null, type, current.getAttribute("abstract").equals("true"), parameterMethodArrayList, interface_.getNamespace() + "::" + interface_.getName(), current.getAttribute("id"));
-            //Method method = new Method(current.getAttribute("name"),false,null,current.getAttribute("return"),current.getAttribute("abstract").equals("true"),parameterMethodArrayList,interface_.getNamespace()+"::"+interface_.getName(),current.getAttribute("id"));
             method.setStatic(current.getAttribute("static").equals("true"));
             method.setFinal(current.getAttribute("final").equals("true"));
             method.setConstructor(current.getAttribute("constructor").equals("true"));
@@ -508,10 +435,11 @@ public class ArchitectureBuilderSMarty {
 
 
     private void importRelationship(Element node, Architecture architecture) {
-        importGeneralizationRelationship(node, architecture);
-        importRealizationRelationship(node, architecture);
         importAssociationRelationship(node, architecture);
         importDependencyRelationship(node, architecture);
+        importGeneralizationRelationship(node, architecture);
+        importRealizationRelationship(node, architecture);
+        importRequiresRelationship(node, architecture);
         importAbstractionRelationship(node, architecture);
         importUsageRelationship(node, architecture);
     }
@@ -527,8 +455,6 @@ public class ArchitectureBuilderSMarty {
                 GeneralizationRelationship newRelation = new GeneralizationRelationship(parent, child, architecture.getRelationshipHolder(), current.getAttribute("id"));
                 architecture.getRelationshipHolder().addRelationship(newRelation);
             }
-
-
         }
     }
 
@@ -574,10 +500,8 @@ public class ArchitectureBuilderSMarty {
             if (current.getAttribute("category").equals("composition"))
                 type = "composite";
 
-            //System.out.println(type);
             AssociationEnd ae1 = null;
             ae1 = importAssociationSource(current, architecture, ae1, current.getAttribute("direction").equals("true"), type);
-
 
             AssociationEnd ae2 = null;
             ae2 = importAssociationTarget(current, architecture, ae2, current.getAttribute("direction").equals("true"), type);
@@ -586,8 +510,6 @@ public class ArchitectureBuilderSMarty {
             ar.SetAssociationEnd(ae2);
             ar.setId(current.getAttribute("id"));
             architecture.getRelationshipHolder().addRelationship(ar);
-
-
         }
 
     }
@@ -598,15 +520,12 @@ public class ArchitectureBuilderSMarty {
             Element current = (Element) generalizations.item(i);
 
             Multiplicity mult1 = new Multiplicity(current.getAttribute("sourceMin"), current.getAttribute("sourceMax"));
-
             br.ufpr.dinf.gres.architecture.representation.Element part1 = architecture.findElementById(current.getAttribute("entity"));
-            //System.out.println(part1);
 
             ae1 = new AssociationEnd(part1, direction, type, mult1, current.getAttribute("sourceName"));
             ae1.setPosX(current.getAttribute("sourceX"));
             ae1.setPosY(current.getAttribute("sourceY"));
             ae1.setVisibility(current.getAttribute("sourceVisibility"));
-
 
         }
         return ae1;
@@ -619,7 +538,6 @@ public class ArchitectureBuilderSMarty {
             Element current = (Element) generalizations.item(i);
 
             Multiplicity mult1 = new Multiplicity(current.getAttribute("targetMin"), current.getAttribute("targetMax"));
-
             br.ufpr.dinf.gres.architecture.representation.Element part1 = architecture.findElementById(current.getAttribute("entity"));
 
             ae2 = new AssociationEnd(part1, direction, type, mult1, current.getAttribute("targetName"));
@@ -629,44 +547,6 @@ public class ArchitectureBuilderSMarty {
 
         }
         return ae2;
-
-    }
-
-
-    private void importAssociationRelationship2(Element node, Architecture architecture) {
-        NodeList generalizations = node.getElementsByTagName("association");
-        for (int i = 0; i < generalizations.getLength(); i++) {
-            Element current = (Element) generalizations.item(i);
-            br.ufpr.dinf.gres.architecture.representation.Element part1 = architecture.findElementById(current.getAttribute("source"));
-            br.ufpr.dinf.gres.architecture.representation.Element part2 = architecture.findElementById(current.getAttribute("target"));
-            if (part1 != null && part2 != null) {
-                AssociationRelationship ar = new AssociationRelationship("");
-                ar.setName(current.getAttribute("name"));
-                Multiplicity mult1 = new Multiplicity(current.getAttribute("sourceMin"), current.getAttribute("sourceMax"));
-                String type = "none";
-                if (current.getAttribute("category").equals("aggregation"))
-                    type = "shared";
-                if (current.getAttribute("category").equals("composition"))
-                    type = "composite";
-                //System.out.println(type);
-                AssociationEnd ae1 = new AssociationEnd(part1, current.getAttribute("direction").equals("true"), type, mult1, current.getAttribute("sourceName"));
-                ae1.setPosX(current.getAttribute("sourceX"));
-                ae1.setPosY(current.getAttribute("sourceY"));
-
-
-                Multiplicity mult2 = new Multiplicity(current.getAttribute("targetMin"), current.getAttribute("targetMax"));
-
-                AssociationEnd ae2 = new AssociationEnd(part2, current.getAttribute("direction").equals("true"), type, mult2, current.getAttribute("targetName"));
-                ae2.setPosX(current.getAttribute("targetX"));
-                ae2.setPosY(current.getAttribute("targetY"));
-
-                ar.SetAssociationEnd(ae1);
-                ar.SetAssociationEnd(ae2);
-                architecture.getRelationshipHolder().addRelationship(ar);
-                //System.out.println("Create Association");
-
-            }
-        }
 
     }
 
@@ -712,20 +592,14 @@ public class ArchitectureBuilderSMarty {
         NodeList relations = node.getElementsByTagName("dependency");
         for (int i = 0; i < relations.getLength(); i++) {
             Element current = (Element) relations.item(i);
-            /*
-            arquitetura.representation.Element client = architecture.findElementById(current.getAttribute("target"));
-            arquitetura.representation.Element supplier = architecture.findElementById(current.getAttribute("source"));
-             */
             br.ufpr.dinf.gres.architecture.representation.Element client = architecture.findElementById(current.getAttribute("source"));
             br.ufpr.dinf.gres.architecture.representation.Element supplier = architecture.findElementById(current.getAttribute("target"));
-
             if (supplier != null && client != null) {
                 //System.out.println("Create dependency");
                 DependencyRelationship newRelation = new DependencyRelationship(supplier, client, "", current.getAttribute("id"));
                 architecture.getRelationshipHolder().addRelationship(newRelation);
                 if ((client instanceof Class) && (supplier instanceof Interface))
                     ((Class) client).addRequiredInterface((Interface) supplier);
-
                 if ((client instanceof Package) && (supplier instanceof Interface))
                     ((br.ufpr.dinf.gres.architecture.representation.Package) client).addRequiredInterface((Interface) supplier);
             } else {
@@ -739,20 +613,13 @@ public class ArchitectureBuilderSMarty {
         NodeList relations = node.getElementsByTagName("requires");
         for (int i = 0; i < relations.getLength(); i++) {
             Element current = (Element) relations.item(i);
-            /*
-            arquitetura.representation.Element client = architecture.findElementById(current.getAttribute("target"));
-            arquitetura.representation.Element supplier = architecture.findElementById(current.getAttribute("source"));
-             */
             br.ufpr.dinf.gres.architecture.representation.Element client = architecture.findElementById(current.getAttribute("source"));
             br.ufpr.dinf.gres.architecture.representation.Element supplier = architecture.findElementById(current.getAttribute("target"));
-
             if (supplier != null && client != null) {
-                //System.out.println("Create dependency");
                 RequiresRelationship newRelation = new RequiresRelationship(supplier, client, "", current.getAttribute("id"));
                 architecture.getRelationshipHolder().addRelationship(newRelation);
                 if ((client instanceof Class) && (supplier instanceof Interface))
                     ((Class) client).addRequiredInterface((Interface) supplier);
-
                 if ((client instanceof Package) && (supplier instanceof Interface))
                     ((br.ufpr.dinf.gres.architecture.representation.Package) client).addRequiredInterface((Interface) supplier);
             } else {
@@ -767,20 +634,14 @@ public class ArchitectureBuilderSMarty {
         NodeList relations = node.getElementsByTagName("abstraction");
         for (int i = 0; i < relations.getLength(); i++) {
             Element current = (Element) relations.item(i);
-            /*
-            arquitetura.representation.Element client = architecture.findElementById(current.getAttribute("target"));
-            arquitetura.representation.Element supplier = architecture.findElementById(current.getAttribute("source"));
-             */
             br.ufpr.dinf.gres.architecture.representation.Element client = architecture.findElementById(current.getAttribute("source"));
             br.ufpr.dinf.gres.architecture.representation.Element supplier = architecture.findElementById(current.getAttribute("target"));
-
             if (supplier != null && client != null) {
                 //System.out.println("Create dependency");
                 AbstractionRelationship newRelation = new AbstractionRelationship(client, supplier, current.getAttribute("id"));
                 architecture.getRelationshipHolder().addRelationship(newRelation);
                 if ((client instanceof Class) && (supplier instanceof Interface))
                     ((Class) client).addRequiredInterface((Interface) supplier);
-
                 if ((client instanceof Package) && (supplier instanceof Interface))
                     ((br.ufpr.dinf.gres.architecture.representation.Package) client).addRequiredInterface((Interface) supplier);
             } else {
@@ -794,21 +655,14 @@ public class ArchitectureBuilderSMarty {
         NodeList relations = node.getElementsByTagName("usage");
         for (int i = 0; i < relations.getLength(); i++) {
             Element current = (Element) relations.item(i);
-            /*
-            arquitetura.representation.Element client = architecture.findElementById(current.getAttribute("target"));
-            arquitetura.representation.Element supplier = architecture.findElementById(current.getAttribute("source"));
-             */
             br.ufpr.dinf.gres.architecture.representation.Element client = architecture.findElementById(current.getAttribute("source"));
             br.ufpr.dinf.gres.architecture.representation.Element supplier = architecture.findElementById(current.getAttribute("target"));
 
             if (supplier != null && client != null) {
-                //System.out.println("Create dependency");
                 UsageRelationship newRelation = new UsageRelationship("", supplier, client, current.getAttribute("id"));
-                //DependencyRelationship newRelation = new DependencyRelationship(supplier, client, "", current.getAttribute("id"));
                 architecture.getRelationshipHolder().addRelationship(newRelation);
                 if ((client instanceof Class) && (supplier instanceof Interface))
                     ((Class) client).addRequiredInterface((Interface) supplier);
-
                 if ((client instanceof Package) && (supplier instanceof Interface))
                     ((br.ufpr.dinf.gres.architecture.representation.Package) client).addRequiredInterface((Interface) supplier);
             } else {
@@ -827,19 +681,13 @@ public class ArchitectureBuilderSMarty {
             String package_ = current.getAttribute("package");
             String parent_ = current.getAttribute("parent");
             architecture.movePackageToParent(package_, parent_);
-
         }
-
-
     }
 
     private void importVariability(Element node, Architecture architecture) {
         NodeList variabilityList = node.getElementsByTagName("variability");
         for (int i = 0; i < variabilityList.getLength(); i++) {
             try {
-
-                //System.out.println("a1");
-                //System.out.println("a");
                 Element current = (Element) variabilityList.item(i);
                 //String name, String minSelection, String maxSelection, String bindingTime, boolean allowsAddingVar, String ownerClass, String idPackageOwner
                 //<variability id="VARIABILITY#1" name="Variability Name" variationPoint="CLASS#6" constraint="Exclusive" bindingTime="DESIGN_TIME" allowsBindingVar="true" min="1" max="1">
@@ -859,20 +707,10 @@ public class ArchitectureBuilderSMarty {
                     vt.setVariantElement(ve);
                     vt.setName(ve.getName());
                     vt.andRootVp(el.getId());
-
-                    //vt.setVariantType(current.getAttribute("constaint"));
-                    //vt.getVariabilities().add(variability);
-                    //
                     variantsList.add(vt);
                 }
 
-                //Element variationPointElement, List<Variant> variants, String bindingTime
                 VariationPoint vp = new VariationPoint(el, variantsList, current.getAttribute("bindingTime"));
-
-                // variability
-                // vp
-                // variants
-
                 variability.setVariationPoint(vp);
 
 
@@ -884,16 +722,12 @@ public class ArchitectureBuilderSMarty {
                     variant.getVariantElement().setVariant(variant);
                 }
 
-
-                //VariabilityFlyweight.getInstance().addVariability(variability);
-                //VariationPointFlyweight.getInstance().addVariationPoint(vp);
                 architecture.getAllVariabilities().add(variability);
                 architecture.getAllVariationPoints().add(vp);
 
                 vp.getVariationPointElement().setVariationPoint(vp);
 
                 for (Variant variant : variantsList) {
-                    //VariantFlyweight.getInstance().addVariant(variant);
                     architecture.getAllVariants().add(variant);
                     variant.getVariantElement().setVariant(variant);
                 }
@@ -902,19 +736,15 @@ public class ArchitectureBuilderSMarty {
                 vpVariant.setVariantElement(vp.getVariationPointElement());
                 vpVariant.setName(vp.getVariationPointElement().getName());
                 vpVariant.setRootVP(vp.getVariationPointElement().getName());
-                //vpVariant.addVariationPoint(vp);
                 vpVariant.addVariability(variability);
                 vpVariant.setVariantType("variationPoint");
 
                 vp.getVariationPointElement().setVariant(vpVariant);
-
-                //System.out.println("variants:"+variants);
             } catch (Exception ex) {
                 System.out.println(ex);
 
             }
         }
-
     }
 
     private ArrayList<String> getVariants(Element node) {
@@ -926,7 +756,6 @@ public class ArchitectureBuilderSMarty {
         }
         return lstVariant;
     }
-
 
     public Package getModel() {
         return this.model;

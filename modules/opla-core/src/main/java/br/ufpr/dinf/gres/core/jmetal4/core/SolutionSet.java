@@ -21,9 +21,11 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.core;
 
+import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
+import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
@@ -340,9 +342,14 @@ public class SolutionSet implements Serializable {
         }
     } // printVariablesToFile
 
+
+
     // added by Thelma october/2012
     public void saveVariablesToFile(String path, List<Info> funResults, LogLog logger, boolean generate) {
         int numberOfVariables = solutionsList_.get(0).getDecisionVariables().length;
+
+        SaveStringToFile.getInstance().createLogDir();
+        String logPath = ReaderConfig.getDirExportTarget() + "/Logs/linkHypervolume.txt";
 
         if (logger != null)
             logger.putLog("Number of solutions: " + solutionsList_.size(), Level.INFO);
@@ -352,8 +359,10 @@ public class SolutionSet implements Serializable {
                 String pathToSave = path;
                 String originalName = ((OPLA) solutionsList_.get(i).getProblem()).getArchitecture_().getName();
                 funResults.get(i).setName(pathToSave + originalName);
-                if (generate)
+                if (generate) {
                     arch.save(arch, pathToSave, "-" + funResults.get(i).getId());
+                    SaveStringToFile.getInstance().appendStrToFile(logPath,"\n" + pathToSave + funResults.get(i).getId() + "\t" + solutionsList_.get(i).toString());
+                }
             }
         }
     }

@@ -174,7 +174,7 @@ public class Package extends Element {
     }
 
 
-    public Set<Concern> getOwnConcerns2() {
+    public Set<Concern> getConcernsOnlyFromElementWithoutMethodOrAttribute() {
         return super.getOwnConcerns();
     }
 
@@ -206,10 +206,20 @@ public class Package extends Element {
     public boolean moveInterfaceToPackage(Interface inter, Package packageToMove) {
         if (inter.isTotalyFreezed() || packageToMove.isTotalyFreezed()) return false;
         if (!interfaces.contains(inter)) return false;
+        if(packageToMove.findInterfaceByID(inter.getId())) return false; // if package has that interface, not add
         packageToMove.addExternalInterface(inter);
         this.interfaces.remove(inter);
+        this.removeInterfaceByID(inter.getId()); // try remove interface by id if fail to remove using object
         updateNamespace(inter, packageToMove.getName());
         return true;
+    }
+
+    public boolean findInterfaceByID(String id){
+        for(Interface inter : interfaces){
+            if(inter.getId().equals(id))
+                return true;
+        }
+        return false;
     }
 
     public void addExternalClass(Class klass) {
@@ -217,6 +227,7 @@ public class Package extends Element {
     }
 
     public void addExternalInterface(Interface inter) {
+        if(findInterfaceByID(inter.getId())) return; // if package has interface, not add
         interfaces.add(inter);
     }
 
@@ -238,12 +249,17 @@ public class Package extends Element {
             if (this.interfaces.remove(interfacee)) {
                 LOGGER.info("Interface: " + interfacee.getName() + " removida do pacote: " + this.getName());
                 return true;
+            }else{
+                if(findInterfaceByID(interfacee.getId())){
+                    removeInterfaceByID(interfacee.getId());
+                    return true;
+                }
             }
         }
         return false;
     }
 
-
+// recreate interface hash without interface that has the selected id
     public void removeInterfaceByID(String id) {
         //Interface interfacee = null;
 
@@ -309,10 +325,14 @@ public class Package extends Element {
                 if (this.interfaces.remove(element)) {
                     LOGGER.info("Interface: " + element.getName() + " removida do pacote: " + this.getName());
                     return true;
+                }else{
+                    if(findInterfaceByID(element.getId())){ // if exist, force remove
+                        removeInterfaceByID(element.getId());
+                        return true;
+                    }
                 }
             }
         }
-
         return false;
     }
 
