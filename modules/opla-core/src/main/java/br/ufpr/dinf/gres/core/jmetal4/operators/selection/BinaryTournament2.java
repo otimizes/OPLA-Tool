@@ -21,24 +21,23 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.operators.selection;
 
-import java.util.Comparator;
-import java.util.Map;
-
-import br.ufpr.dinf.gres.core.jmetal4.util.PermutationUtility;
-import org.apache.log4j.Logger;
-
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.util.PermutationUtility;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import br.ufpr.dinf.gres.core.jmetal4.util.comparators.DominanceComparator;
+import org.apache.log4j.Logger;
+
+import java.util.Comparator;
+import java.util.Map;
 
 /**
  * This class implements an operator for binary selections using the same code
  * in Deb's NSGA-II implementation
  */
 public class BinaryTournament2 extends Selection {
-	
-	private static final Logger LOGGER = Logger.getLogger(BinaryTournament2.class);
+
+    private static final Logger LOGGER = Logger.getLogger(BinaryTournament2.class);
 
     /**
      * dominance_ store the <code>Comparator</code> for check dominance_
@@ -63,7 +62,7 @@ public class BinaryTournament2 extends Selection {
     public BinaryTournament2(Map<String, Object> parameters) {
         super(parameters);
         dominance_ = new DominanceComparator();
-    } // BinaryTournament2
+    }
 
     /**
      * Performs the operation
@@ -73,21 +72,15 @@ public class BinaryTournament2 extends Selection {
      */
     public Object execute(Object object) {
         SolutionSet population = (SolutionSet) object;
-        if (index_ == 0) //Create the permutation
-        {
-
+        if (index_ == 0) {
             a_ = (new PermutationUtility()).intPermutation(population.size());
         }
-
-
         Solution solution1, solution2;
         solution1 = population.get(a_[index_]);
         solution2 = population.get(a_[index_ + 1]);
 
         index_ = (index_ + 2) % population.size();
-        LOGGER.info("Index: " + index_);
         int flag = dominance_.compare(solution1, solution2);
-        LOGGER.info("Flag: " + flag);
         if (flag == -1)
             return solution1;
         else if (flag == 1)
@@ -100,7 +93,5 @@ public class BinaryTournament2 extends Selection {
             return solution1;
         else
             return solution2;
-    } // execute
-
-
-} // BinaryTournament2
+    }
+}

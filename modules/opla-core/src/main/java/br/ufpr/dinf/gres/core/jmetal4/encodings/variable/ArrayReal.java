@@ -21,10 +21,10 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.encodings.variable;
 
-import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
-import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.common.Configuration;
+import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 
 
@@ -33,9 +33,7 @@ import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
  * The real values of the array have their own bounds.
  */
 public class ArrayReal extends Variable {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 7548596868485082750L;
     /**
      * Stores an array of real values
@@ -76,11 +74,6 @@ public class ArrayReal extends Variable {
         } // for
     } // Constructor
 
-    /**
-     * Copy Constructor
-     *
-     * @param arrayInt The arrayDouble to copy
-     */
     public ArrayReal(ArrayReal arrayReal) {
         problem_ = arrayReal.problem_;
         size_ = arrayReal.size_;

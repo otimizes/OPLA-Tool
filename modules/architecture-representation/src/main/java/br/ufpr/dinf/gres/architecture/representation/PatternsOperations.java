@@ -45,8 +45,8 @@ public class PatternsOperations {
      * @param pattern - Algum ENUM definido em {@link PatternsOperations}
      */
     public void applyPattern(Patterns pattern) {
-        if (!this.patternsStereotypes.contains(pattern.getName())) {
-            this.patternsStereotypes.add(pattern.getName());
+        if (!this.patternsStereotypes.contains(pattern.toString())) {
+            this.patternsStereotypes.add(pattern.toString());
 
             // joao
             //System.out.println("\n Classe architecture PatternsOperations - padroes sendo aplicado");
@@ -63,7 +63,7 @@ public class PatternsOperations {
     }
 
     public boolean removePattern(Patterns pattern) {
-        return this.patternsStereotypes.remove(pattern.getName());
+        return this.patternsStereotypes.remove(pattern.toString());
     }
 
 }

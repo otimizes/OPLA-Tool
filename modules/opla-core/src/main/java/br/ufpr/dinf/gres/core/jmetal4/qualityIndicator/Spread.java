@@ -21,6 +21,8 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.qualityIndicator;
 
+import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
+
 import java.util.Arrays;
 
 /**
@@ -34,8 +36,7 @@ import java.util.Arrays;
  */
 public class Spread {
 
-    static br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil utils_;//utils_ is used to access to
-    //the MetricsUtil funcionalities
+    public static MetricsUtil utils_;
 
     /**
      * Constructor.
@@ -44,33 +45,6 @@ public class Spread {
     public Spread() {
         utils_ = new br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil();
     } // Delta
-
-    /**
-     * This class can be invoqued from the command line. Three params are required:
-     * 1) the name of the file containing the front,
-     * 2) the name of the file containig the true Pareto front
-     * 3) the number of objectives
-     */
-    public static void main(String args[]) {
-        if (args.length < 2) {
-            System.err.println("Spread::Main: Error using Spread. Usage: \n java " +
-                    "Spread <FrontFile> <TrueFrontFile>  " +
-                    "<numberOfObjectives>");
-            System.exit(1);
-        } // if
-
-        // STEP 1. Create a new instance of the metric
-        Spread qualityIndicator = new Spread();
-
-        // STEP 2. Read the fronts from the files
-        double[][] solutionFront = qualityIndicator.utils_.readFront(args[0]);
-        double[][] trueFront = qualityIndicator.utils_.readFront(args[1]);
-
-        // STEP 3. Obtain the metric value
-        double value = qualityIndicator.spread(solutionFront, trueFront, 2);
-
-        System.out.println(value);
-    } // Main
 
     /**
      * Calculates the Spread metric. Given the front, the true pareto front as

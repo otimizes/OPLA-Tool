@@ -4,6 +4,8 @@ import java.util.List;
 
 public class OPLAConfigs {
 
+    private List<String> selectedObjectiveFunctions;
+
     public OPLAConfigs() {
     }
 
@@ -11,7 +13,6 @@ public class OPLAConfigs {
         this.selectedObjectiveFunctions = selectedObjectiveFunctions;
     }
 
-    private List<String> selectedObjectiveFunctions;
 
     public Integer getNumberOfObjectives() {
         return selectedObjectiveFunctions.size();

@@ -1,10 +1,6 @@
 # Changelog
 ## [1.0.0] - 2018-11-29
 ### Added
-Interface com atributo?
-Método Concerns não pode ser chamar getOwnConcerns2.
-Architecture findElementByName2InSubPackage e  findElementByName2
-
 - First Interaction
 - Clustering Algorithm KMeans and Dbscan
 - Interactive package

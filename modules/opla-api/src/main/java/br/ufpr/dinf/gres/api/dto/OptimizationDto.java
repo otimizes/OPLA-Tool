@@ -1,8 +1,8 @@
 package br.ufpr.dinf.gres.api.dto;
 
+import br.ufpr.dinf.gres.api.gateway.OptimizationAlgorithm;
 import br.ufpr.dinf.gres.architecture.config.ApplicationFile;
 import br.ufpr.dinf.gres.architecture.config.ApplicationYamlConfig;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.OptimizationAlgorithm;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
 import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.core.learning.Moment;
@@ -33,7 +33,7 @@ public class OptimizationDto {
     private Moment clusteringMoment = Moment.NONE;
     @JsonIgnore
     private InteractiveFunction interactiveFunction;
-    private List<String> mutationOperators = Arrays.asList("featureMutation", "moveMethodMutation", "moveAttributeMutation", "moveOperationMutation", "addClassMutation", "addManagerClassMutation");
+    private List<String> mutationOperators = Arrays.asList("FEATURE_MUTATION", "MOVE_METHOD_MUTATION", "MOVE_ATTRIBUTE_MUTATION", "MOVE_OPERATION_MUTATION", "ADD_CLASS_MUTATION", "ADD_MANAGER_CLASS_MUTATION");
     private List<String> patterns = new ArrayList<>();
     private ScopeSelection scopeSelection = ScopeSelection.RANDOM;
     private List<String> objectiveFunctions = new ArrayList<>();

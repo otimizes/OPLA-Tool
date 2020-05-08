@@ -7,6 +7,7 @@ import {ObjectiveService} from "../services/objective.service";
 import {InfoService} from "../services/info.service";
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
+import {COMMA, ENTER} from "@angular/cdk/keycodes";
 
 @Component({
   selector: 'app-results',
@@ -25,7 +26,7 @@ export class ResultsComponent implements OnInit {
   @ViewChild('experimentInput', {static: false}) experimentInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
   experimentCtrl = new FormControl();
-  separatorKeysCodes: any;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredExperiments: Observable<string[]>;
   multi: any[];
   view: any[] = [700, 400];

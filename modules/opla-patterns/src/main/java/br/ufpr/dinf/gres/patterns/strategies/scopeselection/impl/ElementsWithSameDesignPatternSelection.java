@@ -28,8 +28,8 @@ public class ElementsWithSameDesignPatternSelection implements ScopeSelectionStr
         for (int i = 0; i < scope.getElements().size(); i++) {
             Element element = scope.getElements().get(i);
             Set<String> appliedDesignPatterns = ElementUtil.getAppliedDesignPatterns(element);
-            if ((appliedDesignPatterns.size() == 1 && !appliedDesignPatterns.contains(designPattern.getName()))
-                    || (appliedDesignPatterns.size() == 2 && !appliedDesignPatterns.contains(designPattern.getName()) && !appliedDesignPatterns.contains(Patterns.ADAPTER.getName()))
+            if ((appliedDesignPatterns.size() == 1 && !appliedDesignPatterns.contains(designPattern.toString()))
+                    || (appliedDesignPatterns.size() == 2 && !appliedDesignPatterns.contains(designPattern.toString()) && !appliedDesignPatterns.contains(Patterns.ADAPTER.toString()))
                     || (appliedDesignPatterns.size() > 2)) {
                 scope.getElements().remove(i);
                 i--;

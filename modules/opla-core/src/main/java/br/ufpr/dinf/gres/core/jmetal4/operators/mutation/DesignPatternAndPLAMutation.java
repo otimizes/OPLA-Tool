@@ -1,15 +1,12 @@
 package br.ufpr.dinf.gres.core.jmetal4.operators.mutation;
 
-import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternMutationOperator;
+import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 
 import java.util.Map;
 
 public class DesignPatternAndPLAMutation extends Mutation {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 3896434361251147825L;
     private DesignPatternMutationOperator dpm;
     private PLAFeatureMutation pf;
@@ -29,7 +26,5 @@ public class DesignPatternAndPLAMutation extends Mutation {
         } else {
             return this.pf.execute(object);
         }
-
     }
-
 }

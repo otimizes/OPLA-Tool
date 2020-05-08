@@ -25,12 +25,12 @@ import br.ufpr.dinf.gres.architecture.exceptions.ClassNotFound;
 import br.ufpr.dinf.gres.architecture.exceptions.ConcernNotFoundException;
 import br.ufpr.dinf.gres.architecture.exceptions.NotFoundException;
 import br.ufpr.dinf.gres.architecture.exceptions.PackageNotFound;
+import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Operator;
 import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.util.comparators.DominanceComparator;
 import br.ufpr.dinf.gres.core.jmetal4.util.comparators.OverallConstraintViolationComparator;
 
@@ -69,14 +69,6 @@ public class MutationLocalSearch extends LocalSearch {
      */
     private Operator mutationOperator_;
 
-    /**
-     * Constructor.
-     * Creates a new local search object.
-     *
-     * @param problem          The problem to solve
-     * @param mutationOperator The mutation operator
-     * @param archive          The archive
-     */
     public MutationLocalSearch(HashMap<String, Object> parameters) {
         super(parameters);
         if (parameters.get("problem") != null)
@@ -92,21 +84,6 @@ public class MutationLocalSearch extends LocalSearch {
         constraintComparator_ = new OverallConstraintViolationComparator();
     } //Mutation improvement
 
-
-    /**
-     * Constructor.
-     * Creates a new local search object.
-     * @param problem The problem to solve
-     * @param mutationOperator The mutation operator
-     */
-    //public MutationLocalSearch(Problem problem, Operator mutationOperator) {
-    //  evaluations_ = 0 ;
-    //  problem_ = problem;
-    //  mutationOperator_ = mutationOperator;
-    //  dominanceComparator_ = new DominanceComparator();
-    //  constraintComparator_ = new OverallConstraintViolationComparator();
-    //} // MutationLocalSearch
-
     /**
      * Executes the local search. The maximum number of iterations is given by
      * the param "improvementRounds", which is in the parameter list of the
@@ -115,12 +92,6 @@ public class MutationLocalSearch extends LocalSearch {
      *
      * @param object Object representing a solution
      * @return An object containing the new improved solution
-     * @throws JMException
-     * @throws ConcernNotFoundException
-     * @throws NotFoundException
-     * @throws PackageNotFound
-     * @throws ClassNotFound
-     * @throws CloneNotSupportedException
      */
     public Object execute(Object object) throws JMException, CloneNotSupportedException, ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException {
         int i = 0;
@@ -165,12 +136,8 @@ public class MutationLocalSearch extends LocalSearch {
             if (best == -1) // This is: Mutated is best
                 solution = mutatedSolution;
             else if (best == 1) // This is: Original is best
-                //delete mutatedSolution
                 ;
-            else // This is mutatedSolution and original are non-dominated
-            {
-                //this.archive_.addIndividual(new Solution(solution));
-                //solution = mutatedSolution;
+            else {
                 if (archive_ != null)
                     archive_.add(mutatedSolution);
             }

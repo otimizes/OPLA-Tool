@@ -21,9 +21,9 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.operators.crossover;
 
-import java.util.Map;
-
 import br.ufpr.dinf.gres.core.jmetal4.core.Operator;
+
+import java.util.Map;
 
 /**
  * This class represents the super class of all the crossover operators

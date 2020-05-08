@@ -3,15 +3,11 @@ package br.ufpr.dinf.gres.core.jmetal4.database;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.Metrics;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctions;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionsLink;
-import br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics.RelationalCohesion;
-import br.ufpr.dinf.gres.domain.entity.AllMetrics;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.Info;
-import br.ufpr.dinf.gres.domain.entity.objectivefunctions.*;
+import br.ufpr.dinf.gres.domain.entity.objectivefunctions.ObjectiveFunctionDomain;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,20 +20,6 @@ public class Result {
         this.plaName = plaName;
     }
 
-    /**
-     * Returns {@link Info} given a {@link List} of {@link Solution} and a
-     * executionId.<br />
-     * <p>
-     * Pass null to execution when are ALL br.ufpr.dinf.gres.core.jmetal4.results. So br.ufpr.dinf.gres.core.jmetal4.results belongs to
-     * experiment and not to execution (run).
-     * <p>
-     * See {@link } for more details
-     *
-     * @param list
-     * @param experiement
-     * @param Execution
-     * @return
-     */
     public List<Info> getObjectives(List<Solution> list, Execution Execution, Experiment experiement) {
         List<Info> funResults = new ArrayList<Info>();
         for (Solution solution : list) {
@@ -58,8 +40,7 @@ public class Result {
 
     public List<Info> getInformations(List<Solution> solutionsList, Execution execution,
                                       Experiment experiement) {
-
-        List<Info> Info = new ArrayList<Info>();
+        List<Info> Info = new ArrayList<>();
 
         for (int i = 0; i < solutionsList.size(); i++) {
             int numberOfVariables = solutionsList.get(0).getDecisionVariables().length;
@@ -93,12 +74,6 @@ public class Result {
         return Info;
     }
 
-    /**
-     * Returns all concern formated like: concer1|concern2|...
-     *
-     * @param allConcerns
-     * @return String
-     */
     private String getListOfConcerns(List<Concern> allConcerns) {
         StringBuilder concernsList = new StringBuilder();
         for (Concern concern : allConcerns)
@@ -124,7 +99,6 @@ public class Result {
                 }
             }
         }
-
         return allMetrics;
     }
 }

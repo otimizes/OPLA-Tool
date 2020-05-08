@@ -10,8 +10,7 @@
                 <mat-form-field>
                   <mat-label>Select Algorithm which want use</mat-label>
                   <mat-select [(value)]="optimizationDto.algorithm">
-                    <mat-option value="NSGAII">NSGA II</mat-option>
-                    <mat-option value="PAES">PAES</mat-option>
+                    <mat-option *ngFor="let alg of optimizationOptions?.algorithms" [value]="alg">{{alg}}</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field [floatLabel]="floatLabelControl.value">
@@ -161,40 +160,39 @@
                 </mat-error>
               </h5>
               <opla-grid-list>
-                <opla-grid-tile>
-                  <mat-checkbox (change)="changeOperators('featureMutation', $event.checked)" [checked]="true">
-                    Feature-driven
-                    Mutation
+                <opla-grid-tile *ngFor="let fmo of optimizationOptions?.featureMutationOperators">
+                  <mat-checkbox (change)="changeOperators(fmo, $event.checked)" [checked]="fmo !== 'DESIGN_PATTERNS'" *ngIf="fmo !== 'DESIGN_PATTERNS'">
+                    {{fmo | replaceall:'_':' ' | titlecase}}
                   </mat-checkbox>
                 </opla-grid-tile>
-                <opla-grid-tile>
-                  <mat-checkbox (change)="changeOperators('moveMethodMutation', $event.checked)" [checked]="true">Move
-                    Operation Mutation
-                  </mat-checkbox>
-                </opla-grid-tile>
-                <opla-grid-tile>
-                  <mat-checkbox (change)="changeOperators('moveAttributeMutation', $event.checked)" [checked]="true">
-                    Move
-                    Method Mutation
-                  </mat-checkbox>
-                </opla-grid-tile>
-                <opla-grid-tile>
-                  <mat-checkbox (change)="changeOperators('moveOperationMutation', $event.checked)" [checked]="true">Add
-                    Manager ClassMutation
-                  </mat-checkbox>
-                </opla-grid-tile>
-                <opla-grid-tile>
-                  <mat-checkbox (change)="changeOperators('addClassMutation', $event.checked)" [checked]="true">Add
-                    Class
-                    Mutation
-                  </mat-checkbox>
-                </opla-grid-tile>
-                <opla-grid-tile>
-                  <mat-checkbox (change)="changeOperators('addManagerClassMutation', $event.checked)" [checked]="true">
-                    Move
-                    Attribute Mutation
-                  </mat-checkbox>
-                </opla-grid-tile>
+<!--                <opla-grid-tile>-->
+<!--                  <mat-checkbox (change)="changeOperators('moveMethodMutation', $event.checked)" [checked]="true">Move-->
+<!--                    Operation Mutation-->
+<!--                  </mat-checkbox>-->
+<!--                </opla-grid-tile>-->
+<!--                <opla-grid-tile>-->
+<!--                  <mat-checkbox (change)="changeOperators('moveAttributeMutation', $event.checked)" [checked]="true">-->
+<!--                    Move-->
+<!--                    Method Mutation-->
+<!--                  </mat-checkbox>-->
+<!--                </opla-grid-tile>-->
+<!--                <opla-grid-tile>-->
+<!--                  <mat-checkbox (change)="changeOperators('moveOperationMutation', $event.checked)" [checked]="true">Add-->
+<!--                    Manager ClassMutation-->
+<!--                  </mat-checkbox>-->
+<!--                </opla-grid-tile>-->
+<!--                <opla-grid-tile>-->
+<!--                  <mat-checkbox (change)="changeOperators('addClassMutation', $event.checked)" [checked]="true">Add-->
+<!--                    Class-->
+<!--                    Mutation-->
+<!--                  </mat-checkbox>-->
+<!--                </opla-grid-tile>-->
+<!--                <opla-grid-tile>-->
+<!--                  <mat-checkbox (change)="changeOperators('addManagerClassMutation', $event.checked)" [checked]="true">-->
+<!--                    Move-->
+<!--                    Attribute Mutation-->
+<!--                  </mat-checkbox>-->
+<!--                </opla-grid-tile>-->
               </opla-grid-list>
             </mat-card>
           </opla-grid-tile>

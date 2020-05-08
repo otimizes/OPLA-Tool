@@ -1,8 +1,8 @@
 package br.ufpr.dinf.gres.core.jmetal4.operators.crossover;
 
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.GeneralizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 
@@ -28,8 +28,6 @@ public class CrossoverUtils {
                         }
                     }
                     this.removeClassesComponent(comp, offspring, scope);
-                    //TODO não deveria remover o componente se ele tem classes em hierarquia... ver como resolver esta quest�o
-                    // removeComponentRelationships(comp, offspring);
                     offspring.removePackage(comp);
 
                 } else {
@@ -90,11 +88,9 @@ public class CrossoverUtils {
             while (iteratorClasses.hasNext()) {
                 Class classComp = iteratorClasses.next();
                 if (comp.getAllClasses().contains(classComp)) {
-                    //se n�o estiver numa hierarquia elimina os relacionamentos e a classe
                     if (!searchForGeneralizations(classComp)) {
-                        //this.removeClassRelationships(classComp,offspring);
                         comp.removeClass(classComp);
-                    } else { // tem que eliminar a hierarquia toda
+                    } else {
                         removeHierarchyOfComponent(classComp, comp, offspring);
                     }
                 }
@@ -102,10 +98,8 @@ public class CrossoverUtils {
         }
     }
 
-
     private void removeHierarchyOfComponent(Class cls, Package comp, Architecture architecture) {
         Class parent = cls;
-
         while (CrossoverOperations.isChild(parent)) {
             parent = CrossoverOperations.getParent(parent);
         }
@@ -113,7 +107,6 @@ public class CrossoverUtils {
     }
 
     private void removeChildrenOfComponent(Element parent, Package comp, Architecture architecture) {
-
         Collection<Element> children = getChildren(parent);
         for (Element child : children) {
             removeChildrenOfComponent(child, comp, architecture);
@@ -184,14 +177,13 @@ public class CrossoverUtils {
             while (iteratorClasses.hasNext()) {
                 Class classComp = iteratorClasses.next();
                 if ((classComp.containsConcern(feature)) && (classComp.getOwnConcerns().size() == 1)) {
-                    //se não estiver numa hierarquia elimina os relacionamentos e a classe
                     if (!searchForGeneralizations(classComp)) {
                         comp.removeClass(classComp);
-                    } else { // tem que eliminar a hierarquia toda
+                    } else {
                         removeHierarchyOfComponent(classComp, comp, offspring);
                     }
                 } else {
-                    if (scope == "allLevels") {
+                    if (scope.equals("allLevels")) {
                         removeAttributesOfClassRealizingFeature(classComp, feature);
                         removeMethodsOfClassRealizingFeature(classComp, feature);
                     }

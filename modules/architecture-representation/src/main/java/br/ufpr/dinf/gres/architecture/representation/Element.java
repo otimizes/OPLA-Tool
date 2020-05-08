@@ -322,6 +322,7 @@ public abstract class Element implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) return false;
         String objClass = obj.getClass().toString();
         if (this == obj)
             return true;

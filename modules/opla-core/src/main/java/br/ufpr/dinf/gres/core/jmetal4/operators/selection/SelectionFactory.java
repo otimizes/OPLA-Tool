@@ -21,10 +21,10 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.operators.selection;
 
-import java.util.Map;
-
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+
+import java.util.Map;
 
 /**
  * Class implementing a factory of selection operators
@@ -36,7 +36,7 @@ public class SelectionFactory {
      *
      * @param name of the operator
      * @return the operator
-     * @throws JMException
+     * @throws JMException default exception
      */
     public static Selection getSelectionOperator(String name, Map<String, Object> parameters) throws JMException {
         if (name.equalsIgnoreCase("BinaryTournament2"))
@@ -46,6 +46,6 @@ public class SelectionFactory {
         else {
             Configuration.logger_.severe("Operator '" + name + "' not found ");
             throw new JMException("Exception in " + name + ".getSelectionOperator()");
-        } // else
-    } // getSelectionOperator
-} // SelectionFactory
+        }
+    }
+}

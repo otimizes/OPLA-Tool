@@ -2,9 +2,9 @@ package br.ufpr.dinf.gres.core.jmetal4.operators.crossover;
 
 import br.ufpr.dinf.gres.architecture.exceptions.NotFoundException;
 import br.ufpr.dinf.gres.architecture.exceptions.PackageNotFound;
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.GeneralizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
@@ -15,11 +15,9 @@ import java.util.*;
 
 public class CrossoverOperations {
 
-
     private static Logger LOGGER = LogManager.getLogger(CrossoverOperations.class.getName());
 
     public static void addAttributesRealizingFeatureToOffspring(Concern feature, Class classComp, Package comp, Architecture offspring) {
-
         Class targetClass = offspring.findClassByName(classComp.getName()).get(0);
         List<Attribute> allAttributes = new ArrayList<Attribute>(classComp.getAllAttributes());
         if (!allAttributes.isEmpty()) {
@@ -45,125 +43,6 @@ public class CrossoverOperations {
         }
     }
 
-//	public static void updateClassRelationships(Element classComp, Architecture offspring ) {
-//		Collection<Relationship> parentRelationships = ((Class) classComp).getRelationships();
-//		for (Relationship relationship : parentRelationships){
-//			if (relationship instanceof DependencyRelationship){
-//				DependencyRelationship dependency = (DependencyRelationship) relationship;
-//				Element client = dependency.getClient();
-//				Element supplier = dependency.getSupplier();
-//				
-//				try{
-//					Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
-//					Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
-//					offspring.forDependency().create(dependency.getName()).withClient(clientOffSpring).withSupplier(supplierOffSpring).build();
-//				}catch(ClassNotFound e){
-//					LOGGER.info("Tentou criar DependencyRelationship em offspring. Porém não encontrou alguma classe: " + e.getMessage());
-//				}
-//			}
-//			
-//			if (relationship instanceof UsageRelationship){
-//				UsageRelationship dependency = (UsageRelationship) relationship;
-//				Element client = dependency.getClient();
-//				Element supplier = dependency.getSupplier();
-//				
-//				try{
-//					Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
-//					Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
-//					offspring.forUsage().create(clientOffSpring, supplierOffSpring);
-//				}catch(ClassNotFound e){
-//					LOGGER.info("Tentou criar UsageRelationship em offspring. Porém não encontrou alguma classe: " + e.getMessage());
-//				}
-//			}
-//			
-//			if (relationship instanceof RealizationRelationship){
-//				RealizationRelationship dependency = (RealizationRelationship) relationship;
-//				Element client = dependency.getClient();
-//				Element supplier = dependency.getSupplier();
-//				
-//				try{
-//					Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
-//					Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
-//					offspring.operationsOverRelationship().createNewRealization(clientOffSpring, supplierOffSpring);
-//				}catch(ClassNotFound e){
-//					LOGGER.info("Tentou criar RealizationRelationship em offspring. Porém não encontrou alguma classe: " + e.getMessage());
-//				}
-//			}
-//			
-//			if (relationship instanceof AbstractionRelationship){
-//				AbstractionRelationship dependency = (AbstractionRelationship) relationship;
-//				Element client = dependency.getClient();
-//				Element supplier = dependency.getSupplier();
-//				
-//				try{
-//					Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
-//					Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
-//					offspring.forAbstraction().create(clientOffSpring, supplierOffSpring);
-//				}catch(ClassNotFound e){
-//					LOGGER.info("Tentou criar Dependency em offspring. Porém não encontrou alguma classe: " + e.getMessage());
-//				}
-//				
-//			}
-//			
-//			if(relationship instanceof AssociationRelationship){
-//				AssociationRelationship association = (AssociationRelationship) relationship;
-//				List<AssociationEnd> participants = association.getParticipants();
-//				
-//				AssociationEnd p1 = participants.get(0);
-//				AssociationEnd p2 = participants.get(1);
-//				
-//				try{
-//					Class p1offspring = offspring.findClassByName(p1.getName()).get(0);
-//					Class p2offspring =offspring.findClassByName(p2.getName()).get(0);
-//					
-//					AssociationEnd associationEndOffSpring = new AssociationEnd();
-//					associationEndOffSpring.setAggregation(p1.getAggregation());
-//					associationEndOffSpring.setNavigable(p1.isNavigable());
-//					associationEndOffSpring.setMultiplicity(p1.getMultiplicity());
-//					associationEndOffSpring.setCLSClass(p1offspring);
-//					
-//					AssociationEnd associationEndOffSpring2 = new AssociationEnd();
-//					associationEndOffSpring2.setAggregation(p2.getAggregation());
-//					associationEndOffSpring2.setNavigable(p2.isNavigable());
-//					associationEndOffSpring2.setMultiplicity(p2.getMultiplicity());
-//					associationEndOffSpring2.setCLSClass(p2offspring);
-//					
-//					offspring.forAssociation().create(associationEndOffSpring, associationEndOffSpring2);
-//				}catch(ClassNotFound e){
-//					LOGGER.info("Tentou criar Association em offspring. Porém não encontrou alguma classe: " + e.getMessage());
-//				}catch (Exception e) {
-//					
-//				}
-//			}
-//			
-//			if (relationship instanceof AssociationClassRelationship){
-//				AssociationClassRelationship asc = (AssociationClassRelationship)relationship;
-//				try{
-//					Class offspringMember1 = offspring.findClassByName(asc.getMemebersEnd().get(0).getType().getName()).get(0);
-//					Class offspringMember2 = offspring.findClassByName(asc.getMemebersEnd().get(1).getType().getName()).get(0);
-//					offspring.forAssociation().createAssociationClass(asc.getAllAttributes(), asc.getAllMethods(), offspringMember1, offspringMember2, asc.getAssociationClass().getName());
-//				}catch(ClassNotFound e){
-//					LOGGER.info("Tentou criar AssociationClass em offspring. Porém não encontrou alguma classe: " + e.getMessage());
-//				}
-//			}
-//			
-//			if(relationship instanceof GeneralizationRelationship){
-//				GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-//				
-//				Element parent = generalization.getParent();
-//				Element child = generalization.getChild();
-//				
-//				try{
-//					Element parentOffSpring = offspring.findClassByName(parent.getName()).get(0);
-//					Element childOffSpring = offspring.findClassByName(child.getName()).get(0);
-//					offspring.forGeneralization().createGeneralization(parentOffSpring, childOffSpring);
-//				}catch(ClassNotFound e){
-//					LOGGER.info("Tentou criar Generalization em offspring. Porém não encontrou alguma classe: " + e.getMessage());
-//				}
-//			}
-//		}
-//	}
-
     public static void moveHierarchyToSameComponent(Class classComp, Package targetComp, Package sourceComp, Architecture offspring, Architecture parent, Concern concern) {
         Class root = classComp;
         while (isChild(root)) {
@@ -177,16 +56,12 @@ public class CrossoverOperations {
     private static void moveChildrenAndRelationshipsToSameComponent(Element parent, Package sourceComp, Package targetComp, Architecture offspring, Architecture parentArch) {
 
         Collection<Element> children = getChildren(parent);
-        //move a super classe
         if (sourceComp.getAllClasses().contains(parent)) {
             addClassToOffspring(parent, targetComp, offspring);
-            //sourceComp.moveClassToComponent(parent, targetComp);
-            //this.updateClassRelationships(parent, targetComp, sourceComp, offspring, parentArch);
         } else {
             System.out.println("Nao encontrou a superclasse");
         }
 
-        //move cada subclasse
         for (Element child : children) {
             moveChildrenAndRelationshipsToSameComponent(child, sourceComp, targetComp, offspring, parentArch);
         }
@@ -225,17 +100,12 @@ public class CrossoverOperations {
         targetComp.addExternalClass((Class) klass);
     }
 
-    /*
-     * método para identificar as subclasses da classe pai na hierarquia de herança
-     *
-     */
     public static Set<Element> getChildren(Element cls) {
         GeneralizationRelationship g = getGeneralizationForClass(cls);
         if (g != null)
             return g.getAllChildrenForGeneralClass();
         return Collections.emptySet();
     }
-
 
     public static void addInterfacesToOffspring(Concern feature, Package comp, Package newComp, Architecture offspring, Architecture parent) throws PackageNotFound, NotFoundException {
         List<Interface> allInterfaces = new ArrayList<Interface>(comp.getImplementedInterfaces());
