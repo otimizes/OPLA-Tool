@@ -4,6 +4,8 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Variability;
 import br.ufpr.dinf.gres.architecture.representation.Variant;
 import br.ufpr.dinf.gres.architecture.representation.VariationPoint;
+import br.ufpr.dinf.gres.architecture.toSMarty.relationship.SaveAssociationSMarty;
+import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -11,40 +13,59 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+/**
+ * This class save all variability to file
+ *
+ */
 public class SaveVariabilitySMarty {
+    public SaveVariabilitySMarty() {
+    }
 
-    public SaveVariabilitySMarty(Architecture architecture, PrintWriter printWriter, String logPath) {
+    private static final SaveVariabilitySMarty INSTANCE = new SaveVariabilitySMarty();
+
+    public static SaveVariabilitySMarty getInstance() {
+        return INSTANCE;
+    }
+
+    /**
+     * This class save variability to file
+     *
+     * @param architecture - architecture to be decoded
+     * @param printWriter - used to save a string in file
+     * @param logPath - path to save log if has a error
+     */
+    public void Save(Architecture architecture, PrintWriter printWriter, String logPath) {
         String halfTab = "  ";
         String tab = "    ";
         int varID = 0;
-        String varIDName; // = "VARIABILITY#" + varID;
+        String varIDName;
         for (Variability variability : architecture.getAllVariabilities()) {
             VariationPoint vp = variability.getVariationPoint();
             if (vp == null) {
-                appendStrToFile(logPath, "\n\nDiscart Variability " + variability.getId() + " - " + variability.getName() + ":");
-                appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
-                appendStrToFile(logPath, "\nVariation Point NULL");
-                appendStrToFile(logPath, "\nVariabilidade do tipo optional será convertido para stereótipo optional");
-                appendStrToFile(logPath, "\nVariabilidade do tipo mandatory será convertido para stereótipo mandatory");
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Variability " + variability.getId() + " - " + variability.getName() + ":");
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point is NULL");
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariability optional will be converted to concern optional");
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariability mandatory will be converted to concern mandatory");
                 continue;
             }
             if (vp.getVariationPointElement() == null) {
-                appendStrToFile(logPath, "\n\nDiscart Variability " + variability.getId() + " - " + variability.getName() + ":");
-                appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
-                appendStrToFile(logPath, "\nVariation Point NULL");
-                appendStrToFile(logPath, "\nVariabilidade do tipo optional será convertido para stereótipo optional");
-                appendStrToFile(logPath, "\nVariabilidade do tipo mandatory será convertido para stereótipo mandatory");
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Variability " + variability.getId() + " - " + variability.getName() + ":");
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point is NULL");
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariability optional will be converted to concern optional");
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariability mandatory will be converted to concern mandatory");
                 continue;
             }
             if (architecture.findElementById(vp.getVariationPointElement().getId()) == null) {
 
-                appendStrToFile(logPath, "\n\nDiscart Variability " + variability.getId() + " - " + variability.getName() + ":");
-                appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
-                appendStrToFile(logPath, "\nVariation Point: " + vp.getVariationPointElement().getId() + " - " + vp.getVariationPointElement().getName());
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Variability " + variability.getId() + " - " + variability.getName() + ":");
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point: " + vp.getVariationPointElement().getId() + " - " + vp.getVariationPointElement().getName());
                 for (Variant v : variability.getVariants()) {
-                    appendStrToFile(logPath, "\nVariant: " + v.getVariantElement().getId() + " - " + v.getVariantElement().getName());
+                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariant: " + v.getVariantElement().getId() + " - " + v.getVariantElement().getName());
                 }
-                appendStrToFile(logPath, "\nVariation Point " + vp.getVariationPointElement().getId() + " - " + vp.getVariationPointElement().getName() + " not found");
+                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point " + vp.getVariationPointElement().getId() + " - " + vp.getVariationPointElement().getName() + " not found");
 
                 continue;
             }
@@ -52,13 +73,13 @@ public class SaveVariabilitySMarty {
             for (Variant v : variability.getVariants()) {
                 if (architecture.findElementById(v.getVariantElement().getId()) == null) {
                     discart = true;
-                    appendStrToFile(logPath, "\n\nDiscart Variability " + variability.getId() + " - " + variability.getName() + ":");
-                    appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
-                    appendStrToFile(logPath, "\nVariation Point: " + vp.getVariationPointElement().getId() + " - " + vp.getVariationPointElement().getName());
+                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Variability " + variability.getId() + " - " + variability.getName() + ":");
+                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
+                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point: " + vp.getVariationPointElement().getId() + " - " + vp.getVariationPointElement().getName());
                     for (Variant v2 : variability.getVariants()) {
-                        appendStrToFile(logPath, "\nVariant: " + v2.getVariantElement().getId() + " - " + v2.getVariantElement().getName());
+                        SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariant: " + v2.getVariantElement().getId() + " - " + v2.getVariantElement().getName());
                     }
-                    appendStrToFile(logPath, "\nVariant " + v.getVariantElement().getId() + " - " + v.getVariantElement().getName() + " not found");
+                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariant " + v.getVariantElement().getId() + " - " + v.getVariantElement().getName() + " not found");
                 }
             }
             if (discart) {
@@ -75,44 +96,31 @@ public class SaveVariabilitySMarty {
                         break;
                     }
                 }
-
             }
-
             if (variability.getId() == null) {
                 varID++;
                 varIDName = "VARIABILITY#" + varID;
-                //System.out.println("id null");
                 while (variabilityIDExist(architecture, varIDName)) {
                     varID++;
                     varIDName = "VARIABILITY#" + varID;
                 }
                 variability.setId(varIDName);
             }
-            //printWriter.write("\n"+tab+"<variability id=\""+variability.getId()+"\" name=\""+variability.getName()+"\" variationPoint=\""+vp.getVariationPointElement().getId()+"\" constraint=\""+variability.getConstraint()+"\" bindingTime=\""+variability.getBindingTime()+"\" allowsBindingVar=\""+variability.allowAddingVar()+"\" min=\""+variability.getMinSelection()+"\" max=\""+variability.getMaxSelection()+"\">");
             printWriter.write("\n" + tab + "<variability id=\"" + variability.getId() + "\" name=\"" + variability.getName() + "\" variationPoint=\"" + vp.getVariationPointElement().getId() + "\" constraint=\"" + variability.getConstraint() + "\" bindingTime=\"" + variability.getBindingTime() + "\" allowsBindingVar=\"" + variability.allowAddingVar() + "\" min=\"" + variability.getMinSelection() + "\" max=\"" + variability.getMaxSelection() + "\">");
             for (Variant v : variability.getVariants()) {
-                //System.out.println("v:"+v.getVariantElement().getId());
                 printWriter.write("\n" + tab + halfTab + "<variant id=\"" + v.getVariantElement().getId() + "\"/>");
             }
             printWriter.write("\n" + tab + "</variability>");
         }
-
     }
 
-
-    public static void appendStrToFile(String fileName,
-                                       String str) {
-        try {
-            // Open given file in append mode.
-            BufferedWriter out = new BufferedWriter(
-                    new FileWriter(fileName, true));
-            out.write(str);
-            out.close();
-        } catch (IOException e) {
-            System.out.println("exception occoured" + e);
-        }
-    }
-
+    /**
+     * Verify if exist variability with the specific id
+     *
+     * @param architecture - architecture to be decoded
+     * @param id - new id to be compared
+     * @return boolean true if exist, else false
+     */
     private boolean variabilityIDExist(Architecture architecture, String id) {
         for (Variability variability : architecture.getAllVariabilities()) {
             if (variability.getId() != null) {

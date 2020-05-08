@@ -8,20 +8,37 @@ import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
 
 import java.io.PrintWriter;
 
+/**
+ * This class save Realization relationship to file
+ *
+ */
 public class SaveRealizationSMarty {
 
-    public SaveRealizationSMarty(Architecture architecture, PrintWriter printWriter, String logPath) {
-        String halfTab = "  ";
+    public SaveRealizationSMarty() {
+    }
+
+    private static final SaveRealizationSMarty INSTANCE = new SaveRealizationSMarty();
+
+    public static SaveRealizationSMarty getInstance() {
+        return INSTANCE;
+    }
+
+    /**
+     * This class save Realization relationship to file
+     *
+     * @param architecture - architecture to be decoded
+     * @param printWriter - used to save a string in file
+     * @param logPath - path to save log if has a error
+     */
+    public void Save(Architecture architecture, PrintWriter printWriter, String logPath) {
         String tab = "    ";
         int id_rel = 1;
         for (Relationship r : architecture.getRelationshipHolder().getAllRelationships()) {
             if (r instanceof RealizationRelationship) {
-                //<realization class="CLASS#6" interface="INTERFACE#5"/>
                 RealizationRelationship rr = (RealizationRelationship) r;
 
                 Element e1 = architecture.findElementByNameInPackageAndSubPackage(rr.getSupplier().getName());
                 if (e1 == null) {
-                    System.out.println("Discart Real 1:" + rr.getSupplier().getId());
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Realization " + rr.getId() + ":");
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + rr.getClient().getId() + " - " + rr.getClient().getName());
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + rr.getSupplier().getId() + " - " + rr.getSupplier().getName() + " not found");
@@ -29,7 +46,6 @@ public class SaveRealizationSMarty {
                 }
                 Element e2 = architecture.findElementByNameInPackageAndSubPackage(rr.getClient().getName());
                 if (e2 == null) {
-                    System.out.println("Discart Real 2:" + rr.getClient().getId());
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Realization " + rr.getId() + ":");
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClint: " + rr.getClient().getId() + " - " + rr.getClient().getName() + " not found");
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + rr.getSupplier().getId() + " - " + rr.getSupplier().getName());

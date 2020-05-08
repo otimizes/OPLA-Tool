@@ -416,7 +416,7 @@ public class OPLASolutionSet {
                 funResults.get(i).setName(pathToSave + originalName);
                 if (generate) {
                     arch.save(arch, pathToSave, "-" + funResults.get(i).getId());
-                    SaveStringToFile.getInstance().appendStrToFile(logPath,"\n" + pathToSave + funResults.get(i).getId() + "\t" + funResults.get(i).toString());
+                    SaveStringToFile.getInstance().appendStrToFile(logPath,"\n" + pathToSave +arch.getName() + funResults.get(i).getId() + "\t" + solutionSet.solutionsList_.get(i).toString());
                 }
             }
         }

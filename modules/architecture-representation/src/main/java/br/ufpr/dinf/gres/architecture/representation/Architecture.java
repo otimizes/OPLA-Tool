@@ -49,7 +49,6 @@ public class Architecture extends Variable {
     private String projectVersion = "1.0";
     private String diagramID = "DIAGRAM#1";
     private String diagramName = "DIAGRAM#1";
-
     private List<VariationPoint> lstVariationPoint = new ArrayList<>();
     private List<Variability> lstVariability = new ArrayList<>();
     private List<Variant> lstVariant = new ArrayList<>();
@@ -58,7 +57,6 @@ public class Architecture extends Variable {
     public Architecture(String name) {
         setName(name);
     }
-
 
     public ArrayList<Concern> getLstConcerns() {
         return lstConcerns;
@@ -80,34 +78,15 @@ public class Architecture extends Variable {
         return ArchitectureFindElementControl.getInstance().findConcernByName(this, name);
     }
 
-    public boolean hasDuplicateInterface() {
-        ArrayList<String> interfacesID = new ArrayList<>();
-        for (Interface inter : getInterfaces()) {
-            if (interfacesID.contains(inter.getId())) {
-                System.out.println("Interface Duplicada: " + inter.getId() + " - " + inter.getName());
-                return true;
-            }
-            interfacesID.add((inter.getId()));
-        }
-        for (Package pkg : getAllPackages()) {
-            for (Interface inter : pkg.getAllInterfaces()) {
-                if (interfacesID.contains(inter.getId())) {
-                    System.out.println("Interface Duplicada: " + inter.getId() + " - " + inter.getName());
-                    return true;
-                }
-                interfacesID.add((inter.getId()));
-            }
-        }
-        return false;
-    }
-
+    /**
+     * get a list of duplicated interfaces if has
+     * @return list of duplicated interfaces
+     */
     public ArrayList<Interface> getDuplicateInterface() {
         ArrayList<String> interfacesID = new ArrayList<>();
         ArrayList<Interface> interfacesDup = new ArrayList<>();
-
         for (Interface inter : getInterfaces()) {
             if (interfacesID.contains(inter.getId())) {
-                System.out.println("Interface Duplicada: " + inter.getId() + " - " + inter.getName());
                 interfacesDup.add(inter);
             }
             interfacesID.add((inter.getId()));
@@ -115,7 +94,6 @@ public class Architecture extends Variable {
         for (Package pkg : getAllPackages()) {
             for (Interface inter : pkg.getAllInterfaces()) {
                 if (interfacesID.contains(inter.getId())) {
-                    System.out.println("Interface Duplicada: " + inter.getId() + " - " + inter.getName());
                     interfacesDup.add(inter);
                 }
                 interfacesID.add((inter.getId()));
@@ -489,10 +467,12 @@ public class Architecture extends Variable {
         return VariantFlyweight.getInstance().getVariants();
     }
 
+    /**
+     * return a list of variability. if input is smty, return a local list from architecture, else use flyweight
+     * @return
+     */
     public List<Variability> getAllVariabilities() {
-        //System.out.println("Is SMarty: "+isSMarty());
         if (isSMarty) {
-            //System.out.println(lstVariability);
             return lstVariability;
         }
         return VariabilityFlyweight.getInstance().getVariabilities();
@@ -503,7 +483,7 @@ public class Architecture extends Variable {
     }
 
     public Interface findIntefaceById(String idClass) throws ClassNotFound {
-        return ArchitectureFindElementControl.getInstance().findIntefaceById(this, idClass);
+        return ArchitectureFindElementControl.getInstance().findInterfaceById(this, idClass);
     }
 
     public void addExternalInterface(Interface interface_) {
@@ -559,7 +539,11 @@ public class Architecture extends Variable {
         klass.setNamespace(ArchitectureHolder.getName() + "::" + pkg.getName());
     }
 
-
+    /**
+     * move a package to other package
+     * @param packageID - id of package that will be moved
+     * @param parentID - id of destiny package to be moved
+     */
     public void movePackageToParent(String packageID, String parentID) {
         Package origin = findPackageByID(packageID);
         Package newParent = findPackageByID(parentID);
@@ -577,9 +561,7 @@ public class Architecture extends Variable {
                 }
                 removeSubPackageByID(subP, packageID);
             }
-
         }
-
     }
 
     public void removeSubPackageByID(Package subPkg, String id) {
@@ -594,11 +576,9 @@ public class Architecture extends Variable {
         }
     }
 
-
     public OperationsOverGeneralization forGeneralization() {
         return new OperationsOverGeneralization(this);
     }
-
 
     public OperationsOverAbstraction forAbstraction() {
         return new OperationsOverAbstraction(this);
@@ -628,7 +608,6 @@ public class Architecture extends Variable {
         Architecture newArchitecture = cloner.deepClone(this);
         return newArchitecture;
     }
-
 
     public boolean addImplementedInterface(Interface supplier, Class client) {
         if (!client.isTotalyFreezed()) {
@@ -728,7 +707,13 @@ public class Architecture extends Variable {
         return ArchitectureFindElementControl.getInstance().findPackageOfElement(this, id);
     }
 
-
+    /**
+     * save an architecture to output
+     * if toSMarty is true, save to .smty format, else save to .uml
+     * @param architecture - target architecture
+     * @param pathToSave - name of the output file
+     * @param i -
+     */
     public void save(Architecture architecture, String pathToSave, String i) {
         if (this.toSMarty) {
             GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
@@ -739,7 +724,11 @@ public class Architecture extends Variable {
         }
     }
 
-    // save architeture in SMarty Format
+    /**
+     * save an architecture in .smty format without consider the format of input architecture
+     * @param architecture - target architecture
+     * @param pathToSave - name of output file
+     */
     public void saveToSMarty(Architecture architecture, String pathToSave) {
         GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
         generate.generate(architecture, pathToSave);
@@ -761,8 +750,6 @@ public class Architecture extends Variable {
 
         }
     }
-
-
 
     /**
      * Procura um elemento por ID.<br>

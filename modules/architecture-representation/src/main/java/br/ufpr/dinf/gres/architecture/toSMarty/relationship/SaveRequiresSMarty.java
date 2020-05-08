@@ -8,20 +8,36 @@ import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
 
 import java.io.PrintWriter;
 
+/**
+ * This class save Requires relationship to file
+ *
+ */
 public class SaveRequiresSMarty {
 
-    public SaveRequiresSMarty(Architecture architecture, PrintWriter printWriter, String logPath) {
-        String halfTab = "  ";
+    public SaveRequiresSMarty() {
+    }
+
+    private static final SaveRequiresSMarty INSTANCE = new SaveRequiresSMarty();
+
+    public static SaveRequiresSMarty getInstance() {
+        return INSTANCE;
+    }
+
+    /**
+     * This class save Requires relationship to file
+     *
+     * @param architecture - architecture to be decoded
+     * @param printWriter - used to save a string in file
+     * @param logPath - path to save log if has a error
+     */
+    public void Save(Architecture architecture, PrintWriter printWriter, String logPath) {
         String tab = "    ";
         int id_rel = 1;
         for (Relationship r : architecture.getRelationshipHolder().getAllRelationships()) {
             if (r instanceof RequiresRelationship) {
-                // <dependency source="CLASS#12" target="INTERFACE#10"/>
                 RequiresRelationship dr = (RequiresRelationship) r;
-
                 Element e1 = architecture.findElementByNameInPackageAndSubPackage(dr.getClient().getName());
                 if (e1 == null) {
-                    System.out.println("Discart Req 1:" + dr.getClient().getId());
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Requires " + dr.getId() + ":");
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName());
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName() + " not found");
@@ -29,7 +45,6 @@ public class SaveRequiresSMarty {
                 }
                 Element e2 = architecture.findElementByNameInPackageAndSubPackage(dr.getSupplier().getName());
                 if (e2 == null) {
-                    System.out.println("Discart Req 2:" + dr.getSupplier().getId());
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Requires " + dr.getId() + ":");
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName() + " not found");
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName());

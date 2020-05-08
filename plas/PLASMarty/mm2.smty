@@ -104,7 +104,7 @@
     <stereotype id="STEREOTYPE#20" name="video" primitive="false"/>
     <stereotype id="STEREOTYPE#12" name="viewplaymedia" primitive="false"/>
   </stereotypes>
-  <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5" requires="STEREOTYPE#6" mutex="STEREOTYPE#7"/>
+  <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5"/>
   <diagram id="DIAGRAM#1" name="Diagram1" type="Class">
     <package id="PACKAGE#2" name="AlbumMgr" mandatory="true" x="200" y="410" globalX="200" globalY="410" height="450" width="1160"/>
     <package id="PACKAGE#1" name="UserMgr" mandatory="true" x="1520" y="1560" globalX="1520" globalY="1560" height="460" width="848"/>
@@ -655,7 +655,7 @@
     </realization>
     <realization id="REALIZATION#38" class="CLASS#13" interface="INTERFACE#8">
     </realization>
-    <variability id="VARIABILITY#1" name="ManaingMedia" variationPoint="CLASS#3" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="3">
+    <variability id="VARIABILITY#1" name="ManagingMedia" variationPoint="CLASS#3" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="3">
       <variant id="CLASS#8"/>
       <variant id="CLASS#9"/>
       <variant id="CLASS#7"/>
@@ -870,6 +870,7 @@
     <link element="CLASS#5" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#6" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#14" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#3" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#13" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#12" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#11" stereotype="STEREOTYPE#1"/>

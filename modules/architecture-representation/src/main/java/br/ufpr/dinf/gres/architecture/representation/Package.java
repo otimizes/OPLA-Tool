@@ -203,6 +203,15 @@ public class Package extends Element {
         klass.setNamespace(ArchitectureHolder.getName() + "::" + packageName);
     }
 
+    /**
+     * move a interface of this package to other package
+     * if this package not has the selected interface, cannot move
+     * if destiny package has the same interface, cannot move
+     * if interface cannot remove from this package by hash, remove by id
+     * @param inter - interface to move
+     * @param packageToMove - destiny package
+     * @return
+     */
     public boolean moveInterfaceToPackage(Interface inter, Package packageToMove) {
         if (inter.isTotalyFreezed() || packageToMove.isTotalyFreezed()) return false;
         if (!interfaces.contains(inter)) return false;
@@ -259,10 +268,12 @@ public class Package extends Element {
         return false;
     }
 
-// recreate interface hash without interface that has the selected id
+    /**
+     * recreate a new has that not has interface with selected id
+     * hash some times cannot remove using its original function, then this method are created to remove that type of interface
+     * @param id - id of interface to remove
+     */
     public void removeInterfaceByID(String id) {
-        //Interface interfacee = null;
-
         Set<Interface> newHash = new HashSet<>();
         for (Interface i : this.interfaces) {
             if (!i.getId().equals(id)) {

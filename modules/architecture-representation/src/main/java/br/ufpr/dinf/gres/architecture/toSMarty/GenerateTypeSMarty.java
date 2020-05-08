@@ -7,12 +7,26 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 
 import java.util.ArrayList;
 
-// to create a list of typeSMarty using an architecture
+/**
+ * Create a new list of types using default types + new types created by elements
+ */
 public class GenerateTypeSMarty {
+
 
     public GenerateTypeSMarty() {
     }
 
+    private static final GenerateTypeSMarty INSTANCE = new GenerateTypeSMarty();
+
+    public static GenerateTypeSMarty getInstance() {
+        return INSTANCE;
+    }
+
+    /**
+     * Create a new list of types to be added to lstTypes in the architecture
+     *
+     * @param architecture - the architecture to be decoded
+     */
     public void generate(Architecture architecture){
         ArrayList<TypeSmarty> lstSMarty = new ArrayList<>();
         TypeSmarty typeS;
@@ -508,7 +522,6 @@ public class GenerateTypeSMarty {
                 lstSMarty.add(typeS);
             }
         }
-
         for (Interface clazz : architecture.getInterfaces()) {
             typeS = new TypeSmarty();
             typeS.setId(clazz.getId());
@@ -519,7 +532,6 @@ public class GenerateTypeSMarty {
             typeS.setStandard(false);
             lstSMarty.add(typeS);
         }
-
         architecture.setLstTypes(lstSMarty);
     }
 }

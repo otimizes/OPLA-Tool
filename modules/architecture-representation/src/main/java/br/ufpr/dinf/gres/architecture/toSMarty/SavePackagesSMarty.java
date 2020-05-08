@@ -5,23 +5,46 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 
 import java.io.PrintWriter;
 
+/**
+ * Save all packages in the file
+ * the link of package and subpackage will be saved in other class
+ *
+ */
 public class SavePackagesSMarty {
 
-    public SavePackagesSMarty(Architecture architecture, PrintWriter printWriter) {
+    public SavePackagesSMarty() {
+    }
+
+    private static final SavePackagesSMarty INSTANCE = new SavePackagesSMarty();
+
+    public static SavePackagesSMarty getInstance() {
+        return INSTANCE;
+    }
+
+    /**
+     * Save all packages in the file
+     * the link of package and subpackage will be saved in other class
+     *
+     * @param architecture - input architecture
+     * @param printWriter - used to save a string to file
+     */
+    public void Save(Architecture architecture, PrintWriter printWriter) {
         String tab = "    ";
         for (Package pkg : architecture.getAllPackages()) {
-            // <package id="PACKAGE#2" name="AlbumMgr" mandatory="true" x="300" y="2090" height="700" width="667"/>
             printWriter.write("\n" + tab + "<package id=\"" + pkg.getId() + "\" name=\"" + pkg.getName() + "\" mandatory=\"" + pkg.isMandatory() + "\" x=\"" + pkg.getPosX() + "\" y=\"" + pkg.getPosY() + "\" globalX=\"" + pkg.getGlobalPosX() + "\" globalY=\"" + pkg.getGlobalPosY() + "\" height=\"" + pkg.getHeight() + "\" width=\"" + pkg.getWidth() + "\"/>");
-
             saveSubPackage(pkg, printWriter);
         }
     }
 
+    /**
+     * Recursively save all sub packages in the file
+     *
+     * @param pkgOrigin - parent of subpackage
+     * @param printWriter - used to save a string to file
+     */
     private void saveSubPackage(Package pkgOrigin, PrintWriter printWriter) {
         String tab = "    ";
         for (Package subPackage : pkgOrigin.getNestedPackages()) {
-            // <package id="PACKAGE#2" name="AlbumMgr" mandatory="true" x="300" y="2090" height="700" width="667"/>
-
             printWriter.write("\n" + tab + "<package id=\"" + subPackage.getId() + "\" name=\"" + subPackage.getName() + "\" mandatory=\"" + subPackage.isMandatory() + "\" x=\"" + subPackage.getPosX() + "\" y=\"" + subPackage.getPosY() + "\" globalX=\"" + subPackage.getGlobalPosX() + "\" globalY=\"" + subPackage.getGlobalPosY() + "\" height=\"" + subPackage.getHeight() + "\" width=\"" + subPackage.getWidth() + "\"/>");
             saveSubPackage(subPackage, printWriter);
         }
