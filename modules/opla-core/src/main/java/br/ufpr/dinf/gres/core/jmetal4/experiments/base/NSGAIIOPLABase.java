@@ -1,10 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments.base;
 
-<<<<<<< HEAD:modules/opla-core/src/main/java/br/ufpr/dinf/gres/core/jmetal4/experiments/NSGAII_OPLA_FeatMut.java
 import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
-=======
->>>>>>> 0c7943815e3d10ddc5151042ccc9c5a7dc0dee23:modules/opla-core/src/main/java/br/ufpr/dinf/gres/core/jmetal4/experiments/base/NSGAIIOPLABase.java
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;

@@ -24,6 +24,8 @@ package br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII;
 import br.ufpr.dinf.gres.architecture.io.OPLALogs;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfo;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
+import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
+import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.*;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
@@ -37,6 +39,8 @@ import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
@@ -107,6 +111,15 @@ public class NSGAII extends Algorithm {
         crossoverOperator = operators_.get("crossover");
         selectionOperator = operators_.get("selection");
 
+        try {
+            Solution solution_base = new Solution(problem_);
+            problem_.evaluateConstraints(solution_base);
+            problem_.evaluate(solution_base);
+            saveBaseHypervolume(solution_base);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new JMException(e.getMessage());
+        }
         try {
             Solution newSolution;
             for (int i = 0; i < populationSize; i++) {
@@ -274,5 +287,24 @@ public class NSGAII extends Algorithm {
 
         problem_.evaluateConstraints(newSolution);
         return newSolution;
+    }
+
+    private void saveBaseHypervolume(Solution solution){
+        SaveStringToFile.getInstance().createLogDir();
+        String path = ReaderConfig.getDirExportTarget()+"/Logs/hypervolume_base.txt";
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            for(Double fit : solution.getObjectives()) {
+                printWriter.write(fit.toString());
+                printWriter.write(" ");
+            }
+            printWriter.close();
+            fileWriter.close();
+        }catch (Exception ex){
+            System.out.println(ex);
+            ex.printStackTrace();
+        }
     }
 }
