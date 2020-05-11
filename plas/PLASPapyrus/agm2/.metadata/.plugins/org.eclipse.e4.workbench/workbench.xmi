@@ -1612,7 +1612,7 @@
   <commands xmi:id="_9g5w7NyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.infra.nattable.row.index.style" commandName="Change Row Index Style" category="_9gycKNyrEeizl6_JgC8Bzg">
     <parameters xmi:id="_9g5w7dyrEeizl6_JgC8Bzg" elementId="org.eclipse.ui.commands.radioStateParameter" name="ColumnHeaderParameter" optional="false"/>
   </commands>
-  <commands xmi:id="_9g5w7tyrEeizl6_JgC8Bzg" elementId="org.eclipse.quickdiff.toggle" commandName="Quick Diff Toggle" description="Toggles quick diff information display on the line number ruler" category="_9gx1ENyrEeizl6_JgC8Bzg"/>
+  <commands xmi:id="_9g5w7tyrEeizl6_JgC8Bzg" elementId="org.eclipse.quickdiff.toggle" commandName="Quick br.ufpr.dinf.gres.architecture.builders.Diff Toggle" description="Toggles quick diff information display on the line number ruler" category="_9gx1ENyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g5w79yrEeizl6_JgC8Bzg" elementId="org.eclipse.ui.edit.text.deleteNext" commandName="Delete Next" description="Delete the next character" category="_9gx1FNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g5w8NyrEeizl6_JgC8Bzg" elementId="org.eclipse.xtext.ui.editor.select.last" commandName="Restore Last Selection" description="Restore last selection from History" category="_9gycQNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g5w8dyrEeizl6_JgC8Bzg" elementId="org.eclipse.egit.ui.FetchGerritChange" commandName="Fetch From Gerrit" category="_9gycP9yrEeizl6_JgC8Bzg"/>
@@ -2086,7 +2086,7 @@
   <commands xmi:id="_9g-pl9yrEeizl6_JgC8Bzg" elementId="org.eclipse.pde.ui.EquinoxLaunchShortcut.debug" commandName="Debug OSGi Framework" description="Debug OSGi Framework" category="_9gycINyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g-pmNyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.diagram.menu.fill.color.morecolors.command" commandName="Fill With Another Color Command" description="The command to fill with another color the selected shapes" category="_9gycOdyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g-pmdyrEeizl6_JgC8Bzg" elementId="org.eclipse.egit.ui.RepositoriesViewPaste" commandName="Paste Repository Path or URI" category="_9gycP9yrEeizl6_JgC8Bzg"/>
-  <commands xmi:id="_9g-pmtyrEeizl6_JgC8Bzg" elementId="org.eclipse.ui.edit.text.showChangeRulerInformation" commandName="Show Quick Diff Ruler Tooltip" description="Displays quick diff or revision information for the caret line in a focused hover" category="_9gx1FNyrEeizl6_JgC8Bzg"/>
+  <commands xmi:id="_9g-pmtyrEeizl6_JgC8Bzg" elementId="org.eclipse.ui.edit.text.showChangeRulerInformation" commandName="Show Quick br.ufpr.dinf.gres.architecture.builders.Diff Ruler Tooltip" description="Displays quick diff or revision information for the caret line in a focused hover" category="_9gx1FNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g-pm9yrEeizl6_JgC8Bzg" elementId="org.eclipse.ui.edit.text.upperCase" commandName="To Upper Case" description="Changes the selection to upper case" category="_9gx1FNyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g-pnNyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.service.types.ModelCreateCommand" commandName="Create a new Model" description="Create a new Model" category="_9gx1INyrEeizl6_JgC8Bzg"/>
   <commands xmi:id="_9g-pndyrEeizl6_JgC8Bzg" elementId="org.eclipse.papyrus.uml.diagram.menu.fill.color.darkgray.command" commandName="Fill Dark Gray Command" description="The command to fill in dark gray the selected shapes" category="_9gycOdyrEeizl6_JgC8Bzg"/>

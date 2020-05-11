@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.api.dto;
 
-import br.ufpr.dinf.gres.api.gateway.OptimizationAlgorithm;
+import br.ufpr.dinf.gres.api.gateway.OptimizationAlgorithms;
+import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilders;
 import br.ufpr.dinf.gres.architecture.config.ApplicationFile;
 import br.ufpr.dinf.gres.architecture.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
@@ -14,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class OptimizationDto {
-    private OptimizationAlgorithm algorithm = OptimizationAlgorithm.NSGAII;
+    private OptimizationAlgorithms algorithm = OptimizationAlgorithms.NSGAII;
     private String description = "teste";
     private Boolean mutation = true;
     private Double mutationProbability = 0.9;
@@ -31,6 +32,7 @@ public class OptimizationDto {
     private Integer archiveSize = 0;
     private ClusteringAlgorithm clusteringAlgorithm = ClusteringAlgorithm.KMEANS;
     private Moment clusteringMoment = Moment.NONE;
+    private ArchitectureBuilders architectureBuilder = ArchitectureBuilders.SMARTY;
     @JsonIgnore
     private InteractiveFunction interactiveFunction;
     private List<String> mutationOperators = Arrays.asList("FEATURE_MUTATION", "MOVE_METHOD_MUTATION", "MOVE_ATTRIBUTE_MUTATION", "MOVE_OPERATION_MUTATION", "ADD_CLASS_MUTATION", "ADD_MANAGER_CLASS_MUTATION");
@@ -195,11 +197,11 @@ public class OptimizationDto {
         this.objectiveFunctions = objectiveFunctions;
     }
 
-    public OptimizationAlgorithm getAlgorithm() {
+    public OptimizationAlgorithms getAlgorithm() {
         return algorithm;
     }
 
-    public void setAlgorithm(OptimizationAlgorithm algorithm) {
+    public void setAlgorithm(OptimizationAlgorithms algorithm) {
         this.algorithm = algorithm;
     }
 
@@ -225,5 +227,13 @@ public class OptimizationDto {
 
     public void setScopeSelection(ScopeSelection scopeSelection) {
         this.scopeSelection = scopeSelection;
+    }
+
+    public ArchitectureBuilders getArchitectureBuilder() {
+        return architectureBuilder;
+    }
+
+    public void setArchitectureBuilder(ArchitectureBuilders architectureBuilder) {
+        this.architectureBuilder = architectureBuilder;
     }
 }

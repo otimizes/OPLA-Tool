@@ -32,9 +32,9 @@ import java.util.List;
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
-public class ArchitectureBuilder {
+public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
 
-    private static final Logger LOGGER = Logger.getLogger(ArchitectureBuilder.class);
+    private static final Logger LOGGER = Logger.getLogger(ArchitectureBuilderPapyrus.class);
 
     private Package model;
     private PackageBuilder packageBuilder;
@@ -54,7 +54,7 @@ public class ArchitectureBuilder {
     /**
      *
      */
-    public ArchitectureBuilder() {
+    public ArchitectureBuilderPapyrus() {
         // RelationshipHolder.clearLists();
         LOGGER.info("Clean Relationships");
         ConcernHolder.INSTANCE.clear();
@@ -96,7 +96,7 @@ public class ArchitectureBuilder {
      * @return {@link Architecture}
      * @throws Exception
      */
-    public Architecture create(String xmiFilePath) throws Exception {
+    public Architecture create(String xmiFilePath) {
         try {
             LOGGER.info("Criando Architecture");
             model = modelHelper.getModel(xmiFilePath);

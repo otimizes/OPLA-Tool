@@ -8,6 +8,7 @@ export class OptimizationDto {
   mutationProbability: number;
   inputArchitecture: string;
   numberRuns: number;
+  architectureBuilder: any;
   papyrus: boolean = false;
   populationSize: number;
   maxEvaluations: number;
@@ -16,7 +17,7 @@ export class OptimizationDto {
   interactive: boolean = false;
   maxInteractions: number = 3;
   firstInteraction: number = 3;
-  intervalInteraction: number = 3 ;
+  intervalInteraction: number = 3;
   clusteringAlgorithm: string = "KMEANS";
   clusteringMoment: string = "POSTERIORI";
   mutationOperators: string[] = ["FEATURE_MUTATION", "MOVE_METHOD_MUTATION", "MOVE_ATTRIBUTE_MUTATION", "MOVE_OPERATION_MUTATION", "ADD_CLASS_MUTATION", "ADD_MANAGER_CLASS_MUTATION"];
@@ -25,5 +26,6 @@ export class OptimizationDto {
   config: Config = new Config();
   scopeSelection: string;
 
-  constructor() {}
+  constructor() {
+  }
 }

@@ -26,9 +26,9 @@ import java.util.Set;
 /**
  * This class generate an instance of Architecture using a input pla path
  */
-public class ArchitectureBuilderSMarty {
+public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
 
-    private static final Logger LOGGER = Logger.getLogger(ArchitectureBuilder.class);
+    private static final Logger LOGGER = Logger.getLogger(ArchitectureBuilderPapyrus.class);
 
     private Package model;
 
@@ -43,7 +43,6 @@ public class ArchitectureBuilderSMarty {
      * create a instance of this class
      */
     public ArchitectureBuilderSMarty() {
-        System.out.println("FUUUUUUUUUUUUUUUUUUIIIIIIIIIII");
         // RelationshipHolder.clearLists();
         LOGGER.info("Clean Relationships");
         ConcernHolder.INSTANCE.clear();
@@ -76,12 +75,10 @@ public class ArchitectureBuilderSMarty {
      * set variable isSMarty from Architecture to true to tell the input is from .smty format
      * set variable toSMarty from Architecture to true to tell to decode to .smty format
      *
-     *
      * @param xmiFilePath - PLA file (.smty)
      * @return {@link Architecture} - the Architecture generated from input file
-     * @throws Exception
      */
-    public Architecture create(String xmiFilePath) throws Exception {
+    public Architecture create(String xmiFilePath) {
         try {
             modelHelper = null;
             model = null;
@@ -127,7 +124,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import the link between elements of architecture and their respective stereotypes
      * this function correct the variant type if need
-     * @param architecture           - architecture to insert the link of stereotypes
+     *
+     * @param architecture - architecture to insert the link of stereotypes
      */
     private void importLinkStereotypesSMarty(Architecture architecture) throws XPathExpressionException {
         ArrayList<Concern> lstConcern = architecture.getLstConcerns();
@@ -235,7 +233,7 @@ public class ArchitectureBuilderSMarty {
     /**
      * import the class diagram from the file (call function to import all elements in the file)
      *
-     * @param architecture  - the architecture to be saved
+     * @param architecture - the architecture to be saved
      */
     private void importDiagrams(Architecture architecture) throws XPathExpressionException {
         String[] types = {"Class"};
@@ -260,8 +258,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all packages from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importPackage(Element node, Architecture architecture) {
         NodeList aClass = node.getElementsByTagName("package");
@@ -280,8 +278,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all Class from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importClass(Element node, Architecture architecture) {
         NodeList aClass = node.getElementsByTagName("class");
@@ -309,9 +307,9 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all attributes of an class from the file
      *
-     * @param node  - node generated from file
-     * @param class_ - class that has the attributes to be imported
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param class_       - class that has the attributes to be imported
+     * @param architecture - the architecture to be saved
      */
     private void importAttributesClass(Element node, Class class_, Architecture architecture) {
         NodeList attributes = node.getElementsByTagName("attribute");
@@ -328,9 +326,9 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all methods of an class from the file
      *
-     * @param node  - node generated from file
-     * @param class_ - class that has the method to be imported
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param class_       - class that has the method to be imported
+     * @param architecture - the architecture to be saved
      */
     private void importMethods(Element node, Class class_, Architecture architecture) {
         NodeList methods = node.getElementsByTagName("method");
@@ -350,8 +348,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all parameters of the method of an class from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      * @return ArrayList<ParameterMethod> - list of parameters of the method
      */
     private ArrayList<ParameterMethod> importParameterMethods(Element node, Architecture architecture) {
@@ -371,8 +369,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all interfaces from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importInterface(Element node, Architecture architecture) {
         NodeList aClass = node.getElementsByTagName("interface");
@@ -400,9 +398,9 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all methods of an method from the file
      *
-     * @param node  - node generated from file
-     * @param interface_ - interface that has the method to be imported
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param interface_   - interface that has the method to be imported
+     * @param architecture - the architecture to be saved
      */
     private void importMethodsInterface(Element node, Interface interface_, Architecture architecture) {
         NodeList methods = node.getElementsByTagName("method");
@@ -423,8 +421,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all relationships from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importRelationship(Element node, Architecture architecture) {
         importAssociationRelationship(node, architecture);
@@ -439,8 +437,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all generalization relationship from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importGeneralizationRelationship(Element node, Architecture architecture) {
         NodeList generalizations = node.getElementsByTagName("generalization");
@@ -458,8 +456,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all realization relationship from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importRealizationRelationship(Element node, Architecture architecture) {
         NodeList generalizations = node.getElementsByTagName("realization");
@@ -483,8 +481,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all association relationship from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importAssociationRelationship(Element node, Architecture architecture) {
         NodeList generalizations = node.getElementsByTagName("association");
@@ -511,11 +509,11 @@ public class ArchitectureBuilderSMarty {
     /**
      * import source element of an association from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
-     * @param ae1 - associationEnd that will get the source
-     * @param direction - direction of association
-     * @param type - type of association
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
+     * @param ae1          - associationEnd that will get the source
+     * @param direction    - direction of association
+     * @param type         - type of association
      * @return ae1 - associationEnd created
      */
     private AssociationEnd importAssociationSource(Element node, Architecture architecture, AssociationEnd ae1, boolean direction, String type) {
@@ -535,11 +533,11 @@ public class ArchitectureBuilderSMarty {
     /**
      * import target element of an association from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
-     * @param ae2 - associationEnd that will get the source
-     * @param direction - direction of association
-     * @param type - type of association
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
+     * @param ae2          - associationEnd that will get the source
+     * @param direction    - direction of association
+     * @param type         - type of association
      * @return ae2 - associationEnd created
      */
     private AssociationEnd importAssociationTarget(Element node, Architecture architecture, AssociationEnd ae2, boolean direction, String type) {
@@ -562,8 +560,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all dependency relationship from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importDependencyRelationship(Element node, Architecture architecture) {
         NodeList relations = node.getElementsByTagName("dependency");
@@ -585,8 +583,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all requires relationship from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importRequiresRelationship(Element node, Architecture architecture) {
         NodeList relations = node.getElementsByTagName("requires");
@@ -609,8 +607,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all abstraction relationship from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importAbstractionRelationship(Element node, Architecture architecture) {
         NodeList relations = node.getElementsByTagName("abstraction");
@@ -634,8 +632,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all usage relationship from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importUsageRelationship(Element node, Architecture architecture) {
         NodeList relations = node.getElementsByTagName("usage");
@@ -658,8 +656,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all reference of package to parent package from file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importReferencePackage(Element node, Architecture architecture) {
         NodeList aClass = node.getElementsByTagName("reference");
@@ -674,8 +672,8 @@ public class ArchitectureBuilderSMarty {
     /**
      * import all variability from the file
      *
-     * @param node  - node generated from file
-     * @param architecture  - the architecture to be saved
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
      */
     private void importVariability(Element node, Architecture architecture) {
         NodeList variabilityList = node.getElementsByTagName("variability");
@@ -730,7 +728,7 @@ public class ArchitectureBuilderSMarty {
     /**
      * import id of all variants element of an specific variability from file
      *
-     * @param node  - node generated from file
+     * @param node - node generated from file
      * @return ArrayList<String> - id of elements that compund the variants
      */
     private ArrayList<String> getVariants(Element node) {

@@ -29,6 +29,7 @@ public class PAESGateway implements IGateway {
         configs.setNumberOfRuns(optimizationDto.getNumberRuns());
         configs.setMaxEvaluations(optimizationDto.getMaxEvaluations());
         configs.setArchiveSize(optimizationDto.getArchiveSize());
+        configs.setArchitectureBuilder(optimizationDto.getArchitectureBuilder());
         GatewayUtils.setOperators(optimizationDto, configs);
         configs.setPathToDb(UserHome.getPathToDb());
         OPLAConfigs oplaConfig = new OPLAConfigs();

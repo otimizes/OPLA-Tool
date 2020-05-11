@@ -1,4 +1,6 @@
-import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilder;
+package br.ufpr.dinf.gres.architecture.builders;
+
+import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilderPapyrus;
 import br.ufpr.dinf.gres.architecture.main.GenerateArchitecture;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 
@@ -9,7 +11,7 @@ public class TimeReadWritePLAs {
 
         String pla = "/Users/elf/Desktop/serverUFPR/experiments/PLAS/agm/agm.uml";
 
-        ArchitectureBuilder b = new ArchitectureBuilder();
+        ArchitectureBuilderPapyrus b = new ArchitectureBuilderPapyrus();
         GenerateArchitecture g = new GenerateArchitecture();
 
         long startTimea = System.nanoTime();

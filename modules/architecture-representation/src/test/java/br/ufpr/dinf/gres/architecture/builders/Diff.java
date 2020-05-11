@@ -1,9 +1,11 @@
-import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilder;
+package br.ufpr.dinf.gres.architecture.builders;
+
+import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilderPapyrus;
 
 public class Diff {
 
     public static void main(String args[]) {
-        ArchitectureBuilder builder = new ArchitectureBuilder();
+        ArchitectureBuilderPapyrus builder = new ArchitectureBuilderPapyrus();
 
         try {
             builder.create("/Users/elf/Documents/workspaceModeling/exportacao/output/9316217788/VAR_All_agm-1386114713.uml");

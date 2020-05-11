@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.problems;
 
-import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilder;
+import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilderPapyrus;
 import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilderSMarty;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
@@ -55,7 +55,7 @@ public class OPLA extends Problem {
         if (xmiFilePath.contains(".smty")) {
             architecture_ = new ArchitectureBuilderSMarty().create(xmiFilePath);
         } else {
-            architecture_ = new ArchitectureBuilder().create(xmiFilePath);
+            architecture_ = new ArchitectureBuilderPapyrus().create(xmiFilePath);
         }
     }
 
@@ -70,12 +70,7 @@ public class OPLA extends Problem {
         variableType_ = new java.lang.Class[numberOfVariables_];
         length_ = new int[numberOfVariables_];
         variableType_[0] = java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE);
-        ArchitectureBuilder architectureBuilder = new ArchitectureBuilder();
-        if (xmiFilePath.contains(".smty")) {
-            architecture_ = new ArchitectureBuilderSMarty().create(xmiFilePath);
-        } else {
-            architecture_ = new ArchitectureBuilder().create(xmiFilePath);
-        }
+        architecture_ = oplaConfig.getArchitectureBuilder().getBuilder().create(xmiFilePath);
         selectedMetrics = oplaConfig.getOplaConfigs().getSelectedObjectiveFunctions();
     }
 

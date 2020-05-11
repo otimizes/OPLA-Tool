@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.api.gateway;
 
-public enum OptimizationAlgorithm implements IOptimizationAlgorithm {
+public enum OptimizationAlgorithms implements IOptimizationAlgorithm {
     NSGAII {
         @Override
         public Class getType() {

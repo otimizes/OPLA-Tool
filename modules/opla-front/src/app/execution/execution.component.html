@@ -199,18 +199,21 @@
           <opla-grid-tile>
             <mat-card>
               <h5>Paths</h5>
-              <mat-checkbox (change)="optimizationDto.papyrus = $event.checked" [checked]="optimizationDto.papyrus">
-                Select Papyrus Folder
-              </mat-checkbox>
+              <mat-form-field>
+                <mat-label>Select the builder</mat-label>
+                <mat-select [(value)]="optimizationDto.architectureBuilder">
+                  <mat-option *ngFor="let alg of optimizationOptions?.architectureBuilders" [value]="alg">{{alg}}</mat-option>
+                </mat-select>
+              </mat-form-field>
               <div>
                 <mat-form-field [floatLabel]="floatLabelControl.value">
                   <mat-label>Select the input PLA</mat-label>
                   <input matInput placeholder="/home/..." [(ngModel)]="optimizationDto.inputArchitecture"
                          formControlName="inputArchitecture">
                   <input hidden (change)="onFileSelected()" #fileInput type="file" multiple directory webkitdirectory
-                         *ngIf="optimizationDto.papyrus"
+                         *ngIf="optimizationDto.architectureBuilder == 'PAPYRUS'"
                          mozdirectory allowdirs id="dir">
-                  <input hidden (change)="onFileSelected()" #fileInput type="file" accept=".smty" *ngIf="!optimizationDto.papyrus"id="file">
+                  <input hidden (change)="onFileSelected()" #fileInput type="file" accept=".smty" *ngIf="optimizationDto.architectureBuilder != 'PAPYRUS'" id="file">
                   <button matTooltip="Select the directory of the PLA" mat-button matSuffix mat-icon-button
                           aria-label="Clear" (click)="selectPLA()">
                     <mat-icon>attach_file</mat-icon>

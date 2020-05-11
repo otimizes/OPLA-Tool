@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
+import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilders;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
 import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
 import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
@@ -31,6 +32,7 @@ public abstract class ExperimentCommonConfigs {
     public int maxInteractions;
     public int firstInteraction;
     public int intervalInteraction;
+    private ArchitectureBuilders architectureBuilder = ArchitectureBuilders.SMARTY;
     public Moment clusteringMoment;
     public ClusteringAlgorithm clusteringAlgorithm;
     private List<String> mutationOperators = new ArrayList<String>();
@@ -257,5 +259,13 @@ public abstract class ExperimentCommonConfigs {
 
     public void setClusteringMoment(Moment clusteringMoment) {
         this.clusteringMoment = clusteringMoment;
+    }
+
+    public ArchitectureBuilders getArchitectureBuilder() {
+        return architectureBuilder;
+    }
+
+    public void setArchitectureBuilder(ArchitectureBuilders architectureBuilder) {
+        this.architectureBuilder = architectureBuilder;
     }
 }

@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.architecture.main;
 
-import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilder;
+import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilderPapyrus;
 import br.ufpr.dinf.gres.architecture.exceptions.ModelIncompleteException;
 import br.ufpr.dinf.gres.architecture.exceptions.ModelNotFoundException;
 import br.ufpr.dinf.gres.architecture.exceptions.SMartyProfileNotAppliedToModelExcepetion;
@@ -27,7 +27,7 @@ public class Main {
         long init = System.currentTimeMillis();
 
         String path = "/Users/elf/mestrado/sourcesMestrado/br.ufpr.dinf.gres.arquitetura/src/test/java/resources/agmfinal/agm.uml";
-        Architecture a = new ArchitectureBuilder().create(path);
+        Architecture a = new ArchitectureBuilderPapyrus().create(path);
 
         GenerateArchitecture generate = new GenerateArchitecture();
         generate.generate(a, "testeGiovani123");

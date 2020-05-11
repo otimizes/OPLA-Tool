@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.patterns.repositories;
 
-import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilder;
+import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilderPapyrus;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 
 import java.io.File;
@@ -65,7 +65,7 @@ public class ArchitectureRepository {
             "Output10"
     };
 
-    private static final ArchitectureBuilder ARCHITECTURE_BUILDER = new ArchitectureBuilder();
+    private static final ArchitectureBuilderPapyrus ARCHITECTURE_BUILDER = new ArchitectureBuilderPapyrus();
     private static Architecture CURRENT_ARCHITECTURE;
 
     public static File getOrCreateDirectory(String path) {

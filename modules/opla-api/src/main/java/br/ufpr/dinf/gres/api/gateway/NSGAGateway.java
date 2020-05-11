@@ -38,6 +38,7 @@ public class NSGAGateway implements IGateway {
         configs.setNumberOfRuns(optimizationDto.getNumberRuns());
         configs.setPopulationSize(optimizationDto.getPopulationSize());
         configs.setMaxEvaluations(optimizationDto.getMaxEvaluations());
+        configs.setArchitectureBuilder(optimizationDto.getArchitectureBuilder());
         GatewayUtils.setOperators(optimizationDto, configs);
         List<String> operadores = configs.getMutationOperators();
         configs.setMutationOperators(operadores);
