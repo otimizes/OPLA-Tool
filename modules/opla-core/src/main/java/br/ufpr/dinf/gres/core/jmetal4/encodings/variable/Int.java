@@ -21,8 +21,8 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.encodings.variable;
 
-import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.common.Configuration;
+import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 
@@ -31,9 +31,6 @@ import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
  */
 public class Int extends Variable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -220713455225959427L;
     private int value_;       //Stores the value of the variable
     private int lowerBound_;  //Stores the lower limit of the variable

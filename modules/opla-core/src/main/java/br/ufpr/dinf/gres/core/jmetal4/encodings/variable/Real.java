@@ -21,8 +21,8 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.encodings.variable;
 
-import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.common.Configuration;
+import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 
@@ -32,9 +32,6 @@ import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
  */
 public class Real extends Variable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -5616809484038914366L;
 
     /**

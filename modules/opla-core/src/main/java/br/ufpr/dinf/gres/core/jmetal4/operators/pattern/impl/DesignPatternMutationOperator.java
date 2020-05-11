@@ -7,17 +7,17 @@ package br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Patterns;
+import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
+import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.AbstractMutationOperator;
+import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
+import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import br.ufpr.dinf.gres.patterns.designpatterns.DesignPattern;
 import br.ufpr.dinf.gres.patterns.models.Scope;
-import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.AbstractMutationOperator;
 import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
 import br.ufpr.dinf.gres.patterns.strategies.designpatternselection.DesignPatternSelectionStrategy;
 import br.ufpr.dinf.gres.patterns.strategies.designpatternselection.defaultstrategy.RandomDesignPatternSelection;
 import br.ufpr.dinf.gres.patterns.strategies.scopeselection.ScopeSelectionStrategy;
 import br.ufpr.dinf.gres.patterns.strategies.scopeselection.defaultstrategy.RandomScopeSelection;
-import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import org.apache.log4j.Priority;
 
 import java.util.Map;
@@ -39,7 +39,7 @@ public class DesignPatternMutationOperator extends AbstractMutationOperator {
     }
 
     @Override
-    protected boolean hookMutation(Solution solution, Double probability) throws Exception {
+    public boolean hookMutation(Solution solution, Double probability) throws Exception {
         boolean applied = false;
         if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
             if (PseudoRandom.randDouble() < probability) {
@@ -60,7 +60,6 @@ public class DesignPatternMutationOperator extends AbstractMutationOperator {
             Architecture clone = ((Architecture) solution.getDecisionVariables()[0]).deepClone();
             solution.getDecisionVariables()[0] = clone;
             OPLA.contDiscardedSolutions_++;
-            LOGGER.log(Priority.INFO, "Invalid Solution. Reverting Modifications.");
         }
         return applied;
     }
@@ -84,11 +83,13 @@ public class DesignPatternMutationOperator extends AbstractMutationOperator {
     public Architecture mutateArchitecture(Architecture architecture, ScopeSelectionStrategy scopeSelectionStartegy, DesignPatternSelectionStrategy designPatternSelectionStrategy) {
         ArchitectureRepository.setCurrentArchitecture(architecture);
         DesignPattern designPattern = designPatternSelectionStrategy.selectDesignPattern();
-        Scope scope = scopeSelectionStartegy.selectScope(architecture, Patterns.valueOf(designPattern.getName().toUpperCase()));
-        if (designPattern.randomlyVerifyAsPSOrPSPLA(scope)) {
-            if (designPattern.apply(scope)) {
-                LOGGER.log(Priority.INFO,
-                        "Design Pattern " + designPattern.getName() + " applied to scope " + scope.getElements().toString() + " successfully!");
+        if (designPattern != null) {
+            Scope scope = scopeSelectionStartegy.selectScope(architecture, Patterns.valueOf(designPattern.getName().toUpperCase()));
+            if (designPattern.randomlyVerifyAsPSOrPSPLA(scope)) {
+                if (designPattern.apply(scope)) {
+                    LOGGER.log(Priority.INFO,
+                            "Design Pattern " + designPattern.getName() + " applied to scope " + scope.getElements().toString() + " successfully!");
+                }
             }
         }
         return architecture;

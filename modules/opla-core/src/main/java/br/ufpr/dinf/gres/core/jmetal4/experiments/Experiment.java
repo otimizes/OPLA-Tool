@@ -21,12 +21,12 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
+import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.util.RBoxplot;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.util.RWilcoxon;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.util.RunExperiment;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.util.Statistics;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
 
 import java.io.*;
 import java.util.*;
@@ -39,41 +39,21 @@ import java.util.logging.Logger;
 public abstract class Experiment {
 
     public String experimentName_;
-    public String[] algorithmNameList_; // List of the names of the algorithms
-    // to be executed
-    public String[] problemList_; // List of problems to be solved
-    public String[] paretoFrontFile_; // List of the files containing the pareto
-    // fronts
-    // corresponding to the problems in problemList_
-    public String[] indicatorList_; // List of the quality indicators to be
-    // applied
-    public String experimentBaseDirectory_; // Directory to store the br.ufpr.dinf.gres.core.jmetal4.results
-    public String latexDirectory_; // Directory to store the latex files
-    public String paretoFrontDirectory_; // Directory containing the Pareto
-    // front files
-    public String outputParetoFrontFile_; // Name of the file containing the
-    // output
-    // Pareto front
-    public String outputParetoSetFile_; // Name of the file containing the
-    // output
-    // Pareto set
-    public int independentRuns_; // Number of independent runs per algorithm
-    public Settings[] algorithmSettings_; // Paremeter settings of each
-    // threads
-    public HashMap<String, Boolean> indicatorMinimize_; // To indicate whether
+    public String[] algorithmNameList_;
+    public String[] problemList_;
+    public String[] paretoFrontFile_;
+    public String[] indicatorList_;
+    public String experimentBaseDirectory_;
+    public String latexDirectory_;
+    public String paretoFrontDirectory_;
+    public String outputParetoFrontFile_;
+    public String outputParetoSetFile_;
+    public int independentRuns_;
+    public Settings[] algorithmSettings_;
+    public HashMap<String, Boolean> indicatorMinimize_;
     public Properties[] problemsSettings_;
-    // an indicator
-    // is to be minimized. Hard-coded
-    // in the constructor
-    // algorithm
-    // Algorithm[] algorithm_; // jMetal algorithms to be executed
-    HashMap<String, Object> map_; // Map used to send experiment parameters to
+    HashMap<String, Object> map_;
 
-    /**
-     * Constructor
-     * <p>
-     * Contains default settings
-     */
     public Experiment() {
         experimentName_ = "noName";
 
@@ -89,15 +69,10 @@ public abstract class Experiment {
         experimentBaseDirectory_ = "";
         paretoFrontDirectory_ = "";
         latexDirectory_ = "latex";
-
         outputParetoFrontFile_ = "FUN";
         outputParetoSetFile_ = "VAR";
-
         algorithmSettings_ = null;
-        // algorithm_ = null;
-
         independentRuns_ = 0;
-
         indicatorMinimize_ = new HashMap<String, Boolean>();
         indicatorMinimize_.put("HV", false);
         indicatorMinimize_.put("EPSILON", true);
@@ -106,17 +81,8 @@ public abstract class Experiment {
         indicatorMinimize_.put("IGD", true);
     } // Constructor
 
-    public static void main(String[] args) throws JMException, IOException {
-    }
-
-    /**
-     * Runs the experiment
-     */
-    public void runExperiment(int numberOfThreads) throws JMException,
-            IOException {
-        // Step 1: check experiment base directory
+    public void runExperiment(int numberOfThreads) {
         checkExperimentDirectory();
-
         map_.put("experimentDirectory", experimentBaseDirectory_);
         map_.put("algorithmNameList", algorithmNameList_);
         map_.put("problemList", problemList_);
@@ -127,10 +93,6 @@ public abstract class Experiment {
         map_.put("outputParetoFrontFile", outputParetoFrontFile_);
         map_.put("outputParetoSetFile", outputParetoSetFile_);
         map_.put("problemsSettings", problemsSettings_);
-
-        // SolutionSet[] resultFront = new
-        // SolutionSet[algorithmNameList_.length];
-
         if (problemList_.length < numberOfThreads) {
             numberOfThreads = problemList_.length;
             System.out
@@ -145,8 +107,6 @@ public abstract class Experiment {
 
         Thread[] p = new RunExperiment[numberOfThreads];
         for (int i = 0; i < numberOfThreads; i++) {
-            // p[i] = new Experiment(map_, i, numberOfThreads,
-            // problemList_.length);
             p[i] = new RunExperiment(this, map_, i, numberOfThreads,
                     problemList_.length);
             p[i].start();
@@ -162,16 +122,12 @@ public abstract class Experiment {
         }
     }
 
-    /**
-     * Runs the experiment
-     */
     public void runExperiment() throws JMException, IOException {
         runExperiment(1);
     } // runExperiment
 
     public void checkExperimentDirectory() {
         File experimentDirectory;
-
         experimentDirectory = new File(experimentBaseDirectory_);
         if (experimentDirectory.exists()) {
             System.out.println("Experiment directory exists");
@@ -190,15 +146,6 @@ public abstract class Experiment {
         } // else
     } // checkDirectories
 
-    /**
-     * Especifies the settings of each algorith. This method is checked in each
-     * experiment run
-     *
-     * @param problem   Problem to solve
-     * @param problemId Index of the problem in problemList_
-     * @param algorithm Array containing the algorithms to execute
-     * @throws ClassNotFoundException
-     */
     public abstract void algorithmSettings(String problemName, int problemId,
                                            Algorithm[] algorithm) throws ClassNotFoundException;
 
@@ -206,11 +153,8 @@ public abstract class Experiment {
 
     public void generateLatexTables() throws FileNotFoundException, IOException {
         latexDirectory_ = experimentBaseDirectory_ + System.getProperty("file.separator") + latexDirectory_;
-        System.out.println("latex directory: " + latexDirectory_);
-
         Vector[][][] data = new Vector[indicatorList_.length][][];
         for (int indicator = 0; indicator < indicatorList_.length; indicator++) {
-            // A data vector per problem
             data[indicator] = new Vector[problemList_.length][];
 
             for (int problem = 0; problem < problemList_.length; problem++) {
@@ -224,7 +168,6 @@ public abstract class Experiment {
                     directory += System.getProperty("file.separator") + algorithmNameList_[algorithm];
                     directory += System.getProperty("file.separator") + problemList_[problem];
                     directory += System.getProperty("file.separator") + indicatorList_[indicator];
-                    // Read values from data files
                     FileInputStream fis = new FileInputStream(directory);
                     InputStreamReader isr = new InputStreamReader(fis);
                     BufferedReader br = new BufferedReader(isr);
@@ -266,7 +209,6 @@ public abstract class Experiment {
         numberOfValues = new int[indicatorList_.length][][];
 
         for (int indicator = 0; indicator < indicatorList_.length; indicator++) {
-            // A data vector per problem
             mean[indicator] = new double[problemList_.length][];
             median[indicator] = new double[problemList_.length][];
             stdDeviation[indicator] = new double[problemList_.length][];
@@ -291,23 +233,8 @@ public abstract class Experiment {
                     directory += System.getProperty("file.separator") + algorithmNameList_[algorithm];
                     directory += System.getProperty("file.separator") + problemList_[problem];
                     directory += System.getProperty("file.separator") + indicatorList_[indicator];
-
-                    // System.out.println("----" + directory + "-----");
-                    // calculateStatistics(data[indicator][problem][algorithm],
-                    // meanV, medianV, minV, maxV, stdDeviationV, iqrV) ;
                     calculateStatistics(data[indicator][problem][algorithm],
                             statValues);
-                    /*
-                     * System.out.println("Mean: " + statValues.get("mean"));
-					 * System.out.println("Median : " +
-					 * statValues.get("median")); System.out.println("Std : " +
-					 * statValues.get("stdDeviation"));
-					 * System.out.println("IQR : " + statValues.get("iqr"));
-					 * System.out.println("Min : " + statValues.get("min"));
-					 * System.out.println("Max : " + statValues.get("max"));
-					 * System.out.println("N_values: " +
-					 * data[indicator][problem][algorithm].size()) ;
-					 */
                     mean[indicator][problem][algorithm] = statValues
                             .get("mean");
                     median[indicator][problem][algorithm] = statValues
@@ -326,7 +253,6 @@ public abstract class Experiment {
         File latexOutput;
         latexOutput = new File(latexDirectory_);
         if (!latexOutput.exists()) {
-            //boolean result = new File(latexDirectory_).mkdirs();
             System.out.println("Creating " + latexDirectory_ + " directory");
         }
         System.out.println("Experiment name: " + experimentName_);
@@ -339,13 +265,7 @@ public abstract class Experiment {
         printEndLatexCommands(latexFile);
     } // generateLatexTables
 
-    /**
-     * Calculates statistical values from a vector of Double objects
-     *
-     * @param vector
-     * @param values
-     */
-    void calculateStatistics(Vector vector, Map<String, Double> values) {
+    public void calculateStatistics(Vector vector, Map<String, Double> values) {
 
         if (vector.size() > 0) {
             double sum, sqsum, min, max, median, mean, stdDeviation;
@@ -405,7 +325,7 @@ public abstract class Experiment {
         } // else
     } // calculateStatistics
 
-    void printHeaderLatexCommands(String fileName) throws IOException {
+    public void printHeaderLatexCommands(String fileName) throws IOException {
         FileWriter os = new FileWriter(fileName, false);
         os.write("\\documentclass{article}" + "\n");
         os.write("\\title{" + experimentName_ + "}" + "\n");
@@ -417,18 +337,17 @@ public abstract class Experiment {
         os.write("\\begin{document}" + "\n");
         os.write("\\maketitle" + "\n");
         os.write("\\section{Tables}" + "\n");
-
         os.close();
     }
 
-    void printEndLatexCommands(String fileName) throws IOException {
+    public void printEndLatexCommands(String fileName) throws IOException {
         FileWriter os = new FileWriter(fileName, true);
         os.write("\\end{document}" + "\n");
         os.close();
     } // printEndLatexCommands
 
-    void printMeanStdDev(String fileName, int indicator, double[][][] mean,
-                         double[][][] stdDev) throws IOException {
+    public void printMeanStdDev(String fileName, int indicator, double[][][] mean,
+                                double[][][] stdDev) throws IOException {
         FileWriter os = new FileWriter(fileName, true);
         os.write("\\" + "\n");
         os.write("\\begin{table}" + "\n");
@@ -439,14 +358,12 @@ public abstract class Experiment {
         os.write("\\begin{scriptsize}" + "\n");
         os.write("\\begin{tabular}{l");
 
-        // calculate the number of columns
         for (int i = 0; i < algorithmNameList_.length; i++) {
             os.write("l");
         }
         os.write("}\n");
 
         os.write("\\hline");
-        // write table head
         for (int i = -1; i < algorithmNameList_.length; i++) {
             if (i == -1) {
                 os.write(" & ");
@@ -459,9 +376,7 @@ public abstract class Experiment {
         os.write("\\hline" + "\n");
 
         String m, s;
-        // write lines
         for (int i = 0; i < problemList_.length; i++) {
-            // find the best value and second best value
             double bestValue;
             double bestValueIQR;
             double secondBestValue;
@@ -469,8 +384,6 @@ public abstract class Experiment {
             int bestIndex = -1;
             int secondBestIndex = -1;
             if (indicatorMinimize_.get(indicatorList_[indicator]) == true) {// minimize
-                // by
-                // default
                 bestValue = Double.MAX_VALUE;
                 bestValueIQR = Double.MAX_VALUE;
                 secondBestValue = Double.MAX_VALUE;
@@ -539,10 +452,6 @@ public abstract class Experiment {
                     stdDev[indicator][i][algorithmNameList_.length - 1]);
             os.write("$" + m + "_{" + s + "}$ \\\\" + "\n");
         } // for
-        // os.write("" +
-        // mean[0][problemList_.length-1][algorithmNameList_.length-1] +
-        // "\\\\"+ "\n" ) ;
-
         os.write("\\hline" + "\n");
         os.write("\\end{tabular}" + "\n");
         os.write("\\end{scriptsize}" + "\n");
@@ -550,8 +459,8 @@ public abstract class Experiment {
         os.close();
     } // printMeanStdDev
 
-    void printMedianIQR(String fileName, int indicator, double[][][] median,
-                        double[][][] IQR) throws IOException {
+    public void printMedianIQR(String fileName, int indicator, double[][][] median,
+                               double[][][] IQR) throws IOException {
         FileWriter os = new FileWriter(fileName, true);
         os.write("\\" + "\n");
         os.write("\\begin{table}" + "\n");
@@ -563,14 +472,12 @@ public abstract class Experiment {
         os.write("\\centering" + "\n");
         os.write("\\begin{tabular}{l");
 
-        // calculate the number of columns
         for (int i = 0; i < algorithmNameList_.length; i++) {
             os.write("l");
         }
         os.write("}\n");
 
         os.write("\\hline");
-        // write table head
         for (int i = -1; i < algorithmNameList_.length; i++) {
             if (i == -1) {
                 os.write(" & ");
@@ -583,9 +490,7 @@ public abstract class Experiment {
         os.write("\\hline" + "\n");
 
         String m, s;
-        // write lines
         for (int i = 0; i < problemList_.length; i++) {
-            // find the best value and second best value
             double bestValue;
             double bestValueIQR;
             double secondBestValue;
@@ -593,8 +498,6 @@ public abstract class Experiment {
             int bestIndex = -1;
             int secondBestIndex = -1;
             if (indicatorMinimize_.get(indicatorList_[indicator]) == true) {// minimize
-                // by
-                // default
                 bestValue = Double.MAX_VALUE;
                 bestValueIQR = Double.MAX_VALUE;
                 secondBestValue = Double.MAX_VALUE;
@@ -662,9 +565,6 @@ public abstract class Experiment {
                     IQR[indicator][i][algorithmNameList_.length - 1]);
             os.write("$" + m + "_{" + s + "}$ \\\\" + "\n");
         } // for
-        // os.write("" +
-        // mean[0][problemList_.length-1][algorithmNameList_.length-1] +
-        // "\\\\"+ "\n" ) ;
 
         os.write("\\hline" + "\n");
         os.write("\\end{tabular}" + "\n");
@@ -673,35 +573,14 @@ public abstract class Experiment {
         os.close();
     } // printMedianIQR
 
-    /**
-     * Invoking the generateScripts method on the RBoxplot class
-     *
-     * @param rows
-     * @param cols
-     * @param problems
-     * @param prefix
-     * @param notch
-     * @param experiment
-     * @throws IOException
-     * @throws FileNotFoundException
-     */
-    void generateRBoxplotScripts(int rows, int cols, String[] problems,
-                                 String prefix, boolean notch, Experiment experiment)
+    public void generateRBoxplotScripts(int rows, int cols, String[] problems,
+                                        String prefix, boolean notch, Experiment experiment)
             throws FileNotFoundException, IOException {
         RBoxplot.generateScripts(rows, cols, problems, prefix, notch, this);
     } // generateRBoxplotScripts
 
-    /**
-     * Invoking the generateScripts method on the RWilcoxon class
-     *
-     * @param problems
-     * @param prefix
-     * @param experiment
-     * @throws FileNotFoundException
-     * @throws IOException
-     */
-    void generateRWilcoxonScripts(String[] problems, String prefix,
-                                  Experiment experiment) throws FileNotFoundException, IOException {
+    public void generateRWilcoxonScripts(String[] problems, String prefix,
+                                         Experiment experiment) throws FileNotFoundException, IOException {
         RWilcoxon.generateScripts(problems, prefix, this);
     } // generateRWilcoxonScripts
 } // Experiment

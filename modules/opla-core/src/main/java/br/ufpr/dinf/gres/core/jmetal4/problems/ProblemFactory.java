@@ -21,9 +21,9 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.problems;
 
-import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 
 import java.lang.reflect.Constructor;
 import java.util.Properties;
@@ -32,21 +32,9 @@ import java.util.Properties;
  * This class represents a factory for problems
  */
 public class ProblemFactory {
-    /**
-     * Creates an object representing a problem
-     *
-     * @param name   Name of the problem
-     * @param params Parameters characterizing the problem
-     * @return The object representing the problem
-     * @throws JMException
-     */
+
     public Problem getProblem(String name, Object[] params) throws JMException {
-        // Params are the arguments
-        // The number of argument must correspond with the problem constructor params
-
         String base = "br.ufpr.dinf.gres.core.jmetal4.core.problems.";
-
-        // editado por Thelma em agosto/2012
         if (name.substring(0, name.length()).equalsIgnoreCase("OPLA"))
             base += "OPLA.";
         else if (name.substring(0, name.length() - 1).equalsIgnoreCase("DTLZ"))
@@ -72,12 +60,10 @@ public class ProblemFactory {
             Class<?> problemClass = Class.forName(base + name);
             Constructor[] constructors = problemClass.getConstructors();
             int i = 0;
-            //find the constructor
             while ((i < constructors.length) &&
                     (constructors[i].getParameterTypes().length != params.length)) {
                 i++;
             }
-            // constructors[i] is the selected one constructor
             Problem problem = (Problem) constructors[i].newInstance(params);
             return problem;
         }// try
@@ -90,9 +76,6 @@ public class ProblemFactory {
     }
 
     public Problem getProblem(String name, Properties params) throws JMException {
-        // Params are the arguments
-        // The number of argument must correspond with the problem constructor params
-
         String base = "br.ufpr.dinf.gres.core.jmetal4.gui.problems.";
         if (name.substring(0, name.length() - 1).startsWith("DTLZ"))
             base += "DTLZ.";
@@ -115,7 +98,6 @@ public class ProblemFactory {
 
         try {
             Class<?> problemClass = Class.forName(base + name);
-            //Constructor constructors = problemClass.getConstructor(Properties.class);
             Constructor constructors = problemClass.getConstructor(Properties.class);
 
             Problem problem = (Problem) constructors.newInstance(params);

@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.core.learning;
 
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.representation.Element;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import org.apache.commons.lang.ArrayUtils;
@@ -13,14 +14,17 @@ import weka.core.DenseInstance;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 //https://stackoverflow.com/questions/28694971/using-neural-network-class-in-weka-in-java-code
 public class SubjectiveAnalyzeAlgorithm {
     private static final long serialVersionUID = 1L;
     public static final Logger LOGGER = Logger.getLogger(SubjectiveAnalyzeAlgorithm.class);
 
-    private SolutionSet resultFront;
+    private OPLASolutionSet resultFront;
     private ClassifierAlgorithm algorithm;
     private int numObjectives;
     private ArffExecution subjectiveArffExecution;
@@ -34,14 +38,14 @@ public class SubjectiveAnalyzeAlgorithm {
     private double learningRate = 0.3;
     private String hiddenLayers;
     private List<Element> evaluatedElements;
-    private List<SolutionSet> interactions = new ArrayList<>();
+    private List<OPLASolutionSet> interactions = new ArrayList<>();
     private boolean trained = false;
     public static int currentEvaluation = 0;
 
     public SubjectiveAnalyzeAlgorithm() {
     }
 
-    public SubjectiveAnalyzeAlgorithm(SolutionSet resultFront, ClassifierAlgorithm algorithm, DistributeUserEvaluation distributeUserEvaluation) {
+    public SubjectiveAnalyzeAlgorithm(OPLASolutionSet resultFront, ClassifierAlgorithm algorithm, DistributeUserEvaluation distributeUserEvaluation) {
         this.distributeUserEvaluation = distributeUserEvaluation;
         this.resultFront = resultFront;
         this.algorithm = algorithm;
@@ -51,7 +55,7 @@ public class SubjectiveAnalyzeAlgorithm {
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
     }
 
-    public SubjectiveAnalyzeAlgorithm(SolutionSet resultFront, ClassifierAlgorithm algorithm) {
+    public SubjectiveAnalyzeAlgorithm(OPLASolutionSet resultFront, ClassifierAlgorithm algorithm) {
         this.resultFront = resultFront;
         this.algorithm = algorithm;
         distributeUserEvaluations(resultFront);
@@ -60,7 +64,7 @@ public class SubjectiveAnalyzeAlgorithm {
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
     }
 
-    private void distributeUserEvaluations(SolutionSet resultFront) {
+    private void distributeUserEvaluations(OPLASolutionSet resultFront) {
         LOGGER.info("distributeUserEvaluations");
         if (ClassifierAlgorithm.CLUSTERING_MLP.equals(this.algorithm)) {
             resultFront.distributeUserEvaluation(distributeUserEvaluation);
@@ -73,7 +77,7 @@ public class SubjectiveAnalyzeAlgorithm {
      * @return Solution Set - Best performing cluster with another solutions (filteredSolutions)
      * @throws Exception Default Exception
      */
-    public SolutionSet run(SolutionSet solutionSet, boolean middle) {
+    public SolutionSet run(OPLASolutionSet solutionSet, boolean middle) {
         try {
             return MLP(solutionSet, middle);
         } catch (Exception e) {
@@ -84,7 +88,7 @@ public class SubjectiveAnalyzeAlgorithm {
 
     public void run() throws Exception {
         run(null, false);
-        for (SolutionSet interaction : interactions) {
+        for (OPLASolutionSet interaction : interactions) {
             run(interaction, false);
         }
     }
@@ -95,7 +99,7 @@ public class SubjectiveAnalyzeAlgorithm {
      * @return Solution Set
      * @throws Exception Default Exception
      */
-    public SolutionSet MLP(SolutionSet solutionSet, boolean middle) {
+    public SolutionSet MLP(OPLASolutionSet solutionSet, boolean middle) {
         currentEvaluation++;
         LOGGER.info("MLP()");
         long startsIn = new Date().getTime();
@@ -129,7 +133,7 @@ public class SubjectiveAnalyzeAlgorithm {
             }
             ArffExecution newArffSubjectiveMLP = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(), solutionSet.writeUserEvaluationsToMatrix(), null);
             newArffSubjectiveMLP.getData().setClassIndex(newArffSubjectiveMLP.getAttrIndices());
-            resultFront.getSolutionSet().addAll(solutionSet.getSolutionSet());
+            resultFront.getSolutionSet().getSolutionSet().addAll(solutionSet.getSolutionSet().getSolutionSet());
             subjectiveArffExecution.getData().addAll(newArffSubjectiveMLP.getData());
         }
         subjectiveArffExecution.getData().setClassIndex(subjectiveArffExecution.getAttrIndices());
@@ -153,7 +157,7 @@ public class SubjectiveAnalyzeAlgorithm {
         }
 
         LOGGER.info("-------------->>>>>>>>> Tempo: " + ((new Date().getTime() - startsIn) / 1000));
-        return resultFront;
+        return resultFront.getSolutionSet();
     }
 
     private void logMachineLearningModel() {
@@ -169,27 +173,27 @@ public class SubjectiveAnalyzeAlgorithm {
         printWriter.close();
     }
 
-    public void evaluateSolutionSetSubjectiveMLP(SolutionSet solutionSet) {
+    public void evaluateSolutionSetSubjectiveMLP(OPLASolutionSet solutionSet) {
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
             try {
-                solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
+                solutionSet.getSolutionSet().get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void evaluateSolutionSetSubjectiveAndArchitecturalMLP(SolutionSet solutionSet, boolean subjective) throws Exception {
+    public void evaluateSolutionSetSubjectiveAndArchitecturalMLP(OPLASolutionSet solutionSet, boolean subjective) throws Exception {
         LOGGER.info("evaluateSolutionSetSubjectiveAndArchitecturalMLP()");
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
             if (subjective) {
-                solutionSet.get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
+                solutionSet.getSolutionSet().get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
             }
-            for (Element element : solutionSet.get(i).getAlternativeArchitecture().getElementsWithPackages()) {
-                double[] data = solutionSet.get(i).getObjectives();
-                data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element, solutionSet.get(i)));
+            for (Element element : solutionSet.getSolutionSet().get(i).getAlternativeArchitecture().getElementsWithPackages()) {
+                double[] data = solutionSet.getSolutionSet().get(i).getObjectives();
+                data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element, solutionSet.getSolutionSet().get(i)));
 
-                Solution solution = solutionSet.get(i);
+                Solution solution = solutionSet.getSolutionSet().getSolutionSet().get(i);
                 double[] objectives = new double[0];
                 try {
                     objectives = solutionSet.generateSolutionFromElementsAndGetDoubles(element, solution);
@@ -200,7 +204,7 @@ public class SubjectiveAnalyzeAlgorithm {
                 data = ArrayUtils.addAll(data, objectives);
 
                 data = ArrayUtils.addAll(data, new double[]{
-                        solutionSet.get(i).containsArchitecturalEvaluation() ? 1 : 0,
+                        solutionSet.getSolutionSet().get(i).containsArchitecturalEvaluation() ? 1 : 0,
                         element.isFreezeByDM() ? 1 : 0
                 });
                 DenseInstance denseInstance = new DenseInstance(1.0, data);
@@ -292,11 +296,11 @@ public class SubjectiveAnalyzeAlgorithm {
         return LOGGER;
     }
 
-    public SolutionSet getResultFront() {
+    public OPLASolutionSet getResultFront() {
         return resultFront;
     }
 
-    public void setResultFront(SolutionSet resultFront) {
+    public void setResultFront(OPLASolutionSet resultFront) {
         this.resultFront = resultFront;
     }
 
@@ -401,7 +405,7 @@ public class SubjectiveAnalyzeAlgorithm {
         this.evaluatedElements = evaluatedElements;
     }
 
-    public void addInteraction(SolutionSet offspringPopulation) {
+    public void addInteraction(OPLASolutionSet offspringPopulation) {
         interactions.add(offspringPopulation);
     }
 
@@ -413,11 +417,11 @@ public class SubjectiveAnalyzeAlgorithm {
         this.architecturalMLP = architecturalMLP;
     }
 
-    public List<SolutionSet> getInteractions() {
+    public List<OPLASolutionSet> getInteractions() {
         return interactions;
     }
 
-    public void setInteractions(List<SolutionSet> interactions) {
+    public void setInteractions(List<OPLASolutionSet> interactions) {
         this.interactions = interactions;
     }
 

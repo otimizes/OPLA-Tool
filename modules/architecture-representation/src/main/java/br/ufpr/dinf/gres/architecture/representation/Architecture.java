@@ -8,14 +8,16 @@ import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.main.GenerateArchitecture;
 import br.ufpr.dinf.gres.architecture.main.GenerateArchitectureSMarty;
+import br.ufpr.dinf.gres.architecture.representation.architectureControl.ArchitectureFindElementControl;
+import br.ufpr.dinf.gres.architecture.representation.architectureControl.ArchitectureRemoveElementControl;
 import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.RealizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
+import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.common.Variable;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
-import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,18 +43,12 @@ public class Architecture extends Variable {
     private ArrayList<Concern> lstConcerns = new ArrayList<>();
     private ArrayList<TypeSmarty> lstTypes = new ArrayList<>();
     private boolean isSMarty = false;
-
-
     private boolean toSMarty = false;   // variável para dizer se utiliza o decoding para SMarty ou não
-
-
     private String projectID = "5b729c3f25e758ce87cf8d710761283c";
     private String projectName = "Project0";
     private String projectVersion = "1.0";
     private String diagramID = "DIAGRAM#1";
     private String diagramName = "DIAGRAM#1";
-
-
     private List<VariationPoint> lstVariationPoint = new ArrayList<>();
     private List<Variability> lstVariability = new ArrayList<>();
     private List<Variant> lstVariant = new ArrayList<>();
@@ -61,7 +57,6 @@ public class Architecture extends Variable {
     public Architecture(String name) {
         setName(name);
     }
-
 
     public ArrayList<Concern> getLstConcerns() {
         return lstConcerns;
@@ -80,52 +75,18 @@ public class Architecture extends Variable {
     }
 
     public Concern findConcernByName(String name) {
-        for (Concern c : lstConcerns) {
-            if (c.getName().equalsIgnoreCase(name)) {
-                return c;
-            }
-        }
-        return null;
+        return ArchitectureFindElementControl.getInstance().findConcernByName(this, name);
     }
 
-    public boolean hasDuplicateInterface() {
-        ArrayList<String> interfacesID = new ArrayList<>();
-        /*
-        for(Interface inter : getAllInterfaces()){
-            if(interfaces.contains(inter.getId())){
-                System.out.println("Interface Duplicada: "+inter.getId()+" - "+inter.getName());
-                return  true;
-            }
-            interfacesID.add((inter.getId()));
-        }
-        */
-        for (Interface inter : getInterfaces()) {
-            if (interfacesID.contains(inter.getId())) {
-                System.out.println("Interface Duplicada: " + inter.getId() + " - " + inter.getName());
-                return true;
-            }
-            interfacesID.add((inter.getId()));
-        }
-        for (Package pkg : getAllPackages()) {
-            for (Interface inter : pkg.getAllInterfaces()) {
-                if (interfacesID.contains(inter.getId())) {
-                    System.out.println("Interface Duplicada: " + inter.getId() + " - " + inter.getName());
-                    return true;
-                }
-                interfacesID.add((inter.getId()));
-            }
-        }
-        //System.out.println(interfacesID);
-        return false;
-    }
-
+    /**
+     * get a list of duplicated interfaces if has
+     * @return list of duplicated interfaces
+     */
     public ArrayList<Interface> getDuplicateInterface() {
         ArrayList<String> interfacesID = new ArrayList<>();
         ArrayList<Interface> interfacesDup = new ArrayList<>();
-
         for (Interface inter : getInterfaces()) {
             if (interfacesID.contains(inter.getId())) {
-                System.out.println("Interface Duplicada: " + inter.getId() + " - " + inter.getName());
                 interfacesDup.add(inter);
             }
             interfacesID.add((inter.getId()));
@@ -133,13 +94,11 @@ public class Architecture extends Variable {
         for (Package pkg : getAllPackages()) {
             for (Interface inter : pkg.getAllInterfaces()) {
                 if (interfacesID.contains(inter.getId())) {
-                    System.out.println("Interface Duplicada: " + inter.getId() + " - " + inter.getName());
                     interfacesDup.add(inter);
                 }
                 interfacesID.add((inter.getId()));
             }
         }
-        //System.out.println(interfacesID);
         return interfacesDup;
     }
 
@@ -152,55 +111,15 @@ public class Architecture extends Variable {
     }
 
     public TypeSmarty findTypeSMartyByID(String id) {
-        for (TypeSmarty typeSmarty : lstTypes) {
-            if (typeSmarty.getId().equals(id))
-                return typeSmarty;
-        }
-        return null;
+        return ArchitectureFindElementControl.getInstance().findTypeSMartyByID(this, id);
     }
 
     public TypeSmarty findTypeSMartyByName(String name) {
-        for (TypeSmarty typeSmarty : lstTypes) {
-            //System.out.println(typeSmarty.getName());
-            if (typeSmarty.getName().equals(name))
-                return typeSmarty;
-        }
-        //System.out.println("tipo: "+name+" não encontrado. Retornando tipo Object");
-        return findObjectType();
-        //return null;
-        //return findObjectType();
+        return  ArchitectureFindElementControl.getInstance().findTypeSMartyByName(this, name);
     }
 
     public TypeSmarty findReturnTypeSMartyByName(String name) {
-        if (name == null) {
-            return findVoidType();
-        }
-        if (name.length() == 0) {
-            return findVoidType();
-        }
-        for (TypeSmarty typeSmarty : lstTypes) {
-            //System.out.println(typeSmarty.getName());
-            if (typeSmarty.getName().equals(name))
-                return typeSmarty;
-        }
-        //System.out.println("tipo: "+name+" não encontrado. Retornando tipo Object");
-        return findObjectType();
-    }
-
-    public TypeSmarty findObjectType() {
-        for (TypeSmarty typeSmarty : lstTypes) {
-            if (typeSmarty.getName().equals("Object"))
-                return typeSmarty;
-        }
-        return null;
-    }
-
-    public TypeSmarty findVoidType() {
-        for (TypeSmarty typeSmarty : lstTypes) {
-            if (typeSmarty.getName().equals("void"))
-                return typeSmarty;
-        }
-        return null;
+        return  ArchitectureFindElementControl.getInstance().findReturnTypeSMartyByName(this, name);
     }
 
     public boolean isSMarty() {
@@ -259,62 +178,9 @@ public class Architecture extends Variable {
         this.diagramName = diagramName;
     }
 
-    public void clearArchitecture() {
-        this.getClasses().clear();
-        this.interfaces.clear();
-        this.packages.clear();
-        ;
-        this.relationshipHolder.getAllRelationships().clear();
+    public Element findElementByNameInPackageAndSubPackage(String elementName) {
+        return  ArchitectureFindElementControl.getInstance().findElementByNameInPackageAndSubPackage(this, elementName);
     }
-
-
-    public Element findElementByName2(String elementName) {
-
-        //System.out.println("Element:"+elementName);
-        for (Class clazz_ : this.classes) {
-            if (clazz_.getName().equals(elementName))
-                return clazz_;
-        }
-        for (Interface clazz_ : this.interfaces) {
-            if (clazz_.getName().equals(elementName))
-                return clazz_;
-        }
-
-        for (Package pkg : this.packages) {
-            for (Class clazz_ : pkg.getAllClasses()) {
-                if (clazz_.getName().equals(elementName))
-                    return clazz_;
-            }
-            for (Interface clazz_ : pkg.getAllInterfaces()) {
-                if (clazz_.getName().equals(elementName))
-                    return clazz_;
-            }
-            Element e1 = findElementByName2InSubPackage(pkg, elementName);
-            if (e1 != null)
-                return e1;
-        }
-        return null;
-    }
-
-    public Element findElementByName2InSubPackage(Package pkg1, String elementName) {
-
-
-        for (Package pkg : pkg1.getNestedPackages()) {
-            for (Class clazz_ : pkg.getAllClasses()) {
-                if (clazz_.getName().equals(elementName))
-                    return clazz_;
-            }
-            for (Interface clazz_ : pkg.getAllInterfaces()) {
-                if (clazz_.getName().equals(elementName))
-                    return clazz_;
-            }
-            Element e1 = findElementByName2InSubPackage(pkg, elementName);
-            if (e1 != null)
-                return e1;
-        }
-        return null;
-    }
-
 
     public String getName() {
         return name;
@@ -388,6 +254,18 @@ public class Architecture extends Variable {
         return Collections.unmodifiableSet(this.packages);
     }
 
+    /**
+     * Retorna um Map mutável. É feito isso para permitir que modificação seja
+     * feita diretamente na lista
+     * <p>
+     * Set<Package>
+     *
+     * @return Set<Package>
+     */
+    public Set<Package> getEditableListPackages(){
+        return this.packages;
+    }
+
     public List<Attribute> getAllAtributtes() {
         List<Attribute> attrs = new ArrayList<>();
         for (Class allClass : this.getAllClasses()) {
@@ -423,6 +301,10 @@ public class Architecture extends Variable {
         return Collections.unmodifiableSet(this.interfaces);
     }
 
+    public Set<Interface> getEditableListInterfaces() {
+        return this.interfaces;
+    }
+
     /**
      * Retorna todas as interfaces que existem na arquiteutra.
      * Este método faz um merge de todas as interfaces de todos os pacotes + as interfaces que não tem pacote
@@ -448,6 +330,10 @@ public class Architecture extends Variable {
      */
     public Set<Class> getClasses() {
         return Collections.unmodifiableSet(this.classes);
+    }
+
+    public Set<Class> getEditableListClasses() {
+        return this.classes;
     }
 
     /**
@@ -479,45 +365,8 @@ public class Architecture extends Variable {
      * @parm type - tipo do elemento (class, interface ou package)
      */
     public Element findElementByName(String name, String type) {
-        return findElement(name, type);
+        return ArchitectureFindElementControl.getInstance().findElement(this, name, type);
     }
-
-    private Element findElement(String name, String type) {
-        if (type.equalsIgnoreCase("class")) {
-            for (Element element : getClasses()) {
-                if (element.getName().equalsIgnoreCase(name))
-                    return element;
-            }
-            for (Package p : getAllPackages()) {
-                for (Element element : p.getElements()) {
-                    if (element.getName().equalsIgnoreCase(name))
-                        return element;
-                }
-            }
-        }
-
-        if (type.equalsIgnoreCase("interface")) {
-            for (Element element : getInterfaces()) {
-                if (element.getName().equalsIgnoreCase(name))
-                    return element;
-            }
-
-            for (Package p : getAllPackages()) {
-                for (Element element : p.getElements()) {
-                    if (element.getName().equalsIgnoreCase(name))
-                        return element;
-                }
-            }
-        }
-
-        if (type.equalsIgnoreCase("package")) {
-            for (Element element : getAllPackages())
-                if (element.getName().equalsIgnoreCase(name))
-                    return element;
-        }
-        return null;
-    }
-
 
     /**
      * Recupera uma classe por nome.
@@ -526,19 +375,7 @@ public class Architecture extends Variable {
      * @return {@link Class}
      */
     public List<Class> findClassByName(String className) {
-        List<Class> classesFound = new ArrayList<Class>();
-        for (Class klass : getClasses())
-            if (className.trim().equalsIgnoreCase(klass.getName().trim()))
-                classesFound.add(klass);
-
-        for (Package p : this.packages)
-            for (Class klass : p.getAllClasses())
-                if (className.trim().equalsIgnoreCase(klass.getName().trim()))
-                    classesFound.add(klass);
-
-        if (classesFound.isEmpty())
-            return null;
-        return classesFound;
+        return ArchitectureFindElementControl.getInstance().findClassByName(this, className);
     }
 
     /**
@@ -548,46 +385,11 @@ public class Architecture extends Variable {
      * @return - null se nao encontrar
      */
     public Element findElementByName(String elementName) {
-        Element element = searchRecursivellyInPackage(this.packages, elementName);
-        if (element == null) {
-            for (Class klass : this.classes)
-                if (klass.getName().equals(elementName))
-                    return klass;
-            for (Interface inter : this.interfaces)
-                if (inter.getName().equals(elementName))
-                    return inter;
-        }
-        if (element == null)
-            LOGGER.info("No element called: " + elementName + " found");
-        return element;
-    }
-
-    private Element searchRecursivellyInPackage(Set<Package> packages, String elementName) {
-        for (Package p : packages) {
-            for (Element element : p.getElements()) {
-                if (element.getName().equals(elementName))
-                    return element;
-                searchRecursivellyInPackage(p.getNestedPackages(), elementName);
-            }
-
-            if (p.getName().equals(elementName))
-                return p;
-            searchRecursivellyInPackage(p.getNestedPackages(), elementName);
-        }
-
-        return null;
+        return ArchitectureFindElementControl.getInstance().findElementByName(this, elementName);
     }
 
     public Interface findInterfaceByName(String interfaceName) {
-        for (Interface interfacee : getInterfaces())
-            if (interfaceName.equalsIgnoreCase(interfacee.getName()))
-                return interfacee;
-        for (Package p : this.packages)
-            for (Interface interfacee : p.getAllInterfaces())
-                if (interfaceName.equalsIgnoreCase(interfacee.getName()))
-                    return interfacee;
-
-        return null;
+        return ArchitectureFindElementControl.getInstance().findInterfaceByName(this, interfaceName);
     }
 
     /**
@@ -597,61 +399,17 @@ public class Architecture extends Variable {
      * @return Package
      */
     public Package findPackageByName(String packageName) {
-        for (Package pkg : getAllPackages())
-            if (packageName.equalsIgnoreCase(pkg.getName()))
-                return pkg;
-
-        return null;
+        return ArchitectureFindElementControl.getInstance().findPackageByName(this, packageName);
     }
 
     public void removeInterfaceByID(String id) {
-
-        Set<Interface> newHash = new HashSet<>();
-
-        for (Interface i : getInterfaces()) {
-            if (!i.getId().equals(id)) {
-                newHash.add(i);
-            } else {
-                relationshipHolder.removeRelatedRelationships(i);
-            }
-        }
-        this.interfaces.clear();
-        this.interfaces.addAll(newHash);
-        for (Package pkg : this.packages) {
-            pkg.removeInterfaceByID(id);
-        }
-
+        ArchitectureRemoveElementControl.getInstance().removeInterfaceByID(this, id);
     }
 
 
     public Package findPackageByID(String id) {
-        for (Package pkg : getAllPackages()) {
-            if (id.equalsIgnoreCase(pkg.getId()))
-                return pkg;
-
-            for (Package subP : pkg.getNestedPackages()) {
-                Package subPkg = findSubPackageByID(subP, id);
-                if (subPkg != null)
-                    return subPkg;
-            }
-
-        }
-        return null;
+        return ArchitectureFindElementControl.getInstance().findPackageByID(this, id);
     }
-
-    public Package findSubPackageByID(Package subPkg, String id) {
-        if (subPkg.getId().equals(id))
-            return subPkg;
-        for (Package pkg : subPkg.getNestedPackages()) {
-            if (id.equalsIgnoreCase(pkg.getId()))
-                return pkg;
-            Package subP1 = findSubPackageByID(pkg, id);
-            if (subP1 != null)
-                return subP1;
-        }
-        return null;
-    }
-
 
     public Package createPackage(String packageName) {
         Package pkg = new Package(getRelationshipHolder(), packageName);
@@ -666,19 +424,7 @@ public class Architecture extends Variable {
     }
 
     public void removePackage(Package p) {
-        if (p.isTotalyFreezed()) return;
-        /**
-         * Remove qualquer relacionamento que os elementos do pacote
-         * que esta sendo deletado possa ter.
-         */
-        for (Element element : p.getElements()) {
-            relationshipHolder.removeRelatedRelationships(element);
-        }
-        //Remove os relacionamentos que o pacote possa pertencer
-        relationshipHolder.removeRelatedRelationships(p);
-
-        this.packages.remove(p);
-        LOGGER.info("Pacote:" + p.getName() + "removido");
+        ArchitectureRemoveElementControl.getInstance().removePackage(this, p);
     }
 
     public Interface createInterface(String interfaceName) {
@@ -700,39 +446,11 @@ public class Architecture extends Variable {
     }
 
     public void removeInterface(Interface interfacee) {
-        if (interfacee.isTotalyFreezed()) return;
-        interfacee.removeInterfaceFromRequiredOrImplemented();
-        relationshipHolder.removeRelatedRelationships(interfacee);
-        if (removeInterfaceFromArch(interfacee)) {
-            LOGGER.info("Interface:" + interfacee.getName() + " removida da br.ufpr.dinf.gres.arquitetura");
-        }
-    }
-
-
-    private boolean removeInterfaceFromArch(Interface interfacee) {
-        if (!interfacee.isTotalyFreezed()) {
-            if (this.interfaces.remove(interfacee))
-                return true;
-            for (Package p : this.packages) {
-                if (p.removeInterface(interfacee))
-                    return true;
-            }
-        }
-        return false;
+        ArchitectureRemoveElementControl.getInstance().removeInterface(this, interfacee);
     }
 
     public void removeClass(Element klass) {
-        if (klass.isTotalyFreezed()) return;
-        relationshipHolder.removeRelatedRelationships(klass);
-        if (this.classes.remove(klass))
-            LOGGER.info("Classe " + klass.getName() + "(" + klass.getId() + ") removida da br.ufpr.dinf.gres.arquitetura");
-
-        for (Package pkg : this.getAllPackages()) {
-            if (pkg.getAllClasses().contains(klass)) {
-                if (pkg.removeClass(klass))
-                    LOGGER.info("Classe " + klass.getName() + "(" + klass.getId() + ") removida da br.ufpr.dinf.gres.arquitetura. Pacote(" + pkg.getName() + ")");
-            }
-        }
+        ArchitectureRemoveElementControl.getInstance().removeClass(this, klass);
     }
 
     public List<VariationPoint> getAllVariationPoints() {
@@ -749,34 +467,23 @@ public class Architecture extends Variable {
         return VariantFlyweight.getInstance().getVariants();
     }
 
+    /**
+     * return a list of variability. if input is smty, return a local list from architecture, else use flyweight
+     * @return
+     */
     public List<Variability> getAllVariabilities() {
-        //System.out.println("Is SMarty: "+isSMarty());
         if (isSMarty) {
-            //System.out.println(lstVariability);
             return lstVariability;
         }
         return VariabilityFlyweight.getInstance().getVariabilities();
     }
 
     public Class findClassById(String idClass) throws ClassNotFound {
-        for (Class klass : getClasses())
-            if (idClass.equalsIgnoreCase(klass.getId().trim()))
-                return klass;
-
-        for (Package p : getAllPackages())
-            for (Class klass : p.getAllClasses())
-                if (idClass.equalsIgnoreCase(klass.getId().trim()))
-                    return klass;
-
-        throw new ClassNotFound("Class " + idClass + " can not found.\n");
+        return  ArchitectureFindElementControl.getInstance().findClassById(this, idClass);
     }
 
     public Interface findIntefaceById(String idClass) throws ClassNotFound {
-        for (Interface klass : getInterfaces())
-            if (idClass.equalsIgnoreCase(klass.getId().trim()))
-                return klass;
-
-        throw new ClassNotFound("Class " + idClass + " can not found.\n");
+        return ArchitectureFindElementControl.getInstance().findInterfaceById(this, idClass);
     }
 
     public void addExternalInterface(Interface interface_) {
@@ -832,14 +539,14 @@ public class Architecture extends Variable {
         klass.setNamespace(ArchitectureHolder.getName() + "::" + pkg.getName());
     }
 
-
+    /**
+     * move a package to other package
+     * @param packageID - id of package that will be moved
+     * @param parentID - id of destiny package to be moved
+     */
     public void movePackageToParent(String packageID, String parentID) {
-
-
         Package origin = findPackageByID(packageID);
-        Package originParent;
         Package newParent = findPackageByID(parentID);
-
         for (Package pkg : this.packages) {
             if (packageID.equalsIgnoreCase(pkg.getId())) {
                 this.packages.remove(origin);
@@ -854,20 +561,11 @@ public class Architecture extends Variable {
                 }
                 removeSubPackageByID(subP, packageID);
             }
-
         }
-
     }
 
     public void removeSubPackageByID(Package subPkg, String id) {
-
-        for (Package pkg : subPkg.getNestedPackages()) {
-            if (id.equalsIgnoreCase(pkg.getId())) {
-                subPkg.getNestedPackages().remove(pkg);
-                return;
-            }
-            removeSubPackageByID(pkg, id);
-        }
+        ArchitectureRemoveElementControl.getInstance().removeSubPackageByID(subPkg, id);
     }
 
     private void addClassOrInterface(Element klass, Package pkg) {
@@ -878,26 +576,16 @@ public class Architecture extends Variable {
         }
     }
 
-
     public OperationsOverGeneralization forGeneralization() {
         return new OperationsOverGeneralization(this);
     }
-
 
     public OperationsOverAbstraction forAbstraction() {
         return new OperationsOverAbstraction(this);
     }
 
     public boolean removeRelationship(Relationship as) {
-        LOGGER.info("removeRelationship()");
-        if (as == null) return false;
-        if (relationshipHolder.removeRelationship(as)) {
-            LOGGER.info("Relacionamento : " + as.getType() + " removido da br.ufpr.dinf.gres.arquitetura");
-            return true;
-        } else {
-            LOGGER.info("TENTOU remover Relacionamento : " + as.getType() + " da br.ufpr.dinf.gres.arquitetura porém não consegiu");
-            return false;
-        }
+        return ArchitectureRemoveElementControl.getInstance().removeRelationship(this, as);
     }
 
     public OperationsOverUsage forUsage() {
@@ -921,7 +609,6 @@ public class Architecture extends Variable {
         return newArchitecture;
     }
 
-
     public boolean addImplementedInterface(Interface supplier, Class client) {
         if (!client.isTotalyFreezed()) {
             if (!haveRelationship(supplier, client)) {
@@ -942,7 +629,6 @@ public class Architecture extends Variable {
             if (r instanceof RealizationRelationship)
                 if (((RealizationRelationship) r).getClient().equals(client) && ((RealizationRelationship) r).getSupplier().equals(supplier))
                     return true;
-
             if (r instanceof DependencyRelationship)
                 if (((DependencyRelationship) r).getClient().equals(client) && ((DependencyRelationship) r).getSupplier().equals(supplier))
                     return true;
@@ -966,15 +652,11 @@ public class Architecture extends Variable {
     }
 
     public void removeImplementedInterface(Interface inter, Package pacote) {
-        if (inter.isTotalyFreezed() || pacote.isTotalyFreezed()) return;
-        pacote.removeImplementedInterface(inter);
-        relationshipHolder.removeRelatedRelationships(inter);
+        ArchitectureRemoveElementControl.getInstance().removeImplementedInterface(this, inter, pacote);
     }
 
     public void removeImplementedInterface(Class foo, Interface inter) {
-        if (foo.isTotalyFreezed() || inter.isTotalyFreezed()) return;
-        foo.removeImplementedInterface(inter);
-        relationshipHolder.removeRelatedRelationships(inter);
+        ArchitectureRemoveElementControl.getInstance().removeImplementedInterface(this, foo,  inter);
     }
 
     public void addRequiredInterface(Interface supplier, Class client) {
@@ -997,7 +679,6 @@ public class Architecture extends Variable {
 
     public void deleteClassRelationships(Class class_) {
         Collection<Relationship> relationships = new ArrayList<Relationship>(class_.getRelationships());
-
         if (relationships != null) {
             for (Relationship relationship : relationships) {
                 this.removeRelationship(relationship);
@@ -1019,75 +700,44 @@ public class Architecture extends Variable {
     }
 
     public Package findPackageOfClass(Class targetClass) {
-        String packageName = UtilResources.extractPackageName(targetClass.getNamespace());
-        return findPackageByName(packageName);
+        return ArchitectureFindElementControl.getInstance().findPackageOfClass(this, targetClass);
     }
 
     public Package findPackageOfElement(String id) {
-        for (Class c1 : this.classes) {
-            if (c1.getId().equals(id))
-                return null;
-        }
-        for (Interface c1 : this.interfaces) {
-            if (c1.getId().equals(id))
-                return null;
-        }
-        for (Package pkg : this.getAllPackages()) {
-            for (Class clazz : pkg.getAllClasses()) {
-                if (clazz.getId().equals(id))
-                    return pkg;
-            }
-            for (Interface c1 : pkg.getAllInterfaces()) {
-                if (c1.getId().equals(id))
-                    return null;
-            }
-        }
-        return null;
+        return ArchitectureFindElementControl.getInstance().findPackageOfElement(this, id);
     }
 
-
+    /**
+     * save an architecture to output
+     * if toSMarty is true, save to .smty format, else save to .uml
+     * @param architecture - target architecture
+     * @param pathToSave - name of the output file
+     * @param i -
+     */
     public void save(Architecture architecture, String pathToSave, String i) {
-        //GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
-        //generate.generate(architecture, pathToSave + architecture.getName() + i);
-
         if (this.toSMarty) {
             GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
             generate.generate(architecture, pathToSave + architecture.getName() + i);
-
         } else {
             GenerateArchitecture generate = new GenerateArchitecture();
             generate.generate(architecture, pathToSave + architecture.getName() + i);
         }
-
-
     }
 
-    public void save2(Architecture architecture, String pathToSave) {
+    /**
+     * save an architecture in .smty format without consider the format of input architecture
+     * @param architecture - target architecture
+     * @param pathToSave - name of output file
+     */
+    public void saveToSMarty(Architecture architecture, String pathToSave) {
         GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
         generate.generate(architecture, pathToSave);
-        /*
-        if(this.toSMarty){
-            GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
-            generate.generate(architecture, pathToSave);
-
-        }else {
-            GenerateArchitecture generate = new GenerateArchitecture();
-            generate.generate(architecture, pathToSave);
-        }
-        */
     }
-
-    private void createTempDir() {
-        String directory = ReaderConfig.getDirExportTarget() + "/TEMP";
-        File file = new File(directory);
-        file.mkdir();
-    }
-
 
     // open a temporary PLA in execution. Stop execution of OPLA-Tool while PLA is open in SMarty Modeling
-    public void openTempArch() {
-        createTempDir();
-        save2(this, "TEMP/TEMP");
+    public void openTempArchitecture() {
+        SaveStringToFile.getInstance().createTempDir();
+        saveToSMarty(this, "TEMP/TEMP");
         System.out.println("Saved");
         try {
             System.out.println(ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
@@ -1101,18 +751,6 @@ public class Architecture extends Variable {
         }
     }
 
-    public static void deleteTempFolder() {
-        String directory = ReaderConfig.getDirExportTarget() + "/TEMP";
-        File folder = new File(directory);
-        File[] files = folder.listFiles();
-        if (files != null) { //some JVMs return null for empty dirs
-            for (File f : files) {
-                f.delete();
-            }
-        }
-        folder.delete();
-    }
-
     /**
      * Procura um elemento por ID.<br>
      * Este método busca por elementos diretamente no primeiro nível da arquitetura (Ex: classes que não possuem pacotes)
@@ -1122,134 +760,8 @@ public class Architecture extends Variable {
      * @return
      */
     public Element findElementById(String xmiId) {
-        for (Class element : this.classes) {
-            if (element.getId().equals(xmiId))
-                return element;
-            for(Method m : element.getAllMethods()){
-                if(m.getId().equals(xmiId))
-                    return m;
-            }
-            for(Attribute m : element.getAllAttributes()){
-                if(m.getId().equals(xmiId))
-                    return m;
-            }
-        }
-        for (Interface element : this.interfaces) {
-            if (element.getId().equals(xmiId))
-                return element;
-            for(Method m : element.getMethods()){
-                if(m.getId().equals(xmiId))
-                    return m;
-            }
-            for(Attribute m : element.getAllAttributes()){
-                if(m.getId().equals(xmiId))
-                    return m;
-            }
-        }
-
-        for (Package p : getAllPackages()) {
-            if (p.getId().equalsIgnoreCase(xmiId))
-                return p;
-            for (Class element : p.getAllClasses()) {
-                if (element.getId().equals(xmiId))
-                    return element;
-                for(Method m : element.getAllMethods()){
-                    if(m.getId().equals(xmiId))
-                        return m;
-                }
-                for(Attribute m : element.getAllAttributes()){
-                    if(m.getId().equals(xmiId))
-                        return m;
-                }
-            }
-            for (Interface element : p.getAllInterfaces()) {
-                if (element.getId().equals(xmiId))
-                    return element;
-                for(Method m : element.getMethods()){
-                    if(m.getId().equals(xmiId))
-                        return m;
-                }
-                for(Attribute m : element.getAllAttributes()){
-                    if(m.getId().equals(xmiId))
-                        return m;
-                }
-            }
-            Element e1 = findElementInSubPackageById(p, xmiId);
-            if(e1 != null)
-                return  e1;
-        }
-
-        return null;
+        return ArchitectureFindElementControl.getInstance().findElementById(this, xmiId);
     }
-
-    public Element findElementInSubPackageById(Package pkg, String xmiId) {
-
-        if (pkg.getId().equals(xmiId)) {
-            return pkg;
-        }
-
-        for (Package p : pkg.getNestedPackages()) {
-            if (p.getId().equalsIgnoreCase(xmiId))
-                return p;
-            for (Class element : p.getAllClasses()) {
-                if (element.getId().equals(xmiId))
-                    return element;
-                for (Method m : element.getAllMethods()) {
-                    if (m.getId().equals(xmiId))
-                        return m;
-                }
-                for (Attribute m : element.getAllAttributes()) {
-                    if (m.getId().equals(xmiId))
-                        return m;
-                }
-            }
-            for (Interface element : p.getAllInterfaces()) {
-                if (element.getId().equals(xmiId))
-                    return element;
-                for (Method m : element.getMethods()) {
-                    if (m.getId().equals(xmiId))
-                        return m;
-                }
-                for (Attribute m : element.getAllAttributes()) {
-                    if (m.getId().equals(xmiId))
-                        return m;
-                }
-            }
-            Element e1 = findElementInSubPackageById(p, xmiId);
-            if (e1 != null)
-                return e1;
-
-        }
-
-        return null;
-    }
-
-    /*
-    public Element findElementById(String xmiId) {
-        for (Class element : this.classes) {
-            if (element.getId().equals(xmiId))
-                return element;
-        }
-        for (Interface element : this.interfaces) {
-            if (element.getId().equals(xmiId))
-                return element;
-        }
-        for (Package p : getAllPackages()) {
-            for (Element element : p.getElements()) {
-                if (element.getId().equalsIgnoreCase(xmiId))
-                    return element;
-            }
-        }
-
-        for (Package p : getAllPackages()) {
-            if (p.getId().equalsIgnoreCase(xmiId))
-                return p;
-        }
-
-        return null;
-    }
-
-     */
 
     /**
      * Procura um Method por ID.<br>
@@ -1259,131 +771,13 @@ public class Architecture extends Variable {
      * @param xmiId
      * @return
      */
-    public Element findMethodInSubPackageById(Package pkg, String xmiId) {
-
-        for (Package p : pkg.getNestedPackages()) {
-            for (Class element : p.getAllClasses()) {
-                for (Method m : element.getAllMethods()) {
-                    if (m.getId().equals(xmiId))
-                        return m;
-                }
-            }
-            for (Interface element : p.getAllInterfaces()) {
-                //System.out.println("Interface:"+element.getName());
-                for (Method m : element.getMethods()) {
-                    //System.out.println("method:"+m.getId()+"-"+m.getName());
-                    if (m.getId().equals(xmiId))
-                        return m;
-                }
-            }
-            Element mx = findMethodInSubPackageById(p, xmiId);
-            if (mx != null)
-                return mx;
-        }
-        return null;
-    }
-
-
     public Element findMethodById(String xmiId) {
-        for (Class element : this.classes) {
-            for (Method m : element.getAllMethods()) {
-                if (m.getId().equals(xmiId))
-                    return m;
-            }
-        }
-        for (Interface element : this.interfaces) {
-            for (Method m : element.getMethods()) {
-                if (m.getId().equals(xmiId))
-                    return m;
-            }
-        }
-        for (Package p : getAllPackages()) {
-            for (Class element : p.getAllClasses()) {
-                for (Method m : element.getAllMethods()) {
-                    if (m.getId().equals(xmiId))
-                        return m;
-                }
-            }
-            for (Interface element : p.getAllInterfaces()) {
-                //System.out.println("Interface:"+element.getName());
-                for (Method m : element.getMethods()) {
-                    //System.out.println("method:"+m.getId()+"-"+m.getName());
-                    if (m.getId().equals(xmiId))
-                        return m;
-                }
-            }
-            Element mx = findMethodInSubPackageById(p, xmiId);
-            if (mx != null)
-                return mx;
-        }
-
-        return null;
+        return ArchitectureFindElementControl.getInstance().findMethodById(this, xmiId);
     }
 
 
-    /**
-     * Procura um Method por ID.<br>
-     * Este método busca por elementos diretamente no primeiro nível da arquitetura (Ex: classes que não possuem pacotes)
-     * , e também em pacotes.<br/><br/>
-     *
-     * @param xmiId
-     * @return
-     */
     public Element findAttributeById(String xmiId) {
-        for (Class element : this.classes) {
-            for (Attribute a : element.getAllAttributes()) {
-                if (a.getId().equals(xmiId))
-                    return a;
-            }
-        }
-        for (Interface element : this.interfaces) {
-            for (Attribute a : element.getAllAttributes()) {
-                if (a.getId().equals(xmiId))
-                    return a;
-            }
-        }
-        for (Package p : getAllPackages()) {
-            for (Class element : p.getAllClasses()) {
-                for (Attribute a : element.getAllAttributes()) {
-                    if (a.getId().equals(xmiId))
-                        return a;
-                }
-            }
-            for (Interface element : p.getAllInterfaces()) {
-                for (Attribute a : element.getAllAttributes()) {
-                    if (a.getId().equals(xmiId))
-                        return a;
-                }
-            }
-            Element e1 = findAttributeInSubpackageById(p, xmiId);
-            if (e1 != null)
-                return e1;
-        }
-
-        return null;
-    }
-
-    public Element findAttributeInSubpackageById(Package pkg, String xmiId) {
-
-        for (Package p : pkg.getNestedPackages()) {
-            for (Class element : p.getAllClasses()) {
-                for (Attribute a : element.getAllAttributes()) {
-                    if (a.getId().equals(xmiId))
-                        return a;
-                }
-            }
-            for (Interface element : p.getAllInterfaces()) {
-                for (Attribute a : element.getAllAttributes()) {
-                    if (a.getId().equals(xmiId))
-                        return a;
-                }
-            }
-            Element e1 = findAttributeInSubpackageById(p, xmiId);
-            if (e1 != null)
-                return e1;
-        }
-
-        return null;
+        return ArchitectureFindElementControl.getInstance().findAttributeById(this, xmiId);
     }
 
     /**
@@ -1411,32 +805,15 @@ public class Architecture extends Variable {
     }
 
     public void removeRequiredInterface(Interface supplier, Package client) {
-        if (supplier.isTotalyFreezed() || client.isTotalyFreezed()) return;
-        if (!client.removeRequiredInterface(supplier)) ;
-        relationshipHolder.removeRelatedRelationships(supplier);
+        ArchitectureRemoveElementControl.getInstance().removeRequiredInterface(this, supplier, client);
     }
 
     public void removeRequiredInterface(Interface supplier, Class client) {
-        if (supplier.isTotalyFreezed() || client.isTotalyFreezed()) return;
-        if (!client.removeRequiredInterface(supplier)) ;
-        relationshipHolder.removeRelatedRelationships(supplier);
+        ArchitectureRemoveElementControl.getInstance().removeRequiredInterface(this, supplier, client);
     }
 
     public boolean removeOnlyElement(Element element) {
-        if (!element.isTotalyFreezed()) {
-            if (element instanceof Class) {
-                if (this.classes.remove(element)) {
-                    LOGGER.info("Classe: " + element.getName() + " removida do pacote: " + this.getName());
-                    return true;
-                }
-            } else if (element instanceof Interface) {
-                if (this.interfaces.remove(element)) {
-                    LOGGER.info("Interface: " + element.getName() + " removida do pacote: " + this.getName());
-                    return true;
-                }
-            }
-        }
-        return false;
+        return ArchitectureRemoveElementControl.getInstance().removeOnlyElement(this, element);
     }
 
     public void setCloner(Cloner cloner) {
@@ -1513,8 +890,6 @@ public class Architecture extends Variable {
             if (aClass.getAllMethods().size() != 0)
                 qtdMetodosPorClasse.add(aClass.getAllMethods().size());
         }
-
-
         List<Element> freezedElements = getFreezedElements();
         StringBuilder str = new StringBuilder();
         str.append("Packages: " + getAllPackages() +

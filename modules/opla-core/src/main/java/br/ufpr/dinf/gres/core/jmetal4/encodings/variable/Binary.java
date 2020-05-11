@@ -33,9 +33,6 @@ import java.util.BitSet;
  */
 public class Binary extends Variable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -3553927010701150789L;
 
     /**
@@ -154,9 +151,6 @@ public class Binary extends Variable {
         return distance;
     } // hammingDistance
 
-    /**
-     *
-     */
     public String toString() {
         String result;
 

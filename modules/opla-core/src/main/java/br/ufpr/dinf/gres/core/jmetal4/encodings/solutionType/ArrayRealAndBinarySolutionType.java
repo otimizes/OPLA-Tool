@@ -21,9 +21,9 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType;
 
+import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionType;
-import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.variable.ArrayReal;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.variable.Binary;
 
@@ -42,14 +42,6 @@ public class ArrayRealAndBinarySolutionType extends SolutionType {
     private int binaryStringLength_;
     private int numberOfRealVariables_;
 
-    /**
-     * Constructor
-     *
-     * @param problem
-     * @param realVariables      Number of real variables
-     * @param binaryStringLength Length of the binary string
-     * @throws ClassNotFoundException
-     */
     public ArrayRealAndBinarySolutionType(Problem problem,
                                           int realVariables,
                                           int binaryStringLength)
@@ -59,12 +51,6 @@ public class ArrayRealAndBinarySolutionType extends SolutionType {
         numberOfRealVariables_ = realVariables;
     } // Constructor
 
-    /**
-     * Creates the variables of the solution
-     *
-     * @param decisionVariables
-     * @throws ClassNotFoundException
-     */
     public Variable[] createVariables() throws ClassNotFoundException {
         Variable[] variables = new Variable[2];
 

@@ -138,3 +138,29 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 - MUOBJObjectiveFuntionRepository -> Repository of the objective function
 - MYOBJObjectiveFunctionService -> Service of the objective function
 - MYOBJObjectiveFunctionResource -> Resource of the objective function
+- It will appears in the front-end, at the Objective functions section
+
+### Implementing a new Optimization Algorithm approach
+- Put your metaheuristic in jmetal4 > metaheuristics > myoptalgpackage
+- Observe how was implemented the existent algorithms, following the current steps 
+- Create your config in jmetal4 > experiments > base inheriting the ExperimentCommonConfigs
+- Use the name of optimization algorithm config with the posfix Configs, ex: MyOptAlgConfigs
+- Create your base to the Optimization Algorithm in jmetal4 > experiments > base
+- Use the name of optimization algorithm base with the posfix OPLABase, ex: MyOptAlgOPLABase
+- In order to link the algorithm in the api, it is necessary to create the gateway into the opla-api > gateway
+- Use the name of the gateway with the posfix Gateway, ex: MyOptAlgGateway
+- Add the gateway class in enum OptimizationAlgorithm, implementing the method getType
+- It will appears in the front-end, at the Settings section
+
+### Implementing a new Mutation Operator
+
+- Create your class implementing IMutationOperator into jmetal4 > operators > mutation
+- Insert the instance of it in jmetal4 > operators > FeatureMutationOperators enum.
+- It will appears in the front-end, at the Mutation Operators section
+
+### Implementing new methods in JMetal
+- If you want to add new methods in SolutionSet, implement them at the core/OPLASolutionSet.java
+
+### Implementing tests and main classes
+- Every created method need to be in the tests at the repective module
+- You do not need to remove the main classes, but you must to maintain them in the package named main in tests

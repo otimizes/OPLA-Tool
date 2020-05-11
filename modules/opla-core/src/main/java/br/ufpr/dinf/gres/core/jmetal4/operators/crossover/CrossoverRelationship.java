@@ -1,8 +1,8 @@
 package br.ufpr.dinf.gres.core.jmetal4.operators.crossover;
 
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 
 import java.util.HashSet;
@@ -13,7 +13,6 @@ public class CrossoverRelationship {
     private static Set<Relationship> relationships = new HashSet<Relationship>();
 
     public static void saveAllRelationshiopForElement(Element element, Architecture parent, Architecture offspring) {
-
         if (element instanceof Package) {
             Package packagee = (Package) element;
             Set<Relationship> relations = packagee.getRelationships();
@@ -41,47 +40,9 @@ public class CrossoverRelationship {
             relations = null;
             return;
         }
-//		
-//		for(Relationship r : parentRelationships){
-//			if(r instanceof DependencyRelationship){
-//				if(((DependencyRelationship) r).getClient().equals(element) || (((DependencyRelationship) r).getSupplier().equals(element)))
-//					relationships.add(r);
-//			}
-//			if(r instanceof RealizationRelationship){
-//				if(((RealizationRelationship) r).getClient().equals(element) || (((RealizationRelationship) r).getSupplier().equals(element)) ){
-//					relationships.add(r);
-//				}
-//			}
-//			if(r instanceof UsageRelationship){
-//				if(((UsageRelationship) r).getClient().equals(element) || (((UsageRelationship) r).getSupplier().equals(element)) ){
-//					relationships.add(r);
-//				}
-//			}
-//			if(r instanceof AbstractionRelationship){
-//				if(((AbstractionRelationship) r).getClient().equals(element) || (((AbstractionRelationship) r).getSupplier().equals(element)) ){
-//					relationships.add(r);
-//				}
-//			}
-//			
-//			if(r instanceof GeneralizationRelationship){
-//				if(((GeneralizationRelationship) r).getParent().equals(element) || (((GeneralizationRelationship) r).getChild().equals(element)) ){
-//					relationships.add(r);
-//				}
-//			}
-//			
-//			if(r instanceof AssociationRelationship){
-//				AssociationRelationship association = (AssociationRelationship)r;
-//				for(AssociationEnd ase : association.getParticipants()){
-//					if(ase.getCLSClass().equals(element))
-//						relationships.add(r);
-//				}
-//			}
-//		}
-
     }
 
     public static void cleanRelationships() {
         relationships.clear();
     }
-
 }

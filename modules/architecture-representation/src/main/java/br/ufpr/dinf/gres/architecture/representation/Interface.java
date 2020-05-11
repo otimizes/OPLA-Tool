@@ -23,7 +23,6 @@ public class Interface extends Element {
 
     static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
     private final Set<Method> methods = new HashSet<Method>();
-    private final Set<Attribute> attributes = new HashSet<Attribute>();
     private RelationshipsHolder relationshipHolder;
     private PatternsOperations patternsOperations;
 
@@ -70,72 +69,6 @@ public class Interface extends Element {
         this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), packagee.getName()), id);
         this.setPatternOperations(new PatternsOperations());
     }
-
-
-    public Attribute createAttribute(String name, Types.Type type, VisibilityKind visibility) {
-        String id = UtilResources.getRandonUUID();
-        Attribute a = new Attribute(name, visibility.toString(), type.getName(), ArchitectureHolder.getName() + "::"
-                + this.getName(), id);
-        addExternalAttribute(a);
-        return a;
-    }
-
-    public void setAttribute(Attribute attr) {
-        this.attributes.add(attr);
-    }
-
-    public Set<Attribute> getAllAttributes() {
-        if (attributes.isEmpty())
-            return Collections.emptySet();
-        return Collections.unmodifiableSet(attributes);
-    }
-
-    public Attribute findAttributeByName(String name) throws AttributeNotFoundException {
-        String message = "atributo '" + name + "' não encontrado na classe '" + this.getName() + "'.\n";
-
-        for (Attribute att : getAllAttributes())
-            if (name.equalsIgnoreCase(att.getName()))
-                return att;
-        LOGGER.info(message);
-        throw new AttributeNotFoundException(message);
-    }
-
-    public boolean moveAttributeToInterface(Attribute attribute, Class destinationKlass) {
-        if (!destinationKlass.addExternalAttribute(attribute))
-            return false;
-
-        if (!removeAttribute(attribute)) {
-            destinationKlass.removeAttribute(attribute);
-            return false;
-        }
-        attribute.setNamespace(ArchitectureHolder.getName() + "::" + destinationKlass.getName());
-        LOGGER.info("Moveu atributo: " + attribute.getName() + " de " + this.getName() + " para "
-                + destinationKlass.getName());
-        return true;
-    }
-
-    public boolean addExternalAttribute(Attribute a) {
-        if (this.attributes.add(a)) {
-            LOGGER.info("Atributo: " + a.getName() + " adicionado na classe: " + this.getName());
-            return true;
-        } else {
-            LOGGER.info("TENTOU remover o Atributo: " + a.getName() + " da classe: " + this.getName()
-                    + " porém não consegiu");
-            return false;
-        }
-    }
-
-    public boolean removeAttribute(Attribute attribute) {
-        if (this.attributes.remove(attribute)) {
-            LOGGER.info("Atributo: " + attribute.getName() + " removido da classe: " + this.getName());
-            return true;
-        } else {
-            LOGGER.info("TENTOU remover o atributo: " + attribute.getName() + " classe: " + this.getName()
-                    + " porém não consegiu");
-            return false;
-        }
-    }
-
 
     public Set<Method> getMethods() {
         return Collections.unmodifiableSet(methods);

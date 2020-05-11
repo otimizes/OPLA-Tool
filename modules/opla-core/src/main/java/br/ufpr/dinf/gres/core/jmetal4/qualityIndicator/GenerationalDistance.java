@@ -21,6 +21,8 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.qualityIndicator;
 
+import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
+
 /**
  * This class implements the generational distance indicator. It can be used also
  * as a command line by typing:
@@ -33,9 +35,7 @@ package br.ufpr.dinf.gres.core.jmetal4.qualityIndicator;
  */
 public class GenerationalDistance {
     static final double pow_ = 2.0;          //pow. This is the pow used for the
-    //MetricsUtil funcionalities
-    br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil utils_;  //utils_ is used to access to the
-    //distances
+    public MetricsUtil utils_;  //utils_ is used to access to the
 
     /**
      * Constructor.
@@ -44,35 +44,6 @@ public class GenerationalDistance {
     public GenerationalDistance() {
         utils_ = new br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil();
     } // GenerationalDistance
-
-    /**
-     * This class can be invoqued from the command line. Two params are required:
-     * 1) the name of the file containing the front, and 2) the name of the file
-     * containig the true Pareto front
-     **/
-    public static void main(String args[]) {
-        if (args.length < 2) {
-            System.err.println("GenerationalDistance::Main: Usage: java " +
-                    "GenerationalDistance <FrontFile> " +
-                    "<TrueFrontFile>  <numberOfObjectives>");
-            System.exit(1);
-        } // if
-
-        // STEP 1. Create an instance of Generational Distance
-        GenerationalDistance qualityIndicator = new GenerationalDistance();
-
-        // STEP 2. Read the fronts from the files
-        double[][] solutionFront = qualityIndicator.utils_.readFront(args[0]);
-        double[][] trueFront = qualityIndicator.utils_.readFront(args[1]);
-
-        // STEP 3. Obtain the metric value
-        double value = qualityIndicator.generationalDistance(
-                solutionFront,
-                trueFront,
-                (new Integer(args[2])).intValue());
-
-        System.out.println(value);
-    } // main
 
     /**
      * Returns the generational distance value for a given front
@@ -107,7 +78,6 @@ public class GenerationalDistance {
         // STEP 1. Obtain the maximum and minimum values of the Pareto front
         maximumValue = utils_.getMaximumValues(trueParetoFront, numberOfObjectives);
         minimumValue = utils_.getMinimumValues(trueParetoFront, numberOfObjectives);
-
         // STEP 2. Get the normalized front and true Pareto fronts
         normalizedFront = utils_.getNormalizedFront(front,
                 maximumValue,
@@ -115,7 +85,6 @@ public class GenerationalDistance {
         normalizedParetoFront = utils_.getNormalizedFront(trueParetoFront,
                 maximumValue,
                 minimumValue);
-
         // STEP 3. Sum the distances between each point of the front and the
         // nearest point in the true Pareto front
         double sum = 0.0;
@@ -123,11 +92,8 @@ public class GenerationalDistance {
             sum += Math.pow(utils_.distanceToClosedPoint(normalizedFront[i],
                     normalizedParetoFront),
                     pow_);
-
-
         // STEP 4. Obtain the sqrt of the sum
         sum = Math.pow(sum, 1.0 / pow_);
-
         // STEP 5. Divide the sum by the maximum number of points of the front
         double generationalDistance = sum / normalizedFront.length;
 

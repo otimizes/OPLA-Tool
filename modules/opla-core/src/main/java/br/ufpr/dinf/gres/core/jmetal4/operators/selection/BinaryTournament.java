@@ -21,22 +21,21 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.operators.selection;
 
-import java.util.Comparator;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import br.ufpr.dinf.gres.core.jmetal4.util.comparators.DominanceComparator;
+import org.apache.log4j.Logger;
+
+import java.util.Comparator;
+import java.util.Map;
 
 /**
  * This class implements an binary tournament selection operator
  */
 public class BinaryTournament extends Selection {
-	
-	private static final Logger LOGGER = Logger.getLogger(BinaryTournament.class);
+
+    private static final Logger LOGGER = Logger.getLogger(BinaryTournament.class);
 
     /**
      * Stores the <code>Comparator</code> used to compare two
@@ -53,9 +52,8 @@ public class BinaryTournament extends Selection {
         if ((parameters != null) && (parameters.get("comparator") != null))
             comparator_ = (Comparator) parameters.get("comparator");
         else
-            //comparator_ = new BinaryTournamentComparator();
             comparator_ = new DominanceComparator();
-    } // BinaryTournament
+    }
 
     /**
      * Performs the operation
@@ -64,24 +62,17 @@ public class BinaryTournament extends Selection {
      * @return the selected solution
      */
     public Object execute(Object object) {
-    	LOGGER.info("execute()");
+        LOGGER.info("execute()");
         SolutionSet solutionSet = (SolutionSet) object;
         Solution solution1, solution2;
-        
-        LOGGER.info("Iniciando seleção randomina no espaço de busca de " + solutionSet.size());
         solution1 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
         solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
-        LOGGER.info("Seleção terminada");
-        
-        if (solutionSet.size() >= 2) {
-        	LOGGER.info("Soluções Iguais, buscando uma nova solução:");
-        	while (solution1 == solution2) {
-        		solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
-        	}
-        }
-        LOGGER.info("Busca concluída");
 
-        LOGGER.info("Compare");
+        if (solutionSet.size() >= 2) {
+            while (solution1 == solution2) {
+                solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
+            }
+        }
         int flag = comparator_.compare(solution1, solution2);
         if (flag == -1)
             return solution1;
@@ -91,5 +82,5 @@ public class BinaryTournament extends Selection {
             return solution1;
         else
             return solution2;
-    } // execute
-} // BinaryTournament
+    }
+}

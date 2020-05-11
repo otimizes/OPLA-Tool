@@ -120,7 +120,7 @@
     <stereotype id="STEREOTYPE#8" name="stereotype" primitive="false"/>
     <stereotype id="STEREOTYPE#3" name="variationPoint" primitive="true"/>
   </stereotypes>
-  <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5" requires="STEREOTYPE#6" mutex="STEREOTYPE#7"/>
+  <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5"/>
   <diagram id="DIAGRAM#1" name="Diagram1" type="Class">
     <package id="PACKAGE#2" name="GameGUI" mandatory="true" x="1280" y="2680" globalX="1280" globalY="2680" height="300" width="360"/>
     <package id="PACKAGE#1" name="GameCtrl" mandatory="true" x="1680" y="2680" globalX="1680" globalY="2680" height="780" width="1640"/>
@@ -818,7 +818,7 @@
       <variant id="CLASS#16"/>
       <variant id="CLASS#17"/>
     </variability>
-    <variability id="VARIABILITY#2" name="movable_sprit" variationPoint="CLASS#20" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="2">
+    <variability id="VARIABILITY#2" name="movable_sprite" variationPoint="CLASS#20" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="2">
       <variant id="CLASS#22"/>
       <variant id="CLASS#23"/>
     </variability>
@@ -826,7 +826,7 @@
       <variant id="CLASS#20"/>
       <variant id="CLASS#24"/>
     </variability>
-    <variability id="VARIABILITY#4" name="stationary_sprit" variationPoint="CLASS#24" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="5">
+    <variability id="VARIABILITY#4" name="stationary_sprite" variationPoint="CLASS#24" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="5">
       <variant id="CLASS#25"/>
       <variant id="CLASS#27"/>
       <variant id="CLASS#26"/>
@@ -1182,6 +1182,7 @@
     <link element="CLASS#26" stereotype="STEREOTYPE#4"/>
     <link element="CLASS#8" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#19" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#13" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#3" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#18" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#6" stereotype="STEREOTYPE#1"/>
@@ -1195,6 +1196,7 @@
     <link element="CLASS#30" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#11" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#12" stereotype="STEREOTYPE#1"/>
+    <link element="CLASS#10" stereotype="STEREOTYPE#1"/>
     <link element="CLASS#21" stereotype="STEREOTYPE#1"/>
     <link element="INTERFACE#9" stereotype="STEREOTYPE#1"/>
     <link element="INTERFACE#12" stereotype="STEREOTYPE#1"/>

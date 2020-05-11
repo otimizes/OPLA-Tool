@@ -22,21 +22,25 @@
 package br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII;
 
 import br.ufpr.dinf.gres.architecture.io.OPLALogs;
-import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfo;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
-import com.rits.cloning.Cloner;
+import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
+import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
+import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.*;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.ufpr.dinf.gres.core.jmetal4.util.Distance;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.util.Ranking;
 import br.ufpr.dinf.gres.core.jmetal4.util.comparators.CrowdingComparator;
 import br.ufpr.dinf.gres.core.learning.ClassifierAlgorithm;
 import br.ufpr.dinf.gres.core.learning.SubjectiveAnalyzeAlgorithm;
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
+import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
@@ -56,15 +60,15 @@ public class NSGAII extends Algorithm {
     public NSGAII(Problem problem) {
         super(problem);
 
-    } // NSGAII
+    }
 
     /**
      * Runs the NSGA-II algorithm.
      *
      * @return a <code>SolutionSet</code> that is a set of non dominated
      * solutions as a result of the algorithm execution
-     * @throws JMException
-     * @throws Exception
+     * @throws JMException default exception
+     * @throws Exception   default exception
      */
     public SolutionSet execute() throws JMException {
         LOGGER.info("Iniciando Execução");
@@ -72,9 +76,8 @@ public class NSGAII extends Algorithm {
         int maxEvaluations;
         int evaluations;
 
-        QualityIndicator indicators; // QualityIndicator object
-        int requiredEvaluations; // Use in the example of use of the
-        // indicators object (see below)
+        QualityIndicator indicators;
+        int requiredEvaluations;
 
         SolutionSet population;
         SolutionSet offspringPopulation;
@@ -87,57 +90,55 @@ public class NSGAII extends Algorithm {
         Distance distance = new Distance();
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
 
-        // Read the parameters
-        populationSize = ((Integer) getInputParameter("populationSize")).intValue();
-        maxEvaluations = ((Integer) getInputParameter("maxEvaluations")).intValue();
-        int maxInteractions = ((Integer) getInputParameter("maxInteractions")).intValue();
-        int firstInteraction = ((Integer) getInputParameter("firstInteraction")).intValue();
-        int intervalInteraction = ((Integer) getInputParameter("intervalInteraction")).intValue();
-        Boolean interactive = ((Boolean) getInputParameter("interactive")).booleanValue();
+        populationSize = (Integer) getInputParameter("populationSize");
+        maxEvaluations = (Integer) getInputParameter("maxEvaluations");
+        int maxInteractions = (Integer) getInputParameter("maxInteractions");
+        int firstInteraction = (Integer) getInputParameter("firstInteraction");
+        int intervalInteraction = (Integer) getInputParameter("intervalInteraction");
+        Boolean interactive = (Boolean) getInputParameter("interactive");
         InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
 
         int currentInteraction = 0;
         indicators = (QualityIndicator) getInputParameter("indicators");
         HashSet<Solution> bestOfUserEvaluation = new HashSet<>();
 
-        // Initialize the variables
         population = new SolutionSet(populationSize);
         evaluations = 0;
 
         requiredEvaluations = 0;
 
-        // Read the operators
         mutationOperator = operators_.get("mutation");
         crossoverOperator = operators_.get("crossover");
         selectionOperator = operators_.get("selection");
 
         try {
-            LOGGER.info("Criando População");
-            // Create the initial solutionSet
+            Solution solution_base = new Solution(problem_);
+            problem_.evaluateConstraints(solution_base);
+            problem_.evaluate(solution_base);
+            saveBaseHypervolume(solution_base);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new JMException(e.getMessage());
+        }
+        try {
             Solution newSolution;
             for (int i = 0; i < populationSize; i++) {
                 newSolution = newRandomSolution(mutationOperator);
                 evaluations++;
                 population.add(newSolution);
             }
-
         } catch (Exception e) {
-            LOGGER.error(e);
             e.printStackTrace();
             throw new JMException(e.getMessage());
         }
 
         try {
-            LOGGER.info("Iniciando evoluções");
-            // Generations
             while (evaluations < maxEvaluations) {
-                // Create the offSpring solutionSet
                 offspringPopulation = new SolutionSet(populationSize);
                 Solution[] parents = new Solution[2];
 
                 for (int i = 0; i < (populationSize / 2); i++) {
                     if (evaluations < maxEvaluations) {
-                        LOGGER.info("Origin INDIVIDUO: " + i + " evolucao: " + evaluations);
                         parents[0] = (Solution) selectionOperator.execute(population);
                         parents[1] = (Solution) selectionOperator.execute(population);
 
@@ -169,47 +170,27 @@ public class NSGAII extends Algorithm {
                     }
                 }
 
-                // Create the solutionSet union of solutionSet and offSpring
-                LOGGER.info("Union solutions");
                 union = ((SolutionSet) population).union(offspringPopulation);
-
-                // Ranking the union
-                LOGGER.info("Ranking the union");
                 Ranking ranking = new Ranking(union);
 
                 int remain = populationSize;
                 int index = 0;
                 SolutionSet front = null;
                 population.clear();
-
-                // Obtain the next front
-                LOGGER.info("getSubfront()");
                 front = ranking.getSubfront(index);
 
                 while ((remain > 0) && (remain >= front.size())) {
-                    // Assign crowding distance to individuals
-                    LOGGER.info("crowdingDistanceAssignment()");
                     distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
-                    // Add the individuals of this front
                     for (int k = 0; k < front.size(); k++) {
                         population.add(front.get(k));
                     }
-
-                    // Decrement remain
                     remain = remain - front.size();
-
-                    // Obtain the next front
                     index++;
                     if (remain > 0) {
-                        LOGGER.info("getSubfront()");
                         front = ranking.getSubfront(index);
                     }
                 }
-
-                // Remain is less than front(index).size, insert only the best
-                // one
-                if (remain > 0) { // front contains individuals to insert
-                    LOGGER.info("crowdingDistanceAssignment()");
+                if (remain > 0) {
                     distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
                     front.sort(new CrowdingComparator());
                     for (int k = 0; k < remain; k++) {
@@ -217,20 +198,9 @@ public class NSGAII extends Algorithm {
                     }
                     remain = 0;
                 }
-
-                // This piece of code shows how to use the indicator object into
-                // the code
-                // of NSGA-II. In particular, it finds the number of evaluations
-                // required
-                // by the algorithm to obtain a Pareto front with a hypervolNSGAume
-                // higher
-                // than the hypervolume of the true Pareto front.
-
                 int generation = evaluations / populationSize;
                 OPLAThreadScope.currentGeneration.set(generation);
                 OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
-                LOGGER.info(">> GENERATION " + generation);
-                // The score is set up to 0 because in future mutations the object can be modified and due to the score the modified solution is manteined imutable
                 for (Solution solution : offspringPopulation.getSolutionSet()) {
                     solution.setEvaluation(0);
 //                        If you wish block replicated freezed solutions, uncomment this line
@@ -241,27 +211,25 @@ public class NSGAII extends Algorithm {
                 if (interactive && currentInteraction < maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
                     offspringPopulation = interactiveFunction.run(offspringPopulation);
                     if (subjectiveAnalyzeAlgorithm == null) {
-                        subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(offspringPopulation, ClassifierAlgorithm.CLUSTERING_MLP);
+                        subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(offspringPopulation), ClassifierAlgorithm.CLUSTERING_MLP);
                         subjectiveAnalyzeAlgorithm.run(null, false);
                     } else {
-                        subjectiveAnalyzeAlgorithm.run(offspringPopulation, false);
+                        subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(offspringPopulation), false);
                     }
                     bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5 && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
                     currentInteraction++;
                 }
 
-//              MID MLP
                 if (interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction) {
-                    subjectiveAnalyzeAlgorithm.run(offspringPopulation, true);
+                    subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(offspringPopulation), true);
                 }
 
                 if (interactive && subjectiveAnalyzeAlgorithm != null && !subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions) {
-//                    subjectiveAnalyzeAlgorithm.run();
                     subjectiveAnalyzeAlgorithm.setTrained(true);
                 }
 
                 if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
-                    subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(offspringPopulation, true);
+                    subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(new OPLASolutionSet(offspringPopulation), true);
                 }
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
@@ -277,18 +245,11 @@ public class NSGAII extends Algorithm {
             throw new JMException(e.getMessage());
         }
 
-        // Return as output parameter the required evaluations
-        LOGGER.info("setOutputParameter()");
         setOutputParameter("evaluations", requiredEvaluations);
-
-        // Return the first non-dominated front
-        LOGGER.info("Ranking()");
         SolutionSet populationOriginal = new Cloner().shallowClone(population);
         Ranking ranking = new Ranking(population);
-
         SolutionSet subfrontToReturn = ranking.getSubfront(0);
-
-        removeRuim(subfrontToReturn, populationOriginal, interactive);
+        removeBadSolutions(subfrontToReturn, populationOriginal, interactive);
 
         subfrontToReturn.setCapacity(subfrontToReturn.getCapacity() + bestOfUserEvaluation.size());
         for (Solution solution : bestOfUserEvaluation) {
@@ -299,17 +260,16 @@ public class NSGAII extends Algorithm {
 
         if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
             try {
-                subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(subfrontToReturn, false);
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(new OPLASolutionSet(subfrontToReturn), false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
         return subfrontToReturn;
-        // return population;
-    } // execute
+    }
 
-    private void removeRuim(SolutionSet population, SolutionSet original, Boolean interactive) {
+    private void removeBadSolutions(SolutionSet population, SolutionSet original, Boolean interactive) {
         if (interactive) {
             for (int i = 0; i < population.getSolutionSet().size(); i++) {
                 if (population.get(i).getEvaluation() == 1) {
@@ -322,11 +282,29 @@ public class NSGAII extends Algorithm {
     private Solution newRandomSolution(Operator mutationOperator) throws Exception {
         Solution newSolution;
         newSolution = new Solution(problem_);
-        // criar a diversidade na populacao inicial
         mutationOperator.execute(newSolution);
         problem_.evaluate(newSolution);
 
         problem_.evaluateConstraints(newSolution);
         return newSolution;
     }
-} // NSGA-II
+
+    private void saveBaseHypervolume(Solution solution){
+        SaveStringToFile.getInstance().createLogDir();
+        String path = ReaderConfig.getDirExportTarget()+"/Logs/hypervolume_base.txt";
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            for(Double fit : solution.getObjectives()) {
+                printWriter.write(fit.toString());
+                printWriter.write(" ");
+            }
+            printWriter.close();
+            fileWriter.close();
+        }catch (Exception ex){
+            System.out.println(ex);
+            ex.printStackTrace();
+        }
+    }
+}

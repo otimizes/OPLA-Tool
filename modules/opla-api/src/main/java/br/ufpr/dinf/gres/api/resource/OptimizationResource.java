@@ -152,23 +152,7 @@ public class OptimizationResource {
 
     @PostMapping("/optimize")
     public Mono<OptimizationInfo> optimize(@RequestBody OptimizationDto optimizationDto) {
-        switch (optimizationDto.getAlgorithm()) {
-            case NSGAII:
-                return executeNSGAII(optimizationDto);
-            case PAES:
-                return executePAES(optimizationDto);
-        }
-        return executeNSGAII(optimizationDto);
-    }
-
-    @PostMapping("/nsgaii")
-    public Mono<OptimizationInfo> executeNSGAII(@RequestBody OptimizationDto optimizationDto) {
-        return optimizationService.executeNSGAII(optimizationDto);
-    }
-
-    @PostMapping("/paes")
-    public Mono<OptimizationInfo> executePAES(@RequestBody OptimizationDto optimizationDto) {
-        return optimizationService.executePAES(optimizationDto);
+        return optimizationService.execute(optimizationDto);
     }
 
 

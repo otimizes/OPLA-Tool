@@ -1,44 +1,29 @@
 package br.ufpr.dinf.gres.core.jmetal4.operators.crossover;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-
 import br.ufpr.dinf.gres.architecture.exceptions.ClassNotFound;
 import br.ufpr.dinf.gres.architecture.exceptions.ConcernNotFoundException;
 import br.ufpr.dinf.gres.architecture.exceptions.NotFoundException;
 import br.ufpr.dinf.gres.architecture.exceptions.PackageNotFound;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.architecture.representation.Attribute;
 import br.ufpr.dinf.gres.architecture.representation.Class;
-import br.ufpr.dinf.gres.architecture.representation.Concern;
-import br.ufpr.dinf.gres.architecture.representation.Element;
-import br.ufpr.dinf.gres.architecture.representation.Interface;
-import br.ufpr.dinf.gres.architecture.representation.Method;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.architecture.representation.Variability;
-import br.ufpr.dinf.gres.architecture.representation.VariationPoint;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.GeneralizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
+import br.ufpr.dinf.gres.common.Configuration;
+import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType.ArchitectureSolutionType;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
-import br.ufpr.dinf.gres.common.Configuration;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
+
+import java.util.*;
+import java.util.logging.Level;
 
 public class PLACrossover2 extends Crossover {
 
     private static final long serialVersionUID = -51015356906090226L;
     private static List VALID_TYPES = Arrays.asList(ArchitectureSolutionType.class);
-    //use "oneLevel" para n��o verificar a presen��a de interesses nos atributos e m��todos
     private static String SCOPE_LEVEL = "allLevels";
     private Double crossoverProbability_ = null;
     private CrossoverUtils crossoverutils;
@@ -115,8 +100,6 @@ public class PLACrossover2 extends Crossover {
     }
 
     public Solution[] crossoverFeatures(double probability, Solution parent1, Solution parent2, String scope) throws JMException, CloneNotSupportedException, ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException {
-
-        // STEP 0: Create two offsprings
         Solution[] offspring = new Solution[2];
         offspring[0] = new Solution(parent1);
         offspring[1] = new Solution(parent2);
@@ -124,23 +107,17 @@ public class PLACrossover2 extends Crossover {
         try {
             if (parent1.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
                 if (PseudoRandom.randDouble() < probability) {
-
-                    // STEP 1: Get feature to crossover
                     List<Concern> concernsArchitecture = new ArrayList<Concern>(((Architecture) offspring[0].getDecisionVariables()[0]).getAllConcerns());
                     Concern feature = randomObject(concernsArchitecture);
 
                     obtainChild(feature, (Architecture) parent2.getDecisionVariables()[0], (Architecture) offspring[0].getDecisionVariables()[0], scope);
-                    //Thelma - Dez2013 adicionado para descartar as solucoes com interfaces desconectadas de componentes na PLA e com variabilidades cujos pontos de variacao n��o fazem parte da solucao
                     if (!(isValidSolution((Architecture) offspring[0].getDecisionVariables()[0]))) {
-                        //offspring[0] = new Solution(parent1);
                         offspring[0] = parent1;
                         OPLA.contDiscardedSolutions_++;
                     }
                     this.variabilitiesOk = true;
                     obtainChild(feature, (Architecture) parent1.getDecisionVariables()[0], (Architecture) offspring[1].getDecisionVariables()[0], scope);
-                    //Thelma - Dez2013 adicionado para descartar as solucoes com interfaces desconectadas de componentes na PLA e com variabilidades cujos pontos de variacao n��o fazem parte da solucao
                     if (!(isValidSolution((Architecture) offspring[1].getDecisionVariables()[0]))) {
-                        //offspring[0] = new Solution(parent1);
                         offspring[0] = parent1;
                         OPLA.contDiscardedSolutions_++;
                     }
@@ -160,9 +137,7 @@ public class PLACrossover2 extends Crossover {
     }
 
     public void obtainChild(Concern feature, Architecture parent, Architecture offspring, String scope) throws ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException {
-        //eliminar os elementos arquiteturais que realizam feature em offspring
         crossoverutils.removeArchitecturalElementsRealizingFeature(feature, offspring, scope);
-//		//adicionar em offspring os elementos arquiteturais que realizam feature em parent
         addElementsToOffspring(feature, offspring, parent, scope);
         this.variabilitiesOk = updateVariabilitiesOffspring(offspring);
     }
@@ -183,7 +158,6 @@ public class PLACrossover2 extends Crossover {
     public void addElementsToOffspring(Concern feature, Architecture offspring, Architecture parent, String scope) {
         try {
             for (Package parentPackage : parent.getAllPackages()) {
-                //Cria ou adiciona o pacote de parent em offspring
                 addOrCreatePackageIntoOffspring(feature, offspring, parent, parentPackage);
             }
             CrossoverRelationship.cleanRelationships();
@@ -194,11 +168,6 @@ public class PLACrossover2 extends Crossover {
     }
 
     public void addOrCreatePackageIntoOffspring(Concern feature, Architecture offspring, Architecture parent, Package parentPackage) throws Exception {
-
-		/*
-         * Caso parentPackage cuide somente de UM interesse. Tenta localizar Pacote em offspring
-		 * Caso n��o encontrar o cria.
-		 */
         if ((parentPackage.getOwnConcerns().size() == 1) && parentPackage.containsConcern(feature)) {
             Package packageInOffspring = offspring.findPackageByName(parentPackage.getName());
             if (packageInOffspring == null)
@@ -278,7 +247,6 @@ public class PLACrossover2 extends Crossover {
                     targetClass = newComp.createClass(classComp.getName(), false);
                     targetClass.addConcern(feature.getName());
                 }
-                //classComp.moveAtaddtributeToClass(attribute, targetClass);
                 targetClass.addExternalAttribute(attribute);
             }
         }
@@ -302,21 +270,12 @@ public class PLACrossover2 extends Crossover {
                     targetClass.addConcern(feature.getName());
                 }
                 saveAllRelationshiopForElement(classComp, parent, offspring);
-                //classComp.moveMethodToClass(method, targetClass);
                 targetClass.addExternalMethod(method);
 
             }
         }
     }
 
-    /**
-     * Adicionar as interfaces que o pacote possuia em parent no pacote em offspring
-     *
-     * @param parentPackage
-     * @param packageInOffspring
-     * @param offspring
-     * @param parent
-     */
     private void addInterfacesToPackageInOffSpring(Package parentPackage, Package packageInOffspring, Architecture offspring, Architecture parent) {
         for (Interface inter : parentPackage.getAllInterfaces()) {
             packageInOffspring.addExternalInterface(inter);
@@ -383,15 +342,6 @@ public class PLACrossover2 extends Crossover {
         return pkg;
     }
 
-    /**
-     * Adiciona as classes do pacote em parent no pacote em offspring
-     *
-     * @param feature
-     * @param parentPackage
-     * @param packageInOffspring
-     * @param offspring
-     * @param parent
-     */
     private void addClassesToOffspring(Concern feature, Package parentPackage, Package packageInOffspring, Architecture offspring, Architecture parent) {
         Iterator<Class> iteratorClasses = parentPackage.getAllClasses().iterator();
         while (iteratorClasses.hasNext()) {
@@ -412,13 +362,6 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    /**
-     * Adicionar as interfaces implementadas pelo PACOTE em parent a offspring.
-     *
-     * @param parentPackage
-     * @param offspring
-     * @param parent
-     */
     private void addImplementedInterfacesByPackageInOffspring(Package parentPackage, Architecture offspring, Architecture parent) {
         final Iterator<Interface> iteratorInterfaces = parentPackage.getOnlyInterfacesImplementedByPackage().iterator();
         while (parentPackage.getOnlyInterfacesImplementedByPackage().iterator().hasNext()) {
@@ -475,11 +418,9 @@ public class PLACrossover2 extends Crossover {
     private void moveChildrenToSameComponent(Class parent, Package sourceComp, Package targetComp, Architecture offspring, Architecture parentArch) {
 
         final Collection<Element> children = getChildren(parent);
-        //move cada subclasse
         for (Element child : children) {
             moveChildrenToSameComponent((Class) child, sourceComp, targetComp, offspring, parentArch);
         }
-        //move a super classe
         if (sourceComp.getAllClasses().contains(parent)) {
             addClassToOffspring(parent, targetComp, offspring, parentArch);
         } else {
@@ -506,7 +447,6 @@ public class PLACrossover2 extends Crossover {
     }
 
     private void moveChildrenToDifferentComponent(Class root, Package newComp, Architecture offspring, Architecture parent) {
-
         final String rootPackageName = UtilResources.extractPackageName(root.getNamespace());
         Package rootTargetPackage = offspring.findPackageByName(rootPackageName);
         if (rootPackageName == null)
@@ -523,27 +463,11 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    /**
-     * Adicionar klass a targetComp em offspring.
-     *
-     * @param klass
-     * @param targetComp
-     * @param offspring
-     * @param parent
-     */
     public void addClassToOffspring(Class klass, Package targetComp, Architecture offspring, Architecture parent) {
         targetComp.addExternalClass(klass);
         saveAllRelationshiopForElement(klass, parent, offspring);
     }
 
-    /**
-     * Adiciona as interfaces implementadas por klass em offspring.
-     *
-     * @param klass
-     * @param offspring
-     * @param parent
-     * @param targetComp
-     */
     private void addInterfacesImplementedByClass(Class klass, Architecture offspring, Architecture parent, Package targetComp) {
 
         for (Interface itf : klass.getImplementedInterfaces()) {
@@ -555,14 +479,6 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    /**
-     * Adiciona as interfaces requeridas por klass em offspring
-     *
-     * @param klass
-     * @param offspring
-     * @param parent
-     * @param targetComp
-     */
     private void addInterfacesRequiredByClass(Class klass, Architecture offspring, Architecture parent, Package targetComp) {
         for (Interface itf : klass.getRequiredInterfaces()) {
             if (itf.getNamespace().equalsIgnoreCase("model"))
@@ -608,8 +524,6 @@ public class PLACrossover2 extends Crossover {
         return variabilitiesOk;
     }
 
-    // Thelma - Dez2013 m��todo adicionado
-    // verify if the architecture contains a valid PLA design, i.e., if there is not any interface without relationships in the architecture.
     private boolean isValidSolution(Architecture solution) {
         boolean isValid = true;
 

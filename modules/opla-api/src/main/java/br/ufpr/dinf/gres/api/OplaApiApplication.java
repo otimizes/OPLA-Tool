@@ -38,6 +38,7 @@ import java.nio.file.Paths;
 })
 @ComponentScan(basePackages = {
         "br.ufpr.dinf.gres.api.resource",
+        "br.ufpr.dinf.gres.api.gateway",
         "br.ufpr.dinf.gres.persistence.service",
         "br.ufpr.dinf.gres.core.jmetal4.experiments",
         "br.ufpr.dinf.gres.core.persistence",
@@ -50,14 +51,6 @@ public class OplaApiApplication {
 
     public OplaApiApplication(Environment env) {
         this.env = env;
-    }
-
-    @Bean
-    public DataSource dataSource() {
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.sqlite.JDBC");
-        dataSource.setUrl("jdbc:sqlite:/home/wmfsystem/oplatool/db/oplatool.db");
-        return dataSource;
     }
 
     @Bean

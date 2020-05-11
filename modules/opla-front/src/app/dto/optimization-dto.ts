@@ -19,7 +19,7 @@ export class OptimizationDto {
   intervalInteraction: number = 3 ;
   clusteringAlgorithm: string = "KMEANS";
   clusteringMoment: string = "POSTERIORI";
-  mutationOperators: string[] = ["featureMutation","moveMethodMutation","addClassMutation","addManagerClassMutation","moveOperationMutation"];
+  mutationOperators: string[] = ["FEATURE_MUTATION", "MOVE_METHOD_MUTATION", "MOVE_ATTRIBUTE_MUTATION", "MOVE_OPERATION_MUTATION", "ADD_CLASS_MUTATION", "ADD_MANAGER_CLASS_MUTATION"];
   patterns: string[] = [];
   objectiveFunctions: string[] = [];
   config: Config = new Config();

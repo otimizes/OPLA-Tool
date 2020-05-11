@@ -172,15 +172,10 @@ public class Solution implements Serializable {
         type_ = problem.getSolutionType();
         numberOfObjectives_ = problem.getNumberOfObjectives();
         objective_ = new double[numberOfObjectives_];
-
-        // Setting initial values
         fitness_ = 0.0;
         kDistance_ = 0.0;
         crowdingDistance_ = 0.0;
         distanceToSolutionSet_ = Double.POSITIVE_INFINITY;
-        // <-
-
-        // variable_ = problem.solutionType_.createVariables() ;
         variable_ = type_.createVariables();
     } // Solution
 
@@ -194,14 +189,10 @@ public class Solution implements Serializable {
         type_ = problem.getSolutionType();
         numberOfObjectives_ = problem.getNumberOfObjectives();
         objective_ = new double[numberOfObjectives_];
-
-        // Setting initial values
         fitness_ = 0.0;
         kDistance_ = 0.0;
         crowdingDistance_ = 0.0;
         distanceToSolutionSet_ = Double.POSITIVE_INFINITY;
-        // <-
-
         variable_ = variables;
     } // Constructor
 
@@ -213,23 +204,18 @@ public class Solution implements Serializable {
     public Solution(Solution solution) {
         problem_ = solution.problem_;
         type_ = solution.type_;
-
         numberOfObjectives_ = solution.numberOfObjectives();
         objective_ = new double[numberOfObjectives_];
         for (int i = 0; i < objective_.length; i++) {
             objective_[i] = solution.getObjective(i);
-        } // for
-        // <-
-
+        }
         if (solution.objective_temp_ != null) {
             objective_temp_ = new double[solution.objective_temp_.length];
             for (int i = 0; i < objective_temp_.length; i++) {
                 objective_temp_[i] = solution.getObjectiveTemp(i);
-            } // for
+            }
         }
-
         variable_ = type_.copyVariables(solution.variable_);
-
         overallConstraintViolation_ = solution.getOverallConstraintViolation();
         numberOfViolatedConstraints_ = solution.getNumberOfViolatedConstraint();
         distanceToSolutionSet_ = solution.getDistanceToSolutionSet();

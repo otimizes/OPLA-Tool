@@ -21,6 +21,8 @@
 
 package br.ufpr.dinf.gres.core.jmetal4.qualityIndicator;
 
+import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
+
 /**
  * This class implements the hypervolume indicator. The code is the a Java version
  * of the original metric implementation by Eckart Zitzler.
@@ -34,7 +36,7 @@ package br.ufpr.dinf.gres.core.jmetal4.qualityIndicator;
  */
 public class Hypervolume {
 
-    br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil utils_;
+    public MetricsUtil utils_;
 
     /**
      * Constructor
@@ -43,34 +45,6 @@ public class Hypervolume {
     public Hypervolume() {
         utils_ = new br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil();
     } // Hypervolume
-
-    /**
-     * This class can be invoqued from the command line. Three params are required:
-     * 1) the name of the file containing the front,
-     * 2) the name of the file containig the true Pareto front
-     * 3) the number of objectives
-     */
-    public static void main(String args[]) {
-        if (args.length < 2) {
-            System.err.println("Error using delta. Type: \n java hypervolume " +
-                    "<SolutionFrontFile>" +
-                    "<TrueFrontFile> + <numberOfObjectives>");
-            System.exit(1);
-        }
-
-        //Create a new instance of the metric
-        Hypervolume qualityIndicator = new Hypervolume();
-        //Read the front from the files
-        double[][] solutionFront = qualityIndicator.utils_.readFront(args[0]);
-        double[][] trueFront = qualityIndicator.utils_.readFront(args[1]);
-
-        //Obtain delta value
-        double value = qualityIndicator.hypervolume(solutionFront,
-                trueFront,
-                (new Integer(args[2])).intValue());
-
-        System.out.println(value);
-    } // main
 
     /*
      returns true if 'point1' dominates 'points2' with respect to the
@@ -110,7 +84,7 @@ public class Hypervolume {
             j = i + 1;
             while (j < n) {
                 if (dominates(front[i], front[j], noObjectives)) {
-    /* remove point 'j' */
+                    /* remove point 'j' */
                     n--;
                     swap(front, j, n);
                 } else if (dominates(front[j], front[i], noObjectives)) {
@@ -203,10 +177,10 @@ public class Hypervolume {
         int noPoints;
         double[][] frontPtr;
 
-    /* allocate memory */
+        /* allocate memory */
         noPoints = sizeFront1 + sizeFront2;
         frontPtr = new double[noPoints][noObjectives];
-    /* copy points */
+        /* copy points */
         noPoints = 0;
         for (i = 0; i < sizeFront1; i++) {
             for (j = 0; j < noObjectives; j++)

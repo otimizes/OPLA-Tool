@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.core.persistence;
 
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctions;
 import br.ufpr.dinf.gres.core.jmetal4.util.NonDominatedSolutionList;
 import br.ufpr.dinf.gres.domain.entity.*;
