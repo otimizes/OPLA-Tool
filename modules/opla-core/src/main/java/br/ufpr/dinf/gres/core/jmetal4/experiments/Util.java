@@ -52,7 +52,7 @@ public class Util {
     }
 
     public static void moveAllFilesToExecutionDirectory(String experiementID, String executionID) {
-        String exts[] = {"uml", "di", "notation"};
+        String[] exts = {"uml", "di", "notation"};
         @SuppressWarnings("unchecked")
         List<File> listFiles = (List<File>) FileUtils.listFiles(new File(ReaderConfig.getDirExportTarget()), exts, false);
         for (File file : listFiles) {

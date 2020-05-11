@@ -49,7 +49,7 @@ public class RBoxplot {
                                        String prefix,
                                        boolean notch,
                                        Experiment experiment)
-            throws FileNotFoundException, IOException {
+            throws IOException {
         // STEP 1. Creating R output directory
 
         String rDirectory = "R";

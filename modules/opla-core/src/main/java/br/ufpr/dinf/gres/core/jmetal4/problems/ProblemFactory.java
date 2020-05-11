@@ -35,7 +35,7 @@ public class ProblemFactory {
 
     public Problem getProblem(String name, Object[] params) throws JMException {
         String base = "br.ufpr.dinf.gres.core.jmetal4.core.problems.";
-        if (name.substring(0, name.length()).equalsIgnoreCase("OPLA"))
+        if (name.equalsIgnoreCase("OPLA"))
             base += "OPLA.";
         else if (name.substring(0, name.length() - 1).equalsIgnoreCase("DTLZ"))
             base += "DTLZ.";

@@ -7,7 +7,7 @@ public class Spread {
      * 2) the name of the file containig the true Pareto front
      * 3) the number of objectives
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         if (args.length < 2) {
             System.err.println("Spread::Main: Error using Spread. Usage: \n java " +
                     "Spread <FrontFile> <TrueFrontFile>  " +
@@ -19,8 +19,8 @@ public class Spread {
         br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.Spread qualityIndicator = new br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.Spread();
 
         // STEP 2. Read the fronts from the files
-        double[][] solutionFront = qualityIndicator.utils_.readFront(args[0]);
-        double[][] trueFront = qualityIndicator.utils_.readFront(args[1]);
+        double[][] solutionFront = br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.Spread.utils_.readFront(args[0]);
+        double[][] trueFront = br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.Spread.utils_.readFront(args[1]);
 
         // STEP 3. Obtain the metric value
         double value = qualityIndicator.spread(solutionFront, trueFront, 2);

@@ -69,7 +69,7 @@ public class NSGAIIStudy extends Experiment {
 
         rows = 2;
         columns = 3;
-        prefix = new String("Problems");
+        prefix = "Problems";
         problems = new String[]{"ZDT1", "ZDT2", "ZDT3", "ZDT4", "DTLZ1", "WFG2"};
 
         boolean notch;

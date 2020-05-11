@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.loginForm.value.loginInput, this.loginForm.value.passwordInput)
       .subscribe(result => {
         if (result.status != 'WRONG_PASSWORD') {
-          this.message.createSuccessAlert("Welcome " + result.user.login, result.status)
+          this.message.createSuccessAlert("Welcome " + result.user.login, result.status);
           this.userService.setCurrentlyUser(result.user);
           this.router.navigate(['/opla']);
         } else {

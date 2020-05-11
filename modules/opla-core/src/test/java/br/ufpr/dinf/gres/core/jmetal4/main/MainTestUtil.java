@@ -82,7 +82,7 @@ public class MainTestUtil {
         }
     } // printInformationToFile
 
-    public static void printTimeToFile(String path, int run, long time[], String pla) {
+    public static void printTimeToFile(String path, int run, long[] time, String pla) {
         try {
             /* Open the file */
             FileOutputStream fos = new FileOutputStream(path);

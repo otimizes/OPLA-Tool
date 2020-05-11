@@ -258,6 +258,6 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             wocsInterface.setWocsinterface(ObjectiveFunctions.CS.evaluate(arch));
             return wocsInterface;
         }
-    };
+    }
 
 }

@@ -60,7 +60,7 @@ public class Experiment implements Serializable {
 
     private String setCreatedAt() {
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        return dt.format(new Date()).toString();
+        return dt.format(new Date());
     }
 
 

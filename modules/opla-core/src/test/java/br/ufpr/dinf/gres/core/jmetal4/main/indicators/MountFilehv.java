@@ -7,7 +7,7 @@ import java.io.*;
 public class MountFilehv {
 
     //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException {
         String[] algoritmos = {
                 "nsgaii",
                 "paes",
@@ -56,7 +56,7 @@ public class MountFilehv {
     /**
      * Takes all files in a specified directory and merge them together...
      */
-    public static void mergeAllFiles(String fileDir) throws FileNotFoundException, IOException {
+    public static void mergeAllFiles(String fileDir) throws IOException {
         File dirSrc = new File(fileDir);
         File[] list = dirSrc.listFiles();
         for (int j = 0; j < list.length; j++) {
@@ -80,7 +80,7 @@ public class MountFilehv {
     /**
      * Takes a files and merge it together outFile...
      */
-    public static void mergeFiles(String srcFile, String outFile, String separator) throws FileNotFoundException, IOException {
+    public static void mergeFiles(String srcFile, String outFile, String separator) throws IOException {
         String lines;
         BufferedReader inFile = new BufferedReader(new FileReader(new File(srcFile)));
         BufferedWriter outPut = new BufferedWriter(new FileWriter(outFile, true));

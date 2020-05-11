@@ -92,18 +92,18 @@ public class OPLASolutionSet {
 
     public double[] generateSolutionFromElementsAndGetDoubles(Element element, Solution solution) throws ClassNotFoundException {
         Solution newSolution = new Solution(solution.getProblem());
-        ((OPLA) newSolution.getProblem()).getLOGGER().setLevel(org.apache.log4j.Level.OFF);
+        OPLA.getLOGGER().setLevel(org.apache.log4j.Level.OFF);
         newSolution.getAlternativeArchitecture().getLOGGER().setLevel(org.apache.log4j.Level.OFF);
         Architecture architecture = new Architecture("agm");
         architecture.addElement(element);
         newSolution.setDecisionVariables(new Architecture[]{architecture});
         ((OPLA) newSolution.getProblem()).evaluate(newSolution);
         try {
-            ((OPLA) newSolution.getProblem()).evaluateConstraints(newSolution);
+            newSolution.getProblem().evaluateConstraints(newSolution);
         } catch (JMException e) {
             e.printStackTrace();
         }
-        ((OPLA) newSolution.getProblem()).getLOGGER().setLevel(org.apache.log4j.Level.ALL);
+        OPLA.getLOGGER().setLevel(org.apache.log4j.Level.ALL);
         newSolution.getAlternativeArchitecture().getLOGGER().setLevel(org.apache.log4j.Level.ALL);
         return newSolution.getObjectives();
     }
@@ -137,7 +137,7 @@ public class OPLASolutionSet {
         if (biDimensionalArray.length <= 0) return new double[]{};
         double[] oneDimensionalArray = biDimensionalArray[0];
         for (int i = 1; i < biDimensionalArray.length; i++) {
-            oneDimensionalArray = (double[]) ArrayUtils.addAll(oneDimensionalArray, biDimensionalArray[i]);
+            oneDimensionalArray = ArrayUtils.addAll(oneDimensionalArray, biDimensionalArray[i]);
         }
         return oneDimensionalArray;
     }
@@ -210,7 +210,7 @@ public class OPLASolutionSet {
     public double[] writeUserEvaluationsToMatrix() {
         double[] doubles = new double[solutionSet.solutionsList_.size()];
         for (int i = 0; i < solutionSet.solutionsList_.size(); i++) {
-            doubles[i] = (double) solutionSet.solutionsList_.get(i).getEvaluation();
+            doubles[i] = solutionSet.solutionsList_.get(i).getEvaluation();
         }
         return doubles;
     }

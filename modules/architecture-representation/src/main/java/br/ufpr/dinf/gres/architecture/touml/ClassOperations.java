@@ -29,8 +29,8 @@ public class ClassOperations extends XmiHelper {
     private String idClass;
     private DocumentManager documentManager;
     private ElementXmiGenerator elementXmiGenerator;
-    private String idsProperties = new String();
-    private String idsMethods = new String();
+    private String idsProperties = "";
+    private String idsMethods = "";
     private Node klass;
     private boolean isAbstract = false;
 

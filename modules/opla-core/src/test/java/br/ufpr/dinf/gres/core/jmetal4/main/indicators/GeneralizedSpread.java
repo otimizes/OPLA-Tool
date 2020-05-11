@@ -7,7 +7,7 @@ public class GeneralizedSpread {
      * 2) the name of the file containig the true Pareto front
      * 3) the number of objectives
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         if (args.length < 3) {
             System.err.println("Error using GeneralizedSpread. " +
                     "Usage: \n java GeneralizedSpread" +
@@ -19,8 +19,8 @@ public class GeneralizedSpread {
         //Create a new instance of the metric
         br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.GeneralizedSpread qualityIndicator = new br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.GeneralizedSpread();
         //Read the front from the files
-        double[][] solutionFront = qualityIndicator.utils_.readFront(args[0]);
-        double[][] trueFront = qualityIndicator.utils_.readFront(args[1]);
+        double[][] solutionFront = br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.GeneralizedSpread.utils_.readFront(args[0]);
+        double[][] trueFront = br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.GeneralizedSpread.utils_.readFront(args[1]);
 
         //Obtain delta value
         double value = qualityIndicator.generalizedSpread(solutionFront,

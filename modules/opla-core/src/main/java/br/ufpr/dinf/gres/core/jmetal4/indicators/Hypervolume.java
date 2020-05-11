@@ -42,7 +42,7 @@ public class Hypervolume {
         double[] max = new MetricsUtil().getMaximumValues(allSolutions, objectives);
         try (FileWriter fileWriter = new FileWriter(file)) {
             for (double d : max) {
-                fileWriter.write(Double.toString(d + 0.1D) + " ");
+                fileWriter.write((d + 0.1D) + " ");
             }
         }
         return max;

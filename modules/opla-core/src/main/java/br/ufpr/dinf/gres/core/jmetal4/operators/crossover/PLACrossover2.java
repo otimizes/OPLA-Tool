@@ -403,7 +403,6 @@ public class PLACrossover2 extends Crossover {
         Package componentOfClass = null;
         componentOfClass = architecture.findPackageOfClass(class_);
         Package componentOfParent = architecture.findPackageOfClass(class_);
-        ;
         while (CrossoverOperations.isChild(parent)) {
             parent = CrossoverOperations.getParent(parent);
             componentOfParent = architecture.findPackageOfClass(parent);

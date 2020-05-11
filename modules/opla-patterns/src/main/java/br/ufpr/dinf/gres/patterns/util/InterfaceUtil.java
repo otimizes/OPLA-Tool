@@ -56,7 +56,7 @@ public class InterfaceUtil {
             String name = anInterface.getName();
             while (tempElements.contains(anInterface)) {
                 count++;
-                anInterface.setName(name + Integer.toString(count));
+                anInterface.setName(name + count);
             }
             if (naArquitetura) {
                 architecture.addExternalInterface(anInterface);

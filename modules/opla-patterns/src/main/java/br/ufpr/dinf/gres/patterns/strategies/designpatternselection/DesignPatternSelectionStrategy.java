@@ -4,6 +4,6 @@ import br.ufpr.dinf.gres.patterns.designpatterns.DesignPattern;
 
 public interface DesignPatternSelectionStrategy {
 
-    public DesignPattern selectDesignPattern();
+    DesignPattern selectDesignPattern();
 
 }

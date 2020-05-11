@@ -7,7 +7,7 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 
 public class TimeReadWritePLAs {
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
 
         String pla = "/Users/elf/Desktop/serverUFPR/experiments/PLAS/agm/agm.uml";
 

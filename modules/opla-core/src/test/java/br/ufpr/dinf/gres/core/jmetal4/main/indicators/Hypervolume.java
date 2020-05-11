@@ -8,7 +8,7 @@ public class Hypervolume {
      * 2) the name of the file containig the true Pareto front
      * 3) the number of objectives
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         if (args.length < 2) {
             System.err.println("Error using delta. Type: \n java hypervolume " +
                     "<SolutionFrontFile>" +

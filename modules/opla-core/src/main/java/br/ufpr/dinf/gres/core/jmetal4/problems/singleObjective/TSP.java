@@ -42,7 +42,7 @@ public class TSP extends Problem {
      *
      * @param filename The file containing the definition of the problem
      */
-    public TSP(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
+    public TSP(String filename) throws IOException, ClassNotFoundException {
         numberOfVariables_ = 1;
         numberOfObjectives_ = 1;
         numberOfConstraints_ = 0;
@@ -90,7 +90,7 @@ public class TSP extends Problem {
     } // evaluate
 
 
-    public void readProblem(String fileName) throws FileNotFoundException,
+    public void readProblem(String fileName) throws
             IOException {
         Reader inputFile = new BufferedReader(
                 new InputStreamReader(

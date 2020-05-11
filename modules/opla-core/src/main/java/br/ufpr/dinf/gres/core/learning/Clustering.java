@@ -315,7 +315,7 @@ public class Clustering implements Serializable {
 
     public int getGeneratedClusters() throws Exception {
         if (getClusterer() instanceof SimpleKMeans) return ((SimpleKMeans) getClusterer()).getNumClusters();
-        else return ((DBSCAN) getClusterer()).numberOfClusters();
+        else return getClusterer().numberOfClusters();
     }
 
     public void setNumClusters(Integer numClusters) {

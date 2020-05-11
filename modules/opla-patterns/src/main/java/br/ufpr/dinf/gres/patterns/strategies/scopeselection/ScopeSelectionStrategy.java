@@ -6,6 +6,6 @@ import br.ufpr.dinf.gres.patterns.models.Scope;
 
 public interface ScopeSelectionStrategy {
 
-    public Scope selectScope(Architecture architecture, Patterns designPattern);
+    Scope selectScope(Architecture architecture, Patterns designPattern);
 
 }

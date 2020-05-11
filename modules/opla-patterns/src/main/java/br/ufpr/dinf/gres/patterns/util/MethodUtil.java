@@ -115,7 +115,7 @@ public class MethodUtil {
                         continue methodFor;
                     }
                     count++;
-                    clonedMethod.setName(name + Integer.toString(count));
+                    clonedMethod.setName(name + count);
                 }
                 methods.add(clonedMethod);
             }
@@ -138,7 +138,7 @@ public class MethodUtil {
                     continue methodFor;
                 }
                 count++;
-                clonedMethod.setName(name + Integer.toString(count));
+                clonedMethod.setName(name + count);
             }
             methods.add(clonedMethod);
         }
@@ -195,7 +195,7 @@ public class MethodUtil {
                     String name = clonedParameter.getName();
                     do {
                         count++;
-                        clonedParameter.setName(name + Integer.toString(count));
+                        clonedParameter.setName(name + count);
                     } while (aParameters.contains(clonedParameter));
                     aParameters.add(clonedParameter);
                 }

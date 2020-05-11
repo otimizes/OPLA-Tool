@@ -39,9 +39,7 @@ public class VariationPoint {
     }
 
     private boolean variationPointElementIsAInterfaceOrClass(Element variationPointElement) {
-        if ((variationPointElement instanceof Class) || (variationPointElement instanceof Interface))
-            return true;
-        return false;
+        return (variationPointElement instanceof Class) || (variationPointElement instanceof Interface);
     }
 
     public Element getVariationPointElement() {

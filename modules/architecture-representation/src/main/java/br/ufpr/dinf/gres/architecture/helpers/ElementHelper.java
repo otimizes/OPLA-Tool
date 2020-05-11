@@ -52,7 +52,7 @@ public abstract class ElementHelper {
         }
 
         if (elements.isEmpty()) return Collections.emptyList();
-        return (List<T>) elements;
+        return elements;
     }
 
     private static EClass getLiteralType(String type) {

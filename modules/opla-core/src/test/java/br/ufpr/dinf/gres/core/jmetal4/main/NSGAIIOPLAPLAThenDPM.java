@@ -31,7 +31,7 @@ public class NSGAIIOPLAPLAThenDPM {
     public static double crossoverProbability_;
 
     //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException {
 
 //        args = new String[]{"100", "1000", "0.9", ArchitectureRepository.AGM, "Teste", "false"};
         if (args.length < 6) {
@@ -169,7 +169,7 @@ public class NSGAIIOPLAPLAThenDPM {
         heapSize = (heapSize / 1024) / 1024;
         System.out.println("Heap Size: " + heapSize + "Mb\n");
 
-        long time[] = new long[runsNumber];
+        long[] time = new long[runsNumber];
 
         Hypervolume.clearFile(directory + "/HYPERVOLUME.txt");
 

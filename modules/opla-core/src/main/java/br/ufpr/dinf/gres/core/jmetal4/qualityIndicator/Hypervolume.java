@@ -50,7 +50,7 @@ public class Hypervolume {
      returns true if 'point1' dominates 'points2' with respect to the
      to the first 'noObjectives' objectives
      */
-    boolean dominates(double point1[], double point2[], int noObjectives) {
+    boolean dominates(double[] point1, double[] point2, int noObjectives) {
         int i;
         int betterInAnyObjective;
 

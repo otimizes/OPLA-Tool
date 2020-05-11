@@ -4,7 +4,7 @@ import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilderPapyrus;
 
 public class Diff {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         ArchitectureBuilderPapyrus builder = new ArchitectureBuilderPapyrus();
 
         try {

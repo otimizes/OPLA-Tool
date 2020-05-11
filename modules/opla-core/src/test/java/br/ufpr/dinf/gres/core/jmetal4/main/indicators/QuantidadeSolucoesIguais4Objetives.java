@@ -9,7 +9,7 @@ import java.io.IOException;
 public class QuantidadeSolucoesIguais4Objetives {
 
     //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException {
         String[] abordagens = {
                 "MECBA",
 //            "MECBA-Clu",
@@ -33,7 +33,7 @@ public class QuantidadeSolucoesIguais4Objetives {
                     System.out.println("Approach..: " + abordagem);
                     System.out.println("Software..: " + software);
                     System.out.println("MOEA......: " + algorithm);
-                    System.out.println("");
+                    System.out.println();
 
                     int quantidadeSolucoes;
                     MetricsUtil mu = new MetricsUtil();

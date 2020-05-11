@@ -7,7 +7,7 @@ public class GenerationalDistance {
      * 1) the name of the file containing the front, and 2) the name of the file
      * containig the true Pareto front
      **/
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         if (args.length < 2) {
             System.err.println("GenerationalDistance::Main: Usage: java " +
                     "GenerationalDistance <FrontFile> " +

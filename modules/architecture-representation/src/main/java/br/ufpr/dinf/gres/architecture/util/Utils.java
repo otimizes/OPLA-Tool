@@ -28,7 +28,7 @@ public class Utils {
     private static final Logger LOGGER = Logger.getLogger(Utils.class);
 
     public static String extractSolutionIdFromSolutionFileName(String fileName) {
-        return fileName.substring(fileName.indexOf("-") + 1, fileName.length());
+        return fileName.substring(fileName.indexOf("-") + 1);
     }
 
     public static String capitalize(String word) {
@@ -86,11 +86,7 @@ public class Utils {
     }
 
     public static boolean selectedSolutionIsNonDominated(String fileName) {
-        if (fileName.startsWith("VAR_All")) {
-            return true;
-        }
-
-        return false;
+        return fileName.startsWith("VAR_All");
     }
 
     public static List<Map.Entry<String, Double>> shortMap(SortedMap<String, Double> resultsEds) {
@@ -125,7 +121,7 @@ public class Utils {
     public static String getProfilesUsedForSelectedExperiment(String selectedExperiment,
                                                               String directoryToExportModels) {
         try {
-            String exts[] = {"uml"};
+            String[] exts = {"uml"};
             StringBuilder names = new StringBuilder();
 
             StringBuilder path = new StringBuilder();

@@ -51,9 +51,7 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 
     private boolean isElementAClass(String idElement) {
         Node element = findByID(documentManager.getDocUml(), idElement, "packagedElement");
-        if ("uml:Class".equalsIgnoreCase(element.getAttributes().getNamedItem("xmi:type").getNodeValue()))
-            return true;
-        return false;
+        return "uml:Class".equalsIgnoreCase(element.getAttributes().getNamedItem("xmi:type").getNodeValue());
     }
 
     public String build() {

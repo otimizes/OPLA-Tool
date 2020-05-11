@@ -30,7 +30,7 @@ public class AlgorithmFamilyUtil {
 
                 final String iElementName = iElement.getName();
                 for (int k = 3; k <= iElementName.length(); k++) {
-                    suffixes.add(iElementName.substring(k - 3, iElementName.length()));
+                    suffixes.add(iElementName.substring(k - 3));
                     prefixes.add(iElementName.substring(0, iElementName.length() - k + 3));
                 }
 

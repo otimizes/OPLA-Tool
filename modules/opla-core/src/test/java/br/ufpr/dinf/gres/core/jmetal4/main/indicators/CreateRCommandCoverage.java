@@ -8,7 +8,7 @@ public class CreateRCommandCoverage {
 
     //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
 
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException {
 
         //String[] softwares = {"OA_AJHotDraw", "OA_AJHsqldb", "OO_BCEL", "OO_JHotDraw", "OO_MyBatis"}; //4objetives
         //String[] softwares = {"OA_AJHotDraw", "OA_AJHsqldb"}; //2objetives

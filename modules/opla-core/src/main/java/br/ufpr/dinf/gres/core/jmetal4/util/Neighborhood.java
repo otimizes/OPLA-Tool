@@ -76,7 +76,7 @@ public class Neighborhood {
         } // for
 
         //Calculate the size of a row
-        rowSize_ = (int) Math.sqrt((double) solutionSetSize_);
+        rowSize_ = (int) Math.sqrt(solutionSetSize_);
 
 
         //Calculates the neighbors of a individual
@@ -118,8 +118,6 @@ public class Neighborhood {
                     structure_[structure_[ind][0][Row.S.ordinal()]][0][Row.W.ordinal()];
         }
     } // Neighborhood
-
-    ;
 
     /**
      * Returns a <code>SolutionSet</code> with the North, Sout, East and West

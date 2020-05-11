@@ -80,11 +80,8 @@ public class MemberEnd implements Serializable {
             return false;
         MemberEnd other = (MemberEnd) obj;
         if (type == null) {
-            if (other.type != null)
-                return false;
-        } else if (!type.equals(other.type))
-            return false;
-        return true;
+            return other.type == null;
+        } else return type.equals(other.type);
     }
 
 }

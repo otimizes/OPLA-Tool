@@ -53,17 +53,11 @@ public class Multiplicity implements Serializable {
     }
 
     private boolean bothEqualsOne() {
-        if (("1".equals(this.upperValue)) && ("1".equals(this.lowerValue)))
-            return true;
-        return false;
+        return ("1".equals(this.upperValue)) && ("1".equals(this.lowerValue));
     }
 
     private boolean isCompleteMultiplicty() {
-        if ((this.lowerValue == null) || ("".equalsIgnoreCase(this.lowerValue)) && ((this.upperValue == null)) || ("".equalsIgnoreCase(this.upperValue))) {
-            return false;
-        } else {
-            return true;
-        }
+        return (this.lowerValue != null) && ((!"".equalsIgnoreCase(this.lowerValue)) || ((this.upperValue != null))) && (!"".equalsIgnoreCase(this.upperValue));
     }
 
 }

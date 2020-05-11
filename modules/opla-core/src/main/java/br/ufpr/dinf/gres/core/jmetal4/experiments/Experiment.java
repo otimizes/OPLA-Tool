@@ -149,9 +149,7 @@ public abstract class Experiment {
     public abstract void algorithmSettings(String problemName, int problemId,
                                            Algorithm[] algorithm) throws ClassNotFoundException;
 
-    ;
-
-    public void generateLatexTables() throws FileNotFoundException, IOException {
+    public void generateLatexTables() throws IOException {
         latexDirectory_ = experimentBaseDirectory_ + System.getProperty("file.separator") + latexDirectory_;
         Vector[][][] data = new Vector[indicatorList_.length][][];
         for (int indicator = 0; indicator < indicatorList_.length; indicator++) {
@@ -307,13 +305,13 @@ public abstract class Experiment {
                         .elementAt(vector.size() / 2)) / 2.0;
             } // if
 
-            values.put("mean", (Double) mean);
+            values.put("mean", mean);
             values.put("median",
                     Statistics.calculateMedian(vector, 0, vector.size() - 1));
             values.put("iqr", Statistics.calculateIQR(vector));
-            values.put("stdDeviation", (Double) stdDeviation);
-            values.put("min", (Double) min);
-            values.put("max", (Double) max);
+            values.put("stdDeviation", stdDeviation);
+            values.put("min", min);
+            values.put("max", max);
         } // if
         else {
             values.put("mean", Double.NaN);
@@ -575,12 +573,12 @@ public abstract class Experiment {
 
     public void generateRBoxplotScripts(int rows, int cols, String[] problems,
                                         String prefix, boolean notch, Experiment experiment)
-            throws FileNotFoundException, IOException {
+            throws IOException {
         RBoxplot.generateScripts(rows, cols, problems, prefix, notch, this);
     } // generateRBoxplotScripts
 
     public void generateRWilcoxonScripts(String[] problems, String prefix,
-                                         Experiment experiment) throws FileNotFoundException, IOException {
+                                         Experiment experiment) throws IOException {
         RWilcoxon.generateScripts(problems, prefix, this);
     } // generateRWilcoxonScripts
 } // Experiment

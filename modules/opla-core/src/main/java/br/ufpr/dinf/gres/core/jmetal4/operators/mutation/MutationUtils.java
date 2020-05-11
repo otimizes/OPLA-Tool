@@ -116,22 +116,16 @@ public class MutationUtils {
 
     public static boolean searchPatternsClass(Class cls) {
         boolean ap = cls.getPatternsOperations().hasPatternApplied();
-        if (ap) {
-            return false;
-        }
-        return true;
+        return !ap;
     }
 
     public static boolean searchPatternsInterface(Interface inter) {
         boolean ap = inter.getPatternsOperations().hasPatternApplied();
-        if (ap) {
-            return false;
-        }
-        return true;
+        return !ap;
     }
 
 
-    public static void moveAttribute(Architecture arch, Class targetClass, Class sourceClass) throws JMException, Exception {
+    public static void moveAttribute(Architecture arch, Class targetClass, Class sourceClass) throws Exception {
         List<Attribute> attributesClass = new ArrayList<Attribute>(sourceClass.getAllAttributes().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
         if (searchPatternsClass(targetClass) && searchPatternsClass(sourceClass)) {
             if (attributesClass.size() >= 1) {
@@ -257,7 +251,7 @@ public class MutationUtils {
     public static boolean isOptional(Architecture arch, Class cls) {
         boolean isOptional = false;
         if (cls.getVariantType() != null) {
-            if (cls.getVariantType().toString().equalsIgnoreCase("optional")) {
+            if (cls.getVariantType().equalsIgnoreCase("optional")) {
                 return true;
             }
         }

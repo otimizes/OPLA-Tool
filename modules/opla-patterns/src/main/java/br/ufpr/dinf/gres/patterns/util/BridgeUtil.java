@@ -172,14 +172,14 @@ public class BridgeUtil {
                 String abstractName = abstractClass.getName();
                 while (elements.contains(abstractClass)) {
                     count++;
-                    abstractClass.setName(abstractName + Integer.toString(count));
+                    abstractClass.setName(abstractName + count);
                 }
 
                 count = 1;
                 String concreteName = concreteClass.getName();
                 while (elements.contains(concreteClass)) {
                     count++;
-                    concreteClass.setName(concreteName + Integer.toString(count));
+                    concreteClass.setName(concreteName + count);
                 }
 
                 if (naArquitetura) {
@@ -236,7 +236,7 @@ public class BridgeUtil {
             String name = anInterface.getName();
             while (tempElements.contains(anInterface)) {
                 count++;
-                anInterface.setName(name + Integer.toString(count));
+                anInterface.setName(name + count);
             }
             if (naArquitetura) {
                 architecture.addExternalInterface(anInterface);

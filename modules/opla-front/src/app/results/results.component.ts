@@ -141,7 +141,7 @@ export class ResultsComponent implements OnInit {
         for (let i = 0; i < selectedExperiments.length; i++) {
           let experiment = selectedExperiments[i];
           let chartI = {name: experiment.id + ' - ' + experiment.name, series: []};
-          let objectiveNames = this.getObjectivesNamesByStr(experiment.experimentConfiguration.objectives)
+          let objectiveNames = this.getObjectivesNamesByStr(experiment.experimentConfiguration.objectives);
           for (let obj of experiment.objective) {
             if (obj.execution) {
               let objectives = this.getObjectivesByStr(obj.objectives);

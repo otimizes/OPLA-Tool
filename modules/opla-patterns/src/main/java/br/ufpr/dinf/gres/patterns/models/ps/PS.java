@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface PS {
 
-    public DesignPattern getPSOf();
+    DesignPattern getPSOf();
 
-    public boolean isPSOf(DesignPattern designPattern);
+    boolean isPSOf(DesignPattern designPattern);
 
-    public List<Element> getParticipants();
+    List<Element> getParticipants();
 
 }

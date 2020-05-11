@@ -212,7 +212,7 @@ public class Uml2Helper extends Base {
     }
 
     public Enumeration createEnumeration(org.eclipse.uml2.uml.Package pkg, String name) {
-        Enumeration enumeration = (Enumeration) pkg.createOwnedEnumeration(name);
+        Enumeration enumeration = pkg.createOwnedEnumeration(name);
         printLog("Enumeration '" + enumeration.getQualifiedName() + "' created.");
         return enumeration;
     }

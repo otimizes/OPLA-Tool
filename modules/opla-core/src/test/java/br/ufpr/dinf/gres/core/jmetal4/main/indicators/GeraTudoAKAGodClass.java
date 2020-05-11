@@ -18,7 +18,7 @@ public class GeraTudoAKAGodClass {
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     public static void main(String[] args)
-            throws FileNotFoundException, IOException, JMException, ClassNotFoundException, InterruptedException {
+            throws IOException, JMException, ClassNotFoundException, InterruptedException {
         String[] plas = {
                 // "MicrowaveOvenSoftware",
                 // "ServiceAndSupportSystem",
@@ -106,7 +106,7 @@ public class GeraTudoAKAGodClass {
                 stringBuilder.append("system=").append(directoryPath).append(context).append("\n");
                 stringBuilder.append("reference=\"");
                 for (double d : referencePoint) {
-                    stringBuilder.append(Double.toString(d + 0.1D)).append(" ");
+                    stringBuilder.append((d + 0.1D)).append(" ");
                 }
                 stringBuilder.deleteCharAt(stringBuilder.length() - 1);
                 stringBuilder.append("\"\n");

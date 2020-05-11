@@ -13,18 +13,18 @@ import javax.persistence.EntityManager;
  */
 public interface GenericDAO<T> extends Serializable {
 
-	public T findById(Long id);
+	T findById(Long id);
 
-	public List<T> findAll();
+	List<T> findAll();
 
-	public void save(T clazz);
+	void save(T clazz);
 
-	public void udpate(T clazz);
+	void udpate(T clazz);
 
-	public void excluir(T clazz);
+	void excluir(T clazz);
 
-	public void excluir(Long id);
+	void excluir(Long id);
 
-	public EntityManager getEntityManager();
+	EntityManager getEntityManager();
 
 }

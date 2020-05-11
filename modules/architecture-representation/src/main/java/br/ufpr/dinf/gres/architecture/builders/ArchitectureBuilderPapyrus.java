@@ -314,7 +314,7 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 
         for (org.eclipse.uml2.uml.Class class1 : classes)
-            if (ModelElementHelper.isInterface((NamedElement) class1))
+            if (ModelElementHelper.isInterface(class1))
                 listOfInterfaces.add(intefaceBuilder.create(class1));
 
         return listOfInterfaces;

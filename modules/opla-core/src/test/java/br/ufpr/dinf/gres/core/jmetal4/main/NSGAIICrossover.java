@@ -28,14 +28,14 @@ public class NSGAIICrossover {
     public static double mutationProbability_;
     public static double crossoverProbability_;
 
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException {
 
 
         int runsNumber = 30; //30;
         populationSize_ = 100; //100;
         maxEvaluations_ = 30000; //300 gerações
         int totalDiscardedSolutions = 0;
-        int discardedSolutions[] = new int[runsNumber];
+        int[] discardedSolutions = new int[runsNumber];
 
         crossoverProbability_ = 0.1;
         mutationProbability_ = 0.9;
@@ -53,7 +53,7 @@ public class NSGAIICrossover {
         }
 
 
-        String plas[] = new String[]{
+        String[] plas = new String[]{
                 "/Users/elf/mestrado/sourcesMestrado/br.ufpr.dinf.gres.arquitetura/src/test/java/resources/agmfinal/agm.uml"};
         String xmiFilePath;
 
@@ -120,7 +120,7 @@ public class NSGAIICrossover {
             int endIndex = pla.length() - 4;
             String PLAName = pla.substring(beginIndex, endIndex);
 
-            long time[] = new long[runsNumber];
+            long[] time = new long[runsNumber];
 
             for (int runs = 0; runs < runsNumber; runs++) {
                 //Thelma - Dez2013 adicao da linha abaixo

@@ -77,7 +77,7 @@ public class RelationshipsHolder {
     public List<GeneralizationRelationship> getAllGeneralizations() {
         Predicate<Relationship> isValid = new Predicate<Relationship>() {
             public boolean apply(Relationship parent) {
-                return GeneralizationRelationship.class.isInstance(parent);
+                return parent instanceof GeneralizationRelationship;
             }
         };
 
@@ -109,7 +109,7 @@ public class RelationshipsHolder {
     public List<AssociationRelationship> getAllAssociations() {
         Predicate<Relationship> isValid = new Predicate<Relationship>() {
             public boolean apply(Relationship parent) {
-                return AssociationRelationship.class.isInstance(parent);
+                return parent instanceof AssociationRelationship;
             }
         };
 
@@ -144,7 +144,7 @@ public class RelationshipsHolder {
     public List<UsageRelationship> getAllUsage() {
         Predicate<Relationship> isValid = new Predicate<Relationship>() {
             public boolean apply(Relationship parent) {
-                return UsageRelationship.class.isInstance(parent);
+                return parent instanceof UsageRelationship;
             }
         };
 
@@ -154,7 +154,7 @@ public class RelationshipsHolder {
     public List<DependencyRelationship> getAllDependencies() {
         Predicate<Relationship> isValid = new Predicate<Relationship>() {
             public boolean apply(Relationship parent) {
-                return DependencyRelationship.class.isInstance(parent);
+                return parent instanceof DependencyRelationship;
             }
         };
 
@@ -164,7 +164,7 @@ public class RelationshipsHolder {
     public List<RealizationRelationship> getAllRealizations() {
         Predicate<Relationship> realizations = new Predicate<Relationship>() {
             public boolean apply(Relationship parent) {
-                return RealizationRelationship.class.isInstance(parent);
+                return parent instanceof RealizationRelationship;
             }
         };
 
@@ -174,7 +174,7 @@ public class RelationshipsHolder {
     public List<AbstractionRelationship> getAllAbstractions() {
         Predicate<Relationship> realizations = new Predicate<Relationship>() {
             public boolean apply(Relationship parent) {
-                return AbstractionRelationship.class.isInstance(parent);
+                return parent instanceof AbstractionRelationship;
             }
         };
 
@@ -186,7 +186,7 @@ public class RelationshipsHolder {
     public List<AssociationClassRelationship> getAllAssociationsClass() {
         Predicate<Relationship> associationClasses = new Predicate<Relationship>() {
             public boolean apply(Relationship parent) {
-                return AssociationClassRelationship.class.isInstance(parent);
+                return parent instanceof AssociationClassRelationship;
             }
         };
 
@@ -216,7 +216,7 @@ public class RelationshipsHolder {
         if (relationship instanceof AbstractionRelationship)
             if (getAllAbstractions().contains(relationship)) return true;
         if (relationship instanceof AssociationClassRelationship)
-            if (getAllAssociationsClass().contains(relationship)) return true;
+            return getAllAssociationsClass().contains(relationship);
 
         return false;
 

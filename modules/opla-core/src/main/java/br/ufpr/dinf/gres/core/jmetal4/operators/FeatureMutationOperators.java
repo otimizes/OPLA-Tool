@@ -45,5 +45,5 @@ public enum FeatureMutationOperators implements IFeatureMutationOperators {
         public IMutationOperator getOperator() {
             return null;
         }
-    };
+    }
 }

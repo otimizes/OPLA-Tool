@@ -4,8 +4,8 @@ import br.ufpr.dinf.gres.patterns.designpatterns.DesignPattern;
 
 public interface PSPLA extends PS {
 
-    public DesignPattern getPSPLAOf();
+    DesignPattern getPSPLAOf();
 
-    public boolean isPSPLAOf(DesignPattern designPattern);
+    boolean isPSPLAOf(DesignPattern designPattern);
 
 }

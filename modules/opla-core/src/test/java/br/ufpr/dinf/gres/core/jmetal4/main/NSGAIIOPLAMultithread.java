@@ -140,13 +140,13 @@ public class NSGAIIOPLAMultithread {
                         try (final FileWriter runningInfo = new FileWriter(runningInfoFile, false)) {
                             runningInfo.append("# This file presents the current status of the execution.\n# It is updated every 10s.");
                             runningInfo.append("\n\n");
-                            runningInfo.append("Number of Max Threads = " + String.valueOf(MAX_THREADS));
+                            runningInfo.append("Number of Max Threads = " + MAX_THREADS);
                             runningInfo.append("\n");
-                            runningInfo.append("Number of Running Threads = " + String.valueOf(RUNNING_THREADS));
+                            runningInfo.append("Number of Running Threads = " + RUNNING_THREADS);
                             runningInfo.append("\n");
-                            runningInfo.append("Number of Remaining Threads = " + String.valueOf(getQueuedThreadsSize()));
+                            runningInfo.append("Number of Remaining Threads = " + getQueuedThreadsSize());
                             runningInfo.append("\n");
-                            runningInfo.append("Number of Successfully Finished Threads = " + String.valueOf(getFinishedThreadsSize()));
+                            runningInfo.append("Number of Successfully Finished Threads = " + getFinishedThreadsSize());
                             runningInfo.append("\n");
                             runningInfo.append("Finished Threads = " + getFinishedThreads().toString());
                             runningInfo.append("\n");
@@ -172,7 +172,7 @@ public class NSGAIIOPLAMultithread {
             public void run() {
                 Scanner scanner = new Scanner(System.in);
                 while (true) {
-                    System.out.println("");
+                    System.out.println();
                     printConsoleToken();
                     String line = scanner.nextLine();
                     switch (line) {
@@ -190,7 +190,7 @@ public class NSGAIIOPLAMultithread {
                             for (Thread thread : getQueuedThreads()) {
                                 System.out.println(thread.getName());
                             }
-                            System.out.println("");
+                            System.out.println();
                         case "p":
                             System.out.println("There are " + getActiveThreadsSize() + " threads active right now. They are:");
                             for (Thread thread : getActiveThreads()) {

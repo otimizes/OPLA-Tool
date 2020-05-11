@@ -202,8 +202,7 @@ public abstract class Element implements Serializable {
     }
 
     public void addExternalConcern(Concern concern){
-        if(!concerns.contains(concern))
-            concerns.add(concern);
+        concerns.add(concern);
     }
 
 
@@ -326,7 +325,7 @@ public abstract class Element implements Serializable {
         String objClass = obj.getClass().toString();
         if (this == obj)
             return true;
-        if (!getClass().toString().equals(objClass.toString()))
+        if (!getClass().toString().equals(objClass))
             return false;
         Element other = (Element) obj;
         if (name == null) {
@@ -335,11 +334,8 @@ public abstract class Element implements Serializable {
         } else if (!name.equals(other.name))
             return false;
         if (namespace == null) {
-            if (other.namespace != null)
-                return false;
-        } else if (!namespace.equals(other.namespace))
-            return false;
-        return true;
+            return other.namespace == null;
+        } else return namespace.equals(other.namespace);
     }
 
     public boolean totalyEquals(Element other) {

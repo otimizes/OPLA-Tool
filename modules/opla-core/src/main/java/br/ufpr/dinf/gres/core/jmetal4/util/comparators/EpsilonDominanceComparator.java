@@ -84,7 +84,7 @@ public class EpsilonDominanceComparator implements Comparator {
 
         double value1, value2;
         // Idem number of violated constraint. Apply a dominance Test
-        for (int i = 0; i < ((Solution) solution1).numberOfObjectives(); i++) {
+        for (int i = 0; i < solution1.numberOfObjectives(); i++) {
             value1 = solution1.getObjective(i);
             value2 = solution2.getObjective(i);
 

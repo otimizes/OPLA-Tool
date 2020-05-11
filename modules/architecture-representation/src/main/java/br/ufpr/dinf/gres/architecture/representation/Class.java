@@ -364,7 +364,7 @@ public class Class extends Element {
 
     public Class deepClone() throws CloneNotSupportedException {
         Cloner cloner = new Cloner();
-        Class klass = (Class) cloner.deepClone(this);
+        Class klass = cloner.deepClone(this);
         cloner = null;
         return klass;
     }

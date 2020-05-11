@@ -112,9 +112,7 @@ public class Strategy extends DesignPattern {
             Interface strategyInterface = StrategyUtil.getStrategyInterfaceFromAlgorithmFamily(algorithmFamily);
             if (strategyInterface == null) {
                 strategyInterface = StrategyUtil.createStrategyInterfaceForAlgorithmFamily(algorithmFamily);
-            } else if (participants.contains(strategyInterface)) {
-                participants.remove(strategyInterface);
-            }
+            } else participants.remove(strategyInterface);
 
             //Implement
             //TODO - Édipo - Adicionar estereótipos Strategy.

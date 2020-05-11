@@ -138,7 +138,7 @@ public class PLAMutation extends AbstractMutationOperator {
         return false;
     }
 
-    private void moveAttribute(Architecture arch, br.ufpr.dinf.gres.architecture.representation.Class targetClass, br.ufpr.dinf.gres.architecture.representation.Class sourceClass) throws JMException, Exception {
+    private void moveAttribute(Architecture arch, br.ufpr.dinf.gres.architecture.representation.Class targetClass, br.ufpr.dinf.gres.architecture.representation.Class sourceClass) throws Exception {
         List<Attribute> attributesClass = new ArrayList<Attribute>(sourceClass.getAllAttributes());
         if (attributesClass.size() >= 1) {
             if (sourceClass.moveAttributeToClass(randomObject(attributesClass), targetClass)) {
@@ -883,7 +883,7 @@ public class PLAMutation extends AbstractMutationOperator {
     private boolean isOptional(Architecture arch, br.ufpr.dinf.gres.architecture.representation.Class cls) {
         boolean isOptional = false;
         if (cls.getVariantType() != null) {
-            if (cls.getVariantType().toString().equalsIgnoreCase("optional")) {
+            if (cls.getVariantType().equalsIgnoreCase("optional")) {
                 return true;
             }
         }

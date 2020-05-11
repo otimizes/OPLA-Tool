@@ -7,14 +7,14 @@ import br.ufpr.dinf.gres.architecture.exceptions.NotSuppportedOperation;
  */
 public interface Relationship {
 
-    public Relationship createRelation();
+    Relationship createRelation();
 
-    public Relationship between(String idElement) throws NotSuppportedOperation;
+    Relationship between(String idElement) throws NotSuppportedOperation;
 
-    public Relationship and(String idElement) throws NotSuppportedOperation;
+    Relationship and(String idElement) throws NotSuppportedOperation;
 
-    public String build();
+    String build();
 
-    public Relationship withMultiplicy(String string) throws NotSuppportedOperation;
+    Relationship withMultiplicy(String string) throws NotSuppportedOperation;
 
 }

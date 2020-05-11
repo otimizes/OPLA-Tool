@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface GenericMetricDAO<T> extends GenericDAO<T> {
 
-	public List<T> findBySolution(String solution);
+	List<T> findBySolution(String solution);
 
 }

@@ -10,7 +10,7 @@ import java.io.IOException;
 public class CalculaMediaSolucoesRuns {
 
     //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException {
 
         String[] abordagens = {
 //            "MECBA",

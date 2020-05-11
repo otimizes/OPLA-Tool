@@ -105,7 +105,7 @@ public class RandomGenerator {
             jrand = 1;
             advance_random();
         }
-        return ((double) oldrand[jrand]);
+        return oldrand[jrand];
     } //randomPerc
 
     /* Fetch a single random integer between low and high including the bounds */

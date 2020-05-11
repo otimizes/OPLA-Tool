@@ -48,7 +48,7 @@ public class ClassBuilder extends ElementBuilder<br.ufpr.dinf.gres.architecture.
         if (modelElement instanceof ClassImpl)
             isAbstract = ((org.eclipse.uml2.uml.Class) modelElement).isAbstract();
 
-        String packageName = ((NamedElement) modelElement).getNamespace().getQualifiedName();
+        String packageName = modelElement.getNamespace().getQualifiedName();
         packageName = packageName != null ? packageName : "";
 
         klass = new Class(architecture.getRelationshipHolder(), name, variantType, isAbstract, packageName, XmiHelper.getXmiId(modelElement));

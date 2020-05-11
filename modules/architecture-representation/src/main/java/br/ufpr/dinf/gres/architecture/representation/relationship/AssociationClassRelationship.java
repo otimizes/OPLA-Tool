@@ -125,10 +125,8 @@ public class AssociationClassRelationship extends Relationship {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        if (((AssociationClassRelationship) obj).getMemebersEnd().get(0).getType().getName().equals(this.getMemebersEnd().get(0).getType().getName())
-                && ((AssociationClassRelationship) obj).getMemebersEnd().get(1).getType().getName().equals(this.getMemebersEnd().get(1).getType().getName()))
-            return true;
-        return false;
+        return ((AssociationClassRelationship) obj).getMemebersEnd().get(0).getType().getName().equals(this.getMemebersEnd().get(0).getType().getName())
+                && ((AssociationClassRelationship) obj).getMemebersEnd().get(1).getType().getName().equals(this.getMemebersEnd().get(1).getType().getName());
     }
 
 

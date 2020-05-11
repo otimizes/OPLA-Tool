@@ -70,10 +70,7 @@ public class PSMediator implements PS {
             return false;
         }
         final PSMediator other = (PSMediator) obj;
-        if (!Objects.equals(this.concern, other.concern)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.concern, other.concern);
     }
 
 }

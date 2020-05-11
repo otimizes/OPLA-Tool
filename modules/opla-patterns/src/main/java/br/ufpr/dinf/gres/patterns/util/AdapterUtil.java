@@ -107,7 +107,7 @@ public class AdapterUtil {
         String name = adapterClass.getName();
         while (tempElements.contains(adapterClass)) {
             count++;
-            adapterClass.setName(name + Integer.toString(count));
+            adapterClass.setName(name + count);
         }
 
         if (naArquitetura) {

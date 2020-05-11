@@ -47,7 +47,7 @@ public class BinaryTournament2 extends Selection {
     /**
      * a_ stores a permutation of the solutions in the solutionSet used
      */
-    private int a_[];
+    private int[] a_;
 
     /**
      * index_ stores the actual index for selection

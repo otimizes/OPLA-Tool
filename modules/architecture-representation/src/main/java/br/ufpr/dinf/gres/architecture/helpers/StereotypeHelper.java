@@ -33,7 +33,7 @@ public class StereotypeHelper {
             Iterator<Stereotype> i = elt.getAppliedStereotypes().iterator();
             Stereotype currentStereotype;
             while (i.hasNext() && !has) {
-                currentStereotype = (Stereotype) i.next();
+                currentStereotype = i.next();
                 if (currentStereotype.getName().equalsIgnoreCase(stereotypeName))
                     has = true;
             }
@@ -91,10 +91,7 @@ public class StereotypeHelper {
     public static boolean isVariability(NamedElement element) {
         //return getCommentVariability(element) != null ? true : false;
         int s = getCommentVariability(element).size();
-        if (s > 0)
-            return true;
-        else
-            return false;
+        return s > 0;
     }
 
     /**
@@ -176,7 +173,7 @@ public class StereotypeHelper {
             } else if (attr instanceof ClassImpl) {
                 return ((Class) attr).getName().trim();
             }
-            return (String) element.getValue(variability, attrName).toString().trim();
+            return element.getValue(variability, attrName).toString().trim();
         } else {
             return "";
         }

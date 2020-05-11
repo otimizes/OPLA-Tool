@@ -117,7 +117,7 @@ public class PAESOPLABase implements AlgorithmBase<PaesConfigs> {
 
             result.setPlaName(plaName);
 
-            long time[] = new long[runsNumber];
+            long[] time = new long[runsNumber];
 
             for (int runs = 0; runs < runsNumber; runs++) {
                 Execution execution = new Execution(experiment);

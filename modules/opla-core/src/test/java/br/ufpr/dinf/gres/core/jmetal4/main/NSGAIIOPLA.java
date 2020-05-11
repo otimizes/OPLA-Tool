@@ -30,7 +30,7 @@ public class NSGAIIOPLA {
     public static double crossoverProbability_;
 
     //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException {
 
 //        args = new String[]{"1", "1", "0.0", ArchitectureRepository.BET, "Teste", "PLAMutation", "false"};
         if (args.length < 7) {
@@ -172,7 +172,7 @@ public class NSGAIIOPLA {
         heapSize = (heapSize / 1024) / 1024;
         System.out.println("Heap Size: " + heapSize + "Mb\n");
 
-        long time[] = new long[runsNumber];
+        long[] time = new long[runsNumber];
 
         Hypervolume.clearFile(directory + "/HYPERVOLUME.txt");
 

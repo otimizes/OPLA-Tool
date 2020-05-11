@@ -55,7 +55,7 @@ public class FormatForMe {
                         count = 0;
                     }
                 }
-                System.out.println("");
+                System.out.println();
 
             }
         }

@@ -21,7 +21,7 @@ public class LogConfiguration {
 
         @SuppressWarnings("unchecked")
         Enumeration<Logger> currentLoggers = LogManager.getCurrentLoggers();
-        ArrayList<Logger> list = Collections.<Logger>list(currentLoggers);
+        ArrayList<Logger> list = Collections.list(currentLoggers);
         List<Logger> loggers = list;
         loggers.add(LogManager.getRootLogger());
         for (Logger logger : loggers) {

@@ -198,7 +198,7 @@ public class SilhouetteIndex implements Serializable{
      */
     @Override
     public String toString() {
-        StringBuffer description = new StringBuffer("");
+        StringBuffer description = new StringBuffer();
 
         /* Clusters. */
         for (int i = 0; i < m_clustersSilhouette.size(); i++) {

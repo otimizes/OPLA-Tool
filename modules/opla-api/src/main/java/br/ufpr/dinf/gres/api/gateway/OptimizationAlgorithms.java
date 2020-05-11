@@ -12,5 +12,5 @@ public enum OptimizationAlgorithms implements IOptimizationAlgorithm {
         public Class getType() {
             return PAESGateway.class;
         }
-    };
+    }
 }

@@ -159,11 +159,8 @@ public class AssociationEnd implements Serializable {
             return false;
         AssociationEnd other = (AssociationEnd) obj;
         if (klass == null) {
-            if (other.klass != null)
-                return false;
-        } else if (!klass.equals(other.klass))
-            return false;
-        return true;
+            return other.klass == null;
+        } else return klass.equals(other.klass);
     }
 
 }

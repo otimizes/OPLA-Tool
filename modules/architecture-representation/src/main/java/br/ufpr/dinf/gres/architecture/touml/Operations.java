@@ -116,8 +116,6 @@ public class Operations {
         return usageOperation;
     }
 
-    ;
-
     public GeneralizationOperations forGeneralization() {
         return generalizationOperations;
     }

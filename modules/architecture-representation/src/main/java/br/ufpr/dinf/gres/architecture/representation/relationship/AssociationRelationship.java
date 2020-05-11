@@ -61,11 +61,8 @@ public class AssociationRelationship extends Relationship {
             return false;
         AssociationRelationship other = (AssociationRelationship) obj;
         if (participants == null) {
-            if (other.participants != null)
-                return false;
-        } else if (!participants.containsAll(other.participants))
-            return false;
-        return true;
+            return other.participants == null;
+        } else return participants.containsAll(other.participants);
     }
 
 }

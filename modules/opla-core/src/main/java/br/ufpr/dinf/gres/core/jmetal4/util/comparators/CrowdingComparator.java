@@ -55,8 +55,8 @@ public class CrowdingComparator implements Comparator<Solution> {
             return flagComparatorRank;
     
     /* His rank is equal, then distance crowding comparator */
-        double distance1 = ((Solution) o1).getCrowdingDistance();
-        double distance2 = ((Solution) o2).getCrowdingDistance();
+        double distance1 = o1.getCrowdingDistance();
+        double distance2 = o2.getCrowdingDistance();
         if (distance1 > distance2)
             return -1;
 

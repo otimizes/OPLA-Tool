@@ -127,7 +127,7 @@ public class XmiHelper {
         Node href = elements.item(i).getAttributes().getNamedItem("href");
         if (href != null) {
             String currentValue = href.getNodeValue();
-            return currentValue.substring(currentValue.indexOf("#") + 1, currentValue.length());
+            return currentValue.substring(currentValue.indexOf("#") + 1);
         } else {
             return null;
         }

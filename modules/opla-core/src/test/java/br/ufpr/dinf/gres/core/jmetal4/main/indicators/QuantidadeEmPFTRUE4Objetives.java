@@ -10,7 +10,7 @@ import java.io.IOException;
 public class QuantidadeEmPFTRUE4Objetives {
 
     //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, JMException, ClassNotFoundException {
         String[] abordagens = {
                 "MECBA",
 //            "MECBA-Clu",
@@ -46,7 +46,7 @@ public class QuantidadeEmPFTRUE4Objetives {
                         System.out.println("Software..: " + software);
                         System.out.println("MOEA......: " + algorithm);
                         System.out.println("Context...: " + contexto);
-                        System.out.println("");
+                        System.out.println();
 
                         FileWriter os = null;
                         double value = 0;

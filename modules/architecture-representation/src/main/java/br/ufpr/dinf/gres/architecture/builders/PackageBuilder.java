@@ -61,7 +61,7 @@ public class PackageBuilder extends ElementBuilder<Package> {
 
     private List<Class> getClasses(NamedElement modelElement, Package pkg) {
         List<Class> listOfClasses = new ArrayList<Class>();
-        List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(((org.eclipse.uml2.uml.Package) modelElement));
+        List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(modelElement);
 
         for (NamedElement element : classes) {
             if (!ModelElementHelper.isInterface(element)) {
@@ -75,7 +75,7 @@ public class PackageBuilder extends ElementBuilder<Package> {
 
     private List<Interface> getInterfaces(NamedElement modelElement, Package pkg) {
         List<Interface> allInterfaces = new ArrayList<Interface>();
-        List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(((org.eclipse.uml2.uml.Package) modelElement));
+        List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(modelElement);
 
         for (NamedElement element : classes) {
             if (ModelElementHelper.isInterface(element)) {

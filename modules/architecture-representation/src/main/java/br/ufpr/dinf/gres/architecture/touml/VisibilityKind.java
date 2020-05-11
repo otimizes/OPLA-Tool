@@ -30,7 +30,7 @@ public enum VisibilityKind implements Enumerator {
     private final String name;
     private final String literal;
 
-    private VisibilityKind(int value, String name, String literal) {
+    VisibilityKind(int value, String name, String literal) {
         this.value = value;
         this.name = name;
         this.literal = literal;

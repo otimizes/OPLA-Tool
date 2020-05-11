@@ -41,9 +41,9 @@ public class MediatorUtil {
             eventOfInterest.createMethod("getAction", "String", false, null);
             eventOfInterest.createMethod("getParameters", "Object", false, null);
 
-            eventOfInterest.createMethod("setInvoker", "void", false, Arrays.asList(new ParameterMethod[]{new ParameterMethod("invoker", "Object", "in")}));
-            eventOfInterest.createMethod("setAction", "void", false, Arrays.asList(new ParameterMethod[]{new ParameterMethod("action", "String", "in")}));
-            eventOfInterest.createMethod("setParameters", "void", false, Arrays.asList(new ParameterMethod[]{new ParameterMethod("parameters", "Object", "in")}));
+            eventOfInterest.createMethod("setInvoker", "void", false, Arrays.asList(new ParameterMethod("invoker", "Object", "in")));
+            eventOfInterest.createMethod("setAction", "void", false, Arrays.asList(new ParameterMethod("action", "String", "in")));
+            eventOfInterest.createMethod("setParameters", "void", false, Arrays.asList(new ParameterMethod("parameters", "Object", "in")));
         } else {
             eventOfInterest = eventOfInterestList.get(0);
 
@@ -85,17 +85,17 @@ public class MediatorUtil {
             try {
                 eventOfInterest.findMethodByName("setInvoker");
             } catch (MethodNotFoundException ex) {
-                eventOfInterest.createMethod("setInvoker", "void", false, Arrays.asList(new ParameterMethod[]{new ParameterMethod("invoker", "Object", "in")}));
+                eventOfInterest.createMethod("setInvoker", "void", false, Arrays.asList(new ParameterMethod("invoker", "Object", "in")));
             }
             try {
                 eventOfInterest.findMethodByName("setAction");
             } catch (MethodNotFoundException ex) {
-                eventOfInterest.createMethod("setAction", "void", false, Arrays.asList(new ParameterMethod[]{new ParameterMethod("action", "String", "in")}));
+                eventOfInterest.createMethod("setAction", "void", false, Arrays.asList(new ParameterMethod("action", "String", "in")));
             }
             try {
                 eventOfInterest.findMethodByName("setParameters");
             } catch (MethodNotFoundException ex) {
-                eventOfInterest.createMethod("setParameters", "void", false, Arrays.asList(new ParameterMethod[]{new ParameterMethod("parameters", "Object", "in")}));
+                eventOfInterest.createMethod("setParameters", "void", false, Arrays.asList(new ParameterMethod("parameters", "Object", "in")));
             }
 
         }
@@ -103,7 +103,7 @@ public class MediatorUtil {
         return eventOfInterest;
     }
 
-    public static Interface getOrCreateMediatorInterface(List<Element> participants, Concern concern, Class eventOfInterest) throws ConcernNotFoundException, Exception {
+    public static Interface getOrCreateMediatorInterface(List<Element> participants, Concern concern, Class eventOfInterest) throws Exception {
         Interface mediator = null;
 
         for (Relationship relationship : ElementUtil.getRelationships(eventOfInterest)) {

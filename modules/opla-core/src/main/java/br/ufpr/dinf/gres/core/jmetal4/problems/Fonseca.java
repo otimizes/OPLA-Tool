@@ -79,14 +79,14 @@ public class Fonseca extends Problem {
         double[] f = new double[numberOfObjectives_];
         double sum1 = 0.0;
         for (int var = 0; var < numberOfVariables_; var++) {
-            sum1 += StrictMath.pow(x.getValue(var) - (1.0 / StrictMath.sqrt((double) numberOfVariables_)), 2.0);
+            sum1 += StrictMath.pow(x.getValue(var) - (1.0 / StrictMath.sqrt(numberOfVariables_)), 2.0);
         }
         double exp1 = StrictMath.exp((-1.0) * sum1);
         f[0] = 1 - exp1;
 
         double sum2 = 0.0;
         for (int var = 0; var < numberOfVariables_; var++) {
-            sum2 += StrictMath.pow(x.getValue(var) + (1.0 / StrictMath.sqrt((double) numberOfVariables_)), 2.0);
+            sum2 += StrictMath.pow(x.getValue(var) + (1.0 / StrictMath.sqrt(numberOfVariables_)), 2.0);
         }
         double exp2 = StrictMath.exp((-1.0) * sum2);
         f[1] = 1 - exp2;
