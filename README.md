@@ -63,7 +63,7 @@ https://github.com/SBSE-UEM/OPLA-Tool/blob/master/Contributing.pdf
 
 ## Documentation
 
-
+[\<Click here to access the documentation\>](https://otimizes.github.io/OPLA-Tool/docs/index.html)
 
 ### Implementing a new Objective Function
 
