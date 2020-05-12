@@ -12,6 +12,9 @@ import br.ufpr.dinf.gres.domain.entity.objectivefunctions.ObjectiveFunctionDomai
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Class with methods that fill objectives by solutions
+ */
 public class Result {
 
     private String plaName;
@@ -20,17 +23,21 @@ public class Result {
         this.plaName = plaName;
     }
 
-    public List<Info> getObjectives(List<Solution> list, Execution Execution, Experiment experiement) {
+    /**
+     * Get infos at experiment end
+     * @param solutions list of solutions
+     * @param experiment experiment
+     * @return list of infos
+     */
+    public List<Info> getInfos(List<Solution> solutions, Experiment experiment) {
         List<Info> funResults = new ArrayList<Info>();
-        for (Solution solution : list) {
+        for (Solution solution : solutions) {
             String sb = (solution.toString().trim()).replace(" ", "|");
 
             Info funResult = new Info();
             funResult.setName(plaName);
-            funResult.setExecution(Execution);
-            funResult.setExperiment(experiement);
-            if (Execution == null)
-                funResult.setIsAll(1);
+            funResult.setExperiment(experiment);
+            funResult.setIsAll(1);
             funResult.setObjectives(sb.replaceAll("\\s+", ""));
             funResults.add(funResult);
         }
@@ -38,19 +45,26 @@ public class Result {
         return funResults;
     }
 
-    public List<Info> getInformations(List<Solution> solutionsList, Execution execution,
-                                      Experiment experiement) {
+    /**
+     * Get infos during the experiment
+     * @param solutions list of solutions
+     * @param execution execution
+     * @param experiment experiment
+     * @return list of infos
+     */
+    public List<Info> getInfos(List<Solution> solutions, Execution execution,
+                               Experiment experiment) {
         List<Info> Info = new ArrayList<>();
 
-        for (int i = 0; i < solutionsList.size(); i++) {
-            int numberOfVariables = solutionsList.get(0).getDecisionVariables().length;
+        for (int i = 0; i < solutions.size(); i++) {
+            int numberOfVariables = solutions.get(0).getDecisionVariables().length;
 
             for (int j = 0; j < numberOfVariables; j++) {
-                Architecture arch = (Architecture) solutionsList.get(i).getDecisionVariables()[j];
+                Architecture arch = (Architecture) solutions.get(i).getDecisionVariables()[j];
 
                 Info ir = new Info();
                 ir.setExecution(execution);
-                ir.setExperiment(experiement);
+                ir.setExperiment(experiment);
                 if (execution == null)
                     ir.setIsAll(1);
                 ir.setName(plaName);
@@ -64,9 +78,9 @@ public class Result {
                 ir.setNumberOfGeneralizations(arch.getRelationshipHolder().getAllGeneralizations().size());
                 ir.setNumberOfAssociations(arch.getRelationshipHolder().getAllAssociationsRelationships().size());
                 ir.setNumberOfAssociationsClass(arch.getRelationshipHolder().getAllAssociationsClass().size());
-                ir.setUserEvaluation(solutionsList.get(i).getEvaluation());
+                ir.setUserEvaluation(solutions.get(i).getEvaluation());
                 ir.setFreezedElements(arch.toStringFreezedElements());
-                ir.setObjectives(Arrays.toString(solutionsList.get(i).getObjectives()));
+                ir.setObjectives(Arrays.toString(solutions.get(i).getObjectives()));
                 Info.add(ir);
             }
         }
@@ -74,6 +88,11 @@ public class Result {
         return Info;
     }
 
+    /**
+     * Get string by concerns list
+     * @param allConcerns concerns
+     * @return list of concerns
+     */
     private String getListOfConcerns(List<Concern> allConcerns) {
         StringBuilder concernsList = new StringBuilder();
         for (Concern concern : allConcerns)
@@ -82,18 +101,26 @@ public class Result {
         return concernsList.substring(0, concernsList.length() - 1);
     }
 
-    public Map<String, List<ObjectiveFunctionDomain>> getMetrics(List<Info> funResults, List<Solution> list, Execution Execution, Experiment experiement, List<String> objectiveFuncs) {
-
+    /**
+     * Get map of metrics
+     * @param infos infos
+     * @param solutions solutions
+     * @param execution execution
+     * @param experiment experiment
+     * @param objectiveFunctions list of objective functions
+     * @return map of metrics
+     */
+    public Map<String, List<ObjectiveFunctionDomain>> getMetrics(List<Info> infos, List<Solution> solutions, Execution execution, Experiment experiment, List<String> objectiveFunctions) {
         Map<String, List<ObjectiveFunctionDomain>> allMetrics = new HashMap<>();
-        int numberOfVariables = list.get(0).getDecisionVariables().length;
-        List<ObjectiveFunctions> collect = objectiveFuncs.stream().map(ObjectiveFunctions::valueOf).collect(Collectors.toList());
+        int numberOfVariables = solutions.get(0).getDecisionVariables().length;
+        List<ObjectiveFunctions> collect = objectiveFunctions.stream().map(ObjectiveFunctions::valueOf).collect(Collectors.toList());
 
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < solutions.size(); i++) {
             for (int j = 0; j < numberOfVariables; j++) {
-                Architecture arch = (Architecture) list.get(i).getDecisionVariables()[j];
-                String idSolution = funResults.get(i).getId();
+                Architecture arch = (Architecture) solutions.get(i).getDecisionVariables()[j];
+                String idSolution = infos.get(i).getId();
                 for (ObjectiveFunctions fn : collect) {
-                    ObjectiveFunctionDomain build = fn.build(idSolution, Execution, experiement, arch);
+                    ObjectiveFunctionDomain build = fn.build(idSolution, execution, experiment, arch);
                     allMetrics.computeIfAbsent(fn.toString(), f -> new ArrayList<>()).add(build);
 
                 }

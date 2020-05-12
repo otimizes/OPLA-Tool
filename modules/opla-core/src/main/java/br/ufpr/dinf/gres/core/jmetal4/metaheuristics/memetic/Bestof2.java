@@ -187,8 +187,8 @@ public class Bestof2 extends Algorithm {
 
                         OPLASolution a = new OPLASolution(offSpring[0]);
                         OPLASolution b = new OPLASolution(offSpring[1]);
-                        offSpringForLocal[0] = a.getModifySolution();
-                        offSpringForLocal[1] = b.getModifySolution();
+                        offSpringForLocal[0] = a.getSolution();
+                        offSpringForLocal[1] = b.getSolution();
 
                         operatorLocal.execute(offSpringForLocal[0]);
                         operatorLocal.execute(offSpringForLocal[1]);

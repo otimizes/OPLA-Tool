@@ -133,7 +133,7 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
 
                 execution.setTime(estimatedTime);
 
-                List<Info> Info = result.getInformations(resultFront.getSolutionSet(), execution, experiment);
+                List<Info> Info = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), execution, experiment, selectedObjectiveFunctions);
 
                 new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_", Info, configs.getLogger(), true);
@@ -149,13 +149,13 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
             allRuns = problem.removeRepetidas(allRuns);
 
             configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
-            List<Info> funResults = result.getObjectives(allRuns.getSolutionSet(), null, experiment);
+            List<Info> funResults = result.getInfos(allRuns.getSolutionSet(), experiment);
 
             if (configs.getNumberOfRuns() > 1) {
                 new OPLASolutionSet(allRuns).saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
             }
 
-            List<Info> infos = result.getInformations(allRuns.getSolutionSet(), null, experiment);
+            List<Info> infos = result.getInfos(allRuns.getSolutionSet(), null, experiment);
             mp.saveInfoAll(infos);
             Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);

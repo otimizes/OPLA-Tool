@@ -36,6 +36,10 @@ public class PermutationSolutionType extends SolutionType {
         super(problem);
     } // PermutationSolution
 
+    /**
+     * Create variables array
+     * @return variables
+     */
     public Variable[] createVariables() {
         Variable[] variables = new Variable[problem_.getNumberOfVariables()];
 

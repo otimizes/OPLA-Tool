@@ -36,6 +36,10 @@ public class BinaryRealSolutionType extends SolutionType {
         super(problem);
     } // Constructor
 
+    /**
+     * Create variables array
+     * @return variables
+     */
     public Variable[] createVariables() {
         Variable[] variables = new Variable[problem_.getNumberOfVariables()];
 

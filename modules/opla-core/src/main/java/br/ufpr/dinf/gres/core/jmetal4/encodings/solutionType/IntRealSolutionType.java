@@ -41,6 +41,10 @@ public class IntRealSolutionType extends SolutionType {
         realVariables_ = realVariables;
     } // Constructor
 
+    /**
+     * Create variables array
+     * @return variables
+     */
     public Variable[] createVariables() throws ClassNotFoundException {
         Variable[] variables = new Variable[problem_.getNumberOfVariables()];
 

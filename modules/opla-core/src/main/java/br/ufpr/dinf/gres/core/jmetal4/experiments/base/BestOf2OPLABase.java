@@ -152,7 +152,7 @@ public class BestOf2OPLABase {
                 resultFront = problem.removeRepetidas(resultFront);
 
                 execution = mp.save(execution);
-                List<Info> infos = result.getInformations(resultFront.getSolutionSet(), execution, experiment);
+                List<Info> infos = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
                 infos = mp.saveInfoAll(infos);
                 execution.setInfos(infos);
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
@@ -171,13 +171,13 @@ public class BestOf2OPLABase {
 
 
             configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
-            List<Info> funResults = result.getObjectives(todasRuns.getSolutionSet(), null, experiment);
+            List<Info> funResults = result.getInfos(todasRuns.getSolutionSet(), experiment);
 
             if (configs.getNumberOfRuns() > 1) {
                 new OPLASolutionSet(todasRuns).saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
             }
 
-            List<Info> infos = result.getInformations(todasRuns.getSolutionSet(), null, experiment);
+            List<Info> infos = result.getInfos(todasRuns.getSolutionSet(), null, experiment);
             mp.saveInfoAll(infos);
             Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);

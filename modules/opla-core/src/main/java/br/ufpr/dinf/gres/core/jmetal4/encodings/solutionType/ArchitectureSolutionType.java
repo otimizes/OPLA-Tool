@@ -16,6 +16,10 @@ public class ArchitectureSolutionType extends SolutionType {
         super(problem);
     }
 
+    /**
+     * Create variables array
+     * @return variables
+     */
     public Variable[] createVariables() {
         Variable[] variables = new Variable[problem_.getNumberOfVariables()];
         for (int var = 0; var < problem_.getNumberOfVariables(); var++)

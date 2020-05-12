@@ -36,6 +36,10 @@ public class ArrayIntSolutionType extends SolutionType {
         super(problem);
     }
 
+    /**
+     * Create variables array
+     * @return variables
+     */
     public Variable[] createVariables() {
         Variable[] variables = new Variable[1];
 
@@ -43,6 +47,10 @@ public class ArrayIntSolutionType extends SolutionType {
         return variables;
     } // createVariables
 
+    /**
+     * Create variables array
+     * @return variables
+     */
     public Variable[] copyVariables(Variable[] vars) {
         Variable[] variables;
 

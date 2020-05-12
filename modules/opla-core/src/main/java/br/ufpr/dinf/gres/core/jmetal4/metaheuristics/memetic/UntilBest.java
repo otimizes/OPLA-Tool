@@ -148,8 +148,8 @@ public class UntilBest extends Algorithm {
                         OPLASolution a0 = new OPLASolution(offSpring[0]);
                         OPLASolution b1 = new OPLASolution(offSpring[1]);
 
-                        offSpringForLocal[0] = a0.getModifySolution();
-                        offSpringForLocal[1] = b1.getModifySolution();
+                        offSpringForLocal[0] = a0.getSolution();
+                        offSpringForLocal[1] = b1.getSolution();
 
                         LocalSearchUntil local0 = new LocalSearchUntil(offSpring[0], offSpringForLocal[0], problem_, operatorLocal);
                         LocalSearchUntil local1 = new LocalSearchUntil(offSpring[1], offSpringForLocal[1], problem_, operatorLocal);

@@ -196,7 +196,7 @@ public class SubjectiveAnalyzeAlgorithm {
                 Solution solution = solutionSet.getSolutionSet().getSolutionSet().get(i);
                 double[] objectives = new double[0];
                 try {
-                    objectives = solutionSet.generateSolutionFromElementsAndGetDoubles(element, solution);
+                    objectives = solutionSet.generateSolutionFromElementsAndGetObjectives(element, solution);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }

@@ -21,7 +21,6 @@ import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.learning.Moment;
 import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
-import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.Info;
@@ -126,7 +125,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                 resultFront = problem.removeRepetidas(resultFront);
 
                 execution = mp.save(execution);
-                List<Info> infos = result.getInformations(resultFront.getSolutionSet(), execution, experiment);
+                List<Info> infos = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
                 infos = mp.saveInfoAll(infos);
                 execution.setInfos(infos);
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
@@ -143,13 +142,13 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
             allRuns = problem.removeRepetidas(allRuns);
 
             configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
-            List<Info> funResults = result.getObjectives(allRuns.getSolutionSet(), null, experiment);
+            List<Info> funResults = result.getInfos(allRuns.getSolutionSet(), experiment);
 
             if (configs.getNumberOfRuns() > 1) {
                 new OPLASolutionSet(allRuns).saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
             }
 
-            List<Info> infos = result.getInformations(allRuns.getSolutionSet(), null, experiment);
+            List<Info> infos = result.getInfos(allRuns.getSolutionSet(), null, experiment);
             mp.saveInfoAll(infos);
             Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);

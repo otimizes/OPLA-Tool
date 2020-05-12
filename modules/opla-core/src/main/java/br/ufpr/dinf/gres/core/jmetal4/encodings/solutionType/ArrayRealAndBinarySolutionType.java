@@ -51,6 +51,10 @@ public class ArrayRealAndBinarySolutionType extends SolutionType {
         numberOfRealVariables_ = realVariables;
     } // Constructor
 
+    /**
+     * Create variables array
+     * @return variables
+     */
     public Variable[] createVariables() throws ClassNotFoundException {
         Variable[] variables = new Variable[2];
 
