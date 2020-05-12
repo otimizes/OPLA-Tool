@@ -3,6 +3,11 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 
+/**
+ * Variability Extensibility
+ * <p>
+ * Measures the extensibility of the variability
+ */
 public class ExtensVarComponent {
 
     private final Package component;

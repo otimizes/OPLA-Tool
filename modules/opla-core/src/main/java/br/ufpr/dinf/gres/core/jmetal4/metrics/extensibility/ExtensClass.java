@@ -2,7 +2,11 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.extensibility;
 
 import br.ufpr.dinf.gres.architecture.representation.Class;
 
-
+/**
+ * Class Extensibility
+ * <p>
+ * Measures the extensibility of the class
+ */
 public class ExtensClass {
 
     private final Class class_;

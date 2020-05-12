@@ -18,7 +18,7 @@ public class ATMRElegance extends ObjectiveFunctionImplementation {
         double[] ratiosAttributesMethods = new double[10000];
         int i = 0;
 
-        ConventionalMetricsStatistic e = new ConventionalMetricsStatistic();
+        ConventionalStatisticMetrics e = new ConventionalStatisticMetrics();
 
         for (Class cls : architecture.getAllClasses()) {
             if (cls.getAllMethods().size() > 0) {

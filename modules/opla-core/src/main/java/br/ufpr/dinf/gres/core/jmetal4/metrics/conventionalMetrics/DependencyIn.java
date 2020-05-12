@@ -8,6 +8,9 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Measures the number of UML dependencies where the package is the provider (Wüst, 2014)
+ */
 public class DependencyIn extends ObjectiveFunctionImplementation {
 
     public DependencyIn(Architecture architecture) {

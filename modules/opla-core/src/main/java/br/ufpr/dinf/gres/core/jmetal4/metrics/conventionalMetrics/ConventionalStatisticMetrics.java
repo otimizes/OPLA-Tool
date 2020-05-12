@@ -3,7 +3,10 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.conventionalMetrics;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class ConventionalMetricsStatistic {
+/**
+ * Conventional Statistic Metrics
+ */
+public class ConventionalStatisticMetrics {
 
     private double[] array;
 
@@ -45,7 +48,7 @@ public class ConventionalMetricsStatistic {
     public int find(int value) {
         return Arrays.binarySearch(array, value);
     }
-    
+
     public double getSampleVariance() {
         double p1 = 1 / (double) (array.length - 1);
         double p2 = getSumOfElementsSquare()

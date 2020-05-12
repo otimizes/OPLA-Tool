@@ -17,7 +17,7 @@ public class NACElegance extends ObjectiveFunctionImplementation {
         int j = 0;
 
 
-        ConventionalMetricsStatistic e = new ConventionalMetricsStatistic();
+        ConventionalStatisticMetrics e = new ConventionalStatisticMetrics();
 
         for (Class cls : architecture.getAllClasses()) {
             arrayAttributesNumbers[i] = cls.getAllAttributes().size();

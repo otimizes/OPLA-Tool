@@ -4,7 +4,9 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
-
+/**
+ * Mean of operations number of interface
+ */
 public class MeanNumOpsByInterface extends ObjectiveFunctionImplementation {
 
     public MeanNumOpsByInterface(Architecture architecture) {

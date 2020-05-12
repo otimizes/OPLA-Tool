@@ -7,6 +7,9 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffus
 import br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.*;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.LCC;
 
+/**
+ * Feature driven outset
+ */
 public class MSIDESIGNOUTSET extends ObjectiveFunctionImplementation {
 
     public MSIDESIGNOUTSET(Architecture architecture) {

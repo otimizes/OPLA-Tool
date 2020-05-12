@@ -11,6 +11,11 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * EC - External Couples
+ * <p>
+ * Measures the elegance of external couplings of the classes (Simons e Parmee, 2012)
+ */
 public class ECElegance extends ObjectiveFunctionImplementation {
 
     public ECElegance(Architecture architecture) {
@@ -20,7 +25,7 @@ public class ECElegance extends ObjectiveFunctionImplementation {
         double[] externalCouplesNumbers = new double[10000];
         int i = 0;
 
-        ConventionalMetricsStatistic e = new ConventionalMetricsStatistic();
+        ConventionalStatisticMetrics e = new ConventionalStatisticMetrics();
 
         for (Class cls : architecture.getAllClasses()) {
             // busca os external couples de cada classe

@@ -9,6 +9,9 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Mean of dependencies of components
+ */
 public class MeanDepComponents extends ObjectiveFunctionImplementation {
     public MeanDepComponents(Architecture architecture) {
         super(architecture);
