@@ -93,12 +93,12 @@ public class UntilBestOPLABase {
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
 
-            Experiment experiement = mp.saveExperiment(plaName, "BestOf12", configs.getDescription(), OPLAThreadScope.hash.get());
+            Experiment experiement = mp.saveExperiment(plaName, "UntilBest", configs.getDescription(), OPLAThreadScope.hash.get());
 
             Algorithm algorithm;
             Result result = new Result();
             experiment = mp.saveExperiment(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
-            ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "BestOf2", configs);
+            ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "UntilBest", configs);
             mp.save(conf);
             Crossover crossover;
             Mutation mutation;

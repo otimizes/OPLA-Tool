@@ -3,7 +3,7 @@ package br.ufpr.dinf.gres.core.persistence;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PaesConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PAESConfigs;
 
 /**
  * Classe responsável por guardar E persistir/recuperar informações referentes a
@@ -90,7 +90,7 @@ public class ExperimentConfs {
      */
     public int getArchiveSize() {
         if (this.algorithm.equalsIgnoreCase("paes"))
-            return ((PaesConfigs) this.configs).getArchiveSize();
+            return ((PAESConfigs) this.configs).getArchiveSize();
 
         return 0;
     }

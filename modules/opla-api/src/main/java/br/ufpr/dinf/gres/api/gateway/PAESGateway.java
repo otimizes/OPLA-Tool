@@ -4,7 +4,7 @@ import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PAESOPLABase;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PaesConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PAESConfigs;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +19,7 @@ public class PAESGateway implements IGateway {
         GatewayUtils.addListener();
         ReaderConfig.setPathToConfigurationFile(UserHome.getPathToConfigFile());
         ReaderConfig.load();
-        PaesConfigs configs = new PaesConfigs();
+        PAESConfigs configs = new PAESConfigs();
         configs.setArchiveSize(optimizationDto.getArchiveSize());
         GatewayUtils.setConfigs(optimizationDto, configs);
         try {

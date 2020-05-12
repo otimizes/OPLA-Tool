@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class PAESOPLABase implements AlgorithmBase<PaesConfigs> {
+public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
 
     private final Persistence mp;
     private final EdCalculation c;
@@ -48,7 +48,7 @@ public class PAESOPLABase implements AlgorithmBase<PaesConfigs> {
         return pla.substring(beginIndex, endIndex);
     }
 
-    public void execute(PaesConfigs configs) throws Exception {
+    public void execute(PAESConfigs configs) throws Exception {
         int runsNumber = configs.getNumberOfRuns();
         int maxEvaluations = configs.getMaxEvaluation();
         int archiveSize = configs.getArchiveSize();
@@ -168,7 +168,7 @@ public class PAESOPLABase implements AlgorithmBase<PaesConfigs> {
     }
 
 
-    private void logInformations(PaesConfigs configs, String context, String pla) {
+    private void logInformations(PAESConfigs configs, String context, String pla) {
         configs.getLogger().putLog("\n================ PAES ================", Level.INFO);
         configs.getLogger().putLog("Context: " + context, Level.INFO);
         configs.getLogger().putLog("PLA: " + pla, Level.INFO);
