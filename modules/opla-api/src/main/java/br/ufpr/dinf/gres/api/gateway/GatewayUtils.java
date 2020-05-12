@@ -4,7 +4,13 @@ import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.OPLALogs;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfo;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
+import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
+import br.ufpr.dinf.gres.architecture.util.UserHome;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.OPLAConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.AlgorithmBase;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PaesConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.loglog.LogLogData;
@@ -48,5 +54,31 @@ public class GatewayUtils {
             configs.setDesignPatternStrategy(new ElementsWithSameDesignPatternSelection(optimizationDto.getScopeSelection().get()));
         }
     }
+
+    public static void setConfigs(OptimizationDto optimizationDto, ExperimentCommonConfigs configs) {
+        configs.setLogger(Logger.getLogger());
+        configs.activeLogs();
+        configs.setDescription(optimizationDto.getDescription());
+        configs.setPlas(optimizationDto.getInputArchitecture());
+        configs.setNumberOfRuns(optimizationDto.getNumberRuns());
+        configs.setMaxEvaluations(optimizationDto.getMaxEvaluations());
+        configs.setArchitectureBuilder(optimizationDto.getArchitectureBuilder());
+        GatewayUtils.setOperators(optimizationDto, configs);
+        configs.setPathToDb(UserHome.getPathToDb());
+        OPLAConfigs oplaConfig = new OPLAConfigs();
+        oplaConfig.setSelectedObjectiveFunctions(optimizationDto.getObjectiveFunctions());
+        configs.setOplaConfigs(oplaConfig);
+
+        configs.setInteractive(optimizationDto.getInteractive());
+        configs.setInteractiveFunction(optimizationDto.getInteractiveFunction());
+        configs.setMaxInteractions(optimizationDto.getMaxInteractions());
+        configs.setFirstInteraction(optimizationDto.getFirstInteraction());
+        configs.setIntervalInteraction(optimizationDto.getIntervalInteraction());
+        configs.setClusteringMoment(optimizationDto.getClusteringMoment());
+        configs.setClusteringAlgorithm(optimizationDto.getClusteringAlgorithm());
+        List<String> operadores = configs.getMutationOperators();
+        configs.setMutationOperators(operadores);
+    }
+
 
 }

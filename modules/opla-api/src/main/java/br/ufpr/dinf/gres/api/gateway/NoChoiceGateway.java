@@ -4,14 +4,14 @@ import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIOPLABase;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NoChoiceOPLABase;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NSGAGateway implements IGateway {
-    private final NSGAIIOPLABase base;
+public class NoChoiceGateway implements IGateway {
+    private final NoChoiceOPLABase base;
 
-    public NSGAGateway(NSGAIIOPLABase base) {
+    public NoChoiceGateway(NoChoiceOPLABase base) {
         this.base = base;
     }
 

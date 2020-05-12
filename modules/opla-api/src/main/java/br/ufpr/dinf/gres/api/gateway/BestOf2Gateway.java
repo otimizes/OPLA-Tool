@@ -3,15 +3,15 @@ package br.ufpr.dinf.gres.api.gateway;
 import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
+import br.ufpr.dinf.gres.core.jmetal4.experiments.base.BestOf2OPLABase;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIOPLABase;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NSGAGateway implements IGateway {
-    private final NSGAIIOPLABase base;
+public class BestOf2Gateway implements IGateway {
+    private final BestOf2OPLABase base;
 
-    public NSGAGateway(NSGAIIOPLABase base) {
+    public BestOf2Gateway(BestOf2OPLABase base) {
         this.base = base;
     }
 

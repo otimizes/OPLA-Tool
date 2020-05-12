@@ -68,6 +68,15 @@ public class MutationFactory {
         return configs.getMutationOperators().contains(DESIGN_PATTERNS) && configs.getMutationOperators().size() == 1;
     }
 
+
+    public static Mutation getMutationOperatorPatterns(String name, HashMap<String, Object> parameters,
+                                                       ExperimentCommonConfigs configs) throws JMException {
+
+        return new DesignPatternMutationOperator(parameters, configs.getDesignPatternStrategy(),
+                new CustomDesignPatternSelection(configs.getPatterns()));
+    }
+
+
     public static Mutation getMutationOperator(String name, Map<String, Object> parameters) throws JMException {
 
         if (name.equalsIgnoreCase("PLAFeatureMutation"))

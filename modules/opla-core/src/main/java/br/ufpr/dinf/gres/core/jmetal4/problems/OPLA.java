@@ -290,6 +290,11 @@ public class OPLA extends Problem {
 
     }
 
+    public boolean isPatterns(Solution solution) {
+        Architecture a = (Architecture) solution.getDecisionVariables()[0];
+        return a.isAppliedPatterns();
+    }
+
     public static Logger getLOGGER() {
         return LOGGER;
     }

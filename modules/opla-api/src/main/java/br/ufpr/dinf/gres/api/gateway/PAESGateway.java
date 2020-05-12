@@ -3,18 +3,16 @@ package br.ufpr.dinf.gres.api.gateway;
 import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.util.UserHome;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.OPLAConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PAESOPLABase;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PaesConfigs;
-import br.ufpr.dinf.gres.loglog.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PAESGateway implements IGateway {
-    private final PAESOPLABase paes;
+    private final PAESOPLABase base;
 
-    public PAESGateway(PAESOPLABase paes) {
-        this.paes = paes;
+    public PAESGateway(PAESOPLABase base) {
+        this.base = base;
     }
 
     public void execute(OptimizationDto optimizationDto) {
@@ -22,26 +20,16 @@ public class PAESGateway implements IGateway {
         ReaderConfig.setPathToConfigurationFile(UserHome.getPathToConfigFile());
         ReaderConfig.load();
         PaesConfigs configs = new PaesConfigs();
-        configs.setLogger(Logger.getLogger());
-        configs.activeLogs();
-        configs.setDescription(optimizationDto.getDescription());
-        configs.setPlas(optimizationDto.getInputArchitecture());
-        configs.setNumberOfRuns(optimizationDto.getNumberRuns());
-        configs.setMaxEvaluations(optimizationDto.getMaxEvaluations());
         configs.setArchiveSize(optimizationDto.getArchiveSize());
-        configs.setArchitectureBuilder(optimizationDto.getArchitectureBuilder());
-        GatewayUtils.setOperators(optimizationDto, configs);
-        configs.setPathToDb(UserHome.getPathToDb());
-        OPLAConfigs oplaConfig = new OPLAConfigs();
-        oplaConfig.setSelectedObjectiveFunctions(optimizationDto.getObjectiveFunctions());
-        configs.setOplaConfigs(oplaConfig);
+        GatewayUtils.setConfigs(optimizationDto, configs);
         try {
-            paes.execute(configs);
+            base.execute(configs);
         } catch (Exception e) {
             GatewayUtils.log("ERROR");
         }
         GatewayUtils.log("Fin");
     }
+
 
 
 }
