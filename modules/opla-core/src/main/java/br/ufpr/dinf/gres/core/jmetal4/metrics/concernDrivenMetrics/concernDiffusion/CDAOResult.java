@@ -6,7 +6,9 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
+/**
+ *   Concern Diffusion over operations result
+ */
 public class CDAOResult extends ConcernDiffusionResult<Method> {
 
     public CDAOResult(Concern concern, Architecture architecture) {

@@ -4,18 +4,21 @@ import br.ufpr.dinf.gres.core.jmetal4.core.Operator;
 import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 
+/**
+ * Thread local implementation
+ */
 public class ThreadLocal extends Thread {
 
-    Solution[] offSpringForLocal_local = null;
-    Problem problem_local_ = null;
-    Operator operadorLocal_local = null;
+    Solution[] offSpringForLocal = null;
+    Problem problemLocal = null;
+    Operator localOperator = null;
 
     Solution[] solutionsLocal = null;
 
-    public ThreadLocal(Solution[] offSpringForLocal, Problem problem_, Operator operadorLocal) {
-        this.offSpringForLocal_local = offSpringForLocal;
-        this.problem_local_ = problem_;
-        this.operadorLocal_local = operadorLocal;
+    public ThreadLocal(Solution[] offSpringForLocal, Problem problem_, Operator localOperator) {
+        this.offSpringForLocal = offSpringForLocal;
+        this.problemLocal = problem_;
+        this.localOperator = localOperator;
     }
 
     public synchronized Solution[] getSolutionsLocal() {
@@ -35,16 +38,16 @@ public class ThreadLocal extends Thread {
     public synchronized void run() {
         //System.out.println("entrou");
         try {
-            this.operadorLocal_local.execute(this.offSpringForLocal_local[0]);
-            this.operadorLocal_local.execute(this.offSpringForLocal_local[1]);
-            this.problem_local_.evaluateConstraints(this.offSpringForLocal_local[0]);
-            this.problem_local_.evaluateConstraints(this.offSpringForLocal_local[1]);
-            this.problem_local_.evaluate(this.offSpringForLocal_local[0]);
-            this.problem_local_.evaluate(this.offSpringForLocal_local[1]);
+            this.localOperator.execute(this.offSpringForLocal[0]);
+            this.localOperator.execute(this.offSpringForLocal[1]);
+            this.problemLocal.evaluateConstraints(this.offSpringForLocal[0]);
+            this.problemLocal.evaluateConstraints(this.offSpringForLocal[1]);
+            this.problemLocal.evaluate(this.offSpringForLocal[0]);
+            this.problemLocal.evaluate(this.offSpringForLocal[1]);
 
-            this.setSolutionsLocal(this.offSpringForLocal_local);
+            this.setSolutionsLocal(this.offSpringForLocal);
         } catch (Exception e) {
-            this.setSolutionsLocal(this.offSpringForLocal_local);
+            this.setSolutionsLocal(this.offSpringForLocal);
 
             //System.out.println("erro da thread \n"+e);
         }

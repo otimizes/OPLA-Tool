@@ -8,6 +8,9 @@ import br.ufpr.dinf.gres.architecture.representation.Method;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Interface-level Interlacing Between Concerns result
+ */
 public class IIBCResult {
     private final Concern concern;
     private final Set<Concern> interlacedConcerns = new HashSet<Concern>();

@@ -5,7 +5,9 @@ import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 
-
+/**
+ * Concern Diffusion over Architectural Interfaces result
+ */
 public class CDAIResult extends ConcernDiffusionResult<Interface> {
 
     public CDAIResult(Concern concern, Architecture architecture) {

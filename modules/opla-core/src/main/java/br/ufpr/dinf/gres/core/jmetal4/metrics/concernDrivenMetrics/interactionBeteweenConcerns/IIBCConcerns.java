@@ -6,7 +6,9 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 import java.util.Collection;
 import java.util.HashMap;
 
-
+/**
+ * Interface-level Interlacing Between Concerns
+ */
 public class IIBCConcerns {
     private final Architecture architecture;
     private final HashMap<Concern, IIBCResult> results = new HashMap<Concern, IIBCResult>();

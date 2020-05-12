@@ -1,12 +1,14 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns;
 
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.architecture.representation.*;
 
 import java.util.Collection;
 import java.util.HashMap;
 
-
+/**
+ * Component-level Interlacing Between Concerns
+ */
 public class CIBCConcerns {
 
     private final Architecture architecture;

@@ -3,6 +3,9 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffu
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
+/**
+ *   Concern Diffusion over Architectural Components classes
+ */
 public class CDAClass extends ObjectiveFunctionImplementation {
 
     public CDAClass(Architecture architecture) {

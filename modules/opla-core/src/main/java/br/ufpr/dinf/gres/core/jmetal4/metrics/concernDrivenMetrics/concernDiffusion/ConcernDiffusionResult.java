@@ -7,6 +7,10 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Abstract concern diffusion result
+ * @param <T> type of element
+ */
 public abstract class ConcernDiffusionResult<T extends Element> {
 
     private final Concern concern;

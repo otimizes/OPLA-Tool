@@ -3,6 +3,12 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffu
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
+/**
+ * Concern Diffusion over Architectural Components (Sant'Anna, 2008)
+ *
+ * Measures the feature modularization at package level
+ *
+ */
 public class CDAC extends ObjectiveFunctionImplementation {
 
     public CDAC(Architecture architecture) {

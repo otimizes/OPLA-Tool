@@ -3,6 +3,11 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionB
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
+/**
+ * Operation-level Overlapping Between Concerns (Sant’Anna, 2008)
+ * <p>
+ * Measures the number of features in which a given interest shares at least one operation
+ */
 public class OOBC extends ObjectiveFunctionImplementation {
 
     public OOBC(Architecture architecture) {

@@ -4,6 +4,9 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
+/**
+ * Feature-based Cohesion for class
+ */
 public class LCCClass extends ObjectiveFunctionImplementation {
 
     public LCCClass(Architecture architecture) {

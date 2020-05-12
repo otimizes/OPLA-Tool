@@ -13,10 +13,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * @author giovaniguizzo
+ * Hypervolume file methods
  */
 public class Hypervolume {
 
+    /**
+     * Delete the hypervolume file
+     *
+     * @param path path of the file
+     */
     public static void clearFile(String path) {
         File file = new File(path);
         if (file.exists()) {
@@ -24,6 +29,14 @@ public class Hypervolume {
         }
     }
 
+    /**
+     * Print all solutions in a formatted file
+     *
+     * @param allSolutions solutions
+     * @param path         file path
+     * @param append       append or replace the file
+     * @throws IOException default exception
+     */
     public static void printFormatedHypervolumeFile(SolutionSet allSolutions, String path, boolean append) throws IOException {
         File file = new File(path);
         file.getParentFile().mkdirs();
@@ -36,6 +49,15 @@ public class Hypervolume {
         }
     }
 
+    /**
+     * Print the reference point of the solutions objectives in a file
+     *
+     * @param allSolutions solutions
+     * @param path         path to save
+     * @param objectives   number of objectives
+     * @return reference point
+     * @throws IOException default exception
+     */
     public static double[] printReferencePoint(double[][] allSolutions, String path, int objectives) throws IOException {
         File file = new File(path);
         file.getParentFile().mkdirs();
@@ -47,5 +69,4 @@ public class Hypervolume {
         }
         return max;
     }
-
 }

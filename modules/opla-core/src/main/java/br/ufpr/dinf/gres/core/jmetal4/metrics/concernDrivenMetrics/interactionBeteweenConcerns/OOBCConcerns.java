@@ -6,6 +6,9 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 import java.util.Collection;
 import java.util.HashMap;
 
+/**
+ * Operation-level Overlapping Between Concerns
+ */
 public class OOBCConcerns {
 
     private final Architecture architecture;

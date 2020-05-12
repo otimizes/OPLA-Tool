@@ -32,7 +32,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * This class implements the NSGA-II algorithm.
+ * This class implements the BestOf12 algorithm.
  */
 public class Bestof12 extends Algorithm {
 

@@ -6,6 +6,9 @@ import br.ufpr.dinf.gres.architecture.representation.Method;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Operation-level Overlapping Between Concerns result
+ */
 public class OOBCResult {
 
     private final Concern concern;

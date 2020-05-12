@@ -5,7 +5,10 @@ import br.ufpr.dinf.gres.architecture.representation.Concern;
 
 import java.util.ArrayList;
 
-
+/**
+ * Abstract concern diffusion metric
+ * @param <T> type of element
+ */
 public abstract class ConcernDiffusionMetric<T> {
     private final Architecture architecture;
     private final ArrayList<T> results = new ArrayList<T>();

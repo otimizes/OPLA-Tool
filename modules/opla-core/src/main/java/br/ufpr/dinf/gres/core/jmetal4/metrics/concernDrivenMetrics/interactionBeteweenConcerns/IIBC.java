@@ -3,6 +3,11 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.interactionB
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
+/**
+ * Interface-level Interlacing Between Concerns (Sant’Anna, 2008)
+ *
+ * Measures the number of features in which a given interest shares at least one interface
+ */
 public class IIBC extends ObjectiveFunctionImplementation {
 
     public IIBC(Architecture architecture) {

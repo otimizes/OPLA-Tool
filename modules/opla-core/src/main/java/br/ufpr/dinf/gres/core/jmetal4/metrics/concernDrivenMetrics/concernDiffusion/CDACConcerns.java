@@ -3,6 +3,10 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffu
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 
+/**
+ * Concern Diffusion over Architectural Components result
+ *
+ */
 public class CDACConcerns extends ConcernDiffusionMetric<CDACResult> {
 
     public CDACConcerns(Architecture architecture) {

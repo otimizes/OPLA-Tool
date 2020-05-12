@@ -4,6 +4,11 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
+/**
+ * Attributes To Methods Ratio (Simons e Parmee, 2012)
+ *
+ * Standard deviation of the ratio betwwen attributes and methods inside classes
+ */
 public class ATMRElegance extends ObjectiveFunctionImplementation {
 
     public ATMRElegance(Architecture architecture) {

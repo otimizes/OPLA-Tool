@@ -3,6 +3,12 @@ package br.ufpr.dinf.gres.core.jmetal4.metrics.concernDrivenMetrics.concernDiffu
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctionImplementation;
 
+/**
+ * Concern Diffusion over Architectural Interfaces (Sant'Anna, 2008)
+ *
+ * Measures the number of interfaces that contribute for realization of a interesting
+ *
+ */
 public class CDAI extends ObjectiveFunctionImplementation {
 
     public CDAI(Architecture architecture) {

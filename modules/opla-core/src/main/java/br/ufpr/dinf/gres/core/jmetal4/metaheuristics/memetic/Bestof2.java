@@ -28,7 +28,7 @@ import br.ufpr.dinf.gres.core.jmetal4.util.Ranking;
 import br.ufpr.dinf.gres.core.jmetal4.util.comparators.CrowdingComparator;
 
 /**
- * This class implements the NSGA-II algorithm.
+ * This class implements the BestOf2 algorithm.
  */
 public class Bestof2 extends Algorithm {
 

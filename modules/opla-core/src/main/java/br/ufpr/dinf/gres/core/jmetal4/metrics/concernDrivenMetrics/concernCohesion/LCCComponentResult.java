@@ -8,6 +8,9 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 import java.util.Collection;
 import java.util.HashSet;
 
+/**
+ * Feature-based Cohesion for component result
+ */
 public class LCCComponentResult {
 
     private final HashSet<Concern> allConcerns = new HashSet<>();

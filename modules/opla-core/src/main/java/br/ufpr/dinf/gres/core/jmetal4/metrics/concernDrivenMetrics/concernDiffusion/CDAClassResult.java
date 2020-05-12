@@ -4,6 +4,9 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 
+/**
+ *   Concern Diffusion over Architectural Components classes result
+ */
 public class CDAClassResult extends ConcernDiffusionResult<Class> {
 
     public CDAClassResult(Concern concern, Architecture architecture) {

@@ -6,6 +6,9 @@ import br.ufpr.dinf.gres.architecture.representation.Class;
 import java.util.Collection;
 import java.util.HashMap;
 
+/**
+ *   Component-level Interlacing Between Concerns for classes
+ */
 public class CIBClassConcerns {
 
     private final Architecture architecture;

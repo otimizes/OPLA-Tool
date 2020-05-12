@@ -5,6 +5,9 @@ import br.ufpr.dinf.gres.core.jmetal4.core.Problem;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 
+/**
+ * Local Search Until implementation
+ */
 public class LocalSearchUntil implements Runnable {
 
     public boolean solutionBest(SolutionSet result) {

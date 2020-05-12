@@ -6,7 +6,9 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 import java.util.HashSet;
 import java.util.Set;
 
-
+/**
+ *   Component-level Interlacing Between Concerns result
+ */
 public class CIBCResult {
 
     private final Concern concern;
