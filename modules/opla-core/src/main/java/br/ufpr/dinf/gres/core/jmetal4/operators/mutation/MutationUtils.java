@@ -6,7 +6,6 @@ import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.GeneralizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 
 import java.util.ArrayList;
@@ -21,8 +20,9 @@ public class MutationUtils {
 
     /**
      * Get a random element from list of elements
+     *
      * @param allObjects list of elements
-     * @param <T> type of element
+     * @param <T>        type of element
      * @return random element
      */
     public static <T> T randomObject(List<T> allObjects) {
@@ -40,6 +40,7 @@ public class MutationUtils {
 
     /**
      * Get random package from architecture
+     *
      * @param architecture architecture
      * @return random package
      */
@@ -53,6 +54,7 @@ public class MutationUtils {
 
     /**
      * Get random package from list of elements
+     *
      * @param packages packages
      * @return random package
      */
@@ -66,6 +68,7 @@ public class MutationUtils {
 
     /**
      * Get random interface from list of elements
+     *
      * @param interfaces interfaces
      * @return random interface
      */
@@ -79,6 +82,7 @@ public class MutationUtils {
 
     /**
      * Get random class from list of classes
+     *
      * @param classes classes
      * @return random class
      */
@@ -92,6 +96,7 @@ public class MutationUtils {
 
     /**
      * Get random method from list of methods
+     *
      * @param methods methods
      * @return random method
      */
@@ -105,6 +110,7 @@ public class MutationUtils {
 
     /**
      * Remove classes that has a pattern applied
+     *
      * @param classes classes
      */
     public static void removeClassesInPatternStructureFromArray(List<Class> classes) {
@@ -119,6 +125,7 @@ public class MutationUtils {
 
     /**
      * Remove interfaces that has a pattern applied
+     *
      * @param interfaces interfaces
      */
     public static void removeInterfacesInPatternStructureFromArray(List<Interface> interfaces) {
@@ -133,10 +140,11 @@ public class MutationUtils {
 
     /**
      * Move method to new class
+     *
      * @param architecture architecture
-     * @param sourceClass source class
+     * @param sourceClass  source class
      * @param methodsClass list of methods to move
-     * @param targetClass target class
+     * @param targetClass  target class
      * @throws Exception default exception
      */
     public static void moveMethodToNewClass(Architecture architecture, Class sourceClass, List<Method> methodsClass, Class targetClass)
@@ -151,6 +159,7 @@ public class MutationUtils {
 
     /**
      * Verify if the class has generalizations
+     *
      * @param clazz class
      * @return has generalizations
      */
@@ -168,6 +177,7 @@ public class MutationUtils {
 
     /**
      * Verify if the class has patterns
+     *
      * @param clazz class
      * @return has patterns
      */
@@ -178,6 +188,7 @@ public class MutationUtils {
 
     /**
      * Verify if the interface has patterns
+     *
      * @param inter interface
      * @return has patterns
      */
@@ -188,7 +199,8 @@ public class MutationUtils {
 
     /**
      * Move attribute between classes
-     * @param arch architecture
+     *
+     * @param arch        architecture
      * @param targetClass target class
      * @param sourceClass source class
      * @throws Exception default exception
@@ -207,7 +219,8 @@ public class MutationUtils {
 
     /**
      * Create association between classes
-     * @param arch architecture
+     *
+     * @param arch        architecture
      * @param targetClass target class
      * @param sourceClass source class
      */
@@ -217,7 +230,8 @@ public class MutationUtils {
 
     /**
      * Move method between classes
-     * @param arch architecture
+     *
+     * @param arch        architecture
      * @param targetClass target class
      * @param sourceClass source class
      */
@@ -235,9 +249,10 @@ public class MutationUtils {
 
     /**
      * Move attributes to target class
-     * @param arch architecture
+     *
+     * @param arch        architecture
      * @param sourceClass source class
-     * @param attributes attributes
+     * @param attributes  attributes
      * @param targetClass target class
      * @throws Exception default exception
      */
@@ -253,6 +268,7 @@ public class MutationUtils {
 
     /**
      * Verify if is same layer of packages
+     *
      * @param source source package
      * @param target target package
      * @return is same layer
@@ -269,6 +285,7 @@ public class MutationUtils {
 
     /**
      * Get package suffix
+     *
      * @param pack package
      * @return package suffix
      */
@@ -288,8 +305,9 @@ public class MutationUtils {
 
     /**
      * Verify if the concern is variation point
-     * @param arch architecture
-     * @param clazz class
+     *
+     * @param arch    architecture
+     * @param clazz   class
      * @param concern concern
      * @return is variation point
      */
@@ -310,8 +328,9 @@ public class MutationUtils {
 
     /**
      * Verify if the concern is variant
-     * @param arch architecture
-     * @param clazz class
+     *
+     * @param arch    architecture
+     * @param clazz   class
      * @param concern concern
      * @return is variant
      */
@@ -338,17 +357,29 @@ public class MutationUtils {
         return isVariantConcern;
     }
 
-    public static void moveHierarchyToComponent(Class classComp, Package targetComp, Package sourceComp,
-                                                Architecture architecture, Concern concern) {
+    /**
+     * Move generalization to other package
+     *
+     * @param classComp    class generalization
+     * @param targetComp   target package
+     * @param architecture architecture
+     */
+    public static void moveHierarchyToComponent(Class classComp, Package targetComp, Architecture architecture) {
         architecture.forGeneralization().moveGeneralizationToPackage(getGeneralizationRelationshipForClass(classComp),
                 targetComp);
     }
 
-    public static GeneralizationRelationship getGeneralizationRelationshipForClass(Element element) {
-        for (Relationship r : ((Class) element).getRelationships()) {
+    /**
+     * Get generalizations of class
+     *
+     * @param clazz class
+     * @return generalizations
+     */
+    public static GeneralizationRelationship getGeneralizationRelationshipForClass(Class clazz) {
+        for (Relationship r : clazz.getRelationships()) {
             if (r instanceof GeneralizationRelationship) {
                 GeneralizationRelationship g = (GeneralizationRelationship) r;
-                if (g.getParent().equals(element) || (g.getChild().equals(element))) {
+                if (g.getParent().equals(clazz) || (g.getChild().equals(clazz))) {
                     return g;
                 }
             }
@@ -356,24 +387,37 @@ public class MutationUtils {
         return null;
     }
 
-    public static boolean isOptional(Architecture arch, Class cls) {
+    /**
+     * Verify if the class is optional
+     *
+     * @param clazz class
+     * @return is optional
+     */
+    public static boolean isOptional(Class clazz) {
         boolean isOptional = false;
-        if (cls.getVariantType() != null) {
-            if (cls.getVariantType().equalsIgnoreCase("optional")) {
+        if (clazz.getVariantType() != null) {
+            if (clazz.getVariantType().equalsIgnoreCase("optional")) {
                 return true;
             }
         }
         return isOptional;
     }
 
-    public static boolean isVariant(Architecture arch, Class cls) {
+    /**
+     * Verify if is variant
+     *
+     * @param arch  architecture
+     * @param clazz class
+     * @return is variant
+     */
+    public static boolean isVariant(Architecture arch, Class clazz) {
         boolean isVariant = false;
         Collection<Variability> variabilities = arch.getAllVariabilities();
         for (Variability variability : variabilities) {
             VariationPoint varPoint = variability.getVariationPoint();
             if (varPoint != null) {
                 for (Variant variant : varPoint.getVariants()) {
-                    if (variant.getVariantElement().equals(cls)) {
+                    if (variant.getVariantElement().equals(clazz)) {
                         isVariant = true;
                     }
                 }
@@ -382,14 +426,21 @@ public class MutationUtils {
         return isVariant;
     }
 
-    public static boolean isVarPoint(Architecture arch, Class cls) {
+    /**
+     * Verify if is variation point
+     *
+     * @param arch  architecture
+     * @param clazz class
+     * @return is variation point
+     */
+    public static boolean isVariationPoint(Architecture arch, Class clazz) {
         boolean isVariationPoint = false;
         Collection<Variability> variabilities = arch.getAllVariabilities();
         for (Variability variability : variabilities) {
             VariationPoint varPoint = variability.getVariationPoint();
             if (varPoint != null) {
                 Class classVP = (Class) varPoint.getVariationPointElement();
-                if (classVP.equals(cls)) {
+                if (classVP.equals(clazz)) {
                     isVariationPoint = true;
                 }
             }
@@ -397,8 +448,13 @@ public class MutationUtils {
         return isVariationPoint;
     }
 
+    /**
+     * Verify if is a valid solution
+     *
+     * @param solution solution
+     * @return is valid solution
+     */
     public static boolean isValidSolution(Architecture solution) {
-        boolean isValid = true;
         List<Interface> allInterfaces = new ArrayList<Interface>(solution.getAllInterfaces());
         if (!allInterfaces.isEmpty()) {
             for (Interface itf : allInterfaces) {
@@ -408,7 +464,6 @@ public class MutationUtils {
                 }
             }
         }
-        return isValid;
+        return true;
     }
-
 }

@@ -136,7 +136,7 @@ public class FeatureMutation implements IMutationOperator {
                                     if (!MutationUtils.searchForGeneralizations(classComp)) {
                                         moveClassToComponent(classComp, targetComponent, comp, arch, concern);
                                     } else {
-                                        MutationUtils.moveHierarchyToComponent(classComp, targetComponent, comp, arch, concern);
+                                        MutationUtils.moveHierarchyToComponent(classComp, targetComponent, arch);
                                     }
                                 } else {
                                     if (!MutationUtils.searchForGeneralizations(classComp)) {

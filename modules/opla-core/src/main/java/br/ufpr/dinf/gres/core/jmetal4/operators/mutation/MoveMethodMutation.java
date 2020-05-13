@@ -32,8 +32,8 @@ public class MoveMethodMutation implements IMutationOperator {
                     if (MutationUtils.searchPatternsClass(targetClass) && MutationUtils.searchPatternsClass(sourceClass)) {
                         if ((sourceClass != null) && (!MutationUtils.searchForGeneralizations(sourceClass))
                                 && (sourceClass.getAllAttributes().size() > 1)
-                                && (sourceClass.getAllMethods().size() > 1) && (!MutationUtils.isVarPoint(arch, sourceClass))
-                                && (!MutationUtils.isVariant(arch, sourceClass)) && (!MutationUtils.isOptional(arch, sourceClass))) {
+                                && (sourceClass.getAllMethods().size() > 1) && (!MutationUtils.isVariationPoint(arch, sourceClass))
+                                && (!MutationUtils.isVariant(arch, sourceClass)) && (!MutationUtils.isOptional(sourceClass))) {
                             if ((targetClass != null) && (!(targetClass.equals(sourceClass)))) {
                                 MutationUtils.moveMethod(arch, targetClass, sourceClass);
                             }
@@ -51,8 +51,8 @@ public class MoveMethodMutation implements IMutationOperator {
                         if (MutationUtils.searchPatternsClass(sourceClass)) {
                             if ((sourceClass != null) && (!MutationUtils.searchForGeneralizations(sourceClass))
                                     && (sourceClass.getAllAttributes().size() > 1)
-                                    && (sourceClass.getAllMethods().size() > 1) && (!MutationUtils.isVarPoint(arch, sourceClass))
-                                    && (!MutationUtils.isVariant(arch, sourceClass)) && (!MutationUtils.isOptional(arch, sourceClass))) {
+                                    && (sourceClass.getAllMethods().size() > 1) && (!MutationUtils.isVariationPoint(arch, sourceClass))
+                                    && (!MutationUtils.isVariant(arch, sourceClass)) && (!MutationUtils.isOptional(sourceClass))) {
                                 final Package targetComp = MutationUtils.getRandomPackage(arch);
                                 if (MutationUtils.checkSameLayer(sourceComp, targetComp)) {
                                     final List<Class> ClassesTargetComp = new ArrayList<Class>(

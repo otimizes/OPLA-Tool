@@ -36,8 +36,8 @@ public class AddClassMutation implements IMutationOperator {
                         final Class sourceClass = sourceClassElem;
                         if ((sourceClass != null) && (!MutationUtils.searchForGeneralizations(sourceClass))
                                 && (sourceClass.getAllAttributes().size() > 1)
-                                && (sourceClass.getAllMethods().size() > 1) && (!MutationUtils.isVarPoint(arch, sourceClass))
-                                && (!MutationUtils.isVariant(arch, sourceClass)) && (!MutationUtils.isOptional(arch, sourceClass))) {
+                                && (sourceClass.getAllMethods().size() > 1) && (!MutationUtils.isVariationPoint(arch, sourceClass))
+                                && (!MutationUtils.isVariant(arch, sourceClass)) && (!MutationUtils.isOptional(sourceClass))) {
                             if (MutationUtils.searchPatternsClass(sourceClass)) {
                                 if (PseudoRandom.randInt(0, 1) == 0) { // attribute
                                     List<Attribute> AttributesClass = new ArrayList<Attribute>(
