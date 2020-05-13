@@ -25,7 +25,7 @@ import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
-import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternMutationOperator;
+import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternsMutationOperator;
 import br.ufpr.dinf.gres.patterns.strategies.designpatternselection.impl.CustomDesignPatternSelection;
 
 import java.util.HashMap;
@@ -40,9 +40,9 @@ public class MutationFactory {
 
     public static Mutation getMutationOperator(String name, HashMap<String, Object> parameters, ExperimentCommonConfigs configs) throws JMException {
         if (isOnlyDesignPattern(configs)) {
-            return new DesignPatternMutationOperator(parameters, configs.getDesignPatternStrategy(), new CustomDesignPatternSelection(configs.getPatterns()));
+            return new DesignPatternsMutationOperator(parameters, configs.getDesignPatternStrategy(), new CustomDesignPatternSelection(configs.getPatterns()));
         } else if (isDesignPatternAndPlaFeatureMutation(configs)) {
-            DesignPatternMutationOperator dpm = new DesignPatternMutationOperator(parameters, configs.getDesignPatternStrategy(),
+            DesignPatternsMutationOperator dpm = new DesignPatternsMutationOperator(parameters, configs.getDesignPatternStrategy(),
                     new CustomDesignPatternSelection(configs.getPatterns()));
 
             configs.excludeDesignPatternsFromMutationOperatorList();
@@ -75,7 +75,7 @@ public class MutationFactory {
     public static Mutation getMutationOperatorPatterns(String name, HashMap<String, Object> parameters,
                                                        ExperimentCommonConfigs configs) throws JMException {
 
-        return new DesignPatternMutationOperator(parameters, configs.getDesignPatternStrategy(),
+        return new DesignPatternsMutationOperator(parameters, configs.getDesignPatternStrategy(),
                 new CustomDesignPatternSelection(configs.getPatterns()));
     }
 

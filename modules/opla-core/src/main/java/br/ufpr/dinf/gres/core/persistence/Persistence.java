@@ -2,7 +2,6 @@ package br.ufpr.dinf.gres.core.persistence;
 
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.ObjectiveFunctions;
 import br.ufpr.dinf.gres.core.jmetal4.util.NonDominatedSolutionList;
 import br.ufpr.dinf.gres.domain.entity.*;
@@ -18,6 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Persistence service to integrate the core with repository
+ */
 @Service
 public class Persistence {
 
@@ -44,7 +46,13 @@ public class Persistence {
         this.applicationContext = applicationContext;
     }
 
-    public List<Info> saveInfoAll(List<Info> infoResults) {
+    /**
+     * Save all info results
+     *
+     * @param infoResults info results
+     * @return saved info
+     */
+    public List<Info> save(List<Info> infoResults) {
         for (Info info : infoResults) {
             Objective objective = new Objective();
             objective.setExecution(info.getExecution());
@@ -57,15 +65,29 @@ public class Persistence {
         return infoService.saveAll(infoResults);
     }
 
-    public Experiment saveExperiment(String PLAName, String algorithm, String description, String hash) {
-        Experiment experimentResults = new Experiment(PLAName, algorithm, description, hash);
+    /**
+     * Save experiment
+     *
+     * @param plaName     pla name
+     * @param algorithm   optimization algorithm
+     * @param description experiment description
+     * @param hash        OPLA Thread Scope hash
+     * @return saved experiment
+     */
+    public Experiment save(String plaName, String algorithm, String description, String hash) {
+        Experiment experimentResults = new Experiment(plaName, algorithm, description, hash);
         Experiment save = experimentService.save(experimentResults);
         experimentResults.setId(String.valueOf(save.getId()));
         return experimentResults;
     }
 
-    public void save(Map<String, List<ObjectiveFunctionDomain>> allMetrics, List<String> list) {
-        for (Map.Entry<String, List<ObjectiveFunctionDomain>> stringListEntry : allMetrics.entrySet()) {
+    /**
+     * Save objective functions
+     *
+     * @param objectiveFunctions objective functions
+     */
+    public void save(Map<String, List<ObjectiveFunctionDomain>> objectiveFunctions) {
+        for (Map.Entry<String, List<ObjectiveFunctionDomain>> stringListEntry : objectiveFunctions.entrySet()) {
             ObjectiveFunctions key = ObjectiveFunctions.valueOf(stringListEntry.getKey());
             for (ObjectiveFunctionDomain ObjectiveFunctionDomain : stringListEntry.getValue()) {
                 BaseService bean = (BaseService) applicationContext.getBean(key.name() + "ObjectiveFunctionService");
@@ -74,8 +96,15 @@ public class Persistence {
         }
     }
 
-    public MapObjectiveName saveObjectivesNames(List<String> selectedMetrics, String experimentId) throws Exception {
-        String names = getNames(selectedMetrics);
+    /**
+     * Save objective functions names
+     *
+     * @param objectiveFunctions objective functions
+     * @param experimentId       experiment Id
+     * @return Objective functions name data
+     */
+    public MapObjectiveName saveObjectivesNames(List<String> objectiveFunctions, String experimentId) {
+        String names = getNames(objectiveFunctions);
         MapObjectiveName mapObjectiveName = new MapObjectiveName();
         mapObjectiveName.setNames(names);
         mapObjectiveName.setExperiment(experimentService.getOne(experimentId));
@@ -92,6 +121,12 @@ public class Persistence {
         return names.toString().trim();
     }
 
+    /**
+     * Save experiment configs
+     *
+     * @param conf configs
+     * @return saved configs
+     */
     public ExperimentConfiguration save(ExperimentConfs conf) {
         ExperimentConfiguration experimentConfiguration = new ExperimentConfiguration();
         experimentConfiguration.setExperiment(experimentService.getOne(conf.getExperimentId()));
@@ -108,8 +143,15 @@ public class Persistence {
         return experimentConfigurationService.save(experimentConfiguration);
     }
 
-    public List<DistanceEuclidean> saveDistance(HashMap<String, Double> results, String experiementId) {
-        Experiment experiment = experimentService.getOne(experiementId);
+    /**
+     * Save Euclidean Distance
+     *
+     * @param results      results
+     * @param experimentId experiment id
+     * @return saved ED
+     */
+    public List<DistanceEuclidean> saveEuclideanDistance(HashMap<String, Double> results, String experimentId) {
+        Experiment experiment = experimentService.getOne(experimentId);
         List<DistanceEuclidean> collect = results.entrySet().stream().map(entry -> {
             DistanceEuclidean distanceEuclidean = new DistanceEuclidean();
             distanceEuclidean.setSolutionName(entry.getKey());
@@ -120,12 +162,23 @@ public class Persistence {
         return distanceEuclideanService.saveAll(collect);
     }
 
-    public Execution save(Execution executionResults) {
-        return executionService.save(executionResults);
+    /**
+     * Save execution
+     *
+     * @param execution execution
+     * @return saved execution
+     */
+    public Execution save(Execution execution) {
+        return executionService.save(execution);
     }
 
-
-    public SolutionSet queryNonDominatedSolutinsFromExperiment(String experimentID) throws Exception {
+    /**
+     * Get solution set by experiment
+     *
+     * @param experimentID experiment id
+     * @return solution set
+     */
+    public SolutionSet queryNonDominatedSolutionsByExperiment(String experimentID) {
         List<Objective> byExperiment = objectiveService.findByExperiment(experimentID);
         SolutionSet solutionSet = new NonDominatedSolutionList();
 

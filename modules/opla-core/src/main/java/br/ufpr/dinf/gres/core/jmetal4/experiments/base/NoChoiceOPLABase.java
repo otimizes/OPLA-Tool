@@ -92,11 +92,11 @@ public class NoChoiceOPLABase {
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
 
-            Experiment experiement = mp.saveExperiment(plaName, "NoChoice", configs.getDescription(), OPLAThreadScope.hash.get());
+            Experiment experiement = mp.save(plaName, "NoChoice", configs.getDescription(), OPLAThreadScope.hash.get());
 
             Algorithm algorithm;
             Result result = new Result();
-            experiment = mp.saveExperiment(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
+            experiment = mp.save(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "NoChoice", configs);
             mp.save(conf);
             Crossover crossover;
@@ -152,7 +152,7 @@ public class NoChoiceOPLABase {
 
                 execution = mp.save(execution);
                 List<Info> infos = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
-                infos = mp.saveInfoAll(infos);
+                infos = mp.save(infos);
                 execution.setInfos(infos);
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
                         experiment, selectedObjectiveFunctions);
@@ -177,13 +177,13 @@ public class NoChoiceOPLABase {
             }
 
             List<Info> infos = result.getInfos(todasRuns.getSolutionSet(), null, experiment);
-            mp.saveInfoAll(infos);
+            mp.save(infos);
             Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);
-            mp.save(allMetrics, configs.getOplaConfigs().getSelectedObjectiveFunctions());
+            mp.save(allMetrics);
 
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
-            mp.saveDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
+            mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             saveHypervolume(experiment.getId(), null, todasRuns, plaName);
 
             SaveStringToFile.getInstance().deleteTempFolder();

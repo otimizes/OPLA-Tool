@@ -298,12 +298,12 @@ public class PLAMutation extends AbstractMutationOperator {
                                 List<Attribute> AttributesClass = new ArrayList<Attribute>(sourceClass.getAllAttributes());
                                 if (AttributesClass.size() >= 1) {
                                     if ("sameComponent".equals(scope)) {
-                                        moveAttributeToNewClass(arch, sourceClass, AttributesClass, sourceComp.createClass("Class" + OPLA.contClass_++, false));
+                                        moveAttributeToNewClass(arch, sourceClass, AttributesClass, sourceComp.createClass("Class" + OPLA.countClass++, false));
                                     } else {
                                         if ("allComponents".equals(scope)) {
                                             br.ufpr.dinf.gres.architecture.representation.Package targetComp = randomObject(new ArrayList<br.ufpr.dinf.gres.architecture.representation.Package>(arch.getAllPackages()));
                                             if (checkSameLayer(sourceComp, targetComp)) {
-                                                moveAttributeToNewClass(arch, sourceClass, AttributesClass, targetComp.createClass("Class" + OPLA.contClass_++, false));
+                                                moveAttributeToNewClass(arch, sourceClass, AttributesClass, targetComp.createClass("Class" + OPLA.countClass++, false));
                                             }
                                         }
                                     }
@@ -313,12 +313,12 @@ public class PLAMutation extends AbstractMutationOperator {
                                 List<Method> MethodsClass = new ArrayList<Method>(sourceClass.getAllMethods());
                                 if (MethodsClass.size() >= 1) {
                                     if ("sameComponent".equals(scope)) {
-                                        moveMethodToNewClass(arch, sourceClass, MethodsClass, sourceComp.createClass("Class" + OPLA.contClass_++, false));
+                                        moveMethodToNewClass(arch, sourceClass, MethodsClass, sourceComp.createClass("Class" + OPLA.countClass++, false));
                                     } else {
                                         if ("allComponents".equals(scope)) {
                                             br.ufpr.dinf.gres.architecture.representation.Package targetComp = randomObject(new ArrayList<br.ufpr.dinf.gres.architecture.representation.Package>(arch.getAllPackages()));
                                             if (checkSameLayer(sourceComp, targetComp)) {
-                                                moveMethodToNewClass(arch, sourceClass, MethodsClass, targetComp.createClass("Class" + OPLA.contClass_++, false));
+                                                moveMethodToNewClass(arch, sourceClass, MethodsClass, targetComp.createClass("Class" + OPLA.countClass++, false));
                                             }
                                         }
                                     }
@@ -404,9 +404,9 @@ public class PLAMutation extends AbstractMutationOperator {
                         if (OpsInterface.size() >= 1) {
                             Method op = randomObject(OpsInterface);
 
-                            br.ufpr.dinf.gres.architecture.representation.Package newComp = arch.createPackage("Package" + OPLA.contComp_ + getSuffix(sourceComp));
-                            OPLA.contComp_++;
-                            Interface newInterface = newComp.createInterface("Interface" + OPLA.contInt_++);
+                            br.ufpr.dinf.gres.architecture.representation.Package newComp = arch.createPackage("Package" + OPLA.countPackage + getSuffix(sourceComp));
+                            OPLA.countPackage++;
+                            Interface newInterface = newComp.createInterface("Interface" + OPLA.countInterface++);
 
                             sourceInterface.moveOperationToInterface(op, newInterface);
 
@@ -454,8 +454,8 @@ public class PLAMutation extends AbstractMutationOperator {
                             final Concern selectedConcern = randomObject(concernsSelectedComp);
                             List<br.ufpr.dinf.gres.architecture.representation.Package> allComponentsAssignedOnlyToConcern = new ArrayList<br.ufpr.dinf.gres.architecture.representation.Package>(searchComponentsAssignedToConcern(selectedConcern, allComponents));
                             if (allComponentsAssignedOnlyToConcern.isEmpty()) {
-                                OPLA.contComp_++;
-                                modularizeConcernInComponent(allComponents, arch.createPackage("Package" + OPLA.contComp_ + getSuffix(selectedComp)), selectedConcern, arch);
+                                OPLA.countPackage++;
+                                modularizeConcernInComponent(allComponents, arch.createPackage("Package" + OPLA.countPackage + getSuffix(selectedComp)), selectedConcern, arch);
                             } else {
                                 if (allComponentsAssignedOnlyToConcern.size() == 1) {
                                     modularizeConcernInComponent(allComponents, allComponentsAssignedOnlyToConcern.get(0), selectedConcern, arch);
@@ -607,7 +607,7 @@ public class PLAMutation extends AbstractMutationOperator {
         }
 
         if (targetClass == null) {
-            targetClass = targetComp.createClass("Class" + OPLA.contClass_++, false);
+            targetClass = targetComp.createClass("Class" + OPLA.countClass++, false);
             targetClass.addConcern(concern.getName());
         }
         return targetClass;
@@ -680,7 +680,7 @@ public class PLAMutation extends AbstractMutationOperator {
         targetInterface = searchForInterfaceWithConcern(concern, targetComp);
 
         if (targetInterface == null) {
-            targetInterface = targetComp.createInterface("Interface" + OPLA.contInt_++);
+            targetInterface = targetComp.createInterface("Interface" + OPLA.countInterface++);
             sourceInterface.moveOperationToInterface(operation, targetInterface);
             targetInterface.addConcern(concern.getName());
         } else {

@@ -113,13 +113,11 @@ public class PLACrossover2 extends Crossover {
                     obtainChild(feature, (Architecture) parent2.getDecisionVariables()[0], (Architecture) offspring[0].getDecisionVariables()[0], scope);
                     if (!(isValidSolution((Architecture) offspring[0].getDecisionVariables()[0]))) {
                         offspring[0] = parent1;
-                        OPLA.contDiscardedSolutions_++;
                     }
                     this.variabilitiesOk = true;
                     obtainChild(feature, (Architecture) parent1.getDecisionVariables()[0], (Architecture) offspring[1].getDecisionVariables()[0], scope);
                     if (!(isValidSolution((Architecture) offspring[1].getDecisionVariables()[0]))) {
                         offspring[0] = parent1;
-                        OPLA.contDiscardedSolutions_++;
                     }
                     concernsArchitecture = null;
                 }

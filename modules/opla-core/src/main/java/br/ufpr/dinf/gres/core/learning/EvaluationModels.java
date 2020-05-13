@@ -1,5 +1,8 @@
 package br.ufpr.dinf.gres.core.learning;
 
-public enum EvaluationModel {
+/**
+ * Evaluation models
+ */
+public enum EvaluationModels {
     TRAINING_SET, SUPPLIED_TEST, CROSS_VALIDATION, PERCENTAGE_SPLIT
 }

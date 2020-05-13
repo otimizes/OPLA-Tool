@@ -45,13 +45,13 @@ public class AddClassMutation implements IMutationOperator {
                                     if (AttributesClass.size() >= 1) {
                                         if ("sameComponent".equals(scope)) {
                                             MutationUtils.moveAttributeToNewClass(arch, sourceClass, AttributesClass,
-                                                    sourceComp.createClass("Class" + OPLA.contClass_++, false));
+                                                    sourceComp.createClass("Class" + OPLA.countClass++, false));
                                         } else {
                                             if ("allComponents".equals(scope)) {
                                                 Package targetComp = MutationUtils.getRandomPackage(arch);
                                                 if (MutationUtils.checkSameLayer(sourceComp, targetComp)) {
                                                     MutationUtils.moveAttributeToNewClass(arch, sourceClass, AttributesClass,
-                                                            targetComp.createClass("Class" + OPLA.contClass_++, false));
+                                                            targetComp.createClass("Class" + OPLA.countClass++, false));
                                                 }
                                             }
                                         }
@@ -64,13 +64,13 @@ public class AddClassMutation implements IMutationOperator {
                                     if (MethodsClass.size() >= 1) {
                                         if ("sameComponent".equals(scope)) {
                                             MutationUtils.moveMethodToNewClass(arch, sourceClass, MethodsClass,
-                                                    sourceComp.createClass("Class" + OPLA.contClass_++, false));
+                                                    sourceComp.createClass("Class" + OPLA.countClass++, false));
                                         } else {
                                             if ("allComponents".equals(scope)) {
                                                 Package targetComp = MutationUtils.getRandomPackage(arch);
                                                 if (MutationUtils.checkSameLayer(sourceComp, targetComp)) {
                                                     MutationUtils.moveMethodToNewClass(arch, sourceClass, MethodsClass,
-                                                            targetComp.createClass("Class" + OPLA.contClass_++, false));
+                                                            targetComp.createClass("Class" + OPLA.countClass++, false));
                                                 }
                                             }
                                         }

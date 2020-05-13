@@ -2,9 +2,8 @@ package br.ufpr.dinf.gres.core.jmetal4.main;
 
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
-import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
-import br.ufpr.dinf.gres.core.jmetal4.main.MainTestUtil;
+import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.Crossover;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.CrossoverFactory;
@@ -15,7 +14,6 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +32,6 @@ public class NSGAIICrossover {
         int runsNumber = 30; //30;
         populationSize_ = 100; //100;
         maxEvaluations_ = 30000; //300 gerações
-        int totalDiscardedSolutions = 0;
         int[] discardedSolutions = new int[runsNumber];
 
         crossoverProbability_ = 0.1;
@@ -123,9 +120,6 @@ public class NSGAIICrossover {
             long[] time = new long[runsNumber];
 
             for (int runs = 0; runs < runsNumber; runs++) {
-                //Thelma - Dez2013 adicao da linha abaixo
-                OPLA.contDiscardedSolutions_ = 0;
-                // Execute the Algorithm
 
                 long initTime = System.currentTimeMillis();
                 SolutionSet resultFront = algorithm.execute();
@@ -149,8 +143,6 @@ public class NSGAIICrossover {
                 //Thelma - Dez2013
                 allSolutions = allSolutions.union(resultFront);
                 MainTestUtil.printMetricsToFile(allSolutions, directory + "/Metrics_" + PLAName + "_" + runs + ".txt");
-                System.out.println("Number of Discarded Solutions: " + OPLA.contDiscardedSolutions_);
-                totalDiscardedSolutions = totalDiscardedSolutions + OPLA.contDiscardedSolutions_;
             }
             //Thelma - Dez2013 - duas proximas linhas
             String NameOfPLA = pla.substring(10, 15);
@@ -171,8 +163,6 @@ public class NSGAIICrossover {
             MainTestUtil.printMetricsToFile(allSolutions, directory + "/Metrics_All_" + PLAName + ".txt");
             MainTestUtil.printAllMetricsToFile(allSolutions, directory + "/FUN_Metrics_All_" + PLAName + ".txt");
 
-            System.out.println("Total Number of Discarded Solutions:  " + totalDiscardedSolutions);
-            totalDiscardedSolutions = 0;
             MainTestUtil.printDiscardedSolutionsToFile(discardedSolutions, directory + "/AllDiscardedSolutions_" + PLAName + ".txt");
 
         }

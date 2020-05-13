@@ -5,7 +5,6 @@ import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
-import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -14,6 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * PLA feature mutation operator that call another mutation operators included in FeatureMutationOperators enum
+ */
 public class PLAFeatureMutation extends Mutation {
 
     private static final long serialVersionUID = 9039316729379302747L;
@@ -66,7 +68,6 @@ public class PLAFeatureMutation extends Mutation {
             Architecture clone;
             clone = ((Architecture) solution.getDecisionVariables()[0]).deepClone();
             solution.getDecisionVariables()[0] = clone;
-            OPLA.contDiscardedSolutions_++;
         }
 
         return solution;

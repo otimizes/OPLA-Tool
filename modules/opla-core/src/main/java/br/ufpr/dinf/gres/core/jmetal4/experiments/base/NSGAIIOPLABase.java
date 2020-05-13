@@ -71,7 +71,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
             Result result = new Result();
-            experiment = mp.saveExperiment(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
+            experiment = mp.save(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiment.getId(), "NSGAII", configs);
             mp.save(conf);
 
@@ -126,7 +126,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
 
                 execution = mp.save(execution);
                 List<Info> infos = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
-                infos = mp.saveInfoAll(infos);
+                infos = mp.save(infos);
                 execution.setInfos(infos);
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
                         experiment, selectedObjectiveFunctions);
@@ -149,13 +149,13 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
             }
 
             List<Info> infos = result.getInfos(allRuns.getSolutionSet(), null, experiment);
-            mp.saveInfoAll(infos);
+            mp.save(infos);
             Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);
-            mp.save(allMetrics, configs.getOplaConfigs().getSelectedObjectiveFunctions());
+            mp.save(allMetrics);
 
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
-            mp.saveDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
+            mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             saveHypervolume(experiment.getId(), null, allRuns, plaName);
 
             SaveStringToFile.getInstance().deleteTempFolder();

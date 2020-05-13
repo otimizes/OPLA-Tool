@@ -1,5 +1,8 @@
 package br.ufpr.dinf.gres.core.learning;
 
+/**
+ * Architectural element type used in machine learning
+ */
 public enum ArchitecturalElementType {
     PACKAGE, KLASS, INTERFACE, ATTRIBUTE, METHOD;
 

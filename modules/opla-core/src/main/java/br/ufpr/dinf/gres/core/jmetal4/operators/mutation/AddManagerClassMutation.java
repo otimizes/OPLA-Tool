@@ -42,9 +42,9 @@ public class AddManagerClassMutation implements IMutationOperator {
                                 Method op = MutationUtils.getRandomMethod(OpsInterface);
 
                                 Package newComp = arch
-                                        .createPackage("Package" + OPLA.contComp_ + MutationUtils.getSuffix(sourceComp));
-                                OPLA.contComp_++;
-                                Interface newInterface = newComp.createInterface("Interface" + OPLA.contInt_++);
+                                        .createPackage("Package" + OPLA.countPackage + MutationUtils.getSuffix(sourceComp));
+                                OPLA.countPackage++;
+                                Interface newInterface = newComp.createInterface("Interface" + OPLA.countInterface++);
 
                                 sourceInterface.moveOperationToInterface(op, newInterface);
 

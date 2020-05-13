@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
+/**
+ * Abstract mutation operator class
+ */
 public abstract class AbstractMutationOperator extends Mutation {
 
     public static final Logger LOGGER = LogManager.getLogger(AbstractMutationOperator.class);

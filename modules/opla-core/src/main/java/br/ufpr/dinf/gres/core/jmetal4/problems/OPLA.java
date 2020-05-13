@@ -28,10 +28,9 @@ public class OPLA extends Problem {
     private static final Logger LOGGER = Logger.getLogger(OPLA.class);
     private static final long serialVersionUID = 884633138619836573L;
 
-    public static int contComp_ = 0;
-    public static int contInt_ = 0;
-    public static int contClass_ = 0;
-    public static int contDiscardedSolutions_ = 0;
+    public static int countPackage = 0;
+    public static int countInterface = 0;
+    public static int countClass = 0;
 
     public Architecture architecture_;
     private List<String> selectedMetrics;

@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.learning;
 
 /**
- * Enumeration of the Clustering Algorithms presents in the Tool
+ * Enumeration of the used Clustering Algorithms
  */
 public enum ClusteringAlgorithm {
     KMEANS, DBSCAN, OPTICS

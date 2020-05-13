@@ -19,8 +19,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-//https://stackoverflow.com/questions/28694971/using-neural-network-class-in-weka-in-java-code
+/**
+ * Subjective analyze algorithm by Freire and Bindewald (2020)
+ */
 public class SubjectiveAnalyzeAlgorithm {
+    //https://stackoverflow.com/questions/28694971/using-neural-network-class-in-weka-in-java-code
     private static final long serialVersionUID = 1L;
     public static final Logger LOGGER = Logger.getLogger(SubjectiveAnalyzeAlgorithm.class);
 
@@ -33,7 +36,7 @@ public class SubjectiveAnalyzeAlgorithm {
     private MultilayerPerceptron architecturalMLP;
     private int trainingTime = 2500;
     private DistributeUserEvaluation distributeUserEvaluation = DistributeUserEvaluation.ALL;
-    private EvaluationModel evaluationModel = EvaluationModel.CROSS_VALIDATION;
+    private EvaluationModels evaluationModel = EvaluationModels.CROSS_VALIDATION;
     private double momentum = 0.2;
     private double learningRate = 0.3;
     private String hiddenLayers;
@@ -183,6 +186,13 @@ public class SubjectiveAnalyzeAlgorithm {
         }
     }
 
+    /**
+     * Evaluate subjectively using Likert score and architectural elements evaluation
+     *
+     * @param solutionSet solution set
+     * @param subjective  assign or not the Likert score
+     * @throws Exception default exception
+     */
     public void evaluateSolutionSetSubjectiveAndArchitecturalMLP(OPLASolutionSet solutionSet, boolean subjective) throws Exception {
         LOGGER.info("evaluateSolutionSetSubjectiveAndArchitecturalMLP()");
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
@@ -248,7 +258,6 @@ public class SubjectiveAnalyzeAlgorithm {
         }
     }
 
-
     private void logMachineLearningModelEvaluation(StringBuilder stringBuilder) {
         FileWriter fileWriter = null;
         try {
@@ -262,6 +271,9 @@ public class SubjectiveAnalyzeAlgorithm {
         printWriter.close();
     }
 
+    /**
+     * Build the MLP
+     */
     private void buildSubjectiveMLP() {
         LOGGER.info("MLP() buildSubjectiveMLP()");
         try {
@@ -353,11 +365,11 @@ public class SubjectiveAnalyzeAlgorithm {
         this.distributeUserEvaluation = distributeUserEvaluation;
     }
 
-    public EvaluationModel getEvaluationModel() {
+    public EvaluationModels getEvaluationModel() {
         return evaluationModel;
     }
 
-    public void setEvaluationModel(EvaluationModel evaluationModel) {
+    public void setEvaluationModel(EvaluationModels evaluationModel) {
         this.evaluationModel = evaluationModel;
     }
 

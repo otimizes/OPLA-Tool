@@ -38,9 +38,9 @@ public class FeatureMutation implements IMutationOperator {
                             List<Package> allComponentsAssignedOnlyToConcern = new ArrayList<Package>(
                                     searchComponentsAssignedToConcern(selectedConcern, allComponents));
                             if (allComponentsAssignedOnlyToConcern.isEmpty()) {
-                                OPLA.contComp_++;
+                                OPLA.countPackage++;
                                 modularizeConcernInComponent(allComponents,
-                                        arch.createPackage("Package" + OPLA.contComp_ + MutationUtils.getSuffix(selectedComp)),
+                                        arch.createPackage("Package" + OPLA.countPackage + MutationUtils.getSuffix(selectedComp)),
                                         selectedConcern, arch);
                             } else {
                                 if (allComponentsAssignedOnlyToConcern.size() == 1) {
@@ -216,7 +216,7 @@ public class FeatureMutation implements IMutationOperator {
         }
 
         if (targetClass == null) {
-            targetClass = targetComp.createClass("Class" + OPLA.contClass_++, false);
+            targetClass = targetComp.createClass("Class" + OPLA.countClass++, false);
             targetClass.addConcern(concern.getName());
         }
         return targetClass;
@@ -286,7 +286,7 @@ public class FeatureMutation implements IMutationOperator {
             targetInterface = searchForInterfaceWithConcern(concern, targetComp);
 
             if (targetInterface == null) {
-                targetInterface = targetComp.createInterface("Interface" + OPLA.contInt_++);
+                targetInterface = targetComp.createInterface("Interface" + OPLA.countInterface++);
                 sourceInterface.moveOperationToInterface(operation, targetInterface);
                 targetInterface.addConcern(concern.getName());
             } else {

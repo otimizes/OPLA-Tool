@@ -7,7 +7,7 @@ package br.ufpr.dinf.gres.core.jmetal4.main.patterns;
 
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.AbstractMutationOperator;
-import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternMutationOperator;
+import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternsMutationOperator;
 import br.ufpr.dinf.gres.patterns.strategies.designpatternselection.DesignPatternSelectionStrategy;
 import br.ufpr.dinf.gres.patterns.strategies.scopeselection.ScopeSelectionStrategy;
 
@@ -21,12 +21,12 @@ public class PLAMutationThenDesignPatternsMutationOperator extends AbstractMutat
     private static final long serialVersionUID = 1L;
 
     private final PLAMutation pLAMutation;
-    private final DesignPatternMutationOperator designPatternMutationOperator;
+    private final DesignPatternsMutationOperator designPatternMutationOperator;
 
     public PLAMutationThenDesignPatternsMutationOperator(Map<String, Object> parameters, ScopeSelectionStrategy scopeSelectionStrategy, DesignPatternSelectionStrategy designPatternSelectionStrategy) {
         super(parameters);
         pLAMutation = new PLAMutation(parameters);
-        designPatternMutationOperator = new DesignPatternMutationOperator(parameters, scopeSelectionStrategy, designPatternSelectionStrategy);
+        designPatternMutationOperator = new DesignPatternsMutationOperator(parameters, scopeSelectionStrategy, designPatternSelectionStrategy);
     }
 
     @Override

@@ -23,16 +23,16 @@ import org.apache.log4j.Priority;
 import java.util.Map;
 
 /**
- * @author giovaniguizzo
+ * Class that call the design patterns operators
  */
-public class DesignPatternMutationOperator extends AbstractMutationOperator {
+public class DesignPatternsMutationOperator extends AbstractMutationOperator {
 
     private static final long serialVersionUID = 1L;
 
     protected final ScopeSelectionStrategy scopeSelectionStrategy;
     protected final DesignPatternSelectionStrategy designPatternSelectionStrategy;
 
-    public DesignPatternMutationOperator(Map<String, Object> parameters, ScopeSelectionStrategy scopeSelectionStrategy, DesignPatternSelectionStrategy designPatternSelectionStrategy) {
+    public DesignPatternsMutationOperator(Map<String, Object> parameters, ScopeSelectionStrategy scopeSelectionStrategy, DesignPatternSelectionStrategy designPatternSelectionStrategy) {
         super(parameters);
         this.scopeSelectionStrategy = scopeSelectionStrategy;
         this.designPatternSelectionStrategy = designPatternSelectionStrategy;
@@ -59,7 +59,6 @@ public class DesignPatternMutationOperator extends AbstractMutationOperator {
         if (!this.isValidSolution(((Architecture) solution.getDecisionVariables()[0]))) {
             Architecture clone = ((Architecture) solution.getDecisionVariables()[0]).deepClone();
             solution.getDecisionVariables()[0] = clone;
-            OPLA.contDiscardedSolutions_++;
         }
         return applied;
     }

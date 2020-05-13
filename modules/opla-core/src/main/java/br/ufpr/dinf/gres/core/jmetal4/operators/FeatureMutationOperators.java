@@ -2,6 +2,9 @@ package br.ufpr.dinf.gres.core.jmetal4.operators;
 
 import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.*;
 
+/**
+ * Feature mutation operators enum
+ */
 public enum FeatureMutationOperators implements IFeatureMutationOperators {
 
     FEATURE_MUTATION {

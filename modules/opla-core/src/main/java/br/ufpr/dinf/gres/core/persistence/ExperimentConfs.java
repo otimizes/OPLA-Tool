@@ -1,15 +1,14 @@
 package br.ufpr.dinf.gres.core.persistence;
 
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PAESConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
 
 /**
- * Classe responsável por guardar E persistir/recuperar informações referentes a
- * qual configuração o experimento utilizou.
+ * Class responsible for retrieving information related of which configuration the experiment use.
  * <p>
- * Ex: numero de rodas, funcoes objetivos utilizadas e assim por diante.
+ * Ex: number of wheels, objective functions used and so on.
  *
  * @author elf
  */
@@ -40,6 +39,11 @@ public class ExperimentConfs {
         return Double.valueOf(probability) == 0 ? "-" : probability;
     }
 
+    /**
+     * Get string of patterns
+     *
+     * @return string of patterns
+     */
     public String getPatterns() {
         StringBuilder patternsList = new StringBuilder();
 
@@ -56,6 +60,11 @@ public class ExperimentConfs {
         return patternsList.toString();
     }
 
+    /**
+     * Get mutation operators
+     *
+     * @return mutation operators
+     */
     public String getMutationOperators() {
         StringBuilder mutationOperatorsList = new StringBuilder();
         for (String operator : configs.getMutationOperators()) {
@@ -72,6 +81,11 @@ public class ExperimentConfs {
     }
 
 
+    /**
+     * For NSGA-II
+     *
+     * @return population size
+     */
     public int getPopulationSize() {
         if (this.algorithm.equalsIgnoreCase("NSGAII"))
             return ((NSGAIIConfigs) this.configs).getPopulationSize();
@@ -86,7 +100,7 @@ public class ExperimentConfs {
     /**
      * For PAES
      *
-     * @return
+     * @return archive size
      */
     public int getArchiveSize() {
         if (this.algorithm.equalsIgnoreCase("paes"))
@@ -95,11 +109,22 @@ public class ExperimentConfs {
         return 0;
     }
 
-    public StringBuilder removeLastComma(StringBuilder list) {
-        list.delete(list.length() - 1, list.length());
-        return list;
+    /**
+     * Remove last comma
+     *
+     * @param builder string builder
+     * @return string build without last comma
+     */
+    public StringBuilder removeLastComma(StringBuilder builder) {
+        builder.delete(builder.length() - 1, builder.length());
+        return builder;
     }
 
+    /**
+     * Get design pattern strategy
+     *
+     * @return string of strategy
+     */
     public String getDesignPatternStrategy() {
         if (configs.getMutationOperators().contains(FeatureMutationOperators.DESIGN_PATTERNS.toString())) {
             if (configs.getDesignPatternStrategy() == null)

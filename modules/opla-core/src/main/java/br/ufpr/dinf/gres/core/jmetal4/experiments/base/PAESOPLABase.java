@@ -75,7 +75,7 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
             Result result = new Result();
-            experiment = mp.saveExperiment(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
+            experiment = mp.save(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfs conf = new ExperimentConfs(experiment.getId(), "PAES", configs);
             mp.save(conf);
 
@@ -156,13 +156,13 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
             }
 
             List<Info> infos = result.getInfos(allRuns.getSolutionSet(), null, experiment);
-            mp.saveInfoAll(infos);
+            mp.save(infos);
             Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);
-            mp.save(allMetrics, configs.getOplaConfigs().getSelectedObjectiveFunctions());
+            mp.save(allMetrics);
 
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
-            mp.saveDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
+            mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             saveHypervolume(experiment.getId(), null, allRuns, plaName);
         }
     }
