@@ -1,7 +1,4 @@
 # Changelog
-## [1.0.1] - 2020-03-05
-### Added
-- feature-driven mutation correction (problem with empty and loose interfaces).
 ## [1.0.0] - 2018-11-29
 ### Added
 - First Interaction
@@ -11,7 +8,6 @@
 - Internal Bloxpot
 - Maven Dependencies and configurations updated
 - Starting Clustering Module
-- Comment
 - Papyrus initial integration
 - JUnit initial tests
 - Jar generate Adjusts
