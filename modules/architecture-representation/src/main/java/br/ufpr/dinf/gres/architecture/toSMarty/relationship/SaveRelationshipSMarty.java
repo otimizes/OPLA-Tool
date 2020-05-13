@@ -27,13 +27,14 @@ public class SaveRelationshipSMarty {
      *
      */
     public void Save(Architecture architecture, PrintWriter printWriter, String logPath) {
+        SaveAbstractionSMarty.getInstance().Save(architecture, printWriter, logPath);
         SaveAssociationSMarty.getInstance().Save(architecture, printWriter, logPath);
         SaveDependencySMarty.getInstance().Save(architecture, printWriter, logPath);
-        SaveUsageSMarty.getInstance().Save(architecture, printWriter, logPath);
-        SaveAbstractionSMarty.getInstance().Save(architecture, printWriter, logPath);
         SaveGeneralizationSMarty.getInstance().Save(architecture, printWriter, logPath);
+        SaveMutexSMarty.getInstance().Save(architecture, printWriter, logPath);
         SaveRealizationSMarty.getInstance().Save(architecture, printWriter, logPath);
         SaveRequiresSMarty.getInstance().Save(architecture, printWriter, logPath);
+        SaveUsageSMarty.getInstance().Save(architecture, printWriter, logPath);
     }
 
 }

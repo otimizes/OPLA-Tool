@@ -9,15 +9,7 @@ import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
 import java.io.PrintWriter;
 
 /**
- * This class save Association relationship to file
- * The usage will be saved as Dependency until SMarty Modeling has this relationship
- * Then replace lines:
- * 65 :    if (r2.getId().equals("DEPENDENCY#" + id_rel)) {       to       if(r2.getId().equals("USAGE#" + id_rel)){
- * 72 :    dr.setId("DEPENDENCY#" + id_rel);                      to       dr.setId("USAGE#" + id_rel);
- * 75 :    printWriter.write("\n" + tab + "<dependency id=\"" + dr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");                      to       printWriter.write("\n"+tab+"<usage id=\""+dr.getId()+"\" source=\""+e1.getId()+"\" target=\""+e2.getId()+"\">");
- * 76 :    printWriter.write("\n" + tab + "</dependency>");        to       printWriter.write("\n"+tab+"</usage>");
- * and remove lines 77-79
- *
+ * This class save Usage relationship to file
  */
 public class SaveUsageSMarty {
 
@@ -31,7 +23,7 @@ public class SaveUsageSMarty {
     }
 
     /**
-     * This class save Usage relationship to file (temporary save as Dependency)
+     * This class save Usage relationship to file
      *
      * @param architecture - architecture to be decoded
      * @param printWriter - used to save a string in file
@@ -62,23 +54,18 @@ public class SaveUsageSMarty {
                     while (existID) {
                         existID = false;
                         for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
-                            if (r2.getId().equals("DEPENDENCY#" + id_rel)) {
+                            if(r2.getId().equals("USAGE#" + id_rel)){
                                 id_rel++;
                                 existID = true;
                                 break;
                             }
                         }
                     }
-                    dr.setId("DEPENDENCY#" + id_rel);
+                    dr.setId("USAGE#" + id_rel);
                     id_rel++;
                 }
-                printWriter.write("\n" + tab + "<dependency id=\"" + dr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");
-                printWriter.write("\n" + tab + "</dependency>");
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nUsage " + dr.getId() + " salvo como Dependency");
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName());
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName());
-                continue;
-
+                printWriter.write("\n" + tab + "<usage id=\"" + dr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");
+                printWriter.write("\n" + tab + "</usage>");
             }
         }
     }

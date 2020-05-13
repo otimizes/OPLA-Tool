@@ -20,5 +20,6 @@ public class ElementsTypes {
     public static final String GENERALIZATION = "generalization";
     public static final String CONNECTOR = "connector";
     public static final String REQUIRES = "requires";
+    public static final String MUTEX = "mutex";
 
 }

@@ -62,23 +62,18 @@ public class SaveAbstractionSMarty {
                     while (existID) {
                         existID = false;
                         for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
-                            if (r2.getId().equals("DEPENDENCY#" + id_rel)) {
+                            if(r2.getId().equals("ABSTRACTION#" + id_rel)){
                                 id_rel++;
                                 existID = true;
                                 break;
                             }
                         }
                     }
-                    dr.setId("DEPENDENCY#" + id_rel);
+                    dr.setId("ABSTRACTION#" + id_rel);
                     id_rel++;
                 }
-                printWriter.write("\n" + tab + "<dependency id=\"" + dr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");
-                printWriter.write("\n" + tab + "</dependency>");
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nAbstraction " + dr.getId() + " salvo como Dependency");
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName());
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName());
-                continue;
-
+                printWriter.write("\n" + tab + "<abstraction id=\"" + dr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");
+                printWriter.write("\n" + tab + "</abstraction>");
             }
         }
     }
