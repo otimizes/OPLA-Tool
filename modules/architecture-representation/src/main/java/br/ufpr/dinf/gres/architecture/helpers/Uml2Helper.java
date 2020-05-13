@@ -2,7 +2,7 @@ package br.ufpr.dinf.gres.architecture.helpers;
 
 import br.ufpr.dinf.gres.architecture.base.Base;
 import br.ufpr.dinf.gres.architecture.exceptions.*;
-import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -326,7 +326,7 @@ public class Uml2Helper extends Base {
      * @return Profile
      */
     public Profile loadSMartyProfile() {
-        return (Profile) getExternalResources(OPLAConfigThreadScopeReader.getPathToProfile());
+        return (Profile) getExternalResources(ApplicationFileConfigThreadScope.getPathToProfile());
     }
 
     /**
@@ -336,7 +336,7 @@ public class Uml2Helper extends Base {
      * @return Profile
      */
     public Profile loadConcernProfile() {
-        return (Profile) getExternalResources(OPLAConfigThreadScopeReader.getPathToProfileConcern());
+        return (Profile) getExternalResources(ApplicationFileConfigThreadScope.getPathToProfileConcern());
     }
 
     public Profile getSMartyProfile() {

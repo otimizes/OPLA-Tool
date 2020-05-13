@@ -2,7 +2,7 @@ package br.ufpr.dinf.gres.architecture.touml;
 
 import br.ufpr.dinf.gres.architecture.exceptions.*;
 import br.ufpr.dinf.gres.architecture.helpers.XmiHelper;
-import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.io.SaveAndMove;
 import br.ufpr.dinf.gres.domain.config.FileUtils;
 import com.google.common.io.Files;
@@ -52,11 +52,11 @@ public class DocumentManager extends XmiHelper {
         try {
             createResourcesDirectoryIfNotExist();
 
-            if (OPLAConfigThreadScopeReader.hasSmartyProfile()) {
-                String pathSmarty = OPLAConfigThreadScopeReader.getPathToProfile();
+            if (ApplicationFileConfigThreadScope.hasSmartyProfile()) {
+                String pathSmarty = ApplicationFileConfigThreadScope.getPathToProfile();
                 final File sourceFileSmarty = new File(pathSmarty);
                 final File destFileSmarty = new File(
-                        OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/resources/smarty.profile.uml");
+                        ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/resources/smarty.profile.uml");
                 Files.copy(sourceFileSmarty, destFileSmarty);
             } else {
                 // Caso perfil não esteja setado remove do arquivo de tempalte
@@ -68,11 +68,11 @@ public class DocumentManager extends XmiHelper {
                 // template
             }
 
-            if (OPLAConfigThreadScopeReader.hasConcernsProfile()) {
-                String pathConcern = OPLAConfigThreadScopeReader.getPathToProfileConcern();
+            if (ApplicationFileConfigThreadScope.hasConcernsProfile()) {
+                String pathConcern = ApplicationFileConfigThreadScope.getPathToProfileConcern();
                 final File sourceFileConcern = new File(pathConcern);
                 final File destFileConcern = new File(
-                        OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/resources/concerns.profile.uml");
+                        ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/resources/concerns.profile.uml");
                 Files.copy(sourceFileConcern, destFileConcern);
             } else {
                 // Caso perfil não esteja setado remove do arquivo de tempalte
@@ -84,11 +84,11 @@ public class DocumentManager extends XmiHelper {
                 // template
             }
 
-            if (OPLAConfigThreadScopeReader.hasRelationsShipProfile()) {
-                String pathToProfileRelationships = OPLAConfigThreadScopeReader.getPathToProfileRelationships();
+            if (ApplicationFileConfigThreadScope.hasRelationsShipProfile()) {
+                String pathToProfileRelationships = ApplicationFileConfigThreadScope.getPathToProfileRelationships();
                 final File sourceFileRelationships = new File(pathToProfileRelationships);
                 final File destFileRelationship = new File(
-                        OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/resources/relationships.profile.uml"); // id
+                        ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/resources/relationships.profile.uml"); // id
                 // setado
                 // no arquivo
                 // de
@@ -99,14 +99,14 @@ public class DocumentManager extends XmiHelper {
                 XmiHelper.removeNode(docUml, "profileApplication", "_2RXDMI9OEeO5xq3Ur4qgFw");
             }
 
-            if (OPLAConfigThreadScopeReader.hasPatternsProfile()) {
+            if (ApplicationFileConfigThreadScope.hasPatternsProfile()) {
                 final File destFileRelationship = new File(
-                        OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/resources/br.ufpr.dinf.gres.patterns.profile.uml"); // id
+                        ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/resources/br.ufpr.dinf.gres.patterns.profile.uml"); // id
                 // setado
                 // no
                 // arquivo de
                 // template
-                Files.copy(new File(OPLAConfigThreadScopeReader.getPathToProfilePatterns()), destFileRelationship);
+                Files.copy(new File(ApplicationFileConfigThreadScope.getPathToProfilePatterns()), destFileRelationship);
             } else {
                 // Caso perfil não esteja setado remove do arquivo de tempalte
                 XmiHelper.removeNode(docUml, "profileApplication", "_cyBBIJJmEeOENZsdUoZvrw");
@@ -120,7 +120,7 @@ public class DocumentManager extends XmiHelper {
     }
 
     private void createResourcesDirectoryIfNotExist() {
-        File resourcesDir = new File(OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/resources/");
+        File resourcesDir = new File(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/resources/");
         if (!resourcesDir.exists())
             resourcesDir.mkdir();
     }
@@ -143,11 +143,11 @@ public class DocumentManager extends XmiHelper {
 
         try {
             LOGGER.info("docNotation");
-            this.docNotation = docBuilderNotation.parse(OPLAConfigThreadScopeReader.getDirectoryToSaveModels() + BASE_DOCUMENT + ".notation");
+            this.docNotation = docBuilderNotation.parse(ApplicationFileConfigThreadScope.getDirectoryToSaveModels() + BASE_DOCUMENT + ".notation");
             LOGGER.info("docUml");
-            this.docUml = docBuilderUml.parse(OPLAConfigThreadScopeReader.getDirectoryToSaveModels() + BASE_DOCUMENT + ".uml");
+            this.docUml = docBuilderUml.parse(ApplicationFileConfigThreadScope.getDirectoryToSaveModels() + BASE_DOCUMENT + ".uml");
             LOGGER.info("docDi");
-            this.docDi = docBuilderUml.parse(OPLAConfigThreadScopeReader.getDirectoryToSaveModels() + BASE_DOCUMENT + ".di");
+            this.docDi = docBuilderUml.parse(ApplicationFileConfigThreadScope.getDirectoryToSaveModels() + BASE_DOCUMENT + ".di");
         } catch (SAXException e) {
             LOGGER.error(e);
             throw new RuntimeException();
@@ -176,19 +176,19 @@ public class DocumentManager extends XmiHelper {
 
         // Verifica se o diretorio configurado em directoryToSaveModels existe.
         // caso nao exista, o cria.
-        File temp = new File(OPLAConfigThreadScopeReader.getDirectoryToSaveModels());
+        File temp = new File(ApplicationFileConfigThreadScope.getDirectoryToSaveModels());
         if (!temp.exists())
             temp.mkdirs();
 
-        String notationCopy = OPLAConfigThreadScopeReader.getDirectoryToSaveModels() + BASE_DOCUMENT + ".notation";
-        String umlCopy = OPLAConfigThreadScopeReader.getDirectoryToSaveModels() + BASE_DOCUMENT + ".uml";
-        String diCopy = OPLAConfigThreadScopeReader.getDirectoryToSaveModels() + BASE_DOCUMENT + ".di";
+        String notationCopy = ApplicationFileConfigThreadScope.getDirectoryToSaveModels() + BASE_DOCUMENT + ".notation";
+        String umlCopy = ApplicationFileConfigThreadScope.getDirectoryToSaveModels() + BASE_DOCUMENT + ".uml";
+        String diCopy = ApplicationFileConfigThreadScope.getDirectoryToSaveModels() + BASE_DOCUMENT + ".di";
 
         URL n = null;
         URL u = null;
         URL d = null;
         try {
-            URL baseUrl = new URL("file:" + OPLAConfigThreadScopeReader.getPathToTemplateModelsDirectory());
+            URL baseUrl = new URL("file:" + ApplicationFileConfigThreadScope.getPathToTemplateModelsDirectory());
             if (baseUrl != null) {
                 // Arquivos vazios usados para geração da nova br.ufpr.dinf.gres.arquitetura
                 n = new URL(baseUrl, modelName + ".notation");
@@ -197,7 +197,7 @@ public class DocumentManager extends XmiHelper {
             }
         } catch (MalformedURLException e) {
             LOGGER.error("makeACopy(String modelName) - Could not find template files directory: "
-                    + OPLAConfigThreadScopeReader.getPathToTemplateModelsDirectory());
+                    + ApplicationFileConfigThreadScope.getPathToTemplateModelsDirectory());
         }
 
         FileUtils.copyFile(new File(n.getPath()), new File(notationCopy));
@@ -260,7 +260,7 @@ public class DocumentManager extends XmiHelper {
      */
     public void updateProfilesRefs() {
         LOGGER.info("updateProfilesRefs()");
-        String pathToProfileConcern = OPLAConfigThreadScopeReader.getPathToProfileConcern();
+        String pathToProfileConcern = ApplicationFileConfigThreadScope.getPathToProfileConcern();
 
         DocumentBuilderFactory factoryConcern = DocumentBuilderFactory.newInstance();
         DocumentBuilder profileConcern = null;
@@ -268,7 +268,7 @@ public class DocumentManager extends XmiHelper {
         try {
 
             LOGGER.info("hasConcernsProfile");
-            if (OPLAConfigThreadScopeReader.hasConcernsProfile()) {
+            if (ApplicationFileConfigThreadScope.hasConcernsProfile()) {
                 LOGGER.info("profileConcern");
                 profileConcern = factoryConcern.newDocumentBuilder();
                 LOGGER.info("docConcern");

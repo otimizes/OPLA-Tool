@@ -119,7 +119,7 @@ public class OptimizationResource {
                         return OptimizationInfoStatus.COMPLETE.equals(optimizationInfo.status)
                                 ? optimizationInfo : OPLALogs.lastLogs.get(id).remove(0);
                     }
-                    return new OptimizationInfo(id, "", !(Optional.ofNullable(Interactions.get(id)).orElse(new Interaction(true)).updated) ? OptimizationInfoStatus.INTERACT : OptimizationInfoStatus.RUNNING);
+                    return new OptimizationInfo(id, "", Interactions.interactions.size() > 0 && !(Optional.of(Interactions.get(id)).orElse(new Interaction(true)).updated) ? OptimizationInfoStatus.INTERACT : OptimizationInfoStatus.RUNNING);
                 });
     }
 

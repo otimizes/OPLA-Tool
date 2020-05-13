@@ -1,9 +1,8 @@
 package br.ufpr.dinf.gres.api.resource;
 
 import br.ufpr.dinf.gres.api.dto.EmailDto;
-import br.ufpr.dinf.gres.domain.config.ApplicationFileConfig;
-import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScope;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfig;
 import br.ufpr.dinf.gres.domain.entity.User;
 import br.ufpr.dinf.gres.persistence.service.UserService;
 import org.springframework.stereotype.Service;
@@ -70,7 +69,7 @@ public class EmailService {
                 Multipart multipart = new MimeMultipart();
 
                 ZipFiles zipFiles = new ZipFiles();
-                File file = zipFiles.zipDirectory(OPLAConfigThreadScope.userDir.get() + emailDto.file);
+                File file = zipFiles.zipDirectory(OPLAThreadScope.userDir.get() + emailDto.file);
 
                 MimeBodyPart messageBodyPart = new MimeBodyPart();
                 DataSource source = new FileDataSource(file);

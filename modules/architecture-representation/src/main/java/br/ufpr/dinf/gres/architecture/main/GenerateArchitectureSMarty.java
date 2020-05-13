@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.architecture.main;
 
 
-import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.toSMarty.*;
@@ -24,13 +24,13 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
      */
     public void generate(Architecture architecture, String name) {
         if (name.contains("/")) {
-            String directory = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/" + name.split("/")[0];
+            String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/" + name.split("/")[0];
             File file = new File(directory);
             file.mkdir();
         }
-        String path = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/" + name + ".smty";
+        String path = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/" + name + ".smty";
         SaveStringToFile.getInstance().createLogDir();
-        String logPath = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/Logs/log_" + name + ".txt";
+        String logPath = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/Logs/log_" + name + ".txt";
         try {
             FileWriter fileWriter = new FileWriter(path);
             PrintWriter printWriter = new PrintWriter(fileWriter);

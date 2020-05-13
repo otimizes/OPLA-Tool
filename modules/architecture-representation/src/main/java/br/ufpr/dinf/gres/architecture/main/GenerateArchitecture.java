@@ -3,7 +3,7 @@ package br.ufpr.dinf.gres.architecture.main;
 import br.ufpr.dinf.gres.architecture.exceptions.*;
 import br.ufpr.dinf.gres.architecture.helpers.Strings;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Attribute;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
@@ -385,10 +385,10 @@ public class GenerateArchitecture extends ArchitectureBase {
             System.exit(0);
         }
 
-        LOGGER.info("\n\n\nDone. Architecture save into: " + OPLAConfigThreadScopeReader.getDirectoryToExportModels() + System.getProperty("file.separator") + doc.getNewModelName()
+        LOGGER.info("\n\n\nDone. Architecture save into: " + ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + doc.getNewModelName()
                 + "\n\n\n\n");
         if (this.logger != null)
-            this.logger.putLog("Done. Architecture save into: " + OPLAConfigThreadScopeReader.getDirectoryToExportModels()
+            this.logger.putLog("Done. Architecture save into: " + ApplicationFileConfigThreadScope.getDirectoryToExportModels()
                     + System.getProperty("file.separator") + doc.getNewModelName(), Level.INFO);
 
     }

@@ -1,6 +1,5 @@
 package br.ufpr.dinf.gres.core.jmetal4.main;
 
-import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
@@ -107,15 +106,8 @@ public class NSGAIIOPLAPLAThenDPM {
         ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + System.getProperty("file.separator") + context + "/manipulation");
         ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + System.getProperty("file.separator") + context + "/output");
 
-        OPLAConfigThreadScopeReader.setDirectoryToExportModels("experiment/" + plaName + System.getProperty("file.separator") + context + "/manipulation");
-        OPLAConfigThreadScopeReader.setDirectoryToExportModels("experiment/" + plaName + System.getProperty("file.separator") + context + "/output");
 
         String plaDirectory = getPlaDirectory(pla);
-        OPLAConfigThreadScopeReader.setPathToTemplateModelsDirectory(plaDirectory);
-        OPLAConfigThreadScopeReader.setPathToProfile(plaDirectory + "smarty.profile.uml");
-        OPLAConfigThreadScopeReader.setPathToProfileConcern(plaDirectory + "concerns.profile.uml");
-        OPLAConfigThreadScopeReader.setPathToProfileRelationships(plaDirectory + "relationships.profile.uml");
-        OPLAConfigThreadScopeReader.setPathToProfileRelationships(plaDirectory + "patterns.profile.uml");
 
         String xmiFilePath = pla;
 
