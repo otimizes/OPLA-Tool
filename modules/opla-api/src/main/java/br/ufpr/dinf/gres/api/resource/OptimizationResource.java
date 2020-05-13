@@ -35,12 +35,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/optimization")
-@EntityScan(basePackages = {
-        "br.ufpr.dinf.gres.opla.entity"
-})
 public class OptimizationResource {
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(OptimizationResource.class);
-
 
     private final OptimizationService optimizationService;
 
