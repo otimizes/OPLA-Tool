@@ -2,7 +2,7 @@ package br.ufpr.dinf.gres.api.dto;
 
 import br.ufpr.dinf.gres.api.gateway.OptimizationAlgorithms;
 import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilders;
-import br.ufpr.dinf.gres.domain.config.ApplicationFile;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfig;
 import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
 import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
@@ -39,7 +39,7 @@ public class OptimizationDto {
     private List<String> patterns = new ArrayList<>();
     private ScopeSelection scopeSelection = ScopeSelection.RANDOM;
     private List<String> objectiveFunctions = new ArrayList<>();
-    public ApplicationYamlConfig config = ApplicationFile.getInstance().getApplicationYaml();
+    public ApplicationYamlConfig config = ApplicationFileConfig.getInstance();
 
 
     public OptimizationDto() {

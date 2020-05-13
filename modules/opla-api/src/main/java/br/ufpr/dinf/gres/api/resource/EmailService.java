@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.api.resource;
 
 import br.ufpr.dinf.gres.api.dto.EmailDto;
-import br.ufpr.dinf.gres.domain.config.ApplicationFile;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfig;
 import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScope;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.domain.entity.User;
@@ -38,8 +38,8 @@ public class EmailService {
         if (emailDto.to == null) emailDto.to = userByEmail.getLogin();
         if (!userByEmail.getToken().equals(OPLAThreadScope.token.get()))
             throw new RuntimeException("You are not allowed to do this.");
-        final String username = ApplicationFile.getInstance().getConfig().getEmailUser();
-        final String password = ApplicationFile.getInstance().getConfig().getEmailPassword();
+        final String username = ApplicationFileConfig.getInstance().getEmailUser();
+        final String password = ApplicationFileConfig.getInstance().getEmailPassword();
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");

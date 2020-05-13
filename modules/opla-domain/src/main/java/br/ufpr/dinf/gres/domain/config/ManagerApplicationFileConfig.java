@@ -10,33 +10,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 /**
  * @author elf
  */
-public class ManagerApplicationConfig {
+public class ManagerApplicationFileConfig {
 
     private static final String LOCAL_APPLICATION_YAML = FileConstants.CONFIG_PATH + FileConstants.FILE_SEPARATOR + FileConstants.APPLICATION_YAML_NAME;
-
-    private static final Logger LOGGER = Logger.getLogger(ManagerApplicationConfig.class.getName());
-
+    private static final Logger LOGGER = Logger.getLogger(ManagerApplicationFileConfig.class.getName());
     private ApplicationYamlConfig applicationYaml;
-    private PathConfig configurationFile;
     private Yaml yaml;
 
-    public ManagerApplicationConfig() {
+    public ManagerApplicationFileConfig() {
         try {
             Path pahtApplicationYaml = UserHome.getApplicationYamlConfig();
             configYamlInstance();
             if (!Files.exists(pahtApplicationYaml)) {
                 copyYamlFile(pahtApplicationYaml);
-                this.configurationFile = new PathConfig(new ApplicationYamlConfig());
             } else {
                 try (FileInputStream fileInputStream = new FileInputStream(pahtApplicationYaml.toFile())) {
                     this.applicationYaml = this.yaml.loadAs(fileInputStream, ApplicationYamlConfig.class);
-                    this.configurationFile = new PathConfig(applicationYaml);
                 }
             }
 
@@ -67,36 +61,27 @@ public class ManagerApplicationConfig {
         this.yaml = new Yaml(options);
     }
 
-    public PathConfig getConfig() {
-        return this.configurationFile;
-    }
-
     public void updatePathToProfileSmarty(String newpath) throws IOException {
-        this.configurationFile.setPathToProfileSmarty(Paths.get(newpath));
         this.applicationYaml.setPathToProfile(newpath);
         updateConfigurationFile();
     }
 
     public void updatePathToProfilePatterns(String newpath) throws IOException {
-        this.configurationFile.setPathToProfilePatterns(Paths.get(newpath));
         this.applicationYaml.setPathToProfilePatterns(newpath);
         updateConfigurationFile();
     }
 
     public void updatePathToProfileRelationships(String newpath) throws IOException {
-        this.configurationFile.setPathToProfileRelationships(Paths.get(newpath));
         this.applicationYaml.setPathToProfileRelationships(newpath);
         updateConfigurationFile();
     }
 
     public void updatePathToProfileConcerns(String newpath) throws IOException {
-        this.configurationFile.setPathToProfileConcern(Paths.get(newpath));
         this.applicationYaml.setPathToProfileConcern(newpath);
         updateConfigurationFile();
     }
 
     public void updatePathToTemplateFiles(String newpath) throws IOException {
-        this.configurationFile.setPathToTemplateModelsDirectory(Paths.get(newpath));
         this.applicationYaml.setPathToTemplateModelsDirectory(newpath);
         updateConfigurationFile();
     }
@@ -108,7 +93,6 @@ public class ManagerApplicationConfig {
     }
 
     public void updatePathToExportModels(String newpath) throws IOException {
-        this.configurationFile.setDirectoryToExportModels(Paths.get(newpath));
         this.applicationYaml.setDirectoryToExportModels(newpath);
         updateConfigurationFile();
     }
@@ -129,19 +113,16 @@ public class ManagerApplicationConfig {
     }
 
     public void updatePathToInteraction(String newpath) throws IOException {
-        this.configurationFile.setDirectoryToInteraction(Paths.get(newpath));
         this.applicationYaml.setDirectoryToInteraction(newpath);
         updateConfigurationFile();
     }
 
     public void updatePathPapyurs(String newpath) throws IOException {
-        this.configurationFile.setPathPapyrus(Paths.get(newpath));
         this.applicationYaml.setPathPapyrus(newpath);
         updateConfigurationFile();
     }
 
     public void updatePathToSaveModels(String newpath) throws IOException {
-        this.configurationFile.setDirectoryToSaveModels(Paths.get(newpath));
         this.applicationYaml.setDirectoryToSaveModels(newpath);
         updateConfigurationFile();
     }
@@ -153,7 +134,6 @@ public class ManagerApplicationConfig {
     }
 
     public void updatePathLastOptimizationInput(String newpath) throws IOException {
-        this.configurationFile.setPathLastOptimizationInput(Paths.get(newpath));
         this.applicationYaml.setPathLastOptimizationInput(newpath);
         updateConfigurationFile();
     }
@@ -167,33 +147,5 @@ public class ManagerApplicationConfig {
             throw ex;
         }
     }
-
-    /**
-     * Retorna os profile que estão em uso ou seja, não "" nem null.
-     */
-    public String getProfilesUsed() {
-        StringBuilder profiles = new StringBuilder();
-
-        if (Files.exists(this.configurationFile.getPathToProfileSmarty())) {
-            profiles.append(this.configurationFile.getPathToProfileSmarty().toString());
-            profiles.append(",");
-        }
-
-        if (Files.exists(this.configurationFile.getPathToProfileConcern())) {
-            profiles.append(this.configurationFile.getPathToProfileConcern());
-            profiles.append(",");
-        }
-
-        if (Files.exists(this.configurationFile.getPathToProfilePatterns())) {
-            profiles.append(this.configurationFile.getPathToProfilePatterns());
-            profiles.append(",");
-        }
-
-        if (Files.exists(this.configurationFile.getPathToProfileRelationships())) {
-            profiles.append(this.configurationFile.getPathToProfileRelationships());
-        }
-        return profiles.toString();
-    }
-
 
 }
