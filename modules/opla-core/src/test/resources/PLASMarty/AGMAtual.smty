@@ -1,5 +1,91 @@
 <project id="5b729c3f25e758ce87cf8d710761283c" name="Project0" version="1.0">
   <types>
+    <type id="_4kumcBVcEeODAq4Tm5H6GQ" path="AnimationLoppMgr" name="AnimationLoppMgr" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#29" path="java.util" name="Arrays" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#10" path="java.lang" name="Boolean" value="null" primitive="false" standard="true"/>
+    <type id="_KbxQ0BSqEeOYorUb5NKqTw" path="BowlingGame" name="BowlingGame" value="null" primitive="false" standard="false"/>
+    <type id="_7YIxMBS3EeOYorUb5NKqTw" path="Brick" name="Brick" value="null" primitive="false" standard="false"/>
+    <type id="_5CPtUBS2EeOYorUb5NKqTw" path="BrickPile" name="BrickPile" value="null" primitive="false" standard="false"/>
+    <type id="_AfsXUBSsEeOYorUb5NKqTw" path="BricklesGame" name="BricklesGame" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#11" path="java.lang" name="Byte" value="null" primitive="false" standard="true"/>
+    <type id="_AMfYYBS1EeOYorUb5NKqTw" path="Ceiling" name="Ceiling" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#12" path="java.lang" name="Character" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#30" path="java.util" name="Collections" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#31" path="java.util" name="Date" value="null" primitive="false" standard="true"/>
+    <type id="_tmrIQBS-EeOYorUb5NKqTw" path="Display" name="Display" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#13" path="java.lang" name="Double" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#14" path="java.lang" name="Enum" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#32" path="java.util" name="EnumMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#33" path="java.util" name="EnumSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#34" path="java.util" name="EventListener" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#15" path="java.lang" name="Exception" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#16" path="java.lang" name="Float" value="null" primitive="false" standard="true"/>
+    <type id="_PMm-EBS0EeOYorUb5NKqTw" path="Floor" name="Floor" value="null" primitive="false" standard="false"/>
+    <type id="_prZDoBSsEeOYorUb5NKqTw" path="Game" name="Game" value="null" primitive="false" standard="false"/>
+    <type id="_xScE0BS9EeOYorUb5NKqTw" path="GameBoard" name="GameBoard" value="null" primitive="false" standard="false"/>
+    <type id="_HCoXQBVZEeODAq4Tm5H6GQ" path="GameBoardCtrl" name="GameBoardCtrl" value="null" primitive="false" standard="false"/>
+    <type id="_-7olgBVZEeODAq4Tm5H6GQ" path="GameBoardGUI" name="GameBoardGUI" value="null" primitive="false" standard="false"/>
+    <type id="_JmvLYBVcEeODAq4Tm5H6GQ" path="GameBoardMgr" name="GameBoardMgr" value="null" primitive="false" standard="false"/>
+    <type id="_R-qtYBVhEeODAq4Tm5H6GQ" path="GameCtrl" name="GameCtrl" value="null" primitive="false" standard="false"/>
+    <type id="_KFWgYBVkEeODAq4Tm5H6GQ" path="GameGUI" name="GameGUI" value="null" primitive="false" standard="false"/>
+    <type id="_P2tF4BViEeODAq4Tm5H6GQ" path="GameMgr" name="GameMgr" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#35" path="java.util" name="HashMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#36" path="java.util" name="HashSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#37" path="java.util" name="HashTable" value="null" primitive="false" standard="true"/>
+    <type id="_EIAcYBVdEeODAq4Tm5H6GQ" path="IAnimationLoopMgt" name="IAnimationLoopMgt" value="null" primitive="false" standard="false"/>
+    <type id="_M10d4BVZEeODAq4Tm5H6GQ" path="ICheckScore" name="ICheckScore" value="null" primitive="false" standard="false"/>
+    <type id="_Lda8ABVjEeODAq4Tm5H6GQ" path="IExitGame" name="IExitGame" value="null" primitive="false" standard="false"/>
+    <type id="_X5BBYBVgEeODAq4Tm5H6GQ" path="IGameBoardData" name="IGameBoardData" value="null" primitive="false" standard="false"/>
+    <type id="_0bg44BVdEeODAq4Tm5H6GQ" path="IGameBoardMgt" name="IGameBoardMgt" value="null" primitive="false" standard="false"/>
+    <type id="_R38k4BViEeODAq4Tm5H6GQ" path="IGameMgt" name="IGameMgt" value="null" primitive="false" standard="false"/>
+    <type id="_CacfoBVjEeODAq4Tm5H6GQ" path="IInstallGame" name="IInstallGame" value="null" primitive="false" standard="false"/>
+    <type id="_82VhYBVjEeODAq4Tm5H6GQ" path="IPlayBowling" name="IPlayBowling" value="null" primitive="false" standard="false"/>
+    <type id="_4L4Z4BViEeODAq4Tm5H6GQ" path="IPlayBrickles" name="IPlayBrickles" value="null" primitive="false" standard="false"/>
+    <type id="_-VLTYBViEeODAq4Tm5H6GQ" path="IPlayPong" name="IPlayPong" value="null" primitive="false" standard="false"/>
+    <type id="_McPUsBVjEeODAq4Tm5H6GQ" path="ISaveGame" name="ISaveGame" value="null" primitive="false" standard="false"/>
+    <type id="_ukGrgBVbEeODAq4Tm5H6GQ" path="ISaveScore" name="ISaveScore" value="null" primitive="false" standard="false"/>
+    <type id="_Gzx3YBVjEeODAq4Tm5H6GQ" path="IUninstallgame" name="IUninstallgame" value="null" primitive="false" standard="false"/>
+    <type id="_Y4SNYBVdEeODAq4Tm5H6GQ" path="InitializationMgt" name="InitializationMgt" value="null" primitive="false" standard="false"/>
+    <type id="_T739wBVdEeODAq4Tm5H6GQ" path="InitializeMgr" name="InitializeMgr" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#17" path="java.lang" name="Integer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#38" path="java.util" name="LinkedHashMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#39" path="java.util" name="LinkedHashSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#40" path="java.util" name="LinkedList" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#41" path="java.util" name="List" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#18" path="java.lang" name="Long" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#42" path="java.util" name="Map" value="null" primitive="false" standard="true"/>
+    <type id="_lD5HgBTBEeOYorUb5NKqTw" path="Match" name="Match" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#19" path="java.lang" name="Math" value="null" primitive="false" standard="true"/>
+    <type id="_Uo_ggBSvEeOYorUb5NKqTw" path="MovableSprites" name="MovableSprites" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#20" path="java.lang" name="Number" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#21" path="java.lang" name="Object" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#22" path="java.lang" name="Package" value="null" primitive="false" standard="true"/>
+    <type id="_IXCC0BSzEeOYorUb5NKqTw" path="Paddle" name="Paddle" value="null" primitive="false" standard="false"/>
+    <type id="_sEps4BVjEeODAq4Tm5H6GQ" path="PlayGameGUI" name="PlayGameGUI" value="null" primitive="false" standard="false"/>
+    <type id="_NJM_EBS4EeOYorUb5NKqTw" path="Player" name="Player" value="null" primitive="false" standard="false"/>
+    <type id="_DGv8UBSwEeOYorUb5NKqTw" path="Point" name="Point" value="null" primitive="false" standard="false"/>
+    <type id="_IFYy0BSrEeOYorUb5NKqTw" path="PongGame" name="PongGame" value="null" primitive="false" standard="false"/>
+    <type id="_L2zx0BSyEeOYorUb5NKqTw" path="Puck" name="Puck" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#43" path="java.util" name="Queue" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#44" path="java.util" name="Random" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#45" path="java.util" name="Scanner" value="null" primitive="false" standard="true"/>
+    <type id="_bSsdwBTCEeOYorUb5NKqTw" path="Score" name="Score" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#46" path="java.util" name="Set" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#23" path="java.lang" name="Short" value="null" primitive="false" standard="true"/>
+    <type id="_Ru2b4BS1EeOYorUb5NKqTw" path="Sprit" name="Sprit" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#47" path="java.util" name="Stack" value="null" primitive="false" standard="true"/>
+    <type id="_fFmg8BS9EeOYorUb5NKqTw" path="StationarySprite" name="StationarySprite" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#24" path="java.lang" name="String" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#25" path="java.lang" name="StringBuffer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#26" path="java.lang" name="StringBuilder" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#27" path="java.lang" name="Thread" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#48" path="java.util" name="Timer" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#49" path="java.util" name="TreeMap" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#50" path="java.util" name="TreeSet" value="null" primitive="false" standard="true"/>
+    <type id="TYPE#51" path="java.util" name="Vector" value="null" primitive="false" standard="true"/>
+    <type id="_oqHsgBSvEeOYorUb5NKqTw" path="Velocity" name="Velocity" value="null" primitive="false" standard="false"/>
+    <type id="TYPE#28" path="java.lang" name="Void" value="null" primitive="false" standard="true"/>
+    <type id="_8CTh0BSyEeOYorUb5NKqTw" path="Wall" name="Wall" value="null" primitive="false" standard="false"/>
     <type id="TYPE#1" path="" name="boolean" value="false" primitive="true" standard="true"/>
     <type id="TYPE#2" path="" name="byte" value="'0'" primitive="true" standard="true"/>
     <type id="TYPE#3" path="" name="char" value="' '" primitive="true" standard="true"/>
@@ -9,132 +95,58 @@
     <type id="TYPE#7" path="" name="long" value="0.0l" primitive="true" standard="true"/>
     <type id="TYPE#8" path="" name="short" value="0" primitive="true" standard="true"/>
     <type id="TYPE#9" path="" name="void" value="" primitive="true" standard="true"/>
-    <type id="TYPE#10" path="java.lang" name="Boolean" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#11" path="java.lang" name="Byte" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#12" path="java.lang" name="Character" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#13" path="java.lang" name="Double" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#14" path="java.lang" name="Enum" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#15" path="java.lang" name="Exception" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#16" path="java.lang" name="Float" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#17" path="java.lang" name="Integer" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#18" path="java.lang" name="Long" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#19" path="java.lang" name="Math" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#20" path="java.lang" name="Number" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#21" path="java.lang" name="Object" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#22" path="java.lang" name="Package" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#23" path="java.lang" name="Short" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#24" path="java.lang" name="String" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#25" path="java.lang" name="StringBuffer" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#26" path="java.lang" name="StringBuilder" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#27" path="java.lang" name="Thread" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#28" path="java.lang" name="Void" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#29" path="java.util" name="Arrays" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#30" path="java.util" name="Collections" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#31" path="java.util" name="Date" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#32" path="java.util" name="EnumMap" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#33" path="java.util" name="EnumSet" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#34" path="java.util" name="EventListener" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#35" path="java.util" name="HashMap" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#36" path="java.util" name="HashSet" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#37" path="java.util" name="HashTable" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#38" path="java.util" name="LinkedHashMap" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#39" path="java.util" name="LinkedHashSet" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#40" path="java.util" name="LinkedList" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#41" path="java.util" name="List" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#42" path="java.util" name="Map" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#43" path="java.util" name="Queue" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#44" path="java.util" name="Random" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#45" path="java.util" name="Scanner" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#46" path="java.util" name="Set" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#47" path="java.util" name="Stack" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#48" path="java.util" name="Timer" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#49" path="java.util" name="TreeMap" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#50" path="java.util" name="TreeSet" value="null" primitive="false" standard="true"/>
-    <type id="TYPE#51" path="java.util" name="Vector" value="null" primitive="false" standard="true"/>
-    <type id="_-7olgBVZEeODAq4Tm5H6GQ" path="GameBoardGUI" name="GameBoardGUI" value="null" primitive="false" standard="false"/>
-    <type id="_oqHsgBSvEeOYorUb5NKqTw" path="Velocity" name="Velocity" value="null" primitive="false" standard="false"/>
-    <type id="_DGv8UBSwEeOYorUb5NKqTw" path="Point" name="Point" value="null" primitive="false" standard="false"/>
-    <type id="_xScE0BS9EeOYorUb5NKqTw" path="GameBoard" name="GameBoard" value="null" primitive="false" standard="false"/>
-    <type id="_8CTh0BSyEeOYorUb5NKqTw" path="Wall" name="Wall" value="null" primitive="false" standard="false"/>
-    <type id="_HCoXQBVZEeODAq4Tm5H6GQ" path="GameBoardCtrl" name="GameBoardCtrl" value="null" primitive="false" standard="false"/>
-    <type id="_PMm-EBS0EeOYorUb5NKqTw" path="Floor" name="Floor" value="null" primitive="false" standard="false"/>
-    <type id="_bSsdwBTCEeOYorUb5NKqTw" path="Score" name="Score" value="null" primitive="false" standard="false"/>
-    <type id="_Uo_ggBSvEeOYorUb5NKqTw" path="MovableSprites" name="MovableSprites" value="null" primitive="false" standard="false"/>
-    <type id="_Ru2b4BS1EeOYorUb5NKqTw" path="Sprit" name="Sprit" value="null" primitive="false" standard="false"/>
-    <type id="_AMfYYBS1EeOYorUb5NKqTw" path="Ceiling" name="Ceiling" value="null" primitive="false" standard="false"/>
-    <type id="_IXCC0BSzEeOYorUb5NKqTw" path="Paddle" name="Paddle" value="null" primitive="false" standard="false"/>
-    <type id="_NJM_EBS4EeOYorUb5NKqTw" path="Player" name="Player" value="null" primitive="false" standard="false"/>
-    <type id="_5CPtUBS2EeOYorUb5NKqTw" path="BrickPile" name="BrickPile" value="null" primitive="false" standard="false"/>
-    <type id="_7YIxMBS3EeOYorUb5NKqTw" path="Brick" name="Brick" value="null" primitive="false" standard="false"/>
-    <type id="_lD5HgBTBEeOYorUb5NKqTw" path="Match" name="Match" value="null" primitive="false" standard="false"/>
-    <type id="_fFmg8BS9EeOYorUb5NKqTw" path="StationarySprite" name="StationarySprite" value="null" primitive="false" standard="false"/>
-    <type id="_tmrIQBS-EeOYorUb5NKqTw" path="Display" name="Display" value="null" primitive="false" standard="false"/>
-    <type id="_L2zx0BSyEeOYorUb5NKqTw" path="Puck" name="Puck" value="null" primitive="false" standard="false"/>
-    <type id="_X5BBYBVgEeODAq4Tm5H6GQ" path="IGameBoardData" name="IGameBoardData" value="null" primitive="false" standard="false"/>
-    <type id="_M10d4BVZEeODAq4Tm5H6GQ" path="ICheckScore" name="ICheckScore" value="null" primitive="false" standard="false"/>
-    <type id="_ukGrgBVbEeODAq4Tm5H6GQ" path="ISaveScore" name="ISaveScore" value="null" primitive="false" standard="false"/>
-    <type id="_KbxQ0BSqEeOYorUb5NKqTw" path="BowlingGame" name="BowlingGame" value="null" primitive="false" standard="false"/>
-    <type id="_prZDoBSsEeOYorUb5NKqTw" path="Game" name="Game" value="null" primitive="false" standard="false"/>
-    <type id="_P2tF4BViEeODAq4Tm5H6GQ" path="GameMgr" name="GameMgr" value="null" primitive="false" standard="false"/>
-    <type id="_AfsXUBSsEeOYorUb5NKqTw" path="BricklesGame" name="BricklesGame" value="null" primitive="false" standard="false"/>
-    <type id="_IFYy0BSrEeOYorUb5NKqTw" path="PongGame" name="PongGame" value="null" primitive="false" standard="false"/>
-    <type id="_R38k4BViEeODAq4Tm5H6GQ" path="IGameMgt" name="IGameMgt" value="null" primitive="false" standard="false"/>
-    <type id="_JmvLYBVcEeODAq4Tm5H6GQ" path="GameBoardMgr" name="GameBoardMgr" value="null" primitive="false" standard="false"/>
-    <type id="_0bg44BVdEeODAq4Tm5H6GQ" path="IGameBoardMgt" name="IGameBoardMgt" value="null" primitive="false" standard="false"/>
-    <type id="_R-qtYBVhEeODAq4Tm5H6GQ" path="GameCtrl" name="GameCtrl" value="null" primitive="false" standard="false"/>
-    <type id="_-VLTYBViEeODAq4Tm5H6GQ" path="IPlayPong" name="IPlayPong" value="null" primitive="false" standard="false"/>
-    <type id="_McPUsBVjEeODAq4Tm5H6GQ" path="ISaveGame" name="ISaveGame" value="null" primitive="false" standard="false"/>
-    <type id="_CacfoBVjEeODAq4Tm5H6GQ" path="IInstallGame" name="IInstallGame" value="null" primitive="false" standard="false"/>
-    <type id="_Gzx3YBVjEeODAq4Tm5H6GQ" path="IUninstallgame" name="IUninstallgame" value="null" primitive="false" standard="false"/>
-    <type id="_4L4Z4BViEeODAq4Tm5H6GQ" path="IPlayBrickles" name="IPlayBrickles" value="null" primitive="false" standard="false"/>
-    <type id="_Lda8ABVjEeODAq4Tm5H6GQ" path="IExitGame" name="IExitGame" value="null" primitive="false" standard="false"/>
-    <type id="_82VhYBVjEeODAq4Tm5H6GQ" path="IPlayBowling" name="IPlayBowling" value="null" primitive="false" standard="false"/>
-    <type id="_sEps4BVjEeODAq4Tm5H6GQ" path="PlayGameGUI" name="PlayGameGUI" value="null" primitive="false" standard="false"/>
-    <type id="_KFWgYBVkEeODAq4Tm5H6GQ" path="GameGUI" name="GameGUI" value="null" primitive="false" standard="false"/>
-    <type id="_T739wBVdEeODAq4Tm5H6GQ" path="InitializeMgr" name="InitializeMgr" value="null" primitive="false" standard="false"/>
-    <type id="_Y4SNYBVdEeODAq4Tm5H6GQ" path="InitializationMgt" name="InitializationMgt" value="null" primitive="false" standard="false"/>
-    <type id="_4kumcBVcEeODAq4Tm5H6GQ" path="AnimationLoppMgr" name="AnimationLoppMgr" value="null" primitive="false" standard="false"/>
-    <type id="_EIAcYBVdEeODAq4Tm5H6GQ" path="IAnimationLoopMgt" name="IAnimationLoopMgt" value="null" primitive="false" standard="false"/>
   </types>
   <stereotypes>
-	<stereotype id="STEREOTYPE#1" name="mandatory" primitive="true"/>
-	<stereotype id="STEREOTYPE#2" name="optional" primitive="true"/>
-	<stereotype id="STEREOTYPE#3" name="variationPoint" primitive="true"/>
-	<stereotype id="STEREOTYPE#4" name="alternative_OR" primitive="true"/>
-	<stereotype id="STEREOTYPE#5" name="alternative_XOR" primitive="false"/>
-	<stereotype id="STEREOTYPE#6" name="requires" primitive="true"/>
-	<stereotype id="STEREOTYPE#7" name="mutex" primitive="true"/>
-	<stereotype id="STEREOTYPE#8" name="play" primitive="false"/>
-	<stereotype id="STEREOTYPE#9" name="collision" primitive="false"/>
-	<stereotype id="STEREOTYPE#10" name="brickles" primitive="false"/>
-	<stereotype id="STEREOTYPE#11" name="configuration" primitive="false"/>
-	<stereotype id="STEREOTYPE#12" name="save" primitive="false"/>
-	<stereotype id="STEREOTYPE#13" name="logging" primitive="false"/>
-	<stereotype id="STEREOTYPE#14" name="ranking" primitive="false"/>
-	<stereotype id="STEREOTYPE#15" name="bowling" primitive="false"/>
-	<stereotype id="STEREOTYPE#16" name="pong" primitive="false"/>
-	<stereotype id="STEREOTYPE#17" name="movement" primitive="false"/>
-	<stereotype id="STEREOTYPE#18" name="pause" primitive="false"/>
+    <stereotype id="STEREOTYPE#4" name="alternative_OR" primitive="true"/>
+    <stereotype id="STEREOTYPE#5" name="alternative_xor" primitive="false"/>
+    <stereotype id="STEREOTYPE#15" name="bowling" primitive="false"/>
+    <stereotype id="STEREOTYPE#10" name="brickles" primitive="false"/>
+    <stereotype id="STEREOTYPE#9" name="collision" primitive="false"/>
+    <stereotype id="STEREOTYPE#11" name="configuration" primitive="false"/>
+    <stereotype id="STEREOTYPE#13" name="logging" primitive="false"/>
+    <stereotype id="STEREOTYPE#1" name="mandatory" primitive="true"/>
+    <stereotype id="STEREOTYPE#17" name="movement" primitive="false"/>
+    <stereotype id="STEREOTYPE#7" name="mutex" primitive="true"/>
+    <stereotype id="STEREOTYPE#2" name="optional" primitive="true"/>
+    <stereotype id="STEREOTYPE#18" name="pause" primitive="false"/>
+    <stereotype id="STEREOTYPE#8" name="play" primitive="false"/>
+    <stereotype id="STEREOTYPE#16" name="pong" primitive="false"/>
+    <stereotype id="STEREOTYPE#14" name="ranking" primitive="false"/>
+    <stereotype id="STEREOTYPE#6" name="requires" primitive="true"/>
+    <stereotype id="STEREOTYPE#12" name="save" primitive="false"/>
+    <stereotype id="STEREOTYPE#3" name="variationPoint" primitive="true"/>
   </stereotypes>
   <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5" requires="STEREOTYPE#6" mutex="STEREOTYPE#7"/>
   <diagram id="DIAGRAM#1" name="DIAGRAM#1" type="Class">
-    <package id="_2g84MBVZEeODAq4Tm5H6GQ" name="GameBoardGUI" mandatory="true" x="40" y="40" globalX="40" globalY="40" height="300" width="300"/>
-    <package id="_nqr-4BSmEeOYorUb5NKqTw" name="GameBoardCtrl" mandatory="true" x="380" y="40" globalX="380" globalY="40" height="2420" width="2120"/>
-    <package id="_hOsL0BSmEeOYorUb5NKqTw" name="GameMgr" mandatory="true" x="2540" y="40" globalX="2540" globalY="40" height="740" width="1240"/>
-    <package id="_2zMPEBSmEeOYorUb5NKqTw" name="GameBoardMgr" mandatory="true" x="40" y="2500" globalX="40" globalY="2500" height="460" width="800"/>
-    <package id="_tZi_IBSmEeOYorUb5NKqTw" name="GameCtrl" mandatory="true" x="880" y="2500" globalX="880" globalY="2500" height="760" width="1540"/>
-    <package id="_pVLO4BVjEeODAq4Tm5H6GQ" name="PlayGameGUI" mandatory="true" x="2460" y="2500" globalX="2460" globalY="2500" height="300" width="300"/>
-    <package id="_IqVT4BVkEeODAq4Tm5H6GQ" name="GameGUI" mandatory="true" x="40" y="3300" globalX="40" globalY="3300" height="300" width="300"/>
-    <package id="_CbqHABSnEeOYorUb5NKqTw" name="InitializeMgr" mandatory="true" x="380" y="3300" globalX="380" globalY="3300" height="300" width="900"/>
-    <package id="_-c0S4BSmEeOYorUb5NKqTw" name="AnimationLoopMgr" mandatory="true" x="1320" y="3300" globalX="1320" globalY="3300" height="300" width="900"/>
-    <class id="_-7olgBVZEeODAq4Tm5H6GQ" name="GameBoardGUI" mandatory="true" x="40" y="60" globalX="80" globalY="100" abstract="false" final="false" height="160" width="200" parent="_2g84MBVZEeODAq4Tm5H6GQ">
-      <attribute id="_b_E2QGf-EeORzeyQgFc1Jw" name="Attr4" type="TYPE#21" visibility="public" static="false" final="false"/>
-      <method id="_lJ-i8GEtEeSFBoEbqUktNw" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_mjiW4GEtEeSFBoEbqUktNw" name="checkScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-    </class>
+    <package id="_2g84MBVZEeODAq4Tm5H6GQ" name="GameBoardGUI" mandatory="true" x="40" y="40" globalX="40" globalY="40" height="300" width="300">
+      <description></description>
+    </package>
+    <package id="_nqr-4BSmEeOYorUb5NKqTw" name="GameBoardCtrl" mandatory="true" x="380" y="40" globalX="380" globalY="40" height="2420" width="2120">
+      <description></description>
+    </package>
+    <package id="_pVLO4BVjEeODAq4Tm5H6GQ" name="PlayGameGUI" mandatory="true" x="2460" y="2500" globalX="2460" globalY="2500" height="300" width="300">
+      <description></description>
+    </package>
+    <package id="_CbqHABSnEeOYorUb5NKqTw" name="InitializeMgr" mandatory="true" x="380" y="3300" globalX="380" globalY="3300" height="300" width="900">
+      <description></description>
+    </package>
+    <package id="_-c0S4BSmEeOYorUb5NKqTw" name="AnimationLoopMgr" mandatory="true" x="1320" y="3300" globalX="1320" globalY="3300" height="300" width="900">
+      <description></description>
+    </package>
+    <package id="_tZi_IBSmEeOYorUb5NKqTw" name="GameCtrl" mandatory="true" x="880" y="2500" globalX="880" globalY="2500" height="760" width="1540">
+      <description></description>
+    </package>
+    <package id="_2zMPEBSmEeOYorUb5NKqTw" name="GameBoardMgr" mandatory="true" x="40" y="2500" globalX="40" globalY="2500" height="460" width="800">
+      <description></description>
+    </package>
+    <package id="_hOsL0BSmEeOYorUb5NKqTw" name="GameMgr" mandatory="true" x="2540" y="40" globalX="2540" globalY="40" height="740" width="1240">
+      <description></description>
+    </package>
+    <package id="_IqVT4BVkEeODAq4Tm5H6GQ" name="GameGUI" mandatory="true" x="40" y="3300" globalX="40" globalY="3300" height="300" width="300">
+      <description></description>
+    </package>
     <class id="_oqHsgBSvEeOYorUb5NKqTw" name="Velocity" mandatory="true" x="40" y="60" globalX="420" globalY="100" abstract="false" final="false" height="280" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
       <attribute id="_buLvoBSxEeOYorUb5NKqTw" name="dy" type="TYPE#17" visibility="public" static="false" final="false"/>
       <attribute id="_aLDwABSxEeOYorUb5NKqTw" name="speed" type="TYPE#21" visibility="public" static="false" final="false"/>
       <attribute id="_bW0_kBSxEeOYorUb5NKqTw" name="dx" type="TYPE#17" visibility="public" static="false" final="false"/>
@@ -148,9 +160,61 @@
       <method id="_BMx4EBSyEeOYorUb5NKqTw" name="isHeadingRight" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
-    <class id="_DGv8UBSwEeOYorUb5NKqTw" name="Point" mandatory="true" x="380" y="60" globalX="760" globalY="100" abstract="false" final="false" height="100" width="200" parent="_nqr-4BSmEeOYorUb5NKqTw">
+    <class id="_KbxQ0BSqEeOYorUb5NKqTw" name="BowlingGame" mandatory="true" x="40" y="60" globalX="2580" globalY="100" abstract="false" final="false" height="240" width="300" parent="_hOsL0BSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_j_KykBSqEeOYorUb5NKqTw" name="gameCode" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="_QbLOgBSqEeOYorUb5NKqTw" name="numberOfTruns" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="_z0OmwBSqEeOYorUb5NKqTw" name="loadGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_pS25wBSqEeOYorUb5NKqTw" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_BTWeUBSrEeOYorUb5NKqTw" name="viewTopScores" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_3TMA8BSqEeOYorUb5NKqTw" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
     </class>
-    <class id="_xScE0BS9EeOYorUb5NKqTw" name="GameBoard" mandatory="true" x="620" y="60" globalX="1000" globalY="100" abstract="false" final="false" height="780" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
+    <class id="_-7olgBVZEeODAq4Tm5H6GQ" name="GameBoardGUI" mandatory="true" x="40" y="60" globalX="80" globalY="100" abstract="false" final="false" height="160" width="200" parent="_2g84MBVZEeODAq4Tm5H6GQ">
+      <description></description>
+      <attribute id="_b_E2QGf-EeORzeyQgFc1Jw" name="Attr4" type="TYPE#21" visibility="public" static="false" final="false"/>
+      <method id="_lJ-i8GEtEeSFBoEbqUktNw" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_mjiW4GEtEeSFBoEbqUktNw" name="checkScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_JmvLYBVcEeODAq4Tm5H6GQ" name="GameBoardMgr" mandatory="true" x="40" y="60" globalX="80" globalY="2560" abstract="false" final="false" height="120" width="200" parent="_2zMPEBSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_ePLQoGf-EeORzeyQgFc1Jw" name="attr5" type="TYPE#21" visibility="public" static="false" final="false"/>
+    </class>
+    <class id="_7YIxMBS3EeOYorUb5NKqTw" name="Brick" mandatory="true" x="1360" y="1260" globalX="1740" globalY="1300" abstract="false" final="false" height="260" width="400" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_87NtgBS3EeOYorUb5NKqTw" name="isBroken" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="_Atly8BS4EeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_BaPdkBS4EeOYorUb5NKqTw" name="getSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_A3_FEBS4EeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_BC0cEBS4EeOYorUb5NKqTw" name="hitbyPuck" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_BPLdEBS4EeOYorUb5NKqTw" name="die" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_BmrXEBS4EeOYorUb5NKqTw" name="setSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_Ru2b4BS1EeOYorUb5NKqTw" name="Sprit" mandatory="true" x="1160" y="880" globalX="1540" globalY="920" abstract="false" final="false" height="240" width="500" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_V70LkBS1EeOYorUb5NKqTw" name="name" type="TYPE#24" visibility="private" static="false" final="false"/>
+      <attribute id="_VFyigBS1EeOYorUb5NKqTw" name="localization" type="_DGv8UBSwEeOYorUb5NKqTw" visibility="private" static="false" final="false"/>
+      <attribute id="_VjP6kBS1EeOYorUb5NKqTw" name="icon" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="_mD_JABS1EeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="_mPYgsBS1EeOYorUb5NKqTw" name="overLaps" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_l3eXABS1EeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </class>
+    <class id="_xScE0BS9EeOYorUb5NKqTw" name="GameBoard" mandatory="true" x="620" y="60" globalX="1000" globalY="100" abstract="false" final="false" height="780" width="336" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description>freeze</description>
       <attribute id="_ed2H8BS-EeOYorUb5NKqTw" name="collisionList" type="TYPE#21" visibility="private" static="false" final="false"/>
       <attribute id="_0GHGUBS9EeOYorUb5NKqTw" name="movableComponents" type="TYPE#21" visibility="private" static="false" final="false"/>
       <attribute id="_77LIoBS-EeOYorUb5NKqTw" name="image" type="TYPE#17" visibility="private" static="false" final="false"/>
@@ -208,38 +272,23 @@
       <method id="_xcdRkBS_EeOYorUb5NKqTw" name="StartMovement" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
-    <class id="_8CTh0BSyEeOYorUb5NKqTw" name="Wall" mandatory="true" x="960" y="60" globalX="1340" globalY="100" abstract="false" final="false" height="200" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <method id="_BHpD8BSzEeOYorUb5NKqTw" name="absorb" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+    <class id="_IXCC0BSzEeOYorUb5NKqTw" name="Paddle" mandatory="true" x="40" y="1260" globalX="420" globalY="1300" abstract="false" final="false" height="240" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_O_8QgBSzEeOYorUb5NKqTw" name="moveLeft" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_CCx2gBSzEeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_T2r9ABSzEeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_CYfAwBSzEeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_P77-sBSzEeOYorUb5NKqTw" name="moveRight" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-    </class>
-    <class id="_HCoXQBVZEeODAq4Tm5H6GQ" name="GameBoardCtrl" mandatory="true" x="1300" y="60" globalX="1680" globalY="100" abstract="false" final="false" height="120" width="200" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <attribute id="_opWJcGf-EeORzeyQgFc1Jw" name="attr10" type="TYPE#21" visibility="public" static="false" final="false"/>
-    </class>
-    <class id="_PMm-EBS0EeOYorUb5NKqTw" name="Floor" mandatory="true" x="40" y="880" globalX="420" globalY="920" abstract="false" final="false" height="200" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <method id="_WP2-YBS0EeOYorUb5NKqTw" name="absorb" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_U4DTYBSzEeOYorUb5NKqTw" name="getSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_VdaNwBS0EeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_wCUvgBS3EeOYorUb5NKqTw" name="setSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_UgPa4BS0EeOYorUb5NKqTw" name="collideWidth" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-    </class>
-    <class id="_bSsdwBTCEeOYorUb5NKqTw" name="Score" mandatory="true" x="380" y="880" globalX="760" globalY="920" abstract="false" final="false" height="260" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <attribute id="_n7GIsBTCEeOYorUb5NKqTw" name="scoreRankingPong" type="TYPE#21" visibility="public" static="false" final="false"/>
-      <attribute id="_mAQzsBTCEeOYorUb5NKqTw" name="scoreRankingBrickles" type="TYPE#21" visibility="public" static="false" final="false"/>
-      <attribute id="_hQbngBTCEeOYorUb5NKqTw" name="scoreRankingBowling" type="TYPE#21" visibility="public" static="false" final="false"/>
-      <attribute id="_9YzFsBWZEeObs-pQrJ2skQ" name="score" type="TYPE#21" visibility="public" static="false" final="false"/>
-      <method id="_xamwEBTCEeOYorUb5NKqTw" name="updateScoreRanking" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_w9TJABTCEeOYorUb5NKqTw" name="resetScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_xLsxYBTCEeOYorUb5NKqTw" name="incScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_NKwQgBSzEeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="_Uo_ggBSvEeOYorUb5NKqTw" name="MovableSprites" mandatory="true" x="720" y="880" globalX="1100" globalY="920" abstract="false" final="false" height="340" width="400" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
       <attribute id="_dW_ycBSvEeOYorUb5NKqTw" name="isMoving" type="TYPE#10" visibility="private" static="false" final="false"/>
       <attribute id="_l_lY4BSvEeOYorUb5NKqTw" name="currentVelocity" type="_oqHsgBSvEeOYorUb5NKqTw" visibility="private" static="false" final="false"/>
       <attribute id="_Eg7bUBSwEeOYorUb5NKqTw" name="lastPosition" type="_DGv8UBSwEeOYorUb5NKqTw" visibility="private" static="false" final="false"/>
@@ -258,38 +307,81 @@
       <method id="_S7IloBSxEeOYorUb5NKqTw" name="startMoving" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
-    <class id="_Ru2b4BS1EeOYorUb5NKqTw" name="Sprit" mandatory="true" x="1160" y="880" globalX="1540" globalY="920" abstract="false" final="false" height="240" width="500" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <attribute id="_V70LkBS1EeOYorUb5NKqTw" name="name" type="TYPE#24" visibility="private" static="false" final="false"/>
-      <attribute id="_VFyigBS1EeOYorUb5NKqTw" name="localization" type="_DGv8UBSwEeOYorUb5NKqTw" visibility="private" static="false" final="false"/>
-      <attribute id="_VjP6kBS1EeOYorUb5NKqTw" name="icon" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <method id="_mD_JABS1EeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+    <class id="_R-qtYBVhEeODAq4Tm5H6GQ" name="GameCtrl" mandatory="true" x="40" y="60" globalX="920" globalY="2560" abstract="false" final="false" height="120" width="200" parent="_tZi_IBSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_XU4_EGf-EeORzeyQgFc1Jw" name="nameAttr1" type="TYPE#21" visibility="public" static="false" final="false"/>
+    </class>
+    <class id="_IFYy0BSrEeOYorUb5NKqTw" name="PongGame" mandatory="true" x="380" y="360" globalX="2920" globalY="400" abstract="false" final="false" height="260" width="300" parent="_hOsL0BSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_bJShkBSrEeOYorUb5NKqTw" name="gameCode" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="_MUGO8BSrEeOYorUb5NKqTw" name="numberOfSets" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="_VNUSYBSrEeOYorUb5NKqTw" name="setPoints" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="_lQnW4BSrEeOYorUb5NKqTw" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_mPYgsBS1EeOYorUb5NKqTw" name="overLaps" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_mAcRUBSrEeOYorUb5NKqTw" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_l3eXABS1EeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      <method id="_ll0x4BSrEeOYorUb5NKqTw" name="loadGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_mTl20BSrEeOYorUb5NKqTw" name="viewTopScores" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
-    <class id="_AMfYYBS1EeOYorUb5NKqTw" name="Ceiling" mandatory="true" x="1700" y="880" globalX="2080" globalY="920" abstract="false" final="false" height="180" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <method id="_D7TzgBS1EeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+    <class id="_AfsXUBSsEeOYorUb5NKqTw" name="BricklesGame" mandatory="true" x="40" y="360" globalX="2580" globalY="400" abstract="false" final="false" height="240" width="300" parent="_hOsL0BSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_GdPT0BSsEeOYorUb5NKqTw" name="numbersOfBalls" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="_LOkU0BSsEeOYorUb5NKqTw" name="gameCode" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="_USo9YBSsEeOYorUb5NKqTw" name="loadGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_EJMegBS1EeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_UjKssBSsEeOYorUb5NKqTw" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_TsduMBSsEeOYorUb5NKqTw" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_UzQ-MBSsEeOYorUb5NKqTw" name="viewTopScores" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
-    <class id="_IXCC0BSzEeOYorUb5NKqTw" name="Paddle" mandatory="true" x="40" y="1260" globalX="420" globalY="1300" abstract="false" final="false" height="240" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <method id="_O_8QgBSzEeOYorUb5NKqTw" name="moveLeft" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+    <class id="_P2tF4BViEeODAq4Tm5H6GQ" name="GameMgr" mandatory="true" x="720" y="60" globalX="3260" globalY="100" abstract="false" final="false" height="120" width="200" parent="_hOsL0BSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_iJ2WcGf-EeORzeyQgFc1Jw" name="attr7" type="TYPE#21" visibility="public" static="false" final="false"/>
+    </class>
+    <class id="_lD5HgBTBEeOYorUb5NKqTw" name="Match" mandatory="true" x="1800" y="1260" globalX="2180" globalY="1300" abstract="false" final="false" height="280" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_sy4zgBTBEeOYorUb5NKqTw" name="numberOfMatches" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="_sBPUIBTBEeOYorUb5NKqTw" name="getPartialScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_T2r9ABSzEeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_re5cEBTBEeOYorUb5NKqTw" name="startMatch" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_P77-sBSzEeOYorUb5NKqTw" name="moveRight" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_rtJ6gBTBEeOYorUb5NKqTw" name="endMatch" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_U4DTYBSzEeOYorUb5NKqTw" name="getSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_K_6LwBTCEeOYorUb5NKqTw" name="setFinalScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_wCUvgBS3EeOYorUb5NKqTw" name="setSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_Eg79MBTCEeOYorUb5NKqTw" name="getFinalScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_NKwQgBSzEeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_EyJB8BTCEeOYorUb5NKqTw" name="setPartialScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_FDCksBTCEeOYorUb5NKqTw" name="setPartialScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_HCoXQBVZEeODAq4Tm5H6GQ" name="GameBoardCtrl" mandatory="true" x="1300" y="60" globalX="1680" globalY="100" abstract="false" final="false" height="120" width="200" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_opWJcGf-EeORzeyQgFc1Jw" name="attr10" type="TYPE#21" visibility="public" static="false" final="false"/>
+    </class>
+    <class id="_prZDoBSsEeOYorUb5NKqTw" name="Game" mandatory="true" x="380" y="60" globalX="2920" globalY="100" abstract="false" final="false" height="260" width="300" parent="_hOsL0BSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_4a6zIBSsEeOYorUb5NKqTw" name="gameCode" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <method id="_bCHQoBStEeOYorUb5NKqTw" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_JB2JIBStEeOYorUb5NKqTw" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_Wd9I8BStEeOYorUb5NKqTw" name="viewTopScores" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_ZsHHABStEeOYorUb5NKqTw" name="getGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_KegUYBStEeOYorUb5NKqTw" name="loadGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_UVfnoBStEeOYorUb5NKqTw" name="exitGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="_NJM_EBS4EeOYorUb5NKqTw" name="Player" mandatory="false" x="380" y="1260" globalX="760" globalY="1300" abstract="false" final="false" height="520" width="500" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
       <attribute id="_RPlloBS4EeOYorUb5NKqTw" name="heigherScoreBrickles" type="TYPE#21" visibility="private" static="false" final="false"/>
       <attribute id="_GqiLIBS7EeOYorUb5NKqTw" name="lastTimePlayedBowling" type="TYPE#21" visibility="private" static="false" final="false"/>
       <attribute id="_VTW1sBS7EeOYorUb5NKqTw" name="lastTimeSavedBrickles" type="TYPE#21" visibility="private" static="false" final="false"/>
@@ -323,7 +415,81 @@
         <parameter type="TYPE#24" name="login"/>
       </method>
     </class>
+    <class id="_KFWgYBVkEeODAq4Tm5H6GQ" name="GameGUI" mandatory="true" x="40" y="60" globalX="80" globalY="3360" abstract="false" final="false" height="180" width="200" parent="_IqVT4BVkEeODAq4Tm5H6GQ">
+      <description></description>
+      <attribute id="_kMSIQGf-EeORzeyQgFc1Jw" name="att8" type="TYPE#21" visibility="public" static="false" final="false"/>
+      <method id="_LH5rsGEuEeSFBoEbqUktNw" name="exit" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_FhsRIGEuEeSFBoEbqUktNw" name="install" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_I9Y78GEuEeSFBoEbqUktNw" name="save" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_AMfYYBS1EeOYorUb5NKqTw" name="Ceiling" mandatory="true" x="1700" y="880" globalX="2080" globalY="920" abstract="false" final="false" height="180" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_D7TzgBS1EeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_EJMegBS1EeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_bSsdwBTCEeOYorUb5NKqTw" name="Score" mandatory="true" x="380" y="880" globalX="760" globalY="920" abstract="false" final="false" height="260" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_n7GIsBTCEeOYorUb5NKqTw" name="scoreRankingPong" type="TYPE#21" visibility="public" static="false" final="false"/>
+      <attribute id="_mAQzsBTCEeOYorUb5NKqTw" name="scoreRankingBrickles" type="TYPE#21" visibility="public" static="false" final="false"/>
+      <attribute id="_hQbngBTCEeOYorUb5NKqTw" name="scoreRankingBowling" type="TYPE#21" visibility="public" static="false" final="false"/>
+      <attribute id="_9YzFsBWZEeObs-pQrJ2skQ" name="score" type="TYPE#21" visibility="public" static="false" final="false"/>
+      <method id="_xamwEBTCEeOYorUb5NKqTw" name="updateScoreRanking" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_w9TJABTCEeOYorUb5NKqTw" name="resetScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_xLsxYBTCEeOYorUb5NKqTw" name="incScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_tmrIQBS-EeOYorUb5NKqTw" name="Display" mandatory="true" x="280" y="1820" globalX="660" globalY="1860" abstract="false" final="false" height="100" width="200" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+    </class>
+    <class id="_DGv8UBSwEeOYorUb5NKqTw" name="Point" mandatory="true" x="380" y="60" globalX="760" globalY="100" abstract="false" final="false" height="100" width="200" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+    </class>
+    <class id="_PMm-EBS0EeOYorUb5NKqTw" name="Floor" mandatory="true" x="40" y="880" globalX="420" globalY="920" abstract="false" final="false" height="200" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_WP2-YBS0EeOYorUb5NKqTw" name="absorb" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_VdaNwBS0EeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_UgPa4BS0EeOYorUb5NKqTw" name="collideWidth" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
+    <class id="_4kumcBVcEeODAq4Tm5H6GQ" name="AnimationLoppMgr" mandatory="true" x="40" y="60" globalX="1360" globalY="3360" abstract="false" final="false" height="180" width="400" parent="_-c0S4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_9eXw8BWTEeObs-pQrJ2skQ" name="startAnimation" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#17" name="codeGame"/>
+      </method>
+      <method id="_9rfm8BWTEeObs-pQrJ2skQ" name="stopAnimation" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+        <parameter type="TYPE#17" name="codeGame"/>
+      </method>
+    </class>
+    <class id="_L2zx0BSyEeOYorUb5NKqTw" name="Puck" mandatory="true" x="520" y="1820" globalX="900" globalY="1860" abstract="false" final="false" height="300" width="500" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <attribute id="_OqyVUBSyEeOYorUb5NKqTw" name="puckDimension" type="TYPE#17" visibility="private" static="false" final="false"/>
+      <attribute id="_aAlI4BSyEeOYorUb5NKqTw" name="isDead" type="TYPE#10" visibility="private" static="false" final="false"/>
+      <method id="_qLM9YBSyEeOYorUb5NKqTw" name="setDirection" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_lC608BSyEeOYorUb5NKqTw" name="delete" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_sElg4BSyEeOYorUb5NKqTw" name="getSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_muGkYBSyEeOYorUb5NKqTw" name="move" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_i9dkUBSyEeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_uImNwBS3EeOYorUb5NKqTw" name="setSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_ntK0sBSyEeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+    </class>
     <class id="_5CPtUBS2EeOYorUb5NKqTw" name="BrickPile" mandatory="true" x="920" y="1260" globalX="1300" globalY="1300" abstract="false" final="false" height="360" width="400" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
       <attribute id="_SFNbgBS3EeOYorUb5NKqTw" name="numLeft" type="TYPE#17" visibility="private" static="false" final="false"/>
       <attribute id="_CT6tABS3EeOYorUb5NKqTw" name="numRows" type="TYPE#17" visibility="private" static="false" final="false"/>
       <attribute id="_A2FUsBTFEeOYorUb5NKqTw" name="Brick" type="_7YIxMBS3EeOYorUb5NKqTw" visibility="public" static="false" final="false"/>
@@ -343,122 +509,8 @@
       <method id="_d0GrkBS3EeOYorUb5NKqTw" name="getSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
-    <class id="_7YIxMBS3EeOYorUb5NKqTw" name="Brick" mandatory="true" x="1360" y="1260" globalX="1740" globalY="1300" abstract="false" final="false" height="260" width="400" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <attribute id="_87NtgBS3EeOYorUb5NKqTw" name="isBroken" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <method id="_Atly8BS4EeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_BaPdkBS4EeOYorUb5NKqTw" name="getSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_A3_FEBS4EeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_BC0cEBS4EeOYorUb5NKqTw" name="hitbyPuck" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_BPLdEBS4EeOYorUb5NKqTw" name="die" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_BmrXEBS4EeOYorUb5NKqTw" name="setSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-    </class>
-    <class id="_lD5HgBTBEeOYorUb5NKqTw" name="Match" mandatory="true" x="1800" y="1260" globalX="2180" globalY="1300" abstract="false" final="false" height="280" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <attribute id="_sy4zgBTBEeOYorUb5NKqTw" name="numberOfMatches" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <method id="_sBPUIBTBEeOYorUb5NKqTw" name="getPartialScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_re5cEBTBEeOYorUb5NKqTw" name="startMatch" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_rtJ6gBTBEeOYorUb5NKqTw" name="endMatch" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_K_6LwBTCEeOYorUb5NKqTw" name="setFinalScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_Eg79MBTCEeOYorUb5NKqTw" name="getFinalScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_EyJB8BTCEeOYorUb5NKqTw" name="setPartialScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_FDCksBTCEeOYorUb5NKqTw" name="setPartialScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-    </class>
-    <class id="_fFmg8BS9EeOYorUb5NKqTw" name="StationarySprite" mandatory="true" x="40" y="1820" globalX="420" globalY="1860" abstract="false" final="false" height="160" width="200" parent="_nqr-4BSmEeOYorUb5NKqTw">
-    </class>
-    <class id="_tmrIQBS-EeOYorUb5NKqTw" name="Display" mandatory="true" x="280" y="1820" globalX="660" globalY="1860" abstract="false" final="false" height="100" width="200" parent="_nqr-4BSmEeOYorUb5NKqTw">
-    </class>
-    <class id="_L2zx0BSyEeOYorUb5NKqTw" name="Puck" mandatory="true" x="520" y="1820" globalX="900" globalY="1860" abstract="false" final="false" height="300" width="500" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <attribute id="_OqyVUBSyEeOYorUb5NKqTw" name="puckDimension" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <attribute id="_aAlI4BSyEeOYorUb5NKqTw" name="isDead" type="TYPE#10" visibility="private" static="false" final="false"/>
-      <method id="_qLM9YBSyEeOYorUb5NKqTw" name="setDirection" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_lC608BSyEeOYorUb5NKqTw" name="delete" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_sElg4BSyEeOYorUb5NKqTw" name="getSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_muGkYBSyEeOYorUb5NKqTw" name="move" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_i9dkUBSyEeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_uImNwBS3EeOYorUb5NKqTw" name="setSaveData" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_ntK0sBSyEeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-    </class>
-    <class id="_KbxQ0BSqEeOYorUb5NKqTw" name="BowlingGame" mandatory="true" x="40" y="60" globalX="2580" globalY="100" abstract="false" final="false" height="240" width="300" parent="_hOsL0BSmEeOYorUb5NKqTw">
-      <attribute id="_j_KykBSqEeOYorUb5NKqTw" name="gameCode" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <attribute id="_QbLOgBSqEeOYorUb5NKqTw" name="numberOfTruns" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <method id="_z0OmwBSqEeOYorUb5NKqTw" name="loadGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_pS25wBSqEeOYorUb5NKqTw" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_BTWeUBSrEeOYorUb5NKqTw" name="viewTopScores" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_3TMA8BSqEeOYorUb5NKqTw" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-    </class>
-    <class id="_prZDoBSsEeOYorUb5NKqTw" name="Game" mandatory="true" x="380" y="60" globalX="2920" globalY="100" abstract="false" final="false" height="260" width="300" parent="_hOsL0BSmEeOYorUb5NKqTw">
-      <attribute id="_4a6zIBSsEeOYorUb5NKqTw" name="gameCode" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <method id="_bCHQoBStEeOYorUb5NKqTw" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_JB2JIBStEeOYorUb5NKqTw" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_Wd9I8BStEeOYorUb5NKqTw" name="viewTopScores" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_ZsHHABStEeOYorUb5NKqTw" name="getGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_KegUYBStEeOYorUb5NKqTw" name="loadGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_UVfnoBStEeOYorUb5NKqTw" name="exitGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-    </class>
-    <class id="_P2tF4BViEeODAq4Tm5H6GQ" name="GameMgr" mandatory="true" x="720" y="60" globalX="3260" globalY="100" abstract="false" final="false" height="120" width="200" parent="_hOsL0BSmEeOYorUb5NKqTw">
-      <attribute id="_iJ2WcGf-EeORzeyQgFc1Jw" name="attr7" type="TYPE#21" visibility="public" static="false" final="false"/>
-    </class>
-    <class id="_AfsXUBSsEeOYorUb5NKqTw" name="BricklesGame" mandatory="true" x="40" y="360" globalX="2580" globalY="400" abstract="false" final="false" height="240" width="300" parent="_hOsL0BSmEeOYorUb5NKqTw">
-      <attribute id="_GdPT0BSsEeOYorUb5NKqTw" name="numbersOfBalls" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <attribute id="_LOkU0BSsEeOYorUb5NKqTw" name="gameCode" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <method id="_USo9YBSsEeOYorUb5NKqTw" name="loadGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_UjKssBSsEeOYorUb5NKqTw" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_TsduMBSsEeOYorUb5NKqTw" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_UzQ-MBSsEeOYorUb5NKqTw" name="viewTopScores" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-    </class>
-    <class id="_IFYy0BSrEeOYorUb5NKqTw" name="PongGame" mandatory="true" x="380" y="360" globalX="2920" globalY="400" abstract="false" final="false" height="260" width="300" parent="_hOsL0BSmEeOYorUb5NKqTw">
-      <attribute id="_bJShkBSrEeOYorUb5NKqTw" name="gameCode" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <attribute id="_MUGO8BSrEeOYorUb5NKqTw" name="numberOfSets" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <attribute id="_VNUSYBSrEeOYorUb5NKqTw" name="setPoints" type="TYPE#17" visibility="private" static="false" final="false"/>
-      <method id="_lQnW4BSrEeOYorUb5NKqTw" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_mAcRUBSrEeOYorUb5NKqTw" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_ll0x4BSrEeOYorUb5NKqTw" name="loadGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_mTl20BSrEeOYorUb5NKqTw" name="viewTopScores" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-    </class>
-    <class id="_JmvLYBVcEeODAq4Tm5H6GQ" name="GameBoardMgr" mandatory="true" x="40" y="60" globalX="80" globalY="2560" abstract="false" final="false" height="120" width="200" parent="_2zMPEBSmEeOYorUb5NKqTw">
-      <attribute id="_ePLQoGf-EeORzeyQgFc1Jw" name="attr5" type="TYPE#21" visibility="public" static="false" final="false"/>
-    </class>
-    <class id="_R-qtYBVhEeODAq4Tm5H6GQ" name="GameCtrl" mandatory="true" x="40" y="60" globalX="920" globalY="2560" abstract="false" final="false" height="120" width="200" parent="_tZi_IBSmEeOYorUb5NKqTw">
-      <attribute id="_XU4_EGf-EeORzeyQgFc1Jw" name="nameAttr1" type="TYPE#21" visibility="public" static="false" final="false"/>
-    </class>
     <class id="_sEps4BVjEeODAq4Tm5H6GQ" name="PlayGameGUI" mandatory="true" x="40" y="60" globalX="2500" globalY="2560" abstract="false" final="false" height="180" width="200" parent="_pVLO4BVjEeODAq4Tm5H6GQ">
+      <description></description>
       <attribute id="_gdMnYGf-EeORzeyQgFc1Jw" name="attr6" type="TYPE#21" visibility="public" static="false" final="false"/>
       <method id="_1Ts_kGEtEeSFBoEbqUktNw" name="play" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
@@ -467,220 +519,234 @@
       <method id="_vPsOsGEtEeSFBoEbqUktNw" name="exit" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
-    <class id="_KFWgYBVkEeODAq4Tm5H6GQ" name="GameGUI" mandatory="true" x="40" y="60" globalX="80" globalY="3360" abstract="false" final="false" height="180" width="200" parent="_IqVT4BVkEeODAq4Tm5H6GQ">
-      <attribute id="_kMSIQGf-EeORzeyQgFc1Jw" name="att8" type="TYPE#21" visibility="public" static="false" final="false"/>
-      <method id="_LH5rsGEuEeSFBoEbqUktNw" name="exit" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_FhsRIGEuEeSFBoEbqUktNw" name="install" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_I9Y78GEuEeSFBoEbqUktNw" name="save" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-    </class>
     <class id="_T739wBVdEeODAq4Tm5H6GQ" name="InitializeMgr" mandatory="true" x="40" y="60" globalX="420" globalY="3360" abstract="false" final="false" height="140" width="400" parent="_CbqHABSnEeOYorUb5NKqTw">
+      <description></description>
       <method id="_fbl-ABWMEeObs-pQrJ2skQ" name="initialize" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
         <parameter type="TYPE#17" name="gameCode"/>
       </method>
     </class>
-    <class id="_4kumcBVcEeODAq4Tm5H6GQ" name="AnimationLoppMgr" mandatory="true" x="40" y="60" globalX="1360" globalY="3360" abstract="false" final="false" height="180" width="400" parent="_-c0S4BSmEeOYorUb5NKqTw">
-      <method id="_9eXw8BWTEeObs-pQrJ2skQ" name="startAnimation" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="TYPE#17" name="codeGame"/>
+    <class id="_fFmg8BS9EeOYorUb5NKqTw" name="StationarySprite" mandatory="true" x="40" y="1820" globalX="420" globalY="1860" abstract="false" final="false" height="160" width="200" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+    </class>
+    <class id="_8CTh0BSyEeOYorUb5NKqTw" name="Wall" mandatory="true" x="960" y="60" globalX="1340" globalY="100" abstract="false" final="false" height="200" width="300" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_BHpD8BSzEeOYorUb5NKqTw" name="absorb" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
-      <method id="_9rfm8BWTEeObs-pQrJ2skQ" name="stopAnimation" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="TYPE#17" name="codeGame"/>
+      <method id="_CCx2gBSzEeOYorUb5NKqTw" name="collideWith" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      </method>
+      <method id="_CYfAwBSzEeOYorUb5NKqTw" name="paint" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
-    <interface id="_X5BBYBVgEeODAq4Tm5H6GQ" name="IGameBoardData" mandatory="true" x="1060" y="1820" globalX="1440" globalY="1860" height="140" width="400" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <method id="_H00hABWMEeObs-pQrJ2skQ" name="getGameBoard" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="TYPE#24" name="gameCode"/>
+    <interface id="_0bg44BVdEeODAq4Tm5H6GQ" name="IGameBoardMgt" mandatory="true" x="280" y="60" globalX="320" globalY="2560" height="380" width="500" parent="_2zMPEBSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_YNaqoBWNEeObs-pQrJ2skQ" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_bSsdwBTCEeOYorUb5NKqTw" name="score"/>
       </method>
-    </interface>
-    <interface id="_M10d4BVZEeODAq4Tm5H6GQ" name="ICheckScore" mandatory="true" x="1500" y="1820" globalX="1880" globalY="1860" height="200" width="500" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <method id="_56sIQBVmEeODAq4Tm5H6GQ" name="hasScore" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_vCv44BVnEeODAq4Tm5H6GQ" name="getSprite" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_Ru2b4BS1EeOYorUb5NKqTw" name="sprite"/>
+      </method>
+      <method id="_DPjwoBWNEeObs-pQrJ2skQ" name="getFinalScore" return="_bSsdwBTCEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
+      </method>
+      <method id="_v3Op0BVnEeODAq4Tm5H6GQ" name="endMatch" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="_vm0PQBVnEeODAq4Tm5H6GQ" name="startGameBoard" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="_uZvYIBVnEeODAq4Tm5H6GQ" name="addSprite" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="_uFK2UBVnEeODAq4Tm5H6GQ" name="setGameBoard" return="_xScE0BS9EeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="_uu2sgBVnEeODAq4Tm5H6GQ" name="remSprite" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="_wkfYoBWMEeObs-pQrJ2skQ" name="setPartialScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_bSsdwBTCEeOYorUb5NKqTw" name="score"/>
+      </method>
+      <method id="_vS2xcBVnEeODAq4Tm5H6GQ" name="getLocation" return="_DGv8UBSwEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_Ru2b4BS1EeOYorUb5NKqTw" name="sprite"/>
+      </method>
+      <method id="_1qBvEBWMEeObs-pQrJ2skQ" name="getPartialScore" return="_bSsdwBTCEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
+      </method>
+      <method id="_eFFooBWNEeObs-pQrJ2skQ" name="showScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="_prZDoBSsEeOYorUb5NKqTw" name="game"/>
       </method>
-      <method id="_HiZUEBVnEeODAq4Tm5H6GQ" name="showScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_prZDoBSsEeOYorUb5NKqTw" name="game"/>
-      </method>
-      <method id="_MhY9oBVnEeODAq4Tm5H6GQ" name="showRankingScores" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_az2zIBVmEeODAq4Tm5H6GQ" name="getGame" return="_prZDoBSsEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="TYPE#17" name="codeGame"/>
+      <method id="_RGtGoBWNEeObs-pQrJ2skQ" name="setFinalScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
       </method>
     </interface>
     <interface id="_ukGrgBVbEeODAq4Tm5H6GQ" name="ISaveScore" mandatory="true" x="40" y="2160" globalX="420" globalY="2200" height="240" width="600" parent="_nqr-4BSmEeOYorUb5NKqTw">
-      <method id="_91CwEBWJEeObs-pQrJ2skQ" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <description></description>
+      <method id="_91CwEBWJEeObs-pQrJ2skQ" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="_bSsdwBTCEeOYorUb5NKqTw" name="game"/>
       </method>
-      <method id="_-OX2EBWJEeObs-pQrJ2skQ" name="saveingInRanking" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_-OX2EBWJEeObs-pQrJ2skQ" name="saveingInRanking" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#24" name="login"/>
         <parameter type="_prZDoBSsEeOYorUb5NKqTw" name="game"/>
       </method>
-      <method id="_-BssABWJEeObs-pQrJ2skQ" name="isARankingScore" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_-BssABWJEeObs-pQrJ2skQ" name="isARankingScore" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="_bSsdwBTCEeOYorUb5NKqTw" name="score"/>
       </method>
-      <method id="_-cGwEBWJEeObs-pQrJ2skQ" name="setDateRanking" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_-cGwEBWJEeObs-pQrJ2skQ" name="setDateRanking" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#24" name="login"/>
         <parameter type="_prZDoBSsEeOYorUb5NKqTw" name="game"/>
       </method>
-      <method id="_7x3XYBWJEeObs-pQrJ2skQ" name="getScore" return="_bSsdwBTCEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_7x3XYBWJEeObs-pQrJ2skQ" name="getScore" return="_bSsdwBTCEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="true">
       </method>
-      <method id="_9liUcBWJEeObs-pQrJ2skQ" name="isGamePlayed" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_9liUcBWJEeObs-pQrJ2skQ" name="isGamePlayed" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="_xScE0BS9EeOYorUb5NKqTw" name="gameBoard"/>
         <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
       </method>
     </interface>
     <interface id="_R38k4BViEeODAq4Tm5H6GQ" name="IGameMgt" mandatory="true" x="720" y="360" globalX="3260" globalY="400" height="360" width="500" parent="_hOsL0BSmEeOYorUb5NKqTw">
-      <method id="_4ud7ABWNEeObs-pQrJ2skQ" name="remGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <description></description>
+      <method id="_4ud7ABWNEeObs-pQrJ2skQ" name="remGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gameCode"/>
       </method>
-      <method id="_4bTucBWNEeObs-pQrJ2skQ" name="addGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_4bTucBWNEeObs-pQrJ2skQ" name="addGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gameCode"/>
       </method>
-      <method id="_5M0q8BWNEeObs-pQrJ2skQ" name="play" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_5M0q8BWNEeObs-pQrJ2skQ" name="play" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="codeGame"/>
         <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
       </method>
-      <method id="_WGchoBWOEeObs-pQrJ2skQ" name="exit" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_WGchoBWOEeObs-pQrJ2skQ" name="exit" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gameCode"/>
       </method>
-      <method id="_ps4VsBWOEeObs-pQrJ2skQ" name="install" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_ps4VsBWOEeObs-pQrJ2skQ" name="install" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gameCode"/>
       </method>
-      <method id="_pcB2QBWOEeObs-pQrJ2skQ" name="uninstall" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_pcB2QBWOEeObs-pQrJ2skQ" name="uninstall" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gameCode"/>
       </method>
-      <method id="_4-ZNYBWNEeObs-pQrJ2skQ" name="getGame" return="_prZDoBSsEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_4-ZNYBWNEeObs-pQrJ2skQ" name="getGame" return="_prZDoBSsEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="codeGame"/>
       </method>
-      <method id="_aA0sgBWOEeObs-pQrJ2skQ" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_aA0sgBWOEeObs-pQrJ2skQ" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="_xScE0BS9EeOYorUb5NKqTw" name="gameBoard"/>
         <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
       </method>
-      <method id="_pNd10BWOEeObs-pQrJ2skQ" name="checkInstallation" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_pNd10BWOEeObs-pQrJ2skQ" name="checkInstallation" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gameCode"/>
       </method>
-      <method id="_cXIckBWOEeObs-pQrJ2skQ" name="loadGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_cXIckBWOEeObs-pQrJ2skQ" name="loadGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="_prZDoBSsEeOYorUb5NKqTw" name="game"/>
-      </method>
-    </interface>
-    <interface id="_0bg44BVdEeODAq4Tm5H6GQ" name="IGameBoardMgt" mandatory="true" x="280" y="60" globalX="320" globalY="2560" height="380" width="500" parent="_2zMPEBSmEeOYorUb5NKqTw">
-      <method id="_YNaqoBWNEeObs-pQrJ2skQ" name="saveScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_bSsdwBTCEeOYorUb5NKqTw" name="score"/>
-      </method>
-      <method id="_vCv44BVnEeODAq4Tm5H6GQ" name="getSprite" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_Ru2b4BS1EeOYorUb5NKqTw" name="sprite"/>
-      </method>
-      <method id="_DPjwoBWNEeObs-pQrJ2skQ" name="getFinalScore" return="_bSsdwBTCEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
-      </method>
-      <method id="_v3Op0BVnEeODAq4Tm5H6GQ" name="endMatch" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_vm0PQBVnEeODAq4Tm5H6GQ" name="startGameBoard" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_uZvYIBVnEeODAq4Tm5H6GQ" name="addSprite" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_uFK2UBVnEeODAq4Tm5H6GQ" name="setGameBoard" return="_xScE0BS9EeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_uu2sgBVnEeODAq4Tm5H6GQ" name="remSprite" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_wkfYoBWMEeObs-pQrJ2skQ" name="setPartialScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_bSsdwBTCEeOYorUb5NKqTw" name="score"/>
-      </method>
-      <method id="_vS2xcBVnEeODAq4Tm5H6GQ" name="getLocation" return="_DGv8UBSwEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_Ru2b4BS1EeOYorUb5NKqTw" name="sprite"/>
-      </method>
-      <method id="_1qBvEBWMEeObs-pQrJ2skQ" name="getPartialScore" return="_bSsdwBTCEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
-      </method>
-      <method id="_eFFooBWNEeObs-pQrJ2skQ" name="showScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_prZDoBSsEeOYorUb5NKqTw" name="game"/>
-      </method>
-      <method id="_RGtGoBWNEeObs-pQrJ2skQ" name="setFinalScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
-      </method>
-    </interface>
-    <interface id="_-VLTYBViEeODAq4Tm5H6GQ" name="IPlayPong" mandatory="true" x="280" y="60" globalX="1160" globalY="2560" height="200" width="400" parent="_tZi_IBSmEeOYorUb5NKqTw">
-      <method id="_UkIS8BWREeObs-pQrJ2skQ" name="play" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_U-X-8BWREeObs-pQrJ2skQ" name="setDatePlayed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-      <method id="_TrNG4BWREeObs-pQrJ2skQ" name="checkInstallation" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
-      </method>
-    </interface>
-    <interface id="_McPUsBVjEeODAq4Tm5H6GQ" name="ISaveGame" mandatory="true" x="720" y="60" globalX="1600" globalY="2560" height="180" width="500" parent="_tZi_IBSmEeOYorUb5NKqTw">
-      <method id="_shkHABWSEeObs-pQrJ2skQ" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_xScE0BS9EeOYorUb5NKqTw" name="gameBoard"/>
-        <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
-      </method>
-      <method id="_sEty8BWSEeObs-pQrJ2skQ" name="checkGameBoard" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_xScE0BS9EeOYorUb5NKqTw" name="gameBoard"/>
-      </method>
-      <method id="_sUIvABWSEeObs-pQrJ2skQ" name="checkMatch" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
-      </method>
-    </interface>
-    <interface id="_CacfoBVjEeODAq4Tm5H6GQ" name="IInstallGame" mandatory="true" x="40" y="300" globalX="920" globalY="2800" height="160" width="500" parent="_tZi_IBSmEeOYorUb5NKqTw">
-      <method id="_NXCFABWPEeObs-pQrJ2skQ" name="install" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="TYPE#17" name="gameCode"/>
-      </method>
-      <method id="_NFzLEBWPEeObs-pQrJ2skQ" name="checkGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="TYPE#17" name="gameCode"/>
-      </method>
-    </interface>
-    <interface id="_Gzx3YBVjEeODAq4Tm5H6GQ" name="IUninstallgame" mandatory="true" x="580" y="300" globalX="1460" globalY="2800" height="160" width="500" parent="_tZi_IBSmEeOYorUb5NKqTw">
-      <method id="_dbUA8BWPEeObs-pQrJ2skQ" name="checkGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="TYPE#17" name="gameCode"/>
-      </method>
-      <method id="_dr9FABWPEeObs-pQrJ2skQ" name="uninstall" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
-        <parameter type="TYPE#17" name="gameCode"/>
       </method>
     </interface>
     <interface id="_4L4Z4BViEeODAq4Tm5H6GQ" name="IPlayBrickles" mandatory="true" x="1120" y="300" globalX="2000" globalY="2800" height="200" width="400" parent="_tZi_IBSmEeOYorUb5NKqTw">
-      <method id="_1lmIwBWREeObs-pQrJ2skQ" name="setDatePlayed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <description></description>
+      <method id="_1lmIwBWREeObs-pQrJ2skQ" name="setDatePlayed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
       </method>
-      <method id="_1YqgABWREeObs-pQrJ2skQ" name="play" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_1YqgABWREeObs-pQrJ2skQ" name="play" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
       </method>
-      <method id="_1IWMEBWREeObs-pQrJ2skQ" name="checkinstallation" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_1IWMEBWREeObs-pQrJ2skQ" name="checkinstallation" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </interface>
+    <interface id="_Gzx3YBVjEeODAq4Tm5H6GQ" name="IUninstallgame" mandatory="true" x="580" y="300" globalX="1460" globalY="2800" height="160" width="500" parent="_tZi_IBSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_dbUA8BWPEeObs-pQrJ2skQ" name="checkGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gameCode"/>
+      </method>
+      <method id="_dr9FABWPEeObs-pQrJ2skQ" name="uninstall" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gameCode"/>
+      </method>
+    </interface>
+    <interface id="_X5BBYBVgEeODAq4Tm5H6GQ" name="IGameBoardData" mandatory="true" x="1060" y="1820" globalX="1440" globalY="1860" height="140" width="400" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_H00hABWMEeObs-pQrJ2skQ" name="getGameBoard" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#24" name="gameCode"/>
+      </method>
+    </interface>
+    <interface id="_-VLTYBViEeODAq4Tm5H6GQ" name="IPlayPong" mandatory="true" x="280" y="60" globalX="1160" globalY="2560" height="200" width="400" parent="_tZi_IBSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_UkIS8BWREeObs-pQrJ2skQ" name="play" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="_U-X-8BWREeObs-pQrJ2skQ" name="setDatePlayed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="_TrNG4BWREeObs-pQrJ2skQ" name="checkInstallation" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </interface>
+    <interface id="_McPUsBVjEeODAq4Tm5H6GQ" name="ISaveGame" mandatory="true" x="720" y="60" globalX="1600" globalY="2560" height="180" width="500" parent="_tZi_IBSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_shkHABWSEeObs-pQrJ2skQ" name="saveGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_xScE0BS9EeOYorUb5NKqTw" name="gameBoard"/>
+        <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
+      </method>
+      <method id="_sEty8BWSEeObs-pQrJ2skQ" name="checkGameBoard" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_xScE0BS9EeOYorUb5NKqTw" name="gameBoard"/>
+      </method>
+      <method id="_sUIvABWSEeObs-pQrJ2skQ" name="checkMatch" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_lD5HgBTBEeOYorUb5NKqTw" name="match"/>
       </method>
     </interface>
     <interface id="_Lda8ABVjEeODAq4Tm5H6GQ" name="IExitGame" mandatory="true" x="40" y="540" globalX="920" globalY="3040" height="160" width="500" parent="_tZi_IBSmEeOYorUb5NKqTw">
-      <method id="_RTYB8BWTEeObs-pQrJ2skQ" name="exit" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <description></description>
+      <method id="_RTYB8BWTEeObs-pQrJ2skQ" name="exit" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
       </method>
-      <method id="_Rnl-cBWTEeObs-pQrJ2skQ" name="checkGameBoard" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_Rnl-cBWTEeObs-pQrJ2skQ" name="checkGameBoard" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+    </interface>
+    <interface id="_M10d4BVZEeODAq4Tm5H6GQ" name="ICheckScore" mandatory="true" x="1500" y="1820" globalX="1880" globalY="1860" height="200" width="500" parent="_nqr-4BSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_56sIQBVmEeODAq4Tm5H6GQ" name="hasScore" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_prZDoBSsEeOYorUb5NKqTw" name="game"/>
+      </method>
+      <method id="_HiZUEBVnEeODAq4Tm5H6GQ" name="showScore" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="_prZDoBSsEeOYorUb5NKqTw" name="game"/>
+      </method>
+      <method id="_MhY9oBVnEeODAq4Tm5H6GQ" name="showRankingScores" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+      </method>
+      <method id="_az2zIBVmEeODAq4Tm5H6GQ" name="getGame" return="_prZDoBSsEeOYorUb5NKqTw" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="codeGame"/>
+      </method>
+    </interface>
+    <interface id="_CacfoBVjEeODAq4Tm5H6GQ" name="IInstallGame" mandatory="true" x="40" y="300" globalX="920" globalY="2800" height="160" width="500" parent="_tZi_IBSmEeOYorUb5NKqTw">
+      <description></description>
+      <method id="_NXCFABWPEeObs-pQrJ2skQ" name="install" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gameCode"/>
+      </method>
+      <method id="_NFzLEBWPEeObs-pQrJ2skQ" name="checkGame" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
+        <parameter type="TYPE#17" name="gameCode"/>
       </method>
     </interface>
     <interface id="_82VhYBVjEeODAq4Tm5H6GQ" name="IPlayBowling" mandatory="true" x="580" y="540" globalX="1460" globalY="3040" height="200" width="400" parent="_tZi_IBSmEeOYorUb5NKqTw">
-      <method id="_azEsABWSEeObs-pQrJ2skQ" name="setDatePlayed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <description></description>
+      <method id="_azEsABWSEeObs-pQrJ2skQ" name="setDatePlayed" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
       </method>
-      <method id="_aUKicBWSEeObs-pQrJ2skQ" name="checkInstallation" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_aUKicBWSEeObs-pQrJ2skQ" name="checkInstallation" return="TYPE#10" visibility="null" constructor="false" static="false" final="false" abstract="true">
       </method>
-      <method id="_aiq4gBWSEeObs-pQrJ2skQ" name="play" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_aiq4gBWSEeObs-pQrJ2skQ" name="play" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
       </method>
     </interface>
     <interface id="_Y4SNYBVdEeODAq4Tm5H6GQ" name="InitializationMgt" mandatory="true" x="480" y="60" globalX="860" globalY="3360" height="140" width="400" parent="_CbqHABSnEeOYorUb5NKqTw">
-      <method id="_SmmBgBWMEeObs-pQrJ2skQ" name="initialize" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <description></description>
+      <method id="_SmmBgBWMEeObs-pQrJ2skQ" name="initialize" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gameCode"/>
       </method>
     </interface>
     <interface id="_EIAcYBVdEeODAq4Tm5H6GQ" name="IAnimationLoopMgt" mandatory="true" x="480" y="60" globalX="1800" globalY="3360" height="180" width="400" parent="_-c0S4BSmEeOYorUb5NKqTw">
-      <method id="_pkzlgBWTEeObs-pQrJ2skQ" name="startAnimation" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <description></description>
+      <method id="_pkzlgBWTEeObs-pQrJ2skQ" name="startAnimation" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gameCode"/>
       </method>
-      <method id="_pwfREBWTEeObs-pQrJ2skQ" name="stopAnimation" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="false">
+      <method id="_pwfREBWTEeObs-pQrJ2skQ" name="stopAnimation" return="TYPE#9" visibility="null" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gameCode"/>
       </method>
     </interface>
-    <association id="_7-5RYxTGEeOYorUb5NKqTw" name="" category="normal" direction="false">
-      <source entity="_7YIxMBS3EeOYorUb5NKqTw" sourceVisibility="private" sourceName="Brick" sourceMin="1" sourceMax="1" sourceX="1943" sourceY="1437"/>
-      <target entity="_NJM_EBS4EeOYorUb5NKqTw" targetVisibility="private" targetName="Player" targetMin="1" targetMax="1" targetX="1019" targetY="1565"/>
+    <association id="_5BtHgBTGEeOYorUb5NKqTw" name="" category="normal" direction="false">
+      <source entity="_bSsdwBTCEeOYorUb5NKqTw" sourceVisibility="private" sourceName="Score" sourceMin="1" sourceMax="1" sourceX="913" sourceY="1054"/>
+      <target entity="_NJM_EBS4EeOYorUb5NKqTw" targetVisibility="private" targetName="Player" targetMin="1" targetMax="1" targetX="1018" targetY="1569"/>
     </association>
     <association id="_6__pcGEsEeSFBoEbqUktNw" name="game_gameMgr_1" category="normal" direction="false">
       <source entity="_prZDoBSsEeOYorUb5NKqTw" sourceVisibility="private" sourceName="game" sourceMin="1" sourceMax="1" sourceX="3071" sourceY="235"/>
       <target entity="_P2tF4BViEeODAq4Tm5H6GQ" targetVisibility="private" targetName="gameMgrTeste" targetMin="1" targetMax="1" targetX="3362" targetY="161"/>
     </association>
-    <association id="_5BtHgBTGEeOYorUb5NKqTw" name="" category="normal" direction="false">
-      <source entity="_bSsdwBTCEeOYorUb5NKqTw" sourceVisibility="private" sourceName="Score" sourceMin="1" sourceMax="1" sourceX="913" sourceY="1054"/>
-      <target entity="_NJM_EBS4EeOYorUb5NKqTw" targetVisibility="private" targetName="Player" targetMin="1" targetMax="1" targetX="1018" targetY="1569"/>
+    <association id="_7-5RYxTGEeOYorUb5NKqTw" name="" category="normal" direction="false">
+      <source entity="_7YIxMBS3EeOYorUb5NKqTw" sourceVisibility="private" sourceName="Brick" sourceMin="1" sourceMax="1" sourceX="1943" sourceY="1437"/>
+      <target entity="_NJM_EBS4EeOYorUb5NKqTw" targetVisibility="private" targetName="Player" targetMin="1" targetMax="1" targetX="1019" targetY="1565"/>
+    </association>
+    <association id="_A2F7wBTFEeOYorUb5NKqTw" name="" category="normal" direction="false">
+      <source entity="_5CPtUBS2EeOYorUb5NKqTw" sourceVisibility="private" sourceName="BrickPile" sourceMin="1" sourceMax="1" sourceX="1505" sourceY="1483"/>
+      <target entity="_7YIxMBS3EeOYorUb5NKqTw" targetVisibility="private" targetName="Brick" targetMin="1" targetMax="1" targetX="1940" targetY="1436"/>
     </association>
     <association id="_brpzgBTGEeOYorUb5NKqTw" name="" category="composition" direction="false">
       <source entity="_Ru2b4BS1EeOYorUb5NKqTw" sourceVisibility="private" sourceName="Sprit" sourceMin="1" sourceMax="1" sourceX="1798" sourceY="1046"/>
@@ -690,118 +756,191 @@
       <source entity="_lD5HgBTBEeOYorUb5NKqTw" sourceVisibility="private" sourceName="Match" sourceMin="1" sourceMax="1" sourceX="2331" sourceY="1445"/>
       <target entity="_xScE0BS9EeOYorUb5NKqTw" targetVisibility="private" targetName="GameBoard" targetMin="1" targetMax="1" targetX="1156" targetY="499"/>
     </association>
-    <association id="_A2F7wBTFEeOYorUb5NKqTw" name="" category="normal" direction="false">
-      <source entity="_5CPtUBS2EeOYorUb5NKqTw" sourceVisibility="private" sourceName="BrickPile" sourceMin="1" sourceMax="1" sourceX="1505" sourceY="1483"/>
-      <target entity="_7YIxMBS3EeOYorUb5NKqTw" targetVisibility="private" targetName="Brick" targetMin="1" targetMax="1" targetX="1940" targetY="1436"/>
-    </association>
     <association id="_l0X3UBTDEeOYorUb5NKqTw" name="" category="normal" direction="false">
       <source entity="_Uo_ggBSvEeOYorUb5NKqTw" sourceVisibility="private" sourceName="MovableSprites" sourceMin="1" sourceMax="1" sourceX="1301" sourceY="1095"/>
-      <target entity="_oqHsgBSvEeOYorUb5NKqTw" targetVisibility="private" targetName="Velocity" targetMin="1" targetMax="*" targetX="571" targetY="243"/>
+      <target entity="_oqHsgBSvEeOYorUb5NKqTw" targetVisibility="private" targetName="Velocity" targetMin="1" targetMax="2147483647" targetX="571" targetY="243"/>
     </association>
-    <dependency id="_EKqPIBVaEeODAq4Tm5H6GQ" source="_-7olgBVZEeODAq4Tm5H6GQ" target="_M10d4BVZEeODAq4Tm5H6GQ">
+    <dependency id="_-eUy4BVjEeODAq4Tm5H6GQ" source="_sEps4BVjEeODAq4Tm5H6GQ" target="_82VhYBVjEeODAq4Tm5H6GQ">
     </dependency>
     <dependency id="_147kABVbEeODAq4Tm5H6GQ" source="_-7olgBVZEeODAq4Tm5H6GQ" target="_ukGrgBVbEeODAq4Tm5H6GQ">
     </dependency>
-    <dependency id="_-eUy4BVjEeODAq4Tm5H6GQ" source="_sEps4BVjEeODAq4Tm5H6GQ" target="_82VhYBVjEeODAq4Tm5H6GQ">
+    <dependency id="_9DESoBVfEeODAq4Tm5H6GQ" source="_JmvLYBVcEeODAq4Tm5H6GQ" target="_Y4SNYBVdEeODAq4Tm5H6GQ">
     </dependency>
-    <dependency id="_stpcABViEeODAq4Tm5H6GQ" source="_R-qtYBVhEeODAq4Tm5H6GQ" target="_R38k4BViEeODAq4Tm5H6GQ">
-    </dependency>
-    <dependency id="__n_JoBVjEeODAq4Tm5H6GQ" source="_sEps4BVjEeODAq4Tm5H6GQ" target="_4L4Z4BViEeODAq4Tm5H6GQ">
-    </dependency>
-    <dependency id="_hnO2UBVkEeODAq4Tm5H6GQ" source="_KFWgYBVkEeODAq4Tm5H6GQ" target="_Gzx3YBVjEeODAq4Tm5H6GQ">
+    <dependency id="_B1BB4BVkEeODAq4Tm5H6GQ" source="_sEps4BVjEeODAq4Tm5H6GQ" target="_-VLTYBViEeODAq4Tm5H6GQ">
     </dependency>
     <dependency id="_DNjNABViEeODAq4Tm5H6GQ" source="_R-qtYBVhEeODAq4Tm5H6GQ" target="_X5BBYBVgEeODAq4Tm5H6GQ">
     </dependency>
-    <dependency id="_j44v4BVkEeODAq4Tm5H6GQ" source="_KFWgYBVkEeODAq4Tm5H6GQ" target="_Lda8ABVjEeODAq4Tm5H6GQ">
-    </dependency>
-    <dependency id="_9DESoBVfEeODAq4Tm5H6GQ" source="_JmvLYBVcEeODAq4Tm5H6GQ" target="_Y4SNYBVdEeODAq4Tm5H6GQ">
+    <dependency id="_EKqPIBVaEeODAq4Tm5H6GQ" source="_-7olgBVZEeODAq4Tm5H6GQ" target="_M10d4BVZEeODAq4Tm5H6GQ">
     </dependency>
     <dependency id="__Rx7ABVhEeODAq4Tm5H6GQ" source="_R-qtYBVhEeODAq4Tm5H6GQ" target="_ukGrgBVbEeODAq4Tm5H6GQ">
     </dependency>
     <dependency id="__fkxUBVfEeODAq4Tm5H6GQ" source="_4kumcBVcEeODAq4Tm5H6GQ" target="_Y4SNYBVdEeODAq4Tm5H6GQ">
     </dependency>
+    <dependency id="__n_JoBVjEeODAq4Tm5H6GQ" source="_sEps4BVjEeODAq4Tm5H6GQ" target="_4L4Z4BViEeODAq4Tm5H6GQ">
+    </dependency>
     <dependency id="_bzDRMBVkEeODAq4Tm5H6GQ" source="_KFWgYBVkEeODAq4Tm5H6GQ" target="_CacfoBVjEeODAq4Tm5H6GQ">
     </dependency>
-    <dependency id="_B1BB4BVkEeODAq4Tm5H6GQ" source="_sEps4BVjEeODAq4Tm5H6GQ" target="_-VLTYBViEeODAq4Tm5H6GQ">
+    <dependency id="_hnO2UBVkEeODAq4Tm5H6GQ" source="_KFWgYBVkEeODAq4Tm5H6GQ" target="_Gzx3YBVjEeODAq4Tm5H6GQ">
+    </dependency>
+    <dependency id="_j44v4BVkEeODAq4Tm5H6GQ" source="_KFWgYBVkEeODAq4Tm5H6GQ" target="_Lda8ABVjEeODAq4Tm5H6GQ">
     </dependency>
     <dependency id="_q0wV0BVkEeODAq4Tm5H6GQ" source="_KFWgYBVkEeODAq4Tm5H6GQ" target="_McPUsBVjEeODAq4Tm5H6GQ">
     </dependency>
-    <generalization id="_mjYUYBStEeOYorUb5NKqTw" source="_KbxQ0BSqEeOYorUb5NKqTw" target="_prZDoBSsEeOYorUb5NKqTw">
-    </generalization>
-    <generalization id="_Zj9HMBTGEeOYorUb5NKqTw" source="_fFmg8BS9EeOYorUb5NKqTw" target="_Ru2b4BS1EeOYorUb5NKqTw">
-    </generalization>
-    <generalization id="_bX4qUBTDEeOYorUb5NKqTw" source="_Uo_ggBSvEeOYorUb5NKqTw" target="_Ru2b4BS1EeOYorUb5NKqTw">
-    </generalization>
-    <generalization id="_WYTx8BTDEeOYorUb5NKqTw" source="_L2zx0BSyEeOYorUb5NKqTw" target="_Uo_ggBSvEeOYorUb5NKqTw">
-    </generalization>
-    <generalization id="_pR_PsBStEeOYorUb5NKqTw" source="_AfsXUBSsEeOYorUb5NKqTw" target="_prZDoBSsEeOYorUb5NKqTw">
-    </generalization>
-    <generalization id="_eCv4oBTEEeOYorUb5NKqTw" source="_IXCC0BSzEeOYorUb5NKqTw" target="_Uo_ggBSvEeOYorUb5NKqTw">
-    </generalization>
-    <generalization id="_oKT18BStEeOYorUb5NKqTw" source="_IFYy0BSrEeOYorUb5NKqTw" target="_prZDoBSsEeOYorUb5NKqTw">
-    </generalization>
+    <dependency id="_stpcABViEeODAq4Tm5H6GQ" source="_R-qtYBVhEeODAq4Tm5H6GQ" target="_R38k4BViEeODAq4Tm5H6GQ">
+    </dependency>
     <generalization id="_2z1MoBTEEeOYorUb5NKqTw" source="_PMm-EBS0EeOYorUb5NKqTw" target="_fFmg8BS9EeOYorUb5NKqTw">
     </generalization>
     <generalization id="_8avx0BTEEeOYorUb5NKqTw" source="_5CPtUBS2EeOYorUb5NKqTw" target="_fFmg8BS9EeOYorUb5NKqTw">
     </generalization>
     <generalization id="_NqgCYBTFEeOYorUb5NKqTw" source="_AMfYYBS1EeOYorUb5NKqTw" target="_fFmg8BS9EeOYorUb5NKqTw">
     </generalization>
-    <generalization id="_x0eWsBTEEeOYorUb5NKqTw" source="_8CTh0BSyEeOYorUb5NKqTw" target="_fFmg8BS9EeOYorUb5NKqTw">
-    </generalization>
     <generalization id="_Ut1iQBTFEeOYorUb5NKqTw" source="_7YIxMBS3EeOYorUb5NKqTw" target="_fFmg8BS9EeOYorUb5NKqTw">
     </generalization>
-    <realization id="_5IPvkGgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_82VhYBVjEeODAq4Tm5H6GQ">
-    </realization>
-    <realization id="_D7ZJEGglEeORzeyQgFc1Jw" class="_HCoXQBVZEeODAq4Tm5H6GQ" interface="_X5BBYBVgEeODAq4Tm5H6GQ">
-    </realization>
-    <realization id="_6NQP0GgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_-VLTYBViEeODAq4Tm5H6GQ">
-    </realization>
-    <realization id="_mUVpMBVlEeODAq4Tm5H6GQ" class="_P2tF4BViEeODAq4Tm5H6GQ" interface="_R38k4BViEeODAq4Tm5H6GQ">
-    </realization>
-    <realization id="_7NeWsGgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_4L4Z4BViEeODAq4Tm5H6GQ">
-    </realization>
-    <realization id="_BJHOsGglEeORzeyQgFc1Jw" class="_HCoXQBVZEeODAq4Tm5H6GQ" interface="_ukGrgBVbEeODAq4Tm5H6GQ">
-    </realization>
-    <realization id="_kTLjYBVdEeODAq4Tm5H6GQ" class="_4kumcBVcEeODAq4Tm5H6GQ" interface="_EIAcYBVdEeODAq4Tm5H6GQ">
-    </realization>
-    <realization id="_z98N4GgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_Lda8ABVjEeODAq4Tm5H6GQ">
-    </realization>
-    <realization id="_9ofAkGgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_Gzx3YBVjEeODAq4Tm5H6GQ">
-    </realization>
-    <realization id="_jIX9IBVdEeODAq4Tm5H6GQ" class="_T739wBVdEeODAq4Tm5H6GQ" interface="_Y4SNYBVdEeODAq4Tm5H6GQ">
+    <generalization id="_WYTx8BTDEeOYorUb5NKqTw" source="_L2zx0BSyEeOYorUb5NKqTw" target="_Uo_ggBSvEeOYorUb5NKqTw">
+    </generalization>
+    <generalization id="_Zj9HMBTGEeOYorUb5NKqTw" source="_fFmg8BS9EeOYorUb5NKqTw" target="_Ru2b4BS1EeOYorUb5NKqTw">
+    </generalization>
+    <generalization id="_bX4qUBTDEeOYorUb5NKqTw" source="_Uo_ggBSvEeOYorUb5NKqTw" target="_Ru2b4BS1EeOYorUb5NKqTw">
+    </generalization>
+    <generalization id="_eCv4oBTEEeOYorUb5NKqTw" source="_IXCC0BSzEeOYorUb5NKqTw" target="_Uo_ggBSvEeOYorUb5NKqTw">
+    </generalization>
+    <generalization id="_mjYUYBStEeOYorUb5NKqTw" source="_KbxQ0BSqEeOYorUb5NKqTw" target="_prZDoBSsEeOYorUb5NKqTw">
+    </generalization>
+    <generalization id="_oKT18BStEeOYorUb5NKqTw" source="_IFYy0BSrEeOYorUb5NKqTw" target="_prZDoBSsEeOYorUb5NKqTw">
+    </generalization>
+    <generalization id="_pR_PsBStEeOYorUb5NKqTw" source="_AfsXUBSsEeOYorUb5NKqTw" target="_prZDoBSsEeOYorUb5NKqTw">
+    </generalization>
+    <generalization id="_x0eWsBTEEeOYorUb5NKqTw" source="_8CTh0BSyEeOYorUb5NKqTw" target="_fFmg8BS9EeOYorUb5NKqTw">
+    </generalization>
+    <realization id="_-QHoUGgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_McPUsBVjEeODAq4Tm5H6GQ">
     </realization>
     <realization id="_5EZvkBVdEeODAq4Tm5H6GQ" class="_JmvLYBVcEeODAq4Tm5H6GQ" interface="_0bg44BVdEeODAq4Tm5H6GQ">
     </realization>
+    <realization id="_5IPvkGgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_82VhYBVjEeODAq4Tm5H6GQ">
+    </realization>
+    <realization id="_6NQP0GgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_-VLTYBViEeODAq4Tm5H6GQ">
+    </realization>
+    <realization id="_7NeWsGgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_4L4Z4BViEeODAq4Tm5H6GQ">
+    </realization>
     <realization id="_8CQpoGgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_CacfoBVjEeODAq4Tm5H6GQ">
+    </realization>
+    <realization id="_9ofAkGgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_Gzx3YBVjEeODAq4Tm5H6GQ">
+    </realization>
+    <realization id="_BJHOsGglEeORzeyQgFc1Jw" class="_HCoXQBVZEeODAq4Tm5H6GQ" interface="_ukGrgBVbEeODAq4Tm5H6GQ">
+    </realization>
+    <realization id="_D7ZJEGglEeORzeyQgFc1Jw" class="_HCoXQBVZEeODAq4Tm5H6GQ" interface="_X5BBYBVgEeODAq4Tm5H6GQ">
+    </realization>
+    <realization id="_jIX9IBVdEeODAq4Tm5H6GQ" class="_T739wBVdEeODAq4Tm5H6GQ" interface="_Y4SNYBVdEeODAq4Tm5H6GQ">
+    </realization>
+    <realization id="_kTLjYBVdEeODAq4Tm5H6GQ" class="_4kumcBVcEeODAq4Tm5H6GQ" interface="_EIAcYBVdEeODAq4Tm5H6GQ">
+    </realization>
+    <realization id="_mUVpMBVlEeODAq4Tm5H6GQ" class="_P2tF4BViEeODAq4Tm5H6GQ" interface="_R38k4BViEeODAq4Tm5H6GQ">
     </realization>
     <realization id="_ysjZgBVZEeODAq4Tm5H6GQ" class="_HCoXQBVZEeODAq4Tm5H6GQ" interface="_M10d4BVZEeODAq4Tm5H6GQ">
     </realization>
-    <realization id="_-QHoUGgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_McPUsBVjEeODAq4Tm5H6GQ">
+    <realization id="_z98N4GgkEeORzeyQgFc1Jw" class="_R-qtYBVhEeODAq4Tm5H6GQ" interface="_Lda8ABVjEeODAq4Tm5H6GQ">
     </realization>
-    <variability id="VARIABILITY#1" name="game" variationPoint="_prZDoBSsEeOYorUb5NKqTw" constraint="Inclusive" bindingTime="DESIGN_TIME" allowsBindingVar="true" min="1" max="3">
+    <variability id="VARIABILITY#1" name="game" variationPoint="_prZDoBSsEeOYorUb5NKqTw" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="3">
       <variant id="_IFYy0BSrEeOYorUb5NKqTw"/>
       <variant id="_AfsXUBSsEeOYorUb5NKqTw"/>
       <variant id="_KbxQ0BSqEeOYorUb5NKqTw"/>
     </variability>
-    <variability id="VARIABILITY#2" name="stationay_sprit" variationPoint="_fFmg8BS9EeOYorUb5NKqTw" constraint="Inclusive" bindingTime="DESIGN_TIME" allowsBindingVar="true" min="1" max="4">
+    <variability id="VARIABILITY#4" name="movable_sprite" variationPoint="_Uo_ggBSvEeOYorUb5NKqTw" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="2">
+      <variant id="_L2zx0BSyEeOYorUb5NKqTw"/>
+      <variant id="_IXCC0BSzEeOYorUb5NKqTw"/>
+    </variability>
+    <variability id="VARIABILITY#3" name="sprit" variationPoint="_Ru2b4BS1EeOYorUb5NKqTw" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="2">
+      <variant id="_fFmg8BS9EeOYorUb5NKqTw"/>
+      <variant id="_Uo_ggBSvEeOYorUb5NKqTw"/>
+    </variability>
+    <variability id="VARIABILITY#2" name="stationay_sprit" variationPoint="_fFmg8BS9EeOYorUb5NKqTw" constraint="Inclusive" bindingTime="DESIGN_TIME" min="1" max="4">
       <variant id="_AMfYYBS1EeOYorUb5NKqTw"/>
       <variant id="_PMm-EBS0EeOYorUb5NKqTw"/>
       <variant id="_8CTh0BSyEeOYorUb5NKqTw"/>
       <variant id="_7YIxMBS3EeOYorUb5NKqTw"/>
       <variant id="_5CPtUBS2EeOYorUb5NKqTw"/>
     </variability>
-    <variability id="VARIABILITY#3" name="sprit" variationPoint="_Ru2b4BS1EeOYorUb5NKqTw" constraint="Inclusive" bindingTime="DESIGN_TIME" allowsBindingVar="true" min="1" max="2">
-      <variant id="_fFmg8BS9EeOYorUb5NKqTw"/>
-      <variant id="_Uo_ggBSvEeOYorUb5NKqTw"/>
-    </variability>
-    <variability id="VARIABILITY#4" name="movable_sprite" variationPoint="_Uo_ggBSvEeOYorUb5NKqTw" constraint="Inclusive" bindingTime="DESIGN_TIME" allowsBindingVar="true" min="1" max="2">
-      <variant id="_L2zx0BSyEeOYorUb5NKqTw"/>
-      <variant id="_IXCC0BSzEeOYorUb5NKqTw"/>
-    </variability>
   </diagram>
   <links>
-    <link element="_-7olgBVZEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_oqHsgBSvEeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
+    <link element="_mPYgsBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
+    <link element="_lC608BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
+    <link element="_KbxQ0BSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
+    <link element="_BTWeUBSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
+    <link element="_3TMA8BSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
+    <link element="_j_KykBSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
+    <link element="_QbLOgBSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
+    <link element="_82VhYBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#15"/>
+    <link element="_aiq4gBWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#15"/>
+    <link element="_8CTh0BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_PMm-EBS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_WP2-YBS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_mPYgsBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_AMfYYBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_5CPtUBS2EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_sbUMkBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_dD4IgBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_d0GrkBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_SFNbgBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_CT6tABS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_RowJABS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_B5rBABS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_CqlgkBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_7YIxMBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_BaPdkBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_BC0cEBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_BPLdEBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_BmrXEBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_87NtgBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_fFmg8BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_lC608BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_AfsXUBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_UjKssBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_UzQ-MBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_GdPT0BSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_LOkU0BSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
+    <link element="_4L4Z4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#10"/>
+    <link element="_1YqgABWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#10"/>
+    <link element="_0qZXwBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_SeS60BTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_0h7YQBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_ed2H8BS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_CCx2gBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_UgPa4BS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_Uo_ggBSvEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_Od168BSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_l3eXABS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_D7TzgBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_NKwQgBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_deDjEBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_A3_FEBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_i9dkUBSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
+    <link element="_R38k4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#11"/>
+    <link element="_ps4VsBWOEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
+    <link element="_pcB2QBWOEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
+    <link element="_pNd10BWOEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
+    <link element="_TrNG4BWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
+    <link element="_CacfoBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#11"/>
+    <link element="_NXCFABWPEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
+    <link element="_NFzLEBWPEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
+    <link element="_Gzx3YBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#11"/>
+    <link element="_dbUA8BWPEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
+    <link element="_dr9FABWPEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
+    <link element="_1IWMEBWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
+    <link element="_aUKicBWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
+    <link element="_NJM_EBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
+    <link element="_UTBIIBS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
+    <link element="_oy7MwBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
+    <link element="_o7-bEBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
+    <link element="_GqiLIBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
+    <link element="_VTW1sBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
+    <link element="_IP9GQBS6EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
+    <link element="_Jj1I8BS6EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
+    <link element="_HEBpMBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
+    <link element="_TlwEYBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
+    <link element="_V-wjIBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
+    <link element="_U-X-8BWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#13"/>
+    <link element="_1lmIwBWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#13"/>
+    <link element="_azEsABWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#13"/>
     <link element="_oqHsgBSvEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_8l07EBSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_-_tjkBSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
@@ -811,141 +950,67 @@
     <link element="_aLDwABSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_bW0_kBSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_a8YfQBSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
-    <link element="_DGv8UBSwEeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
-    <link element="_xScE0BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
-    <link element="_xScE0BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_0qZXwBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
-    <link element="_927_0BTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_xHoREBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_5_41wBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_xzzakBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
-    <link element="_ybpdsBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_SeS60BTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
-    <link element="_7MaTQBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_x-zwsBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
-    <link element="_8Pyb0BTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_SIYVMBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_SUcbQBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_ySjMEBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_xoIWEBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
-    <link element="_xS_zkBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_R4EBQBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_0YAnQBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_w6yu8BS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_ymKroBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_yJpuwBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_0h7YQBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
-    <link element="_n0Qy0BTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_xcdRkBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_ed2H8BS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
-    <link element="_0GHGUBS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_77LIoBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_k-zTgBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_QFwoEBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_S-cscBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
-    <link element="_y_p_IBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_ZvvaEBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
-    <link element="_18BCkBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_ABoAoBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_8CTh0BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_8CTh0BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
-    <link element="_BHpD8BSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
-    <link element="_CCx2gBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
-    <link element="_CYfAwBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_HCoXQBVZEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_PMm-EBS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_PMm-EBS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
-    <link element="_WP2-YBS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_VdaNwBS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_UgPa4BS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
-    <link element="_bSsdwBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
-    <link element="_bSsdwBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_xamwEBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_w9TJABTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_xLsxYBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_n7GIsBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_mAQzsBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_hQbngBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_9YzFsBWZEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
-    <link element="_Uo_ggBSvEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
     <link element="_Uo_ggBSvEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_Ujj8ABSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_YJTJEBSwEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
-    <link element="_Od168BSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
-    <link element="_HXI-ABSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_JjWW4BSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_LRf6wBSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_S7IloBSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_dW_ycBSvEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_l_lY4BSvEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_Eg7bUBSwEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
+    <link element="_O_8QgBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
+    <link element="_P77-sBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
+    <link element="_qLM9YBSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
+    <link element="_muGkYBSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
+    <link element="_4kumcBVcEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#18"/>
+    <link element="_9rfm8BWTEeObs-pQrJ2skQ" stereotype="STEREOTYPE#18"/>
+    <link element="_EIAcYBVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#18"/>
+    <link element="_pwfREBWTEeObs-pQrJ2skQ" stereotype="STEREOTYPE#18"/>
+    <link element="_xScE0BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_927_0BTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_xHoREBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_5_41wBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_ybpdsBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_7MaTQBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_8Pyb0BTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_SIYVMBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_SUcbQBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_ySjMEBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_xS_zkBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_R4EBQBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_0YAnQBTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_w6yu8BS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_ymKroBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_yJpuwBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_n0Qy0BTAEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_xcdRkBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_0GHGUBS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_77LIoBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_k-zTgBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_QFwoEBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_y_p_IBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_18BCkBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_ABoAoBS_EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_CYfAwBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_VdaNwBS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
+    <link element="_HXI-ABSxEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_Ru2b4BS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_mD_JABS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_mPYgsBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
-    <link element="_mPYgsBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_mPYgsBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
-    <link element="_l3eXABS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
     <link element="_V70LkBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_VFyigBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_VjP6kBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_AMfYYBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_AMfYYBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
-    <link element="_D7TzgBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
     <link element="_EJMegBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_IXCC0BSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_O_8QgBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
     <link element="_T2r9ABSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_P77-sBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
-    <link element="_U4DTYBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_wCUvgBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_NKwQgBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
-    <link element="_NJM_EBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#2"/>
-    <link element="_NJM_EBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
-    <link element="_NJM_EBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_omALEBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_UTBIIBS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
-    <link element="_oy7MwBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
-    <link element="_oYkzEBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_o7-bEBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
-    <link element="_oFxL0BS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_RPlloBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_GqiLIBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
-    <link element="_VTW1sBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
-    <link element="_QTJykBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_PIYBgBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_PyMakBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_IP9GQBS6EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
-    <link element="_Q8zzkBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_HkWkgBS6EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
-    <link element="_Jj1I8BS6EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
-    <link element="_HEBpMBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
-    <link element="_TlwEYBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
-    <link element="_V-wjIBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#13"/>
-    <link element="_5CPtUBS2EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
     <link element="_dpldoBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_sbUMkBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_sbUMkBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_dD4IgBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
     <link element="_dRFeEBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_deDjEBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
-    <link element="_d0GrkBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_d0GrkBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_SFNbgBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_CT6tABS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_RowJABS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_B5rBABS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_CqlgkBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_7YIxMBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
     <link element="_Atly8BS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_BaPdkBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_BaPdkBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_A3_FEBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
-    <link element="_BC0cEBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_BPLdEBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_BmrXEBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_BmrXEBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_87NtgBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_lD5HgBTBEeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
     <link element="_lD5HgBTBEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_sBPUIBTBEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_re5cEBTBEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
@@ -955,88 +1020,31 @@
     <link element="_EyJB8BTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_FDCksBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_sy4zgBTBEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_fFmg8BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_fFmg8BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
     <link element="_fFmg8BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_tmrIQBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
     <link element="_L2zx0BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_qLM9YBSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
-    <link element="_lC608BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
-    <link element="_lC608BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_lC608BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
-    <link element="_sElg4BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_muGkYBSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#17"/>
-    <link element="_i9dkUBSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#9"/>
-    <link element="_uImNwBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
     <link element="_ntK0sBSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_OqyVUBSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_aAlI4BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_X5BBYBVgEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
     <link element="_X5BBYBVgEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
     <link element="_H00hABWMEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_M10d4BVZEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
     <link element="_M10d4BVZEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
     <link element="_56sIQBVmEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
     <link element="_HiZUEBVnEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
-    <link element="_MhY9oBVnEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#14"/>
     <link element="_az2zIBVmEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
-    <link element="_ukGrgBVbEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_ukGrgBVbEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#12"/>
-    <link element="_91CwEBWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
-    <link element="_-OX2EBWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#14"/>
-    <link element="_-BssABWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#14"/>
-    <link element="_-cGwEBWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#14"/>
-    <link element="_7x3XYBWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
-    <link element="_9liUcBWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
-    <link element="_KbxQ0BSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
     <link element="_z0OmwBSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_pS25wBSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_BTWeUBSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
-    <link element="_3TMA8BSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
-    <link element="_j_KykBSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
-    <link element="_QbLOgBSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#15"/>
     <link element="_prZDoBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_bCHQoBStEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_JB2JIBStEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_Wd9I8BStEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
     <link element="_ZsHHABStEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_KegUYBStEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_UVfnoBStEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
     <link element="_4a6zIBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_P2tF4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_AfsXUBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
     <link element="_USo9YBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_UjKssBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_TsduMBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_UzQ-MBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_GdPT0BSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_LOkU0BSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#10"/>
-    <link element="_IFYy0BSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
-    <link element="_lQnW4BSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
-    <link element="_mAcRUBSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
     <link element="_ll0x4BSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#8"/>
-    <link element="_mTl20BSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
-    <link element="_bJShkBSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
-    <link element="_MUGO8BSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
-    <link element="_VNUSYBSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
-    <link element="_R38k4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_R38k4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#11"/>
     <link element="_R38k4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
-    <link element="_R38k4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#12"/>
-    <link element="_4ud7ABWNEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
     <link element="_4bTucBWNEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
     <link element="_5M0q8BWNEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
     <link element="_WGchoBWOEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_ps4VsBWOEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
-    <link element="_pcB2QBWOEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
     <link element="_4-ZNYBWNEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_aA0sgBWOEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
-    <link element="_pNd10BWOEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
-    <link element="_cXIckBWOEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
-    <link element="_JmvLYBVcEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_0bg44BVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
     <link element="_0bg44BVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
-    <link element="_YNaqoBWNEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
     <link element="_vCv44BVnEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
     <link element="_DPjwoBWNEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
     <link element="_v3Op0BVnEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
@@ -1047,83 +1055,137 @@
     <link element="_wkfYoBWMEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
     <link element="_vS2xcBVnEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
     <link element="_1qBvEBWMEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_eFFooBWNEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
     <link element="_RGtGoBWNEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_R-qtYBVhEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_-VLTYBViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_-VLTYBViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#16"/>
     <link element="_-VLTYBViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
-    <link element="_UkIS8BWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#16"/>
     <link element="_UkIS8BWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_U-X-8BWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#13"/>
-    <link element="_TrNG4BWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
-    <link element="_McPUsBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
     <link element="_McPUsBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
-    <link element="_shkHABWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
-    <link element="_sEty8BWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
-    <link element="_sUIvABWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
-    <link element="_CacfoBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_CacfoBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#11"/>
-    <link element="_NXCFABWPEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
-    <link element="_NFzLEBWPEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
-    <link element="_Gzx3YBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_Gzx3YBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#11"/>
-    <link element="_dbUA8BWPEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
-    <link element="_dr9FABWPEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
-    <link element="_4L4Z4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_4L4Z4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#10"/>
     <link element="_4L4Z4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
-    <link element="_1lmIwBWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#13"/>
-    <link element="_1YqgABWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#10"/>
     <link element="_1YqgABWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_1IWMEBWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
-    <link element="_Lda8ABVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
     <link element="_Lda8ABVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
     <link element="_RTYB8BWTEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
     <link element="_Rnl-cBWTEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_82VhYBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_82VhYBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#15"/>
     <link element="_82VhYBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
-    <link element="_azEsABWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#13"/>
-    <link element="_aUKicBWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#11"/>
-    <link element="_aiq4gBWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#15"/>
     <link element="_aiq4gBWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_sEps4BVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_KFWgYBVkEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
-    <link element="_T739wBVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
     <link element="_T739wBVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
     <link element="_fbl-ABWMEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_Y4SNYBVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
     <link element="_Y4SNYBVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
     <link element="_SmmBgBWMEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_4kumcBVcEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
     <link element="_4kumcBVcEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
-    <link element="_4kumcBVcEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#18"/>
     <link element="_9eXw8BWTEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_9rfm8BWTEeObs-pQrJ2skQ" stereotype="STEREOTYPE#18"/>
-    <link element="_EIAcYBVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
     <link element="_EIAcYBVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#8"/>
-    <link element="_EIAcYBVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#18"/>
     <link element="_pkzlgBWTEeObs-pQrJ2skQ" stereotype="STEREOTYPE#8"/>
-    <link element="_pwfREBWTEeObs-pQrJ2skQ" stereotype="STEREOTYPE#18"/>
-    <link element="_prZDoBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#3"/>
-    <link element="_IFYy0BSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
-    <link element="_AfsXUBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
+    <link element="_8CTh0BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_BHpD8BSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_PMm-EBS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_mPYgsBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_AMfYYBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_fFmg8BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_lC608BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_IFYy0BSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_mAcRUBSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_mTl20BSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_bJShkBSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_MUGO8BSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_VNUSYBSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#16"/>
+    <link element="_-VLTYBViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#16"/>
+    <link element="_UkIS8BWREeObs-pQrJ2skQ" stereotype="STEREOTYPE#16"/>
+    <link element="_xamwEBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_n7GIsBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_mAQzsBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_hQbngBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_NJM_EBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_omALEBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_oYkzEBS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_oFxL0BS7EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_RPlloBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_QTJykBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_PIYBgBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_PyMakBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_Q8zzkBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_HkWkgBS6EeOYorUb5NKqTw" stereotype="STEREOTYPE#14"/>
+    <link element="_MhY9oBVnEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#14"/>
+    <link element="_-OX2EBWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#14"/>
+    <link element="_-BssABWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#14"/>
+    <link element="_-cGwEBWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#14"/>
+    <link element="_bSsdwBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_w9TJABTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_xLsxYBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_9YzFsBWZEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
+    <link element="_U4DTYBSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_wCUvgBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_sbUMkBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_d0GrkBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_BaPdkBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_BmrXEBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_sElg4BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_uImNwBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_ukGrgBVbEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#12"/>
+    <link element="_91CwEBWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
+    <link element="_7x3XYBWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
+    <link element="_9liUcBWJEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
+    <link element="_pS25wBSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_bCHQoBStEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_JB2JIBStEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_Wd9I8BStEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_TsduMBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_lQnW4BSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#12"/>
+    <link element="_R38k4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#12"/>
+    <link element="_4ud7ABWNEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
+    <link element="_aA0sgBWOEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
+    <link element="_cXIckBWOEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
+    <link element="_YNaqoBWNEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
+    <link element="_eFFooBWNEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
+    <link element="_shkHABWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
+    <link element="_sEty8BWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
+    <link element="_sUIvABWSEeObs-pQrJ2skQ" stereotype="STEREOTYPE#12"/>
     <link element="_KbxQ0BSqEeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
-    <link element="_fFmg8BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#3"/>
-    <link element="_AMfYYBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
-    <link element="_PMm-EBS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
-    <link element="_8CTh0BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
     <link element="_7YIxMBS3EeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
     <link element="_5CPtUBS2EeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
-    <link element="_Ru2b4BS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#3"/>
-    <link element="_fFmg8BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
+    <link element="_AfsXUBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
+    <link element="_AMfYYBS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
+    <link element="_PMm-EBS0EeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
     <link element="_Uo_ggBSvEeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
-    <link element="_Uo_ggBSvEeOYorUb5NKqTw" stereotype="STEREOTYPE#3"/>
-    <link element="_L2zx0BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
     <link element="_IXCC0BSzEeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
+    <link element="_IFYy0BSrEeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
+    <link element="_L2zx0BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
+    <link element="_fFmg8BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
+    <link element="_8CTh0BSyEeOYorUb5NKqTw" stereotype="STEREOTYPE#4"/>
+    <link element="_4kumcBVcEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_tmrIQBS-EeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
     <link element="_prZDoBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
+    <link element="_xScE0BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
+    <link element="_HCoXQBVZEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_-7olgBVZEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_JmvLYBVcEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_R-qtYBVhEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_KFWgYBVkEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_P2tF4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_T739wBVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_lD5HgBTBEeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
+    <link element="_sEps4BVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_DGv8UBSwEeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
+    <link element="_bSsdwBTCEeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
     <link element="_Ru2b4BS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
+    <link element="_oqHsgBSvEeOYorUb5NKqTw" stereotype="STEREOTYPE#1"/>
+    <link element="_EIAcYBVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_M10d4BVZEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_Lda8ABVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_X5BBYBVgEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_0bg44BVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_R38k4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_CacfoBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_82VhYBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_4L4Z4BViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_-VLTYBViEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_McPUsBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_ukGrgBVbEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_Gzx3YBVjEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_Y4SNYBVdEeODAq4Tm5H6GQ" stereotype="STEREOTYPE#1"/>
+    <link element="_NJM_EBS4EeOYorUb5NKqTw" stereotype="STEREOTYPE#2"/>
+    <link element="_prZDoBSsEeOYorUb5NKqTw" stereotype="STEREOTYPE#3"/>
+    <link element="_Uo_ggBSvEeOYorUb5NKqTw" stereotype="STEREOTYPE#3"/>
+    <link element="_Ru2b4BS1EeOYorUb5NKqTw" stereotype="STEREOTYPE#3"/>
+    <link element="_fFmg8BS9EeOYorUb5NKqTw" stereotype="STEREOTYPE#3"/>
   </links>
   <products>
   </products>

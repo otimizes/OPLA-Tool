@@ -266,6 +266,10 @@ public abstract class Element implements Serializable {
         return comments;
     }
 
+    public boolean hasComments() {
+        return !comments.isEmpty();
+    }
+
     public void setComments(String comments) {
         this.comments = comments;
     }

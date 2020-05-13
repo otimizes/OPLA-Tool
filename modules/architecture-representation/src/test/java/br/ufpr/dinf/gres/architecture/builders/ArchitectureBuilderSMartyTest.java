@@ -106,6 +106,7 @@ public class ArchitectureBuilderSMartyTest {
         assertEquals(4, architecture.getAllVariationPoints().size());
         assertEquals(62, architecture.getAllAtributtes().size());
         assertEquals(169, architecture.getAllMethods().size());
+        assertEquals(1, architecture.getAllComments().size());
 
         String methods = "startAnimation,stopAnimation,collideWidth,paint,absorb,updateScoreRanking,incScore,resetScore,loadGame,exitGame,getGame,saveScore,saveGame,viewTopScores,setDirection,paint,moving,stopMoving,startMoving,move,collideWith,loadGame,saveScore,saveGame,viewTopScores,paint,overLaps,collideWith,checkPassword,updateLastTimeSaved,updateDateScore,setHeigherScore,updateLastTimePlayed,checkLogin,setSaveData,getSaveData,collideWith,paint,getBoundingBox,paintBricks,install,save,exit,setPartialScore,endMatch,setFinalScore,getFinalScore,startMatch,getPartialScore,saveScore,loadGame,saveGame,viewTopScores,collideWith,move,getSaveData,delete,setDirection,paint,setSaveData,isHeadingLeft,isHeadingDown,isHeadingUp,isHeadingRight,resetList,alreadyCollision,exitGame,addStationaryPiece,getGameOver,handleTick,getScore,removeMovablePiece,StartMovement,paint,buildGameBoard,run,setScore,getSpeed,initializeCollisionList,removeStationaryPiece,addMovabalePiece,checkForCollision,setSpeed,stopMovement,setMenu,getMenu,tick,paint,collideWith,absorb,play,exit,config,viewTopScores,loadGame,saveGame,saveScore,collideWith,paint,setSaveData,moveRight,paint,collideWith,moveLeft,getSaveData,initialize,hitbyPuck,paint,collideWith,getSaveData,setSaveData,die,checkScore,saveScore,showScore,getGame,hasScore,showRankingScores,checkInstallation,exit,saveGame,getGame,uninstall,play,loadGame,install,addGame,remGame,uninstall,checkGame,checkinstallation,setDatePlayed,play,checkGameBoard,exit,getPartialScore,showScore,startGameBoard,setGameBoard,getSprite,endMatch,remSprite,setPartialScore,addSprite,getFinalScore,getLocation,saveScore,setFinalScore,getGameBoard,stopAnimation,startAnimation,checkGameBoard,saveGame,checkMatch,play,setDatePlayed,checkInstallation,checkGame,install,play,setDatePlayed,checkInstallation,initialize,saveScore,setDateRanking,saveingInRanking,isGamePlayed,getScore,isARankingScore";
         assertEquals(methods, architecture.getAllMethods().stream().map(Element::getName).collect(Collectors.joining(",")));
@@ -115,11 +116,11 @@ public class ArchitectureBuilderSMartyTest {
         assertEquals(classes, architecture.getAllClasses().stream().map(Element::getName).collect(Collectors.joining(",")));
         String interfaces = "ICheckScore,IGameMgt,IUninstallgame,IPlayBrickles,IExitGame,IGameBoardMgt,IGameBoardData,IAnimationLoopMgt,ISaveGame,IPlayPong,IInstallGame,IPlayBowling,InitializationMgt,ISaveScore";
         assertEquals(interfaces, architecture.getAllInterfaces().stream().map(Element::getName).collect(Collectors.joining(",")));
-        String variationPoints = "Game,StationarySprite,Sprit,MovableSprites";
+        String variationPoints = "Game,MovableSprites,Sprit,StationarySprite";
         assertEquals(variationPoints, architecture.getAllVariationPoints().stream().map(variationPoint -> variationPoint.getVariationPointElement().getName()).collect(Collectors.joining(",")));
-        String variabilities = "game,stationay_sprit,sprit,movable_sprite";
+        String variabilities = "game,movable_sprite,sprit,stationay_sprit";
         assertEquals(variabilities, architecture.getAllVariabilities().stream().map(Variability::getName).collect(Collectors.joining(",")));
-        String variants = "PongGame,BricklesGame,BowlingGame,Ceiling,Floor,Wall,Brick,BrickPile,StationarySprite,MovableSprites,Puck,Paddle";
+        String variants = "PongGame,BricklesGame,BowlingGame,Puck,Paddle,StationarySprite,MovableSprites,Ceiling,Floor,Wall,Brick,BrickPile";
         assertEquals(variants, architecture.getAllVariants().stream().map(Variant::getName).collect(Collectors.joining(",")));
     }
 
