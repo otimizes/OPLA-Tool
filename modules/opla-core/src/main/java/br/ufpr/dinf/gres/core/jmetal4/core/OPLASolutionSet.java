@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.core;
 
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
+import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
@@ -14,7 +14,6 @@ import br.ufpr.dinf.gres.domain.entity.Info;
 import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.*;
@@ -509,7 +508,7 @@ public class OPLASolutionSet {
         int numberOfVariables = solutionSet.solutionsList_.get(0).getDecisionVariables().length;
 
         SaveStringToFile.getInstance().createLogDir();
-        String logPath = ReaderConfig.getDirExportTarget() + "/Logs/linkHypervolume.txt";
+        String logPath = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/Logs/linkHypervolume.txt";
 
         if (logger != null)
             logger.putLog("Number of solutions: " + solutionSet.solutionsList_.size(), Level.INFO);

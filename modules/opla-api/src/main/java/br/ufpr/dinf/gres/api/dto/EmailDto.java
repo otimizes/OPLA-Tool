@@ -13,6 +13,7 @@ public class EmailDto {
         this.subject = subject;
         this.text = text;
     }
+
     public EmailDto(String token, String subject, String text) {
         this.token = token;
         this.subject = subject;

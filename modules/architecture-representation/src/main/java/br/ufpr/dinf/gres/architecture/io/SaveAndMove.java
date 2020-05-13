@@ -25,8 +25,8 @@ public class SaveAndMove extends XmiHelper {
 
     public static void saveAndMove(Document docNotation, Document docUml, Document docDi, String originalModelName, String newModelName) throws TransformerException, IOException {
     	LOGGER.info("saveAndMove()");
-        String targetDir = ReaderConfig.getDirTarget();
-        String targetDirExport = ReaderConfig.getDirExportTarget();
+        String targetDir = OPLAConfigThreadScopeReader.getDirectoryToSaveModels();
+        String targetDirExport = OPLAConfigThreadScopeReader.getDirectoryToExportModels();
 
         String notationCopy = targetDir + System.getProperty("file.separator")  + originalModelName + ".notation";
         String umlCopy = targetDir + System.getProperty("file.separator")  + originalModelName + ".uml";

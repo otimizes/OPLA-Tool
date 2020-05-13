@@ -15,6 +15,11 @@ import reactor.core.scheduler.Schedulers;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * Base to all resources
+ *
+ * @param <T> type of domain
+ */
 @RestController
 @Scope("prototype")
 public class BaseResource<T> {

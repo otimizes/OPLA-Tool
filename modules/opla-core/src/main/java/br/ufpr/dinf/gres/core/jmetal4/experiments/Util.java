@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
+import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -13,7 +13,7 @@ public class Util {
 
     public static void moveResourceToExperimentFolder(String experimentId) {
         StringBuilder sourcePath = new StringBuilder();
-        String dirExportTarget = ReaderConfig.getDirExportTarget();
+        String dirExportTarget = OPLAConfigThreadScopeReader.getDirectoryToExportModels();
         sourcePath.append(dirExportTarget);
         sourcePath.append(fileSeparator);
         sourcePath.append("resources");
@@ -32,7 +32,7 @@ public class Util {
 
     public static void copyFolder(String experimentId, String executionId) throws IOException {
         StringBuilder sourcePath = new StringBuilder();
-        String dirExportTarget = ReaderConfig.getDirExportTarget();
+        String dirExportTarget = OPLAConfigThreadScopeReader.getDirectoryToExportModels();
         sourcePath.append(dirExportTarget);
         sourcePath.append(fileSeparator);
         sourcePath.append("resources");
@@ -54,11 +54,11 @@ public class Util {
     public static void moveAllFilesToExecutionDirectory(String experiementID, String executionID) {
         String[] exts = {"uml", "di", "notation"};
         @SuppressWarnings("unchecked")
-        List<File> listFiles = (List<File>) FileUtils.listFiles(new File(ReaderConfig.getDirExportTarget()), exts, false);
+        List<File> listFiles = (List<File>) FileUtils.listFiles(new File(OPLAConfigThreadScopeReader.getDirectoryToExportModels()), exts, false);
         for (File file : listFiles) {
             if (executionID == null) {
                 StringBuilder path = new StringBuilder();
-                path.append(ReaderConfig.getDirExportTarget());
+                path.append(OPLAConfigThreadScopeReader.getDirectoryToExportModels());
                 path.append(experiementID);
                 path.append(fileSeparator);
                 path.append(file.getName());
@@ -66,7 +66,7 @@ public class Util {
                 file.renameTo(new File(path.toString()));
             } else {
                 StringBuilder path = new StringBuilder();
-                path.append(ReaderConfig.getDirExportTarget());
+                path.append(OPLAConfigThreadScopeReader.getDirectoryToExportModels());
                 path.append(experiementID);
                 path.append(fileSeparator);
                 path.append(executionID);

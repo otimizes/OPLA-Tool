@@ -1,8 +1,6 @@
 package br.ufpr.dinf.gres.api.gateway;
 
 import br.ufpr.dinf.gres.api.dto.OptimizationDto;
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
-import br.ufpr.dinf.gres.domain.config.UserHome;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.BestOf2OPLABase;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
 import org.springframework.stereotype.Component;
@@ -17,8 +15,6 @@ public class BestOf2Gateway implements IGateway {
 
     public void execute(OptimizationDto optimizationDto) {
         GatewayUtils.addListener();
-        ReaderConfig.setPathToConfigurationFile(UserHome.getPathToConfigFile());
-        ReaderConfig.load();
         NSGAIIConfigs configs = new NSGAIIConfigs();
         GatewayUtils.setConfigs(optimizationDto, configs);
         configs.setPopulationSize(optimizationDto.getPopulationSize());

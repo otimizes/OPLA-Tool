@@ -11,7 +11,7 @@ import br.ufpr.dinf.gres.architecture.helpers.ModelElementHelper;
 import br.ufpr.dinf.gres.architecture.helpers.ModelHelper;
 import br.ufpr.dinf.gres.architecture.helpers.ModelHelperFactory;
 import br.ufpr.dinf.gres.architecture.helpers.StereotypeHelper;
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
+import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.*;
@@ -58,11 +58,6 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         // RelationshipHolder.clearLists();
         LOGGER.info("Clean Relationships");
         ConcernHolder.INSTANCE.clear();
-
-        // Load configure file. Call this method only once
-        LOGGER.info("Load Configs");
-        ReaderConfig.load();
-
         LOGGER.info("Model Helper");
         modelHelper = ModelHelperFactory.getModelHelper();
     }
@@ -108,7 +103,7 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
             LOGGER.info("Inicializando");
             initialize(architecture);
 
-            if (ReaderConfig.hasConcernsProfile()) {
+            if (OPLAConfigThreadScopeReader.hasConcernsProfile()) {
                 LOGGER.info("Config Concerns");
                 Package concerns = modelHelper.loadConcernProfile();
                 EList<Stereotype> concernsAllowed = concerns.getOwnedStereotypes();

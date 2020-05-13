@@ -1,7 +1,6 @@
 package br.ufpr.dinf.gres.architecture.builders;
 
 import br.ufpr.dinf.gres.architecture.helpers.ModelHelper;
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.*;
@@ -46,11 +45,6 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
         // RelationshipHolder.clearLists();
         LOGGER.info("Clean Relationships");
         ConcernHolder.INSTANCE.clear();
-
-        // Load configure file. Call this method only once
-        LOGGER.info("Load Configs");
-        ReaderConfig.load();
-
         LOGGER.info("Model Helper");
         //modelHelper = ModelHelperFactory.getModelHelper();
     }

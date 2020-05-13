@@ -16,6 +16,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Base to all created services
+ *
+ * @param <T> Type of entity
+ */
 @Service
 @Scope("prototype")
 public abstract class BaseService<T> {

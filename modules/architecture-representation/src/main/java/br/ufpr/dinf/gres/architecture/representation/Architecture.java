@@ -5,7 +5,7 @@ import br.ufpr.dinf.gres.architecture.flyweights.VariabilityFlyweight;
 import br.ufpr.dinf.gres.architecture.flyweights.VariantFlyweight;
 import br.ufpr.dinf.gres.architecture.flyweights.VariationPointFlyweight;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
+import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
 import br.ufpr.dinf.gres.architecture.main.GenerateArchitecture;
 import br.ufpr.dinf.gres.architecture.main.GenerateArchitectureSMarty;
 import br.ufpr.dinf.gres.architecture.representation.architectureControl.ArchitectureFindElementControl;
@@ -740,8 +740,8 @@ public class Architecture extends Variable {
         saveToSMarty(this, "TEMP/TEMP");
         System.out.println("Saved");
         try {
-            System.out.println(ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
-            Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar " + ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
+            System.out.println(OPLAConfigThreadScopeReader.getDirectoryToExportModels() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
+            Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar " + OPLAConfigThreadScopeReader.getDirectoryToExportModels() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
             //Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar");
             proc.waitFor();
         } catch (Exception ex) {

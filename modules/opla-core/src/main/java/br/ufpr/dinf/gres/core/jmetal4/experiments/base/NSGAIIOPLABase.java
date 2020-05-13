@@ -2,7 +2,7 @@ package br.ufpr.dinf.gres.core.jmetal4.experiments.base;
 
 import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
+import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
@@ -201,9 +201,9 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
     private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
         String dir;
         if (executionID != null)
-            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + experimentID + System.getProperty("file.separator") + executionID + "/Hypervolume/";
+            dir = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + System.getProperty("file.separator") + experimentID + System.getProperty("file.separator") + executionID + "/Hypervolume/";
         else
-            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + experimentID + "/Hypervolume/";
+            dir = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + System.getProperty("file.separator") + experimentID + "/Hypervolume/";
 
         File newDir = new File(dir);
         if (!newDir.exists())

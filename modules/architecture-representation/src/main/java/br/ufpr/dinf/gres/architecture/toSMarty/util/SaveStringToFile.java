@@ -1,7 +1,6 @@
 package br.ufpr.dinf.gres.architecture.toSMarty.util;
 
-import br.ufpr.dinf.gres.architecture.flyweights.VariationPointFlyweight;
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
+import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -42,7 +41,7 @@ public class SaveStringToFile {
      * this method create a Log directory if not exists
      */
     public void createLogDir(){
-        String directory = ReaderConfig.getDirExportTarget() + "/Logs";
+        String directory = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/Logs";
         File file = new File(directory);
         file.mkdir();
     }
@@ -51,7 +50,7 @@ public class SaveStringToFile {
      * this method create a TEMP directory if not exists
      */
     public void createTempDir() {
-        String directory = ReaderConfig.getDirExportTarget() + "/TEMP";
+        String directory = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/TEMP";
         File file = new File(directory);
         file.mkdir();
     }
@@ -60,7 +59,7 @@ public class SaveStringToFile {
      * this method delete a TEMP directory and all of its content
      */
     public void deleteTempFolder() {
-        String directory = ReaderConfig.getDirExportTarget() + "/TEMP";
+        String directory = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/TEMP";
         File folder = new File(directory);
         File[] files = folder.listFiles();
         if (files != null) {

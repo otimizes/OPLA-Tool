@@ -1,11 +1,9 @@
 package br.ufpr.dinf.gres.architecture.main;
 
 
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
-import br.ufpr.dinf.gres.architecture.representation.Class;
+import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScopeReader;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
-import br.ufpr.dinf.gres.architecture.representation.relationship.*;
 import br.ufpr.dinf.gres.architecture.toSMarty.*;
 import br.ufpr.dinf.gres.architecture.toSMarty.relationship.SaveRelationshipSMarty;
 import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
@@ -26,13 +24,13 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
      */
     public void generate(Architecture architecture, String name) {
         if (name.contains("/")) {
-            String directory = ReaderConfig.getDirExportTarget() + "/" + name.split("/")[0];
+            String directory = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/" + name.split("/")[0];
             File file = new File(directory);
             file.mkdir();
         }
-        String path = ReaderConfig.getDirExportTarget() + "/" + name + ".smty";
+        String path = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/" + name + ".smty";
         SaveStringToFile.getInstance().createLogDir();
-        String logPath = ReaderConfig.getDirExportTarget() + "/Logs/log_" + name + ".txt";
+        String logPath = OPLAConfigThreadScopeReader.getDirectoryToExportModels() + "/Logs/log_" + name + ".txt";
         try {
             FileWriter fileWriter = new FileWriter(path);
             PrintWriter printWriter = new PrintWriter(fileWriter);

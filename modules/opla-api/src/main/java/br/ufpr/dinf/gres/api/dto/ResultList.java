@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;
 
 public class ResultList<T> {
-
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<T> values;
     @JsonInclude(JsonInclude.Include.NON_NULL)
