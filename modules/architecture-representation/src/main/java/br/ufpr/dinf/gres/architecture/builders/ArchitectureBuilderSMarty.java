@@ -399,6 +399,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             Set<String> stereotypes = new HashSet<>();
             newInterface.setPatternOperations(new PatternsOperations(stereotypes));
             this.importMethodsInterface(current, newInterface, architecture);
+            this.importComments(current,newInterface);
             if (current.getAttribute("parent").equals("")) {
                 architecture.addExternalInterface(newInterface);
             } else {
