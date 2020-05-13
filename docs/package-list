@@ -8,7 +8,6 @@ br.ufpr.dinf.gres.api.utils
 br.ufpr.dinf.gres.architecture.base
 br.ufpr.dinf.gres.architecture.builders
 br.ufpr.dinf.gres.architecture.clone
-br.ufpr.dinf.gres.architecture.config
 br.ufpr.dinf.gres.architecture.exceptions
 br.ufpr.dinf.gres.architecture.flyweights
 br.ufpr.dinf.gres.architecture.helpers
@@ -22,7 +21,6 @@ br.ufpr.dinf.gres.architecture.toSMarty
 br.ufpr.dinf.gres.architecture.toSMarty.relationship
 br.ufpr.dinf.gres.architecture.toSMarty.util
 br.ufpr.dinf.gres.architecture.touml
-br.ufpr.dinf.gres.architecture.util
 br.ufpr.dinf.gres.common
 br.ufpr.dinf.gres.common.exceptions
 br.ufpr.dinf.gres.core.jmetal4.core
@@ -70,6 +68,7 @@ br.ufpr.dinf.gres.core.jmetal4.util.wrapper
 br.ufpr.dinf.gres.core.learning
 br.ufpr.dinf.gres.core.persistence
 br.ufpr.dinf.gres.domain
+br.ufpr.dinf.gres.domain.config
 br.ufpr.dinf.gres.domain.entity
 br.ufpr.dinf.gres.domain.entity.objectivefunctions
 br.ufpr.dinf.gres.domain.util
@@ -89,7 +88,6 @@ br.ufpr.dinf.gres.patterns.strategies.scopeselection.defaultstrategy
 br.ufpr.dinf.gres.patterns.strategies.scopeselection.impl
 br.ufpr.dinf.gres.patterns.util
 br.ufpr.dinf.gres.persistence.base
-br.ufpr.dinf.gres.persistence.dao
 br.ufpr.dinf.gres.persistence.repository
 br.ufpr.dinf.gres.persistence.repository.objectivefunctions
 br.ufpr.dinf.gres.persistence.service
