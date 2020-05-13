@@ -256,6 +256,17 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
     }
 
     /**
+     * import comment of element as description from file
+     * @param node
+     * @param element
+     */
+    private void importComments(Element node, br.ufpr.dinf.gres.architecture.representation.Element element) {
+        NodeList aClass = node.getElementsByTagName("description");
+        if (aClass.getLength() > 0)
+            element.setComments(aClass.item(0).getTextContent());
+    }
+
+    /**
      * import all packages from the file
      *
      * @param node         - node generated from file
@@ -271,6 +282,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             package_.setWidth(current.getAttribute("width"));
             package_.setHeight(current.getAttribute("height"));
             package_.setMandatory(current.getAttribute("mandatory").equals("true"));
+            this.importComments(current,package_);
             architecture.addPackage(package_);
         }
     }
@@ -295,6 +307,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             class_.setFinal(current.getAttribute("final").equals("true"));
             this.importAttributesClass(current, class_, architecture);
             this.importMethods(current, class_, architecture);
+            this.importComments(current,class_);
             if (current.getAttribute("parent").equals("")) {
                 architecture.addExternalClass(class_);
             } else {
@@ -425,12 +438,13 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
      * @param architecture - the architecture to be saved
      */
     private void importRelationship(Element node, Architecture architecture) {
+        importAbstractionRelationship(node, architecture);
         importAssociationRelationship(node, architecture);
         importDependencyRelationship(node, architecture);
         importGeneralizationRelationship(node, architecture);
+        importMutexRelationship(node, architecture);
         importRealizationRelationship(node, architecture);
         importRequiresRelationship(node, architecture);
-        importAbstractionRelationship(node, architecture);
         importUsageRelationship(node, architecture);
     }
 
@@ -581,6 +595,25 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
     }
 
     /**
+     * import all mutex relationship from the file
+     *
+     * @param node         - node generated from file
+     * @param architecture - the architecture to be saved
+     */
+    private void importMutexRelationship(Element node, Architecture architecture) {
+        NodeList relations = node.getElementsByTagName("mutex");
+        for (int i = 0; i < relations.getLength(); i++) {
+            Element current = (Element) relations.item(i);
+            br.ufpr.dinf.gres.architecture.representation.Element client = architecture.findElementById(current.getAttribute("source"));
+            br.ufpr.dinf.gres.architecture.representation.Element supplier = architecture.findElementById(current.getAttribute("target"));
+            if (supplier != null && client != null) {
+                MutexRelationship newRelation = new MutexRelationship(supplier, client, "", current.getAttribute("id"));
+                architecture.getRelationshipHolder().addRelationship(newRelation);
+            }
+        }
+    }
+
+    /**
      * import all requires relationship from the file
      *
      * @param node         - node generated from file
@@ -595,10 +628,6 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             if (supplier != null && client != null) {
                 RequiresRelationship newRelation = new RequiresRelationship(supplier, client, "", current.getAttribute("id"));
                 architecture.getRelationshipHolder().addRelationship(newRelation);
-                if ((client instanceof Class) && (supplier instanceof Interface))
-                    ((Class) client).addRequiredInterface((Interface) supplier);
-                if ((client instanceof Package) && (supplier instanceof Interface))
-                    ((br.ufpr.dinf.gres.architecture.representation.Package) client).addRequiredInterface((Interface) supplier);
             }
         }
 
@@ -620,10 +649,6 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
                 //System.out.println("Create dependency");
                 AbstractionRelationship newRelation = new AbstractionRelationship(client, supplier, current.getAttribute("id"));
                 architecture.getRelationshipHolder().addRelationship(newRelation);
-                if ((client instanceof Class) && (supplier instanceof Interface))
-                    ((Class) client).addRequiredInterface((Interface) supplier);
-                if ((client instanceof Package) && (supplier instanceof Interface))
-                    ((br.ufpr.dinf.gres.architecture.representation.Package) client).addRequiredInterface((Interface) supplier);
             }
         }
 
@@ -645,10 +670,6 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             if (supplier != null && client != null) {
                 UsageRelationship newRelation = new UsageRelationship("", supplier, client, current.getAttribute("id"));
                 architecture.getRelationshipHolder().addRelationship(newRelation);
-                if ((client instanceof Class) && (supplier instanceof Interface))
-                    ((Class) client).addRequiredInterface((Interface) supplier);
-                if ((client instanceof Package) && (supplier instanceof Interface))
-                    ((br.ufpr.dinf.gres.architecture.representation.Package) client).addRequiredInterface((Interface) supplier);
             }
         }
     }
