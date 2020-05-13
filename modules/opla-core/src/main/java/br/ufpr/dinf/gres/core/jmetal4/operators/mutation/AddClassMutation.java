@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+/**
+ * Mutation operator that add classes
+ */
 public class AddClassMutation implements IMutationOperator {
 
     @Override

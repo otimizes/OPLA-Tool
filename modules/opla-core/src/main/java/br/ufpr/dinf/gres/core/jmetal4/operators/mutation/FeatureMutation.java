@@ -17,6 +17,9 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+/**
+ * Feature mutation operator
+ */
 public class FeatureMutation implements IMutationOperator {
     @Override
     public void execute(double probability, Solution solution, String scope) {

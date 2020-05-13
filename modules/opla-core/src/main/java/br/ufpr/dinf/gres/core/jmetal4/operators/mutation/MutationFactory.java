@@ -31,6 +31,9 @@ import br.ufpr.dinf.gres.patterns.strategies.designpatternselection.impl.CustomD
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory class that call mutation operators
+ */
 public class MutationFactory {
 
     private static final String DESIGN_PATTERNS = FeatureMutationOperators.DESIGN_PATTERNS.toString();

@@ -5,6 +5,9 @@ import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 
 import java.util.Map;
 
+/**
+ * Mutation operator that uses the PLA mutation and Design pattern
+ */
 public class DesignPatternAndPLAMutation extends Mutation {
 
     private static final long serialVersionUID = 3896434361251147825L;

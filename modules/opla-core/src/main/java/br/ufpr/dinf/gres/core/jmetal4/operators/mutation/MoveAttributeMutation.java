@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+/**
+ * Mutation operator that move attributes
+ */
 public class MoveAttributeMutation implements IMutationOperator {
 
     @Override

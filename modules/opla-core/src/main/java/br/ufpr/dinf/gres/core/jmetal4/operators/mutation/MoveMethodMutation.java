@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Mutation operator that move methods
+ */
 public class MoveMethodMutation implements IMutationOperator {
 
     @Override
@@ -32,7 +35,7 @@ public class MoveMethodMutation implements IMutationOperator {
                                 && (sourceClass.getAllMethods().size() > 1) && (!MutationUtils.isVarPoint(arch, sourceClass))
                                 && (!MutationUtils.isVariant(arch, sourceClass)) && (!MutationUtils.isOptional(arch, sourceClass))) {
                             if ((targetClass != null) && (!(targetClass.equals(sourceClass)))) {
-                                MutationUtils.moveMethod(arch, targetClass, sourceClass, sourceComp, sourceComp);
+                                MutationUtils.moveMethod(arch, targetClass, sourceClass);
                             }
                         }
                     }
@@ -57,7 +60,7 @@ public class MoveMethodMutation implements IMutationOperator {
                                     if (ClassesTargetComp.size() >= 1) {
                                         final Class targetClass = MutationUtils.getRandomClass(ClassesTargetComp);
                                         if ((targetClass != null) && (!(targetClass.equals(sourceClass)))) {
-                                            MutationUtils.moveMethod(arch, targetClass, sourceClass, targetComp, sourceComp);
+                                            MutationUtils.moveMethod(arch, targetClass, sourceClass);
                                         }
                                     }
                                 }

@@ -14,9 +14,17 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Utils to handle to the mutations
+ */
 public class MutationUtils {
 
-
+    /**
+     * Get a random element from list of elements
+     * @param allObjects list of elements
+     * @param <T> type of element
+     * @return random element
+     */
     public static <T> T randomObject(List<T> allObjects) {
         int numObjects = allObjects.size();
         int key;
@@ -30,83 +38,127 @@ public class MutationUtils {
         return object;
     }
 
-    public static Package getRandomPackage(Architecture arch) {
-        Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+    /**
+     * Get random package from architecture
+     * @param architecture architecture
+     * @return random package
+     */
+    public static Package getRandomPackage(Architecture architecture) {
+        Package sourceComp = randomObject(new ArrayList<Package>(architecture.getAllPackages()));
         while (sourceComp.isTotalyFreezed()) {
-            sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+            sourceComp = randomObject(new ArrayList<Package>(architecture.getAllPackages()));
         }
         return sourceComp;
     }
 
-    public static Package getRandomPackage(List<Package> allComponents) {
-        Package selectedCompElem = randomObject(allComponents);
+    /**
+     * Get random package from list of elements
+     * @param packages packages
+     * @return random package
+     */
+    public static Package getRandomPackage(List<Package> packages) {
+        Package selectedCompElem = randomObject(packages);
         while (selectedCompElem.isTotalyFreezed()) {
-            selectedCompElem = randomObject(allComponents);
+            selectedCompElem = randomObject(packages);
         }
         return selectedCompElem;
     }
 
-    public static Interface getRandomInterface(List<Interface> interfacesTargetComp) {
-        Interface targetInterface = randomObject(interfacesTargetComp);
+    /**
+     * Get random interface from list of elements
+     * @param interfaces interfaces
+     * @return random interface
+     */
+    public static Interface getRandomInterface(List<Interface> interfaces) {
+        Interface targetInterface = randomObject(interfaces);
         while (targetInterface.isTotalyFreezed()) {
-            targetInterface = randomObject(interfacesTargetComp);
+            targetInterface = randomObject(interfaces);
         }
         return targetInterface;
     }
 
-    public static Class getRandomClass(List<Class> classesPackage) {
-        Class sourceClassElem = randomObject(classesPackage);
+    /**
+     * Get random class from list of classes
+     * @param classes classes
+     * @return random class
+     */
+    public static Class getRandomClass(List<Class> classes) {
+        Class sourceClassElem = randomObject(classes);
         while (sourceClassElem.isTotalyFreezed()) {
-            sourceClassElem = randomObject(classesPackage);
+            sourceClassElem = randomObject(classes);
         }
         return sourceClassElem;
     }
 
-    public static Method getRandomMethod(List<Method> MethodsClass) {
-        Method method = randomObject(MethodsClass);
+    /**
+     * Get random method from list of methods
+     * @param methods methods
+     * @return random method
+     */
+    public static Method getRandomMethod(List<Method> methods) {
+        Method method = randomObject(methods);
         while (method.isTotalyFreezed()) {
-            method = randomObject(MethodsClass);
+            method = randomObject(methods);
         }
         return method;
     }
 
-
-    public static void removeClassesInPatternStructureFromArray(List<Class> ClassesComp) {
-        for (int i = 0; i < ClassesComp.size(); i++) {
-            Class klass = ClassesComp.get(i);
+    /**
+     * Remove classes that has a pattern applied
+     * @param classes classes
+     */
+    public static void removeClassesInPatternStructureFromArray(List<Class> classes) {
+        for (int i = 0; i < classes.size(); i++) {
+            Class klass = classes.get(i);
             if (klass.getPatternsOperations().hasPatternApplied()) {
-                ClassesComp.remove(i);
+                classes.remove(i);
                 i--;
             }
         }
     }
 
-    public static void removeInterfacesInPatternStructureFromArray(List<Interface> InterfacesSourceComp) {
-        for (int i = 0; i < InterfacesSourceComp.size(); i++) {
-            Interface anInterface = InterfacesSourceComp.get(i);
+    /**
+     * Remove interfaces that has a pattern applied
+     * @param interfaces interfaces
+     */
+    public static void removeInterfacesInPatternStructureFromArray(List<Interface> interfaces) {
+        for (int i = 0; i < interfaces.size(); i++) {
+            Interface anInterface = interfaces.get(i);
             if (anInterface.getPatternsOperations().hasPatternApplied()) {
-                InterfacesSourceComp.remove(i);
+                interfaces.remove(i);
                 i--;
             }
         }
     }
 
-    public static void moveMethodToNewClass(Architecture arch, Class sourceClass, List<Method> MethodsClass, Class newClass)
+    /**
+     * Move method to new class
+     * @param architecture architecture
+     * @param sourceClass source class
+     * @param methodsClass list of methods to move
+     * @param targetClass target class
+     * @throws Exception default exception
+     */
+    public static void moveMethodToNewClass(Architecture architecture, Class sourceClass, List<Method> methodsClass, Class targetClass)
             throws Exception {
-        Method targetMethod = getRandomMethod(MethodsClass);
-        sourceClass.moveMethodToClass(targetMethod, newClass);
+        Method targetMethod = getRandomMethod(methodsClass);
+        sourceClass.moveMethodToClass(targetMethod, targetClass);
         for (Concern con : targetMethod.getOwnConcerns()) {
-            newClass.addConcern(con.getName());
+            targetClass.addConcern(con.getName());
         }
-        createAssociation(arch, newClass, sourceClass);
+        createAssociation(architecture, targetClass, sourceClass);
     }
 
-
-    public static boolean searchForGeneralizations(Class cls) {
-        for (Relationship relationship : cls.getRelationships()) {
+    /**
+     * Verify if the class has generalizations
+     * @param clazz class
+     * @return has generalizations
+     */
+    public static boolean searchForGeneralizations(Class clazz) {
+        for (Relationship relationship : clazz.getRelationships()) {
             if (relationship instanceof GeneralizationRelationship) {
-                if (((GeneralizationRelationship) relationship).getChild().equals(cls)
-                        || ((GeneralizationRelationship) relationship).getParent().equals(cls)) {
+                if (((GeneralizationRelationship) relationship).getChild().equals(clazz)
+                        || ((GeneralizationRelationship) relationship).getParent().equals(clazz)) {
                     return true;
                 }
             }
@@ -114,17 +166,33 @@ public class MutationUtils {
         return false;
     }
 
-    public static boolean searchPatternsClass(Class cls) {
-        boolean ap = cls.getPatternsOperations().hasPatternApplied();
+    /**
+     * Verify if the class has patterns
+     * @param clazz class
+     * @return has patterns
+     */
+    public static boolean searchPatternsClass(Class clazz) {
+        boolean ap = clazz.getPatternsOperations().hasPatternApplied();
         return !ap;
     }
 
+    /**
+     * Verify if the interface has patterns
+     * @param inter interface
+     * @return has patterns
+     */
     public static boolean searchPatternsInterface(Interface inter) {
         boolean ap = inter.getPatternsOperations().hasPatternApplied();
         return !ap;
     }
 
-
+    /**
+     * Move attribute between classes
+     * @param arch architecture
+     * @param targetClass target class
+     * @param sourceClass source class
+     * @throws Exception default exception
+     */
     public static void moveAttribute(Architecture arch, Class targetClass, Class sourceClass) throws Exception {
         List<Attribute> attributesClass = new ArrayList<Attribute>(sourceClass.getAllAttributes().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
         if (searchPatternsClass(targetClass) && searchPatternsClass(sourceClass)) {
@@ -137,13 +205,23 @@ public class MutationUtils {
         attributesClass.clear();
     }
 
+    /**
+     * Create association between classes
+     * @param arch architecture
+     * @param targetClass target class
+     * @param sourceClass source class
+     */
     public static void createAssociation(Architecture arch, Class targetClass, Class sourceClass) {
         arch.addRelationship(new AssociationRelationship(targetClass, sourceClass));
     }
 
-
-    public static void moveMethod(Architecture arch, Class targetClass, Class sourceClass, Package targetComp,
-                                  Package sourceComp) {
+    /**
+     * Move method between classes
+     * @param arch architecture
+     * @param targetClass target class
+     * @param sourceClass source class
+     */
+    public static void moveMethod(Architecture arch, Class targetClass, Class sourceClass) {
         final List<Method> MethodsClass = new ArrayList<Method>(sourceClass.getAllMethods().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
         if (MethodsClass.size() >= 1) {
             if (sourceClass.moveMethodToClass(getRandomMethod(MethodsClass), targetClass)) {
@@ -152,22 +230,33 @@ public class MutationUtils {
                 }
             }
         }
-
         MethodsClass.clear();
     }
 
-
-    public static void moveAttributeToNewClass(Architecture arch, Class sourceClass, List<Attribute> AttributesClass,
-                                               Class newClass) throws Exception {
-        Attribute targetAttribute = randomObject(AttributesClass);
-        sourceClass.moveAttributeToClass(targetAttribute, newClass);
+    /**
+     * Move attributes to target class
+     * @param arch architecture
+     * @param sourceClass source class
+     * @param attributes attributes
+     * @param targetClass target class
+     * @throws Exception default exception
+     */
+    public static void moveAttributeToNewClass(Architecture arch, Class sourceClass, List<Attribute> attributes,
+                                               Class targetClass) throws Exception {
+        Attribute targetAttribute = randomObject(attributes);
+        sourceClass.moveAttributeToClass(targetAttribute, targetClass);
         for (Concern con : targetAttribute.getOwnConcerns()) {
-            newClass.addConcern(con.getName());
+            targetClass.addConcern(con.getName());
         }
-        createAssociation(arch, newClass, sourceClass);
+        createAssociation(arch, targetClass, sourceClass);
     }
 
-
+    /**
+     * Verify if is same layer of packages
+     * @param source source package
+     * @param target target package
+     * @return is same layer
+     */
     public static boolean checkSameLayer(Package source, Package target) {
         boolean sameLayer = false;
         if ((source.getName().endsWith("Mgr") && target.getName().endsWith("Mgr"))
@@ -178,13 +267,18 @@ public class MutationUtils {
         return sameLayer;
     }
 
-    public static String getSuffix(Package comp) {
+    /**
+     * Get package suffix
+     * @param pack package
+     * @return package suffix
+     */
+    public static String getSuffix(Package pack) {
         String suffix;
-        if (comp.getName().endsWith("Mgr")) {
+        if (pack.getName().endsWith("Mgr")) {
             suffix = "Mgr";
-        } else if (comp.getName().endsWith("Ctrl")) {
+        } else if (pack.getName().endsWith("Ctrl")) {
             suffix = "Ctrl";
-        } else if (comp.getName().endsWith("GUI")) {
+        } else if (pack.getName().endsWith("GUI")) {
             suffix = "GUI";
         } else {
             suffix = "";
@@ -192,14 +286,21 @@ public class MutationUtils {
         return suffix;
     }
 
-    public static boolean isVarPointOfConcern(Architecture arch, Class cls, Concern concern) {
+    /**
+     * Verify if the concern is variation point
+     * @param arch architecture
+     * @param clazz class
+     * @param concern concern
+     * @return is variation point
+     */
+    public static boolean isVarPointOfConcern(Architecture arch, Class clazz, Concern concern) {
         boolean isVariationPointConcern = false;
         Collection<Variability> variabilities = arch.getAllVariabilities();
         for (Variability variability : variabilities) {
             VariationPoint varPoint = variability.getVariationPoint();
             if (varPoint != null) {
                 Class classVP = (Class) varPoint.getVariationPointElement();
-                if (classVP.equals(cls) && variability.getName().equals(concern.getName())) {
+                if (classVP.equals(clazz) && variability.getName().equals(concern.getName())) {
                     isVariationPointConcern = true;
                 }
             }
@@ -207,20 +308,27 @@ public class MutationUtils {
         return isVariationPointConcern;
     }
 
-    public static boolean isVariantOfConcern(Architecture arch, Class cls, Concern concern) {
+    /**
+     * Verify if the concern is variant
+     * @param arch architecture
+     * @param clazz class
+     * @param concern concern
+     * @return is variant
+     */
+    public static boolean isVariantOfConcern(Architecture arch, Class clazz, Concern concern) {
         boolean isVariantConcern = false;
         Collection<Variability> variabilities = arch.getAllVariabilities();
         for (Variability variability : variabilities) {
             VariationPoint varPoint = variability.getVariationPoint();
             if (varPoint != null) {
                 for (Variant variant : varPoint.getVariants()) {
-                    if (variant.getVariantElement().equals(cls) && variability.getName().equals(concern.getName())) {
+                    if (variant.getVariantElement().equals(clazz) && variability.getName().equals(concern.getName())) {
                         isVariantConcern = true;
                     }
                 }
             } else {
-                if (cls.getVariantType() != null) {
-                    if (cls.getVariantType().equalsIgnoreCase("optional")) {
+                if (clazz.getVariantType() != null) {
+                    if (clazz.getVariantType().equalsIgnoreCase("optional")) {
                         isVariantConcern = true;
                     }
                 }
