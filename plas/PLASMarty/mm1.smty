@@ -110,20 +110,43 @@
     <stereotype id="STEREOTYPE#20" name="video" primitive="false"/>
     <stereotype id="STEREOTYPE#12" name="viewplaymedia" primitive="false"/>
   </stereotypes>
-  <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5"/>
+  <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5" requires="STEREOTYPE#6" mutex="STEREOTYPE#7"/>
   <diagram id="DIAGRAM#1" name="Diagram1" type="Class">
-    <package id="PACKAGE#2" name="AlbumMgr" mandatory="true" x="20" y="490" globalX="20" globalY="490" height="380" width="1340"/>
-    <package id="PACKAGE#11" name="PhotoMgr" mandatory="true" x="40" y="1560" globalX="40" globalY="1560" height="520" width="700"/>
-    <package id="PACKAGE#10" name="MusicMgr" mandatory="true" x="780" y="1560" globalX="780" globalY="1560" height="520" width="800"/>
-    <package id="PACKAGE#1" name="UserMgr" mandatory="true" x="1620" y="1560" globalX="1620" globalY="1560" height="460" width="940"/>
-    <package id="PACKAGE#4" name="AlbumGUI" mandatory="true" x="1460" y="490" globalX="1460" globalY="490" height="300" width="500"/>
-    <package id="PACKAGE#3" name="AlbumCtrl" mandatory="true" x="580" y="2180" globalX="580" globalY="2180" height="580" width="920"/>
-    <package id="PACKAGE#6" name="MediaGUI" mandatory="true" x="40" y="2180" globalX="40" globalY="2180" height="320" width="517"/>
-    <package id="PACKAGE#5" name="MediaMgr" mandatory="true" x="3660" y="500" globalX="3660" globalY="500" height="950" width="1000"/>
-    <package id="PACKAGE#8" name="EntryMgr" mandatory="true" x="2700" y="1560" globalX="2700" globalY="1560" height="580" width="1000"/>
-    <package id="PACKAGE#7" name="MediaCtrl" mandatory="true" x="2080" y="500" globalX="2080" globalY="500" height="1020" width="1570"/>
-    <package id="PACKAGE#9" name="VideoMgr" mandatory="true" x="1860" y="2220" globalX="1860" globalY="2220" height="500" width="800"/>
+    <package id="PACKAGE#2" name="AlbumMgr" mandatory="true" x="20" y="490" globalX="20" globalY="490" height="380" width="1340">
+      <description></description>
+    </package>
+    <package id="PACKAGE#11" name="PhotoMgr" mandatory="true" x="40" y="1560" globalX="40" globalY="1560" height="520" width="700">
+      <description></description>
+    </package>
+    <package id="PACKAGE#10" name="MusicMgr" mandatory="true" x="780" y="1560" globalX="780" globalY="1560" height="520" width="800">
+      <description></description>
+    </package>
+    <package id="PACKAGE#1" name="UserMgr" mandatory="true" x="1620" y="1560" globalX="1620" globalY="1560" height="460" width="940">
+      <description></description>
+    </package>
+    <package id="PACKAGE#4" name="AlbumGUI" mandatory="true" x="1460" y="490" globalX="1460" globalY="490" height="300" width="500">
+      <description></description>
+    </package>
+    <package id="PACKAGE#3" name="AlbumCtrl" mandatory="true" x="580" y="2180" globalX="580" globalY="2180" height="580" width="920">
+      <description></description>
+    </package>
+    <package id="PACKAGE#6" name="MediaGUI" mandatory="true" x="40" y="2180" globalX="40" globalY="2180" height="320" width="517">
+      <description></description>
+    </package>
+    <package id="PACKAGE#5" name="MediaMgr" mandatory="true" x="3660" y="500" globalX="3660" globalY="500" height="950" width="1000">
+      <description></description>
+    </package>
+    <package id="PACKAGE#8" name="EntryMgr" mandatory="true" x="2700" y="1560" globalX="2700" globalY="1560" height="580" width="1000">
+      <description></description>
+    </package>
+    <package id="PACKAGE#7" name="MediaCtrl" mandatory="true" x="2080" y="500" globalX="2080" globalY="500" height="1020" width="1570">
+      <description></description>
+    </package>
+    <package id="PACKAGE#9" name="VideoMgr" mandatory="true" x="1860" y="2220" globalX="1860" globalY="2220" height="500" width="800">
+      <description></description>
+    </package>
     <class id="CLASS#11" name="MediaMgr" mandatory="true" x="40" y="60" globalX="3700" globalY="560" abstract="false" final="false" height="280" width="440" parent="PACKAGE#5">
+      <description></description>
       <method id="METHOD#54" name="showmedias" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#48" name="aretheremedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -147,16 +170,19 @@
       </method>
     </class>
     <class id="CLASS#7" name="Video" mandatory="true" x="40" y="60" globalX="1900" globalY="2280" abstract="false" final="false" height="160" width="400" parent="PACKAGE#9">
+      <description></description>
       <attribute id="ATTRIBUTE#9" name="videofile" type="TYPE#24" visibility="private" static="false" final="false"/>
       <method id="METHOD#40" name="getmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#8" name="Photo" mandatory="true" x="280" y="60" globalX="320" globalY="1620" abstract="false" final="false" height="160" width="400" parent="PACKAGE#11">
+      <description></description>
       <attribute id="ATTRIBUTE#7" name="photofile" type="TYPE#24" visibility="private" static="false" final="false"/>
       <method id="METHOD#38" name="getmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#10" name="Entry" mandatory="false" x="580" y="60" globalX="3280" globalY="1620" abstract="false" final="false" height="240" width="400" parent="PACKAGE#8">
+      <description></description>
       <attribute id="ATTRIBUTE#18" name="number" type="TYPE#24" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#17" name="name" type="TYPE#24" visibility="private" static="false" final="false"/>
       <method id="METHOD#91" name="getentry" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -170,11 +196,13 @@
       </method>
     </class>
     <class id="CLASS#9" name="Music" mandatory="true" x="380" y="60" globalX="1160" globalY="1620" abstract="false" final="false" height="160" width="400" parent="PACKAGE#10">
+      <description></description>
       <attribute id="ATTRIBUTE#8" name="musicfile" type="TYPE#24" visibility="private" static="false" final="false"/>
       <method id="METHOD#39" name="getmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#3" name="Media" mandatory="true" x="570" y="60" globalX="4230" globalY="560" abstract="false" final="false" height="360" width="400" parent="PACKAGE#5">
+      <description></description>
       <attribute id="ATTRIBUTE#15" name="label" type="TYPE#24" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#10" name="name" type="TYPE#24" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#14" name="numberofexecutions" type="TYPE#17" visibility="private" static="false" final="false"/>
@@ -199,12 +227,14 @@
       </method>
     </class>
     <class id="CLASS#15" name="VideoMgr" mandatory="true" x="480" y="60" globalX="2340" globalY="2280" abstract="false" final="false" height="140" width="300" parent="PACKAGE#9">
+      <description></description>
       <method id="METHOD#147" name="aretherevideos" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#148" name="showvideos" return="TYPE#41" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#4" name="Album" mandatory="true" x="40" y="60" globalX="60" globalY="550" abstract="false" final="false" height="300" width="480" parent="PACKAGE#2">
+      <description></description>
       <attribute id="ATTRIBUTE#5" name="media" type="CLASS#3" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#6" name="name" type="TYPE#24" visibility="private" static="false" final="false"/>
       <method id="METHOD#8" name="hasalbumthismedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -226,6 +256,7 @@
       </method>
     </class>
     <class id="CLASS#14" name="EntryMgr" mandatory="true" x="40" y="60" globalX="2740" globalY="1620" abstract="false" final="false" height="180" width="500" parent="PACKAGE#8">
+      <description></description>
       <method id="METHOD#93" name="linkmediaentry" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
         <parameter type="CLASS#3" name="media"/>
         <parameter type="CLASS#10" name="entry"/>
@@ -236,6 +267,7 @@
       </method>
     </class>
     <class id="CLASS#13" name="MediaCtrl" mandatory="true" x="40" y="60" globalX="2120" globalY="560" abstract="false" final="false" height="240" width="340" parent="PACKAGE#7">
+      <description></description>
       <method id="METHOD#102" name="managefavouritemedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#103" name="linkmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -252,6 +284,7 @@
       </method>
     </class>
     <class id="CLASS#5" name="AlbumCtrl" mandatory="true" x="40" y="60" globalX="620" globalY="2240" abstract="false" final="false" height="180" width="200" parent="PACKAGE#3">
+      <description></description>
       <method id="METHOD#170" name="albumctrl" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#21" name="managealbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -260,12 +293,14 @@
       </method>
     </class>
     <class id="CLASS#6" name="AlbumGUI" mandatory="true" x="40" y="60" globalX="1500" globalY="550" abstract="false" final="false" height="180" width="200" parent="PACKAGE#4">
+      <description></description>
       <method id="METHOD#34" name="addmediaalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#35" name="managealbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#12" name="MediaGUI" mandatory="true" x="40" y="60" globalX="80" globalY="2240" abstract="false" final="false" height="240" width="200" parent="PACKAGE#6">
+      <description></description>
       <method id="METHOD#79" name="managefavouritemedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#80" name="sendmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -280,10 +315,12 @@
       </method>
     </class>
     <class id="CLASS#1" name="UserMgr" mandatory="true" x="40" y="60" globalX="1660" globalY="1620" abstract="false" final="false" height="140" width="300" parent="PACKAGE#1">
+      <description></description>
       <method id="METHOD#4" name="getuser" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#2" name="User" mandatory="true" x="380" y="60" globalX="2000" globalY="1620" abstract="false" final="false" height="200" width="480" parent="PACKAGE#1">
+      <description></description>
       <attribute id="ATTRIBUTE#2" name="password" type="TYPE#24" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#3" name="login" type="TYPE#24" visibility="private" static="false" final="false"/>
       <method id="METHOD#3" name="checkpassword" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -294,18 +331,21 @@
       </method>
     </class>
     <class id="CLASS#17" name="PhotMgr" mandatory="true" x="40" y="60" globalX="80" globalY="1620" abstract="false" final="false" height="140" width="200" parent="PACKAGE#11">
+      <description></description>
       <method id="METHOD#162" name="aretherephotos" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#163" name="showphotos" return="TYPE#41" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#16" name="MusicMgr" mandatory="true" x="40" y="60" globalX="820" globalY="1620" abstract="false" final="false" height="160" width="300" parent="PACKAGE#10">
+      <description></description>
       <method id="METHOD#161" name="showmusics" return="TYPE#41" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#160" name="aretheremusics" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <interface id="INTERFACE#18" name="IPhotoMgt" mandatory="true" x="40" y="260" globalX="80" globalY="1820" height="240" width="400" parent="PACKAGE#11">
+      <description></description>
       <method id="METHOD#168" name="isphotoused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#8" name="photo"/>
       </method>
@@ -324,6 +364,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#17" name="IMusicMgt" mandatory="true" x="40" y="260" globalX="820" globalY="1820" height="240" width="400" parent="PACKAGE#10">
+      <description></description>
       <method id="METHOD#155" name="removemusic" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#9" name="music"/>
       </method>
@@ -342,11 +383,13 @@
       </method>
     </interface>
     <interface id="INTERFACE#1" name="IUserMgt" mandatory="true" x="40" y="300" globalX="1660" globalY="1860" height="140" width="400" parent="PACKAGE#1">
+      <description></description>
       <method id="METHOD#1" name="getuser" return="CLASS#2" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#2" name="user"/>
       </method>
     </interface>
     <interface id="INTERFACE#4" name="IAddMediaAlbum" mandatory="true" x="40" y="340" globalX="620" globalY="2520" height="220" width="580" parent="PACKAGE#3">
+      <description></description>
       <method id="METHOD#31" name="arethesealbuns" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
       <method id="METHOD#33" name="hasalbumthismedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
@@ -364,12 +407,14 @@
       </method>
     </interface>
     <interface id="INTERFACE#5" name="IAlbumGUI" mandatory="true" x="280" y="60" globalX="1740" globalY="550" height="180" width="200" parent="PACKAGE#4">
+      <description></description>
       <method id="METHOD#37" name="addmediaalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
       <method id="METHOD#36" name="managealbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
     </interface>
     <interface id="INTERFACE#2" name="IAlbumMgt" mandatory="true" x="620" y="60" globalX="640" globalY="550" height="300" width="590" parent="PACKAGE#2">
+      <description></description>
       <method id="METHOD#20" name="arethesealbuns" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
       <method id="METHOD#12" name="getalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
@@ -399,6 +444,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#3" name="IManageAlbum" mandatory="true" x="280" y="60" globalX="860" globalY="2240" height="240" width="500" parent="PACKAGE#3">
+      <description></description>
       <method id="METHOD#23" name="createalbum" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#4" name="album"/>
       </method>
@@ -417,6 +463,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#8" name="IHearMedia" mandatory="true" x="580" y="560" globalX="2660" globalY="1060" height="180" width="525" parent="PACKAGE#7">
+      <description></description>
       <method id="METHOD#131" name="playmusic" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#9" name="music"/>
       </method>
@@ -429,6 +476,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#9" name="IPlayMedia" mandatory="true" x="1150" y="780" globalX="3230" globalY="1280" height="180" width="400" parent="PACKAGE#7">
+      <description></description>
       <method id="METHOD#128" name="visualizephoto" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#8" name="photo"/>
       </method>
@@ -440,6 +488,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#6" name="IMediaMgt" mandatory="true" x="40" y="460" globalX="3700" globalY="960" height="440" width="500" parent="PACKAGE#5">
+      <description></description>
       <method id="METHOD#67" name="aretherefavouritemedia" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
       <method id="METHOD#62" name="addmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
@@ -492,6 +541,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#7" name="IMediaGUI" mandatory="true" x="280" y="60" globalX="320" globalY="2240" height="240" width="217" parent="PACKAGE#6">
+      <description></description>
       <method id="METHOD#83" name="playmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
       <method id="METHOD#85" name="hearmedia" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
@@ -506,6 +556,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#10" name="IManageMedia" mandatory="true" x="1000" y="70" globalX="3080" globalY="570" height="460" width="440" parent="PACKAGE#7">
+      <description></description>
       <method id="METHOD#112" name="ismusicused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#9" name="music"/>
       </method>
@@ -550,6 +601,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#12" name="ILabelFiles" mandatory="true" x="40" y="560" globalX="2120" globalY="1060" height="200" width="500" parent="PACKAGE#7">
+      <description></description>
       <method id="METHOD#140" name="islabelused" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#24" name="name"/>
       </method>
@@ -565,6 +617,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#11" name="IManageFavouriteMedia" mandatory="true" x="480" y="800" globalX="2560" globalY="1300" height="200" width="400" parent="PACKAGE#7">
+      <description></description>
       <method id="METHOD#142" name="setfavourite" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#3" name="media"/>
       </method>
@@ -577,6 +630,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#14" name="ILinkMedia" mandatory="true" x="440" y="60" globalX="2520" globalY="560" height="200" width="500" parent="PACKAGE#7">
+      <description></description>
       <method id="METHOD#136" name="showentries" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
       <method id="METHOD#137" name="arethereentries" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
@@ -591,6 +645,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#13" name="ISendMedia" mandatory="true" x="40" y="800" globalX="2120" globalY="1300" height="200" width="400" parent="PACKAGE#7">
+      <description></description>
       <method id="METHOD#111" name="sendmediaemail" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#3" name="media"/>
       </method>
@@ -603,6 +658,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#16" name="IVideoMgt" mandatory="true" x="40" y="260" globalX="1900" globalY="2480" height="220" width="400" parent="PACKAGE#9">
+      <description></description>
       <method id="METHOD#153" name="showvideos" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
       <method id="METHOD#152" name="aretherevideos" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
@@ -618,6 +674,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#15" name="IEntryMgt" mandatory="true" x="40" y="340" globalX="2740" globalY="1900" height="220" width="500" parent="PACKAGE#8">
+      <description></description>
       <method id="METHOD#97" name="getentry" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#10" name="entry"/>
       </method>
