@@ -2,8 +2,8 @@ package br.ufpr.dinf.gres.api.dto;
 
 import br.ufpr.dinf.gres.api.gateway.OptimizationAlgorithms;
 import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilders;
-import br.ufpr.dinf.gres.architecture.config.ApplicationFile;
-import br.ufpr.dinf.gres.architecture.config.ApplicationYamlConfig;
+import br.ufpr.dinf.gres.domain.config.ApplicationFile;
+import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
 import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.core.learning.Moment;

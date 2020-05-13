@@ -4,7 +4,7 @@ import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.OPLALogs;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfo;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
-import br.ufpr.dinf.gres.architecture.util.UserHome;
+import br.ufpr.dinf.gres.domain.config.UserHome;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.OPLAConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;

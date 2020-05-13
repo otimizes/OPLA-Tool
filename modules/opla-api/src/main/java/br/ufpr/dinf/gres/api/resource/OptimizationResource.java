@@ -4,13 +4,13 @@ import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.api.dto.OptimizationOptionsDTO;
 import br.ufpr.dinf.gres.api.utils.Interaction;
 import br.ufpr.dinf.gres.api.utils.Interactions;
-import br.ufpr.dinf.gres.architecture.config.ApplicationFile;
-import br.ufpr.dinf.gres.architecture.config.ApplicationYamlConfig;
-import br.ufpr.dinf.gres.architecture.config.PathConfig;
+import br.ufpr.dinf.gres.domain.config.ApplicationFile;
+import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
+import br.ufpr.dinf.gres.domain.config.PathConfig;
 import br.ufpr.dinf.gres.architecture.io.OPLALogs;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfo;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
-import br.ufpr.dinf.gres.architecture.util.Constants;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.http.HttpStatus;
@@ -51,7 +51,7 @@ public class OptimizationResource {
     @GetMapping(value = "/download/{token}/{hash}", produces = "application/zip")
     public void zipFiles(@PathVariable String token, @PathVariable String hash, HttpServletResponse response) throws IOException {
         PathConfig config = ApplicationFile.getInstance().getConfig();
-        String url = config.getDirectoryToExportModels().toString().concat(Constants.FILE_SEPARATOR + token + Constants.FILE_SEPARATOR + hash);
+        String url = config.getDirectoryToExportModels().toString().concat(FileConstants.FILE_SEPARATOR + token + FileConstants.FILE_SEPARATOR + hash);
         response.setStatus(HttpServletResponse.SC_OK);
         response.addHeader("Content-Disposition", "attachment; filename=\"" + hash + ".zip\"");
         ZipFiles zipFiles = new ZipFiles();
@@ -94,7 +94,7 @@ public class OptimizationResource {
                 byte[] bytes = mf.getBytes();
                 String s = OUT_PATH + mf.getOriginalFilename();
                 paths.add(mf.getOriginalFilename());
-                createPathIfNotExists(s.substring(0, s.lastIndexOf(Constants.FILE_SEPARATOR)));
+                createPathIfNotExists(s.substring(0, s.lastIndexOf(FileConstants.FILE_SEPARATOR)));
                 Path path = Paths.get(s);
                 Files.write(path, bytes);
             }

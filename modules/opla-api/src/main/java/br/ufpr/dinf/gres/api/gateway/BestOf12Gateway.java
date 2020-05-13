@@ -2,7 +2,7 @@ package br.ufpr.dinf.gres.api.gateway;
 
 import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
-import br.ufpr.dinf.gres.architecture.util.UserHome;
+import br.ufpr.dinf.gres.domain.config.UserHome;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.BestOf12OPLABase;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
 import org.springframework.stereotype.Component;

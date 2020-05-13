@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.architecture.io;
 
 import br.ufpr.dinf.gres.architecture.helpers.XmiHelper;
+import br.ufpr.dinf.gres.domain.config.FileUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;

@@ -1,12 +1,12 @@
 package br.ufpr.dinf.gres.architecture.builders;
 
-import br.ufpr.dinf.gres.architecture.config.ApplicationYamlConfig;
+import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Variability;
 import br.ufpr.dinf.gres.architecture.representation.Variant;
-import br.ufpr.dinf.gres.architecture.util.Constants;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import org.junit.Test;
 
 import java.util.stream.Collectors;
@@ -23,7 +23,7 @@ public class ArchitectureBuilderSMartyTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        String xmiFilePath = agm + Constants.FILE_SEPARATOR + "agm1.smty";
+        String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "agm1.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
 
         assertEquals(9, architecture.getAllPackages().size());
@@ -59,7 +59,7 @@ public class ArchitectureBuilderSMartyTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        String xmiFilePath = agm + Constants.FILE_SEPARATOR + "agm2.smty";
+        String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "agm2.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
 
         assertEquals(9, architecture.getAllPackages().size());
@@ -95,7 +95,7 @@ public class ArchitectureBuilderSMartyTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        String xmiFilePath = agm + Constants.FILE_SEPARATOR + "AGMAtual.smty";
+        String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "AGMAtual.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
 
         assertEquals(9, architecture.getAllPackages().size());
@@ -131,7 +131,7 @@ public class ArchitectureBuilderSMartyTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        String xmiFilePath = agm + Constants.FILE_SEPARATOR + "BetAtual.smty";
+        String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "BetAtual.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
 
         assertEquals(56, architecture.getAllPackages().size());
@@ -167,7 +167,7 @@ public class ArchitectureBuilderSMartyTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        String xmiFilePath = agm + Constants.FILE_SEPARATOR + "mm1.smty";
+        String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "mm1.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
 
         assertEquals(11, architecture.getAllPackages().size());
@@ -203,7 +203,7 @@ public class ArchitectureBuilderSMartyTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        String xmiFilePath = agm + Constants.FILE_SEPARATOR + "mm2.smty";
+        String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "mm2.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
 
         assertEquals(8, architecture.getAllPackages().size());
@@ -239,7 +239,7 @@ public class ArchitectureBuilderSMartyTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        String xmiFilePath = agm + Constants.FILE_SEPARATOR + "MMAtual.smty";
+        String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "MMAtual.smty";
         Architecture architecture = new ArchitectureBuilderSMarty().create(xmiFilePath);
 
         assertEquals(8, architecture.getAllPackages().size());

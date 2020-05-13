@@ -1,9 +1,9 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
-import br.ufpr.dinf.gres.architecture.config.ApplicationYamlConfig;
+import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.architecture.util.Constants;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
@@ -22,15 +22,15 @@ public class ObjectiveFunctionsTest {
 //        AV, SSC, SVC depends of variabilities and variation points
         String agm = Thread.currentThread().getContextClassLoader().getResource("agm").getFile();
         ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
-        applicationYamlConfig.setPathToProfile(agm + Constants.FILE_SEPARATOR + "smarty.profile.uml");
-        applicationYamlConfig.setPathToProfileConcern(agm + Constants.FILE_SEPARATOR + "concerns.profile.uml");
-        applicationYamlConfig.setPathToProfilePatterns(agm + Constants.FILE_SEPARATOR + "patterns.profile.uml");
-        applicationYamlConfig.setPathToProfileRelationships(agm + Constants.FILE_SEPARATOR + "relationships.profile.uml");
+        applicationYamlConfig.setPathToProfile(agm + FileConstants.FILE_SEPARATOR + "smarty.profile.uml");
+        applicationYamlConfig.setPathToProfileConcern(agm + FileConstants.FILE_SEPARATOR + "concerns.profile.uml");
+        applicationYamlConfig.setPathToProfilePatterns(agm + FileConstants.FILE_SEPARATOR + "patterns.profile.uml");
+        applicationYamlConfig.setPathToProfileRelationships(agm + FileConstants.FILE_SEPARATOR + "relationships.profile.uml");
         applicationYamlConfig.setDirectoryToExportModels("");
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        OPLA opla = new OPLA(agm + Constants.FILE_SEPARATOR + "agm.uml");
+        OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "agm.uml");
         Architecture architecture = opla.getArchitecture_();
 
         ObjectiveFunctions[] values = ObjectiveFunctions.values();
@@ -143,7 +143,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        OPLA opla = new OPLA(agm + Constants.FILE_SEPARATOR + "agm2.smty");
+        OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "agm2.smty");
         Architecture architecture = opla.getArchitecture_();
 
         ObjectiveFunctions[] values = ObjectiveFunctions.values();
@@ -256,7 +256,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        OPLA opla = new OPLA(agm + Constants.FILE_SEPARATOR + "agm1.smty");
+        OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "agm1.smty");
         Architecture architecture = opla.getArchitecture_();
 
         ObjectiveFunctions[] values = ObjectiveFunctions.values();
@@ -369,7 +369,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        OPLA opla = new OPLA(agm + Constants.FILE_SEPARATOR + "AGMAtual.smty");
+        OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "AGMAtual.smty");
         Architecture architecture = opla.getArchitecture_();
 
         ObjectiveFunctions[] values = ObjectiveFunctions.values();
@@ -482,7 +482,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        OPLA opla = new OPLA(agm + Constants.FILE_SEPARATOR + "BetAtual.smty");
+        OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "BetAtual.smty");
         Architecture architecture = opla.getArchitecture_();
 
         ObjectiveFunctions[] values = ObjectiveFunctions.values();
@@ -596,7 +596,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        OPLA opla = new OPLA(agm + Constants.FILE_SEPARATOR + "mm1.smty");
+        OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "mm1.smty");
         Architecture architecture = opla.getArchitecture_();
 
         ObjectiveFunctions[] values = ObjectiveFunctions.values();
@@ -710,7 +710,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        OPLA opla = new OPLA(agm + Constants.FILE_SEPARATOR + "mm2.smty");
+        OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "mm2.smty");
         Architecture architecture = opla.getArchitecture_();
 
         ObjectiveFunctions[] values = ObjectiveFunctions.values();
@@ -824,7 +824,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAConfigThreadScope.setConfig(applicationYamlConfig);
-        OPLA opla = new OPLA(agm + Constants.FILE_SEPARATOR + "MMAtual.smty");
+        OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "MMAtual.smty");
         Architecture architecture = opla.getArchitecture_();
 
         ObjectiveFunctions[] values = ObjectiveFunctions.values();

@@ -1,12 +1,11 @@
 package br.ufpr.dinf.gres.api;
 
-import br.ufpr.dinf.gres.architecture.io.FileUtils;
-import br.ufpr.dinf.gres.architecture.config.ApplicationFile;
-import br.ufpr.dinf.gres.architecture.config.ManagerApplicationConfig;
-import br.ufpr.dinf.gres.architecture.util.Constants;
-import br.ufpr.dinf.gres.architecture.util.UserHome;
-import br.ufpr.dinf.gres.architecture.util.Utils;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.ufpr.dinf.gres.domain.config.FileUtils;
+import br.ufpr.dinf.gres.domain.config.ApplicationFile;
+import br.ufpr.dinf.gres.domain.config.ManagerApplicationConfig;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
+import br.ufpr.dinf.gres.domain.config.UserHome;
+import br.ufpr.dinf.gres.domain.config.Utils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -14,12 +13,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URI;
@@ -66,7 +63,7 @@ public class OplaApiApplication {
     public static void main(String[] args) {
         try {
             if (OplaApiApplication.class.getResource("").openConnection() instanceof JarURLConnection) {
-                Constants.BASE_RESOURCES = "BOOT-INF/classes/";
+                FileConstants.BASE_RESOURCES = "BOOT-INF/classes/";
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,10 +89,10 @@ public class OplaApiApplication {
     }
 
     public static void copyTemplates() throws URISyntaxException {
-        URI uriTemplatesDir = ClassLoader.getSystemResource(Constants.BASE_RESOURCES + Constants.TEMPLATES_DIR).toURI();
-        String simplesUmlPath = Constants.SIMPLES_UML_NAME;
-        String simplesDiPath = Constants.SIMPLES_DI_NAME;
-        String simplesNotationPath = Constants.SIMPLES_NOTATION_NAME;
+        URI uriTemplatesDir = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.TEMPLATES_DIR).toURI();
+        String simplesUmlPath = FileConstants.SIMPLES_UML_NAME;
+        String simplesDiPath = FileConstants.SIMPLES_DI_NAME;
+        String simplesNotationPath = FileConstants.SIMPLES_NOTATION_NAME;
 
         Path externalPathSimplesUml = Paths.get(UserHome.getPathToTemplates() + simplesUmlPath);
         Path externalPathSimplesDi = Paths.get(UserHome.getPathToTemplates() + simplesDiPath);

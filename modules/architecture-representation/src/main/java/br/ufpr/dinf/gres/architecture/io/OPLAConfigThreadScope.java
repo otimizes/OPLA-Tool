@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.architecture.io;
 
-import br.ufpr.dinf.gres.architecture.config.ApplicationFile;
-import br.ufpr.dinf.gres.architecture.config.ApplicationYamlConfig;
+import br.ufpr.dinf.gres.domain.config.ApplicationFile;
+import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 
 public class OPLAConfigThreadScope {

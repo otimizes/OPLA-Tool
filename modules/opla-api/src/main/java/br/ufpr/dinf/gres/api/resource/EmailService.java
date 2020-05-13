@@ -1,8 +1,7 @@
 package br.ufpr.dinf.gres.api.resource;
 
 import br.ufpr.dinf.gres.api.dto.EmailDto;
-import br.ufpr.dinf.gres.api.resource.ZipFiles;
-import br.ufpr.dinf.gres.architecture.config.ApplicationFile;
+import br.ufpr.dinf.gres.domain.config.ApplicationFile;
 import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScope;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.domain.entity.User;
