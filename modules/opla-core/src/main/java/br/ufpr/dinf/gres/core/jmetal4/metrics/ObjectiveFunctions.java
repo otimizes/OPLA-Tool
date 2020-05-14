@@ -7,7 +7,27 @@ import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.objectivefunctions.*;
 
-
+/**
+ * Objective Functions Enum
+ * <p>
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.ACLASS ACLASS,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.ACOMP ACOMP,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.CM CM,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.COE COE,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.CS CS,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.DC DC,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.EC EC,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.ELEG ELEG,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.EXT EXT,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.FM FM,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.LCC LCC,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.RCC RCC,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.SD SD,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.SV SV,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.TAM TAM,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.TV TV,}
+ * {@link br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.WOCSCLASS WOCSCLASS}
+ */
 public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 
     ACLASS {

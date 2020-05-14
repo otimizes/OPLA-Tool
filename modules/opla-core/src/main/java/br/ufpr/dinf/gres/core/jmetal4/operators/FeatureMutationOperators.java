@@ -4,6 +4,13 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.*;
 
 /**
  * Feature mutation operators enum
+ * <p>
+ * {@link FeatureMutation Feature Mutation,}
+ * {@link MoveMethodMutation Move Method Mutation,}
+ * {@link MoveAttributeMutation Move Attribute Mutation,}
+ * {@link MoveOperationMutation Move Operation Mutation,}
+ * {@link AddClassMutation Add Class Mutation,}
+ * {@link AddManagerClassMutation Add Manager Class Mutation}
  */
 public enum FeatureMutationOperators implements IFeatureMutationOperators {
 
