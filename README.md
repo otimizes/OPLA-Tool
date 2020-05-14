@@ -35,7 +35,7 @@ mvn clean install Obs: If it is the first run, execute **mvn clean** first to in
 ```sh
 java -jar modules/opla-gui/target/opla-gui-1.0.0-SNAPSHOT-jar-with-dependencies
 ```
-## How to use the OPLA-Tool
+## How to use the tool
 [\<Click here to see how\>](https://github.com/SBSE-UEM/OPLA-Tool/blob/master/USAGE.md)
 
 ## How to open the PLAs
