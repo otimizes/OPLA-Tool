@@ -35,7 +35,7 @@ mvn clean install Obs: If it is the first run, execute **mvn clean** first to in
 ```sh
 java -jar modules/opla-gui/target/opla-gui-1.0.0-SNAPSHOT-jar-with-dependencies
 ```
-## How to use the OPLA-Tool
+## How to use the tool
 [\<Click here to see how\>](https://github.com/SBSE-UEM/OPLA-Tool/blob/master/USAGE.md)
 
 ## How to open the PLAs
@@ -144,6 +144,7 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 - It will appears in the front-end, at the Objective functions section
 
 ### Implementing a new Optimization Algorithm approach
+- [\<Click here to see the implemented Optimization algorithms\>](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/api/gateway/OptimizationAlgorithms.html)
 - Put your metaheuristic in jmetal4 > metaheuristics > myoptalgpackage
 - Observe how was implemented the existent algorithms, following the current steps 
 - Create your config in [jmetal4 > experiments > base](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/experiments/base/package-summary.html) inheriting the ExperimentCommonConfigs
@@ -156,7 +157,7 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 - It will appears in the front-end, at the Settings section
 
 ### Implementing a new Mutation Operator
-
+- [\<Click here to see the implemented Mutation Operators\>](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/FeatureMutationOperators.html)
 - Create your class implementing [IMutationOperator](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/mutation/IMutationOperator.html) into [jmetal4 > operators > mutation](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/mutation/package-summary.html)
 - Insert the instance of it in [jmetal4 > operators > FeatureMutationOperators](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/FeatureMutationOperators.html) enum.
 - It will appears in the front-end, at the Mutation Operators section
