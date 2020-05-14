@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.architecture.representation;
 
-import br.ufpr.dinf.gres.architecture.touml.Stereotype;
+import br.ufpr.dinf.gres.architecture.papyrus.touml.Stereotype;
 
 import java.util.ArrayList;
 import java.util.List;

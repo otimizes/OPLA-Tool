@@ -10,8 +10,8 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.UsageRelationship;
-import br.ufpr.dinf.gres.architecture.touml.Types;
-import br.ufpr.dinf.gres.architecture.touml.VisibilityKind;
+import br.ufpr.dinf.gres.architecture.papyrus.touml.Types;
+import br.ufpr.dinf.gres.architecture.papyrus.touml.VisibilityKind;
 import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
 
 import java.util.Arrays;

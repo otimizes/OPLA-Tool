@@ -8,8 +8,8 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationCla
 import br.ufpr.dinf.gres.architecture.representation.relationship.MemberEnd;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.RelationshipCommons;
-import br.ufpr.dinf.gres.architecture.touml.Types.Type;
-import br.ufpr.dinf.gres.architecture.touml.VisibilityKind;
+import br.ufpr.dinf.gres.architecture.papyrus.touml.Types.Type;
+import br.ufpr.dinf.gres.architecture.papyrus.touml.VisibilityKind;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
