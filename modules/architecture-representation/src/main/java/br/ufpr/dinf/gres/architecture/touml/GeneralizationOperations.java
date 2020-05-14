@@ -6,7 +6,9 @@ import br.ufpr.dinf.gres.architecture.helpers.XmiHelper;
 import org.w3c.dom.Node;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Generalization operations
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class GeneralizationOperations extends XmiHelper implements Relationship {
 

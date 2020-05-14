@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.architecture.smarty.profile;
+package br.ufpr.dinf.gres.architecture.smartyprofile;
 
 import br.ufpr.dinf.gres.architecture.exceptions.EnumerationNotFoundException;
 import br.ufpr.dinf.gres.architecture.exceptions.ModelNotFoundException;
@@ -12,13 +12,13 @@ import org.eclipse.uml2.uml.*;
 import java.io.IOException;
 
 /**
- * Classe usada para gerar o arquivo de profile do smarty
+ * Class used to generate the smarty profile file
  * <p>
- * Mude o Path onde vc quer salvar o arquivo.
+ * Change the Path where you want to save the file.
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
-public class ProfileSMarty {
+public class SmartyProfile {
 
 
     private static ThreadLocal<Uml2Helper> helperThread = ThreadLocal.withInitial(() -> {
@@ -29,8 +29,8 @@ public class ProfileSMarty {
     private Enumeration bindingTime;
     private Uml2Helper helper;
 
-    public ProfileSMarty(String profileName) throws ModelNotFoundException {
-        this.helper = ProfileSMarty.helperThread.get();
+    public SmartyProfile(String profileName) throws ModelNotFoundException {
+        this.helper = SmartyProfile.helperThread.get();
         this.profile = helper.createProfile(profileName);
         this.profile.setName("smartyProfile");
 

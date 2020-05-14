@@ -4,7 +4,9 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationEnd
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Association operations
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class AssociationOperations {
 

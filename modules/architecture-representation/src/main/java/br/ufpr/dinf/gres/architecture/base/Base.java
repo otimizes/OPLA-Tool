@@ -3,9 +3,9 @@ package br.ufpr.dinf.gres.architecture.base;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 /**
- * Classe abstrata responsável por fornecer os recursos necessários para usar a UML2.
+ * Abstract class responsible for providing the necessary resources to use UML2.
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public abstract class Base {
 

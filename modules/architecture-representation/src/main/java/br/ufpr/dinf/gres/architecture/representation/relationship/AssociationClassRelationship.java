@@ -1,8 +1,8 @@
 package br.ufpr.dinf.gres.architecture.representation.relationship;
 
 import br.ufpr.dinf.gres.architecture.helpers.ElementsTypes;
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
+import br.ufpr.dinf.gres.architecture.representation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,7 +11,9 @@ import java.util.Set;
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Association relationship class
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class AssociationClassRelationship extends Relationship {
 
@@ -20,15 +22,6 @@ public class AssociationClassRelationship extends Relationship {
     private Class associationClass;
     private String idOwner;
 
-    /**
-     * @param architecture
-     * @param name
-     * @param ends
-     * @param ownedEnd
-     * @param id               - associationEnd
-     * @param idOwner          - ex: pacote
-     * @param associationClass
-     */
     public AssociationClassRelationship(String name, List<MemberEnd> ends, Element ownedEnd, String id, String idOwner, Class associationClass) {
         super.setName(name);
         this.memebersEnd = ends;

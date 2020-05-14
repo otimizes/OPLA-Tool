@@ -4,7 +4,9 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Operations
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Operations {
 

@@ -6,7 +6,9 @@ import br.ufpr.dinf.gres.architecture.exceptions.NodeNotFound;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationEnd;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Composition operations
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class CompositionOperations {
 

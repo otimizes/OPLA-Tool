@@ -1,5 +1,8 @@
 package br.ufpr.dinf.gres.architecture.builders;
 
+/**
+ * Enum of architecture builders
+ */
 public enum ArchitectureBuilders implements IArchitectureBuilders {
     SMARTY {
         @Override

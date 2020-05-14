@@ -19,7 +19,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Class operations
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ClassOperations extends XmiHelper {
 

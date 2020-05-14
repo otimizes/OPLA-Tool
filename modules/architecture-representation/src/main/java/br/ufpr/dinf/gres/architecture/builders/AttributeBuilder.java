@@ -9,9 +9,9 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
 
 /**
- * Builder responsável pelos atributos.
+ * Builder responsible for the attributes.
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class AttributeBuilder extends ElementBuilder<Attribute> {
 
@@ -21,7 +21,7 @@ public class AttributeBuilder extends ElementBuilder<Attribute> {
     }
 
     /**
-     * constrói um elemento do tipo atributo.
+     * Constructs an element of type attribute.
      */
     @Override
     protected Attribute buildElement(NamedElement modelElement) {

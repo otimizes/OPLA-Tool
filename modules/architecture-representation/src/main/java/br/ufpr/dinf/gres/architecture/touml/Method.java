@@ -7,7 +7,9 @@ import java.util.*;
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Method representation
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Method {
 

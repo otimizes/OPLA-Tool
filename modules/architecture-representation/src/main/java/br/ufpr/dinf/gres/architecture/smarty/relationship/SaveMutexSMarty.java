@@ -1,30 +1,29 @@
-package br.ufpr.dinf.gres.architecture.toSMarty.relationship;
+package br.ufpr.dinf.gres.architecture.smarty.relationship;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
-import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
+import br.ufpr.dinf.gres.architecture.representation.relationship.MutexRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
+import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 
 import java.io.PrintWriter;
 
 /**
- * This class save Dependency relationship to file
- *
+ * This class save Mutex relationship to file
  */
-public class SaveDependencySMarty {
+public class SaveMutexSMarty {
 
-    public SaveDependencySMarty() {
+    public SaveMutexSMarty() {
     }
 
-    private static final SaveDependencySMarty INSTANCE = new SaveDependencySMarty();
+    private static final SaveMutexSMarty INSTANCE = new SaveMutexSMarty();
 
-    public static SaveDependencySMarty getInstance() {
+    public static SaveMutexSMarty getInstance() {
         return INSTANCE;
     }
 
     /**
-     * This class save Dependency relationship to file
+     * This class save mutex relationship to file
      *
      * @param architecture - architecture to be decoded
      * @param printWriter - used to save a string in file
@@ -34,19 +33,18 @@ public class SaveDependencySMarty {
         String tab = "    ";
         int id_rel = 1;
         for (Relationship r : architecture.getRelationshipHolder().getAllRelationships()) {
-            if (r instanceof DependencyRelationship) {
-                DependencyRelationship dr = (DependencyRelationship) r;
-
+            if (r instanceof MutexRelationship) {
+                MutexRelationship dr = (MutexRelationship) r;
                 Element e1 = architecture.findElementByNameInPackageAndSubPackage(dr.getClient().getName());
                 if (e1 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Dependency " + dr.getId() + ":");
+                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Mutex " + dr.getId() + ":");
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName());
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName() + " not found");
                     continue;
                 }
                 Element e2 = architecture.findElementByNameInPackageAndSubPackage(dr.getSupplier().getName());
                 if (e2 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Dependency " + dr.getId() + ":");
+                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Mutex " + dr.getId() + ":");
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName() + " not found");
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName());
                     continue;
@@ -56,21 +54,20 @@ public class SaveDependencySMarty {
                     while (existID) {
                         existID = false;
                         for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
-                            if (r2.getId().equals("DEPENDENCY#" + id_rel)) {
+                            if(r2.getId().equals("MUTEX#" + id_rel)){
                                 id_rel++;
                                 existID = true;
                                 break;
                             }
                         }
                     }
-                    dr.setId("DEPENDENCY#" + id_rel);
+                    dr.setId("MUTEX#" + id_rel);
                     id_rel++;
                 }
-                printWriter.write("\n" + tab + "<dependency id=\"" + dr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");
-                printWriter.write("\n" + tab + "</dependency>");
+                printWriter.write("\n" + tab + "<mutex id=\"" + dr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");
+                printWriter.write("\n" + tab + "</mutex>");
             }
         }
     }
-
 
 }

@@ -5,7 +5,7 @@ import br.ufpr.dinf.gres.architecture.representation.Variability;
 
 
 /**
- * Classe usada para definir o estereótipo Variability para ser setado em uma note.(Comment)
+ * Class used to define the Variability stereotype to be set in a note (Comment)
  *
  * @author edipofederle
  */

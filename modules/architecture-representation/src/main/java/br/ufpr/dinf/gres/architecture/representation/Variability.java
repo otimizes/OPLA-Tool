@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Variability representation
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Variability implements Serializable {
@@ -25,7 +27,7 @@ public class Variability implements Serializable {
     private VariationPoint variationPoint;
     private List<Variant> variants = new ArrayList<Variant>();
 
-    private  String id;
+    private String id;
     public String constraint;
 
     public Variability(String name, String minSelection, String maxSelection, String bindingTime, boolean allowsAddingVar, String ownerClass, String idPackageOwner) {
@@ -77,7 +79,7 @@ public class Variability implements Serializable {
         return bindingTime;
     }
 
-    public void addVariant(Variant variant){
+    public void addVariant(Variant variant) {
         variants.add(variant);
     }
 

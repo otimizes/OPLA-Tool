@@ -8,6 +8,9 @@ import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 
+/**
+ * Requires relationship class
+ */
 public class RequiresRelationship extends Relationship {
     String name;
     private Element client;
@@ -16,12 +19,6 @@ public class RequiresRelationship extends Relationship {
     public RequiresRelationship() {
     }
 
-    /**
-     * @param supplier
-     * @param client
-     * @param name
-     * @param id
-     */
     public RequiresRelationship(Element supplier, Element client, String name, String id) {
         setSupplier(supplier);
         setClient(client);

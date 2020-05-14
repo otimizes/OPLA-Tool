@@ -2,6 +2,9 @@ package br.ufpr.dinf.gres.architecture.main;
 
 import br.ufpr.dinf.gres.loglog.LogLog;
 
+/**
+ * GUI logger
+ */
 public class GuiLogs {
 
     private static LogLog logger;

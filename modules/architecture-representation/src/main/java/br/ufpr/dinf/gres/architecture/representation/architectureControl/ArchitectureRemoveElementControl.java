@@ -10,7 +10,6 @@ import java.util.Set;
 
 /**
  * This class has the implementation of all the method from Architecture that is used to remove an specific element from architecture
- *
  */
 public class ArchitectureRemoveElementControl {
     public ArchitectureRemoveElementControl() {
@@ -25,8 +24,9 @@ public class ArchitectureRemoveElementControl {
     /**
      * remove an interface using its id from the list of interfaces. To remove, create a new list of interfaces that not contain the specific interface and replace the original list
      * the method applies this technique because some times hash cannot remove an element even if exists in hash
+     *
      * @param architecture - target architecture
-     * @param id - id of target interface
+     * @param id           - id of target interface
      */
     public void removeInterfaceByID(Architecture architecture, String id) {
         Set<Interface> newHash = new HashSet<>();
@@ -45,8 +45,9 @@ public class ArchitectureRemoveElementControl {
 
     /**
      * remove an package from architecture
+     *
      * @param architecture - target architecture
-     * @param p -target package
+     * @param p            -target package
      */
     public void removePackage(Architecture architecture, Package p) {
         if (p.isTotalyFreezed()) return;
@@ -59,8 +60,9 @@ public class ArchitectureRemoveElementControl {
 
     /**
      * remove an interface from the list of interfaces using method removeInterfaceFromArch.
+     *
      * @param architecture - target architecture
-     * @param interfacee - target interface
+     * @param interfacee   - target interface
      */
     public void removeInterface(Architecture architecture, Interface interfacee) {
         if (interfacee.isTotalyFreezed()) return;
@@ -75,8 +77,9 @@ public class ArchitectureRemoveElementControl {
      * remove an interface using traditional method of hash
      * if cannot removed by hash, remove an interface using its id from the list of interfaces. To remove, create a new list of interfaces that not contain the specific interface and replace the original list
      * the method applies this technique because some times hash cannot remove an element even if exists in hash
+     *
      * @param architecture - target architecture
-     * @param interfacee - target interface
+     * @param interfacee   - target interface
      */
     private boolean removeInterfaceFromArch(Architecture architecture, Interface interfacee) {
         if (!interfacee.isTotalyFreezed()) {
@@ -87,7 +90,7 @@ public class ArchitectureRemoveElementControl {
                     return true;
             }
         }
-        if(ArchitectureFindElementControl.getInstance().findElementById(architecture, interfacee.getId()) != null){
+        if (ArchitectureFindElementControl.getInstance().findElementById(architecture, interfacee.getId()) != null) {
             removeInterfaceByID(architecture, interfacee.getId());
             return true;
         }
@@ -96,8 +99,9 @@ public class ArchitectureRemoveElementControl {
 
     /**
      * remove an class using pkg.removeClass ou class.remove
+     *
      * @param architecture - target architecture
-     * @param klass - target class
+     * @param klass        - target class
      */
     public void removeClass(Architecture architecture, Element klass) {
         if (klass.isTotalyFreezed()) return;
@@ -116,8 +120,9 @@ public class ArchitectureRemoveElementControl {
 
     /**
      * remove an subpackage using its id
+     *
      * @param parentPackage - parent of subpackage
-     * @param id - id of target subpackage
+     * @param id            - id of target subpackage
      */
     public void removeSubPackageByID(Package parentPackage, String id) {
         for (Package subPkg : parentPackage.getNestedPackages()) {
@@ -131,8 +136,9 @@ public class ArchitectureRemoveElementControl {
 
     /**
      * remove an relationship from qruitecture
+     *
      * @param architecture - target architecture
-     * @param as - relationship to remove
+     * @param as           - relationship to remove
      */
     public boolean removeRelationship(Architecture architecture, Relationship as) {
         System.out.println("removeRelationship()");
@@ -173,8 +179,9 @@ public class ArchitectureRemoveElementControl {
     /**
      * remove an element of architecture without remove its relationship.
      * can be used when move an element
+     *
      * @param architecture - target architecture
-     * @param element - target element
+     * @param element      - target element
      */
     public boolean removeOnlyElement(Architecture architecture, Element element) {
         if (!element.isTotalyFreezed()) {

@@ -1,7 +1,9 @@
 package br.ufpr.dinf.gres.architecture.helpers;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * UML element types
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ElementsTypes {
 

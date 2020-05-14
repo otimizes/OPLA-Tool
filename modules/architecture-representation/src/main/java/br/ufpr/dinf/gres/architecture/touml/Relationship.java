@@ -3,7 +3,9 @@ package br.ufpr.dinf.gres.architecture.touml;
 import br.ufpr.dinf.gres.architecture.exceptions.NotSuppportedOperation;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Relationship
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public interface Relationship {
 

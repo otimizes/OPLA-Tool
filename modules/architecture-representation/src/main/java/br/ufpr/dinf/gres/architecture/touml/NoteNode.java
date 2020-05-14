@@ -11,6 +11,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
+ * Note node
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class NoteNode extends XmiHelper {
@@ -67,7 +69,7 @@ public class NoteNode extends XmiHelper {
         Element layoutConstraint = docNotation.createElement("layoutConstraint");
         layoutConstraint.setAttribute("xmi:type", "notation:Bounds");
         layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
-        Node elementByAttr = getElementByAttr(new String[]{"xmi:type", "additionalInfo"}, new String[]{"notation:Bounds", variationPointForVariability.getVariationPointElement().getNamespace() + ":" +  variationPointForVariability.getVariationPointElement().getName()});
+        Node elementByAttr = getElementByAttr(new String[]{"xmi:type", "additionalInfo"}, new String[]{"notation:Bounds", variationPointForVariability.getVariationPointElement().getNamespace() + ":" + variationPointForVariability.getVariationPointElement().getName()});
         assert elementByAttr != null;
         int x = Integer.parseInt(elementByAttr.getAttributes().getNamedItem("x").getNodeValue()) + 100;
         layoutConstraint.setAttribute("x", elementByAttr.getAttributes().getNamedItem("x").getNodeValue());

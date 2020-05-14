@@ -7,15 +7,10 @@ import org.w3c.dom.Node;
 
 import java.util.List;
 
+/**
+ * XMI Relationships
+ */
 public class RelationshipsXMI {
-
-//	<eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_mEg_AImZEeOgtrpexJcSmg" source="Stereotype_Annotation">
-//	<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wVueMImbEeOgtrpexJcSmg" key="StereotypeWithQualifiedNameList" value=""/>
-//	<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wVueMYmbEeOgtrpexJcSmg" key="StereotypeList" value=",profile::Pattern1"/>
-//	<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wVueMombEeOgtrpexJcSmg" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
-//	<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wVueM4mbEeOgtrpexJcSmg" key="PropStereoDisplay" value=""/>
-//	<details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wVueNImbEeOgtrpexJcSmg" key="StereotypePropertyLocation" value="With brace"/>
-//	</eAnnotations>
 
     public static Element enableVisibleStereotypesWithBraces(Document docNotation, List<String> stereotypes) {
         Element eAnnotations = docNotation.createElement("eAnnotations");

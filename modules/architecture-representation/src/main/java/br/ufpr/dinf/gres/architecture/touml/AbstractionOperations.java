@@ -3,6 +3,9 @@ package br.ufpr.dinf.gres.architecture.touml;
 import br.ufpr.dinf.gres.architecture.exceptions.NotSuppportedOperation;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 
+/**
+ * Abstraction operations class
+ */
 public class AbstractionOperations implements Relationship {
 
     private static final String ABSTRACTION = "abstraction";

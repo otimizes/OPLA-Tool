@@ -4,7 +4,9 @@ import br.ufpr.dinf.gres.architecture.helpers.ElementsTypes;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Abstraction relationship class
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class AbstractionRelationship extends Relationship {
 

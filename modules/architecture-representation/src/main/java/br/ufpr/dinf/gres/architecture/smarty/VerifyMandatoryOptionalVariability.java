@@ -1,11 +1,10 @@
-package br.ufpr.dinf.gres.architecture.toSMarty;
+package br.ufpr.dinf.gres.architecture.smarty;
 
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.architecture.representation.architectureControl.ArchitectureFindElementControl;
 
 /**
  * Verify if an element is mandatory or optional using the variability

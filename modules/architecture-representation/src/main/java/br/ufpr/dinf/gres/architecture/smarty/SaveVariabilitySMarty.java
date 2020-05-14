@@ -1,17 +1,12 @@
-package br.ufpr.dinf.gres.architecture.toSMarty;
+package br.ufpr.dinf.gres.architecture.smarty;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Variability;
 import br.ufpr.dinf.gres.architecture.representation.Variant;
 import br.ufpr.dinf.gres.architecture.representation.VariationPoint;
-import br.ufpr.dinf.gres.architecture.toSMarty.relationship.SaveAssociationSMarty;
-import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
+import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 /**
  * This class save all variability to file

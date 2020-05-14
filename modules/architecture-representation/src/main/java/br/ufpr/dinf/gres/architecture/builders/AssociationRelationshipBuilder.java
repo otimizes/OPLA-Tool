@@ -1,13 +1,15 @@
 package br.ufpr.dinf.gres.architecture.builders;
 
 import br.ufpr.dinf.gres.architecture.base.ArchitectureHelper;
-import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.base.AssociationHelper;
+import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationRelationship;
 import org.eclipse.uml2.uml.Association;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Create association relationship builder
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class AssociationRelationshipBuilder extends ArchitectureHelper {
 

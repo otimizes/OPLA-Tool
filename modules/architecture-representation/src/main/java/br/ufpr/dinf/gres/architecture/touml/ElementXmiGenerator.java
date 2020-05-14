@@ -15,10 +15,11 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Element XMI generator
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ElementXmiGenerator extends XmiHelper {
-
 
     private static final String METHOD_ID = "3013";
     private static final String METHODO_TYPE = "uml:Operation";

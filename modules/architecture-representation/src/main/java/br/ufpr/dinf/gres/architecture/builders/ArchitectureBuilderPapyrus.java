@@ -11,12 +11,12 @@ import br.ufpr.dinf.gres.architecture.helpers.ModelElementHelper;
 import br.ufpr.dinf.gres.architecture.helpers.ModelHelper;
 import br.ufpr.dinf.gres.architecture.helpers.ModelHelperFactory;
 import br.ufpr.dinf.gres.architecture.helpers.StereotypeHelper;
-import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationClassRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
@@ -146,6 +146,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         }
     }
 
+    /**
+     * Load abstractions
+     *
+     * @return abstractions
+     */
     private List<? extends Relationship> loadAbstractions() {
         List<Abstraction> abstractions = modelHelper.getAllAbstractions(model);
         List<Relationship> relations = new ArrayList<Relationship>();
@@ -165,6 +170,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         return relations;
     }
 
+    /**
+     * Load internal class relationships
+     *
+     * @return relationships
+     */
     private List<Relationship> loadInterClassRelationships() {
         List<Relationship> relationships = new ArrayList<Relationship>();
         relationships.addAll(loadGeneralizations());
@@ -199,6 +209,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         return usageClass;
     }
 
+    /**
+     * Load associations
+     *
+     * @return associations
+     */
     private List<AssociationClassRelationship> loadAssociationClassAssociation() {
         List<AssociationClassRelationship> associationClasses = new ArrayList<AssociationClassRelationship>();
         List<AssociationClass> associationsClass = modelHelper.getAllAssociationsClass(model);
@@ -212,6 +227,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         return associationClasses;
     }
 
+    /**
+     * Load realizations
+     *
+     * @return realizations
+     */
     private List<? extends Relationship> loadRealizations() {
         List<Relationship> relationships = new ArrayList<Relationship>();
         List<Realization> realizations = modelHelper.getAllRealizations(model);
@@ -234,6 +254,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         return relationships;
     }
 
+    /**
+     * Load dependencies
+     *
+     * @return dependencies
+     */
     private List<? extends Relationship> loadDependencies() {
         List<Relationship> relationships = new ArrayList<Relationship>();
         List<Dependency> dependencies = modelHelper.getAllDependencies(model);
@@ -247,6 +272,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         return relationships;
     }
 
+    /**
+     * Load generalizations
+     *
+     * @return generations
+     */
     private List<? extends Relationship> loadGeneralizations() {
         List<Relationship> relationships = new ArrayList<Relationship>();
         List<EList<Generalization>> generalizations = modelHelper.getAllGeneralizations(model);
@@ -260,6 +290,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         return relationships;
     }
 
+    /**
+     * Load associations
+     *
+     * @return relationships
+     */
     private List<Relationship> loadAssociations() {
         List<Relationship> relationships = new ArrayList<Relationship>();
         List<Association> associations = modelHelper.getAllAssociations(model);
@@ -272,6 +307,15 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         return relationships;
     }
 
+    /**
+     * Load variabilities
+     *
+     * @return variabilities
+     * @throws ModelNotFoundException                   not found model
+     * @throws ModelIncompleteException                 incomplete model
+     * @throws SMartyProfileNotAppliedToModelExcepetion not applied profile
+     * @throws VariationPointElementTypeErrorException  element variation point type error
+     */
     private List<Variability> loadVariability() throws ModelNotFoundException, ModelIncompleteException,
             SMartyProfileNotAppliedToModelExcepetion, VariationPointElementTypeErrorException {
         List<Variability> variabilities = new ArrayList<Variability>();
@@ -291,6 +335,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         return Collections.emptyList();
     }
 
+    /**
+     * Load classes
+     *
+     * @return classes
+     */
     private List<Class> loadClasses() {
         List<Class> listOfClasses = new ArrayList<Class>();
         List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
@@ -304,6 +353,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         return listOfClasses;
     }
 
+    /**
+     * Load interfaces
+     *
+     * @return interfaces
+     */
     private List<Interface> loadInterfaces() {
         List<Interface> listOfInterfaces = new ArrayList<Interface>();
         List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
@@ -316,9 +370,9 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
     }
 
     /**
-     * Retornar todos os pacotes
+     * Returns all packages
      *
-     * @return {@link Collection<mestrado.arquitetura.representation.Package>}
+     * @return {@link Package}
      */
     private List<br.ufpr.dinf.gres.architecture.representation.Package> loadPackages() {
         List<br.ufpr.dinf.gres.architecture.representation.Package> packages = new ArrayList<br.ufpr.dinf.gres.architecture.representation.Package>();
@@ -333,12 +387,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
     }
 
     /**
-     * Inicializa os elementos da br.ufpr.dinf.gres.arquitetura. Instanciando as classes builders
-     * juntamente com suas depedências.
+     * Initializes the elements of br.ufpr.dinf.gres.arquitectura. Instantiating builder classes with their dependencies.
      *
-     * @param architecture
-     * @throws ModelIncompleteException
-     * @throws ModelNotFoundException
+     * @param architecture architecture
+     * @throws ModelIncompleteException incomplete model
+     * @throws ModelNotFoundException   not found model
      */
     private void initialize(Architecture architecture) throws ModelNotFoundException, ModelIncompleteException {
         classBuilder = new ClassBuilder(architecture);

@@ -7,6 +7,9 @@ import br.ufpr.dinf.gres.architecture.representation.Interface;
 
 import java.util.Set;
 
+/**
+ * Stereotype operations
+ */
 public class StereotypeOperations {
 
     private static final String PATTERNS = "br.ufpr.dinf.gres.patterns";

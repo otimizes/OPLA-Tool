@@ -1,7 +1,9 @@
 package br.ufpr.dinf.gres.architecture.touml;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Argument class
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Argument {
 

@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Package operations
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class PackageOperations extends XmiHelper {

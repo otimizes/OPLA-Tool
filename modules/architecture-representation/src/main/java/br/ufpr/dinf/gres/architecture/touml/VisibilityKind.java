@@ -8,7 +8,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Visibility types
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public enum VisibilityKind implements Enumerator {
     PUBLIC_LITERAL(0, "public", "public"),

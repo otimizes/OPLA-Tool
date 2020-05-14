@@ -2,8 +2,8 @@ package br.ufpr.dinf.gres.architecture.touml;
 
 import br.ufpr.dinf.gres.architecture.exceptions.*;
 import br.ufpr.dinf.gres.architecture.helpers.XmiHelper;
-import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.io.SaveAndMove;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.domain.config.FileUtils;
 import com.google.common.io.Files;
 import org.apache.log4j.Logger;
@@ -22,6 +22,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
+ * Document manager
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class DocumentManager extends XmiHelper {

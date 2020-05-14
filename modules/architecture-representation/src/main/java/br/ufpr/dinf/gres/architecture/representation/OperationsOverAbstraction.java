@@ -5,6 +5,9 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.AbstractionRel
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+/**
+ * Operations over abstraction class
+ */
 public class OperationsOverAbstraction {
 
     static Logger LOGGER = LogManager.getLogger(OperationsOverAbstraction.class.getName());

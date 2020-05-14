@@ -4,7 +4,7 @@ import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
-import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
+import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;

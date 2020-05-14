@@ -12,6 +12,8 @@ import java.util.Objects;
 
 
 /**
+ * Mutex relationship class
+ *
  * @author mamoru
  */
 public class MutexRelationship extends Relationship {
@@ -23,12 +25,6 @@ public class MutexRelationship extends Relationship {
     public MutexRelationship() {
     }
 
-    /**
-     * @param supplier
-     * @param client
-     * @param name
-     * @param id
-     */
     public MutexRelationship(Element supplier, Element client, String name, String id) {
         setSupplier(supplier);
         setClient(client);

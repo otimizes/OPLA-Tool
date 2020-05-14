@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author edipofederle<edipofederle   @   gmail.com>
+ * Dependency node
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class DependencyNode extends XmiHelper {
 

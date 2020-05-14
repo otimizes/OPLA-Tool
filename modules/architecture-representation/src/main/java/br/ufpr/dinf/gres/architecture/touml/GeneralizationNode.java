@@ -9,7 +9,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Generalization node
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class GeneralizationNode extends XmiHelper {
 

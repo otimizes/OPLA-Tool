@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Class that contains association class methods
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 
@@ -25,6 +27,12 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
         classBuilder = new ClassBuilder(architecture);
     }
 
+    /**
+     * Create association class
+     *
+     * @param associationClass association class
+     * @return association class
+     */
     public AssociationClassRelationship create(AssociationClass associationClass) {
         List<MemberEnd> membersEnd = new ArrayList<MemberEnd>();
 

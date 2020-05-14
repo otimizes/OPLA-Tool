@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Variation point representation
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class VariationPoint {
 

@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments.base;
 
-import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
+import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.common.exceptions.JMException;

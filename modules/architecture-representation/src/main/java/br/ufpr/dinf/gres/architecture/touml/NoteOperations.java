@@ -7,7 +7,9 @@ import br.ufpr.dinf.gres.architecture.representation.VariationPoint;
 import org.w3c.dom.Node;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Note operations
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class NoteOperations extends XmiHelper {
 

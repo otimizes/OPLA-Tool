@@ -9,7 +9,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Remove node
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class RemoveNode extends XmiHelper {
 

@@ -9,6 +9,8 @@ import java.util.List;
 
 
 /**
+ * Association relationship class
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class AssociationRelationship extends Relationship {

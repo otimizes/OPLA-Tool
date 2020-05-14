@@ -1,19 +1,18 @@
 package br.ufpr.dinf.gres.architecture.representation;
 
-import br.ufpr.dinf.gres.architecture.exceptions.AttributeNotFoundException;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
 import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.RealizationRelationship;
-import br.ufpr.dinf.gres.architecture.representation.relationship.RelationshiopCommons;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.architecture.touml.Types;
-import br.ufpr.dinf.gres.architecture.touml.VisibilityKind;
+import br.ufpr.dinf.gres.architecture.representation.relationship.RelationshipCommons;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.util.*;
 
 /**
+ * Interface representation
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Interface extends Element {
@@ -244,7 +243,7 @@ public class Interface extends Element {
     }
 
     public Set<Relationship> getRelationships() {
-        return Collections.unmodifiableSet(RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this));
+        return Collections.unmodifiableSet(RelationshipCommons.getRelationships(relationshipHolder.getRelationships(), this));
     }
 
     public void setPatternOperations(PatternsOperations patternOperations) {

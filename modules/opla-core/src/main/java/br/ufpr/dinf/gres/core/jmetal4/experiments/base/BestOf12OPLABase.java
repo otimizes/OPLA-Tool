@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments.base;
 
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
-import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
+import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;

@@ -3,6 +3,9 @@ package br.ufpr.dinf.gres.architecture.touml;
 import br.ufpr.dinf.gres.architecture.exceptions.NotSuppportedOperation;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 
+/**
+ * Realizations operations
+ */
 public class RealizationsOperations implements Relationship {
 
     private static final String REALIZATION = "realization";

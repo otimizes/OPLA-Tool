@@ -4,7 +4,9 @@ import br.ufpr.dinf.gres.architecture.exceptions.NotSuppportedOperation;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Usage operations
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class UsageOperations implements Relationship {
 

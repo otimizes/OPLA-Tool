@@ -10,10 +10,11 @@ import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import java.util.*;
 
 /**
+ * Element utils
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public abstract class ElementHelper {
-
 
     private static Map<String, EClass> types = new HashMap<String, EClass>();
 
@@ -34,11 +35,12 @@ public abstract class ElementHelper {
     }
 
     /**
-     * Retorna todos os elemento do um dado tipo.
+     * Retorna todos os elementos do tipo dado.
      *
-     * @param model
-     * @param type
-     * @return
+     * @param model element
+     * @param type  type
+     * @param <T>   type of element
+     * @return list of element
      */
     @SuppressWarnings("unchecked")
     public static <T> List<T> getAllElementsByType(NamedElement model, String type) {

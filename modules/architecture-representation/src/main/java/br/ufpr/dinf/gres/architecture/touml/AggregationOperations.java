@@ -5,7 +5,9 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationEnd
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Aggregation operations class
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class AggregationOperations {
 

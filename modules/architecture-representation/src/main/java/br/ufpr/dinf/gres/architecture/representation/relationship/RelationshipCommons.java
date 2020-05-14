@@ -1,12 +1,15 @@
 package br.ufpr.dinf.gres.architecture.representation.relationship;
 
+import br.ufpr.dinf.gres.architecture.representation.Element;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import br.ufpr.dinf.gres.architecture.representation.Element;
-
-public class RelationshiopCommons {
+/**
+ * Relationship commons class
+ */
+public class RelationshipCommons {
 
     /**
      * Retornar todos os relacionamentos para o elemento passado

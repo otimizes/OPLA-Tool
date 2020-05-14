@@ -4,9 +4,9 @@ package br.ufpr.dinf.gres.architecture.main;
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
-import br.ufpr.dinf.gres.architecture.toSMarty.*;
-import br.ufpr.dinf.gres.architecture.toSMarty.relationship.SaveRelationshipSMarty;
-import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
+import br.ufpr.dinf.gres.architecture.smarty.*;
+import br.ufpr.dinf.gres.architecture.smarty.relationship.SaveRelationshipSMarty;
+import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.architecture.touml.ArchitectureBase;
 
 import java.io.*;

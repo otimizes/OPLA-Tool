@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Builder responsável por criar element do tipo Pacote.
+ * Builder responsible for creating Package type elements.
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */

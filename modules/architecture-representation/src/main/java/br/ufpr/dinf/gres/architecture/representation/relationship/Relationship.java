@@ -6,7 +6,9 @@ import java.util.List;
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com> <br /><br/>
+ * Relationship class
+ *
+ * @author edipofederle<edipofederle @ gmail.com> <br /><br/>
  * <p>
  * <p>
  * OBS: Esterótipos somente foram implementamos para o relacionamento do {@link DependencyRelationship}.

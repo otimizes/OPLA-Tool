@@ -5,7 +5,9 @@ import br.ufpr.dinf.gres.architecture.exceptions.ModelNotFoundException;
 import br.ufpr.dinf.gres.architecture.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Architecture base class
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public abstract class ArchitectureBase {
 

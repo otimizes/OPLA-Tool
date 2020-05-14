@@ -1,7 +1,9 @@
 package br.ufpr.dinf.gres.architecture.touml;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Binding time representation
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class BindingTime {
 

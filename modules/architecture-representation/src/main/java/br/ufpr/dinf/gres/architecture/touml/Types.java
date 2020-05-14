@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Types
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Types {
 

@@ -5,7 +5,6 @@ import br.ufpr.dinf.gres.architecture.flyweights.VariabilityFlyweight;
 import br.ufpr.dinf.gres.architecture.flyweights.VariantFlyweight;
 import br.ufpr.dinf.gres.architecture.flyweights.VariationPointFlyweight;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.main.GenerateArchitecture;
 import br.ufpr.dinf.gres.architecture.main.GenerateArchitectureSMarty;
 import br.ufpr.dinf.gres.architecture.representation.architectureControl.ArchitectureFindElementControl;
@@ -13,8 +12,9 @@ import br.ufpr.dinf.gres.architecture.representation.architectureControl.Archite
 import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.RealizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
+import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.common.Variable;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
@@ -22,6 +22,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * Architecture representation class
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Architecture extends Variable {

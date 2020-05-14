@@ -1,6 +1,5 @@
 package br.ufpr.dinf.gres.architecture.base;
 
-import br.ufpr.dinf.gres.architecture.base.ArchitectureHelper;
 import br.ufpr.dinf.gres.architecture.builders.AssociationEndBuilder;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationEnd;
@@ -10,6 +9,9 @@ import org.eclipse.uml2.uml.Property;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that contain assist association methods
+ */
 public class AssociationHelper extends ArchitectureHelper {
 
     private AssociationEndBuilder associationEndBuilder;
@@ -20,6 +22,12 @@ public class AssociationHelper extends ArchitectureHelper {
         this.architecture = architecture;
     }
 
+    /**
+     * Get association ends from association
+     *
+     * @param association association
+     * @return association ends
+     */
     public List<? extends AssociationEnd> getParticipants(Association association) {
         List<AssociationEnd> elementsOfAssociation = new ArrayList<AssociationEnd>();
 

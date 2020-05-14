@@ -11,7 +11,9 @@ import org.eclipse.uml2.uml.Operation;
 import java.util.List;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Interface builder class
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class InterfaceBuilder extends ElementBuilder<br.ufpr.dinf.gres.architecture.representation.Interface> {
 
@@ -22,6 +24,12 @@ public class InterfaceBuilder extends ElementBuilder<br.ufpr.dinf.gres.architect
         this.methodBuilder = new MethodBuilder(architecture);
     }
 
+    /**
+     * Builder for the interface
+     *
+     * @param modelElement element
+     * @return created interface
+     */
     @Override
     protected Interface buildElement(NamedElement modelElement) {
 

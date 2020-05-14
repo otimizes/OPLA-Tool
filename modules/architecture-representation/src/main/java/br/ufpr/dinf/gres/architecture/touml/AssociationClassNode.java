@@ -8,9 +8,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+/**
+ * Association class node
+ */
 public class AssociationClassNode extends XmiHelper {
-
-
     private String newModelName;
     private Document docUml;
     private Document docNotation;

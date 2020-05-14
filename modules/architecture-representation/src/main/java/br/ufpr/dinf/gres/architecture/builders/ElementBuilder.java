@@ -15,8 +15,10 @@ import java.util.List;
 
 
 /**
- * @param <T>
- * @author edipofederle<edipofederle@gmail.com>
+ * Element builder
+ *
+ * @param <T> element
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public abstract class ElementBuilder<T extends br.ufpr.dinf.gres.architecture.representation.Element> {
 
@@ -34,10 +36,10 @@ public abstract class ElementBuilder<T extends br.ufpr.dinf.gres.architecture.re
     protected abstract T buildElement(NamedElement modelElement);
 
     /**
-     * Cria um novo elemento arquitetural.
+     * Creates a new architectural element
      *
-     * @param modelElement
-     * @return
+     * @param modelElement element
+     * @return created element
      */
     public T create(NamedElement modelElement) {
         initialize();
@@ -53,6 +55,11 @@ public abstract class ElementBuilder<T extends br.ufpr.dinf.gres.architecture.re
         return element;
     }
 
+    /**
+     * Inspect stereotypes adding if does not have
+     *
+     * @param modelElement element
+     */
     private void inspectStereotypes(NamedElement modelElement) {
         List<Stereotype> allStereotypes = ModelElementHelper.getAllStereotypes(modelElement);
         for (Stereotype stereotype : allStereotypes) {
@@ -60,11 +67,19 @@ public abstract class ElementBuilder<T extends br.ufpr.dinf.gres.architecture.re
         }
     }
 
+    /**
+     * Add stereotype if does not have
+     *
+     * @param stereotype stereotype
+     */
     private void verifyConcern(Stereotype stereotype) {
         if (StereotypeHelper.hasConcern(stereotype))
             concerns.add(stereotype.getName());
     }
 
+    /**
+     * Initialize builder
+     */
     private void initialize() {
         name = "";
         isVariationPoint = false;

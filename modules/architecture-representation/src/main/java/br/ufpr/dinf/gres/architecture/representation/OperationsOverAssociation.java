@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Classe usada para realizar operações sobre Associations. Seu uso é feito da seguinte forma:<br/><br/>
+ * Class used to perform operations on Associations. Its use is made as follows:<br/><br/>
  * <p>
  * {@code  a.forAssociation().createAssociationEnd() }<br/>
  * {@code	.withKlass(class1)}<br/>
@@ -20,7 +20,7 @@ import java.util.Set;
  * {@code      .withMultiplicity("1..1)}<br/>
  * {@code	.navigable().build();}<br/>
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class OperationsOverAssociation {
 

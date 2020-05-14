@@ -1,7 +1,6 @@
-package br.ufpr.dinf.gres.architecture.toSMarty.relationship;
+package br.ufpr.dinf.gres.architecture.smarty.relationship;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.architecture.toSMarty.SaveClassSMarty;
 
 import java.io.PrintWriter;
 

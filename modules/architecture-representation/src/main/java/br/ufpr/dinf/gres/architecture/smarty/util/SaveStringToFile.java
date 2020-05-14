@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.architecture.toSMarty.util;
+package br.ufpr.dinf.gres.architecture.smarty.util;
 
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 

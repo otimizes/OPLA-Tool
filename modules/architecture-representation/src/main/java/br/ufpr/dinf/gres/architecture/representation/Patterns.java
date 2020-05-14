@@ -1,7 +1,7 @@
 package br.ufpr.dinf.gres.architecture.representation;
 
 /**
- * Possíveis br.ufpr.dinf.gres.patterns a serem aplicados em classes e interfaces.
+ * Patterns to be applied in classes and interfaces
  *
  * @author edipofederle
  */

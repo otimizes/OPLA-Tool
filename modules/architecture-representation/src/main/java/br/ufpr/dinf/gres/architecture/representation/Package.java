@@ -1,8 +1,8 @@
 package br.ufpr.dinf.gres.architecture.representation;
 
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.architecture.representation.relationship.RelationshiopCommons;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
+import br.ufpr.dinf.gres.architecture.representation.relationship.RelationshipCommons;
 import org.apache.log4j.Logger;
 
 import java.util.HashSet;
@@ -11,9 +11,9 @@ import java.util.Set;
 
 
 /**
- * {@link Package} representa um elemento Pacote dentro da br.ufpr.dinf.gres.arquitetura.
+ * {@link Package} represents a package
  * <p>
- * Pacotes podem conter {@link Class}'s {@link Interface} e outros {@link Package}'s
+ * Packages can have {@link Class}'s {@link Interface} and another {@link Package}'s
  *
  * @author edipofederle <edipofederle@gmail.com>
  */
@@ -208,14 +208,15 @@ public class Package extends Element {
      * if this package not has the selected interface, cannot move
      * if destiny package has the same interface, cannot move
      * if interface cannot remove from this package by hash, remove by id
-     * @param inter - interface to move
+     *
+     * @param inter         - interface to move
      * @param packageToMove - destiny package
      * @return
      */
     public boolean moveInterfaceToPackage(Interface inter, Package packageToMove) {
         if (inter.isTotalyFreezed() || packageToMove.isTotalyFreezed()) return false;
         if (!interfaces.contains(inter)) return false;
-        if(packageToMove.findInterfaceByID(inter.getId())) return false; // if package has that interface, not add
+        if (packageToMove.findInterfaceByID(inter.getId())) return false; // if package has that interface, not add
         packageToMove.addExternalInterface(inter);
         this.interfaces.remove(inter);
         this.removeInterfaceByID(inter.getId()); // try remove interface by id if fail to remove using object
@@ -223,9 +224,9 @@ public class Package extends Element {
         return true;
     }
 
-    public boolean findInterfaceByID(String id){
-        for(Interface inter : interfaces){
-            if(inter.getId().equals(id))
+    public boolean findInterfaceByID(String id) {
+        for (Interface inter : interfaces) {
+            if (inter.getId().equals(id))
                 return true;
         }
         return false;
@@ -236,7 +237,7 @@ public class Package extends Element {
     }
 
     public void addExternalInterface(Interface inter) {
-        if(findInterfaceByID(inter.getId())) return; // if package has interface, not add
+        if (findInterfaceByID(inter.getId())) return; // if package has interface, not add
         interfaces.add(inter);
     }
 
@@ -258,8 +259,8 @@ public class Package extends Element {
             if (this.interfaces.remove(interfacee)) {
                 LOGGER.info("Interface: " + interfacee.getName() + " removida do pacote: " + this.getName());
                 return true;
-            }else{
-                if(findInterfaceByID(interfacee.getId())){
+            } else {
+                if (findInterfaceByID(interfacee.getId())) {
                     removeInterfaceByID(interfacee.getId());
                     return true;
                 }
@@ -271,6 +272,7 @@ public class Package extends Element {
     /**
      * recreate a new has that not has interface with selected id
      * hash some times cannot remove using its original function, then this method are created to remove that type of interface
+     *
      * @param id - id of interface to remove
      */
     public void removeInterfaceByID(String id) {
@@ -336,8 +338,8 @@ public class Package extends Element {
                 if (this.interfaces.remove(element)) {
                     LOGGER.info("Interface: " + element.getName() + " removida do pacote: " + this.getName());
                     return true;
-                }else{
-                    if(findInterfaceByID(element.getId())){ // if exist, force remove
+                } else {
+                    if (findInterfaceByID(element.getId())) { // if exist, force remove
                         removeInterfaceByID(element.getId());
                         return true;
                     }
@@ -356,7 +358,7 @@ public class Package extends Element {
     }
 
     public Set<Relationship> getRelationships() {
-        return RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this);
+        return RelationshipCommons.getRelationships(relationshipHolder.getRelationships(), this);
     }
 
     @Override

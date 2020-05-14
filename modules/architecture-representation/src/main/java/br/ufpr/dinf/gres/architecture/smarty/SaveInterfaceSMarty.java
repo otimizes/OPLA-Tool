@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.architecture.toSMarty;
+package br.ufpr.dinf.gres.architecture.smarty;
 
 import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Package;

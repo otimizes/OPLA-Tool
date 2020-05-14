@@ -8,7 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Attribute representation
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Attribute {
 

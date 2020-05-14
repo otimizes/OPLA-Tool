@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
+ * Element representation
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public abstract class Element implements Serializable {
@@ -201,7 +203,7 @@ public abstract class Element implements Serializable {
             addConcern(name);
     }
 
-    public void addExternalConcern(Concern concern){
+    public void addExternalConcern(Concern concern) {
         concerns.add(concern);
     }
 

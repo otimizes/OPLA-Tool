@@ -3,6 +3,9 @@ package br.ufpr.dinf.gres.architecture.representation;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
 import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
 
+/**
+ * Operations over dependency
+ */
 public class OperationsOverDependency {
 
     private DependencyRelationship dependency;

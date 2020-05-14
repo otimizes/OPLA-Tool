@@ -1,10 +1,10 @@
-package br.ufpr.dinf.gres.architecture.toSMarty.relationship;
+package br.ufpr.dinf.gres.architecture.smarty.relationship;
 
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.relationship.GeneralizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
+import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 
 import java.io.PrintWriter;
 

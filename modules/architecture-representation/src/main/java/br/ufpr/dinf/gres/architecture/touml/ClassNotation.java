@@ -7,20 +7,20 @@ import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
 import br.ufpr.dinf.gres.architecture.helpers.XmiHelper;
 import br.ufpr.dinf.gres.architecture.representation.Attribute;
 import br.ufpr.dinf.gres.architecture.representation.Class;
-import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.Method;
 import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
+ * Class notation
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ClassNotation extends XmiHelper {
-
-
     private static final String SHOW_PROPERTY_TYPE = "7066";
     private static final String LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE = "7017";
     private static final String LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE = "7018";

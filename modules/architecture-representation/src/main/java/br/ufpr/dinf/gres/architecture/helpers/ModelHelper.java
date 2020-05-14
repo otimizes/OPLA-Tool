@@ -9,9 +9,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.uml2.uml.*;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.*;
 import org.eclipse.uml2.uml.internal.impl.DependencyImpl;
 import org.eclipse.uml2.uml.internal.impl.ModelImpl;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
@@ -24,7 +24,7 @@ import java.util.List;
 import static br.ufpr.dinf.gres.architecture.helpers.ElementsTypes.*;
 
 /**
- * Helper para atuar sobre um model ( br.ufpr.dinf.gres.arquitetura ).
+ * Helper to execute a model (br.ufpr.dinf.gres.architecture)
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */

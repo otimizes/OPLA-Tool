@@ -3,7 +3,6 @@ package br.ufpr.dinf.gres.architecture.main;
 import br.ufpr.dinf.gres.architecture.exceptions.*;
 import br.ufpr.dinf.gres.architecture.helpers.Strings;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Attribute;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
@@ -11,6 +10,7 @@ import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.*;
 import br.ufpr.dinf.gres.architecture.touml.Method;
 import br.ufpr.dinf.gres.architecture.touml.*;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import org.apache.log4j.LogManager;
@@ -19,6 +19,9 @@ import org.apache.log4j.Logger;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Papyrus architecture generator
+ */
 public class GenerateArchitecture extends ArchitectureBase {
 
     static Logger LOGGER = LogManager.getLogger(GenerateArchitecture.class.getName());

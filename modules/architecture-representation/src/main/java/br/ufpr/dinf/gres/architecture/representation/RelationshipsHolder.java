@@ -6,6 +6,9 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.*;
 
 import java.util.*;
 
+/**
+ * Relationships holder class
+ */
 public class RelationshipsHolder {
 
     private Set<Relationship> relationships = new HashSet<Relationship>();

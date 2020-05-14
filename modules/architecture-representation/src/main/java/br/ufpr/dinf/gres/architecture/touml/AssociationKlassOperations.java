@@ -1,8 +1,8 @@
 package br.ufpr.dinf.gres.architecture.touml;
 
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Attribute;
 import br.ufpr.dinf.gres.architecture.representation.Class;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationClassRelationship;
 
 import java.util.ArrayList;
@@ -10,7 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
+/**
+ * Association class operations
+ */
 public class AssociationKlassOperations {
 
     private DocumentManager documentManager;

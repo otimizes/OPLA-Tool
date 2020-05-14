@@ -6,7 +6,9 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import java.util.List;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Dependency operations
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class DependencyOperations implements Relationship {
 
