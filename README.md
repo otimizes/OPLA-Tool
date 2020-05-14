@@ -6,7 +6,6 @@
 
 This project was created from the project  https://github.com/SBSE-UEM/OPLA-Tool-Spyke.
 
-
 ## Requirements
 Before to compile the code, you need to install the following softwares on your PC:
 - Java - [Java Development Kit (Version >= 6)](https://www.oracle.com/java/technologies/javase-jdk8-downloads.html)
@@ -36,6 +35,8 @@ mvn clean install Obs: If it is the first run, execute **mvn clean** first to in
 ```sh
 java -jar modules/opla-gui/target/opla-gui-1.0.0-SNAPSHOT-jar-with-dependencies
 ```
+## How to use the OPLA-Tool
+[\<Click here to see how\>](https://github.com/SBSE-UEM/OPLA-Tool/blob/master/USAGE.md)
 
 ## How to open the PLAs
 
