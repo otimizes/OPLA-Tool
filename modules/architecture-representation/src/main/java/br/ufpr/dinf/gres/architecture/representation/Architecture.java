@@ -246,9 +246,9 @@ public class Architecture extends Variable {
     }
 
     public List<String> getAllComments() {
-        List<String> comments = getAllClasses().stream().filter(Element::hasComments).map(Element::getComments).collect(Collectors.toList());
-        comments.addAll(getAllPackages().stream().filter(Element::hasComments).map(Element::getComments).collect(Collectors.toList()));
-        comments.addAll(getAllInterfaces().stream().filter(Element::hasComments).map(Element::getComments).collect(Collectors.toList()));
+        List<String> comments = getAllClasses().stream().filter(Element::hasComments).map(Element::getStringComments).collect(Collectors.toList());
+        comments.addAll(getAllPackages().stream().filter(Element::hasComments).map(Element::getStringComments).collect(Collectors.toList()));
+        comments.addAll(getAllInterfaces().stream().filter(Element::hasComments).map(Element::getStringComments).collect(Collectors.toList()));
         return comments;
     }
 

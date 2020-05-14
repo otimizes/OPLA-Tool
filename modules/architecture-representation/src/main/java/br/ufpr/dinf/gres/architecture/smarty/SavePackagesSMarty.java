@@ -33,7 +33,7 @@ public class SavePackagesSMarty {
         String tab = "    ";
         for (Package pkg : architecture.getAllPackages()) {
             printWriter.write("\n" + tab + "<package id=\"" + pkg.getId() + "\" name=\"" + pkg.getName() + "\" mandatory=\"" + pkg.isMandatory() + "\" x=\"" + pkg.getPosX() + "\" y=\"" + pkg.getPosY() + "\" globalX=\"" + pkg.getGlobalPosX() + "\" globalY=\"" + pkg.getGlobalPosY() + "\" height=\"" + pkg.getHeight() + "\" width=\"" + pkg.getWidth() + "\">");
-            printWriter.write("\n" + tab + halfTab + "<description>"+pkg.getComments()+"</description>");
+            printWriter.write("\n" + tab + halfTab + "<description>"+pkg.getStringComments()+"</description>");
             printWriter.write("\n" + tab + "</package>");
             saveSubPackage(pkg, printWriter);
         }
@@ -50,7 +50,7 @@ public class SavePackagesSMarty {
         String tab = "    ";
         for (Package subPackage : pkgOrigin.getNestedPackages()) {
             printWriter.write("\n" + tab + "<package id=\"" + subPackage.getId() + "\" name=\"" + subPackage.getName() + "\" mandatory=\"" + subPackage.isMandatory() + "\" x=\"" + subPackage.getPosX() + "\" y=\"" + subPackage.getPosY() + "\" globalX=\"" + subPackage.getGlobalPosX() + "\" globalY=\"" + subPackage.getGlobalPosY() + "\" height=\"" + subPackage.getHeight() + "\" width=\"" + subPackage.getWidth() + "\">");
-            printWriter.write("\n" + tab + halfTab + "<description>"+subPackage.getComments()+"</description>");
+            printWriter.write("\n" + tab + halfTab + "<description>"+subPackage.getStringComments()+"</description>");
             printWriter.write("\n" + tab + "</package>");
             saveSubPackage(subPackage, printWriter);
         }

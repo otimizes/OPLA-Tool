@@ -31,7 +31,7 @@ public class SaveInterfaceSMarty {
         String tab = "    ";
         for (Interface inter : architecture.getInterfaces()) {
             printWriter.write("\n" + tab + "<interface id=\"" + inter.getId() + "\" name=\"" + inter.getName() + "\" mandatory=\"" + inter.isMandatory() + "\" x=\"" + inter.getPosX() + "\" y=\"" + inter.getPosY() + "\" globalX=\"" + inter.getGlobalPosX() + "\" globalY=\"" + inter.getGlobalPosY() + "\" height=\"" + inter.getHeight() + "\" width=\"" + inter.getWidth() + "\" parent=\"\">");
-            printWriter.write("\n" + tab + halfTab + "<description>"+inter.getComments()+"</description>");
+            printWriter.write("\n" + tab + halfTab + "<description>"+inter.getStringComments()+"</description>");
             for (Method m : inter.getMethods()) {
                 TypeSmarty typeS = architecture.findReturnTypeSMartyByName(m.getReturnType());
                 printWriter.write("\n" + tab + halfTab + "<method id=\"" + m.getId() + "\" name=\"" + m.getName() + "\" return=\"" + typeS.getId() + "\" visibility=\"" + m.getVisibility() + "\" constructor=\"" + m.isConstructor() + "\" static=\"" + m.isStatic() + "\" final=\"" + m.isFinal() + "\" abstract=\"" + m.isAbstract() + "\">");
@@ -48,7 +48,7 @@ public class SaveInterfaceSMarty {
         for (Package pkg : architecture.getAllPackages()) {
             for (Interface inter : pkg.getAllInterfaces()) {
                 printWriter.write("\n" + tab + "<interface id=\"" + inter.getId() + "\" name=\"" + inter.getName() + "\" mandatory=\"" + inter.isMandatory() + "\" x=\"" + inter.getPosX() + "\" y=\"" + inter.getPosY() + "\" globalX=\"" + inter.getGlobalPosX() + "\" globalY=\"" + inter.getGlobalPosY() + "\" height=\"" + inter.getHeight() + "\" width=\"" + inter.getWidth() + "\" parent=\"" + pkg.getId() + "\">");
-                printWriter.write("\n" + tab + halfTab + "<description>"+inter.getComments()+"</description>");
+                printWriter.write("\n" + tab + halfTab + "<description>"+inter.getStringComments()+"</description>");
                 for (Method m : inter.getMethods()) {
                     TypeSmarty typeS = architecture.findReturnTypeSMartyByName(m.getReturnType());
                     printWriter.write("\n" + tab + halfTab + "<method id=\"" + m.getId() + "\" name=\"" + m.getName() + "\" return=\"" + typeS.getId() + "\" visibility=\"" + m.getVisibility() + "\" constructor=\"" + m.isConstructor() + "\" static=\"" + m.isStatic() + "\" final=\"" + m.isFinal() + "\" abstract=\"" + m.isAbstract() + "\">");
@@ -79,7 +79,7 @@ public class SaveInterfaceSMarty {
         for (Package pkg : pkg1.getNestedPackages()) {
             for (Interface inter : pkg.getAllInterfaces()) {
                 printWriter.write("\n" + tab + "<interface id=\"" + inter.getId() + "\" name=\"" + inter.getName() + "\" mandatory=\"" + inter.isMandatory() + "\" x=\"" + inter.getPosX() + "\" y=\"" + inter.getPosY() + "\" globalX=\"" + inter.getGlobalPosX() + "\" globalY=\"" + inter.getGlobalPosY() + "\" height=\"" + inter.getHeight() + "\" width=\"" + inter.getWidth() + "\" parent=\"" + pkg.getId() + "\">");
-                printWriter.write("\n" + tab + halfTab + "<description>"+inter.getComments()+"</description>");
+                printWriter.write("\n" + tab + halfTab + "<description>"+inter.getStringComments()+"</description>");
                 for (Method m : inter.getMethods()) {
                     TypeSmarty typeS = architecture.findTypeSMartyByName(m.getReturnType());
                     printWriter.write("\n" + tab + halfTab + "<method id=\"" + m.getId() + "\" name=\"" + m.getName() + "\" return=\"" + typeS.getId() + "\" visibility=\"" + m.getVisibility() + "\" constructor=\"" + m.isConstructor() + "\" static=\"" + m.isStatic() + "\" final=\"" + m.isFinal() + "\" abstract=\"" + m.isAbstract() + "\">");

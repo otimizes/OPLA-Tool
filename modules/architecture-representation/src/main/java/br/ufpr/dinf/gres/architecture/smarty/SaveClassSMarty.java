@@ -32,7 +32,7 @@ public class SaveClassSMarty {
         String tab = "    ";
         for (Class clazz : architecture.getClasses()) {
             printWriter.write("\n" + tab + "<class id=\"" + clazz.getId() + "\" name=\"" + clazz.getName() + "\" mandatory=\"" + clazz.isMandatory() + "\" x=\"" + clazz.getPosX() + "\" y=\"" + clazz.getPosY() + "\" globalX=\"" + clazz.getGlobalPosX() + "\" globalY=\"" + clazz.getGlobalPosY() + "\"  abstract=\"" + clazz.isAbstract() + "\" final=\"" + clazz.isAbstract() + "\" height=\"" + clazz.getHeight() + "\" width=\"" + clazz.getWidth() + "\" parent=\"\">");
-            printWriter.write("\n" + tab + halfTab + "<description>"+clazz.getComments()+"</description>");
+            printWriter.write("\n" + tab + halfTab + "<description>"+clazz.getStringComments()+"</description>");
 
             for (Attribute att : clazz.getAllAttributes()) {
                 TypeSmarty typeS = architecture.findTypeSMartyByName(att.getType());
@@ -57,7 +57,7 @@ public class SaveClassSMarty {
         for (Package pkg : architecture.getAllPackages()) {
             for (Class clazz : pkg.getAllClasses()) {
                 printWriter.write("\n" + tab + "<class id=\"" + clazz.getId() + "\" name=\"" + clazz.getName() + "\" mandatory=\"" + clazz.isMandatory() + "\" x=\"" + clazz.getPosX() + "\" y=\"" + clazz.getPosY() + "\" globalX=\"" + clazz.getGlobalPosX() + "\" globalY=\"" + clazz.getGlobalPosY() + "\" abstract=\"" + clazz.isAbstract() + "\" final=\"" + clazz.isAbstract() + "\" height=\"" + clazz.getHeight() + "\" width=\"" + clazz.getWidth() + "\" parent=\"" + pkg.getId() + "\">");
-                printWriter.write("\n" + tab + halfTab + "<description>"+clazz.getComments()+"</description>");
+                printWriter.write("\n" + tab + halfTab + "<description>"+clazz.getStringComments()+"</description>");
                 for (Attribute att : clazz.getAllAttributes()) {
                     TypeSmarty typeS = architecture.findTypeSMartyByName(att.getType());
                     if (att.getName().length() == 0) {
@@ -95,7 +95,7 @@ public class SaveClassSMarty {
         for (Package pkg : pkg1.getNestedPackages()) {
             for (Class clazz : pkg.getAllClasses()) {
                 printWriter.write("\n" + tab + "<class id=\"" + clazz.getId() + "\" name=\"" + clazz.getName() + "\" mandatory=\"" + clazz.isMandatory() + "\" x=\"" + clazz.getPosX() + "\" y=\"" + clazz.getPosY() + "\" globalX=\"" + clazz.getGlobalPosX() + "\" globalY=\"" + clazz.getGlobalPosY() + "\" abstract=\"" + clazz.isAbstract() + "\" final=\"" + clazz.isAbstract() + "\" height=\"" + clazz.getHeight() + "\" width=\"" + clazz.getWidth() + "\" parent=\"" + pkg.getId() + "\">");
-                printWriter.write("\n" + tab + halfTab + "<description>"+clazz.getComments()+"</description>");
+                printWriter.write("\n" + tab + halfTab + "<description>"+clazz.getStringComments()+"</description>");
                 for (Attribute att : clazz.getAllAttributes()) {
                     TypeSmarty typeS = architecture.findTypeSMartyByName(att.getType());
                     printWriter.write("\n" + tab + halfTab + "<attribute id=\"" + att.getId() + "\" name=\"" + att.getName() + "\" type=\"" + typeS.getId() + "\" visibility=\"" + att.getVisibility() + "\" static=\"" + att.isStatic() + "\" final=\"" + att.isFinal() + "\"/>");

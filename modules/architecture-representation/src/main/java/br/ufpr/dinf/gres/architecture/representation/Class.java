@@ -269,13 +269,6 @@ public class Class extends Element {
         return null;
     }
 
-    // getAllConcerns: os interesses anotados na classe, nos atributos da
-    // classe, nos métodos da classe
-    // e nas interfaces implementadas pela classe. Lembrando que getAllConcerns
-    // da interface deve retornar
-    // os interesses anotados na interface mais os interesses das operações da
-    // interface.
-
     /**
      * Retorna todo os interesses da classe, como "todos", entende-se:<br/>
      * <ul>
