@@ -42,14 +42,23 @@ These are the mutation operators present in the tool, generally by default, all 
 The design patterns are applied in the PLA as mutation operators. However, you can find them here, in this tab.
 
 ###Step 4: Running the experiment
-In this tab
+In the right inferior button, it is possible to run the optimization process. When the process initialize,
+this button is disabled.
 
 ![Step 4](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/willian/docs/usage/step-4.png)
 ###Step 5: View logs
+In this tab, you are able to see the logs that show the optimization process status.
+
 ![Step 5](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/willian/docs/usage/step-5.png)
 ###Step 6: Download PLA
+When the optimization process end, the right inferior button change, enabling of the optimized solutions.
+
 ![Step 6](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/willian/docs/usage/step-6.png)
 ###Step 7: View experiments
+This tab contains all executions from experiments.
+
 ![Step 7](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/willian/docs/usage/step-7.png)
 ###Step 8: Analyses results
+Finally, you can analyse the results. Just select the desired experiments, and the graphics will be shown.
+
 ![Step 8](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/willian/docs/usage/step-8.png)
