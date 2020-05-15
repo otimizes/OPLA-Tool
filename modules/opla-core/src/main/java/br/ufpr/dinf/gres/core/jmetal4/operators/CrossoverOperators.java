@@ -2,8 +2,6 @@ package br.ufpr.dinf.gres.core.jmetal4.operators;
 
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.PLAComplementaryCrossover;
 import br.ufpr.dinf.gres.core.jmetal4.operators.crossover.PLACrossover;
-import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.IOperator;
-import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.IOperators;
 
 /**
  * Feature crossover operators enum

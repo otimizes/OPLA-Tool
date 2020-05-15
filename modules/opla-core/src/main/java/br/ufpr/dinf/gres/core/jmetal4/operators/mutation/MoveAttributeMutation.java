@@ -6,6 +6,7 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
+import br.ufpr.dinf.gres.core.jmetal4.operators.IOperator;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 
 import java.util.ArrayList;

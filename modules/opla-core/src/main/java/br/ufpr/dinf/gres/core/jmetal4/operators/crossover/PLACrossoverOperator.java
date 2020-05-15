@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * PLA Crossover operator that call another crossover operators
+ */
 public class PLACrossoverOperator extends Crossover {
 
     private static final long serialVersionUID = -51015356906090226L;

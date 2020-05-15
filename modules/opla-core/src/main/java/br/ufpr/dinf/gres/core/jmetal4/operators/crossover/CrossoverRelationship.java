@@ -8,6 +8,9 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Crossover relationship methods
+ */
 public class CrossoverRelationship {
 
     private static Set<Relationship> relationships = new HashSet<Relationship>();

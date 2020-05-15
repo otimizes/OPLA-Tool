@@ -62,22 +62,22 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
   }
 
 
-  changeOperators(obj, selected) {
+  changeOperators(element, obj, selected) {
     if (selected) {
-      this.addOOperator(obj);
+      this.addOOperator(element, obj);
     } else {
-      this.removeOperator(obj);
+      this.removeOperator(element, obj);
     }
   }
 
-  addOOperator(obj) {
-    if (!this.optimizationDto.mutationOperators.includes(obj)) {
-      this.optimizationDto.mutationOperators.push(obj);
+  addOOperator(element, obj) {
+    if (!this.optimizationDto[element].includes(obj)) {
+      this.optimizationDto[element].push(obj);
     }
   }
 
-  removeOperator(obj) {
-    this.optimizationDto.mutationOperators.splice(this.optimizationDto.mutationOperators.indexOf(obj), 1);
+  removeOperator(element, obj) {
+    this.optimizationDto[element].splice(this.optimizationDto[element].indexOf(obj), 1);
   }
 
   selectPLA() {

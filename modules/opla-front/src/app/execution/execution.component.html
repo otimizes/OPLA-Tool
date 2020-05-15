@@ -84,7 +84,6 @@
                   <mat-select [(value)]="optimizationDto.clusteringAlgorithm">
                     <mat-option value="KMEANS">KMEANS</mat-option>
                     <mat-option value="DBSCAN">DBSCAN</mat-option>
-                    <mat-option value="OPTICS">OPTICS</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <opla-grid-list class="operators-functions">
@@ -117,40 +116,32 @@
         <opla-grid-list>
           <opla-grid-tile>
             <mat-card>
-              <h5>Operators</h5>
-              <mat-checkbox [(ngModel)]="optimizationDto.mutation"
-                            formControlName="mutation">Mutation
-              </mat-checkbox>&nbsp;
-              <mat-slider
-                [disabled]="false"
-                [invert]="false"
-                [max]="1"
-                [min]="0"
-                formControlName="mutationProbability"
-                [step]="0.1"
-                [thumbLabel]="false"
-                [(ngModel)]="optimizationDto.mutationProbability"
-                [vertical]="false">
-              </mat-slider>
-              <mat-error
-                *ngIf="formGroup.get('mutation').hasError('required') || optimizationDto.mutationProbability <= 0">
-                The mutation is <strong>required</strong>
-              </mat-error>
-              <br>
-              <mat-checkbox [(ngModel)]="optimizationDto.crossover"
-                            formControlName="crossover">Crossover
-              </mat-checkbox>&nbsp;
-              <mat-slider
-                [disabled]="false"
-                [invert]="false"
-                [max]="1"
-                [min]="0"
-                formControlName="crossoverProbability"
-                [step]="0.1"
-                [thumbLabel]="false"
-                [(ngModel)]="optimizationDto.crossoverProbability"
-                [vertical]="false">
-              </mat-slider>
+              <h5>Crossover Operators</h5>
+              <opla-grid-list>
+                <opla-grid-tile style="align-items: center;">
+                  <mat-checkbox [(ngModel)]="optimizationDto.crossover"
+                                formControlName="crossover">Crossover
+                  </mat-checkbox>&nbsp;
+                  <mat-slider
+                    [disabled]="false"
+                    [invert]="false"
+                    [max]="1"
+                    [min]="0"
+                    formControlName="crossoverProbability"
+                    [step]="0.1"
+                    [thumbLabel]="false"
+                    [(ngModel)]="optimizationDto.crossoverProbability"
+                    [vertical]="false">
+                  </mat-slider>
+                </opla-grid-tile>
+              </opla-grid-list>
+              <opla-grid-list>
+                <opla-grid-tile *ngFor="let fmo of optimizationOptions?.crossoverOperators">
+                  <mat-checkbox (change)="changeOperators('crossoverOperators', fmo, $event.checked)" [disabled]="!optimizationDto.crossover">
+                    {{fmo | replaceall:'_':' ' | titlecase}}
+                  </mat-checkbox>
+                </opla-grid-tile>
+              </opla-grid-list>
             </mat-card>
           </opla-grid-tile>
           <opla-grid-tile>
@@ -162,8 +153,32 @@
                 </mat-error>
               </h5>
               <opla-grid-list>
-                <opla-grid-tile *ngFor="let fmo of optimizationOptions?.featureMutationOperators">
-                  <mat-checkbox (change)="changeOperators(fmo, $event.checked)" [checked]="fmo !== 'DESIGN_PATTERNS'" *ngIf="fmo !== 'DESIGN_PATTERNS'">
+                <opla-grid-tile style="align-items: center;">
+                  <mat-checkbox [(ngModel)]="optimizationDto.mutation"
+                                formControlName="mutation">Mutation
+                  </mat-checkbox>&nbsp;
+                  <mat-slider
+                    [disabled]="false"
+                    [invert]="false"
+                    [max]="1"
+                    [min]="0"
+                    formControlName="mutationProbability"
+                    [step]="0.1"
+                    [thumbLabel]="false"
+                    [(ngModel)]="optimizationDto.mutationProbability"
+                    [vertical]="false">
+                  </mat-slider>
+                  <mat-error
+                    *ngIf="!optimizationDto.mutation || optimizationDto.mutationProbability <= 0">
+                    The mutation is <strong>required</strong>
+                  </mat-error>
+                </opla-grid-tile>
+              </opla-grid-list>
+              <opla-grid-list>
+                <opla-grid-tile *ngFor="let fmo of optimizationOptions?.mutationOperators">
+                  <mat-checkbox (change)="changeOperators('mutationOperators', fmo, $event.checked)" [disabled]="!optimizationDto.mutation"
+                                [checked]="fmo !== 'DESIGN_PATTERNS'"
+                                *ngIf="fmo !== 'DESIGN_PATTERNS'">
                     {{fmo | replaceall:'_':' ' | titlecase}}
                   </mat-checkbox>
                 </opla-grid-tile>
@@ -176,7 +191,8 @@
               <mat-form-field>
                 <mat-label>Select the builder</mat-label>
                 <mat-select [(value)]="optimizationDto.architectureBuilder">
-                  <mat-option *ngFor="let alg of optimizationOptions?.architectureBuilders" [value]="alg">{{alg}}</mat-option>
+                  <mat-option *ngFor="let alg of optimizationOptions?.architectureBuilders"
+                              [value]="alg">{{alg}}</mat-option>
                 </mat-select>
               </mat-form-field>
               <div>
@@ -187,7 +203,8 @@
                   <input hidden (change)="onFileSelected()" #fileInput type="file" multiple directory webkitdirectory
                          *ngIf="optimizationDto.architectureBuilder == 'PAPYRUS'"
                          mozdirectory allowdirs id="dir">
-                  <input hidden (change)="onFileSelected()" #fileInput type="file" accept=".smty" *ngIf="optimizationDto.architectureBuilder != 'PAPYRUS'" id="file">
+                  <input hidden (change)="onFileSelected()" #fileInput type="file" accept=".smty"
+                         *ngIf="optimizationDto.architectureBuilder != 'PAPYRUS'" id="file">
                   <button matTooltip="Select the directory of the PLA" mat-button matSuffix mat-icon-button
                           aria-label="Clear" (click)="selectPLA()">
                     <mat-icon>attach_file</mat-icon>

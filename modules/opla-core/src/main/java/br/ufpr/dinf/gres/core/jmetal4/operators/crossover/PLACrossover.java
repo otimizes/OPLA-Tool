@@ -13,12 +13,15 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.IOperator;
+import br.ufpr.dinf.gres.core.jmetal4.operators.IOperator;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 
 import java.util.*;
 import java.util.logging.Level;
 
+/**
+ * PLA Crossover 2
+ */
 public class PLACrossover implements IOperator<Solution[]> {
 
     private CrossoverUtils crossoverutils;

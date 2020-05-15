@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.core.jmetal4.operators.mutation;
+package br.ufpr.dinf.gres.core.jmetal4.operators;
 
 import java.util.Map;
 

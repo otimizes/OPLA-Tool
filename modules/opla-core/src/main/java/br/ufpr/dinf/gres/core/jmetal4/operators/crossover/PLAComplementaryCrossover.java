@@ -4,13 +4,16 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.IOperator;
+import br.ufpr.dinf.gres.core.jmetal4.operators.IOperator;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import org.apache.log4j.Logger;
 
 import java.util.*;
 import java.util.stream.Stream;
 
+/**
+ * PLA Complementary crossover
+ */
 public class PLAComplementaryCrossover implements IOperator<Solution[]> {
 
     private static final Logger LOG = Logger.getLogger(PLAComplementaryCrossover.class);
