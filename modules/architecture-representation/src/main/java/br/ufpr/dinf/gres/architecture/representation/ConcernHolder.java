@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * Concern holder enum
+ */
 public enum ConcernHolder {
 
     INSTANCE;

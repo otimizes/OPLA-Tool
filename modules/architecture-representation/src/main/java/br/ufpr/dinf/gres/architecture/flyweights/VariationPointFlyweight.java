@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Variation point utils
+ */
 public class VariationPointFlyweight {
-
 
     private static final VariationPointFlyweight INSTANCE = new VariationPointFlyweight();
     private Architecture architecture;
@@ -33,6 +35,13 @@ public class VariationPointFlyweight {
         return INSTANCE;
     }
 
+    /**
+     * Get or create variation point
+     *
+     * @param klass classifier
+     * @return variation point
+     * @throws VariationPointElementTypeErrorException type error
+     */
     public VariationPoint getOrCreateVariationPoint(Classifier klass) throws VariationPointElementTypeErrorException {
         Element variationPointElement = null;
         variationPointElement = architecture.findElementByName(klass.getName(), "class"); // Busca Classe ja na representacao

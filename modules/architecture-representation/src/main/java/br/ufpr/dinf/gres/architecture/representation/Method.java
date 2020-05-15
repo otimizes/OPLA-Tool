@@ -8,6 +8,8 @@ import java.util.List;
 
 
 /**
+ * Method representation
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Method extends Element {

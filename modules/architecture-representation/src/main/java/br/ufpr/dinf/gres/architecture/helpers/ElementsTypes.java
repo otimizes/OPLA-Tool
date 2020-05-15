@@ -1,7 +1,9 @@
 package br.ufpr.dinf.gres.architecture.helpers;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * UML element types
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ElementsTypes {
 
@@ -20,5 +22,6 @@ public class ElementsTypes {
     public static final String GENERALIZATION = "generalization";
     public static final String CONNECTOR = "connector";
     public static final String REQUIRES = "requires";
+    public static final String MUTEX = "mutex";
 
 }

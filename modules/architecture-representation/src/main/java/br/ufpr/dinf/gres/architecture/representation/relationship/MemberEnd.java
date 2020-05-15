@@ -9,7 +9,7 @@ import java.io.Serializable;
  * <p>
  * Each end represents participation of instances of the classifier connected to the end in links of the association (Papyrus info)
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class MemberEnd implements Serializable {
 

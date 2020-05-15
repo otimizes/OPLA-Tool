@@ -6,10 +6,10 @@ import br.ufpr.dinf.gres.architecture.flyweights.VariantFlyweight;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationClassRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.MemberEnd;
-import br.ufpr.dinf.gres.architecture.representation.relationship.RelationshiopCommons;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.architecture.touml.Types.Type;
-import br.ufpr.dinf.gres.architecture.touml.VisibilityKind;
+import br.ufpr.dinf.gres.architecture.representation.relationship.RelationshipCommons;
+import br.ufpr.dinf.gres.architecture.papyrus.touml.Types.Type;
+import br.ufpr.dinf.gres.architecture.papyrus.touml.VisibilityKind;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -17,7 +17,9 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Class representation
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Class extends Element {
 
@@ -33,16 +35,6 @@ public class Class extends Element {
     private PatternsOperations patternsOperations;
     private RelationshipsHolder relationshipHolder;
 
-    /**
-     * @param architecture
-     * @param name
-     * @param isVariationPoint
-     * @param variantType
-     * @param isAbstract
-     * @param parent
-     * @param interfacee
-     * @param packageName
-     */
     public Class(RelationshipsHolder relationshipHolder, String name, Variant variantType, boolean isAbstract,
                  String namespace, String id) {
         super(name, variantType, "klass", namespace, id);
@@ -277,13 +269,6 @@ public class Class extends Element {
         return null;
     }
 
-    // getAllConcerns: os interesses anotados na classe, nos atributos da
-    // classe, nos métodos da classe
-    // e nas interfaces implementadas pela classe. Lembrando que getAllConcerns
-    // da interface deve retornar
-    // os interesses anotados na interface mais os interesses das operações da
-    // interface.
-
     /**
      * Retorna todo os interesses da classe, como "todos", entende-se:<br/>
      * <ul>
@@ -378,7 +363,7 @@ public class Class extends Element {
     }
 
     public Set<Relationship> getRelationships() {
-        return RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this);
+        return RelationshipCommons.getRelationships(relationshipHolder.getRelationships(), this);
     }
 
     public void setPatternOperations(PatternsOperations patternOperations) {

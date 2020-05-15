@@ -1,14 +1,14 @@
 package br.ufpr.dinf.gres.core.jmetal4.metrics;
 
-import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
-import br.ufpr.dinf.gres.architecture.io.OPLAConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
-import br.ufpr.dinf.gres.domain.config.FileConstants;
 import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.metrics.objectivefunctions.*;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
+import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToExportModels("");
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
-        OPLAConfigThreadScope.setConfig(applicationYamlConfig);
+        OPLAThreadScope.setConfig(applicationYamlConfig);
         OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "agm.uml");
         Architecture architecture = opla.getArchitecture_();
 
@@ -142,7 +142,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToExportModels("");
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
-        OPLAConfigThreadScope.setConfig(applicationYamlConfig);
+        OPLAThreadScope.setConfig(applicationYamlConfig);
         OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "agm2.smty");
         Architecture architecture = opla.getArchitecture_();
 
@@ -255,7 +255,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToExportModels("");
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
-        OPLAConfigThreadScope.setConfig(applicationYamlConfig);
+        OPLAThreadScope.setConfig(applicationYamlConfig);
         OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "agm1.smty");
         Architecture architecture = opla.getArchitecture_();
 
@@ -368,7 +368,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToExportModels("");
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
-        OPLAConfigThreadScope.setConfig(applicationYamlConfig);
+        OPLAThreadScope.setConfig(applicationYamlConfig);
         OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "AGMAtual.smty");
         Architecture architecture = opla.getArchitecture_();
 
@@ -481,7 +481,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToExportModels("");
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
-        OPLAConfigThreadScope.setConfig(applicationYamlConfig);
+        OPLAThreadScope.setConfig(applicationYamlConfig);
         OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "BetAtual.smty");
         Architecture architecture = opla.getArchitecture_();
 
@@ -595,7 +595,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToExportModels("");
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
-        OPLAConfigThreadScope.setConfig(applicationYamlConfig);
+        OPLAThreadScope.setConfig(applicationYamlConfig);
         OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "mm1.smty");
         Architecture architecture = opla.getArchitecture_();
 
@@ -709,7 +709,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToExportModels("");
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
-        OPLAConfigThreadScope.setConfig(applicationYamlConfig);
+        OPLAThreadScope.setConfig(applicationYamlConfig);
         OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "mm2.smty");
         Architecture architecture = opla.getArchitecture_();
 
@@ -823,7 +823,7 @@ public class ObjectiveFunctionsTest {
         applicationYamlConfig.setDirectoryToExportModels("");
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
-        OPLAConfigThreadScope.setConfig(applicationYamlConfig);
+        OPLAThreadScope.setConfig(applicationYamlConfig);
         OPLA opla = new OPLA(agm + FileConstants.FILE_SEPARATOR + "MMAtual.smty");
         Architecture architecture = opla.getArchitecture_();
 

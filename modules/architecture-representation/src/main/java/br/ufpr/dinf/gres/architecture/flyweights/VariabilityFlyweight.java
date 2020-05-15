@@ -13,7 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Variability utils
+ */
 public class VariabilityFlyweight {
 
     private static final VariabilityFlyweight INSTANCE = new VariabilityFlyweight();
@@ -33,6 +35,13 @@ public class VariabilityFlyweight {
         return INSTANCE;
     }
 
+    /**
+     * Get or create variability
+     *
+     * @param owner                 owner
+     * @param variabilityAttributes attributes
+     * @return variability
+     */
     public Variability getOrCreateVariability(String owner, Map<String, String> variabilityAttributes) {
         Variability variability = variabilities.get(variabilityAttributes.get("name"));
         this.variabilityAttributes.put(variabilityAttributes.get("name"), variabilityAttributes);
@@ -55,6 +64,9 @@ public class VariabilityFlyweight {
         return variability;
     }
 
+    /**
+     * Create variants
+     */
     public void createVariants() {
 
         VariantFlyweight variantFlyweight = VariantFlyweight.getInstance();
@@ -72,15 +84,11 @@ public class VariabilityFlyweight {
                     }
                 }
             }
-//			
-            //Variability vari = this.getVariability(v.getName());
-
             for (Variant variant : variants) {
                 if (!v.getVariants().contains(variant)) {
                     v.getVariants().add(variant);
                 }
             }
-
             for (Variant variantTemp : variants) {
                 if (!variantTemp.getVariabilities().contains(v))
                     variantTemp.getVariabilities().add(v);
@@ -89,7 +97,12 @@ public class VariabilityFlyweight {
 
     }
 
-
+    /**
+     * Get variability
+     *
+     * @param name name of variability
+     * @return variability
+     */
     public Variability getVariability(String name) {
         return this.variabilities.get(name);
     }
@@ -109,9 +122,6 @@ public class VariabilityFlyweight {
         return "true".equalsIgnoreCase(a.get("allowAddingVar"));
     }
 
-    /**
-     * @param architecture the architecture to set
-     */
     public void setArchitecture(Architecture architecture) {
         this.architecture = architecture;
     }

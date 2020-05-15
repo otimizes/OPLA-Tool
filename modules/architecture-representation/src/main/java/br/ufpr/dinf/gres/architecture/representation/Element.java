@@ -6,8 +6,11 @@ import org.eclipse.uml2.uml.Interface;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
+ * Element representation
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public abstract class Element implements Serializable {
@@ -18,12 +21,12 @@ public abstract class Element implements Serializable {
     private String name;
     private VariationPoint variationPoint;
     private Variant variant;
-    private Set<Concern> concerns = new HashSet<Concern>();
+    private Set<Concern> concerns = new HashSet<>();
+    private Set<Comment> comments = new HashSet<>();
     private Architecture architecture;
     private String typeElement;
     private String namespace;
     private boolean belongsToGeneralization;
-    private String comments = "";
     private boolean freezedByCluster = false;
     private String posX = "0";
     private String posY = "0";
@@ -148,7 +151,7 @@ public abstract class Element implements Serializable {
         return this.typeElement;
     }
 
-    private void setTypeElement(String typeElement) {
+    public void setTypeElement(String typeElement) {
         this.typeElement = typeElement;
     }
 
@@ -201,7 +204,7 @@ public abstract class Element implements Serializable {
             addConcern(name);
     }
 
-    public void addExternalConcern(Concern concern){
+    public void addExternalConcern(Concern concern) {
         concerns.add(concern);
     }
 
@@ -262,26 +265,22 @@ public abstract class Element implements Serializable {
         this.belongsToGeneralization = belongsToGeneralization;
     }
 
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
-
     public boolean isFreezeByDM() {
-        return this.comments != null && this.comments.contains("freeze");
+        return this.comments != null && this.comments.stream().anyMatch(c -> c.getValue().contains("freeze"));
+    }
+
+    public boolean hasComments() {
+        return !comments.isEmpty();
     }
 
     public boolean unsetFreezeFromDM() {
-        this.comments = this.comments.replaceAll("freeze", "");
+        this.comments = this.comments.stream().filter(c -> !c.getValue().contains("freeze")).collect(Collectors.toSet());
         return this.isFreezeByDM();
     }
 
     public boolean setFreezeFromDM() {
-        if (!this.comments.contains("freeze")) {
-            this.comments += "freeze";
+        if (!isFreezeByDM()) {
+            this.comments.add(new Comment("freeze"));
         }
         return isFreezeByDM();
     }
@@ -308,6 +307,24 @@ public abstract class Element implements Serializable {
 
     public boolean isTotalyFreezed() {
         return this.isFreezeByDM() || this.isFreezedByCluster();
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public String getStringComments() {
+        return comments.stream().map(c -> c.getValue() + "\n").collect(Collectors.joining());
+    }
+
+    public void setComments(String comments) {
+        if (comments != null && !"null".equals(comments.trim()) && !comments.isEmpty()) {
+            this.comments.add(new Comment(comments));
+        }
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override
@@ -354,7 +371,6 @@ public abstract class Element implements Serializable {
             }
         }
         return isEquals;
-
     }
 
 }

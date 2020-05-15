@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.domain.config;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -90,5 +91,38 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         } catch (IOException e) {
             LOGGER.info("Erros when copying files. Here are message error: " + e.getMessage());
         }
+    }
+
+
+    public static void copyFile(File source, File destFile) {
+
+        LOGGER.info("copyFile(File sourceFile, File destFile) - Enter");
+        LOGGER.info("SourceFile: " + source);
+        LOGGER.info("DestFile: " + destFile);
+
+        FileOutputStream outputStream = null;
+        FileChannel inputChannel = null, outputChannel = null;
+        FileInputStream inputStream = null;
+
+        try {
+            inputStream = new FileInputStream(source);
+            outputStream = new FileOutputStream(destFile);
+            inputChannel = inputStream.getChannel();
+            outputChannel = outputStream.getChannel();
+            inputChannel.transferTo(0, inputChannel.size(), outputChannel);
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot copy the file: "
+                    + e.getMessage());
+        } finally {
+            try {
+                inputStream.close();
+                outputChannel.close();
+                outputStream.close();
+            } catch (IOException e) {
+            }
+        }
+
+        LOGGER.info("copyFile(File sourceFile, File destFile) - Exit");
+
     }
 }

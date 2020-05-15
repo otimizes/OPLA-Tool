@@ -2,9 +2,9 @@ package br.ufpr.dinf.gres.architecture.representation.architectureControl;
 
 import br.ufpr.dinf.gres.architecture.exceptions.ClassNotFound;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.architecture.representation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,6 @@ import java.util.Set;
 
 /**
  * This class has the implementation of all the method from Architecture that is used to find an specific element from architecture
- *
  */
 public class ArchitectureFindElementControl {
     public ArchitectureFindElementControl() {
@@ -26,6 +25,7 @@ public class ArchitectureFindElementControl {
 
     /**
      * find stereotype using its name
+     *
      * @param architecture
      * @param name
      * @return
@@ -41,11 +41,12 @@ public class ArchitectureFindElementControl {
 
     /**
      * finf type smarty using its id
+     *
      * @param architecture
      * @param id
      * @return
      */
-    public TypeSmarty findTypeSMartyByID(Architecture architecture,String id) {
+    public TypeSmarty findTypeSMartyByID(Architecture architecture, String id) {
         for (TypeSmarty typeSmarty : architecture.getLstTypes()) {
             if (typeSmarty.getId().equals(id))
                 return typeSmarty;
@@ -56,11 +57,12 @@ public class ArchitectureFindElementControl {
     /**
      * search a type using its name from listTypesSMarty
      * if not found, return Object type
+     *
      * @param architecture
      * @param name
      * @return
      */
-    public TypeSmarty findTypeSMartyByName(Architecture architecture,String name) {
+    public TypeSmarty findTypeSMartyByName(Architecture architecture, String name) {
         for (TypeSmarty typeSmarty : architecture.getLstTypes()) {
             if (typeSmarty.getName().equals(name))
                 return typeSmarty;
@@ -72,11 +74,12 @@ public class ArchitectureFindElementControl {
      * search a return type using its name from listTypesSMarty
      * return void type if not has name
      * if not found, return Object type
+     *
      * @param architecture
      * @param name
      * @return
      */
-    public TypeSmarty findReturnTypeSMartyByName(Architecture architecture,String name) {
+    public TypeSmarty findReturnTypeSMartyByName(Architecture architecture, String name) {
         if (name == null) {
             return findVoidType(architecture);
         }
@@ -93,6 +96,7 @@ public class ArchitectureFindElementControl {
 
     /**
      * find an type Object in typesSMarty
+     *
      * @param architecture
      * @return
      */
@@ -106,6 +110,7 @@ public class ArchitectureFindElementControl {
 
     /**
      * find an type void in typesSMarty
+     *
      * @param architecture
      * @return
      */
@@ -119,11 +124,12 @@ public class ArchitectureFindElementControl {
 
     /**
      * search an element by name in packages and call findElementByNameInSubPackage to search in subpackages
+     *
      * @param architecture
      * @param elementName
      * @return
      */
-    public Element findElementByNameInPackageAndSubPackage(Architecture architecture,String elementName) {
+    public Element findElementByNameInPackageAndSubPackage(Architecture architecture, String elementName) {
 
         for (br.ufpr.dinf.gres.architecture.representation.Class clazz_ : architecture.getClasses()) {
             if (clazz_.getName().equals(elementName))
@@ -152,6 +158,7 @@ public class ArchitectureFindElementControl {
 
     /**
      * find class and interface in subpackage using its name
+     *
      * @param pkg1
      * @param elementName
      * @return
@@ -175,9 +182,10 @@ public class ArchitectureFindElementControl {
 
     /**
      * find element using its name and type
+     *
      * @param architecture - target architecture
-     * @param name - name of element
-     * @param type - type of element
+     * @param name         - name of element
+     * @param type         - type of element
      * @return
      */
     public Element findElement(Architecture architecture, String name, String type) {
@@ -231,6 +239,7 @@ public class ArchitectureFindElementControl {
 
     /**
      * find a element by name in architecture - call searchRecursivelyInPackage to search in subpackages
+     *
      * @param architecture
      * @param elementName
      * @return
@@ -252,6 +261,7 @@ public class ArchitectureFindElementControl {
 
     /**
      * recursively search an element in subpackages using its name
+     *
      * @param packages
      * @param elementName
      * @return
@@ -262,7 +272,7 @@ public class ArchitectureFindElementControl {
                 if (element.getName().equals(elementName))
                     return element;
                 Element tempElement = searchRecursivelyInPackage(p.getNestedPackages(), elementName);
-                if(tempElement != null)
+                if (tempElement != null)
                     return tempElement;
             }
             if (p.getName().equals(elementName))
@@ -274,7 +284,8 @@ public class ArchitectureFindElementControl {
 
     /**
      * find a interface using its name
-     * @param architecture - target architecture
+     *
+     * @param architecture  - target architecture
      * @param interfaceName - name of interface
      * @return
      */
@@ -292,8 +303,9 @@ public class ArchitectureFindElementControl {
 
     /**
      * find package using its name - not recursive
+     *
      * @param architecture - target architecture
-     * @param packageName - name of package that search
+     * @param packageName  - name of package that search
      * @return
      */
     public Package findPackageByName(Architecture architecture, String packageName) {
@@ -306,8 +318,9 @@ public class ArchitectureFindElementControl {
 
     /**
      * find a package using its id (call findSubPackageByID to search in subpackages)
+     *
      * @param architecture - target architecture
-     * @param id - id of package that search
+     * @param id           - id of package that search
      * @return
      */
     public Package findPackageByID(Architecture architecture, String id) {
@@ -325,8 +338,9 @@ public class ArchitectureFindElementControl {
 
     /**
      * recursively find an subpackage using its id
+     *
      * @param originPkg - target package that has subpackage
-     * @param id - id of package that search
+     * @param id        - id of package that search
      * @return
      */
     private Package findSubPackageByID(Package originPkg, String id) {
@@ -344,8 +358,9 @@ public class ArchitectureFindElementControl {
 
     /**
      * find an class using its id
+     *
      * @param architecture - target architecture
-     * @param idClass - id of element used to find its parent package
+     * @param idClass      - id of element used to find its parent package
      * @return parent package if exists else null
      */
     public Class findClassById(Architecture architecture, String idClass) throws ClassNotFound {
@@ -363,8 +378,9 @@ public class ArchitectureFindElementControl {
 
     /**
      * find an interface using its id
+     *
      * @param architecture - target architecture
-     * @param idInterface - id of element used to find its parent package
+     * @param idInterface  - id of element used to find its parent package
      * @return parent package if exists else null
      */
     public Interface findInterfaceById(Architecture architecture, String idInterface) throws ClassNotFound {
@@ -376,8 +392,9 @@ public class ArchitectureFindElementControl {
 
     /**
      * find the parent package of an class
+     *
      * @param architecture - target architecture
-     * @param targetClass - class of element used to find its parent package
+     * @param targetClass  - class of element used to find its parent package
      * @return parent package if exists else null
      */
     public Package findPackageOfClass(Architecture architecture, Class targetClass) {
@@ -387,8 +404,9 @@ public class ArchitectureFindElementControl {
 
     /**
      * find the parent package of an element
+     *
      * @param architecture - target architecture
-     * @param id - id of element used to find its parent package
+     * @param id           - id of element used to find its parent package
      * @return parent package if exists else null
      */
     public Package findPackageOfElement(Architecture architecture, String id) {
@@ -415,28 +433,29 @@ public class ArchitectureFindElementControl {
 
     /**
      * find an element in architecture package and subpackage of an package (method findElementInSubpackageById)
+     *
      * @param architecture - parent package that has subpackages
-     * @param xmiId - id of element to find
+     * @param xmiId        - id of element to find
      * @return element, if find, else null
      */
     public Element findElementById(Architecture architecture, String xmiId) {
         for (Class element : architecture.getClasses()) {
             if (element.getId().equals(xmiId))
                 return element;
-            for(Method m : element.getAllMethods()){
-                if(m.getId().equals(xmiId))
+            for (Method m : element.getAllMethods()) {
+                if (m.getId().equals(xmiId))
                     return m;
             }
-            for(Attribute m : element.getAllAttributes()){
-                if(m.getId().equals(xmiId))
+            for (Attribute m : element.getAllAttributes()) {
+                if (m.getId().equals(xmiId))
                     return m;
             }
         }
         for (Interface element : architecture.getInterfaces()) {
             if (element.getId().equals(xmiId))
                 return element;
-            for(Method m : element.getMethods()){
-                if(m.getId().equals(xmiId))
+            for (Method m : element.getMethods()) {
+                if (m.getId().equals(xmiId))
                     return m;
             }
         }
@@ -447,26 +466,26 @@ public class ArchitectureFindElementControl {
             for (Class element : p.getAllClasses()) {
                 if (element.getId().equals(xmiId))
                     return element;
-                for(Method m : element.getAllMethods()){
-                    if(m.getId().equals(xmiId))
+                for (Method m : element.getAllMethods()) {
+                    if (m.getId().equals(xmiId))
                         return m;
                 }
-                for(Attribute m : element.getAllAttributes()){
-                    if(m.getId().equals(xmiId))
+                for (Attribute m : element.getAllAttributes()) {
+                    if (m.getId().equals(xmiId))
                         return m;
                 }
             }
             for (Interface element : p.getAllInterfaces()) {
                 if (element.getId().equals(xmiId))
                     return element;
-                for(Method m : element.getMethods()){
-                    if(m.getId().equals(xmiId))
+                for (Method m : element.getMethods()) {
+                    if (m.getId().equals(xmiId))
                         return m;
                 }
             }
             Element e1 = findElementInSubPackageById(p, xmiId);
-            if(e1 != null)
-                return  e1;
+            if (e1 != null)
+                return e1;
         }
 
         return null;
@@ -474,7 +493,8 @@ public class ArchitectureFindElementControl {
 
     /**
      * recursively find an element in subpackage of an package
-     * @param pkg - parent package that has subpackages
+     *
+     * @param pkg   - parent package that has subpackages
      * @param xmiId - id of element to find
      * @return element, if find, else null
      */
@@ -514,7 +534,8 @@ public class ArchitectureFindElementControl {
 
     /**
      * recursively find an method in subpackage of an package
-     * @param pkg - parent package that has subpackages
+     *
+     * @param pkg   - parent package that has subpackages
      * @param xmiId - id of element to find
      * @return element, if find, else null
      */
@@ -541,8 +562,9 @@ public class ArchitectureFindElementControl {
 
     /**
      * find an method in architecture package and subpackage of an package ( call method findMethodInSubpackageById)
+     *
      * @param architecture - parent package that has subpackages
-     * @param xmiId - id of element to find
+     * @param xmiId        - id of element to find
      * @return element, if find, else null
      */
     public Element findMethodById(Architecture architecture, String xmiId) {
@@ -580,8 +602,9 @@ public class ArchitectureFindElementControl {
 
     /**
      * find an attribute in architecture package and subpackage of an package (method findAttributeInSubpackageById)
+     *
      * @param architecture - parent package that has subpackages
-     * @param xmiId - id of element to find
+     * @param xmiId        - id of element to find
      * @return element, if find, else null
      */
     public Element findAttributeById(Architecture architecture, String xmiId) {
@@ -607,7 +630,8 @@ public class ArchitectureFindElementControl {
 
     /**
      * recursively find an attribute in subpackage of an package
-     * @param pkg - parent package that has subpackages
+     *
+     * @param pkg   - parent package that has subpackages
      * @param xmiId - id of element to find
      * @return element, if find, else null
      */

@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Builder resposável por criar element do tipo Método.
+ * Builder responsible for creating element of type Method.
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class MethodBuilder extends ElementBuilder<Method> {
 

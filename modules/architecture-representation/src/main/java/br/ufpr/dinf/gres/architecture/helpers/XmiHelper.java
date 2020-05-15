@@ -1,12 +1,9 @@
 package br.ufpr.dinf.gres.architecture.helpers;
 
 import br.ufpr.dinf.gres.architecture.exceptions.NodeIdNotFound;
-import br.ufpr.dinf.gres.architecture.exceptions.VariationPointElementTypeErrorException;
-import br.ufpr.dinf.gres.architecture.flyweights.VariationPointFlyweight;
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.architecture.touml.VariabilityStereotype;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import com.google.common.base.Joiner;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -17,9 +14,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
-import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
-import org.eclipse.uml2.uml.internal.impl.CommentImpl;
 import org.eclipse.uml2.uml.internal.impl.OperationImpl;
 import org.eclipse.uml2.uml.internal.impl.PropertyImpl;
 import org.w3c.dom.Document;
@@ -35,23 +30,24 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
+ * XMI utils
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class XmiHelper {
 
     static Logger LOGGER = LogManager.getLogger(XmiHelper.class.getName());
-
-
     private static Document originalNotation;
 
     /**
-     * Busca por {@link Node} dado um id e um {@link Documnet}.
+     * Busca por {@link Node} dado um id e um {@link Document}.
      *
      * @param docNotaion - Deve ser o arquivo .notation
      * @param id         - Id a ser buscado

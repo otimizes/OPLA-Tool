@@ -1,7 +1,6 @@
 package br.ufpr.dinf.gres.architecture.builders;
 
-import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilderPapyrus;
-import br.ufpr.dinf.gres.architecture.main.GenerateArchitecture;
+import br.ufpr.dinf.gres.architecture.generate.GenerateArchitecture;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 
 

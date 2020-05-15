@@ -3,6 +3,8 @@ package br.ufpr.dinf.gres.architecture.helpers;
 import org.apache.log4j.Logger;
 
 /**
+ * Model helper factory
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ModelHelperFactory {

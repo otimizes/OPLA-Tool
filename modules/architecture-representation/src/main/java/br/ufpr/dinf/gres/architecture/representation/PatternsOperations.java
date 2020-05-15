@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Patterns Operations class
+ */
 public class PatternsOperations {
 
     private Set<String> patternsStereotypes = new HashSet<String>();

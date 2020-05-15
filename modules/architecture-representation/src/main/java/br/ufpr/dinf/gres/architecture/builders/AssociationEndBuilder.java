@@ -7,12 +7,19 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.Multiplicity;
 import org.eclipse.uml2.uml.Property;
 
 /**
- * Representa uma AssociationEnd em uma associação.
+ * Represents an AssociationEnd in a association
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class AssociationEndBuilder {
 
+    /**
+     * Creates the association end
+     *
+     * @param property property
+     * @param klass    class
+     * @return association end
+     */
     public AssociationEnd create(Property property, Element klass) {
         boolean isNavigable = property.isNavigable();
         String aggregation = property.getAggregation().getName();

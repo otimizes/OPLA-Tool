@@ -1,11 +1,6 @@
 package br.ufpr.dinf.gres.api;
 
-import br.ufpr.dinf.gres.domain.config.FileUtils;
-import br.ufpr.dinf.gres.domain.config.ApplicationFile;
-import br.ufpr.dinf.gres.domain.config.ManagerApplicationConfig;
-import br.ufpr.dinf.gres.domain.config.FileConstants;
-import br.ufpr.dinf.gres.domain.config.UserHome;
-import br.ufpr.dinf.gres.domain.config.Utils;
+import br.ufpr.dinf.gres.domain.config.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -69,60 +64,17 @@ public class OplaApiApplication {
             e.printStackTrace();
         }
         Utils.createPathsOplaTool();
-        initialConfiguration();
-        ManagerApplicationConfig instance = ApplicationFile.getInstance();
+        UserHome.createDefaultOplaPathIfDontExists();
+        Utils.createDataBaseIfNotExists();
+        UserHome.copyTemplates();
+        ManagerApplicationFileConfig instance = ApplicationFileConfig.getApplicationFileConfig();
         try {
             instance.configureDefaultLocaleToExportModels();
             instance.updateDefaultPathToSaveModels();
             instance.updateDefaultPathToTemplateFiles();
-            copyTemplates();
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         SpringApplication.run(OplaApiApplication.class, args);
     }
-
-    private static void initialConfiguration() {
-        createPathOplaTool();
-        configureApplicationFile();
-        configureDb();
-    }
-
-    public static void copyTemplates() throws URISyntaxException {
-        URI uriTemplatesDir = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.TEMPLATES_DIR).toURI();
-        String simplesUmlPath = FileConstants.SIMPLES_UML_NAME;
-        String simplesDiPath = FileConstants.SIMPLES_DI_NAME;
-        String simplesNotationPath = FileConstants.SIMPLES_NOTATION_NAME;
-
-        Path externalPathSimplesUml = Paths.get(UserHome.getPathToTemplates() + simplesUmlPath);
-        Path externalPathSimplesDi = Paths.get(UserHome.getPathToTemplates() + simplesDiPath);
-        Path externalPathSimplesNotation = Paths.get(UserHome.getPathToTemplates() + simplesNotationPath);
-
-        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesUmlPath), externalPathSimplesUml);
-        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesDiPath), externalPathSimplesDi);
-        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesNotationPath), externalPathSimplesNotation);
-    }
-
-    /**
-     * Cria diretório raiz da ferramentas
-     */
-    private static void createPathOplaTool() {
-        UserHome.createDefaultOplaPathIfDontExists();
-    }
-
-    private static void configureApplicationFile() {
-        ApplicationFile.getInstance();
-    }
-
-    /**
-     * Somente faz uma copia do banco de dados vazio para a pasta da oplatool no
-     * diretorio do usuario se o mesmo nao existir.
-     *
-     * @throws Exception
-     */
-    private static void configureDb() {
-        Utils.createDataBaseIfNotExists();
-    }
-
-
 }

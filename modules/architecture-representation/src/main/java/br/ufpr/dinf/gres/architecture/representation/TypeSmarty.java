@@ -1,6 +1,8 @@
 package br.ufpr.dinf.gres.architecture.representation;
 
-
+/**
+ * Smarty type class
+ */
 public class TypeSmarty {
 
     private String id;

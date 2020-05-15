@@ -7,7 +7,9 @@ import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Realization relationship class
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class RealizationRelationship extends Relationship {
 

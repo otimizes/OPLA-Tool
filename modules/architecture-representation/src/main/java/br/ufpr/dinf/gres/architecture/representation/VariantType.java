@@ -2,7 +2,9 @@ package br.ufpr.dinf.gres.architecture.representation;
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Variants type
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public enum VariantType {
 

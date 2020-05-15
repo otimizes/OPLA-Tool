@@ -9,9 +9,9 @@ import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.NamedElement;
 
 /**
- * Builder Responsável por criar relacionamentos entre Pacote e Classe.
+ * Builder Responsible for creating relationships between Package and Class.
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class AbstractionRelationshipBuilder extends ArchitectureHelper {
 
@@ -22,10 +22,10 @@ public class AbstractionRelationshipBuilder extends ArchitectureHelper {
     }
 
     /**
-     * Cria o elemento AbstractionInterElementRelationship
+     * Create a AbstractionInterElementRelationship element
      *
-     * @param modelElement
-     * @return
+     * @param modelElement model element
+     * @return abstract relationship
      */
     public AbstractionRelationship create(Abstraction modelElement) {
 

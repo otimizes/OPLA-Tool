@@ -5,6 +5,9 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+/**
+ * Operations over relationships class
+ */
 public class OperationsOverRelationships {
 
     static Logger LOGGER = LogManager.getLogger(OperationsOverRelationships.class.getName());

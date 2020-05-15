@@ -3,16 +3,18 @@ package br.ufpr.dinf.gres.architecture.builders;
 
 import br.ufpr.dinf.gres.architecture.base.ArchitectureHelper;
 import br.ufpr.dinf.gres.architecture.helpers.StereotypeHelper;
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.NamedElement;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Dependency relationship builder
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class DependencyRelationshipBuilder extends ArchitectureHelper {
 
@@ -22,6 +24,12 @@ public class DependencyRelationshipBuilder extends ArchitectureHelper {
         this.architecture = architecture;
     }
 
+    /**
+     * Creates the dependency relationship
+     *
+     * @param element single dependency
+     * @return dependency relationship
+     */
     public DependencyRelationship create(Dependency element) {
 
 

@@ -10,7 +10,9 @@ import br.ufpr.dinf.gres.architecture.representation.Package;
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Dependency relationship class
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class DependencyRelationship extends Relationship {
 
@@ -21,13 +23,6 @@ public class DependencyRelationship extends Relationship {
     public DependencyRelationship() {
     }
 
-    /**
-     * @param supplier
-     * @param client
-     * @param name
-     * @param architecture
-     * @param id
-     */
     public DependencyRelationship(Element supplier, Element client, String name, String id) {
         setSupplier(supplier);
         setClient(client);

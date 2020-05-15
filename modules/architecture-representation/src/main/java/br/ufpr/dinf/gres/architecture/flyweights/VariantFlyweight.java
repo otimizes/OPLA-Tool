@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Variant utils
+ */
 public class VariantFlyweight extends XmiHelper {
 
     private static final VariantFlyweight INSTANCE = new VariantFlyweight();
@@ -24,21 +27,27 @@ public class VariantFlyweight extends XmiHelper {
         return INSTANCE;
     }
 
-    public Variant getOrCreateVariant(Classifier klass) {
+    /**
+     * Get or create variant
+     *
+     * @param classifier classifier
+     * @return variant
+     */
+    public Variant getOrCreateVariant(Classifier classifier) {
 
-        Variant variant = variants.get(klass.getName());
+        Variant variant = variants.get(classifier.getName());
         if (variant == null) {
-            Stereotype variantType = StereotypeHelper.getVariantType(klass);
+            Stereotype variantType = StereotypeHelper.getVariantType(classifier);
             VariantType type = VariantType.getByName(variantType.getName());
 
             if ((type != null)) {
                 Element variantElement;
                 try {
-                    variantElement = architecture.findElementById(getXmiId(klass));
+                    variantElement = architecture.findElementById(getXmiId(classifier));
 
-                    String rootVp = StereotypeHelper.getValueOfAttribute(klass, variantType, "rootVP");
+                    String rootVp = StereotypeHelper.getValueOfAttribute(classifier, variantType, "rootVP");
                     VariabilityFlyweight.getInstance().getVariabilities();
-                    variant = Variant.createVariant().withName(klass.getName())
+                    variant = Variant.createVariant().withName(classifier.getName())
                             .withVariantType(variantType.getName())
                             .andRootVp(rootVp)
                             .build();
@@ -49,7 +58,7 @@ public class VariantFlyweight extends XmiHelper {
                     e.printStackTrace();
                 }
 
-                String[] variabilitiesForVariant = StereotypeHelper.getValueOfAttribute(klass, variantType, "variabilities").split(",");
+                String[] variabilitiesForVariant = StereotypeHelper.getValueOfAttribute(classifier, variantType, "variabilities").split(",");
                 for (String variability : variabilitiesForVariant) {
                     Variability variabilityVariant = VariabilityFlyweight.getInstance().getVariability(variability.trim());
                     if (variabilityVariant != null) {

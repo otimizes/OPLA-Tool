@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.architecture.io;
 
 import br.ufpr.dinf.gres.architecture.helpers.XmiHelper;
 import br.ufpr.dinf.gres.domain.config.FileUtils;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -25,8 +26,8 @@ public class SaveAndMove extends XmiHelper {
 
     public static void saveAndMove(Document docNotation, Document docUml, Document docDi, String originalModelName, String newModelName) throws TransformerException, IOException {
     	LOGGER.info("saveAndMove()");
-        String targetDir = ReaderConfig.getDirTarget();
-        String targetDirExport = ReaderConfig.getDirExportTarget();
+        String targetDir = ApplicationFileConfigThreadScope.getDirectoryToSaveModels();
+        String targetDirExport = ApplicationFileConfigThreadScope.getDirectoryToExportModels();
 
         String notationCopy = targetDir + System.getProperty("file.separator")  + originalModelName + ".notation";
         String umlCopy = targetDir + System.getProperty("file.separator")  + originalModelName + ".uml";

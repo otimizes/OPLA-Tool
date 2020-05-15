@@ -3,6 +3,9 @@ package br.ufpr.dinf.gres.architecture.representation;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
 import br.ufpr.dinf.gres.architecture.representation.relationship.GeneralizationRelationship;
 
+/**
+ * Operations over generalization class
+ */
 public class OperationsOverGeneralization {
 
     private Architecture architecture;
@@ -19,11 +22,6 @@ public class OperationsOverGeneralization {
         gene.setChild(class1);
     }
 
-    /**
-     * @param gene
-     * @param parent
-     * @param child
-     */
     public void moveGeneralization(GeneralizationRelationship gene, Class parent, Class child) {
         gene.setParent(parent);
         gene.setChild(child);

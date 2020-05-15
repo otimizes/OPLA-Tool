@@ -13,9 +13,9 @@ import java.net.URLDecoder;
 import java.util.Map;
 
 /**
- * Inicialização dos recursos necessários.
+ * Initialization of the necessary resources.
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class InitializeResources {
 
@@ -42,8 +42,7 @@ public class InitializeResources {
     }
 
     /**
-     * Registra os recursos necessários (libraries, metamodels,
-     * UMLPrimitivesTypes e Profiles).
+     * Records the necessary resources (libraries, metamodels, UMLPrimitivesTypes and Profiles).
      */
     private void registerPathmaps() {
         String umlResourcePath = UMLResourcesUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -85,7 +84,7 @@ public class InitializeResources {
     }
 
     /**
-     * Retorna um RESOURCE_SET configurado.
+     * Returns a RESOURCE_SET setted.
      *
      * @return ResourceSet
      */

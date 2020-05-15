@@ -1,6 +1,5 @@
 package br.ufpr.dinf.gres.core.jmetal4.main;
 
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
@@ -17,7 +16,6 @@ import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -112,15 +110,8 @@ public class NSGAIIOPLA {
         ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + System.getProperty("file.separator") + context + "/manipulation");
         ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + System.getProperty("file.separator") + context + "/output");
 
-        ReaderConfig.setDirTarget("experiment/" + plaName + System.getProperty("file.separator") + context + "/manipulation");
-        ReaderConfig.setDirExportTarget("experiment/" + plaName + System.getProperty("file.separator") + context + "/output");
 
         String plaDirectory = getPlaDirectory(pla);
-        ReaderConfig.setPathToTemplateModelsDirectory(plaDirectory);
-        ReaderConfig.setPathToProfileSMarty(plaDirectory + "smarty.profile.uml");
-        ReaderConfig.setPathToProfileConcerns(plaDirectory + "concerns.profile.uml");
-        ReaderConfig.setPathProfileRelationship(plaDirectory + "relationships.profile.uml");
-        ReaderConfig.setPathToProfilePatterns(plaDirectory + "patterns.profile.uml");
 
         String xmiFilePath = pla;
 

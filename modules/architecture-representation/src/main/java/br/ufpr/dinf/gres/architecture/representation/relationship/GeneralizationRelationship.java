@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Generalization relationship class
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class GeneralizationRelationship extends Relationship {

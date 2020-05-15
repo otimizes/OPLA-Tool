@@ -19,17 +19,28 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Variability builder
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class VariabilityBuilder {
 
     private Architecture architecture;
 
-
     public VariabilityBuilder(Architecture architecture) throws ModelNotFoundException, ModelIncompleteException {
         this.architecture = architecture;
     }
 
+    /**
+     * Creates the variability from class
+     *
+     * @param klass class
+     * @return variability
+     * @throws ModelNotFoundException                   not found model
+     * @throws ModelIncompleteException                 incomplete model
+     * @throws SMartyProfileNotAppliedToModelExcepetion not applied profile
+     * @throws VariationPointElementTypeErrorException  type error
+     */
     public List<Variability> create(Classifier klass) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, VariationPointElementTypeErrorException {
 
         VariabilityFlyweight variabilityFlyweight = VariabilityFlyweight.getInstance();

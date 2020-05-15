@@ -24,8 +24,8 @@ package br.ufpr.dinf.gres.core.jmetal4.metaheuristics.nsgaII;
 import br.ufpr.dinf.gres.architecture.io.OPLALogs;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfo;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
-import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
+import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.*;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
@@ -291,7 +291,7 @@ public class NSGAII extends Algorithm {
 
     private void saveBaseHypervolume(Solution solution){
         SaveStringToFile.getInstance().createLogDir();
-        String path = ReaderConfig.getDirExportTarget()+"/Logs/hypervolume_base.txt";
+        String path = ApplicationFileConfigThreadScope.getDirectoryToExportModels()+"/Logs/hypervolume_base.txt";
         try {
             FileWriter fileWriter = new FileWriter(path);
             PrintWriter printWriter = new PrintWriter(fileWriter);

@@ -21,6 +21,8 @@ public class FileConstants {
     public static final String TEMP_DIR = "temp";
     public static final String OUTPUT_DIR = "output";
     public static final String BINS_DIR = "bins";
+    public static final String HV_FILE = "hv.tar.gz";
+    public static final String HV_DIR = "hv";
     public static final String DB_DIR = "db";
     public static final String SIMPLES_UML_NAME = "simples.uml";
     public static final String SIMPLES_DI_NAME = "simples.di";

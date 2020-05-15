@@ -15,13 +15,9 @@ import java.io.Serializable;
  */
 public class AssociationEnd implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1246465575711005213L;
     private Element klass;
     private boolean isNavigable = false;
-    //TODO Tipo da associação mudar nome da variavel
     private String aggregation;
     private Multiplicity multiplicity;
     private String name;

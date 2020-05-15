@@ -8,7 +8,9 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import org.eclipse.uml2.uml.Generalization;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Generalization relationship builder
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class GeneralizationRelationshipBuilder extends ArchitectureHelper {
 
@@ -18,6 +20,12 @@ public class GeneralizationRelationshipBuilder extends ArchitectureHelper {
         this.architecture = architecture;
     }
 
+    /**
+     * Creates the relationship by generalization
+     *
+     * @param generalization generalization
+     * @return relationship
+     */
     public Relationship create(Generalization generalization) {
         String generalKlassId = getModelHelper().getXmiId(generalization.getGeneral());
         String specificKlassId = getModelHelper().getXmiId(generalization.getSpecific());

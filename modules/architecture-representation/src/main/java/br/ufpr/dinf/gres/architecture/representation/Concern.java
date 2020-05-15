@@ -2,6 +2,8 @@ package br.ufpr.dinf.gres.architecture.representation;
 
 
 /**
+ * Concern representation
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Concern {

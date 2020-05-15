@@ -119,24 +119,44 @@
     <stereotype id="STEREOTYPE#8" name="stereotype" primitive="false"/>
     <stereotype id="STEREOTYPE#3" name="variationPoint" primitive="true"/>
   </stereotypes>
-  <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5"/>
+  <profile mandatory="STEREOTYPE#1" optional="STEREOTYPE#2" variationPoint="STEREOTYPE#3" inclusive="STEREOTYPE#4" exclusive="STEREOTYPE#5" requires="STEREOTYPE#6" mutex="STEREOTYPE#7"/>
   <diagram id="DIAGRAM#1" name="Diagram1" type="Class">
-    <package id="PACKAGE#2" name="GameGUI" mandatory="true" x="880" y="2380" globalX="880" globalY="2380" height="300" width="312"/>
-    <package id="PACKAGE#1" name="GameCtrl" mandatory="true" x="1220" y="2380" globalX="1220" globalY="2380" height="680" width="1511"/>
-    <package id="PACKAGE#4" name="GameBoardGUI" mandatory="true" x="500" y="500" globalX="500" globalY="500" height="300" width="300"/>
-    <package id="PACKAGE#3" name="InitializeMgr" mandatory="true" x="380" y="3100" globalX="380" globalY="3100" height="300" width="900"/>
-    <package id="PACKAGE#6" name="AnimationLoopMgr" mandatory="true" x="1320" y="3100" globalX="1320" globalY="3100" height="300" width="900"/>
-    <package id="PACKAGE#5" name="PlayGameGUI" mandatory="true" x="40" y="3100" globalX="40" globalY="3100" height="300" width="300"/>
-    <package id="PACKAGE#8" name="GameMgr" mandatory="true" x="3100" y="500" globalX="3100" globalY="500" height="1060" width="1240"/>
-    <package id="PACKAGE#7" name="GameBoardMgr" mandatory="true" x="20" y="2160" globalX="20" globalY="2160" height="700" width="660"/>
-    <package id="PACKAGE#9" name="GameBoardCtrl" mandatory="true" x="840" y="500" globalX="840" globalY="500" height="1840" width="2220"/>
+    <package id="PACKAGE#2" name="GameGUI" mandatory="true" x="880" y="2380" globalX="880" globalY="2380" height="300" width="312">
+      <description></description>
+    </package>
+    <package id="PACKAGE#1" name="GameCtrl" mandatory="true" x="1220" y="2380" globalX="1220" globalY="2380" height="680" width="1511">
+      <description></description>
+    </package>
+    <package id="PACKAGE#4" name="GameBoardGUI" mandatory="true" x="500" y="500" globalX="500" globalY="500" height="300" width="300">
+      <description></description>
+    </package>
+    <package id="PACKAGE#3" name="InitializeMgr" mandatory="true" x="380" y="3100" globalX="380" globalY="3100" height="300" width="900">
+      <description></description>
+    </package>
+    <package id="PACKAGE#6" name="AnimationLoopMgr" mandatory="true" x="1320" y="3100" globalX="1320" globalY="3100" height="300" width="900">
+      <description></description>
+    </package>
+    <package id="PACKAGE#5" name="PlayGameGUI" mandatory="true" x="40" y="3100" globalX="40" globalY="3100" height="300" width="300">
+      <description></description>
+    </package>
+    <package id="PACKAGE#8" name="GameMgr" mandatory="true" x="3100" y="500" globalX="3100" globalY="500" height="1060" width="1240">
+      <description></description>
+    </package>
+    <package id="PACKAGE#7" name="GameBoardMgr" mandatory="true" x="20" y="2160" globalX="20" globalY="2160" height="700" width="660">
+      <description></description>
+    </package>
+    <package id="PACKAGE#9" name="GameBoardCtrl" mandatory="true" x="840" y="500" globalX="840" globalY="500" height="1840" width="2220">
+      <description></description>
+    </package>
     <class id="CLASS#11" name="Point" mandatory="true" x="380" y="1560" globalX="1220" globalY="2060" abstract="false" final="false" height="160" width="200" parent="PACKAGE#9">
+      <description></description>
       <attribute id="ATTRIBUTE#2" name="y" type="TYPE#17" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#1" name="x" type="TYPE#17" visibility="private" static="false" final="false"/>
       <method id="METHOD#179" name="point" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#10" name="Sprite" mandatory="true" x="820" y="360" globalX="1660" globalY="860" abstract="false" final="false" height="240" width="500" parent="PACKAGE#9">
+      <description></description>
       <attribute id="ATTRIBUTE#32" name="icon" type="TYPE#17" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#31" name="localization" type="CLASS#11" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#33" name="name" type="TYPE#24" visibility="private" static="false" final="false"/>
@@ -148,6 +168,7 @@
       </method>
     </class>
     <class id="CLASS#15" name="BowlingGame" mandatory="true" x="280" y="360" globalX="3380" globalY="860" abstract="false" final="false" height="240" width="400" parent="PACKAGE#8">
+      <description></description>
       <attribute id="ATTRIBUTE#8" name="numberoftruns" type="TYPE#17" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#9" name="gamecode" type="TYPE#17" visibility="private" static="false" final="false"/>
       <method id="METHOD#60" name="savegame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -160,10 +181,12 @@
       </method>
     </class>
     <class id="CLASS#14" name="GameMgr" mandatory="true" x="160" y="720" globalX="3260" globalY="1220" abstract="false" final="false" height="180" width="440" parent="PACKAGE#8">
+      <description></description>
       <method id="METHOD#174" name="gamemgr" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#13" name="Game" mandatory="true" x="480" y="60" globalX="3580" globalY="560" abstract="false" final="false" height="260" width="300" parent="PACKAGE#8">
+      <description></description>
       <attribute id="ATTRIBUTE#6" name="gamecode" type="TYPE#17" visibility="private" static="false" final="false"/>
       <method id="METHOD#49" name="savescore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
@@ -179,6 +202,7 @@
       </method>
     </class>
     <class id="CLASS#12" name="Score" mandatory="true" x="1060" y="60" globalX="1900" globalY="560" abstract="false" final="false" height="180" width="300" parent="PACKAGE#9">
+      <description></description>
       <attribute id="ATTRIBUTE#30" name="score" type="TYPE#4" visibility="private" static="false" final="false"/>
       <method id="METHOD#102" name="incscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
@@ -186,14 +210,17 @@
       </method>
     </class>
     <class id="CLASS#19" name="Display" mandatory="true" x="820" y="60" globalX="1660" globalY="560" abstract="false" final="false" height="120" width="210" parent="PACKAGE#9">
+      <description></description>
       <method id="METHOD#178" name="display" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#18" name="GameBoardCtrl" mandatory="true" x="1280" y="770" globalX="2120" globalY="1270" abstract="false" final="false" height="140" width="330" parent="PACKAGE#9">
+      <description></description>
       <method id="METHOD#175" name="gameboardctrl" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#17" name="BricklesGame" mandatory="true" x="820" y="60" globalX="3920" globalY="560" abstract="false" final="false" height="240" width="400" parent="PACKAGE#8">
+      <description></description>
       <attribute id="ATTRIBUTE#13" name="numberofballs" type="TYPE#17" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#14" name="gamecode" type="TYPE#17" visibility="private" static="false" final="false"/>
       <method id="METHOD#69" name="loadgame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -206,6 +233,7 @@
       </method>
     </class>
     <class id="CLASS#16" name="PongGame" mandatory="true" x="40" y="60" globalX="3140" globalY="560" abstract="false" final="false" height="260" width="400" parent="PACKAGE#8">
+      <description></description>
       <attribute id="ATTRIBUTE#10" name="numberofsets" type="TYPE#17" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#12" name="gamecode" type="TYPE#17" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#11" name="setpoints" type="TYPE#17" visibility="private" static="false" final="false"/>
@@ -219,6 +247,7 @@
       </method>
     </class>
     <class id="CLASS#22" name="Puck" mandatory="true" x="1700" y="360" globalX="2540" globalY="860" abstract="false" final="false" height="300" width="500" parent="PACKAGE#9">
+      <description></description>
       <attribute id="ATTRIBUTE#42" name="isdead" type="TYPE#10" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#41" name="puckdimension" type="TYPE#17" visibility="private" static="false" final="false"/>
       <method id="METHOD#134" name="getsavedata" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -237,12 +266,14 @@
       </method>
     </class>
     <class id="CLASS#7" name="PlayGameGUI" mandatory="true" x="40" y="60" globalX="80" globalY="3160" abstract="false" final="false" height="140" width="200" parent="PACKAGE#5">
+      <description></description>
       <method id="METHOD#26" name="play" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#171" name="playgamegui" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#21" name="Velocity" mandatory="true" x="1200" y="1180" globalX="2040" globalY="1680" abstract="false" final="false" height="280" width="300" parent="PACKAGE#9">
+      <description></description>
       <attribute id="ATTRIBUTE#37" name="speed" type="TYPE#4" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#38" name="direction" type="TYPE#17" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#39" name="dx" type="TYPE#17" visibility="private" static="false" final="false"/>
@@ -257,6 +288,7 @@
       </method>
     </class>
     <class id="CLASS#8" name="AnimationLoopMgr" mandatory="true" x="40" y="60" globalX="1360" globalY="3160" abstract="false" final="false" height="180" width="400" parent="PACKAGE#6">
+      <description></description>
       <method id="METHOD#27" name="startanimation" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
         <parameter type="TYPE#17" name="gamecode"/>
       </method>
@@ -265,6 +297,7 @@
       </method>
     </class>
     <class id="CLASS#20" name="MovableSprites" mandatory="true" x="40" y="1180" globalX="880" globalY="1680" abstract="false" final="false" height="340" width="300" parent="PACKAGE#9">
+      <description></description>
       <attribute id="ATTRIBUTE#36" name="lastPosition" type="CLASS#11" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#35" name="currentvelocity" type="CLASS#21" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#34" name="ismoving" type="TYPE#10" visibility="private" static="false" final="false"/>
@@ -284,10 +317,12 @@
       </method>
     </class>
     <class id="CLASS#9" name="GameBoardMgr" mandatory="true" x="40" y="60" globalX="60" globalY="2220" abstract="false" final="false" height="180" width="530" parent="PACKAGE#7">
+      <description></description>
       <method id="METHOD#172" name="gameboardmgr" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#3" name="GameBoard" mandatory="true" x="380" y="360" globalX="1220" globalY="860" abstract="false" final="false" height="780" width="400" parent="PACKAGE#9">
+      <description></description>
       <attribute id="ATTRIBUTE#22" name="display" type="CLASS#19" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#20" name="moving" type="TYPE#10" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#19" name="speed" type="TYPE#17" visibility="private" static="false" final="false"/>
@@ -346,6 +381,7 @@
       </method>
     </class>
     <class id="CLASS#26" name="Wall" mandatory="true" x="1360" y="360" globalX="2200" globalY="860" abstract="false" final="false" height="200" width="300" parent="PACKAGE#9">
+      <description></description>
       <method id="METHOD#145" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#144" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -354,6 +390,7 @@
       </method>
     </class>
     <class id="CLASS#4" name="Match" mandatory="true" x="480" y="60" globalX="1320" globalY="560" abstract="false" final="false" height="260" width="300" parent="PACKAGE#9">
+      <description></description>
       <attribute id="ATTRIBUTE#16" name="numberofmatches" type="TYPE#17" visibility="private" static="false" final="false"/>
       <method id="METHOD#76" name="setpartialscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
@@ -369,19 +406,23 @@
       </method>
     </class>
     <class id="CLASS#25" name="Ceiling" mandatory="true" x="1400" y="60" globalX="2240" globalY="560" abstract="false" final="false" height="180" width="300" parent="PACKAGE#9">
+      <description></description>
       <method id="METHOD#142" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#143" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#24" name="StationarySprite" mandatory="true" x="620" y="1180" globalX="1460" globalY="1680" abstract="false" final="false" height="160" width="200" parent="PACKAGE#9">
+      <description></description>
     </class>
     <class id="CLASS#5" name="InitializationMgr" mandatory="true" x="40" y="60" globalX="420" globalY="3160" abstract="false" final="false" height="140" width="400" parent="PACKAGE#3">
+      <description></description>
       <method id="METHOD#22" name="initialize" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
         <parameter type="TYPE#17" name="gamecode"/>
       </method>
     </class>
     <class id="CLASS#6" name="GameBoardGUI" mandatory="true" x="40" y="60" globalX="540" globalY="560" abstract="false" final="false" height="160" width="231" parent="PACKAGE#4">
+      <description></description>
       <method id="METHOD#173" name="gameboardgui" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#25" name="checkscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -390,6 +431,7 @@
       </method>
     </class>
     <class id="CLASS#23" name="Paddle" mandatory="true" x="40" y="1560" globalX="880" globalY="2060" abstract="false" final="false" height="260" width="300" parent="PACKAGE#9">
+      <description></description>
       <method id="METHOD#141" name="setsavedata" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#137" name="moveleft" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -406,10 +448,12 @@
       </method>
     </class>
     <class id="CLASS#1" name="GameCtrl" mandatory="true" x="900" y="470" globalX="2120" globalY="2850" abstract="false" final="false" height="200" width="570" parent="PACKAGE#1">
+      <description></description>
       <method id="METHOD#177" name="gamectrl" return="TYPE#9" visibility="public" constructor="true" static="false" final="false" abstract="false">
       </method>
     </class>
     <class id="CLASS#2" name="GameGUI" mandatory="true" x="40" y="60" globalX="920" globalY="2440" abstract="false" final="false" height="180" width="252" parent="PACKAGE#2">
+      <description></description>
       <method id="METHOD#19" name="install" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#20" name="save" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -420,6 +464,7 @@
       </method>
     </class>
     <class id="CLASS#29" name="Brick" mandatory="true" x="40" y="60" globalX="880" globalY="560" abstract="false" final="false" height="260" width="400" parent="PACKAGE#9">
+      <description></description>
       <attribute id="ATTRIBUTE#48" name="isbroken" type="TYPE#17" visibility="private" static="false" final="false"/>
       <method id="METHOD#158" name="hitbypuck" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
@@ -435,6 +480,7 @@
       </method>
     </class>
     <class id="CLASS#28" name="BrickPile" mandatory="true" x="40" y="360" globalX="880" globalY="860" abstract="false" final="false" height="340" width="300" parent="PACKAGE#9">
+      <description></description>
       <attribute id="ATTRIBUTE#46" name="numberofbricks" type="TYPE#17" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#47" name="numleft" type="TYPE#17" visibility="private" static="false" final="false"/>
       <attribute id="ATTRIBUTE#44" name="numrows" type="TYPE#17" visibility="private" static="false" final="false"/>
@@ -454,6 +500,7 @@
       </method>
     </class>
     <class id="CLASS#27" name="Floor" mandatory="true" x="860" y="1180" globalX="1700" globalY="1680" abstract="false" final="false" height="200" width="300" parent="PACKAGE#9">
+      <description></description>
       <method id="METHOD#147" name="collidewith" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
       </method>
       <method id="METHOD#148" name="paint" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="false">
@@ -462,18 +509,21 @@
       </method>
     </class>
     <interface id="INTERFACE#1" name="IPlayBowling" mandatory="true" x="580" y="260" globalX="1800" globalY="2640" height="180" width="400" parent="PACKAGE#1">
+      <description></description>
       <method id="METHOD#2" name="play" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
       <method id="METHOD#1" name="checkinstallation" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
     </interface>
     <interface id="INTERFACE#4" name="IPlayBrickles" mandatory="true" x="1020" y="260" globalX="2240" globalY="2640" height="180" width="400" parent="PACKAGE#1">
+      <description></description>
       <method id="METHOD#9" name="checkinstallation" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
       <method id="METHOD#10" name="play" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
     </interface>
     <interface id="INTERFACE#5" name="IInstallGame" mandatory="true" x="720" y="60" globalX="1940" globalY="2440" height="160" width="400" parent="PACKAGE#1">
+      <description></description>
       <method id="METHOD#12" name="checkgame" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gamecode"/>
       </method>
@@ -482,6 +532,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#2" name="IExitGame" mandatory="true" x="40" y="480" globalX="1260" globalY="2860" height="160" width="400" parent="PACKAGE#1">
+      <description></description>
       <method id="METHOD#4" name="exit" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
       <method id="METHOD#5" name="checkgameboard" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
@@ -489,17 +540,20 @@
       </method>
     </interface>
     <interface id="INTERFACE#3" name="IPlayPong" mandatory="true" x="480" y="480" globalX="1700" globalY="2860" height="180" width="400" parent="PACKAGE#1">
+      <description></description>
       <method id="METHOD#7" name="play" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
       <method id="METHOD#6" name="checkinstallation" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
       </method>
     </interface>
     <interface id="INTERFACE#8" name="IInitializationMgt" mandatory="true" x="480" y="60" globalX="860" globalY="3160" height="140" width="400" parent="PACKAGE#3">
+      <description></description>
       <method id="METHOD#23" name="initialize" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gamecode"/>
       </method>
     </interface>
     <interface id="INTERFACE#9" name="IAnimationLoopMgt" mandatory="true" x="480" y="60" globalX="1800" globalY="3160" height="180" width="400" parent="PACKAGE#6">
+      <description></description>
       <method id="METHOD#30" name="stopanimation" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gamecode"/>
       </method>
@@ -508,6 +562,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#6" name="ISaveGame" mandatory="true" x="40" y="260" globalX="1260" globalY="2640" height="180" width="500" parent="PACKAGE#1">
+      <description></description>
       <method id="METHOD#16" name="savegame" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#3" name="gameboard"/>
         <parameter type="CLASS#4" name="match"/>
@@ -520,6 +575,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#7" name="IUninstallGame" mandatory="true" x="280" y="60" globalX="1500" globalY="2440" height="160" width="400" parent="PACKAGE#1">
+      <description></description>
       <method id="METHOD#17" name="checkgame" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gamecode"/>
       </method>
@@ -528,6 +584,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#10" name="IGameBoardMgt" mandatory="true" x="60" y="270" globalX="80" globalY="2430" height="420" width="500" parent="PACKAGE#7">
+      <description></description>
       <method id="METHOD#38" name="setpartialscore" return="TYPE#9" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#12" name="score"/>
       </method>
@@ -576,6 +633,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#12" name="ICheckScore" mandatory="true" x="620" y="1560" globalX="1460" globalY="2060" height="180" width="400" parent="PACKAGE#9">
+      <description></description>
       <method id="METHOD#105" name="hasscore" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#13" name="game"/>
       </method>
@@ -587,6 +645,7 @@
       </method>
     </interface>
     <interface id="INTERFACE#11" name="IGameMgt" mandatory="true" x="720" y="360" globalX="3820" globalY="860" height="360" width="500" parent="PACKAGE#8">
+      <description></description>
       <method id="METHOD#57" name="checkinstallation" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gamecode"/>
       </method>
@@ -621,11 +680,13 @@
       </method>
     </interface>
     <interface id="INTERFACE#14" name="IGameBoardData" mandatory="true" x="1060" y="1560" globalX="1900" globalY="2060" height="140" width="400" parent="PACKAGE#9">
+      <description></description>
       <method id="METHOD#117" name="getgameboard" return="CLASS#3" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="TYPE#17" name="gamecode"/>
       </method>
     </interface>
     <interface id="INTERFACE#13" name="ISaveScore" mandatory="true" x="1530" y="1040" globalX="2370" globalY="1540" height="240" width="500" parent="PACKAGE#9">
+      <description></description>
       <method id="METHOD#111" name="isarankingscore" return="TYPE#10" visibility="public" constructor="false" static="false" final="false" abstract="true">
         <parameter type="CLASS#12" name="score"/>
       </method>

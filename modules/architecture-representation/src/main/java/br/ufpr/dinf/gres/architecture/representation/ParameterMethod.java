@@ -2,9 +2,9 @@ package br.ufpr.dinf.gres.architecture.representation;
 
 
 /**
- * Representa parametro de um método.
+ * Methods representation class
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ParameterMethod {
 

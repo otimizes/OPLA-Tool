@@ -1,14 +1,13 @@
 package br.ufpr.dinf.gres.architecture.representation;
 
-import br.ufpr.dinf.gres.architecture.touml.Stereotype;
+import br.ufpr.dinf.gres.architecture.papyrus.touml.Stereotype;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * Essa classe representa uma variant, contem os atributos referentes
- * as variants:<br/>
+ * Variant representation, can be:<br/>
  * <ul>
  * <li>mandatory</li>
  * <li>optional</li>
@@ -16,7 +15,7 @@ import java.util.List;
  * </li>alternative_XOR</li>
  * </ul>
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Variant implements Stereotype {
 
@@ -105,7 +104,7 @@ public class Variant implements Stereotype {
         return variabilities;
     }
 
-    public void addVariability(Variability variability){
+    public void addVariability(Variability variability) {
         variabilities.add(variability);
     }
 
@@ -156,7 +155,7 @@ public class Variant implements Stereotype {
         return variationPoints;
     }
 
-    public void addVariationPoint(VariationPoint vp){
+    public void addVariationPoint(VariationPoint vp) {
         variationPoints.add(vp);
     }
 

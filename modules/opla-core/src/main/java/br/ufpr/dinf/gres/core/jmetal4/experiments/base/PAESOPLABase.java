@@ -1,6 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments.base;
 
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
@@ -185,9 +185,9 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
     private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
         String dir;
         if (executionID != null)
-            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + experimentID + System.getProperty("file.separator") + executionID + "/Hypervolume/";
+            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + experimentID + System.getProperty("file.separator") + executionID + "/Hypervolume/";
         else
-            dir = ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + experimentID + "/Hypervolume/";
+            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + experimentID + "/Hypervolume/";
 
         File newDir = new File(dir);
         if (!newDir.exists())

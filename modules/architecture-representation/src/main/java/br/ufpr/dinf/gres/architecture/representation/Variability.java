@@ -1,20 +1,17 @@
 package br.ufpr.dinf.gres.architecture.representation;
 
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Variability representation
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
-public class Variability implements Serializable {
+public class Variability extends Comment {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 7041018135043156673L;
-    private String name;
     private String minSelection;
     private String maxSelection;
     private String bindingTime;
@@ -25,10 +22,11 @@ public class Variability implements Serializable {
     private VariationPoint variationPoint;
     private List<Variant> variants = new ArrayList<Variant>();
 
-    private  String id;
+    private String id;
     public String constraint;
 
     public Variability(String name, String minSelection, String maxSelection, String bindingTime, boolean allowsAddingVar, String ownerClass, String idPackageOwner) {
+        super(name, "variability");
         setName(name);
         setMinSelection(minSelection);
         setMaxSelection(maxSelection);
@@ -77,20 +75,12 @@ public class Variability implements Serializable {
         return bindingTime;
     }
 
-    public void addVariant(Variant variant){
+    public void addVariant(Variant variant) {
         variants.add(variant);
     }
 
     private void setBindingTime(String bindingTime) {
         this.bindingTime = bindingTime;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    private void setName(String name) {
-        this.name = name;
     }
 
     public String getMinSelection() {
@@ -135,7 +125,7 @@ public class Variability implements Serializable {
      */
     @Override
     public String toString() {
-        return "Variability [name=" + name + ", minSelection=" + minSelection
+        return "Variability [name=" + getName() + ", minSelection=" + minSelection
                 + ", maxSelection=" + maxSelection + ", allowsAddingVar="
                 + allowsAddingVar + ", variationPoint=" + variationPoint
                 + ", variants=" + variants + "]";
@@ -157,7 +147,7 @@ public class Variability implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         return result;
     }
 
@@ -173,9 +163,9 @@ public class Variability implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Variability other = (Variability) obj;
-        if (name == null) {
-            return other.name == null;
-        } else return name.equals(other.name);
+        if (getName() == null) {
+            return other.getName() == null;
+        } else return getName().equals(other.getName());
     }
 
 

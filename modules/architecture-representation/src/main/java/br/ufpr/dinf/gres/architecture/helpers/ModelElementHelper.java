@@ -11,7 +11,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Model element utils
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ModelElementHelper {
 
@@ -21,7 +23,7 @@ public class ModelElementHelper {
      * Se nenhum esterótipo for encontrado retorna uma lista vazia.
      *
      * @param element
-     * @return List<{@link Stereotype}>
+     * @return List<{ @ link Stereotype }>
      */
     public static <T> List<Stereotype> getAllStereotypes(NamedElement element) {
         List<Stereotype> stereotypes = new ArrayList<Stereotype>();

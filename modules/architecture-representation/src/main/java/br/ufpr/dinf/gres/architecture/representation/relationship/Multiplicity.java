@@ -3,7 +3,9 @@ package br.ufpr.dinf.gres.architecture.representation.relationship;
 import java.io.Serializable;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Multiplicity class
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Multiplicity implements Serializable {
 

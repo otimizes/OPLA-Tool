@@ -4,8 +4,8 @@ import br.ufpr.dinf.gres.architecture.helpers.ModelHelper;
 import br.ufpr.dinf.gres.architecture.helpers.ModelHelperFactory;
 import br.ufpr.dinf.gres.architecture.helpers.StereotypeHelper;
 import br.ufpr.dinf.gres.architecture.helpers.XmiHelper;
-import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.Class;
+import br.ufpr.dinf.gres.architecture.representation.*;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Property;
@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Builder resposável por criar element do tipo Classe.
+ * Builder responsible for creating element of type Class.
  *
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ClassBuilder extends ElementBuilder<br.ufpr.dinf.gres.architecture.representation.Class> {
 
@@ -26,10 +26,10 @@ public class ClassBuilder extends ElementBuilder<br.ufpr.dinf.gres.architecture.
     private ModelHelper modelHelper;
 
     /**
-     * Recebe como paramêtro {@link Architecture}. <br/>
-     * Initializa helper {@link ModelHelper}
+     * Receives as parameter {@link Architecture}. <br/>
+     * Initializing helper {@link ModelHelper}
      *
-     * @param architecture
+     * @param architecture architecture
      */
     public ClassBuilder(Architecture architecture) {
         super(architecture);
@@ -39,6 +39,12 @@ public class ClassBuilder extends ElementBuilder<br.ufpr.dinf.gres.architecture.
         modelHelper = ModelHelperFactory.getModelHelper();
     }
 
+    /**
+     * Build the element
+     *
+     * @param modelElement element
+     * @return class
+     */
     @Override
     protected br.ufpr.dinf.gres.architecture.representation.Class buildElement(NamedElement modelElement) {
         br.ufpr.dinf.gres.architecture.representation.Class klass = null;
@@ -74,10 +80,10 @@ public class ClassBuilder extends ElementBuilder<br.ufpr.dinf.gres.architecture.
     }
 
     /**
-     * Retorna todos atributos de uma Class.
+     * Returns all attributes of a Class.
      *
-     * @param modelElement
-     * @return List
+     * @param modelElement element
+     * @return attributes
      */
     private List<Attribute> getAttributes(NamedElement modelElement) {
         List<Attribute> attrs = new ArrayList<Attribute>();
@@ -91,10 +97,10 @@ public class ClassBuilder extends ElementBuilder<br.ufpr.dinf.gres.architecture.
     }
 
     /**
-     * Retorna todos os método de uma classe
+     * Returns all methods of a class
      *
-     * @param modelElement
-     * @return List
+     * @param modelElement element
+     * @return methods
      */
     private List<Method> getMethods(NamedElement modelElement, Class parent) {
         List<Method> methods = new ArrayList<Method>();

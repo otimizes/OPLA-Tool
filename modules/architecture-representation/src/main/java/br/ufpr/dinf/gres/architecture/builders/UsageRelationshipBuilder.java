@@ -10,7 +10,9 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Usage;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * Usage relationship builder
+ *
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class UsageRelationshipBuilder extends ArchitectureHelper {
 
@@ -20,6 +22,12 @@ public class UsageRelationshipBuilder extends ArchitectureHelper {
         this.architecture = architecture;
     }
 
+    /**
+     * Creates the usage relationship
+     *
+     * @param element usage
+     * @return usage relationship
+     */
     public UsageRelationship create(Usage element) {
 
         EList<NamedElement> suppliers = element.getSuppliers();

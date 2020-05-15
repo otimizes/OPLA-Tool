@@ -4,17 +4,17 @@ import br.ufpr.dinf.gres.architecture.exceptions.ClassNotFound;
 import br.ufpr.dinf.gres.architecture.flyweights.VariabilityFlyweight;
 import br.ufpr.dinf.gres.architecture.flyweights.VariantFlyweight;
 import br.ufpr.dinf.gres.architecture.flyweights.VariationPointFlyweight;
+import br.ufpr.dinf.gres.architecture.generate.GenerateArchitecture;
+import br.ufpr.dinf.gres.architecture.generate.GenerateArchitectureSMarty;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.architecture.io.ReaderConfig;
-import br.ufpr.dinf.gres.architecture.main.GenerateArchitecture;
-import br.ufpr.dinf.gres.architecture.main.GenerateArchitectureSMarty;
 import br.ufpr.dinf.gres.architecture.representation.architectureControl.ArchitectureFindElementControl;
 import br.ufpr.dinf.gres.architecture.representation.architectureControl.ArchitectureRemoveElementControl;
 import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.RealizationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.architecture.toSMarty.util.SaveStringToFile;
+import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.common.Variable;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
@@ -22,6 +22,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * Architecture representation class
+ *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Architecture extends Variable {
@@ -80,6 +82,7 @@ public class Architecture extends Variable {
 
     /**
      * get a list of duplicated interfaces if has
+     *
      * @return list of duplicated interfaces
      */
     public ArrayList<Interface> getDuplicateInterface() {
@@ -115,11 +118,11 @@ public class Architecture extends Variable {
     }
 
     public TypeSmarty findTypeSMartyByName(String name) {
-        return  ArchitectureFindElementControl.getInstance().findTypeSMartyByName(this, name);
+        return ArchitectureFindElementControl.getInstance().findTypeSMartyByName(this, name);
     }
 
     public TypeSmarty findReturnTypeSMartyByName(String name) {
-        return  ArchitectureFindElementControl.getInstance().findReturnTypeSMartyByName(this, name);
+        return ArchitectureFindElementControl.getInstance().findReturnTypeSMartyByName(this, name);
     }
 
     public boolean isSMarty() {
@@ -179,7 +182,7 @@ public class Architecture extends Variable {
     }
 
     public Element findElementByNameInPackageAndSubPackage(String elementName) {
-        return  ArchitectureFindElementControl.getInstance().findElementByNameInPackageAndSubPackage(this, elementName);
+        return ArchitectureFindElementControl.getInstance().findElementByNameInPackageAndSubPackage(this, elementName);
     }
 
     public String getName() {
@@ -242,6 +245,13 @@ public class Architecture extends Variable {
         return concerns;
     }
 
+    public List<String> getAllComments() {
+        List<String> comments = getAllClasses().stream().filter(Element::hasComments).map(Element::getStringComments).collect(Collectors.toList());
+        comments.addAll(getAllPackages().stream().filter(Element::hasComments).map(Element::getStringComments).collect(Collectors.toList()));
+        comments.addAll(getAllInterfaces().stream().filter(Element::hasComments).map(Element::getStringComments).collect(Collectors.toList()));
+        return comments;
+    }
+
     /**
      * Retorna um Map imutável. É feito isso para garantir que nenhum modificação seja
      * feita diretamente na lista
@@ -262,7 +272,7 @@ public class Architecture extends Variable {
      *
      * @return Set<Package>
      */
-    public Set<Package> getEditableListPackages(){
+    public Set<Package> getEditableListPackages() {
         return this.packages;
     }
 
@@ -469,6 +479,7 @@ public class Architecture extends Variable {
 
     /**
      * return a list of variability. if input is smty, return a local list from architecture, else use flyweight
+     *
      * @return
      */
     public List<Variability> getAllVariabilities() {
@@ -479,7 +490,7 @@ public class Architecture extends Variable {
     }
 
     public Class findClassById(String idClass) throws ClassNotFound {
-        return  ArchitectureFindElementControl.getInstance().findClassById(this, idClass);
+        return ArchitectureFindElementControl.getInstance().findClassById(this, idClass);
     }
 
     public Interface findIntefaceById(String idClass) throws ClassNotFound {
@@ -541,8 +552,9 @@ public class Architecture extends Variable {
 
     /**
      * move a package to other package
+     *
      * @param packageID - id of package that will be moved
-     * @param parentID - id of destiny package to be moved
+     * @param parentID  - id of destiny package to be moved
      */
     public void movePackageToParent(String packageID, String parentID) {
         Package origin = findPackageByID(packageID);
@@ -656,7 +668,7 @@ public class Architecture extends Variable {
     }
 
     public void removeImplementedInterface(Class foo, Interface inter) {
-        ArchitectureRemoveElementControl.getInstance().removeImplementedInterface(this, foo,  inter);
+        ArchitectureRemoveElementControl.getInstance().removeImplementedInterface(this, foo, inter);
     }
 
     public void addRequiredInterface(Interface supplier, Class client) {
@@ -710,9 +722,10 @@ public class Architecture extends Variable {
     /**
      * save an architecture to output
      * if toSMarty is true, save to .smty format, else save to .uml
+     *
      * @param architecture - target architecture
-     * @param pathToSave - name of the output file
-     * @param i -
+     * @param pathToSave   - name of the output file
+     * @param i            -
      */
     public void save(Architecture architecture, String pathToSave, String i) {
         if (this.toSMarty) {
@@ -726,8 +739,9 @@ public class Architecture extends Variable {
 
     /**
      * save an architecture in .smty format without consider the format of input architecture
+     *
      * @param architecture - target architecture
-     * @param pathToSave - name of output file
+     * @param pathToSave   - name of output file
      */
     public void saveToSMarty(Architecture architecture, String pathToSave) {
         GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
@@ -740,8 +754,8 @@ public class Architecture extends Variable {
         saveToSMarty(this, "TEMP/TEMP");
         System.out.println("Saved");
         try {
-            System.out.println(ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
-            Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar " + ReaderConfig.getDirExportTarget() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
+            System.out.println(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
+            Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar " + ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
             //Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar");
             proc.waitFor();
         } catch (Exception ex) {
