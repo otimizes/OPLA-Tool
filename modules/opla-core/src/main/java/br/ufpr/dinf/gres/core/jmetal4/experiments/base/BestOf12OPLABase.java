@@ -114,7 +114,7 @@ public class BestOf12OPLABase {
             crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parameters);
             parameters = new HashMap<>();
             parameters.put("probability", mutationProbability);
-            mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parameters, configs);
+            mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parameters, configs);
             operatorLocal = MutationFactory.getMutationOperatorPatterns("PLAPatternsMutation", parameters,
                     configs);
             parameters = null;

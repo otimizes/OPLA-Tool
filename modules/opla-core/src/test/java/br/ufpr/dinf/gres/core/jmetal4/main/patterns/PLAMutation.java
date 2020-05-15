@@ -15,7 +15,7 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.PLAFeatureMutation;
+import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.PLAMutationOperator;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.AbstractMutationOperator;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
@@ -31,7 +31,7 @@ import java.util.logging.Level;
 public class PLAMutation extends AbstractMutationOperator {
 
     private static final long serialVersionUID = 1L;
-    static Logger LOGGER = LogManager.getLogger(PLAFeatureMutation.class.getName());
+    static Logger LOGGER = LogManager.getLogger(PLAMutationOperator.class.getName());
 
     public PLAMutation(Map<String, Object> parameters) {
         super(parameters);

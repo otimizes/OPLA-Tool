@@ -97,11 +97,11 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
 
             parameters = new HashMap<>();
             parameters.put("probability", crossoverProbability);
-            crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parameters, configs);
+            crossover = CrossoverFactory.getCrossoverOperator("PLACrossoverOperator", parameters, configs);
 
             parameters = new HashMap<>();
             parameters.put("probability", mutationProbability);
-            mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parameters, configs);
+            mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parameters, configs);
             parameters = null;
             selection = SelectionFactory.getSelectionOperator("BinaryTournament", parameters);
 

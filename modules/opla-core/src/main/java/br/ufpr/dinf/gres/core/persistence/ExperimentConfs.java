@@ -3,7 +3,7 @@ package br.ufpr.dinf.gres.core.persistence;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.NSGAIIConfigs;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.base.PAESConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
+import br.ufpr.dinf.gres.core.jmetal4.operators.MutationOperators;
 
 /**
  * Class responsible for retrieving information related of which configuration the experiment use.
@@ -47,7 +47,7 @@ public class ExperimentConfs {
     public String getPatterns() {
         StringBuilder patternsList = new StringBuilder();
 
-        if (configs.getMutationOperators().contains(FeatureMutationOperators.DESIGN_PATTERNS.toString())) {
+        if (configs.getMutationOperators().contains(MutationOperators.DESIGN_PATTERNS.toString())) {
             for (String p : configs.getPatterns()) {
                 patternsList.append(p);
                 patternsList.append(",");
@@ -126,7 +126,7 @@ public class ExperimentConfs {
      * @return string of strategy
      */
     public String getDesignPatternStrategy() {
-        if (configs.getMutationOperators().contains(FeatureMutationOperators.DESIGN_PATTERNS.toString())) {
+        if (configs.getMutationOperators().contains(MutationOperators.DESIGN_PATTERNS.toString())) {
             if (configs.getDesignPatternStrategy() == null)
                 return "Random";
             if (configs.getDesignPatternStrategy() != null)

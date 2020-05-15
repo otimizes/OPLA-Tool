@@ -35,7 +35,7 @@ export class OptimizationService {
   }
 
   public static isRunning() {
-    return localStorage.getItem("optimizationInfo") != null && (this.getOptimizationInfo().status === "RUNNING" || this.getOptimizationInfo().status === 'INTERACT');
+    return (localStorage.getItem("optimizationInfo") != null && (this.getOptimizationInfo().status === "RUNNING" || this.getOptimizationInfo().status === 'INTERACT'));
   }
 
   public static setPLA(listOfFiles) {
@@ -57,10 +57,11 @@ export class OptimizationService {
           let json = JSON.parse(e.data);
           OptimizationService.optimizationInfo = Object.assign(new OptimizationInfo(), json);
           OptimizationService.onOptimizationInfo.emit(OptimizationService.optimizationInfo);
-          if (json.status === "COMPLETE") {
+          if (json.status === "COMPLETE" || !json.currentGeneration) {
             source.close();
             e.stopImmediatePropagation();
             e.stopPropagation();
+            localStorage.removeItem("optimizationInfo");
           }
         }
       }, false);
@@ -142,7 +143,9 @@ export class OptimizationService {
   optimize(dto: OptimizationDto): Observable<OptimizationInfo> {
     return this.http.post<OptimizationInfo>(`${UserService.baseUrl}/optimization/optimize`, dto, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler), tap(data => {
-        this.startEventListener(data);
+        setTimeout(() => {
+          this.startEventListener(data);
+        },1000)
       }));
   }
 

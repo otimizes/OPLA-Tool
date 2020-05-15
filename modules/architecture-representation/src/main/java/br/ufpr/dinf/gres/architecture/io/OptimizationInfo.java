@@ -21,4 +21,11 @@ public class OptimizationInfo {
         this.logs = logs;
         this.status = status;
     }
+
+    public OptimizationInfo(Long threadId, String logs, OptimizationInfoStatus status, Integer currentGeneration) {
+        this.threadId = threadId;
+        this.logs = logs;
+        this.status = status;
+        this.currentGeneration = currentGeneration;
+    }
 }

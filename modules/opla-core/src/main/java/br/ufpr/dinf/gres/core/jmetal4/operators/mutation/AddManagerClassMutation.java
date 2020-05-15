@@ -10,18 +10,19 @@ import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 /**
  * Mutation operator that add manager classes
  */
-public class AddManagerClassMutation implements IMutationOperator {
+public class AddManagerClassMutation implements IOperator<Solution> {
 
     @Override
-    public void execute(double probability, Solution solution, String scope) {
+    public Solution execute(Map<String, Object> parameters, Solution solution, String scope) {
         try {
-            if (PseudoRandom.randDouble() < probability) {
+            if (PseudoRandom.randDouble() < ((Double) parameters.get("probability"))) {
                 if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class
                         .forName(Architecture.ARCHITECTURE_TYPE)) {
                     Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
@@ -75,6 +76,7 @@ public class AddManagerClassMutation implements IMutationOperator {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return solution;
     }
 
 }

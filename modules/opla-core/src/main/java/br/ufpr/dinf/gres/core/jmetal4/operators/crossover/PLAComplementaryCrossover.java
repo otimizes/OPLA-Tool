@@ -4,14 +4,14 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
+import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.IOperator;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import org.apache.log4j.Logger;
 
 import java.util.*;
 import java.util.stream.Stream;
 
-public class PLAComplementaryCrossover extends Crossover {
+public class PLAComplementaryCrossover implements IOperator<Solution[]> {
 
     private static final Logger LOG = Logger.getLogger(PLAComplementaryCrossover.class);
 
@@ -20,21 +20,11 @@ public class PLAComplementaryCrossover extends Crossover {
     private int numberOfObjetive;
     private Double crossoverProbability_ = null;
 
-    public PLAComplementaryCrossover(Map<String, Object> parameters) {
-        super(parameters);
-        numberOfObjetive = (int) getParameter("numberOfObjectives");
-        if (parameters.get("probability") != null) {
-            crossoverProbability_ = (Double) getParameter("probability");
-        }
-    }
-
-    public PLAComplementaryCrossover(Map<String, Object> parameters, ExperimentCommonConfigs configs) {
-        this(parameters);
-    }
-
     @Override
-    public Object execute(Object object) throws Exception {
-        Solution[] parents = (Solution[]) object;
+    public Solution[] execute(Map<String, Object> parameters, Solution[] parents, String scope) {
+        if (parameters.get("probability") != null)
+            crossoverProbability_ = (Double) parameters.get("probability");
+        numberOfObjetive = (int) parameters.get("numberOfObjectives");
         Solution father = parents[0];
         Solution mother = parents[1];
 

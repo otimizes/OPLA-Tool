@@ -2,7 +2,7 @@ package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
 import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilders;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
-import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
+import br.ufpr.dinf.gres.core.jmetal4.operators.MutationOperators;
 import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.core.learning.Moment;
 import br.ufpr.dinf.gres.loglog.LogLog;
@@ -29,13 +29,14 @@ public abstract class ExperimentCommonConfigs {
     private String description;
     private InteractiveFunction interactiveFunction;
     private Boolean interactive;
-    public int maxInteractions;
-    public int firstInteraction;
-    public int intervalInteraction;
+    private int maxInteractions;
+    private int firstInteraction;
+    private int intervalInteraction;
     private ArchitectureBuilders architectureBuilder = ArchitectureBuilders.SMARTY;
-    public Moment clusteringMoment;
-    public ClusteringAlgorithm clusteringAlgorithm;
-    private List<String> mutationOperators = new ArrayList<String>();
+    private Moment clusteringMoment;
+    private ClusteringAlgorithm clusteringAlgorithm;
+    private List<String> mutationOperators = new ArrayList<>();
+    private List<String> crossoverOperators = new ArrayList<>();
     private ElementsWithSameDesignPatternSelection applyStrategy;
 
     public void activeLogs() {
@@ -160,7 +161,7 @@ public abstract class ExperimentCommonConfigs {
     }
 
     public void excludeDesignPatternsFromMutationOperatorList() {
-        this.getMutationOperators().remove(FeatureMutationOperators.DESIGN_PATTERNS.toString());
+        this.getMutationOperators().remove(MutationOperators.DESIGN_PATTERNS.toString());
     }
 
     protected void validateGreaterOrEqualOne(String arg, int numberOfRuns) {
@@ -267,5 +268,17 @@ public abstract class ExperimentCommonConfigs {
 
     public void setArchitectureBuilder(ArchitectureBuilders architectureBuilder) {
         this.architectureBuilder = architectureBuilder;
+    }
+
+    public List<String> getCrossoverOperators() {
+        return crossoverOperators;
+    }
+
+    public void setCrossoverOperators(List<String> crossoverOperators) {
+        this.crossoverOperators = crossoverOperators;
+    }
+
+    public void setIntervalInteraction(int intervalInteraction) {
+        this.intervalInteraction = intervalInteraction;
     }
 }

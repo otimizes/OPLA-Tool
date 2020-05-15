@@ -90,12 +90,12 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
             HashMap<String, Object> parametersCrossover = new HashMap<>();
             parametersCrossover.put("probability", configs.getCrossoverProbability());
             parametersCrossover.put("numberOfObjectives", configs.getOplaConfigs().getNumberOfObjectives());
-            Crossover crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parametersCrossover, configs);
+            Crossover crossover = CrossoverFactory.getCrossoverOperator("PLACrossoverOperator", parametersCrossover, configs);
             algorithm.addOperator("crossover", crossover);
 
             HashMap<String, Object> parametersMutation = new HashMap<>();
             parametersMutation.put("probability", configs.getMutationProbability());
-            Mutation mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parametersMutation, configs);
+            Mutation mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parametersMutation, configs);
             algorithm.addOperator("mutation", mutation);
 
             Selection selection = SelectionFactory.getSelectionOperator("BinaryTournament", null);

@@ -88,7 +88,7 @@ public class NSGAIICrossover {
 
             parameters = new HashMap<>();
             parameters.put("probability", mutationProbability_);
-            mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parameters);
+            mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parameters);
 
             // Selection Operator
             parameters = null;

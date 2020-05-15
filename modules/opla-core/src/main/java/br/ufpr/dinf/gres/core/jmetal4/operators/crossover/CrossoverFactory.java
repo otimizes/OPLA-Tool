@@ -33,18 +33,16 @@ public class CrossoverFactory {
 
     public static Crossover getCrossoverOperator(String name, Map<String, Object> parameters,
                                                  ExperimentCommonConfigs configs) throws JMException {
-        if (name.equalsIgnoreCase("PLACrossover")) {
-            return new PLACrossover2(parameters);
-        } else if (name.equals("PLAComplementaryCrossover")) {
-            return new PLAComplementaryCrossover(parameters, configs);
+        if (name.equalsIgnoreCase("PLACrossoverOperator")) {
+            return new PLACrossoverOperator(parameters, configs.getCrossoverOperators());
         } else {
             throw new JMException("Exception in " + name + ".getCrossoverOperator()");
         }
     }
 
     public static Crossover getCrossoverOperator(String name, Map<String, Object> parameters) throws JMException {
-        if (name.equalsIgnoreCase("PLACrossover"))
-            return new PLACrossover2(parameters);
+        if (name.equalsIgnoreCase("PLACrossoverOperator"))
+            return new PLACrossoverOperator(parameters);
         else {
             throw new JMException("Exception in " + name + ".getCrossoverOperator()");
         }

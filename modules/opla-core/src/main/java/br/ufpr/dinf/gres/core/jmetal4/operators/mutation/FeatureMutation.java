@@ -20,11 +20,11 @@ import java.util.stream.Collectors;
 /**
  * Feature mutation operator
  */
-public class FeatureMutation implements IMutationOperator {
+public class FeatureMutation implements IOperator<Solution> {
     @Override
-    public void execute(double probability, Solution solution, String scope) {
+    public Solution execute(Map<String, Object> parameters, Solution solution, String scope) {
         try {
-            if (PseudoRandom.randDouble() < probability) {
+            if (PseudoRandom.randDouble() < ((Double) parameters.get("probability"))) {
                 if (solution.getDecisionVariables()[0].getVariableType().toString()
                         .equals("class " + Architecture.ARCHITECTURE_TYPE)) {
 
@@ -68,6 +68,7 @@ public class FeatureMutation implements IMutationOperator {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return solution;
     }
 
     private List<Package> searchComponentsAssignedToConcern(Concern concern, List<Package> allComponents) {
