@@ -140,7 +140,7 @@ public class Bridge extends DesignPattern {
                 List<Element> contexts = psBridge.getContexts();
                 StrategyUtil.moveContextsRelationshipWithSameTypeAndName(contexts, participants, abstractClass);
 
-                //Varaibilities
+                //Variabilities
                 StrategyUtil.moveVariabilitiesFromContextsToTarget(contexts, participants, abstractClass);
 
                 participants.removeAll(adapteeList);

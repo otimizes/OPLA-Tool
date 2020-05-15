@@ -85,8 +85,8 @@ public class AdapterUtil {
         String namespace = adaptee.getNamespace();
         String packageName = UtilResources.extractPackageName(namespace);
 
-        boolean naArquitetura = packageName.equalsIgnoreCase("model");
-        if (naArquitetura) {
+        boolean inArchitecture = packageName.equalsIgnoreCase("model");
+        if (inArchitecture) {
             adapterClass = architecture.createClass(adaptee.getName() + "Adapter", false);
 
             architecture.removeClass(adapterClass);
@@ -110,7 +110,7 @@ public class AdapterUtil {
             adapterClass.setName(name + count);
         }
 
-        if (naArquitetura) {
+        if (inArchitecture) {
             architecture.addExternalClass(adapterClass);
         } else if (aPackage != null) {
             aPackage.addExternalClass(adapterClass);

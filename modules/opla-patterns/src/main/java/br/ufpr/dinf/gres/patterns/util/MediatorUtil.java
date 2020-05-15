@@ -31,12 +31,12 @@ public class MediatorUtil {
         if (eventOfInterestList == null || eventOfInterestList.isEmpty()) {
             eventOfInterest = architecture.createClass("EventOfInterest", false);
 
-            //Cria atributos
+            //Creating attributes
             eventOfInterest.createAttribute("invoker", Types.custom("Object"), VisibilityKind.PRIVATE_LITERAL);
             eventOfInterest.createAttribute("action", Types.STRING, VisibilityKind.PRIVATE_LITERAL);
             eventOfInterest.createAttribute("parameters", Types.custom("Object"), VisibilityKind.PRIVATE_LITERAL);
 
-            //Cria métodos
+            //Creating methods
             eventOfInterest.createMethod("getInvoker", "Object", false, null);
             eventOfInterest.createMethod("getAction", "String", false, null);
             eventOfInterest.createMethod("getParameters", "Object", false, null);
@@ -48,7 +48,6 @@ public class MediatorUtil {
             eventOfInterest = eventOfInterestList.get(0);
 
             try {
-                //Cria atributos
                 eventOfInterest.findAttributeByName("invoker");
             } catch (AttributeNotFoundException ex) {
                 eventOfInterest.createAttribute("invoker", Types.custom("Object"), VisibilityKind.PRIVATE_LITERAL);
@@ -65,7 +64,6 @@ public class MediatorUtil {
             }
 
             try {
-                //Cria métodos
                 eventOfInterest.findMethodByName("getInvoker");
             } catch (MethodNotFoundException ex) {
                 eventOfInterest.createMethod("getInvoker", "Object", false, null);

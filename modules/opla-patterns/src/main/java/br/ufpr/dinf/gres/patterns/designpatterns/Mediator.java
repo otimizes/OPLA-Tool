@@ -95,26 +95,26 @@ public class Mediator extends DesignPattern {
                 List<Element> participants = psMediator.getParticipants();
                 final Concern concern = psMediator.getConcern();
 
-                // Identificar ou criar classe EventOfInterest
+                // Identify or create EventOfInterest class
                 Class eventOfInterest = MediatorUtil.getOrCreateEventOfInterestClass();
                 participants.remove(eventOfInterest);
 
-                // "" interface Mediator
+                // "" Mediator interface 
                 Interface mediatorInterface = MediatorUtil.getOrCreateMediatorInterface(participants, concern, eventOfInterest);
                 participants.remove(mediatorInterface);
 
-                // "" classe Mediator
+                // "" Mediator class
                 Class mediatorClass = MediatorUtil.getOrCreateMediatorClass(participants, concern, mediatorInterface);
                 participants.remove(mediatorClass);
 
-                // "" interfaces colleagues
+                // "" colleague interface 
                 Interface colleagueInterface = MediatorUtil.getOrCreateColleagueInterface(participants, concern, mediatorInterface, eventOfInterest);
                 participants.remove(colleagueInterface);
 
-                // Remover relacionamentos
+                // Removing relationships
                 MediatorUtil.removeRelationships(participants, concern);
 
-                // Implementar interface Colleague
+                // Implementing Colleague interfaces 
                 List<Element> adapterList = new ArrayList<>();
                 List<Element> adapteeList = new ArrayList<>();
 
@@ -127,12 +127,12 @@ public class Mediator extends DesignPattern {
                     }
                 }
 
-                // Usar colleagues
+                // Using colleagues
                 for (Element element : participants) {
                     RelationshipUtil.createNewUsageRelationship("usesColleague", mediatorClass, element);
                 }
 
-                // Aplicar Estereótipo
+                // Applying stereotypes
                 addStereotype(eventOfInterest);
                 addStereotype(mediatorInterface);
                 addStereotype(mediatorClass);

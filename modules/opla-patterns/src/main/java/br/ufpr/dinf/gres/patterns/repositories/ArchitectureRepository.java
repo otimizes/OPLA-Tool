@@ -7,6 +7,10 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author arthur
+ *
+ */
 public class ArchitectureRepository {
 
     public static final String MICROWAVE_OVEN_SOFTWARE = "/Users/giovaniguizzo/NetBeansProjects/OPLA-Patterns/MicrowaveOvenSoftware/Papyrus/MicrowaveOvenSoftware.uml";
@@ -79,6 +83,10 @@ public class ArchitectureRepository {
         return directory;
     }
 
+    /**
+     * @param path
+     * @return
+     */
     public static Architecture getArchitecture(String path) {
         try {
             setCurrentArchitecture(ARCHITECTURE_BUILDER.create(path));
@@ -89,6 +97,10 @@ public class ArchitectureRepository {
         return null;
     }
 
+    /**
+     * @param name
+     * @return
+     */
     public static String getPlaPath(String name) {
         switch (name) {
             case "agm":
@@ -102,10 +114,16 @@ public class ArchitectureRepository {
         }
     }
 
+    /**
+     * @return
+     */
     public static Architecture getCurrentArchitecture() {
         return CURRENT_ARCHITECTURE;
     }
 
+    /**
+     * @param currentArchitecture
+     */
     public static void setCurrentArchitecture(Architecture currentArchitecture) {
         CURRENT_ARCHITECTURE = currentArchitecture;
     }

@@ -120,8 +120,8 @@ public class BridgeUtil {
                 String namespace = ElementUtil.getNameSpace(participants);
                 String packageName = UtilResources.extractPackageName(namespace);
 
-                boolean naArquitetura = packageName.equalsIgnoreCase("model");
-                if (naArquitetura) {
+                boolean inArchitecture = packageName.equalsIgnoreCase("model");
+                if (inArchitecture) {
                     abstractClass = architecture.createClass(algorithmFamily.getNameCapitalized() + "Abstraction", true);
                     concreteClass = architecture.createClass(algorithmFamily.getNameCapitalized() + "AbstractionImpl", false);
 
@@ -182,7 +182,7 @@ public class BridgeUtil {
                     concreteClass.setName(concreteName + count);
                 }
 
-                if (naArquitetura) {
+                if (inArchitecture) {
                     architecture.addExternalClass(abstractClass);
                     architecture.addExternalClass(concreteClass);
                 } else if (aPackage != null) {
@@ -206,8 +206,8 @@ public class BridgeUtil {
             List<Element> tempElements;
             String namespace = ElementUtil.getNameSpace(elements);
             String packageName = UtilResources.extractPackageName(namespace);
-            boolean naArquitetura = packageName.equalsIgnoreCase("model");
-            if (naArquitetura) {
+            boolean inArchitecture = packageName.equalsIgnoreCase("model");
+            if (inArchitecture) {
                 anInterface = architecture.createInterface((concern != null ? Character.toUpperCase(concern.getName().charAt(0)) + concern.getName().substring(1) : "Default") + "Implementation");
                 architecture.removeInterface(anInterface);
 
@@ -238,7 +238,7 @@ public class BridgeUtil {
                 count++;
                 anInterface.setName(name + count);
             }
-            if (naArquitetura) {
+            if (inArchitecture) {
                 architecture.addExternalInterface(anInterface);
             } else if (aPackage != null) {
                 aPackage.addExternalInterface(anInterface);
