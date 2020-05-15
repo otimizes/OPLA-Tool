@@ -1,5 +1,5 @@
 # OPLA-Tool Usage
-The OPLA-Tool is used to automate the MOA4PLA approach. This documentation was created to assist you in the usage of it.
+The OPLA-Tool is used to automate the Multi-Objective Optimization Approach for PLA Design (MOA4PLA). This documentation was created to assist you in the usage of it.
 ### Step 1: Login
 Firstly, you must to login in the tool. If you dont have an account, it will create at first login time.
  
@@ -27,8 +27,10 @@ the population size parameter.
 
 ![Step 3-2](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/willian/docs/usage/step-3-2.png)
 
-If you desire to interact during the optimization process, you can enable it in this card.
 #### Step 3.3: User's Interaction
+If you desire to interact during the optimization process, you can enable it in this card. 
+In Additional Information Section, an example is presented.
+
 ![Step 3-3](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/willian/docs/usage/step-3-3.png)
 #### Step 3.4: Mutation and crossover probability
 If it will be used the mutation and crossover operators, it is necessary to select the options in this card.
@@ -62,3 +64,7 @@ This tab contains all executions from experiments.
 Finally, you can analyse the results. Just select the desired experiments, and the graphics will be shown.
 
 ![Step 8](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/willian/docs/usage/step-8.png)
+
+## Additional Information
+In this section, it is presented some examples.
+### Interaction's example

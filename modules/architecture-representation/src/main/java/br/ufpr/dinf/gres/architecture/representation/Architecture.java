@@ -37,13 +37,9 @@ public class Architecture extends Variable {
     private Set<Interface> interfaces = new HashSet<Interface>();
     private String name;
     private boolean appliedPatterns;
-
     private RelationshipsHolder relationshipHolder = new RelationshipsHolder();
-
-
-    // MAMORU
-    private ArrayList<Concern> lstConcerns = new ArrayList<>();
-    private ArrayList<TypeSmarty> lstTypes = new ArrayList<>();
+    private ArrayList<Concern> concerns = new ArrayList<>();
+    private ArrayList<TypeSmarty> types = new ArrayList<>();
     private boolean isSMarty = false;
     private boolean toSMarty = false;   // variável para dizer se utiliza o decoding para SMarty ou não
     private String projectID = "5b729c3f25e758ce87cf8d710761283c";
@@ -51,24 +47,23 @@ public class Architecture extends Variable {
     private String projectVersion = "1.0";
     private String diagramID = "DIAGRAM#1";
     private String diagramName = "DIAGRAM#1";
-    private List<VariationPoint> lstVariationPoint = new ArrayList<>();
-    private List<Variability> lstVariability = new ArrayList<>();
-    private List<Variant> lstVariant = new ArrayList<>();
-    //
+    private List<VariationPoint> variationPoints = new ArrayList<>();
+    private List<Variability> variabilities = new ArrayList<>();
+    private List<Variant> variants = new ArrayList<>();
 
     public Architecture(String name) {
         setName(name);
     }
 
-    public ArrayList<Concern> getLstConcerns() {
-        return lstConcerns;
+    public ArrayList<Concern> getConcerns() {
+        return concerns;
     }
 
-    public void setLstConcerns(ArrayList<Concern> lstConcerns) {
-        this.lstConcerns = lstConcerns;
+    public void setConcerns(ArrayList<Concern> concerns) {
+        this.concerns = concerns;
         ConcernHolder.INSTANCE.getConcerns().clear();
         ConcernHolder.INSTANCE.allowedConcerns().clear();
-        for (Concern c : this.lstConcerns) {
+        for (Concern c : this.concerns) {
             if (!c.getPrimitive()) {
                 ConcernHolder.INSTANCE.getConcerns().put(c.getName(), c);
                 ConcernHolder.INSTANCE.allowedConcerns().add(c);
@@ -105,12 +100,12 @@ public class Architecture extends Variable {
         return interfacesDup;
     }
 
-    public ArrayList<TypeSmarty> getLstTypes() {
-        return lstTypes;
+    public ArrayList<TypeSmarty> getTypes() {
+        return types;
     }
 
-    public void setLstTypes(ArrayList<TypeSmarty> lstTypes) {
-        this.lstTypes = lstTypes;
+    public void setTypes(ArrayList<TypeSmarty> types) {
+        this.types = types;
     }
 
     public TypeSmarty findTypeSMartyByID(String id) {
@@ -465,14 +460,14 @@ public class Architecture extends Variable {
 
     public List<VariationPoint> getAllVariationPoints() {
         if (isSMarty) {
-            return lstVariationPoint;
+            return variationPoints;
         }
         return VariationPointFlyweight.getInstance().getVariationPoints();
     }
 
     public List<Variant> getAllVariants() {
         if (isSMarty) {
-            return lstVariant;
+            return variants;
         }
         return VariantFlyweight.getInstance().getVariants();
     }
@@ -484,7 +479,7 @@ public class Architecture extends Variable {
      */
     public List<Variability> getAllVariabilities() {
         if (isSMarty) {
-            return lstVariability;
+            return variabilities;
         }
         return VariabilityFlyweight.getInstance().getVariabilities();
     }
@@ -502,23 +497,6 @@ public class Architecture extends Variable {
             LOGGER.info("Interface: " + interface_.getName() + " adicionada na arquiteutra");
         else
             LOGGER.info("TENTOU adicionar a interface : " + interface_.getName() + " na arquiteutra, porém não conseguiu");
-    }
-
-    /**
-     * Retorna classe contendo método para manipular relacionamentos
-     *
-     * @return OperationsOverRelationships
-     */
-    public OperationsOverRelationships operationsOverRelationship() {
-        return new OperationsOverRelationships(this);
-    }
-
-    public OperationsOverAssociation forAssociation() {
-        return new OperationsOverAssociation(relationshipHolder);
-    }
-
-    public OperationsOverDependency forDependency() {
-        return new OperationsOverDependency(relationshipHolder);
     }
 
 

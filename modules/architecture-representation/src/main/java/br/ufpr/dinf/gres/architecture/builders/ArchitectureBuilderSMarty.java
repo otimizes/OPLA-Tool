@@ -91,8 +91,8 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             architecture.setProjectID(element.getAttribute("id"));
             architecture.setProjectName(element.getAttribute("name"));
             architecture.setProjectVersion(element.getAttribute("version"));
-            architecture.setLstConcerns(importStereotypesSMarty());
-            architecture.setLstTypes(importTypesSMarty());
+            architecture.setConcerns(importStereotypesSMarty());
+            architecture.setTypes(importTypesSMarty());
             importDiagrams(architecture);
             importLinkStereotypesSMarty(architecture);
             for (Class clazz : architecture.getAllClasses()) {
@@ -122,7 +122,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
      * @param architecture - architecture to insert the link of stereotypes
      */
     private void importLinkStereotypesSMarty(Architecture architecture) throws XPathExpressionException {
-        ArrayList<Concern> lstConcern = architecture.getLstConcerns();
+        ArrayList<Concern> lstConcern = architecture.getConcerns();
         this.expression = "/project/links/link";
         this.nodeList = (NodeList) this.xPath.compile(this.expression).evaluate(this.document, XPathConstants.NODESET);
         for (int i = 0; i < this.nodeList.getLength(); i++) {

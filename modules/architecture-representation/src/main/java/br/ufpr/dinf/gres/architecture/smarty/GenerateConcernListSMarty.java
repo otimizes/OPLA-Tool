@@ -88,7 +88,7 @@ public class GenerateConcernListSMarty {
                 c.setId(newID);
             }
         }
-        architecture.setLstConcerns(lstConcern);
+        architecture.setConcerns(lstConcern);
     }
 
     /**

@@ -47,7 +47,7 @@ public class OptimizationService {
 
 
     File downloadAlternative(Long threadId, Integer id) {
-        SolutionSet solutionSet = Interactions.get(threadId).solutionSet;
+        SolutionSet solutionSet = Interactions.get(threadId).solutionSet.getSolutionSet();
         Solution solution = solutionSet.get(id);
         String plaNameOnAnalyses = "Interaction_" + threadId + "_" + id + "_" + solution.getAlternativeArchitecture().getName();
         String dirOnAnalyses = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/";
@@ -83,7 +83,7 @@ public class OptimizationService {
     }
 
     public File downloadAllAlternative(Long threadId) {
-        SolutionSet solutionSet = Interactions.get(threadId).solutionSet;
+        SolutionSet solutionSet = Interactions.get(threadId).solutionSet.getSolutionSet();
         String plaNameOnAnalyses = "Interaction_" + threadId + "_" + "_" + solutionSet.get(0).getAlternativeArchitecture().getName();
         String dirOnAnalyses = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/";
         boolean delete = deleteDirectory(new File(dirOnAnalyses));

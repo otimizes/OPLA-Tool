@@ -31,7 +31,7 @@ export class InteractionDialogComponent implements OnInit {
   ngOnInit(): void {
     console.log("----", this.data);
     this.solutionSet = this.data.interaction.solutionSet;
-    this.solutions = this.solutionSet.solutionSet;
+    this.solutions = this.solutionSet.solutions;
     this.info = this.data.info;
     for (let obj of Object.keys(this.solutionSet.clusterIds)) {
       this.clusters.push(Math.round(Number(obj)));

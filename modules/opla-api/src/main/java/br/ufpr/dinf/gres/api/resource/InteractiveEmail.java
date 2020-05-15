@@ -2,7 +2,6 @@ package br.ufpr.dinf.gres.api.resource;
 
 import br.ufpr.dinf.gres.api.dto.EmailDto;
 import br.ufpr.dinf.gres.api.dto.OptimizationDto;
-import br.ufpr.dinf.gres.api.resource.EmailService;
 import br.ufpr.dinf.gres.api.utils.Interaction;
 import br.ufpr.dinf.gres.api.utils.Interactions;
 import br.ufpr.dinf.gres.architecture.io.OPLALogs;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class InteractiveEmail {
-
 
     private final EmailService emailService;
 
@@ -35,11 +33,12 @@ public class InteractiveEmail {
             clustering.setNumClusters(solutionSet.getSolutionSet().get(0).numberOfObjectives() + 1);
             clustering.run();
             Interactions.set(OPLAThreadScope.mainThreadId.get(), new Interaction(solutionSet));
-            while (!Interactions.get(OPLAThreadScope.mainThreadId.get()).updated) {}
+            while (!Interactions.get(OPLAThreadScope.mainThreadId.get()).updated) {
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Interactions.get(OPLAThreadScope.mainThreadId.get()).solutionSet;
+        return Interactions.get(OPLAThreadScope.mainThreadId.get()).solutionSet.getSolutionSet();
     }
 
 

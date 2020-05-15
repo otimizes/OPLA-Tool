@@ -4,7 +4,7 @@
 
 ## Description
 
-This project was created from the project  https://github.com/SBSE-UEM/OPLA-Tool-Spyke.
+This project was created to automate the Multi-Objective Optimization Approach for PLA Design (MOA4PLA).
 
 ## Requirements
 Before to compile the code, you need to install the following softwares on your PC:
@@ -143,7 +143,7 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 - MYOBJObjectiveFunctionResource -> Resource of the objective function
 - It will appears in the front-end, at the Objective functions section
 
-### Implementing a new Optimization Algorithm approach
+### Implementing a new Optimization Algorithm
 - [\<Click here to see the implemented Optimization algorithms\>](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/api/gateway/OptimizationAlgorithms.html)
 - Put your metaheuristic in jmetal4 > metaheuristics > myoptalgpackage
 - Observe how was implemented the existent algorithms, following the current steps 
@@ -157,9 +157,15 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 - It will appears in the front-end, at the Settings section
 
 ### Implementing a new Mutation Operator
-- [\<Click here to see the implemented Mutation Operators\>](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/FeatureMutationOperators.html)
+- [\<Click here to see the implemented Mutation Operators\>](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/MutationOperators.html)
 - Create your class implementing [IMutationOperator](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/mutation/IMutationOperator.html) into [jmetal4 > operators > mutation](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/mutation/package-summary.html)
-- Insert the instance of it in [jmetal4 > operators > FeatureMutationOperators](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/FeatureMutationOperators.html) enum.
+- Insert the instance of it in [jmetal4 > operators > MutationOperators](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/MutationOperators.html) enum.
+- It will appears in the front-end, at the Mutation Operators section
+
+### Implementing a new Crossover Operator
+- [\<Click here to see the implemented Crossover Operators\>](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/CrossoverOperators.html)
+- Create your class implementing [IMutationOperator](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/mutation/IMutationOperator.html) into [jmetal4 > operators > mutation](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/mutation/package-summary.html)
+- Insert the instance of it in [jmetal4 > operators > CrossoverOperators](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/CrossoverOperators.html) enum.
 - It will appears in the front-end, at the Mutation Operators section
 
 ### Implementing new methods in JMetal

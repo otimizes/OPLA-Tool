@@ -532,6 +532,6 @@ public class GenerateTypeSMarty {
             typeS.setStandard(false);
             lstSMarty.add(typeS);
         }
-        architecture.setLstTypes(lstSMarty);
+        architecture.setTypes(lstSMarty);
     }
 }

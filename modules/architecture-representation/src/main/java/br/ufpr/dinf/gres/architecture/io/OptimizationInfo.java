@@ -17,6 +17,9 @@ public class OptimizationInfo {
     }
 
     public OptimizationInfo(Long threadId, String logs, OptimizationInfoStatus status) {
+        if (OptimizationInfoStatus.INTERACT.equals(status) && this.currentGeneration == null) {
+            this.currentGeneration = 1;
+        }
         this.threadId = threadId;
         this.logs = logs;
         this.status = status;
