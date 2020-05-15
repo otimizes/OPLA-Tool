@@ -34,6 +34,7 @@ public class InteractiveEmail {
             clustering.run();
             Interactions.set(OPLAThreadScope.mainThreadId.get(), new Interaction(solutionSet));
             while (!Interactions.get(OPLAThreadScope.mainThreadId.get()).updated) {
+                System.out.println("aqui");
             }
         } catch (Exception e) {
             e.printStackTrace();

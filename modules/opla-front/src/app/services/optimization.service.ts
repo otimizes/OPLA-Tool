@@ -57,7 +57,7 @@ export class OptimizationService {
           let json = JSON.parse(e.data);
           OptimizationService.optimizationInfo = Object.assign(new OptimizationInfo(), json);
           OptimizationService.onOptimizationInfo.emit(OptimizationService.optimizationInfo);
-          if (json.status === "COMPLETE" || !json.currentGeneration) {
+          if (json.status === "COMPLETE") {
             source.close();
             e.stopImmediatePropagation();
             e.stopPropagation();
