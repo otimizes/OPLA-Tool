@@ -66,7 +66,7 @@
             <mat-card>
               <h5>Interaction - Learning Settings</h5>
               <div>
-                <mat-checkbox (change)="optimizationDto.interactive = $event.checked">
+                <mat-checkbox (change)="optimizationDto.interactive = $event.checked; emit(optimizationDto);">
                   Interact during the optmization
                 </mat-checkbox>
                 <mat-form-field>

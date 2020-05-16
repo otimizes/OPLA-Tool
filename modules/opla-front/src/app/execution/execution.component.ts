@@ -49,6 +49,7 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
     } else {
       this.removeObjFunction(obj);
     }
+    this.emit(this.optimizationDto)
   }
 
   addObjFunction(obj) {
@@ -68,6 +69,7 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
     } else {
       this.removeOperator(element, obj);
     }
+    this.emit(this.optimizationDto)
   }
 
   addOOperator(element, obj) {
@@ -102,5 +104,9 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
     if (OptimizationService.getPLA()) {
       this.selectProfiles(OptimizationService.getPLA());
     }
+  }
+
+  emit(optimizationDto: OptimizationDto) {
+    this.optimizationDtoChange.emit(optimizationDto);
   }
 }

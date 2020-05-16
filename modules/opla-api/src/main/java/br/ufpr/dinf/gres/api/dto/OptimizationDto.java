@@ -27,9 +27,9 @@ public class OptimizationDto {
     private Boolean crossover = false;
     private Double crossoverProbability = 0.0;
     private Boolean interactive = false;
-    private Integer maxInteractions = 3;
-    private Integer firstInteraction = 3;
-    private Integer intervalInteraction = 3;
+    private Integer maxInteractions = 0;
+    private Integer firstInteraction = 0;
+    private Integer intervalInteraction = 0;
     private Integer archiveSize = 0;
     private ClusteringAlgorithm clusteringAlgorithm = ClusteringAlgorithm.KMEANS;
     private Moment clusteringMoment = Moment.NONE;
