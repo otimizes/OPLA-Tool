@@ -145,7 +145,7 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 
 ### Implementing a new Optimization Algorithm
 - [\<Click here to see the implemented Optimization algorithms\>](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/api/gateway/OptimizationAlgorithms.html)
-- Put your metaheuristic in jmetal4 > metaheuristics > myoptalgpackage
+- Put your metaheuristic in jmetal4 > metaheuristics > youralgorithmpackage
 - Observe how was implemented the existent algorithms, following the current steps 
 - Create your config in [jmetal4 > experiments > base](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/experiments/base/package-summary.html) inheriting the ExperimentCommonConfigs
 - Use the name of optimization algorithm config with the posfix Configs, ex: MyOptAlgConfigs

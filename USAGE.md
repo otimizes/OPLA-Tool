@@ -32,12 +32,12 @@ If you desire to interact during the optimization process, you can enable it in 
 In Additional Information Section, an example is presented.
 
 ![Step 3-3](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/willian/docs/usage/step-3-3.png)
-#### Step 3.4: Mutation and crossover probability
-If it will be used the mutation and crossover operators, it is necessary to select the options in this card.
+#### Step 3.4: Crossover operators
+These are the crossover operators present in the tool. By default, no one is selected. 
 
 ![Step 3-4](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/willian/docs/usage/step-3-4.png)
 #### Step 3.5: Mutation operators
-These are the mutation operators present in the tool, generally by default, all are selected. 
+These are the mutation operators present in the tool. By default, all of them are selected. 
 
 ![Step 3-5](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/willian/docs/usage/step-3-5.png)
 #### Step 3.6: Design patterns
