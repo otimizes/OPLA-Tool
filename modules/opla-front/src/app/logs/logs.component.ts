@@ -64,7 +64,8 @@ export class LogsComponent implements OnInit {
 
   killOptimizationProcess(info, index) {
     this.optimizationService.killOptimizationProcess(info.id).subscribe(() => {
-      this.infos.splice(index, 1)
+      this.infos.splice(index, 1);
+      OptimizationService.clearOptimizationInfo();
     })
   }
 

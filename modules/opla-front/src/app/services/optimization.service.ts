@@ -112,7 +112,7 @@ export class OptimizationService {
   }
 
   killOptimizationProcess(id: any) {
-    return this.http.delete<any>(`${UserService.baseUrl}/optimization/kill-optimization-process/${id}`, {headers: this.createAuthorizationHeader()})
+    return this.http.post<any>(`${UserService.baseUrl}/optimization/kill-optimization-process/${id}`, null, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
@@ -162,7 +162,7 @@ export class OptimizationService {
         this.startEventListener(data);
         setTimeout(() => {
           OptimizationService.onOptimizationStart.emit(data);
-        },2000)
+        }, 2000)
       }));
   }
 

@@ -42,7 +42,9 @@ public class OptimizationService {
             IGateway bean = context.getBean(optimizationDto.getAlgorithm().getType());
             bean.execute(optimizationDto);
         });
+        thread.setName(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId());
         thread.start();
+//        Thread.currentThread().setName(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId());
         return Mono.just(new OptimizationInfo(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId(), "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
     }
 

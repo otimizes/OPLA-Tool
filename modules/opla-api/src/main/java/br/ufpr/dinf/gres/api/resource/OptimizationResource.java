@@ -116,17 +116,17 @@ public class OptimizationResource {
         return Mono.just(new Infos(collect)).subscribeOn(Schedulers.elastic());
     }
 
-    @DeleteMapping(value = "/kill-optimization-process/{token}/{hash}")
-    public Mono<Object> killOptimizationProcess(@PathVariable String token, @PathVariable String hash) {
-        List<OptimizationInfo> optimizationInfos = OPLALogs.get(token, hash);
+    @PostMapping(value = "/kill-optimization-process/{token}/{hash}")
+    public void killOptimizationProcess(@PathVariable String token, @PathVariable String hash) {
         Set<Thread> threads = Thread.getAllStackTraces().keySet();
         for (Thread thread : threads) {
-            if (thread.getId() == optimizationInfos.get(0).threadId) {
-                thread.interrupt();
+            System.out.println(thread.getName().equals(token + FileConstants.FILE_SEPARATOR + hash));
+            if (thread.getName().equals(token + FileConstants.FILE_SEPARATOR + hash)) {
+                System.out.println("Thread Finished: " + thread.getName() + " - " + token + FileConstants.FILE_SEPARATOR + hash);
+                thread.stop();
             }
         }
         OPLALogs.remove(token, hash);
-        return Mono.empty().subscribeOn(Schedulers.elastic());
     }
 
     @GetMapping(value = "/optimization-info/{token}/{hash}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
