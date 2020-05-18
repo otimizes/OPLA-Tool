@@ -29,6 +29,7 @@ import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Experiment;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Settings;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.QualityIndicator;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -131,10 +132,10 @@ public class RunExperiment extends Thread {
             // STEP 3: check the file containing the Pareto front of the problem
             synchronized (experiment_) {
                 if (indicatorList_.length > 0) {
-                    File pfFile = new File(paretoFrontDirectory_ + System.getProperty("file.separator") + paretoFrontFile_[problemId]);
+                    File pfFile = new File(paretoFrontDirectory_ + FileConstants.FILE_SEPARATOR + paretoFrontFile_[problemId]);
 
                     if (pfFile.exists()) {
-                        paretoFrontFile_[problemId] = paretoFrontDirectory_ + System.getProperty("file.separator") + paretoFrontFile_[problemId];
+                        paretoFrontFile_[problemId] = paretoFrontDirectory_ + FileConstants.FILE_SEPARATOR + paretoFrontFile_[problemId];
                     } else {
                         paretoFrontFile_[problemId] = "";
                     }
@@ -158,7 +159,7 @@ public class RunExperiment extends Thread {
                     File experimentDirectory;
                     String directory;
 
-                    directory = experimentBaseDirectory_ + "/data/" + algorithmNameList_[i] + System.getProperty("file.separator") +
+                    directory = experimentBaseDirectory_ + "/data/" + algorithmNameList_[i] + FileConstants.FILE_SEPARATOR +
                             problemList_[problemId];
 
                     experimentDirectory = new File(directory);
@@ -182,8 +183,8 @@ public class RunExperiment extends Thread {
                     }
 
                     // STEP 8: put the br.ufpr.dinf.gres.core.jmetal4.results in the output directory
-                    new OPLASolutionSet(resultFront).printObjectivesToFile(directory + System.getProperty("file.separator") + outputParetoFrontFile_ + "." + runs);
-                    new OPLASolutionSet(resultFront).printVariablesToFile(directory + System.getProperty("file.separator") + outputParetoSetFile_ + "." + runs);
+                    new OPLASolutionSet(resultFront).printObjectivesToFile(directory + FileConstants.FILE_SEPARATOR + outputParetoFrontFile_ + "." + runs);
+                    new OPLASolutionSet(resultFront).printVariablesToFile(directory + FileConstants.FILE_SEPARATOR + outputParetoSetFile_ + "." + runs);
 
                     // STEP 9: calculate quality indicators
                     if (indicatorList_.length > 0) {

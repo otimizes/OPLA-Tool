@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.core.jmetal4.main.indicators;
 
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,8 +39,8 @@ public class QuantidadeSolucoesIguais4Objetives {
                     int quantidadeSolucoes;
                     MetricsUtil mu = new MetricsUtil();
 
-                    double[][] PFComb = mu.readFront("resultado/" + abordagem + System.getProperty("file.separator") + software + "/All_FUN_" + algorithm + "-" + software + "_com");
-                    double[][] PFInc = mu.readFront("resultado/" + abordagem + System.getProperty("file.separator") + software + "/All_FUN_" + algorithm + "-" + software + "_inc");
+                    double[][] PFComb = mu.readFront("resultado/" + abordagem + FileConstants.FILE_SEPARATOR + software + "/All_FUN_" + algorithm + "-" + software + "_com");
+                    double[][] PFInc = mu.readFront("resultado/" + abordagem + FileConstants.FILE_SEPARATOR + software + "/All_FUN_" + algorithm + "-" + software + "_inc");
 
                     quantidadeSolucoes = 0;
 

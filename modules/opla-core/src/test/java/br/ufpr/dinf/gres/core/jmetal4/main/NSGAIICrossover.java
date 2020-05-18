@@ -12,6 +12,7 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.MutationFactory;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.Selection;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class NSGAIICrossover {
         String moea = "NSGAII-MC";
 
         //File directory = new File("resultado/nsgaii/" + context);
-        File directory = new File("experiment/OPLA/NSGA-II/FeatureCrossover" + System.getProperty("file.separator"));
+        File directory = new File("experiment/OPLA/NSGA-II/FeatureCrossover" + FileConstants.FILE_SEPARATOR);
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
                 System.out.println("Não foi possível criar o diretório do resultado");
@@ -113,7 +114,7 @@ public class NSGAIICrossover {
             long heapSize = Runtime.getRuntime().totalMemory();
             heapSize = (heapSize / 1024) / 1024;
             System.out.println("Heap Size: " + heapSize + "Mb\n");
-            int beginIndex = pla.lastIndexOf(System.getProperty("file.separator")) + 1;
+            int beginIndex = pla.lastIndexOf(FileConstants.FILE_SEPARATOR) + 1;
             int endIndex = pla.length() - 4;
             String PLAName = pla.substring(beginIndex, endIndex);
 
@@ -146,7 +147,7 @@ public class NSGAIICrossover {
             }
             //Thelma - Dez2013 - duas proximas linhas
             String NameOfPLA = pla.substring(10, 15);
-            new OPLASolutionSet(allSolutions).printObjectivesToFile(directory + "/Hypervolume/" + NameOfPLA + System.getProperty("file.separator") + NameOfPLA + "_HV_" + moea + ".txt");
+            new OPLASolutionSet(allSolutions).printObjectivesToFile(directory + "/Hypervolume/" + NameOfPLA + FileConstants.FILE_SEPARATOR + NameOfPLA + "_HV_" + moea + ".txt");
 
             MainTestUtil.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
             todasRuns = problem.removeDominadas(todasRuns);

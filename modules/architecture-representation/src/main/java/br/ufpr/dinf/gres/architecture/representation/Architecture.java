@@ -733,8 +733,8 @@ public class Architecture extends Variable {
         saveToSMarty(this, "TEMP/TEMP");
         System.out.println("Saved");
         try {
-            System.out.println(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
-            Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar " + ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
+            System.out.println(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "TEMP" + FileConstants.FILE_SEPARATOR + "TEMP.smty");
+            Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar " + ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "TEMP" + FileConstants.FILE_SEPARATOR + "TEMP.smty");
             //Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar");
             proc.waitFor();
         } catch (Exception ex) {

@@ -5,6 +5,7 @@ import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.FileWriter;
 
@@ -51,7 +52,7 @@ public class ExecutaIndicadores2Objetives {
                 // nas 30 runs por um algoritmo
 
                 double[][] melhoresSolucoesAlgoritmo = mu
-                        .readFront(caminho + software + "/teste/" + algorithm + System.getProperty("file.separator") + algorithm + "All.txt");
+                        .readFront(caminho + software + "/teste/" + algorithm + FileConstants.FILE_SEPARATOR + algorithm + "All.txt");
                 // retorna a solucao minima de cada objetivo do conjunto // de
                 // pareto real
                 double[] min = mu.getMinimumValues(ss.writeObjectivesToMatrix(), 2);
@@ -76,11 +77,11 @@ public class ExecutaIndicadores2Objetives {
 
                         QualityIndicator indicators = new QualityIndicator(problem,
                                 caminho + software + "/teste/" + algorithm
-                                        + System.getProperty("file.separator") + algorithm + System.getProperty("file.separator") + run + ".txt");
+                                        + FileConstants.FILE_SEPARATOR + algorithm + FileConstants.FILE_SEPARATOR + run + ".txt");
 
                         SolutionSet front = mu
                                 .readNonDominatedSolutionSet(caminho + software + "/teste/" + algorithm
-                                        + System.getProperty("file.separator") + algorithm + System.getProperty("file.separator") + run + ".txt");
+                                        + FileConstants.FILE_SEPARATOR + algorithm + FileConstants.FILE_SEPARATOR + run + ".txt");
 
                         value = indicators.getIGD(front, ss, 2);
 

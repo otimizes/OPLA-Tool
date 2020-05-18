@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments;
 
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class Util {
 
-    private static String fileSeparator = System.getProperty("file.separator");
+    private static String fileSeparator = FileConstants.FILE_SEPARATOR;
 
     public static void moveResourceToExperimentFolder(String experimentId) {
         StringBuilder sourcePath = new StringBuilder();

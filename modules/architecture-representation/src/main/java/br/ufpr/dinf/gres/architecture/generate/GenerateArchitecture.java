@@ -12,6 +12,7 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.*;
 import br.ufpr.dinf.gres.architecture.papyrus.touml.Method;
 import br.ufpr.dinf.gres.architecture.papyrus.touml.*;
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import org.apache.log4j.LogManager;
@@ -389,11 +390,11 @@ public class GenerateArchitecture extends ArchitectureBase {
             System.exit(0);
         }
 
-        LOGGER.info("\n\n\nDone. Architecture save into: " + ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + doc.getNewModelName()
+        LOGGER.info("\n\n\nDone. Architecture save into: " + ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + doc.getNewModelName()
                 + "\n\n\n\n");
         if (this.logger != null)
             this.logger.putLog("Done. Architecture save into: " + ApplicationFileConfigThreadScope.getDirectoryToExportModels()
-                    + System.getProperty("file.separator") + doc.getNewModelName(), Level.INFO);
+                    + FileConstants.FILE_SEPARATOR + doc.getNewModelName(), Level.INFO);
 
     }
 

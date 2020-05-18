@@ -5,6 +5,7 @@
  */
 package br.ufpr.dinf.gres.core.jmetal4.main;
 
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
 
 import java.io.File;
@@ -293,8 +294,8 @@ public class NSGAIIOPLAMultithread {
                             context,
                             mutationOperator,
                             "false");
-                    final File destination = new File("experiment/" + NSGAIIOPLA.getPlaName(pla) + System.getProperty("file.separator") + context + "/SYSTEM_OUTPUT.txt");
-                    final File errorDestination = new File("experiment/" + NSGAIIOPLA.getPlaName(pla) + System.getProperty("file.separator") + context + "/SYSTEM_ERROR.txt");
+                    final File destination = new File("experiment/" + NSGAIIOPLA.getPlaName(pla) + FileConstants.FILE_SEPARATOR + context + "/SYSTEM_OUTPUT.txt");
+                    final File errorDestination = new File("experiment/" + NSGAIIOPLA.getPlaName(pla) + FileConstants.FILE_SEPARATOR + context + "/SYSTEM_ERROR.txt");
                     {
                         final File parentFile = destination.getParentFile();
                         if (!parentFile.exists()) {

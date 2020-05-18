@@ -4,6 +4,7 @@ import br.ufpr.dinf.gres.architecture.helpers.ModelHelper;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.*;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 import org.eclipse.uml2.uml.Package;
@@ -82,8 +83,8 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             expression = "/project";
             xPath = XPathFactory.newInstance().newXPath();
             nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
-            int tam = xmiFilePath.split("/").length;
-            String arquitectureName = xmiFilePath.split("/")[tam - 1].replace(".smty", "");
+            int tam = xmiFilePath.split(FileConstants.FILE_SEPARATOR).length;
+            String arquitectureName = xmiFilePath.split(FileConstants.FILE_SEPARATOR)[tam - 1].replace(".smty", "");
             Architecture architecture = new Architecture(arquitectureName);
             architecture.setSMarty(true);
             architecture.setToSMarty(true);

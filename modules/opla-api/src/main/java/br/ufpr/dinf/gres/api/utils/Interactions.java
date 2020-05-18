@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.api.utils;
 
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class Interactions {
     }
 
     public static void update(String token, String hash, SolutionSet solutionSet) {
-        update(token + "/" + hash, solutionSet);
+        update(token + FileConstants.FILE_SEPARATOR + hash, solutionSet);
     }
 
     public static Interaction get(String id) {
@@ -29,7 +30,7 @@ public class Interactions {
     }
 
     public static Interaction get(String token, String hash) {
-        return Interactions.get(token + "/" + hash);
+        return Interactions.get(token + FileConstants.FILE_SEPARATOR + hash);
     }
 
     public static Interaction set(String id, Interaction interaction) {
@@ -37,6 +38,6 @@ public class Interactions {
     }
 
     public static Interaction set(String token, String hash, Interaction interaction) {
-        return Interactions.set(token + "/" + hash, interaction);
+        return Interactions.set(token + FileConstants.FILE_SEPARATOR + hash, interaction);
     }
 }

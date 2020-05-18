@@ -11,6 +11,7 @@ import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.Logger;
 import org.springframework.context.ApplicationContext;
@@ -42,7 +43,7 @@ public class OptimizationService {
             bean.execute(optimizationDto);
         });
         thread.start();
-        return Mono.just(new OptimizationInfo(OPLAThreadScope.token.get() + "/" + thread.getId(), "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
+        return Mono.just(new OptimizationInfo(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId(), "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
     }
 
 
@@ -50,13 +51,13 @@ public class OptimizationService {
         SolutionSet solutionSet = Interactions.get(token, hash).solutionSet.getSolutionSet();
         Solution solution = solutionSet.get(id);
         String plaNameOnAnalyses = "Interaction_" + token + "_" + hash + "_" + id + "_" + solution.getAlternativeArchitecture().getName();
-        String dirOnAnalyses = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/";
+        String dirOnAnalyses = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + "interaction/";
         boolean delete = deleteDirectory(new File(dirOnAnalyses));
         boolean create = new File(dirOnAnalyses).mkdir();
         SolutionSet solutionSet1 = new SolutionSet();
         solutionSet1.setCapacity(1);
         solutionSet1.add(solution);
-        new OPLASolutionSet(solutionSet1).saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
+        new OPLASolutionSet(solutionSet1).saveVariablesToFile(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + "interaction/" + plaNameOnAnalyses);
         File file = new File(dirOnAnalyses);
         return file;
     }
@@ -85,10 +86,10 @@ public class OptimizationService {
     public File downloadAllAlternative(String token, String hash) {
         SolutionSet solutionSet = Interactions.get(token, hash).solutionSet.getSolutionSet();
         String plaNameOnAnalyses = "Interaction_" + token + "_" + hash + "_" + "_" + solutionSet.get(0).getAlternativeArchitecture().getName();
-        String dirOnAnalyses = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/";
+        String dirOnAnalyses = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + "interaction/";
         boolean delete = deleteDirectory(new File(dirOnAnalyses));
         boolean create = new File(dirOnAnalyses).mkdir();
-        new OPLASolutionSet(solutionSet).saveVariablesToFile(OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/" + plaNameOnAnalyses);
+        new OPLASolutionSet(solutionSet).saveVariablesToFile(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + "interaction/" + plaNameOnAnalyses);
         File file = new File(dirOnAnalyses);
         return file;
     }
@@ -96,12 +97,12 @@ public class OptimizationService {
     private void configureThreadScope(OptimizationDto optimizationDto, String token) {
         OPLAThreadScope.token.set(token);
         OPLAThreadScope.mainThreadId.set(Thread.currentThread().getId());
-        OPLAThreadScope.userDir.set(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator"));
+        OPLAThreadScope.userDir.set(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR);
         OPLAThreadScope.pla.set(OPLAThreadScope.userDir.get() + optimizationDto.getInputArchitecture());
-        optimizationDto.getConfig().setPathToProfile(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfile());
-        optimizationDto.getConfig().setPathToProfileRelationships(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfileRelationships());
-        optimizationDto.getConfig().setPathToProfilePatterns(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfilePatterns());
-        optimizationDto.getConfig().setPathToProfileConcern(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + optimizationDto.getConfig().getPathToProfileConcern());
+        optimizationDto.getConfig().setPathToProfile(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + optimizationDto.getConfig().getPathToProfile());
+        optimizationDto.getConfig().setPathToProfileRelationships(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + optimizationDto.getConfig().getPathToProfileRelationships());
+        optimizationDto.getConfig().setPathToProfilePatterns(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + optimizationDto.getConfig().getPathToProfilePatterns());
+        optimizationDto.getConfig().setPathToProfileConcern(optimizationDto.getConfig().getDirectoryToExportModels() + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + optimizationDto.getConfig().getPathToProfileConcern());
         OPLAThreadScope.setConfig(optimizationDto.getConfig());
         optimizationDto.setInputArchitecture(OPLAThreadScope.pla.get());
         optimizationDto.setInteractiveFunction(solutionSet -> interactiveEmail.run(solutionSet, optimizationDto));

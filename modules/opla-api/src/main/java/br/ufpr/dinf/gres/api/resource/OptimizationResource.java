@@ -79,7 +79,7 @@ public class OptimizationResource {
     public ResponseEntity<List<String>> save(
             @RequestParam("file") List<MultipartFile> files) {
 
-        String OUT_PATH = ApplicationFileConfig.getInstance().getDirectoryToExportModels() + System.getProperty("file.separator") + OPLAThreadScope.token.get() + System.getProperty("file.separator");
+        String OUT_PATH = ApplicationFileConfig.getInstance().getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR;
         List<String> paths = new ArrayList<>();
 
         try {
@@ -107,7 +107,7 @@ public class OptimizationResource {
     @GetMapping(value = "/optimization-infos")
     public Mono<Infos> optimizationInfos() {
         List<Map.Entry<String, List<OptimizationInfo>>> collect = OPLALogs.lastLogs.entrySet().stream()
-                .filter(optimizationInfos -> optimizationInfos.getKey().startsWith(OPLAThreadScope.hash.get().split("/")[0])).collect(Collectors.toList());
+                .filter(optimizationInfos -> optimizationInfos.getKey().startsWith(OPLAThreadScope.hash.get().split(FileConstants.FILE_SEPARATOR)[0])).collect(Collectors.toList());
         return Mono.just(new Infos(collect)).subscribeOn(Schedulers.elastic());
     }
 
@@ -133,7 +133,7 @@ public class OptimizationResource {
                         return OptimizationInfoStatus.COMPLETE.equals(optimizationInfo.status)
                                 ? clear(token, hash, optimizationInfo) : OPLALogs.get(token, hash).remove(0);
                     }
-                    return new OptimizationInfo(token + "/" + hash, "", Interactions.interactions.size() > 0 &&
+                    return new OptimizationInfo(token + FileConstants.FILE_SEPARATOR + hash, "", Interactions.interactions.size() > 0 &&
                             !(Optional.of(Interactions.get(token, hash)).orElse(new Interaction(true)).updated)
                             ? OptimizationInfoStatus.INTERACT : OptimizationInfoStatus.RUNNING);
                 });

@@ -8,6 +8,7 @@ import br.ufpr.dinf.gres.architecture.smarty.*;
 import br.ufpr.dinf.gres.architecture.smarty.relationship.SaveRelationshipSMarty;
 import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.architecture.papyrus.touml.ArchitectureBase;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -23,12 +24,12 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
      * @param name - name of pla to be created (the path is get using ReaderConfig)
      */
     public void generate(Architecture architecture, String name) {
-        if (name.contains("/")) {
-            String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/" + name.split("/")[0];
+        if (name.contains(FileConstants.FILE_SEPARATOR)) {
+            String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + name.split(FileConstants.FILE_SEPARATOR)[0];
             File file = new File(directory);
             file.mkdir();
         }
-        String path = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/" + name + ".smty";
+        String path = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + name + ".smty";
         SaveStringToFile.getInstance().createLogDir();
         String logPath = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/Logs/log_" + name + ".txt";
         try {
