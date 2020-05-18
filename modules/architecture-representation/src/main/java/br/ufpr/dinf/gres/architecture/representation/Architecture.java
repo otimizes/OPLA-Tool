@@ -15,6 +15,7 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
@@ -732,7 +733,7 @@ public class Architecture extends Variable {
         saveToSMarty(this, "TEMP/TEMP");
         System.out.println("Saved");
         try {
-            System.out.println(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
+            System.out.println(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
             Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar " + ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + "TEMP" + System.getProperty("file.separator") + "TEMP.smty");
             //Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar");
             proc.waitFor();

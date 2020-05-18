@@ -14,6 +14,8 @@ export class OptimizationService {
   public static optimizationInfo: OptimizationInfo;
   public static onOptimizationInfo: EventEmitter<OptimizationInfo> = new EventEmitter<OptimizationInfo>();
   public static onSelectPLA: EventEmitter<string[]> = new EventEmitter<string[]>();
+  public static onOptimizationStart: EventEmitter<OptimizationInfo> = new EventEmitter<OptimizationInfo>();
+  public static source: EventSource;
 
   constructor(private http: HttpClient, private userService: UserService) {
     if (OptimizationService.isRunning()) {
@@ -30,6 +32,8 @@ export class OptimizationService {
   }
 
   public static clearOptimizationInfo() {
+    OptimizationService.source.close();
+    OptimizationService.optimizationInfo = null;
     localStorage.removeItem("optimizationInfo");
     OptimizationService.onOptimizationInfo.emit(null);
   }
@@ -50,15 +54,15 @@ export class OptimizationService {
   startEventListener(optimizationInfo: OptimizationInfo) {
     localStorage.setItem("optimizationInfo", JSON.stringify(optimizationInfo));
     if (!!window['EventSource'] && optimizationInfo.status != "COMPLETE") {
-      let source = new EventSource(`${UserService.baseUrl}/optimization/optimization-info/${optimizationInfo.threadId}?authorization=${UserService.user.token}`);
-      source.addEventListener('message', (e) => {
+      OptimizationService.source = new EventSource(`${UserService.baseUrl}/optimization/optimization-info/${optimizationInfo.hash}?authorization=${UserService.user.token}`);
+      OptimizationService.source.addEventListener('message', (e) => {
         if (e.data) {
           localStorage.setItem("optimizationInfo", e.data);
           let json = JSON.parse(e.data);
           OptimizationService.optimizationInfo = Object.assign(new OptimizationInfo(), json);
           OptimizationService.onOptimizationInfo.emit(OptimizationService.optimizationInfo);
           if (json.status === "COMPLETE") {
-            source.close();
+            OptimizationService.source.close();
             e.stopImmediatePropagation();
             e.stopPropagation();
             localStorage.removeItem("optimizationInfo");
@@ -66,13 +70,13 @@ export class OptimizationService {
         }
       }, false);
 
-      source.addEventListener('open', function (e) {
+      OptimizationService.source.addEventListener('open', function (e) {
         // Connection was opened.
       }, false);
 
-      source.addEventListener('error', function (e) {
+      OptimizationService.source.addEventListener('error', function (e) {
         if (e['readyState'] == EventSource.CLOSED) {
-          source.close();
+          OptimizationService.source.close();
           e.stopImmediatePropagation();
           e.stopImmediatePropagation();
           localStorage.removeItem("optimizationInfo");
@@ -100,6 +104,16 @@ export class OptimizationService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getOptimizationInfos(): Observable<any> {
+    return this.http.get<any>(`${UserService.baseUrl}/optimization/optimization-infos`, {headers: this.createAuthorizationHeader()})
+      .pipe(catchError(this.errorHandler));
+  }
+
+  killOptimizationProcess(id: any) {
+    return this.http.delete<any>(`${UserService.baseUrl}/optimization/kill-optimization-process/${id}`, {headers: this.createAuthorizationHeader()})
+      .pipe(catchError(this.errorHandler));
+  }
+
   getInteraction(id): Observable<any> {
     return this.http.get<any>(`${UserService.baseUrl}/optimization/interaction/${id}`, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
@@ -124,20 +138,20 @@ export class OptimizationService {
     return this.http.get(`${UserService.baseUrl}/optimization/download/${id}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
   }
 
-  downloadOneAlternative(threadId, id): Observable<any> {
-    return this.http.get(`${UserService.baseUrl}/optimization/download-alternative/${threadId}/${id}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
+  downloadOneAlternative(hash, id): Observable<any> {
+    return this.http.get(`${UserService.baseUrl}/optimization/download-alternative/${hash}/${id}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
   }
 
-  downloadAllAlternative(threadId): Observable<any> {
-    return this.http.get(`${UserService.baseUrl}/optimization/download-all-alternative/${threadId}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
+  downloadAllAlternative(hash): Observable<any> {
+    return this.http.get(`${UserService.baseUrl}/optimization/download-all-alternative/${hash}?authorization=${UserService.user.token}`, {responseType: 'arraybuffer'});
   }
 
-  openOneAlternative(threadId, id): Observable<any> {
-    return this.http.get(`${UserService.baseUrl}/optimization/open-alternative/${threadId}/${id}?authorization=${UserService.user.token}`);
+  openOneAlternative(hash, id): Observable<any> {
+    return this.http.get(`${UserService.baseUrl}/optimization/open-alternative/${hash}/${id}?authorization=${UserService.user.token}`);
   }
 
-  openAllAlternative(threadId): Observable<any> {
-    return this.http.get(`${UserService.baseUrl}/optimization/open-all-alternative/${threadId}?authorization=${UserService.user.token}`);
+  openAllAlternative(hash): Observable<any> {
+    return this.http.get(`${UserService.baseUrl}/optimization/open-all-alternative/${hash}?authorization=${UserService.user.token}`);
   }
 
   optimize(dto: OptimizationDto): Observable<OptimizationInfo> {
@@ -145,7 +159,8 @@ export class OptimizationService {
       .pipe(catchError(this.errorHandler), tap(data => {
         setTimeout(() => {
           this.startEventListener(data);
-        },1000)
+          OptimizationService.onOptimizationStart.emit(data);
+        }, 300)
       }));
   }
 

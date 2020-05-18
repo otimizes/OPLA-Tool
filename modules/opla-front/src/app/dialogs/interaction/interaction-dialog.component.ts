@@ -47,7 +47,7 @@ export class InteractionDialogComponent implements OnInit {
   }
 
   download(id?) {
-    this.optimizationService.downloadOneAlternative(this.info.threadId, id).subscribe(result => {
+    this.optimizationService.downloadOneAlternative(this.info.hash, id).subscribe(result => {
       this.snackBar.open("Your download is available", null, {
         duration: 2000
       });
@@ -61,7 +61,7 @@ export class InteractionDialogComponent implements OnInit {
   }
 
   downloadAll() {
-    this.optimizationService.downloadAllAlternative(this.info.threadId).subscribe(result => {
+    this.optimizationService.downloadAllAlternative(this.info.hash).subscribe(result => {
       this.snackBar.open("Your download is available", null, {
         duration: 2000
       });
@@ -75,7 +75,7 @@ export class InteractionDialogComponent implements OnInit {
   }
 
   open(id?) {
-    this.optimizationService.openOneAlternative(this.info.threadId, id).subscribe(result => {
+    this.optimizationService.openOneAlternative(this.info.hash, id).subscribe(result => {
       this.snackBar.open("Your PLA is opening, wait a minute", "OK", {
         duration: 5000
       });

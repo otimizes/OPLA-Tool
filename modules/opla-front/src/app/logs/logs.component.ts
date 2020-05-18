@@ -14,7 +14,9 @@ export class LogsComponent implements OnInit {
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
   @Input() optimizationDto: OptimizationDto;
+  @Input() optimizationService: OptimizationService;
   logs: string = "";
+  infos: any;
 
   constructor(fb: FormBuilder) {
     this.options = fb.group({
@@ -26,15 +28,50 @@ export class LogsComponent implements OnInit {
         if (value.logs && value.logs !== "") {
           this.logs += "\n" + value.logs;
         } else {
-          if (!this.logs.includes(value.status + " Thread " + value.threadId)) {
-            this.logs += value.status + " Thread " + value.threadId;
+          if (!this.logs.includes(value.status + " Thread " + value.hash)) {
+            this.logs += value.status + " Thread " + value.hash;
           }
         }
       }
-
-    })
+    });
   }
 
   ngOnInit() {
+    this.getOptimizationInfos();
+    OptimizationService.onOptimizationStart.asObservable().subscribe(value => this.getOptimizationInfos());
+  }
+
+  getOptimizationInfos() {
+    this.optimizationService.getOptimizationInfos()
+      .subscribe(infos => {
+        this.infos = infos.infos;
+      });
+  }
+
+  getInfos(infos: any) {
+    let infosR = [];
+    for (let info of infos) {
+      for (let key of Object.keys(info)) {
+        infosR.push({
+          id: key,
+          infos: info[key]
+        })
+      }
+    }
+    return infosR;
+  }
+
+  killOptimizationProcess(info, index) {
+    this.optimizationService.killOptimizationProcess(info.id).subscribe(() => {
+      this.infos.splice(index, 1)
+    })
+  }
+
+  selectOptimizationProcess(info: any) {
+    this.optimizationService.startEventListener(info.infos[0])
+  }
+
+  unselectOptimizationProcess(info: any) {
+    OptimizationService.clearOptimizationInfo();
   }
 }

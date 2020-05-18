@@ -42,14 +42,14 @@ public class OptimizationService {
             bean.execute(optimizationDto);
         });
         thread.start();
-        return Mono.just(new OptimizationInfo(thread.getId(), "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
+        return Mono.just(new OptimizationInfo(OPLAThreadScope.token.get() + "/" + thread.getId(), "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
     }
 
 
-    File downloadAlternative(Long threadId, Integer id) {
-        SolutionSet solutionSet = Interactions.get(threadId).solutionSet.getSolutionSet();
+    File downloadAlternative(String token, String hash, Integer id) {
+        SolutionSet solutionSet = Interactions.get(token, hash).solutionSet.getSolutionSet();
         Solution solution = solutionSet.get(id);
-        String plaNameOnAnalyses = "Interaction_" + threadId + "_" + id + "_" + solution.getAlternativeArchitecture().getName();
+        String plaNameOnAnalyses = "Interaction_" + token + "_" + hash + "_" + id + "_" + solution.getAlternativeArchitecture().getName();
         String dirOnAnalyses = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/";
         boolean delete = deleteDirectory(new File(dirOnAnalyses));
         boolean create = new File(dirOnAnalyses).mkdir();
@@ -61,8 +61,8 @@ public class OptimizationService {
         return file;
     }
 
-    void openAlternative(Long threadId, Integer id) {
-        File file = downloadAlternative(threadId, id);
+    void openAlternative(String token, String hash, Integer id) {
+        File file = downloadAlternative(token, hash, id);
         File[] files = file.listFiles();
         File fileToOpen = files[0];
         String pathSmarty = ApplicationFileConfigThreadScope.getPathSmarty();
@@ -82,9 +82,9 @@ public class OptimizationService {
         return dir.delete();
     }
 
-    public File downloadAllAlternative(Long threadId) {
-        SolutionSet solutionSet = Interactions.get(threadId).solutionSet.getSolutionSet();
-        String plaNameOnAnalyses = "Interaction_" + threadId + "_" + "_" + solutionSet.get(0).getAlternativeArchitecture().getName();
+    public File downloadAllAlternative(String token, String hash) {
+        SolutionSet solutionSet = Interactions.get(token, hash).solutionSet.getSolutionSet();
+        String plaNameOnAnalyses = "Interaction_" + token + "_" + hash + "_" + "_" + solutionSet.get(0).getAlternativeArchitecture().getName();
         String dirOnAnalyses = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + OPLAThreadScope.token.get() + System.getProperty("file.separator") + "interaction/";
         boolean delete = deleteDirectory(new File(dirOnAnalyses));
         boolean create = new File(dirOnAnalyses).mkdir();

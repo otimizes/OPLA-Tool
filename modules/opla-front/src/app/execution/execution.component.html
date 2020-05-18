@@ -57,7 +57,8 @@
               </h5>
               <opla-grid-list class="operators-functions">
                 <opla-grid-tile *ngFor="let obj of optimizationOptions?.objectiveFunctions">
-                  <mat-checkbox (change)="changeObjFunction(obj, $event.checked)">{{obj}}</mat-checkbox>
+                  <mat-checkbox [checked]="isObjFunctionChecked(obj)"
+                                (change)="changeObjFunction(obj, $event.checked)">{{obj}}</mat-checkbox>
                 </opla-grid-tile>
               </opla-grid-list>
             </mat-card>
@@ -66,9 +67,17 @@
             <mat-card>
               <h5>Interaction - Learning Settings</h5>
               <div>
-                <mat-checkbox (change)="optimizationDto.interactive = $event.checked; emit(optimizationDto);">
+                <mat-checkbox [checked]="optimizationDto.interactive"
+                              (change)="optimizationDto.interactive = $event.checked; emit(optimizationDto); setInteractionParams($event.checked, optimizationDto); ">
                   Interact during the optmization
                 </mat-checkbox>
+                <mat-form-field>
+                  <mat-label>Select the clustering algorithm</mat-label>
+                  <mat-select [(value)]="optimizationDto.clusteringAlgorithm">
+                    <mat-option value="KMEANS">KMEANS</mat-option>
+                    <mat-option value="DBSCAN">DBSCAN</mat-option>
+                  </mat-select>
+                </mat-form-field>
                 <mat-form-field>
                   <mat-label>Select the clustering moment</mat-label>
                   <mat-select [(value)]="optimizationDto.clusteringMoment">
@@ -77,13 +86,6 @@
                     <mat-option value="POSTERIORI">POSTERIORI</mat-option>
                     <mat-option value="BOTH">BOTH</mat-option>
                     <mat-option value="NONE">NONE</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>Select the clustering algorithm</mat-label>
-                  <mat-select [(value)]="optimizationDto.clusteringAlgorithm">
-                    <mat-option value="KMEANS">KMEANS</mat-option>
-                    <mat-option value="DBSCAN">DBSCAN</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <opla-grid-list class="operators-functions">
@@ -137,7 +139,8 @@
               </opla-grid-list>
               <opla-grid-list>
                 <opla-grid-tile *ngFor="let fmo of optimizationOptions?.crossoverOperators">
-                  <mat-checkbox (change)="changeOperators('crossoverOperators', fmo, $event.checked)" [disabled]="!optimizationDto.crossover">
+                  <mat-checkbox (change)="changeOperators('crossoverOperators', fmo, $event.checked)"
+                                [disabled]="!optimizationDto.crossover">
                     {{fmo | replaceall:'_':' ' | titlecase}}
                   </mat-checkbox>
                 </opla-grid-tile>
@@ -176,7 +179,8 @@
               </opla-grid-list>
               <opla-grid-list>
                 <opla-grid-tile *ngFor="let fmo of optimizationOptions?.mutationOperators">
-                  <mat-checkbox (change)="changeOperators('mutationOperators', fmo, $event.checked)" [disabled]="!optimizationDto.mutation"
+                  <mat-checkbox (change)="changeOperators('mutationOperators', fmo, $event.checked)"
+                                [disabled]="!optimizationDto.mutation"
                                 [checked]="fmo !== 'DESIGN_PATTERNS'"
                                 *ngIf="fmo !== 'DESIGN_PATTERNS'">
                     {{fmo | replaceall:'_':' ' | titlecase}}

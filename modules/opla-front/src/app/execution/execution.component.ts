@@ -109,4 +109,14 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
   emit(optimizationDto: OptimizationDto) {
     this.optimizationDtoChange.emit(optimizationDto);
   }
+
+  isObjFunctionChecked(obj: any) {
+    return this.optimizationDto.objectiveFunctions.includes(obj);
+  }
+
+  setInteractionParams(checked: boolean, optimizationDto: OptimizationDto) {
+    optimizationDto.maxInteractions = checked ? 3 : 0;
+    optimizationDto.firstInteraction = checked ? 3 : 0;
+    optimizationDto.intervalInteraction = checked ? 3 : 0;
+  }
 }

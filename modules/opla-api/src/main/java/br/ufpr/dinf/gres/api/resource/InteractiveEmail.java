@@ -32,14 +32,14 @@ public class InteractiveEmail {
             Clustering clustering = new Clustering(solutionSet, optimizationDto.getClusteringAlgorithm());
             clustering.setNumClusters(solutionSet.getSolutionSet().get(0).numberOfObjectives() + 1);
             clustering.run();
-            Interactions.set(OPLAThreadScope.mainThreadId.get(), new Interaction(solutionSet));
-            while (!Interactions.get(OPLAThreadScope.mainThreadId.get()).updated) {
+            Interactions.set(OPLAThreadScope.hash.get(), new Interaction(solutionSet));
+            while (!Interactions.get(OPLAThreadScope.hash.get()).updated) {
                 System.out.println("aqui");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Interactions.get(OPLAThreadScope.mainThreadId.get()).solutionSet.getSolutionSet();
+        return Interactions.get(OPLAThreadScope.hash.get()).solutionSet.getSolutionSet();
     }
 
 

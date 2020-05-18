@@ -16,15 +16,15 @@ import br.ufpr.dinf.gres.patterns.strategies.scopeselection.impl.ElementsWithSam
 public class GatewayUtils {
 
     public static void log(String error) {
-        OPLALogs.lastLogs.get(OPLAThreadScope.mainThreadId.get()).clear();
+        OPLALogs.lastLogs.get(OPLAThreadScope.hash.get()).clear();
         OPLALogs.add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), error, OptimizationInfoStatus.COMPLETE));
     }
 
     public static void addListener() {
         Logger.addListener(() -> {
             String s = LogLogData.printLog();
-            if (OPLALogs.lastLogs.get(OPLAThreadScope.mainThreadId.get()) != null && OPLALogs.lastLogs.get(OPLAThreadScope.mainThreadId.get()).size() >= 100) {
-                OPLALogs.lastLogs.get(OPLAThreadScope.mainThreadId.get()).clear();
+            if (OPLALogs.lastLogs.get(OPLAThreadScope.hash.get()) != null && OPLALogs.lastLogs.get(OPLAThreadScope.hash.get()).size() >= 100) {
+                OPLALogs.lastLogs.get(OPLAThreadScope.hash.get()).clear();
             }
             OPLALogs.add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), s, OptimizationInfoStatus.RUNNING, 1));
         });

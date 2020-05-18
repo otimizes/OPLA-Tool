@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Optional;
 
 public class Interactions {
-    public static Map<Long, Interaction> interactions = new HashMap<>();
+    public static Map<String, Interaction> interactions = new HashMap<>();
 
-    public static void update(Long id, SolutionSet solutionSet) {
+    public static void update(String id, SolutionSet solutionSet) {
         Interaction interaction = Interactions.interactions.get(id);
         interaction.updated = true;
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
@@ -20,10 +20,23 @@ public class Interactions {
         }
     }
 
-    public static Interaction get(Long id) {
+    public static void update(String token, String hash, SolutionSet solutionSet) {
+        update(token + "/" + hash, solutionSet);
+    }
+
+    public static Interaction get(String id) {
         return Optional.ofNullable(Interactions.interactions.get(id)).orElse(new Interaction());
     }
-    public static Interaction set(Long id, Interaction interaction) {
+
+    public static Interaction get(String token, String hash) {
+        return Interactions.get(token + "/" + hash);
+    }
+
+    public static Interaction set(String id, Interaction interaction) {
         return Interactions.interactions.put(id, interaction);
+    }
+
+    public static Interaction set(String token, String hash, Interaction interaction) {
+        return Interactions.set(token + "/" + hash, interaction);
     }
 }

@@ -1,3 +1,18 @@
+<opla-grid-list *ngIf="infos && infos.length > 0">
+  <opla-grid-tile>
+    There are {{infos.length}} experiments running:
+  </opla-grid-tile>
+  <opla-grid-tile *ngFor="let info of getInfos(infos); let index;">
+    <span style="text-decoration: underline; padding: 0 10px;">Experiment {{info.id}}</span>
+    <span>
+      <a href="" (click)="$event.preventDefault(); selectOptimizationProcess(info)">Select</a>&nbsp;
+      <a href="" (click)="$event.preventDefault(); unselectOptimizationProcess(info)">Unselect</a>&nbsp;
+      <a href="" (click)="$event.preventDefault(); killOptimizationProcess(info, index)">Kill</a>
+    </span>
+  </opla-grid-tile>
+</opla-grid-list>
+<br><br>
+
 <opla-grid-list>
   <opla-grid-tile>
     <mat-card style="overflow: scroll">

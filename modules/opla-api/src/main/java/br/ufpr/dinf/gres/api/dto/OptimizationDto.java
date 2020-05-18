@@ -32,7 +32,7 @@ public class OptimizationDto {
     private Integer intervalInteraction = 0;
     private Integer archiveSize = 0;
     private ClusteringAlgorithm clusteringAlgorithm = ClusteringAlgorithm.KMEANS;
-    private Moment clusteringMoment = Moment.NONE;
+    private Moment clusteringMoment = Moment.INTERACTIVE;
     private ArchitectureBuilders architectureBuilder = ArchitectureBuilders.SMARTY;
     @JsonIgnore
     private InteractiveFunction interactiveFunction;

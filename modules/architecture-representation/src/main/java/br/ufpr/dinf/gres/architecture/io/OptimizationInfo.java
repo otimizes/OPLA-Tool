@@ -22,6 +22,18 @@ public class OptimizationInfo {
         this.status = status;
     }
 
+    public OptimizationInfo(String hash, String logs, OptimizationInfoStatus status) {
+        this.hash = hash;
+        this.logs = logs;
+        this.status = status;
+    }
+    public OptimizationInfo(String hash, Long threadId, String logs, OptimizationInfoStatus status) {
+        this.hash = hash;
+        this.threadId = threadId;
+        this.logs = logs;
+        this.status = status;
+    }
+
     public OptimizationInfo(Long threadId, String logs, OptimizationInfoStatus status, Integer currentGeneration) {
         this.threadId = threadId;
         this.logs = logs;
