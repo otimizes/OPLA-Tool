@@ -15,6 +15,7 @@ export class OptimizationService {
   public static onOptimizationInfo: EventEmitter<OptimizationInfo> = new EventEmitter<OptimizationInfo>();
   public static onSelectPLA: EventEmitter<string[]> = new EventEmitter<string[]>();
   public static onOptimizationStart: EventEmitter<OptimizationInfo> = new EventEmitter<OptimizationInfo>();
+  public static onOptimizationFinish: EventEmitter<OptimizationInfo> = new EventEmitter<OptimizationInfo>();
   public static source: EventSource;
 
   constructor(private http: HttpClient, private userService: UserService) {
@@ -62,6 +63,7 @@ export class OptimizationService {
           OptimizationService.optimizationInfo = Object.assign(new OptimizationInfo(), json);
           OptimizationService.onOptimizationInfo.emit(OptimizationService.optimizationInfo);
           if (json.status === "COMPLETE") {
+            OptimizationService.onOptimizationFinish.emit(json);
             OptimizationService.source.close();
             e.stopImmediatePropagation();
             e.stopPropagation();
@@ -157,10 +159,10 @@ export class OptimizationService {
   optimize(dto: OptimizationDto): Observable<OptimizationInfo> {
     return this.http.post<OptimizationInfo>(`${UserService.baseUrl}/optimization/optimize`, dto, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler), tap(data => {
+        this.startEventListener(data);
         setTimeout(() => {
-          this.startEventListener(data);
           OptimizationService.onOptimizationStart.emit(data);
-        }, 300)
+        },2000)
       }));
   }
 

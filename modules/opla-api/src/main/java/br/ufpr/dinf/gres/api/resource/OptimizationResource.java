@@ -106,6 +106,11 @@ public class OptimizationResource {
 
     @GetMapping(value = "/optimization-infos")
     public Mono<Infos> optimizationInfos() {
+        for (Map.Entry<String, List<OptimizationInfo>> stringListEntry : OPLALogs.lastLogs.entrySet()) {
+            if (OptimizationInfoStatus.COMPLETE.equals(stringListEntry.getValue().get(0).status)) {
+                OPLALogs.lastLogs.remove(stringListEntry.getKey());
+            }
+        }
         List<Map.Entry<String, List<OptimizationInfo>>> collect = OPLALogs.lastLogs.entrySet().stream()
                 .filter(optimizationInfos -> optimizationInfos.getKey().startsWith(OPLAThreadScope.hash.get().split(FileConstants.FILE_SEPARATOR)[0])).collect(Collectors.toList());
         return Mono.just(new Infos(collect)).subscribeOn(Schedulers.elastic());

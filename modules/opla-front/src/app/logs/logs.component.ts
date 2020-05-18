@@ -39,6 +39,7 @@ export class LogsComponent implements OnInit {
   ngOnInit() {
     this.getOptimizationInfos();
     OptimizationService.onOptimizationStart.asObservable().subscribe(value => this.getOptimizationInfos());
+    OptimizationService.onOptimizationFinish.asObservable().subscribe(value => this.getOptimizationInfos());
   }
 
   getOptimizationInfos() {
@@ -68,6 +69,7 @@ export class LogsComponent implements OnInit {
   }
 
   selectOptimizationProcess(info: any) {
+    OptimizationService.clearOptimizationInfo();
     this.optimizationService.startEventListener(info.infos[0])
   }
 

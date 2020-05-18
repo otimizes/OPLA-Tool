@@ -1,4 +1,4 @@
-<opla-grid-list *ngIf="infos && infos.length > 0">
+<opla-grid-list *ngIf="infos && infos.length > 0" style="font-size: 15px;">
   <opla-grid-tile>
     There are {{infos.length}} experiments running:
   </opla-grid-tile>
@@ -15,7 +15,7 @@
 
 <opla-grid-list>
   <opla-grid-tile>
-    <mat-card style="overflow: scroll">
+    <mat-card style="overflow: scroll;max-height: 62vh;">
       <pre style="height: 100%">
         {{logs}}
       </pre>
