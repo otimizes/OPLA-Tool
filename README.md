@@ -57,7 +57,7 @@ File > Import > Maven > Exists Maven Project > Select the directory created for 
 ## How to contribute to this project
 
 Make Fork this project and create a Pull Request with your changes 
-[\<Click here to see how\>](https://github.com/SBSE-UEM/OPLA-Tool/blob/master/Contributing.pdf).
+[\<Click here to see how\>](https://github.com/otimizes/OPLA-Tool/blob/master/contributing.md).
 
 ## Documentation
 
