@@ -120,7 +120,7 @@ public class OptimizationResource {
     public void killOptimizationProcess(@PathVariable String token, @PathVariable String hash) {
         Set<Thread> threads = Thread.getAllStackTraces().keySet();
         for (Thread thread : threads) {
-            if (thread.getName().equals(token + FileConstants.FILE_SEPARATOR + hash)) {
+            if ((token + FileConstants.FILE_SEPARATOR + hash).startsWith(thread.getName())) {
                 System.out.println("Thread Finished: " + thread.getName() + " - " + token + FileConstants.FILE_SEPARATOR + hash);
                 thread.stop();
             }

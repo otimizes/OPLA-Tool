@@ -56,7 +56,6 @@ export class InteractionDialogComponent implements OnInit {
       });
       const url = window.URL.createObjectURL(blob);
       window.open(url);
-      OptimizationService.clearOptimizationInfo();
     })
   }
 
@@ -70,7 +69,6 @@ export class InteractionDialogComponent implements OnInit {
       });
       const url = window.URL.createObjectURL(blob);
       window.open(url);
-      OptimizationService.clearOptimizationInfo();
     })
   }
 

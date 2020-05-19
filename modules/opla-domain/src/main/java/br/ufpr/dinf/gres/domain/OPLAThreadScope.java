@@ -4,15 +4,18 @@ import br.ufpr.dinf.gres.domain.config.ApplicationFileConfig;
 import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.domain.config.FileConstants;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class OPLAThreadScope {
 
     public static ThreadLocal<String> token = new ThreadLocal<>();
 
     public static ThreadLocal<String> hash = ThreadLocal.withInitial(() -> {
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//        String format = simpleDateFormat.format(new Date());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String format = simpleDateFormat.format(new Date());
 
-        return OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + OPLAThreadScope.mainThreadId.get();
+        return OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + OPLAThreadScope.mainThreadId.get() + format.concat("-" + Math.round(Math.random() * 10000));
     });
 
     public static ThreadLocal<Long> mainThreadId = new ThreadLocal<>();

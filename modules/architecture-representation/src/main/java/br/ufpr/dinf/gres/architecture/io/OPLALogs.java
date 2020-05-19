@@ -16,7 +16,9 @@ public class OPLALogs {
     }
 
     public static List<OptimizationInfo> get(String token, String hash) {
-        return OPLALogs.lastLogs.get(token + FileConstants.FILE_SEPARATOR + hash);
+        Map.Entry<String, List<OptimizationInfo>> stringListEntry = OPLALogs.lastLogs.entrySet().stream()
+                .filter(log -> log.getKey().startsWith(token + FileConstants.FILE_SEPARATOR + hash)).findFirst().orElse(null);
+        return stringListEntry != null ? stringListEntry.getValue() : new ArrayList<>();
     }
 
     public static List<OptimizationInfo> remove(String token, String hash) {

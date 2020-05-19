@@ -33,8 +33,8 @@ public class InteractiveEmail {
             clustering.setNumClusters(solutionSet.getSolutionSet().get(0).numberOfObjectives() + 1);
             clustering.run();
             Interactions.set(OPLAThreadScope.hash.get(), new Interaction(solutionSet));
+            System.out.println("Waiting interaction: " + !Interactions.get(OPLAThreadScope.hash.get()).updated);
             while (!Interactions.get(OPLAThreadScope.hash.get()).updated) {
-                System.out.println("aqui");
             }
         } catch (Exception e) {
             e.printStackTrace();
