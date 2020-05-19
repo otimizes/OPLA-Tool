@@ -1,5 +1,13 @@
 package br.ufpr.dinf.gres.patterns.designpatterns;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
@@ -14,16 +22,26 @@ import br.ufpr.dinf.gres.patterns.util.BridgeUtil;
 import br.ufpr.dinf.gres.patterns.util.ElementUtil;
 import br.ufpr.dinf.gres.patterns.util.StrategyUtil;
 
-import java.util.*;
-
+/**
+ * The Class Bridge.
+ */
 public class Bridge extends DesignPattern {
 
+    /** The instance. */
     private static volatile Bridge INSTANCE;
 
+    /**
+     * Instantiates a new bridge.
+     */
     private Bridge() {
         super("Bridge", "Structural");
     }
 
+    /**
+     * Gets the single instance of Bridge.
+     *
+     * @return single instance of Bridge
+     */
     public static synchronized Bridge getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Bridge();
@@ -31,6 +49,12 @@ public class Bridge extends DesignPattern {
         return INSTANCE;
     }
 
+    /**
+     * Verify PS.
+     *
+     * @param scope the scope
+     * @return true, if PS
+     */
     @Override
     public boolean verifyPS(Scope scope) {
         boolean isPS = false;
@@ -51,6 +75,12 @@ public class Bridge extends DesignPattern {
         return isPS;
     }
 
+    /**
+     * Verify PSPLA.
+     *
+     * @param scope the scope
+     * @return true, if PSPLA
+     */
     @Override
     public boolean verifyPSPLA(Scope scope) {
         boolean psPLA = false;
@@ -71,6 +101,12 @@ public class Bridge extends DesignPattern {
         return psPLA;
     }
 
+    /**
+     * Apply.
+     *
+     * @param scope the scope
+     * @return true, if successful
+     */
     @Override
     public boolean apply(Scope scope) {
         boolean applied = false;

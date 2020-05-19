@@ -1,27 +1,39 @@
 package br.ufpr.dinf.gres.patterns.repositories;
 
-import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilderPapyrus;
-import br.ufpr.dinf.gres.architecture.representation.Architecture;
-
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilderPapyrus;
+import br.ufpr.dinf.gres.architecture.representation.Architecture;
+
 /**
- * @author arthur
+ * The Class ArchitectureRepository.
  *
+ * @author arthur
  */
 public class ArchitectureRepository {
 
+    /** The Constant MICROWAVE_OVEN_SOFTWARE. */
     public static final String MICROWAVE_OVEN_SOFTWARE = "/Users/giovaniguizzo/NetBeansProjects/OPLA-Patterns/MicrowaveOvenSoftware/Papyrus/MicrowaveOvenSoftware.uml";
+    
+    /** The Constant SERVICE_AND_SUPPORT_SYSTEM. */
     public static final String SERVICE_AND_SUPPORT_SYSTEM = "/Users/giovaniguizzo/NetBeansProjects/OPLA-Patterns/ServiceAndSupportSystem/Papyrus/ServiceAndSupportSystem.uml";
+    
+    /** The Constant AGM. */
     public static final String AGM = "/Users/giovaniguizzo/NetBeansProjects/OPLA-Patterns/agm/Papyrus/agm.uml";
+    
+    /** The Constant MOBILE_MEDIA. */
     public static final String MOBILE_MEDIA = "/Users/giovaniguizzo/NetBeansProjects/OPLA-Patterns/MobileMedia/Papyrus/MobileMedia.uml";
+    
+    /** The Constant BET. */
     public static final String BET = "/Users/giovaniguizzo/NetBeansProjects/OPLA-Patterns/BeT/Papyrus/BeT.uml";
 
+    /** The Constant MICROWAVE_TEST. */
     //Arquivos de teste
     public static final String MICROWAVE_TEST = "test/br/ufpr/inf/opla/br.ufpr.dinf.gres.patterns/resources/microwave/MicrowaveOvenSoftware.uml";
 
+    /** The Constant STRATEGY_MODELS. */
     public static final String[] STRATEGY_MODELS = new String[]{
             "test/br/ufpr/inf/opla/br.ufpr.dinf.gres.patterns/resources/strategy/Verify.uml",
             "test/br/ufpr/inf/opla/br.ufpr.dinf.gres.patterns/resources/strategy/Verify2.uml",
@@ -30,19 +42,23 @@ public class ArchitectureRepository {
             "test/br/ufpr/inf/opla/br.ufpr.dinf.gres.patterns/resources/strategy/Apply2.uml"
     };
 
+    /** The Constant BRIDGE_MODELS. */
     public static final String[] BRIDGE_MODELS = new String[]{
             "test/br/ufpr/inf/opla/br.ufpr.dinf.gres.patterns/resources/bridge/Verify.uml",
             "test/br/ufpr/inf/opla/br.ufpr.dinf.gres.patterns/resources/bridge/Apply.uml"
     };
 
+    /** The Constant ADAPTER_MODELS. */
     public static final String[] ADAPTER_MODELS = new String[]{
             "test/br/ufpr/inf/opla/br.ufpr.dinf.gres.patterns/resources/adapter/Verify.uml"
     };
 
+    /** The Constant MEDIATOR_MODELS. */
     public static final String[] MEDIATOR_MODELS = new String[]{
             "test/br/ufpr/inf/opla/br.ufpr.dinf.gres.patterns/resources/mediator/Apply.uml"
     };
 
+    /** The Constant OTHER_MODELS. */
     public static final String[] OTHER_MODELS = new String[]{
             "test/br/ufpr/inf/opla/br.ufpr.dinf.gres.patterns/resources/other/Model1.uml",
             "test/br/ufpr/inf/opla/br.ufpr.dinf.gres.patterns/resources/other/Model2.uml",
@@ -56,6 +72,7 @@ public class ArchitectureRepository {
             "test/br/ufpr/inf/opla/br.ufpr.dinf.gres.patterns/resources/other/Model10.uml"
     };
 
+    /** The Constant OUTPUT. */
     public static final String[] OUTPUT = new String[]{
             "Output1",
             "Output2",
@@ -69,9 +86,18 @@ public class ArchitectureRepository {
             "Output10"
     };
 
+    /** The Constant ARCHITECTURE_BUILDER. */
     private static final ArchitectureBuilderPapyrus ARCHITECTURE_BUILDER = new ArchitectureBuilderPapyrus();
+    
+    /** The current architecture. */
     private static Architecture CURRENT_ARCHITECTURE;
 
+    /**
+     * Gets the or create directory.
+     *
+     * @param path the path
+     * @return the or create directory
+     */
     public static File getOrCreateDirectory(String path) {
         File directory = new File(path);
         if (!directory.exists()) {
@@ -84,8 +110,10 @@ public class ArchitectureRepository {
     }
 
     /**
-     * @param path
-     * @return
+     * Gets the architecture.
+     *
+     * @param path the path
+     * @return the architecture
      */
     public static Architecture getArchitecture(String path) {
         try {
@@ -98,8 +126,10 @@ public class ArchitectureRepository {
     }
 
     /**
-     * @param name
-     * @return
+     * Gets the pla path.
+     *
+     * @param name the name
+     * @return the pla path
      */
     public static String getPlaPath(String name) {
         switch (name) {
@@ -115,14 +145,18 @@ public class ArchitectureRepository {
     }
 
     /**
-     * @return
+     * Gets the current architecture.
+     *
+     * @return the current architecture
      */
     public static Architecture getCurrentArchitecture() {
         return CURRENT_ARCHITECTURE;
     }
 
     /**
-     * @param currentArchitecture
+     * Sets the current architecture.
+     *
+     * @param currentArchitecture the new current architecture
      */
     public static void setCurrentArchitecture(Architecture currentArchitecture) {
         CURRENT_ARCHITECTURE = currentArchitecture;

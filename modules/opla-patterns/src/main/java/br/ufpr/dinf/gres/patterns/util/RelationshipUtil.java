@@ -1,18 +1,35 @@
 package br.ufpr.dinf.gres.patterns.util;
 
+import java.util.UUID;
+
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
-import br.ufpr.dinf.gres.architecture.representation.relationship.*;
+import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationRelationship;
+import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
+import br.ufpr.dinf.gres.architecture.representation.relationship.GeneralizationRelationship;
+import br.ufpr.dinf.gres.architecture.representation.relationship.RealizationRelationship;
+import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
+import br.ufpr.dinf.gres.architecture.representation.relationship.UsageRelationship;
 import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
 
-import java.util.UUID;
-
+/**
+ * The Class RelationshipUtil.
+ */
 public class RelationshipUtil {
 
+    /**
+     * Instantiates a new relationship util.
+     */
     private RelationshipUtil() {
     }
 
+    /**
+     * Gets the used element from relationship.
+     *
+     * @param relationship the relationship
+     * @return the used element from relationship
+     */
     public static Element getUsedElementFromRelationship(Relationship relationship) {
         Element supplier = null;
         if (relationship instanceof UsageRelationship) {
@@ -25,6 +42,12 @@ public class RelationshipUtil {
         return supplier;
     }
 
+    /**
+     * Gets the client element from relationship.
+     *
+     * @param relationship the relationship
+     * @return the client element from relationship
+     */
     public static Element getClientElementFromRelationship(Relationship relationship) {
         Element client = null;
         if (relationship instanceof UsageRelationship) {
@@ -37,6 +60,12 @@ public class RelationshipUtil {
         return client;
     }
 
+    /**
+     * Gets the implemented interface.
+     *
+     * @param relationship the relationship
+     * @return the implemented interface
+     */
     public static Interface getImplementedInterface(Relationship relationship) {
         if (relationship instanceof RealizationRelationship) {
             RealizationRelationship realization = (RealizationRelationship) relationship;
@@ -45,6 +74,12 @@ public class RelationshipUtil {
         return null;
     }
 
+    /**
+     * Gets the super element.
+     *
+     * @param relationship the relationship
+     * @return the super element
+     */
     public static Element getSuperElement(Relationship relationship) {
         if (relationship instanceof GeneralizationRelationship) {
             GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
@@ -53,6 +88,12 @@ public class RelationshipUtil {
         return null;
     }
 
+    /**
+     * Gets the sub element.
+     *
+     * @param relationship the relationship
+     * @return the sub element
+     */
     public static Element getSubElement(Relationship relationship) {
         if (relationship instanceof GeneralizationRelationship) {
             GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
@@ -64,6 +105,13 @@ public class RelationshipUtil {
         return null;
     }
 
+    /**
+     * Move relationship.
+     *
+     * @param relationship the relationship
+     * @param client the client
+     * @param supplier the supplier
+     */
     public static void moveRelationship(Relationship relationship, Element client, Element supplier) {
         Architecture architecture = ArchitectureRepository.getCurrentArchitecture();
         if (relationship instanceof UsageRelationship) {
@@ -89,6 +137,14 @@ public class RelationshipUtil {
         }
     }
 
+    /**
+     * Creates the new realization relationship.
+     *
+     * @param relationshipName the relationship name
+     * @param client the client
+     * @param supplier the supplier
+     * @return the realization relationship
+     */
     public static RealizationRelationship createNewRealizationRelationship(String relationshipName, Element client, Element supplier) {
         Architecture architecture = ArchitectureRepository.getCurrentArchitecture();
 
@@ -98,6 +154,13 @@ public class RelationshipUtil {
         return realizationRelationship;
     }
 
+    /**
+     * Creates the new generalization relationship.
+     *
+     * @param child the child
+     * @param parent the parent
+     * @return the generalization relationship
+     */
     public static GeneralizationRelationship createNewGeneralizationRelationship(Element child, Element parent) {
         Architecture architecture = ArchitectureRepository.getCurrentArchitecture();
 
@@ -107,6 +170,14 @@ public class RelationshipUtil {
         return generalizationRelationship;
     }
 
+    /**
+     * Creates the new usage relationship.
+     *
+     * @param relationshipName the relationship name
+     * @param client the client
+     * @param supplier the supplier
+     * @return the usage relationship
+     */
     public static UsageRelationship createNewUsageRelationship(String relationshipName, Element client, Element supplier) {
         Architecture architecture = ArchitectureRepository.getCurrentArchitecture();
 
@@ -116,6 +187,14 @@ public class RelationshipUtil {
         return usage;
     }
 
+    /**
+     * Creates the new aggregation relationship.
+     *
+     * @param name the name
+     * @param aggregator the aggregator
+     * @param aggregated the aggregated
+     * @return the association relationship
+     */
     public static AssociationRelationship createNewAggregationRelationship(String name, Element aggregator, Element aggregated) {
         Architecture architecture = ArchitectureRepository.getCurrentArchitecture();
 

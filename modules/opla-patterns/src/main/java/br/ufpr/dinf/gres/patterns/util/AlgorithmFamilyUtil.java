@@ -1,19 +1,31 @@
 package br.ufpr.dinf.gres.patterns.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Method;
 import br.ufpr.dinf.gres.patterns.list.MethodArrayList;
 import br.ufpr.dinf.gres.patterns.models.AlgorithmFamily;
 import br.ufpr.dinf.gres.patterns.models.Scope;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * The Class AlgorithmFamilyUtil.
+ */
 public class AlgorithmFamilyUtil {
 
+    /**
+     * Instantiates a new algorithm family util.
+     */
     private AlgorithmFamilyUtil() {
     }
 
+    /**
+     * Gets the families from scope.
+     *
+     * @param scope the scope
+     * @return the list of families from scope
+     */
     public static List<AlgorithmFamily> getFamiliesFromScope(Scope scope) {
         List<AlgorithmFamily> familiesInScope = new ArrayList<>();
         addFamiliesWithSuffixAndPreffix(scope, familiesInScope);
@@ -21,6 +33,12 @@ public class AlgorithmFamilyUtil {
         return familiesInScope;
     }
 
+    /**
+     * Adds the families with suffix and preffix.
+     *
+     * @param scope the scope
+     * @param familiesInScope the families in scope
+     */
     private static void addFamiliesWithSuffixAndPreffix(Scope scope, List<AlgorithmFamily> familiesInScope) {
         for (int i = 0; i < scope.getElements().size(); i++) {
             Element iElement = scope.getElements().get(i);
@@ -62,6 +80,12 @@ public class AlgorithmFamilyUtil {
         }
     }
 
+    /**
+     * Adds the families with same method.
+     *
+     * @param scope the scope
+     * @param familiesInScope the families in scope
+     */
     private static void addFamiliesWithSameMethod(Scope scope, List<AlgorithmFamily> familiesInScope) {
         for (int i = 0; i < scope.getElements().size(); i++) {
             Element iElement = scope.getElements().get(i);
@@ -91,6 +115,14 @@ public class AlgorithmFamilyUtil {
         }
     }
 
+    /**
+     * Adds the elements to algorithm family.
+     *
+     * @param algorithmFamily the algorithm family
+     * @param familiesInScope the families in scope
+     * @param iElement the i element
+     * @param jElement the j element
+     */
     private static void addElementsToAlgorithmFamily(AlgorithmFamily algorithmFamily, List<AlgorithmFamily> familiesInScope, Element iElement, Element jElement) {
         if (!familiesInScope.contains(algorithmFamily)) {
             algorithmFamily.getParticipants().add(iElement);

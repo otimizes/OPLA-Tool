@@ -5,6 +5,12 @@
  */
 package br.ufpr.dinf.gres.patterns.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.commons.collections4.CollectionUtils;
+
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
@@ -12,20 +18,27 @@ import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Interface;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
-import org.apache.commons.collections4.CollectionUtils;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
+ * The Class AdapterUtil.
+ *
  * @author giovaniguizzo
  */
 public class AdapterUtil {
 
+    /**
+     * Instantiates a new adapter util.
+     */
     private AdapterUtil() {
     }
 
+    /**
+     * Gets the adapter class.
+     *
+     * @param target the target
+     * @param adaptee the adaptee
+     * @return the adapter class
+     */
     public static Class getAdapterClass(Element target, Element adaptee) {
         Class adapterClass = null;
         List<Element> allTargetSubElements = ElementUtil.getAllSubElements(target);
@@ -54,6 +67,12 @@ public class AdapterUtil {
         return adapterClass;
     }
 
+    /**
+     * Gets the all target interfaces.
+     *
+     * @param adaptee the adaptee
+     * @return the list of all target interfaces
+     */
     public static List<Interface> getAllTargetInterfaces(Element adaptee) {
         List<Interface> targetInterfaces = new ArrayList<>();
 
@@ -75,6 +94,12 @@ public class AdapterUtil {
         return targetInterfaces;
     }
 
+    /**
+     * Creates the adapter class.
+     *
+     * @param adaptee the adaptee
+     * @return the representation class
+     */
     public static br.ufpr.dinf.gres.architecture.representation.Class createAdapterClass(Element adaptee) {
         Architecture architecture = ArchitectureRepository.getCurrentArchitecture();
         br.ufpr.dinf.gres.architecture.representation.Class adapterClass;

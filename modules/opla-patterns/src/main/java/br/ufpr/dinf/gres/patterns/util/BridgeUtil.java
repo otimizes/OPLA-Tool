@@ -1,9 +1,22 @@
 package br.ufpr.dinf.gres.patterns.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import br.ufpr.dinf.gres.architecture.exceptions.ConcernNotFoundException;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.architecture.representation.*;
+import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
+import br.ufpr.dinf.gres.architecture.representation.Concern;
+import br.ufpr.dinf.gres.architecture.representation.Element;
+import br.ufpr.dinf.gres.architecture.representation.Interface;
+import br.ufpr.dinf.gres.architecture.representation.Method;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationEnd;
 import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationRelationship;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Multiplicity;
@@ -12,15 +25,23 @@ import br.ufpr.dinf.gres.patterns.list.MethodArrayList;
 import br.ufpr.dinf.gres.patterns.models.AlgorithmFamily;
 import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
 
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+/**
+ * The Class BridgeUtil.
+ */
 public class BridgeUtil {
 
+    /**
+     * Instantiates a new bridge util.
+     */
     private BridgeUtil() {
     }
 
+    /**
+     * Gets the implementation interfaces.
+     *
+     * @param algorithmFamily the algorithm family
+     * @return the list of implementation interfaces
+     */
     public static HashMap<Concern, List<Interface>> getImplementationInterfaces(AlgorithmFamily algorithmFamily) {
         List<Element> elements = algorithmFamily.getParticipants();
         HashMap<Concern, List<Interface>> implementationInterfaces = new HashMap<>();
@@ -54,6 +75,12 @@ public class BridgeUtil {
         return implementationInterfaces;
     }
 
+    /**
+     * Gets the abstraction classes.
+     *
+     * @param algorithmFamily the algorithm family
+     * @return the list of abstraction classes
+     */
     public static List<Element> getAbstractionClasses(AlgorithmFamily algorithmFamily) {
         List<Element> abstractionClasses = new ArrayList<>();
         Set<Class> elements = ArchitectureRepository.getCurrentArchitecture().getAllClasses();
@@ -105,6 +132,12 @@ public class BridgeUtil {
         return abstractionClasses;
     }
 
+    /**
+     * Creates the abstraction classes.
+     *
+     * @param algorithmFamily the algorithm family
+     * @return the of abstraction classes created
+     */
     public static List<Element> createAbstractionClasses(AlgorithmFamily algorithmFamily) {
         List<Element> abstractionClasses = new ArrayList<>();
         List<Element> participants = algorithmFamily.getParticipants();
@@ -198,6 +231,13 @@ public class BridgeUtil {
         return abstractionClasses;
     }
 
+    /**
+     * Creates the implementation interface.
+     *
+     * @param concern the concern
+     * @param elements the elements
+     * @return the interface created
+     */
     public static Interface createImplementationInterface(Concern concern, List<Element> elements) {
         Interface anInterface = null;
         if (elements != null && !elements.isEmpty()) {
@@ -247,6 +287,12 @@ public class BridgeUtil {
         return anInterface;
     }
 
+    /**
+     * Aggregate abstraction with implementation.
+     *
+     * @param abstractClass the abstract class
+     * @param concernInterface the concern interface
+     */
     public static void aggregateAbstractionWithImplementation(Element abstractClass, Interface concernInterface) {
         if (!ElementUtil.getAllAggregatedElements(abstractClass).contains(concernInterface)) {
             AssociationRelationship aggregation = RelationshipUtil.createNewAggregationRelationship("aggregatedImplementation", abstractClass, concernInterface);

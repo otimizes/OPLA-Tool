@@ -1,22 +1,40 @@
 package br.ufpr.dinf.gres.patterns.list;
 
-import br.ufpr.dinf.gres.architecture.representation.Method;
-import br.ufpr.dinf.gres.architecture.representation.ParameterMethod;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufpr.dinf.gres.architecture.representation.Method;
+import br.ufpr.dinf.gres.architecture.representation.ParameterMethod;
+
+/**
+ * The Class MethodArrayList.
+ */
 public class MethodArrayList extends ArrayList<Method> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Instantiates a new method array list.
+     *
+     * @param methods the list of methods
+     */
     public MethodArrayList(List<Method> methods) {
         super((methods != null ? methods : new ArrayList<Method>()));
     }
 
+    /**
+     * Instantiates a new method array list.
+     */
     public MethodArrayList() {
     }
 
+    /**
+     * Contains.
+     *
+     * @param method the method
+     * @return true, if successful
+     */
     @Override
     public boolean contains(Object method) {
         if (method instanceof Method) {
@@ -32,6 +50,12 @@ public class MethodArrayList extends ArrayList<Method> {
         return false;
     }
 
+    /**
+     * Contains same name.
+     *
+     * @param method the method
+     * @return true, if successful
+     */
     public boolean containsSameName(Object method) {
         if (method instanceof Method) {
             Method aMethod = (Method) method;
@@ -47,6 +71,12 @@ public class MethodArrayList extends ArrayList<Method> {
         return false;
     }
 
+    /**
+     * Contains same signature.
+     *
+     * @param method the method
+     * @return true, if successful
+     */
     public boolean containsSameSignature(Object method) {
         if (method instanceof Method) {
             Method aMethod = (Method) method;
@@ -71,6 +101,12 @@ public class MethodArrayList extends ArrayList<Method> {
         return false;
     }
 
+    /**
+     * Index of.
+     *
+     * @param method the method
+     * @return the index number
+     */
     @Override
     public int indexOf(Object method) {
         if (method instanceof Method) {
@@ -88,6 +124,13 @@ public class MethodArrayList extends ArrayList<Method> {
         }
     }
 
+    /**
+     * Are methods equal.
+     *
+     * @param method the method
+     * @param otherMethod the other method
+     * @return true, if successful
+     */
     private boolean areMethodsEqual(Method method, Method otherMethod) {
         if (method == null && otherMethod == null) {
             return true;

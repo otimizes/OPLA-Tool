@@ -1,5 +1,7 @@
 package br.ufpr.dinf.gres.patterns.strategies.scopeselection.impl;
 
+import java.util.Set;
+
 import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.architecture.representation.Patterns;
@@ -8,20 +10,37 @@ import br.ufpr.dinf.gres.patterns.strategies.scopeselection.ScopeSelectionStrate
 import br.ufpr.dinf.gres.patterns.strategies.scopeselection.defaultstrategy.RandomScopeSelection;
 import br.ufpr.dinf.gres.patterns.util.ElementUtil;
 
-import java.util.Set;
-
+/**
+ * The Class ElementsWithSameDesignPatternSelection.
+ */
 public class ElementsWithSameDesignPatternSelection implements ScopeSelectionStrategy {
 
+    /** The selection strategy. */
     private final ScopeSelectionStrategy selectionStrategy;
 
+    /**
+     * Instantiates a new elements with same design pattern selection.
+     */
     public ElementsWithSameDesignPatternSelection() {
         selectionStrategy = new RandomScopeSelection();
     }
 
+    /**
+     * Instantiates a new elements with same design pattern selection.
+     *
+     * @param strategy the strategy
+     */
     public ElementsWithSameDesignPatternSelection(ScopeSelectionStrategy strategy) {
         selectionStrategy = strategy;
     }
 
+    /**
+     * Select scope.
+     *
+     * @param architecture the architecture
+     * @param designPattern the design pattern
+     * @return the scope
+     */
     @Override
     public Scope selectScope(Architecture architecture, Patterns designPattern) {
         Scope scope = selectionStrategy.selectScope(architecture, designPattern);

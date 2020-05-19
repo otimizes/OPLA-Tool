@@ -1,5 +1,13 @@
 package br.ufpr.dinf.gres.patterns.designpatterns;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.apache.commons.collections4.CollectionUtils;
+
 import br.ufpr.dinf.gres.architecture.exceptions.ConcernNotFoundException;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.architecture.representation.Element;
@@ -14,22 +22,27 @@ import br.ufpr.dinf.gres.patterns.util.AlgorithmFamilyUtil;
 import br.ufpr.dinf.gres.patterns.util.ElementUtil;
 import br.ufpr.dinf.gres.patterns.util.RelationshipUtil;
 import br.ufpr.dinf.gres.patterns.util.StrategyUtil;
-import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+/**
+ * The Class Strategy.
+ */
 public class Strategy extends DesignPattern {
 
+    /** The instance. */
     private static volatile Strategy INSTANCE;
 
+    /**
+     * Instantiates a new strategy.
+     */
     private Strategy() {
         super("Strategy", "Behavioral");
     }
 
+    /**
+     * Gets the single instance of Strategy.
+     *
+     * @return single instance of Strategy
+     */
     public static synchronized Strategy getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Strategy();
@@ -37,6 +50,12 @@ public class Strategy extends DesignPattern {
         return INSTANCE;
     }
 
+    /**
+     * Verify PS.
+     *
+     * @param scope the scope
+     * @return true, if PS
+     */
     @Override
     public boolean verifyPS(Scope scope) {
         List<AlgorithmFamily> familiesInScope = AlgorithmFamilyUtil.getFamiliesFromScope(scope);
@@ -79,6 +98,12 @@ public class Strategy extends DesignPattern {
         return isPs;
     }
 
+    /**
+     * Verify PSPLA.
+     *
+     * @param scope the scope
+     * @return true, if PSPLA
+     */
     @Override
     public boolean verifyPSPLA(Scope scope) {
         boolean isPsPla = false;
@@ -99,6 +124,12 @@ public class Strategy extends DesignPattern {
         return isPsPla;
     }
 
+    /**
+     * Apply.
+     *
+     * @param scope the scope
+     * @return true, if successful
+     */
     @Override
     public boolean apply(Scope scope) {
         boolean applied = false;

@@ -1,5 +1,14 @@
 package br.ufpr.dinf.gres.patterns.designpatterns;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.apache.commons.collections4.CollectionUtils;
+
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.architecture.representation.Element;
@@ -9,23 +18,27 @@ import br.ufpr.dinf.gres.patterns.models.ps.impl.PSMediator;
 import br.ufpr.dinf.gres.patterns.util.ElementUtil;
 import br.ufpr.dinf.gres.patterns.util.MediatorUtil;
 import br.ufpr.dinf.gres.patterns.util.RelationshipUtil;
-import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+/**
+ * The Class Mediator.
+ */
 public class Mediator extends DesignPattern {
 
+    /** The instance. */
     private static volatile Mediator INSTANCE;
 
+    /**
+     * Instantiates a new mediator.
+     */
     private Mediator() {
         super("Mediator", "Behavioral");
     }
 
+    /**
+     * Gets the single instance of Mediator.
+     *
+     * @return single instance of Mediator
+     */
     public static synchronized Mediator getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Mediator();
@@ -33,6 +46,12 @@ public class Mediator extends DesignPattern {
         return INSTANCE;
     }
 
+    /**
+     * Verify PS.
+     *
+     * @param scope the scope
+     * @return true, if PS
+     */
     @Override
     public boolean verifyPS(Scope scope) {
         boolean isPs = false;
@@ -81,11 +100,23 @@ public class Mediator extends DesignPattern {
         return isPs;
     }
 
+    /**
+     * Verify PSPLA.
+     *
+     * @param scope the scope
+     * @return true, if PSPLA
+     */
     @Override
     public boolean verifyPSPLA(Scope scope) {
         return verifyPS(scope);
     }
 
+    /**
+     * Apply.
+     *
+     * @param scope the scope
+     * @return true, if successful
+     */
     @Override
     public boolean apply(Scope scope) {
         boolean applied = false;

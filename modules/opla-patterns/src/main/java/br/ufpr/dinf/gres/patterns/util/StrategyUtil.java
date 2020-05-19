@@ -1,16 +1,31 @@
 package br.ufpr.dinf.gres.patterns.util;
 
-import br.ufpr.dinf.gres.architecture.representation.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import br.ufpr.dinf.gres.architecture.representation.Architecture;
+import br.ufpr.dinf.gres.architecture.representation.Element;
+import br.ufpr.dinf.gres.architecture.representation.Interface;
+import br.ufpr.dinf.gres.architecture.representation.Variability;
+import br.ufpr.dinf.gres.architecture.representation.Variant;
+import br.ufpr.dinf.gres.architecture.representation.VariationPoint;
 import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import br.ufpr.dinf.gres.patterns.comparators.SubElementsComparator;
 import br.ufpr.dinf.gres.patterns.list.MethodArrayList;
 import br.ufpr.dinf.gres.patterns.models.AlgorithmFamily;
 import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
 
-import java.util.*;
-
+/**
+ * The Class StrategyUtil.
+ */
 public class StrategyUtil {
 
+    /**
+     * Instantiates a new strategy util.
+     */
     private StrategyUtil() {
     }
 
@@ -35,6 +50,12 @@ public class StrategyUtil {
         }
     }
 
+    /**
+     * Gets the all strategy interfaces from set of elements.
+     *
+     * @param elements the elements
+     * @return the all strategy interfaces from set of elements
+     */
     protected static List<Interface> getAllStrategyInterfacesFromSetOfElements(List<Element> elements) {
         List<Interface> strategyInterfaces = new ArrayList<>();
         List<Interface> interfaces = ElementUtil.getAllSuperInterfaces(elements);
@@ -53,10 +74,23 @@ public class StrategyUtil {
         return strategyInterfaces;
     }
 
+    /**
+     * Creates the strategy interface for algorithm family.
+     *
+     * @param algorithmFamily the algorithm family
+     * @return the interface
+     */
     public static Interface createStrategyInterfaceForAlgorithmFamily(AlgorithmFamily algorithmFamily) {
         return InterfaceUtil.createInterfaceForSetOfElements(algorithmFamily.getNameCapitalized() + "Strategy", algorithmFamily.getParticipants());
     }
 
+    /**
+     * Are the algorithm family and contexts part of A variability.
+     *
+     * @param algorithmFamily the algorithm family
+     * @param contexts the contexts
+     * @return true, if successful
+     */
     public static boolean areTheAlgorithmFamilyAndContextsPartOfAVariability(AlgorithmFamily algorithmFamily, List<Element> contexts) {
         List<Variability> variabilities = null;
         for (Element algorithm : algorithmFamily.getParticipants()) {
@@ -93,6 +127,13 @@ public class StrategyUtil {
         return false;
     }
 
+    /**
+     * Move contexts relationship with same type and name.
+     *
+     * @param contexts the contexts
+     * @param participants the participants
+     * @param target the target
+     */
     public static void moveContextsRelationshipWithSameTypeAndName(List<Element> contexts, List<Element> participants, Element target) {
         Architecture architecture = ArchitectureRepository.getCurrentArchitecture();
 
@@ -134,6 +175,13 @@ public class StrategyUtil {
         }
     }
 
+    /**
+     * Move variabilities from contexts to target.
+     *
+     * @param contexts the contexts
+     * @param participants the participants
+     * @param target the target
+     */
     public static void moveVariabilitiesFromContextsToTarget(List<Element> contexts, List<Element> participants, Element target) {
         for (Element context : contexts) {
             VariationPoint variationPoint = context.getVariationPoint();

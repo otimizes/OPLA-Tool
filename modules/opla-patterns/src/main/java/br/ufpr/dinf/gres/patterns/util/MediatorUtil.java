@@ -1,28 +1,44 @@
 package br.ufpr.dinf.gres.patterns.util;
 
-import br.ufpr.dinf.gres.architecture.exceptions.AttributeNotFoundException;
-import br.ufpr.dinf.gres.architecture.exceptions.ConcernNotFoundException;
-import br.ufpr.dinf.gres.architecture.exceptions.MethodNotFoundException;
-import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.architecture.representation.*;
-import br.ufpr.dinf.gres.architecture.representation.Class;
-import br.ufpr.dinf.gres.architecture.representation.Package;
-import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
-import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.architecture.representation.relationship.UsageRelationship;
-import br.ufpr.dinf.gres.architecture.papyrus.touml.Types;
-import br.ufpr.dinf.gres.architecture.papyrus.touml.VisibilityKind;
-import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import br.ufpr.dinf.gres.architecture.exceptions.AttributeNotFoundException;
+import br.ufpr.dinf.gres.architecture.exceptions.ConcernNotFoundException;
+import br.ufpr.dinf.gres.architecture.exceptions.MethodNotFoundException;
+import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
+import br.ufpr.dinf.gres.architecture.papyrus.touml.Types;
+import br.ufpr.dinf.gres.architecture.papyrus.touml.VisibilityKind;
+import br.ufpr.dinf.gres.architecture.representation.Architecture;
+import br.ufpr.dinf.gres.architecture.representation.Class;
+import br.ufpr.dinf.gres.architecture.representation.Concern;
+import br.ufpr.dinf.gres.architecture.representation.Element;
+import br.ufpr.dinf.gres.architecture.representation.Interface;
+import br.ufpr.dinf.gres.architecture.representation.Method;
+import br.ufpr.dinf.gres.architecture.representation.Package;
+import br.ufpr.dinf.gres.architecture.representation.ParameterMethod;
+import br.ufpr.dinf.gres.architecture.representation.relationship.DependencyRelationship;
+import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
+import br.ufpr.dinf.gres.architecture.representation.relationship.UsageRelationship;
+import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
+
+/**
+ * The Class MediatorUtil.
+ */
 public class MediatorUtil {
 
+    /**
+     * Instantiates a new mediator util.
+     */
     private MediatorUtil() {
     }
 
+    /**
+     * Gets the or create event of interest class.
+     *
+     * @return the event of interest class
+     */
     public static Class getOrCreateEventOfInterestClass() {
         Architecture architecture = ArchitectureRepository.getCurrentArchitecture();
 
@@ -101,6 +117,15 @@ public class MediatorUtil {
         return eventOfInterest;
     }
 
+    /**
+     * Gets the or create mediator interface.
+     *
+     * @param participants the participants
+     * @param concern the concern
+     * @param eventOfInterest the event of interest
+     * @return the mediator interface
+     * @throws Exception the exception
+     */
     public static Interface getOrCreateMediatorInterface(List<Element> participants, Concern concern, Class eventOfInterest) throws Exception {
         Interface mediator = null;
 
@@ -141,6 +166,15 @@ public class MediatorUtil {
         return mediator;
     }
 
+    /**
+     * Gets the or create mediator class.
+     *
+     * @param participants the participants
+     * @param concern the concern
+     * @param mediatorInterface the mediator interface
+     * @return the mediator class
+     * @throws ConcernNotFoundException the concern not found exception
+     */
     public static Class getOrCreateMediatorClass(List<Element> participants, Concern concern, Interface mediatorInterface) throws ConcernNotFoundException {
         Class mediator = null;
 
@@ -177,6 +211,16 @@ public class MediatorUtil {
         return mediator;
     }
 
+    /**
+     * Gets the or create colleague interface.
+     *
+     * @param participants the participants
+     * @param concern the concern
+     * @param mediatorInterface the mediator interface
+     * @param eventOfInterest the event of interest
+     * @return the colleague interface
+     * @throws ConcernNotFoundException the concern not found exception
+     */
     public static Interface getOrCreateColleagueInterface(List<Element> participants, Concern concern, Interface mediatorInterface, Class eventOfInterest) throws ConcernNotFoundException {
         Interface colleague = null;
 
@@ -232,6 +276,12 @@ public class MediatorUtil {
         return colleague;
     }
 
+    /**
+     * Removes the relationships.
+     *
+     * @param participants the participants
+     * @param concern the concern
+     */
     public static void removeRelationships(List<Element> participants, Concern concern) {
         Architecture currentArchitecture = ArchitectureRepository.getCurrentArchitecture();
 

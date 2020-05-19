@@ -5,25 +5,35 @@
  */
 package br.ufpr.dinf.gres.patterns.strategies.designpatternselection.impl;
 
+import java.util.Random;
+
 import br.ufpr.dinf.gres.patterns.designpatterns.DesignPattern;
 import br.ufpr.dinf.gres.patterns.strategies.designpatternselection.DesignPatternSelectionStrategy;
 
-import java.util.Random;
-
 /**
+ * The Class CustomDesignPatternSelection.
+ *
  * @author giovaniguizzo
  */
 public class CustomDesignPatternSelection implements DesignPatternSelectionStrategy {
 
+    /** The available patterns. */
     private String[] availablePatterns = null;
 
     /**
+     * Instantiates a new custom design pattern selection.
+     *
      * @param selectedPatterns Design br.ufpr.dinf.gres.patterns selecionados na GUI.
      */
     public CustomDesignPatternSelection(String... selectedPatterns) {
         availablePatterns = selectedPatterns;
     }
 
+    /**
+     * Select design pattern.
+     *
+     * @return the design pattern
+     */
     @Override
     public DesignPattern selectDesignPattern() {
         int index = new Random().nextInt(availablePatterns.length);

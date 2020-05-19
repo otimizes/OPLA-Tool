@@ -1,21 +1,38 @@
 package br.ufpr.dinf.gres.patterns.util;
 
-import br.ufpr.dinf.gres.architecture.exceptions.ConcernNotFoundException;
-import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.architecture.representation.*;
-import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import br.ufpr.dinf.gres.architecture.exceptions.ConcernNotFoundException;
+import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
+import br.ufpr.dinf.gres.architecture.representation.Architecture;
+import br.ufpr.dinf.gres.architecture.representation.Concern;
+import br.ufpr.dinf.gres.architecture.representation.Element;
+import br.ufpr.dinf.gres.architecture.representation.Interface;
+import br.ufpr.dinf.gres.architecture.representation.Method;
+import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
+
+/**
+ * The Class InterfaceUtil.
+ */
 public class InterfaceUtil {
 
+    /**
+     * Instantiates a new interface util.
+     */
     private InterfaceUtil() {
     }
 
+    /**
+     * Creates the interface for set of elements.
+     *
+     * @param interfaceName the interface name
+     * @param participants the participants
+     * @return the interface
+     */
     public static Interface createInterfaceForSetOfElements(String interfaceName, List<Element> participants) {
         Interface anInterface = null;
         if (participants != null && !participants.isEmpty()) {

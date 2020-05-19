@@ -1,5 +1,10 @@
 package br.ufpr.dinf.gres.patterns.designpatterns;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.apache.commons.collections4.CollectionUtils;
+
 import br.ufpr.dinf.gres.architecture.exceptions.ConcernNotFoundException;
 import br.ufpr.dinf.gres.architecture.representation.Concern;
 import br.ufpr.dinf.gres.architecture.representation.Element;
@@ -11,19 +16,27 @@ import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
 import br.ufpr.dinf.gres.patterns.util.AdapterUtil;
 import br.ufpr.dinf.gres.patterns.util.ElementUtil;
 import br.ufpr.dinf.gres.patterns.util.RelationshipUtil;
-import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+/**
+ * The Class Adapter.
+ */
 public class Adapter extends DesignPattern {
 
+    /** The instance. */
     private static volatile Adapter INSTANCE;
 
+    /**
+     * Instantiates a new adapter.
+     */
     private Adapter() {
         super("Adapter", "Structural");
     }
 
+    /**
+     * Gets the single instance of Adapter.
+     *
+     * @return single instance of Adapter
+     */
     public static synchronized Adapter getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Adapter();
@@ -31,21 +44,46 @@ public class Adapter extends DesignPattern {
         return INSTANCE;
     }
 
+    /**
+     * Verify PS.
+     *
+     * @param scope the scope
+     * @return true, if PS
+     */
     @Override
     public boolean verifyPS(Scope scope) {
         return false;
     }
 
+    /**
+     * Verify PSPLA.
+     *
+     * @param scope the scope
+     * @return true, if PSPLA
+     */
     @Override
     public boolean verifyPSPLA(Scope scope) {
         return false;
     }
 
+    /**
+     * Apply.
+     *
+     * @param scope the scope
+     * @return true, if apply
+     */
     @Override
     public boolean apply(Scope scope) {
         return false;
     }
 
+    /**
+     * Apply adapter.
+     *
+     * @param target the target
+     * @param adaptee the adaptee
+     * @return the br.ufpr.dinf.gres.architecture.representation.Class
+     */
     public br.ufpr.dinf.gres.architecture.representation.Class applyAdapter(Element target, Element adaptee) {
         br.ufpr.dinf.gres.architecture.representation.Class adapterClass = null;
         if (target != null
