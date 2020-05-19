@@ -1,0 +1,410 @@
+<works>
+  <work>
+    <year>2019</year>
+    <title>Supporting decision makers in search-based product line architecture design using clustering</title>
+    <author>Willian Marques Freire</author>
+    <git>http://github.com/wmfsystem</git>
+    <abstract>The Product Line Architecture (PLA) is one of the most important artifacts of a Software Product Line (SPL). 
+    PLA design can be formulated as an optimization problem with many factors. In this context, the MOA4PLA approach was 
+    proposed to optimize PLA design using search algorithms and metrics specific to the context. 
+    MOA4PLA treats the PLA design as a multi-objective optimization problem. At the end of the search process several PLA design 
+    alternatives are presented to the decision maker, difficulting the decision about which PLA alternative best fits with 
+    his/her needs. In this sense, this work proposes the usage of clustering algorithms to group PLAs design alternatives, 
+    according to their characteristics and assist the decision maker in the choice of one PLA design for the SPL. 
+    For this purpose, an empirical study was carried out, involving quantitative and qualitative experiments. 
+    Such an study integrated the K-Means++ and DBSCAN clustering algorithms in the MOA4PLA approach. 
+    The results of the experiments were promising, since an appropriate grouping of the solutions can be quantitatively observed, 
+    and also, qualitatively, the suitability of the solutions to the decision makers needs was verified.</abstract>
+    <paperlink>https://ieeexplore.ieee.org/document/8754394</paperlink>
+    <experimentalpackagelink>https://github.com/wmfsubmissions/experimental-packages-compsac.git</experimentalpackagelink>
+  </work>
+  <work>
+    <year>2019</year>
+    <title>Towards the support of user preferences in search-based product line architecture design: an exploratory study</title>
+    <author>Carlos Vinicius Bindewald</author>
+    <abstract>Software Product Lines (SPLs) is a reuse approach in which a family of products is generalized in a 
+    common architecture that can be adapted to different clients. The Product Line Architecture (PLA) is one of 
+    the most important artifacts of a SPL. PLA design requires great human effort as it involves several factors 
+    that are usually in conflict. To ease this task, PLA design can be formulated as an optimization problem with 
+    many factors, i.e, as a multi-objective optimization problem. In this context, the MOA4PLA approach was proposed 
+    to optimize PLA design using search algorithms and metrics specific to the context. This approach supported by 
+    OPLA-Tool has already been used in several works demonstrating its applicability. However, MOA4PLA does not take 
+    into account aspects that are subjective, such as the preferences of a particular Decision Maker (DM). To do so, 
+    this paper presents a proposal to incorporate the user preferences in the optimization process performed by MOA4PLA,
+    through an interactive process in which the DM subjectively evaluates the solutions in processing time. Thus, 
+    the solutions generated can be better suited to the DM's needs or preferences. In order to allow the user interaction, 
+    modifications were made in MOA4PLA and implemented in the OPLA-Tool. Aiming at an initial validation of the proposal, 
+    an exploratory study was carried out, composed of two experiments: a qualitative and a quantitative. These experiments
+    were realized with the participation of a software architect. Empirical results pointed out that the proposed interactive
+    process enables the generation of PLAs that are in accordance with the architect's preferences. 
+    Another significant contribution are the lessons learned on how to improve the interactive process.</abstract>
+    <paperlink>https://dl.acm.org/citation.cfm?id=3351993</paperlink>
+    <experimentalpackagelink>https://mega.nz/##!cTISxaiQ!YSrv3TuK6OKD41dVO7bSp_wx2heZOUxjBNtyHsAXlAo</experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2017</year>
+    <title>A Approach to Optimize Software Product Line Design</title>
+    <author>João Choma Neto</author>
+    <abstract>
+    This work is focused on the application of memetic algorithms in the Software Product
+Line (SPL) architecture design. Product Line Architecture (PLA) is one of the most
+important SPL artifacts since it contains all the information needed to generate SPL
+products. Building a PLA design is a difficult and highly architect-dependent activity.
+PLA design could be modeled as an optimization problem to be solved by Search
+Based Software Engineering (SBSE). SBSE aims at automatically obtaining near-optimal
+solutions using multi-objective search algorithms. In this context, MOA4PLA approach
+was developed in order to optimize PLA design in terms of basic design principles, feature
+modularization and SPL extensibility, with the use of multi-objective search algorithms.
+OPLA-Tool automates MOA4PLA by using multi-objective search algorithms based on
+genetic algorithms (GA). In this tool there is a module called OPLA-Patterns responsible
+for applying design patterns during the optimization process. According to the systematic
+mapping performed, the memetic algorithms (MA), which consist of the use of GAs
+with local search, have achieved better results in optimization problems when compared
+with GA. However, there were no report on the use of memetic algorithms for PLA
+design optimization. Thus, this work deals with the application of AMs to optimize
+PLA design, adapting the search operator named Design Pattern Mutation Operator
+proposed in OPLA-Patterns as a local search operator. Four distinct versions of AM were
+implemented, each one with a different selection criterion. Empirical studies were carried
+out to compared the solutions obtained by both GA and four versions of MA through
+quantitative and qualitative analysis. In general, the quantitative studies indicated that
+the AM found better solutions in terms of fitness when compared with GA. The qualitative
+study pointed out that the solutions obtained with AM, in the context of MOA4PLA, are
+good from the software architects point of view. The AM still needs to be refined with
+improvements identified during the steps of this work.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/1mXSaIOw_-rbI5rneNzGXQ6T2J0QRoBZ-/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2017</year>
+    <title>Expansion of an evaluation model of software product line architecture</title>
+    <author>Yenisei Delgado Verdecia</author>
+    <abstract>
+    The primary purpose of a Software Product Line (LPS) is to reduce costs and increase
+productivity by reusing artifacts. In this approach, the main artifact is the Product
+Line Architecture (PLA) because it provides a solution for a range of LPS products.
+Evaluating the PLA design is a fundamental and complex task during the LPS life cycle,
+since the PLA specifies a set of reusable components in the LPS. The search for solutions to
+software engineering problems has been addressed in the search field called Search- based
+Software Engineering (SBSE) through approaches based on Multi-Objective Evolutionary
+Algorithms (MOEAs), which consider different factors and measures that affect the
+PLA design problem. In order to evaluate PLA designs, which use different software
+metrics to evaluate the modularity of characteristics, the PLA extensibility and the basic
+principles of design, the Multi-Objective Approach for Product Line Architecture Design
+(MOA4PLA) was proposed. However, other architectural properties can be evaluated. In
+this context, the objective of the present work was to expand the MOA4PLA evaluation
+model with metrics that assess other PLA design properties. Therefore, a quality model
+was defined for the MOA4PLA. After, other metrics have been identified to measure
+other architectural properties in the proposed quality model. Taking into account the
+new selected metrics, new objective functions were defined in the MOA4PLA evaluation
+model and implemented in the tool OPLA-tool. In order to investigate the correlation
+between the new objective functions, an exploratory study was carried out involving four
+experiments. Thus, the present work expands the evaluation model of the MOA4PLA,
+with other metrics to evaluate PLA designs. The main contributions of this work are: the
+proposal of the quality model for SBPD, the use of metrics for LPS oriented to services
+applied for the first time in the context of SBPD; and the new objective functions that
+let evaluate other architectural properties in the evaluation model of MOA4PLA.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/1EaEyYP_4zGtjlCIxkaYUNumd-i0qsTSX/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2015</year>
+    <title>Preservating the architectural style in the software product line design</title>
+    <author>Thainá Mariani</author>
+    <abstract>
+    The adoption of architectural styles helps to improve the Product Line Architecture (PLA)
+design by providing a better organization of the elements, flexibility, extensibility and
+maintainability. Search based optimization approaches can also benefit the PLA design,
+by generating PLA alternatives associated the best trade-offs between different measures
+related to cohesion, coupling and feature modularization. However, the usage of existing
+search operators changes the PLA organization, and consequently may violate styles rules,
+impacting negatively the architecture understanding. In order to solve this problem,
+this work introduces a set of search operators, named SO4ARS (Search Operators for
+preserving Architectural Styles), which considers rules of the main architectural styles,
+generally used in the search based design of conventional architectures and PLAs: layered,
+client/server and aspect-oriented styles. The search operators were implemented in the
+OPLA-ArchStyles module and integrated to OPLA-Tool, which supports the use of the
+Multi-objective Optimization Approach for PLA Design (MOA4PLA) in order to help the
+search based design of PLAs. Results from an empirical evaluation show that the proposed
+operators contribute to obtain better solutions, by maintaining the adopted style and also
+improving some software metrics values.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/1mQz5C6m-ZPTnJd8nzMBsdSendWlKZsx4/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2016</year>
+    <title>An evaluation model to Search-based ALPS design</title>
+    <author>Marcelo Carlos Benitez dos Santos</author>
+    <abstract>
+    The Product Line Architecture (ALP) is considered the most important artifact in
+a Software Product Line (LPS), as it includes a joint design to every LPS product.
+Thus, evaluate and modularize the ALP is essential to get a good LPS design. However,
+evaluation and modularization of ALP activities are difficult and require great human
+effort without the aid of an automated tool. It can be easy for an architect to recognize a
+good ALP design, however, it is difficult to get it. Therefore, MOA4PLA (Multi-Objective
+Approach for Product-Line Architecture Design), was proposed, which has the purpose to
+help the architect to evaluate and improve ALP design. This approach is multi-objective
+and uses an evaluation model composede by evaluation function to assess the ALP design.
+These functions are based on different metrics, which involve different architectural pro-
+perties. Currently, the evaluation model presents problems in some evaluation functions,
+because these functions evaluate the desingn utilizing metrics with different magnitudes,
+so that the information resultant of the assessment is provided in a more general way. This
+work therefore proposes to restructure the evaluation model of MOA4PLA, separating
+the CM (pla) and FM (pla) by its architectural properties, generating new evaluation
+functions and increasing optimization options. Experimental studies were performed to
+investigate a possible correlation between the new evaluation functions. The results show
+that most of the functions are negatively correlated, so that when one function increases
+the other decreases. Thus the function has to be selected as an objective, if the architect
+wants to prioritize it in the optimization process.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/12Sro7Q62uCfHzGWGMSjgV6jmp0yTe7KW/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2014</year>
+    <title>Use of patterns on Search-based software product line architecture design</title>
+    <author>Giovani Guizzo</author>
+    <abstract>
+    Design patterns aim at improving the understanding and reuse of software architectures.
+In the search-based design they have been successfully applied by mutation operators in
+the evolutionary process. In the software Product Line Architecture (PLA) context, some
+works have manually applied design patterns, but there are no search-based approaches
+that take into account the use of these patterns. To make this use possible is the goal
+of this work, which introduces an automated way for the application of design patterns
+through a mutation operator in the MOA4PLA approach (Multi-objective Optimization
+Approach for PLA Design). The goal is to avoid the introduction of architectural ano-
+malies and to ensure that these patterns are applied only in feasible scopes. To this
+end, a feasibility analysis was conducted to determine which patterns of the GoF (Gang
+of Four ) catalog could be applied in the context of MOA4PLA. A mutation operator
+is proposed in order to apply feasible design patterns in PLAs during the evolutionary
+process. The operator uses scope verification and design patterns application methods.
+The mutation operator was implemented in the OPLA-Patterns module of OPLA-Tool,
+which supports the MOA4PLA approach. Experiments were configured and executed in
+real PLAs to quantitatively and qualitatively evaluate the results. The results showed
+that the application of design patterns allows the generation of architectures with better
+values of the software metrics. A greater diversity of solutions was obtained, then the
+architect can choose which one best fits his/her objectives. Therefore, the application of
+design patterns using the proposed operator contributes positively to the PLA design.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/1t1ql6Aa15rWrpO0UHT3yMPf65riw-IGu/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2014</year>
+    <title>A tool to assist the search-based software product line architecture design</title>
+    <author>Édipo Luis Féderle</author>
+    <abstract>
+    The design of Product Line Architecture (PLA) is a complex task, which is influenced
+by several factors, such as feature modularization and PLA extensibility. Such factors are
+often evaluated according to different types of metrics. Thus, the PLA design can be seen
+as an optimization problem. This category of problem has been successfully solved in the
+research field named Search Based Software Engineering (SBSE) that uses metaheuristics,
+such as Genetic Algorithms. In this context, Colanzi [16] proposed an approach named
+Multi-Objective Approach for Product-Line Architecture Design (MOA4PLA), to be sup-
+ported by a tool named OPLA-Tool (Optimization for PLA Tool). This tool is composed
+by different modules and only one of these modules has been implemented in [16]. This
+work implements three essential modules of OPLA-Tool, which offer automated support
+to allow the use of MOA4PLA in practice: OPLA-Encoding, OPLA-Decoding and OPLA-
+GUI. Such modules provide features that automate many tasks of MOA4PLA approach,
+such as reading and instantiation of a PLA in memory, generation of solutions in order to
+be possible their visualization, and a graphical interface, making the use of MOA4PLA
+more productive. The implementation and integration of such modules were evaluated
+using real PLAs. The obtained results show the usefulness of OPLA-Tool, which contri-
+butes to reduce the effort spent in the PLA design and improvement.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/1480r6ryCMJQwVl65ceMwQlW4x1Q9hLdY/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2015</year>
+    <title>Search operator adaptations for software product line architecture design optimization</title>
+    <author>Thais Santos Nepomuceno</author>
+    <abstract>
+    Software Product Line aims reuse and decrease development costs. One of the main
+generated artifacts is The Product Line Architecture (PLA). The PLA Project can be
+formulated as a multi-objective optimization problem. So an automated optimization approach
+can be used, the Multi Objective Approach for Product Line Architecture Design,
+MOA4PLA, which aims to optimize an architecture in terms of basic design principles,
+modularization LPS features and extensibility. The OPLA-Tool allows the application of this
+approach. However, this approach needs improvement since the PLAs generated have some
+problems like interfaces and classes isolated in the project. According to previous studies, this
+may be related to some of the MOA4PLA search operators are: Operation Move, Add
+Component and Feature-driven Operator. Thus, the objective of this work is to make the
+necessary changes in operators in OPLA-Tool aiming to solve such problems and determine if
+they were resolved by experiments and analyzes in PLAs generated. These solutions were not
+as expected, the class and interfaces isolates issue, which also cause isolated package still
+exists. In addition, other problems were identified in OPLA-Tool.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/11RnhXNDROTQL41BCyHeTB1bULH5yjAPP/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2017</year>
+    <title>NSGA-III Algorithm Implementation for Product Line Design Optimization</title>
+    <author>Pedro Barbiero</author>
+    <abstract>
+    Software Product Line (SPL) is a software reuse method shown to reduce the cost of software
+production over time. The reuse occurs through a Product Line Architecture (PLA), where the
+architecture of each SPL product is derived from a PLA. The structure of a PLA may be repre-
+sented through a class diagram. Software metrics can be defined to evaluate several properties
+of the architectural project. Some of these metrics may conflict. Within this context, the PLA
+project can be modeled as a multi-objective optimization problem. This is the main objective
+for the Multi-objective Optimization Approach for PLA Design (MOA4PLA), which defined
+17 objective functions for PLA evaluation. These functions are derived or composed by one or
+more software metrics, such that software architect can choose a subset of these functions for
+the optimization process. This approach may use different optimization algorithms to realize
+its process. It has been implemented by the open source software OPLA-Tool. This software
+uses the NSGA-II algorithm for its multiobjective optimization. When increasing the number
+of objective functions in its evaluation model, it’s possible to observe an increase of execution
+time. In this context, this tool implemented another algorithm, the NSGA-III, with the goal
+of comparing the performance and results generated by it. Experiments comparing both algo-
+rithms were executed, with evaluation models of two, three and five objectives. It was noted
+that, within the context of this work, NSGA-III created a solution set of better quality than the
+NSGA-II. Future study cases for improving the OPLA-Tool were also noted.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/17Kk4_-mM2GmgNW9_gnWtNriJZwjrSexs/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2016</year>
+    <title>Search based design evaluation for software product line architecture</title>
+    <author>Guilherme Conte Dias</author>
+    <abstract>
+    Software Product Line (LPS) is an approach that allows exploring the similarities among its
+products, in order to promote the reuse of the artifacts involved, directly reducing the cost and
+the development time of a project. In this approach, the main artifact is the Produtc Line
+Architecture (PLA). Architectural metrics support architects to define and improve a PLA in
+order to be cohesive, modular and reusable. However, metrics can be inconflict. When this
+problem happens architects must choose which metric should be prioritized, what is not a
+simple task, as there is not always an optimal and exact solution. Considering this fact,
+Colanzi (2014) introduced the MOA4PLA approach (Multi-Objective Approach to Product
+Line Architecture) which aims at optimizing PLAs. To allow an automation of the
+MOA4PLA approach, Colanzi (2014) proposed a tool called OPLA-Tool (Optimization for
+PLA Tool). This work consists in the accomplishment of a qualitative evaluation of the results
+generated by this tool. Specialists in the area of Software Engineering evaluated some PLA
+designs generated by OPLA-Tool. The results obtained from the qualitative analysis based on
+the feedback of the specialists allowed to identify that, as PLAs obtained are consistent with
+the objectives that were optimized and that the architectural characteristics that the experts are
+judgments are just like that were evaluated in this study.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/1bU-F98SAHCDykGyqDHbpOkZgAkGEH9TV/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2017</year>
+    <title>Identification of architectural anomalies in software product line design</title>
+    <author>Eduardo Germano Perissatto</author>
+    <abstract>
+    In the Software Product Line (SPL) approach is developed a family of products for a given
+domain. One of the main artifacts generated is the Product Line Architecture (PLA), which
+contains the common design to all SPL derivable products. In order for an PLA to be cost-
+effective it is necessary for the components of the PLA to be modularized, which is not trivial
+to obtain due to several – possibly conflicting – factors to consider. Considering this problem
+of optimization of PLA projects, it was proposed the Multi-Objective Approach for Product-
+Line Architecture (MOA4PLA), whose automation was done through the OPLA-Tool, which
+generates new solutions from a given initial solution (the original PLA design). However,
+these solutions have the drawback of presenting architectural smells, which are problems at
+the software architecture level that negatively affect their quality. This work consisted of an
+analysis of several PLAs, aiming to find architectural smells. The results were evaluated to
+verify the influence of OPLA-Tool on the types of anomalies present in the generated
+solutions, in contrast to the types of anomalies previously existing in the original solutions.
+Finally, guidelines were proposed to detect and remove the types of anomalies found.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/1mbQTfDcTOmahFk_QLu9kstd-snwJJce-/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2018</year>
+    <title>OPLA-Tool Technology Acceptance Assessment</title>
+    <author>Marcos Brunelli Francisco</author>
+    <abstract>
+    When performing a heuristic evaluation in a software system, focusing on its usability, it is
+possible to raise several improvements that can be applied to this, aiming to improve their
+human-computer interaction. Given the improvements applied to a software, its acceptance by
+its possible users can be evaluated, so that they are able to measure the acceptability of this
+software from the results obtained from this evaluation. One of these resources is the
+Technology Acceptance Model, which provides a way to evaluate a technology according to
+pre-established variables. Within the context presented, this work proposes the
+implementation of changes in the OPLA-Tool tool interface, a software capable of producing
+optimized alternatives for the design of product line architectures. These changes were
+suggestions, presented in a previous work, in which a heuristic evaluation was performed
+focusing on the usability of this tool. With the modifications applied, an experiment was
+carried out with end users, in which a software implementation scenario was proposed. From
+this, a questionnaire was built based on the Technology Acceptance Model and with the data
+obtained, it was possible to measure the acceptability of the OPLA-Tool by the participants of
+this experiment. From the accomplishment of such activities, it was possible to infer that the
+tool was accepted by these participants, being possible to analyze some of its positive and
+negative points.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/1QOKaR_g9Sb0ZToqae8gadQlF5XIlawM5/view?usp=sharing/paperlink></paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2018</year>
+    <title>Evaluation and proposal of improvement of interaction in the OPLA-Tool through the application of Nielsen Usability Heuristics</title>
+    <author>Hadyne Cristine Biazoto</author>
+    <abstract>
+    At first, only highly trained users were able to use a computer. Nowadays
+this scenario has changed and many people, even without experience, use these
+machines. With this, it is necessary to develop an interface that is easy to use.
+Otherwise, if it is not properly developed, it may compromise the user's use of the
+software. Since the OPLA - Tool was developed with an initial focus on functional
+requirements, there was no study and study of usability heuristics. The objective
+of this work is to evaluate the tool according to the 10 heuristics of Nielsen and
+to propose improvements for its interface. After this analysis and answering the
+questionnaire, which is in Annex A, some usability problems were found in the
+tool interface. For these cases, prototypes were made with the proposed
+improvements to the OPLA - Tool.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/16vaGo4C2-cWRy0RYxKz_JZ5b9vUxefP8/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2015</year>
+    <title>Prioritizing features to be modularized in product line architecture</title>
+    <author>Diego Fernandes da Silva</author>
+    <abstract>
+    One of main Software Product Line's (SPL) artifacts, which is an approach for the
+development of software applications in large scale, is the Product-Line Architecture
+(PLA). The MOA4PLA approach includes one searching operator for improving PLA
+projects in relation to features modularization through small modifications in a PLA
+project. However, this searching operator of the related approach do not prioritize
+features to be modularized. Thereby, all the features are modularized with the same
+ratio of probability. However, it is customary hold a list of the prioritized features
+involved in the SPL's products that will be derived or evolved. These features should
+have modularization's priority. In this context, this paper aims to perform necessary
+modifications in the OPLA-Tool, in which automates the application of the MOA4PLA
+approach, in order to allow the SPL features prioritization. Two methods to prioritize
+modularization's features are proposed: One in which the user select a order of features
+to be prioritized and another in which the features are prioritized automatically
+according to the feature's type. Only the first method was implemented due to the long
+time spent to compile OPLA-tool. After its implementation, an experiment was
+conducted using one PLA and prioritizing some features. The results showed
+improvement in modularization of prioritized features.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/10mlTJEgkti4SOQHNd0luW-2rA7CpMhNy/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2017</year>
+    <title>Study and policy setting for research group software configuration management</title>
+    <author>Felipe Fernandes da Silva</author>
+    <abstract>
+    In the software development there may be inadequate management of artifacts when it is
+necessary that several people act making major changes. Configuration management acts
+to facilitate collaborative development, but the proposed models do not meet the specific
+demands that may arise within software development teams. An example is the research group
+development environment in which the roles and tasks proposed by existing configuration
+management models do not correspond to reality. Therefore, this work aims to show the
+existing proposals of configuration management for software development through theoretical
+research, demonstrating the main concepts of each aspect of this process, in order to create a
+configuration management model that meets the environment of research groups, adapting
+roles and simplifying tasks so that software development within these groups occurs in the
+most orderly way possible.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/1a5c__vYoIho1KK-3TiL_v4b34pPVtWv5/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+</works>
