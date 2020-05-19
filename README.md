@@ -36,7 +36,7 @@ mvn clean install Obs: If it is the first run, execute **mvn clean** first to in
 java -jar modules/opla-gui/target/opla-gui-1.0.0-SNAPSHOT-jar-with-dependencies
 ```
 ## How to use the tool
-[\<Click here to see how\>](https://github.com/SBSE-UEM/OPLA-Tool/blob/master/USAGE.md)
+[\<Click here to see how using the tool\>](https://github.com/SBSE-UEM/OPLA-Tool/blob/master/USAGE.md)
 
 ## How to open the PLAs
 
@@ -57,7 +57,8 @@ File > Import > Maven > Exists Maven Project > Select the directory created for 
 ## How to contribute to this project
 
 Make Fork this project and create a Pull Request with your changes 
-[\<Click here to see how\>](https://github.com/otimizes/OPLA-Tool/blob/master/contributing.md).
+
+[\<Click here to see how to contribute\>](https://github.com/otimizes/OPLA-Tool/blob/master/CONTRIBUTING.md).
 
 ## Documentation
 
