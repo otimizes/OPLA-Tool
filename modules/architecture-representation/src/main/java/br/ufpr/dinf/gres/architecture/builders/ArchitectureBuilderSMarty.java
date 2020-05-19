@@ -4,6 +4,7 @@ import br.ufpr.dinf.gres.architecture.helpers.ModelHelper;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.*;
 import br.ufpr.dinf.gres.architecture.representation.relationship.*;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 import org.eclipse.uml2.uml.Package;
@@ -82,8 +83,8 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             expression = "/project";
             xPath = XPathFactory.newInstance().newXPath();
             nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
-            int tam = xmiFilePath.split("/").length;
-            String arquitectureName = xmiFilePath.split("/")[tam - 1].replace(".smty", "");
+            int tam = xmiFilePath.split(FileConstants.FILE_SEPARATOR).length;
+            String arquitectureName = xmiFilePath.split(FileConstants.FILE_SEPARATOR)[tam - 1].replace(".smty", "");
             Architecture architecture = new Architecture(arquitectureName);
             architecture.setSMarty(true);
             architecture.setToSMarty(true);
@@ -91,8 +92,8 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             architecture.setProjectID(element.getAttribute("id"));
             architecture.setProjectName(element.getAttribute("name"));
             architecture.setProjectVersion(element.getAttribute("version"));
-            architecture.setLstConcerns(importStereotypesSMarty());
-            architecture.setLstTypes(importTypesSMarty());
+            architecture.setConcerns(importStereotypesSMarty());
+            architecture.setTypes(importTypesSMarty());
             importDiagrams(architecture);
             importLinkStereotypesSMarty(architecture);
             for (Class clazz : architecture.getAllClasses()) {
@@ -122,7 +123,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
      * @param architecture - architecture to insert the link of stereotypes
      */
     private void importLinkStereotypesSMarty(Architecture architecture) throws XPathExpressionException {
-        ArrayList<Concern> lstConcern = architecture.getLstConcerns();
+        ArrayList<Concern> lstConcern = architecture.getConcerns();
         this.expression = "/project/links/link";
         this.nodeList = (NodeList) this.xPath.compile(this.expression).evaluate(this.document, XPathConstants.NODESET);
         for (int i = 0; i < this.nodeList.getLength(); i++) {

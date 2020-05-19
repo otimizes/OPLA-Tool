@@ -31,7 +31,7 @@ export class InteractionDialogComponent implements OnInit {
   ngOnInit(): void {
     console.log("----", this.data);
     this.solutionSet = this.data.interaction.solutionSet;
-    this.solutions = this.solutionSet.solutionSet;
+    this.solutions = this.solutionSet.solutions;
     this.info = this.data.info;
     for (let obj of Object.keys(this.solutionSet.clusterIds)) {
       this.clusters.push(Math.round(Number(obj)));
@@ -47,7 +47,7 @@ export class InteractionDialogComponent implements OnInit {
   }
 
   download(id?) {
-    this.optimizationService.downloadOneAlternative(this.info.threadId, id).subscribe(result => {
+    this.optimizationService.downloadOneAlternative(this.info.hash, id).subscribe(result => {
       this.snackBar.open("Your download is available", null, {
         duration: 2000
       });
@@ -56,12 +56,11 @@ export class InteractionDialogComponent implements OnInit {
       });
       const url = window.URL.createObjectURL(blob);
       window.open(url);
-      OptimizationService.clearOptimizationInfo();
     })
   }
 
   downloadAll() {
-    this.optimizationService.downloadAllAlternative(this.info.threadId).subscribe(result => {
+    this.optimizationService.downloadAllAlternative(this.info.hash).subscribe(result => {
       this.snackBar.open("Your download is available", null, {
         duration: 2000
       });
@@ -70,12 +69,11 @@ export class InteractionDialogComponent implements OnInit {
       });
       const url = window.URL.createObjectURL(blob);
       window.open(url);
-      OptimizationService.clearOptimizationInfo();
     })
   }
 
   open(id?) {
-    this.optimizationService.openOneAlternative(this.info.threadId, id).subscribe(result => {
+    this.optimizationService.openOneAlternative(this.info.hash, id).subscribe(result => {
       this.snackBar.open("Your PLA is opening, wait a minute", "OK", {
         duration: 5000
       });

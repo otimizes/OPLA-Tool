@@ -22,6 +22,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments.util;
 
 import br.ufpr.dinf.gres.core.jmetal4.experiments.Experiment;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -46,7 +47,7 @@ public class RWilcoxon {
         // STEP 1. Creating R output directory
 
         String rDirectory = "R";
-        rDirectory = experiment.experimentBaseDirectory_ + System.getProperty("file.separator") + rDirectory;
+        rDirectory = experiment.experimentBaseDirectory_ + FileConstants.FILE_SEPARATOR + rDirectory;
         System.out.println("R    : " + rDirectory);
         File rOutput;
         rOutput = new File(rDirectory);
@@ -57,8 +58,8 @@ public class RWilcoxon {
 
         for (int indicator = 0; indicator < experiment.indicatorList_.length; indicator++) {
             System.out.println("Indicator: " + experiment.indicatorList_[indicator]);
-            String rFile = rDirectory + System.getProperty("file.separator") + prefix + "." + experiment.indicatorList_[indicator] + ".Wilcox.R";
-            String texFile = rDirectory + System.getProperty("file.separator") + prefix + "." + experiment.indicatorList_[indicator] + ".Wilcox.tex";
+            String rFile = rDirectory + FileConstants.FILE_SEPARATOR + prefix + "." + experiment.indicatorList_[indicator] + ".Wilcox.R";
+            String texFile = rDirectory + FileConstants.FILE_SEPARATOR + prefix + "." + experiment.indicatorList_[indicator] + ".Wilcox.tex";
 
             FileWriter os = new FileWriter(rFile, false);
             String output = "write(\"\", \"" + texFile + "\",append=FALSE)";

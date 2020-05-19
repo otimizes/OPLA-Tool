@@ -12,47 +12,47 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.*;
  * {@link AddClassMutation Add Class Mutation,}
  * {@link AddManagerClassMutation Add Manager Class Mutation}
  */
-public enum FeatureMutationOperators implements IFeatureMutationOperators {
+public enum MutationOperators implements IOperators {
 
     FEATURE_MUTATION {
         @Override
-        public IMutationOperator getOperator() {
+        public IOperator getOperator() {
             return new FeatureMutation();
         }
     },
     MOVE_METHOD_MUTATION {
         @Override
-        public IMutationOperator getOperator() {
+        public IOperator getOperator() {
             return new MoveMethodMutation();
         }
     },
     MOVE_ATTRIBUTE_MUTATION {
         @Override
-        public IMutationOperator getOperator() {
+        public IOperator getOperator() {
             return new MoveAttributeMutation();
         }
     },
     MOVE_OPERATION_MUTATION {
         @Override
-        public IMutationOperator getOperator() {
+        public IOperator getOperator() {
             return new MoveOperationMutation();
         }
     },
     ADD_CLASS_MUTATION {
         @Override
-        public IMutationOperator getOperator() {
+        public IOperator getOperator() {
             return new AddClassMutation();
         }
     },
     ADD_MANAGER_CLASS_MUTATION {
         @Override
-        public IMutationOperator getOperator() {
+        public IOperator getOperator() {
             return new AddManagerClassMutation();
         }
     },
     DESIGN_PATTERNS {
         @Override
-        public IMutationOperator getOperator() {
+        public IOperator getOperator() {
             return null;
         }
     }

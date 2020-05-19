@@ -89,17 +89,12 @@ export class OplaComponent implements OnInit, AfterViewInit {
 
     this.experimentService.getAll().subscribe(experiments => {
       this.experiments = experiments.values;
-      // for (let experiment of this.experiments) {
-      // this.persistenceService.getExecutionsByExperiment(experiment.id).subscribe(executions => {
-      //   experiment.executions = executions;
-      // })
-      // }
     })
   }
 
   verifyInteraction(optimizationInfo) {
     if (optimizationInfo && optimizationInfo.status === "INTERACT" && !this.isOnInteraction) {
-      this.optimizationService.getInteraction(optimizationInfo.threadId).subscribe(interaction => {
+      this.optimizationService.getInteraction(optimizationInfo.hash).subscribe(interaction => {
         if (interaction.solutionSet) {
           this.isOnInteraction = true;
           const dialogRef = this.dialog.open(InteractionDialogComponent, {
@@ -109,7 +104,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
 
           dialogRef.afterClosed().subscribe(result => {
             console.log("finish", result);
-            this.optimizationService.postInteraction(optimizationInfo.threadId, {
+            this.optimizationService.postInteraction(optimizationInfo.hash, {
               solutionSet: result
             }).subscribe(putInt => {
               console.log("put", putInt);
@@ -135,7 +130,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
 
   run(optimizationDto: OptimizationDto) {
     this.optimizationService.optimize(optimizationDto).subscribe(info => {
-      this.snackBar.open("Optimization started", "Go to logs", {
+      this.snackBar.open("Optimization started", "View logs", {
         duration: 10000
       }).onAction().subscribe(() => {
         this.stepper.selectedIndex = 5
@@ -153,13 +148,17 @@ export class OplaComponent implements OnInit, AfterViewInit {
       });
       const url = window.URL.createObjectURL(blob);
       window.open(url);
-      OptimizationService.clearOptimizationInfo();
     });
   }
 
   logout() {
     this.userService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then(r => {
+      setTimeout(() => {
+        OptimizationService.source.close();
+        this.userService.logout();
+      }, 1000);
+    });
   }
 
   isValid() {

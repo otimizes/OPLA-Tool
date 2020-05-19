@@ -13,29 +13,42 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.encodings.solutionType.ArchitectureSolutionType;
-import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
+import br.ufpr.dinf.gres.core.jmetal4.operators.IOperator;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 
 import java.util.*;
 import java.util.logging.Level;
 
-public class PLACrossover2 extends Crossover {
+/**
+ * PLA Crossover 2
+ */
+public class PLACrossover implements IOperator<Solution[]> {
 
-    private static final long serialVersionUID = -51015356906090226L;
-    private static List VALID_TYPES = Arrays.asList(ArchitectureSolutionType.class);
-    private static String SCOPE_LEVEL = "allLevels";
-    private Double crossoverProbability_ = null;
     private CrossoverUtils crossoverutils;
     private boolean variabilitiesOk = true;
+    private String SCOPE_LEVEL;
 
-    public PLACrossover2(Map<String, Object> parameters) {
-        super(parameters);
-        if (parameters.get("probability") != null)
-            crossoverProbability_ = (Double) getParameter("probability");
-
+    public PLACrossover() {
         crossoverutils = new CrossoverUtils();
     }
+
+    @Override
+    public Solution[] execute(Map<String, Object> parameters, Solution[] solution, String scope) {
+        SCOPE_LEVEL = scope;
+        Solution[] offspring = new Solution[2];
+
+        Solution[] crossFeature = new Solution[0];
+        try {
+            crossFeature = this.crossoverFeatures(((Double) parameters.get("probability")), solution[0], solution[1], scope);
+        } catch (JMException | CloneNotSupportedException | ClassNotFound | PackageNotFound | NotFoundException | ConcernNotFoundException e) {
+            e.printStackTrace();
+        }
+        offspring[0] = crossFeature[0];
+        offspring[1] = crossFeature[1];
+
+        return offspring;
+    }
+
 
     public static boolean isChild(Class cls) {
         boolean child = false;
@@ -70,33 +83,6 @@ public class PLACrossover2 extends Crossover {
         }
 
         return null;
-    }
-
-    public Object execute(Object object) throws JMException, CloneNotSupportedException, ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException {
-        Solution[] parents = (Solution[]) object;
-        if (!(VALID_TYPES.contains(parents[0].getType().getClass()) && VALID_TYPES.contains(parents[1].getType().getClass()))) {
-            Configuration.logger_.severe("PLACrossover.execute: the solutions " + "are not of the right type. The type should be 'Permutation', but " + parents[0].getType() + " and " + parents[1].getType() + " are obtained");
-        }
-        crossoverProbability_ = (Double) getParameter("probability");
-        if (parents.length < 2) {
-            Configuration.logger_.severe("PLACrossover.execute: operator needs two parents");
-            java.lang.Class<String> cls = java.lang.String.class;
-            String name = cls.getName();
-            throw new JMException("Exception in " + name + ".execute()");
-        }
-
-        Solution[] offspring = doCrossover(crossoverProbability_, parents[0], parents[1]);
-        return offspring;
-    }
-
-    public Solution[] doCrossover(double probability, Solution parent1, Solution parent2) throws JMException, CloneNotSupportedException, ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException {
-        Solution[] offspring = new Solution[2];
-
-        Solution[] crossFeature = this.crossoverFeatures(crossoverProbability_, parent1, parent2, SCOPE_LEVEL);
-        offspring[0] = crossFeature[0];
-        offspring[1] = crossFeature[1];
-
-        return offspring;
     }
 
     public Solution[] crossoverFeatures(double probability, Solution parent1, Solution parent2, String scope) throws JMException, CloneNotSupportedException, ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException {
@@ -155,7 +141,7 @@ public class PLACrossover2 extends Crossover {
 
     public void addElementsToOffspring(Concern feature, Architecture offspring, Architecture parent, String scope) {
         try {
-            for (Package parentPackage : parent.getAllPackages()) {
+            for (br.ufpr.dinf.gres.architecture.representation.Package parentPackage : parent.getAllPackages()) {
                 addOrCreatePackageIntoOffspring(feature, offspring, parent, parentPackage);
             }
             CrossoverRelationship.cleanRelationships();
@@ -165,9 +151,9 @@ public class PLACrossover2 extends Crossover {
 
     }
 
-    public void addOrCreatePackageIntoOffspring(Concern feature, Architecture offspring, Architecture parent, Package parentPackage) throws Exception {
+    public void addOrCreatePackageIntoOffspring(Concern feature, Architecture offspring, Architecture parent, br.ufpr.dinf.gres.architecture.representation.Package parentPackage) throws Exception {
         if ((parentPackage.getOwnConcerns().size() == 1) && parentPackage.containsConcern(feature)) {
-            Package packageInOffspring = offspring.findPackageByName(parentPackage.getName());
+            br.ufpr.dinf.gres.architecture.representation.Package packageInOffspring = offspring.findPackageByName(parentPackage.getName());
             if (packageInOffspring == null)
                 packageInOffspring = offspring.createPackage(parentPackage.getName());
             addImplementedInterfacesByPackageInOffspring(parentPackage, offspring, parent);
@@ -185,8 +171,8 @@ public class PLACrossover2 extends Crossover {
 
     }
 
-    private void addClassesRealizingFeatureToOffspring(Concern feature, Package parentPackage, Architecture offspring, Architecture parent, String SCOPE_LEVEL2, Set<Class> allClasses) throws Exception {
-        Package newComp = offspring.findPackageByName(parentPackage.getName());
+    private void addClassesRealizingFeatureToOffspring(Concern feature, br.ufpr.dinf.gres.architecture.representation.Package parentPackage, Architecture offspring, Architecture parent, String SCOPE_LEVEL2, Set<Class> allClasses) throws Exception {
+        br.ufpr.dinf.gres.architecture.representation.Package newComp = offspring.findPackageByName(parentPackage.getName());
         for (Class classComp : allClasses) {
             if (classComp.getOwnConcerns().size() == 1 && classComp.containsConcern(feature)) {
                 if (newComp == null)
@@ -217,7 +203,7 @@ public class PLACrossover2 extends Crossover {
 
     }
 
-    private void move(Concern feature, Package parentPackage, Architecture offspring, Architecture parent, Package newComp, Class classComp) {
+    private void move(Concern feature, br.ufpr.dinf.gres.architecture.representation.Package parentPackage, Architecture offspring, Architecture parent, br.ufpr.dinf.gres.architecture.representation.Package newComp, Class classComp) {
         if (isHierarchyInASameComponent(classComp, parent)) {
             moveHierarchyToSameComponent(classComp, newComp, parentPackage, offspring, parent, feature);
             saveAllRelationshiopForElement(classComp, parent, offspring);
@@ -228,7 +214,7 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    public void addAttributesRealizingFeatureToOffspring(Concern feature, Class classComp, Package comp, Architecture offspring, Architecture parent) throws Exception {
+    public void addAttributesRealizingFeatureToOffspring(Concern feature, Class classComp, br.ufpr.dinf.gres.architecture.representation.Package comp, Architecture offspring, Architecture parent) throws Exception {
         List<Class> klasses = offspring.findClassByName(classComp.getName());
         Class targetClass = null;
         if (klasses != null)
@@ -239,7 +225,7 @@ public class PLACrossover2 extends Crossover {
             Attribute attribute = iteratorAttributes.next();
             if (attribute.containsConcern(feature) && attribute.getOwnConcerns().size() == 1) {
                 if (targetClass == null) {
-                    Package newComp = offspring.findPackageByName(comp.getName());
+                    br.ufpr.dinf.gres.architecture.representation.Package newComp = offspring.findPackageByName(comp.getName());
                     if (newComp == null)
                         newComp = offspring.createPackage(comp.getName());
                     targetClass = newComp.createClass(classComp.getName(), false);
@@ -250,7 +236,7 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    private void addMethodsRealizingFeatureToOffspring(Concern feature, Class classComp, Package comp, Architecture offspring, Architecture parent) throws Exception {
+    private void addMethodsRealizingFeatureToOffspring(Concern feature, Class classComp, br.ufpr.dinf.gres.architecture.representation.Package comp, Architecture offspring, Architecture parent) throws Exception {
         List<Class> klasses = offspring.findClassByName(classComp.getName());
         Class targetClass = null;
         if (klasses != null)
@@ -261,7 +247,7 @@ public class PLACrossover2 extends Crossover {
             Method method = iteratorMethods.next();
             if ((method.getOwnConcerns().size() == 1) && (method.containsConcern(feature))) {
                 if (targetClass == null) {
-                    Package newComp = offspring.findPackageByName(comp.getName());
+                    br.ufpr.dinf.gres.architecture.representation.Package newComp = offspring.findPackageByName(comp.getName());
                     if (newComp == null)
                         newComp = offspring.createPackage(comp.getName());
                     targetClass = newComp.createClass(classComp.getName(), false);
@@ -274,20 +260,20 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    private void addInterfacesToPackageInOffSpring(Package parentPackage, Package packageInOffspring, Architecture offspring, Architecture parent) {
+    private void addInterfacesToPackageInOffSpring(br.ufpr.dinf.gres.architecture.representation.Package parentPackage, br.ufpr.dinf.gres.architecture.representation.Package packageInOffspring, Architecture offspring, Architecture parent) {
         for (Interface inter : parentPackage.getAllInterfaces()) {
             packageInOffspring.addExternalInterface(inter);
             saveAllRelationshiopForElement(inter, parent, offspring);
         }
     }
 
-    private void addInterfacesRealizingFeatureToOffspring(Concern feature, Package comp, Architecture offspring, Architecture parent) throws Exception {
+    private void addInterfacesRealizingFeatureToOffspring(Concern feature, br.ufpr.dinf.gres.architecture.representation.Package comp, Architecture offspring, Architecture parent) throws Exception {
 
         Iterator<Interface> iteratorInterfaces = comp.getOnlyInterfacesImplementedByPackage().iterator();
         while (iteratorInterfaces.hasNext()) {
             Interface interfaceComp = iteratorInterfaces.next();
             if (interfaceComp.getOwnConcerns().size() == 1 && interfaceComp.containsConcern(feature)) {
-                Package newComp = offspring.findPackageByName(comp.getName());
+                br.ufpr.dinf.gres.architecture.representation.Package newComp = offspring.findPackageByName(comp.getName());
                 if (newComp == null) {
                     newComp = offspring.createPackage(comp.getName());
                     saveAllRelationshiopForElement(newComp, parent, offspring);
@@ -304,7 +290,7 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    private void addOperationsRealizingFeatureToOffspring(Concern feature, Interface interfaceComp, Package comp, Architecture offspring, Architecture parent) throws Exception {
+    private void addOperationsRealizingFeatureToOffspring(Concern feature, Interface interfaceComp, br.ufpr.dinf.gres.architecture.representation.Package comp, Architecture offspring, Architecture parent) throws Exception {
         Interface targetInterface = offspring.findInterfaceByName(interfaceComp.getName());
 
         Iterator<Method> iteratorOperations = interfaceComp.getMethods().iterator();
@@ -312,7 +298,7 @@ public class PLACrossover2 extends Crossover {
             Method operation = iteratorOperations.next();
             if (operation.containsConcern(feature) && operation.getOwnConcerns().size() == 1) {
                 if (targetInterface == null) {
-                    Package newComp;
+                    br.ufpr.dinf.gres.architecture.representation.Package newComp;
                     newComp = offspring.findPackageByName(comp.getName());
 
                     if (newComp == null) {
@@ -332,15 +318,15 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    private Package findOrCreatePakage(String packageName, Architecture offspring) {
-        Package pkg = null;
+    private br.ufpr.dinf.gres.architecture.representation.Package findOrCreatePakage(String packageName, Architecture offspring) {
+        br.ufpr.dinf.gres.architecture.representation.Package pkg = null;
         pkg = offspring.findPackageByName(packageName);
         if (pkg == null)
             return offspring.createPackage(packageName);
         return pkg;
     }
 
-    private void addClassesToOffspring(Concern feature, Package parentPackage, Package packageInOffspring, Architecture offspring, Architecture parent) {
+    private void addClassesToOffspring(Concern feature, br.ufpr.dinf.gres.architecture.representation.Package parentPackage, br.ufpr.dinf.gres.architecture.representation.Package packageInOffspring, Architecture offspring, Architecture parent) {
         Iterator<Class> iteratorClasses = parentPackage.getAllClasses().iterator();
         while (iteratorClasses.hasNext()) {
             Class classComp = iteratorClasses.next();
@@ -360,7 +346,7 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    private void addImplementedInterfacesByPackageInOffspring(Package parentPackage, Architecture offspring, Architecture parent) {
+    private void addImplementedInterfacesByPackageInOffspring(br.ufpr.dinf.gres.architecture.representation.Package parentPackage, Architecture offspring, Architecture parent) {
         final Iterator<Interface> iteratorInterfaces = parentPackage.getOnlyInterfacesImplementedByPackage().iterator();
         while (parentPackage.getOnlyInterfacesImplementedByPackage().iterator().hasNext()) {
             final Interface interfaceComp = iteratorInterfaces.next();
@@ -373,7 +359,7 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    private void addRequiredInterfacesByPackageInOffspring(Package parentPackage, Architecture offspring, Architecture parent) {
+    private void addRequiredInterfacesByPackageInOffspring(br.ufpr.dinf.gres.architecture.representation.Package parentPackage, Architecture offspring, Architecture parent) {
         final Iterator<Interface> iteratorInterfaces = parentPackage.getOnlyInterfacesRequiredByPackage().iterator();
         while (iteratorInterfaces.hasNext()) {
             final Interface interfaceComp = iteratorInterfaces.next();
@@ -398,9 +384,9 @@ public class PLACrossover2 extends Crossover {
     private boolean isHierarchyInASameComponent(Class class_, Architecture architecture) {
         boolean sameComponent = true;
         Class parent = class_;
-        Package componentOfClass = null;
+        br.ufpr.dinf.gres.architecture.representation.Package componentOfClass = null;
         componentOfClass = architecture.findPackageOfClass(class_);
-        Package componentOfParent = architecture.findPackageOfClass(class_);
+        br.ufpr.dinf.gres.architecture.representation.Package componentOfParent = architecture.findPackageOfClass(class_);
         while (CrossoverOperations.isChild(parent)) {
             parent = CrossoverOperations.getParent(parent);
             componentOfParent = architecture.findPackageOfClass(parent);
@@ -412,7 +398,7 @@ public class PLACrossover2 extends Crossover {
         return sameComponent;
     }
 
-    private void moveChildrenToSameComponent(Class parent, Package sourceComp, Package targetComp, Architecture offspring, Architecture parentArch) {
+    private void moveChildrenToSameComponent(Class parent, br.ufpr.dinf.gres.architecture.representation.Package sourceComp, br.ufpr.dinf.gres.architecture.representation.Package targetComp, Architecture offspring, Architecture parentArch) {
 
         final Collection<Element> children = getChildren(parent);
         for (Element child : children) {
@@ -422,7 +408,7 @@ public class PLACrossover2 extends Crossover {
             addClassToOffspring(parent, targetComp, offspring, parentArch);
         } else {
             try {
-                for (Package auxComp : parentArch.getAllPackages()) {
+                for (br.ufpr.dinf.gres.architecture.representation.Package auxComp : parentArch.getAllPackages()) {
                     if (auxComp.getAllClasses().contains(parent)) {
                         sourceComp = auxComp;
                         if (sourceComp.getName() != targetComp.getName()) {
@@ -443,9 +429,9 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    private void moveChildrenToDifferentComponent(Class root, Package newComp, Architecture offspring, Architecture parent) {
+    private void moveChildrenToDifferentComponent(Class root, br.ufpr.dinf.gres.architecture.representation.Package newComp, Architecture offspring, Architecture parent) {
         final String rootPackageName = UtilResources.extractPackageName(root.getNamespace());
-        Package rootTargetPackage = offspring.findPackageByName(rootPackageName);
+        br.ufpr.dinf.gres.architecture.representation.Package rootTargetPackage = offspring.findPackageByName(rootPackageName);
         if (rootPackageName == null)
             rootTargetPackage = offspring.createPackage(rootPackageName);
 
@@ -454,18 +440,18 @@ public class PLACrossover2 extends Crossover {
         saveAllRelationshiopForElement(parent.findPackageByName(rootPackageName), parent, offspring);
         for (Element child : getChildren(root)) {
             final String packageName = UtilResources.extractPackageName(child.getNamespace());
-            Package targetPackage = parent.findPackageByName(packageName);
+            br.ufpr.dinf.gres.architecture.representation.Package targetPackage = parent.findPackageByName(packageName);
             if (targetPackage != null)
                 moveChildrenToDifferentComponent((Class) child, targetPackage, offspring, parent);
         }
     }
 
-    public void addClassToOffspring(Class klass, Package targetComp, Architecture offspring, Architecture parent) {
+    public void addClassToOffspring(Class klass, br.ufpr.dinf.gres.architecture.representation.Package targetComp, Architecture offspring, Architecture parent) {
         targetComp.addExternalClass(klass);
         saveAllRelationshiopForElement(klass, parent, offspring);
     }
 
-    private void addInterfacesImplementedByClass(Class klass, Architecture offspring, Architecture parent, Package targetComp) {
+    private void addInterfacesImplementedByClass(Class klass, Architecture offspring, Architecture parent, br.ufpr.dinf.gres.architecture.representation.Package targetComp) {
 
         for (Interface itf : klass.getImplementedInterfaces()) {
             if (itf.getNamespace().equalsIgnoreCase("model"))
@@ -476,7 +462,7 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    private void addInterfacesRequiredByClass(Class klass, Architecture offspring, Architecture parent, Package targetComp) {
+    private void addInterfacesRequiredByClass(Class klass, Architecture offspring, Architecture parent, br.ufpr.dinf.gres.architecture.representation.Package targetComp) {
         for (Interface itf : klass.getRequiredInterfaces()) {
             if (itf.getNamespace().equalsIgnoreCase("model"))
                 offspring.addExternalInterface(itf);
@@ -487,7 +473,7 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    private void moveHierarchyToSameComponent(Class classComp, Package targetComp, Package sourceComp, Architecture offspring, Architecture parent, Concern concern) {
+    private void moveHierarchyToSameComponent(Class classComp, br.ufpr.dinf.gres.architecture.representation.Package targetComp, br.ufpr.dinf.gres.architecture.representation.Package sourceComp, Architecture offspring, Architecture parent, Concern concern) {
         Class root = classComp;
         while (isChild(root)) {
             root = getParent(root);
@@ -497,7 +483,7 @@ public class PLACrossover2 extends Crossover {
         }
     }
 
-    private void moveHierarchyToDifferentPackage(Class classComp, Package newComp, Package parentPackage, Architecture offspring, Architecture parent) {
+    private void moveHierarchyToDifferentPackage(Class classComp, br.ufpr.dinf.gres.architecture.representation.Package newComp, br.ufpr.dinf.gres.architecture.representation.Package parentPackage, Architecture offspring, Architecture parent) {
         Class root = classComp;
         while (isChild(root)) {
             root = getParent(root);
@@ -549,7 +535,7 @@ public class PLACrossover2 extends Crossover {
                 offspring.getRelationshipHolder().addRelationship(r);
             return;
         }
-        if (element instanceof Package) {
+        if (element instanceof br.ufpr.dinf.gres.architecture.representation.Package) {
             for (Relationship r : ((Package) element).getRelationships())
                 offspring.getRelationshipHolder().addRelationship(r);
             return;

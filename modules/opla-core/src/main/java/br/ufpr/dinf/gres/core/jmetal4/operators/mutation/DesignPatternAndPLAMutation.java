@@ -12,9 +12,9 @@ public class DesignPatternAndPLAMutation extends Mutation {
 
     private static final long serialVersionUID = 3896434361251147825L;
     private DesignPatternsMutationOperator dpm;
-    private PLAFeatureMutation pf;
+    private PLAMutationOperator pf;
 
-    public DesignPatternAndPLAMutation(Map<String, Object> parameter, DesignPatternsMutationOperator dpm, PLAFeatureMutation pf) {
+    public DesignPatternAndPLAMutation(Map<String, Object> parameter, DesignPatternsMutationOperator dpm, PLAMutationOperator pf) {
         super(parameter);
         this.dpm = dpm;
         this.pf = pf;

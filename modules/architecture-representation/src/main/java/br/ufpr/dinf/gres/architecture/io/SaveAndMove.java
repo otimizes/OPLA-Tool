@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.architecture.io;
 
 import br.ufpr.dinf.gres.architecture.helpers.XmiHelper;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import br.ufpr.dinf.gres.domain.config.FileUtils;
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import org.apache.log4j.Logger;
@@ -29,9 +30,9 @@ public class SaveAndMove extends XmiHelper {
         String targetDir = ApplicationFileConfigThreadScope.getDirectoryToSaveModels();
         String targetDirExport = ApplicationFileConfigThreadScope.getDirectoryToExportModels();
 
-        String notationCopy = targetDir + System.getProperty("file.separator")  + originalModelName + ".notation";
-        String umlCopy = targetDir + System.getProperty("file.separator")  + originalModelName + ".uml";
-        String diCopy = targetDir + System.getProperty("file.separator")  + originalModelName + ".di";
+        String notationCopy = targetDir + FileConstants.FILE_SEPARATOR  + originalModelName + ".notation";
+        String umlCopy = targetDir + FileConstants.FILE_SEPARATOR  + originalModelName + ".uml";
+        String diCopy = targetDir + FileConstants.FILE_SEPARATOR  + originalModelName + ".di";
 
         LOGGER.info("transformerFactory");
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -74,9 +75,9 @@ public class SaveAndMove extends XmiHelper {
         transformer.transform(sourceDi, resultDi);
 
         LOGGER.info("Moving Files");
-        FileUtils.moveFiles(notationCopy, targetDirExport + System.getProperty("file.separator")  + newModelName + ".notation");
-        FileUtils.moveFiles(umlCopy, targetDirExport + System.getProperty("file.separator")  + newModelName + ".uml");
-        FileUtils.moveFiles(diCopy, targetDirExport + System.getProperty("file.separator")  + newModelName + ".di");
+        FileUtils.moveFiles(notationCopy, targetDirExport + FileConstants.FILE_SEPARATOR  + newModelName + ".notation");
+        FileUtils.moveFiles(umlCopy, targetDirExport + FileConstants.FILE_SEPARATOR  + newModelName + ".uml");
+        FileUtils.moveFiles(diCopy, targetDirExport + FileConstants.FILE_SEPARATOR  + newModelName + ".di");
 
     }
 

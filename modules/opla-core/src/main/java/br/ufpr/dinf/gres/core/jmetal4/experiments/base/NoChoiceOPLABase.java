@@ -19,6 +19,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metaheuristics.memetic.NoChoice;
 import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.Info;
@@ -110,10 +111,10 @@ public class NoChoiceOPLABase {
             algorithm.setInputParameter("maxEvaluations", maxEvaluations);
             parameters = new HashMap<>();
             parameters.put("probability", crossoverProbability);
-            crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parameters);
+            crossover = CrossoverFactory.getCrossoverOperator("PLACrossoverOperator", parameters);
             parameters = new HashMap<>();
             parameters.put("probability", mutationProbability);
-            mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parameters, configs);
+            mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parameters, configs);
             operatorLocal = MutationFactory.getMutationOperatorPatterns("PLAPatternsMutation", parameters,
                     configs);
             parameters = null;
@@ -226,9 +227,9 @@ public class NoChoiceOPLABase {
     private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
         String dir;
         if (executionID != null)
-            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + experimentID + System.getProperty("file.separator") + executionID + "/Hypervolume/";
+            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + FileConstants.FILE_SEPARATOR + executionID + "/Hypervolume/";
         else
-            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + experimentID + "/Hypervolume/";
+            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + "/Hypervolume/";
 
         File newDir = new File(dir);
         if (!newDir.exists())

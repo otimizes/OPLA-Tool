@@ -2,16 +2,17 @@ package br.ufpr.dinf.gres.api.dto;
 
 import br.ufpr.dinf.gres.api.gateway.OptimizationAlgorithms;
 import br.ufpr.dinf.gres.architecture.builders.ArchitectureBuilders;
-import br.ufpr.dinf.gres.domain.config.ApplicationFileConfig;
-import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.core.jmetal4.interactive.InteractiveFunction;
 import br.ufpr.dinf.gres.core.learning.ClusteringAlgorithm;
 import br.ufpr.dinf.gres.core.learning.Moment;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfig;
+import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.patterns.strategies.ScopeSelection;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class OptimizationDto {
@@ -31,11 +32,12 @@ public class OptimizationDto {
     private Integer intervalInteraction = 0;
     private Integer archiveSize = 0;
     private ClusteringAlgorithm clusteringAlgorithm = ClusteringAlgorithm.KMEANS;
-    private Moment clusteringMoment = Moment.NONE;
+    private Moment clusteringMoment = Moment.INTERACTIVE;
     private ArchitectureBuilders architectureBuilder = ArchitectureBuilders.SMARTY;
     @JsonIgnore
     private InteractiveFunction interactiveFunction;
     private List<String> mutationOperators = Arrays.asList("FEATURE_MUTATION", "MOVE_METHOD_MUTATION", "MOVE_ATTRIBUTE_MUTATION", "MOVE_OPERATION_MUTATION", "ADD_CLASS_MUTATION", "ADD_MANAGER_CLASS_MUTATION");
+    private List<String> crossoverOperators = Collections.singletonList("PLA_CROSSOVER");
     private List<String> patterns = new ArrayList<>();
     private ScopeSelection scopeSelection = ScopeSelection.RANDOM;
     private List<String> objectiveFunctions = new ArrayList<>();
@@ -235,5 +237,13 @@ public class OptimizationDto {
 
     public void setArchitectureBuilder(ArchitectureBuilders architectureBuilder) {
         this.architectureBuilder = architectureBuilder;
+    }
+
+    public List<String> getCrossoverOperators() {
+        return crossoverOperators;
+    }
+
+    public void setCrossoverOperators(List<String> crossoverOperators) {
+        this.crossoverOperators = crossoverOperators;
     }
 }

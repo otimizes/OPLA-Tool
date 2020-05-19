@@ -21,6 +21,7 @@ import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.learning.Moment;
 import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.Info;
@@ -90,12 +91,12 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
             HashMap<String, Object> parametersCrossover = new HashMap<>();
             parametersCrossover.put("probability", configs.getCrossoverProbability());
             parametersCrossover.put("numberOfObjectives", configs.getOplaConfigs().getNumberOfObjectives());
-            Crossover crossover = CrossoverFactory.getCrossoverOperator("PLACrossover", parametersCrossover, configs);
+            Crossover crossover = CrossoverFactory.getCrossoverOperator("PLACrossoverOperator", parametersCrossover, configs);
             algorithm.addOperator("crossover", crossover);
 
             HashMap<String, Object> parametersMutation = new HashMap<>();
             parametersMutation.put("probability", configs.getMutationProbability());
-            Mutation mutation = MutationFactory.getMutationOperator("PLAFeatureMutation", parametersMutation, configs);
+            Mutation mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parametersMutation, configs);
             algorithm.addOperator("mutation", mutation);
 
             Selection selection = SelectionFactory.getSelectionOperator("BinaryTournament", null);
@@ -201,9 +202,9 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
     private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
         String dir;
         if (executionID != null)
-            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + experimentID + System.getProperty("file.separator") + executionID + "/Hypervolume/";
+            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + FileConstants.FILE_SEPARATOR + executionID + "/Hypervolume/";
         else
-            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + experimentID + "/Hypervolume/";
+            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + "/Hypervolume/";
 
         File newDir = new File(dir);
         if (!newDir.exists())

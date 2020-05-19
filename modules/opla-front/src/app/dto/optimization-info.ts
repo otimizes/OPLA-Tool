@@ -3,4 +3,5 @@ export class OptimizationInfo {
   logs: string;
   status: string;
   hash: string;
+  currentGeneration: number;
 }

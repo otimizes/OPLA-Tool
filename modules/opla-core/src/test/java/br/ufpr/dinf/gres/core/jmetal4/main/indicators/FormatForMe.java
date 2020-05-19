@@ -6,6 +6,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.main.indicators;
 
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -40,9 +41,9 @@ public class FormatForMe {
                  * PF_{known}
                  *
                  */
-                String directoryPath = "experiment/" + pla + System.getProperty("file.separator");
+                String directoryPath = "experiment/" + pla + FileConstants.FILE_SEPARATOR;
 
-                double[][] front = mu.readFront(directoryPath + System.getProperty("file.separator") + context + "/FUN_All_" + pla + ".txt");
+                double[][] front = mu.readFront(directoryPath + FileConstants.FILE_SEPARATOR + context + "/FUN_All_" + pla + ".txt");
 
                 System.out.println(pla + " " + context + ":");
 

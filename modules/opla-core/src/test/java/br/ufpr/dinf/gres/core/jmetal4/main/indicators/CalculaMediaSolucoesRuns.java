@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.main.indicators;
 
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -43,7 +44,7 @@ public class CalculaMediaSolucoesRuns {
                 for (String algorithm : algorithms) {
                     float total = 0;
                     for (int run = 0; run < 30; run++) {
-                        BufferedReader buff = new BufferedReader(new FileReader("resultado/" + abordagem + System.getProperty("file.separator") + algorithm + System.getProperty("file.separator") + software + contexto + "/FUN_" + algorithm + "-" + software + "-" + run + ".NaoDominadas"));
+                        BufferedReader buff = new BufferedReader(new FileReader("resultado/" + abordagem + FileConstants.FILE_SEPARATOR + algorithm + FileConstants.FILE_SEPARATOR + software + contexto + "/FUN_" + algorithm + "-" + software + "-" + run + ".NaoDominadas"));
 
                         int contador = 0;
                         while (buff.ready()) {

@@ -104,11 +104,11 @@ public class ManagerApplicationFileConfig {
     }
 
     public String setProfilesToSpecificPath(String path) throws IOException {
-        String dir = path.substring(0, path.lastIndexOf(System.getProperty("file.separator")));
-        this.updatePathToProfileSmarty(dir + System.getProperty("file.separator") + "smarty.profile.uml");
-        this.updatePathToProfileConcerns(dir + System.getProperty("file.separator") + "concerns.profile.uml");
-        this.updatePathToProfilePatterns(dir + System.getProperty("file.separator") + "br.ufpr.dinf.gres.patterns.profile.uml");
-        this.updatePathToProfileRelationships(dir + System.getProperty("file.separator") + "relationships.profile.uml");
+        String dir = path.substring(0, path.lastIndexOf(FileConstants.FILE_SEPARATOR));
+        this.updatePathToProfileSmarty(dir + FileConstants.FILE_SEPARATOR + "smarty.profile.uml");
+        this.updatePathToProfileConcerns(dir + FileConstants.FILE_SEPARATOR + "concerns.profile.uml");
+        this.updatePathToProfilePatterns(dir + FileConstants.FILE_SEPARATOR + "br.ufpr.dinf.gres.patterns.profile.uml");
+        this.updatePathToProfileRelationships(dir + FileConstants.FILE_SEPARATOR + "relationships.profile.uml");
         return dir;
     }
 

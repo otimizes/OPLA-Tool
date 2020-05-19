@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {catchError} from "rxjs/operators";
+import {OptimizationService} from "./optimization.service";
 
 @Injectable({
   providedIn: 'root'

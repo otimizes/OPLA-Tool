@@ -33,7 +33,7 @@
   </mat-step>
   <mat-step state="logs">
     <ng-template matStepLabel><span class="hide-on-mobile">Logs</span></ng-template>
-    <app-logs></app-logs>
+    <app-logs [optimizationService]="optimizationService"></app-logs>
   </mat-step>
 
   <!-- Icon overrides. -->

@@ -1,89 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.mat-stepper-horizontal {
-  margin-top: 8px;
+body {
+  font-family: Roboto, \"Helvetica Neue\", sans-serif;
+  margin: 0;
 }
 
-.mat-form-field {
-  margin-top: 16px;
-  width: 100%;
+button[fixedVicButton2] > .mat-button-wrapper {
+  padding: 0;
 }
 
-.mat-card {
-  height: 90%;
-  width: 100%;
-  margin: 10px;
+button[fixedVicButton2] {
+  bottom: 22px;
+  height: 35px;
+  position: fixed;
+  right: 80px;
+  width: 35px;
 }
 
+button[fixedVicButton3] > .mat-button-wrapper {
+  padding: 0;
+}
+
+button[fixedVicButton3] {
+  bottom: 24px;
+  height: 35px;
+  position: fixed;
+  right: 120px;
+  width: 35px;
+}
 
 button[fixedVicButton] {
-  position: fixed;
   bottom: 15px;
+  position: fixed;
   right: 20px;
 }
 
-button[fixedVicButton2] > .mat-button-wrapper{
-  padding: 0;
-}
-button[fixedVicButton2] {
-  position: fixed;
-  bottom: 22px;
-  right: 80px;
-  width: 35px;
-  height: 35px;
-}
-button[fixedVicButton3] > .mat-button-wrapper{
-  padding: 0;
-}
-button[fixedVicButton3] {
-  position: fixed;
-  bottom: 24px;
-  right: 120px;
-  width: 35px;
-  height: 35px;
-}
-
-.uploadfilecontainer {
-  background-image: url("https://cdn.pixabay.com/photo/2017/02/07/02/16/cloud-2044823_960_720.png");
-  background-repeat: no-repeat;
-  background-size: 100px;
-  background-position: center;
-  height: 200px;
-  width: 80%;
-  margin: 20px auto;
-  border: 2px dashed #1C8ADB;
-  border-radius: 10px;
-}
-
-.uploadfilecontainer:hover {
-  cursor: pointer;
-  background-color: #9ecbec !important;
-  opacity: 0.8;
-}
-
-.files-list {
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin: 10px auto;
-  background: #ffffff;
-  border: 1px dashed;
-  border-radius: 12px;
-  padding: 5px;
-  color: #1c8adb;
-}
-
-.files-list .delete-file {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.files-list .delete-file img {
-  width: 30px;
+html, body {
+  height: 100%;
 }
 
 table {
@@ -94,46 +45,64 @@ tr.example-detail-row {
   height: 0 !important;
 }
 
-tr.example-element-row:not(.example-expanded-row):hover {
-  background: #777;
-}
-
-tr.example-element-row:not(.example-expanded-row):active {
+tr.element-row:not(.expanded-row):active {
   background: #efefef;
 }
 
-.example-element-row td {
+tr.element-row:not(.expanded-row):hover {
+  background: #777;
+}
+
+.element-row td {
   border-bottom-width: 0;
 }
 
-.table-column-element-detail {
-  overflow: hidden;
-  display: flex;
+.files-list .delete-file img {
+  width: 30px;
 }
 
-.table-column-element-diagram {
-  min-width: 80px;
-  border: 2px solid black;
-  padding: 8px;
-  font-weight: lighter;
-  margin: 8px 0;
-  height: 104px;
-}
-
-.table-column-element-symbol {
-  font-weight: bold;
-  font-size: 40px;
-  line-height: normal;
-}
-
-.table-column-element-description {
-  padding: 16px;
-}
-
-.table-element-description-attribution {
-  opacity: 0.5;
-  text-decoration: underline;
+.files-list .delete-file {
+  background: transparent;
+  border: none;
   cursor: pointer;
+}
+
+.files-list {
+  background: #ffffff;
+  border: 1px dashed;
+  border-radius: 12px;
+  color: #1c8adb;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px auto;
+  padding: 5px;
+  width: 80%;
+}
+
+.mat-card {
+  height: 90%;
+  margin: 10px;
+  width: 100%;
+}
+
+
+.mat-form-field {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.opla-dialog-full-panel {
+  height: 85vh;
+  max-width: 100vw !important;
+  width: 97vw !important;
+}
+.opla-dialog-panel {
+  height: 85vh;
+  width: 60vw;
 }
 
 .opla-grid-list, opla-grid-list {
@@ -142,21 +111,34 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .opla-grid-tile, opla-grid-tile {
-  flex: 1 0 21%;
-  min-width: 300px;
-  margin: 3px;
   display: flex;
+  flex: 1 0 21%;
+  margin: 3px;
+  min-width: 300px;
 }
 
-.opla-dialog-panel {
-  width: 60vw;
-  height: 85vh;
+.table-column-element-description {
+  padding: 16px;
 }
 
-.opla-dialog-full-panel {
-  width: 97vw !important;
-  max-width: 100vw !important;
-  height: 85vh;
+.table-column-element-detail {
+  display: flex;
+  overflow: hidden;
+}
+
+.table-column-element-diagram {
+  border: 2px solid black;
+  font-weight: lighter;
+  height: 104px;
+  margin: 8px 0;
+  min-width: 80px;
+  padding: 8px;
+}
+
+.table-column-element-symbol {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: normal;
 }
 
 @media screen and (max-width: 900px) {
@@ -169,8 +151,9 @@ tr.example-element-row:not(.example-expanded-row):active {
   .hide-on-mobile {
     display: none;
   }
+
   .opla-dialog-panel {
-    width: 97vw !important;
     max-width: 100vw !important;
+    width: 97vw !important;
   }
 }

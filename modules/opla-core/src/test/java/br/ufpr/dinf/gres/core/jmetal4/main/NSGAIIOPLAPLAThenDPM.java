@@ -13,6 +13,7 @@ import br.ufpr.dinf.gres.core.jmetal4.operators.mutation.Mutation;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.Selection;
 import br.ufpr.dinf.gres.core.jmetal4.operators.selection.SelectionFactory;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import br.ufpr.dinf.gres.patterns.repositories.ArchitectureRepository;
 
 import java.io.File;
@@ -102,9 +103,9 @@ public class NSGAIIOPLAPLAThenDPM {
 
         String plaName = getPlaName(pla);
 
-        File directory = ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + System.getProperty("file.separator") + context + System.getProperty("file.separator"));
-        ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + System.getProperty("file.separator") + context + "/manipulation");
-        ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + System.getProperty("file.separator") + context + "/output");
+        File directory = ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + FileConstants.FILE_SEPARATOR + context + FileConstants.FILE_SEPARATOR);
+        ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + FileConstants.FILE_SEPARATOR + context + "/manipulation");
+        ArchitectureRepository.getOrCreateDirectory("experiment/" + plaName + FileConstants.FILE_SEPARATOR + context + "/output");
 
 
         String plaDirectory = getPlaDirectory(pla);

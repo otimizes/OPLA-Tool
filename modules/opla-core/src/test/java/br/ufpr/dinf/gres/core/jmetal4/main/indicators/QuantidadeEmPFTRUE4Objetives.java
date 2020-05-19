@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.core.jmetal4.main.indicators;
 
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -54,9 +55,9 @@ public class QuantidadeEmPFTRUE4Objetives {
                         MetricsUtil mu = new MetricsUtil();
 
                         //le o conjunto com as solucoes de PFtrue - melhores encontradas por todos os MOEAS
-                        double[][] PFtrue = mu.readFront("resultado/" + abordagem + System.getProperty("file.separator") + software + "_trueParetoFront.txt");
+                        double[][] PFtrue = mu.readFront("resultado/" + abordagem + FileConstants.FILE_SEPARATOR + software + "_trueParetoFront.txt");
                         //le o conjunto com as solucoes de PFknow - melhores encontradas por um MOEA
-                        double[][] PFknown = mu.readFront("resultado/" + abordagem + System.getProperty("file.separator") + algorithm + System.getProperty("file.separator") + software + contexto + "/All_FUN_" + algorithm + "-" + software);
+                        double[][] PFknown = mu.readFront("resultado/" + abordagem + FileConstants.FILE_SEPARATOR + algorithm + FileConstants.FILE_SEPARATOR + software + contexto + "/All_FUN_" + algorithm + "-" + software);
 
                         quantidadeSolucoes = 0;
 

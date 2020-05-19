@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.main.indicators;
 
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.*;
 
@@ -40,9 +41,9 @@ public class MountFilehv {
 
             for (String algorithm : algoritmos) {
                 for (String contexto : contextos) {
-                    String outFile = "resultado/hypervolume/" + software + System.getProperty("file.separator") + software + "_" + algorithm + contexto + "_allruns.txt";
+                    String outFile = "resultado/hypervolume/" + software + FileConstants.FILE_SEPARATOR + software + "_" + algorithm + contexto + "_allruns.txt";
                     for (int run = 0; run < 30; run++) {
-                        String srcFile = "resultado/" + algorithm + System.getProperty("file.separator") + software + contexto + "/FUN_" + algorithm + "-" + software + "-" + run + ".NaoDominadas";
+                        String srcFile = "resultado/" + algorithm + FileConstants.FILE_SEPARATOR + software + contexto + "/FUN_" + algorithm + "-" + software + "-" + run + ".NaoDominadas";
                         mergeFiles(srcFile, outFile, "\n");
                         mergeFiles(srcFile, allalgorithms_allruns, "");
                     }

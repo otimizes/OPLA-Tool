@@ -31,10 +31,10 @@ public class SaveConcernListSMarty {
     public void Save(Architecture architecture, PrintWriter printWriter) {
         String halfTab = "  ";
         printWriter.write("\n" + halfTab + "<stereotypes>");
-        if (architecture.getLstConcerns().size() == 0) {
+        if (architecture.getConcerns().size() == 0) {
             GenerateConcernListSMarty.getInstance().Generate(architecture);
         }
-        for (Concern ts : architecture.getLstConcerns()) {
+        for (Concern ts : architecture.getConcerns()) {
             printWriter.write("\n\t<stereotype id=\"" + ts.getId() + "\" name=\"" + ts.getName() + "\" primitive=\"" + ts.getPrimitive() + "\"/>");
         }
         printWriter.write("\n" + halfTab + "</stereotypes>");

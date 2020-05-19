@@ -8,6 +8,9 @@ import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
 
 import java.util.*;
 
+/**
+ * Crossover utils
+ */
 public class CrossoverUtils {
 
     public boolean removeArchitecturalElementsRealizingFeature(Concern feature, Architecture offspring, String scope) {

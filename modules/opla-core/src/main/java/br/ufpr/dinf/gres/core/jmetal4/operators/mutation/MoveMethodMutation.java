@@ -4,20 +4,22 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
+import br.ufpr.dinf.gres.core.jmetal4.operators.IOperator;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
  * Mutation operator that move methods
  */
-public class MoveMethodMutation implements IMutationOperator {
+public class MoveMethodMutation implements IOperator<Solution> {
 
     @Override
-    public void execute(double probability, Solution solution, String scope) {
-        if (PseudoRandom.randDouble() < probability) {
+    public Solution execute(Map<String, Object> parameters, Solution solution, String scope) {
+        if (PseudoRandom.randDouble() < ((Double) parameters.get("probability"))) {
             final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
             if ("sameComponent".equals(scope)) {
                 Package sourceCompElem = MutationUtils.getRandomPackage(arch);
@@ -71,5 +73,6 @@ public class MoveMethodMutation implements IMutationOperator {
                 }
             }
         }
+        return solution;
     }
 }

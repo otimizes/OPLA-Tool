@@ -2,6 +2,7 @@ package br.ufpr.dinf.gres.domain;
 
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfig;
 import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +15,7 @@ public class OPLAThreadScope {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String format = simpleDateFormat.format(new Date());
 
-        return OPLAThreadScope.token.get() + System.getProperty("file.separator") + format.concat("-" + Math.round(Math.random() * 10000));
+        return OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + OPLAThreadScope.mainThreadId.get() + format.concat("-" + Math.round(Math.random() * 10000));
     });
 
     public static ThreadLocal<Long> mainThreadId = new ThreadLocal<>();
@@ -27,8 +28,8 @@ public class OPLAThreadScope {
     public static ThreadLocal<String> pla = new ThreadLocal<>();
 
     public static void setConfig(ApplicationYamlConfig config) {
-        config.setDirectoryToExportModels(config.getDirectoryToExportModels() + OPLAThreadScope.hash.get() + System.getProperty("file.separator"));
-        config.setDirectoryToSaveModels(config.getDirectoryToSaveModels() + OPLAThreadScope.hash.get() + System.getProperty("file.separator"));
+        config.setDirectoryToExportModels(config.getDirectoryToExportModels() + OPLAThreadScope.hash.get() + FileConstants.FILE_SEPARATOR);
+        config.setDirectoryToSaveModels(config.getDirectoryToSaveModels() + OPLAThreadScope.hash.get() + FileConstants.FILE_SEPARATOR);
         OPLAThreadScope.config.set(config);
     }
 }

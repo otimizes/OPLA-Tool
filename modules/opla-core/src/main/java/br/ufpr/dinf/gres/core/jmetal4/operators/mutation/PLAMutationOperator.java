@@ -4,7 +4,7 @@ import br.ufpr.dinf.gres.architecture.representation.Architecture;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
-import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
+import br.ufpr.dinf.gres.core.jmetal4.operators.MutationOperators;
 import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -16,15 +16,15 @@ import java.util.Map;
 /**
  * PLA feature mutation operator that call another mutation operators included in FeatureMutationOperators enum
  */
-public class PLAFeatureMutation extends Mutation {
+public class PLAMutationOperator extends Mutation {
 
     private static final long serialVersionUID = 9039316729379302747L;
-    static Logger LOGGER = LogManager.getLogger(PLAFeatureMutation.class.getName());
+    static Logger LOGGER = LogManager.getLogger(PLAMutationOperator.class.getName());
 
     private Double mutationProbability = null;
     private List<String> mutationOperators;
 
-    public PLAFeatureMutation(HashMap<String, Object> parameters, List<String> mutationOperators) {
+    public PLAMutationOperator(HashMap<String, Object> parameters, List<String> mutationOperators) {
         super(parameters);
         this.mutationOperators = mutationOperators;
 
@@ -33,7 +33,7 @@ public class PLAFeatureMutation extends Mutation {
         }
     }
 
-    public PLAFeatureMutation(Map<String, Object> parameters) {
+    public PLAMutationOperator(Map<String, Object> parameters) {
         super(parameters);
         if (parameters.get("probability") != null) {
             mutationProbability = (Double) parameters.get("probability");
@@ -47,8 +47,8 @@ public class PLAFeatureMutation extends Mutation {
         HashMap<Integer, String> operatorMap = new HashMap<>();
         for (int i = 0; i < this.mutationOperators.size(); i++)
             operatorMap.put(i, this.mutationOperators.get(i));
-        FeatureMutationOperators selectedOperator = FeatureMutationOperators.valueOf(operatorMap.get(r));
-        selectedOperator.getOperator().execute(probability, solution, scope);
+        MutationOperators selectedOperator = MutationOperators.valueOf(operatorMap.get(r));
+        selectedOperator.getOperator().execute(parameters_, solution, scope);
     }
 
 

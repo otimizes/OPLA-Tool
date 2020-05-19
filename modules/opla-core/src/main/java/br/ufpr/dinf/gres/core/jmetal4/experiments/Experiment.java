@@ -27,6 +27,7 @@ import br.ufpr.dinf.gres.core.jmetal4.experiments.util.RBoxplot;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.util.RWilcoxon;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.util.RunExperiment;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.util.Statistics;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.*;
 import java.util.*;
@@ -150,7 +151,7 @@ public abstract class Experiment {
                                            Algorithm[] algorithm) throws ClassNotFoundException;
 
     public void generateLatexTables() throws IOException {
-        latexDirectory_ = experimentBaseDirectory_ + System.getProperty("file.separator") + latexDirectory_;
+        latexDirectory_ = experimentBaseDirectory_ + FileConstants.FILE_SEPARATOR + latexDirectory_;
         Vector[][][] data = new Vector[indicatorList_.length][][];
         for (int indicator = 0; indicator < indicatorList_.length; indicator++) {
             data[indicator] = new Vector[problemList_.length][];
@@ -163,9 +164,9 @@ public abstract class Experiment {
 
                     String directory = experimentBaseDirectory_;
                     directory += "/data/";
-                    directory += System.getProperty("file.separator") + algorithmNameList_[algorithm];
-                    directory += System.getProperty("file.separator") + problemList_[problem];
-                    directory += System.getProperty("file.separator") + indicatorList_[indicator];
+                    directory += FileConstants.FILE_SEPARATOR + algorithmNameList_[algorithm];
+                    directory += FileConstants.FILE_SEPARATOR + problemList_[problem];
+                    directory += FileConstants.FILE_SEPARATOR + indicatorList_[indicator];
                     FileInputStream fis = new FileInputStream(directory);
                     InputStreamReader isr = new InputStreamReader(fis);
                     BufferedReader br = new BufferedReader(isr);
@@ -228,9 +229,9 @@ public abstract class Experiment {
                     Collections.sort(data[indicator][problem][algorithm]);
 
                     String directory = experimentBaseDirectory_;
-                    directory += System.getProperty("file.separator") + algorithmNameList_[algorithm];
-                    directory += System.getProperty("file.separator") + problemList_[problem];
-                    directory += System.getProperty("file.separator") + indicatorList_[indicator];
+                    directory += FileConstants.FILE_SEPARATOR + algorithmNameList_[algorithm];
+                    directory += FileConstants.FILE_SEPARATOR + problemList_[problem];
+                    directory += FileConstants.FILE_SEPARATOR + indicatorList_[indicator];
                     calculateStatistics(data[indicator][problem][algorithm],
                             statValues);
                     mean[indicator][problem][algorithm] = statValues
@@ -254,7 +255,7 @@ public abstract class Experiment {
             System.out.println("Creating " + latexDirectory_ + " directory");
         }
         System.out.println("Experiment name: " + experimentName_);
-        String latexFile = latexDirectory_ + System.getProperty("file.separator") + experimentName_ + ".tex";
+        String latexFile = latexDirectory_ + FileConstants.FILE_SEPARATOR + experimentName_ + ".tex";
         printHeaderLatexCommands(latexFile);
         for (int i = 0; i < indicatorList_.length; i++) {
             printMeanStdDev(latexFile, i, mean, stdDeviation);

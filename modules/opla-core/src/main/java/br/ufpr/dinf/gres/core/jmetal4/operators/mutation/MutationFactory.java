@@ -24,7 +24,7 @@ package br.ufpr.dinf.gres.core.jmetal4.operators.mutation;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.experiments.ExperimentCommonConfigs;
-import br.ufpr.dinf.gres.core.jmetal4.operators.FeatureMutationOperators;
+import br.ufpr.dinf.gres.core.jmetal4.operators.MutationOperators;
 import br.ufpr.dinf.gres.core.jmetal4.operators.pattern.impl.DesignPatternsMutationOperator;
 import br.ufpr.dinf.gres.patterns.strategies.designpatternselection.impl.CustomDesignPatternSelection;
 
@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public class MutationFactory {
 
-    private static final String DESIGN_PATTERNS = FeatureMutationOperators.DESIGN_PATTERNS.toString();
+    private static final String DESIGN_PATTERNS = MutationOperators.DESIGN_PATTERNS.toString();
 
     public static Mutation getMutationOperator(String name, HashMap<String, Object> parameters, ExperimentCommonConfigs configs) throws JMException {
         if (isOnlyDesignPattern(configs)) {
@@ -46,11 +46,11 @@ public class MutationFactory {
                     new CustomDesignPatternSelection(configs.getPatterns()));
 
             configs.excludeDesignPatternsFromMutationOperatorList();
-            PLAFeatureMutation pf = new PLAFeatureMutation(parameters, configs.getMutationOperators());
+            PLAMutationOperator pf = new PLAMutationOperator(parameters, configs.getMutationOperators());
 
             return new DesignPatternAndPLAMutation(parameters, dpm, pf);
         } else if (isOnlyPLAFeatureMutation(configs)) {
-            return new PLAFeatureMutation(parameters, configs.getMutationOperators());
+            return new PLAMutationOperator(parameters, configs.getMutationOperators());
         } else {
             Configuration.logger_.severe("Operator '" + name + "' not found ");
             Class<String> cls = java.lang.String.class;
@@ -82,8 +82,8 @@ public class MutationFactory {
 
     public static Mutation getMutationOperator(String name, Map<String, Object> parameters) throws JMException {
 
-        if (name.equalsIgnoreCase("PLAFeatureMutation"))
-            return new PLAFeatureMutation(parameters);
+        if (name.equalsIgnoreCase("PLAMutationOperator"))
+            return new PLAMutationOperator(parameters);
         else {
             Configuration.logger_.severe("Operator '" + name + "' not found ");
             Class<?> cls = java.lang.String.class;

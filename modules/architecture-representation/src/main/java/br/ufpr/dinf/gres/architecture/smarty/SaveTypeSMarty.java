@@ -34,11 +34,11 @@ public class SaveTypeSMarty {
         String halfTab = "  ";
         String tab = "    ";
         printWriter.write("\n" + halfTab + "<types>");
-        if (architecture.getLstTypes().size() == 0) {
+        if (architecture.getTypes().size() == 0) {
             GenerateTypeSMarty.getInstance().generate(architecture);
         }
         ArrayList<TypeSmarty> adicionedType = new ArrayList<>();
-        for (TypeSmarty ts : architecture.getLstTypes()) {
+        for (TypeSmarty ts : architecture.getTypes()) {
             if (ts.isStandard()) {
                 printWriter.write("\n" + tab + "<type id=\"" + ts.getId() + "\" path=\"" + ts.getPath() + "\" name=\"" + ts.getName() + "\" value=\"" + ts.getValue() + "\" primitive=\"" + ts.isPrimitive() + "\" standard=\"" + ts.isStandard() + "\"/>");
                 adicionedType.add(ts);

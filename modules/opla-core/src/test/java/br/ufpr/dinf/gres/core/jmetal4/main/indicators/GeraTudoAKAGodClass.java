@@ -5,6 +5,7 @@ import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.indicators.Hypervolume;
 import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.util.MetricsUtil;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -32,11 +33,11 @@ public class GeraTudoAKAGodClass {
 
         for (String pla : plas) {
 
-            String directoryPath = "experiment/" + pla + System.getProperty("file.separator");
+            String directoryPath = "experiment/" + pla + FileConstants.FILE_SEPARATOR;
 
             try (FileWriter funAll = new FileWriter(directoryPath + "FUN_All_" + pla + ".txt")) {
                 for (String contexto : contexts) {
-                    double[][] front = mu.readFront(directoryPath + contexto + System.getProperty("file.separator") + "FUN_All_" + pla + ".txt");
+                    double[][] front = mu.readFront(directoryPath + contexto + FileConstants.FILE_SEPARATOR + "FUN_All_" + pla + ".txt");
                     for (double[] solucao : front) {
                         funAll.write(solucao[0] + " " + solucao[1] + "\n");
                     }
@@ -69,7 +70,7 @@ public class GeraTudoAKAGodClass {
                     // double[quantidadeSolucoes][numObjetivos];
                     // for(solucoes)for(objetivos)solucoes[solucaoI][numObjJ] =
                     // valor do banco;
-                    double[][] front = mu.readFront(directoryPath + contexto + System.getProperty("file.separator") + "FUN_All_" + pla + ".txt");
+                    double[][] front = mu.readFront(directoryPath + contexto + FileConstants.FILE_SEPARATOR + "FUN_All_" + pla + ".txt");
                     for (int i = 0; i < front.length; i++) {
                         double distanciaEuclidiana = mu.distance(min, front[i]);
                         todosEds.write(distanciaEuclidiana + "\n");

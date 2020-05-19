@@ -1,6 +1,5 @@
 package br.ufpr.dinf.gres.core.jmetal4.core;
 
-import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
@@ -10,9 +9,11 @@ import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.learning.ArchitecturalElementType;
 import br.ufpr.dinf.gres.core.learning.DistributeUserEvaluation;
+import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.domain.entity.Info;
 import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.io.*;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
  */
 public class OPLASolutionSet {
 
+    @JsonIgnore
     private SolutionSet solutionSet;
 
     public OPLASolutionSet(SolutionSet solutionSet) {
@@ -499,10 +501,11 @@ public class OPLASolutionSet {
 
     /**
      * Save variables in a file
-     * @param path path
+     *
+     * @param path       path
      * @param funResults information of each solution
-     * @param logger logger
-     * @param generate log without save
+     * @param logger     logger
+     * @param generate   log without save
      */
     public void saveVariablesToFile(String path, List<Info> funResults, LogLog logger, boolean generate) {
         int numberOfVariables = solutionSet.solutionsList_.get(0).getDecisionVariables().length;
@@ -537,5 +540,13 @@ public class OPLASolutionSet {
                 arch.save(arch, pathToSave, String.valueOf(i));
             }
         }
+    }
+
+    public Solution get(int i) {
+        return this.getSolutionSet().get(i);
+    }
+
+    public List<Solution> getSolutions() {
+        return getSolutionSet().solutionsList_;
     }
 }

@@ -49,6 +49,7 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
     } else {
       this.removeObjFunction(obj);
     }
+    this.emit(this.optimizationDto)
   }
 
   addObjFunction(obj) {
@@ -62,22 +63,23 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
   }
 
 
-  changeOperators(obj, selected) {
+  changeOperators(element, obj, selected) {
     if (selected) {
-      this.addOOperator(obj);
+      this.addOOperator(element, obj);
     } else {
-      this.removeOperator(obj);
+      this.removeOperator(element, obj);
+    }
+    this.emit(this.optimizationDto)
+  }
+
+  addOOperator(element, obj) {
+    if (!this.optimizationDto[element].includes(obj)) {
+      this.optimizationDto[element].push(obj);
     }
   }
 
-  addOOperator(obj) {
-    if (!this.optimizationDto.mutationOperators.includes(obj)) {
-      this.optimizationDto.mutationOperators.push(obj);
-    }
-  }
-
-  removeOperator(obj) {
-    this.optimizationDto.mutationOperators.splice(this.optimizationDto.mutationOperators.indexOf(obj), 1);
+  removeOperator(element, obj) {
+    this.optimizationDto[element].splice(this.optimizationDto[element].indexOf(obj), 1);
   }
 
   selectPLA() {
@@ -102,5 +104,19 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
     if (OptimizationService.getPLA()) {
       this.selectProfiles(OptimizationService.getPLA());
     }
+  }
+
+  emit(optimizationDto: OptimizationDto) {
+    this.optimizationDtoChange.emit(optimizationDto);
+  }
+
+  isObjFunctionChecked(obj: any) {
+    return this.optimizationDto.objectiveFunctions.includes(obj);
+  }
+
+  setInteractionParams(checked: boolean, optimizationDto: OptimizationDto) {
+    optimizationDto.maxInteractions = checked ? 3 : 0;
+    optimizationDto.firstInteraction = checked ? 3 : 0;
+    optimizationDto.intervalInteraction = checked ? 3 : 0;
   }
 }

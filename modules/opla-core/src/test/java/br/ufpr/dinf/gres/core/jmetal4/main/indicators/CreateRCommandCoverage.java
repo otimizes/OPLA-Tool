@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.core.jmetal4.main.indicators;
 
 import br.ufpr.dinf.gres.common.exceptions.JMException;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.*;
 
@@ -33,9 +34,9 @@ public class CreateRCommandCoverage {
 
             for (int run = 0; run < 30; run++) {
                 //4 objetives
-                //BufferedReader buff = new BufferedReader(new FileReader("resultado_4objetives/metricas/coverage/"+software+System.getProperty("file.separator")+run+"/result.tex"));
+                //BufferedReader buff = new BufferedReader(new FileReader("resultado_4objetives/metricas/coverage/"+software+FileConstants.FILE_SEPARATOR+run+"/result.tex"));
                 //2 objetives
-                BufferedReader buff = new BufferedReader(new FileReader("resultado_WTF/metricas/coverage/" + software + System.getProperty("file.separator") + run + "/result.tex"));
+                BufferedReader buff = new BufferedReader(new FileReader("resultado_WTF/metricas/coverage/" + software + FileConstants.FILE_SEPARATOR + run + "/result.tex"));
 
                 int contador = 0;
                 while (buff.ready()) {

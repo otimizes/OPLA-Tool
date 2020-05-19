@@ -31,7 +31,7 @@ public class ArchitectureFindElementControl {
      * @return
      */
     public Concern findConcernByName(Architecture architecture, String name) {
-        for (Concern c : architecture.getLstConcerns()) {
+        for (Concern c : architecture.getConcerns()) {
             if (c.getName().equalsIgnoreCase(name)) {
                 return c;
             }
@@ -47,7 +47,7 @@ public class ArchitectureFindElementControl {
      * @return
      */
     public TypeSmarty findTypeSMartyByID(Architecture architecture, String id) {
-        for (TypeSmarty typeSmarty : architecture.getLstTypes()) {
+        for (TypeSmarty typeSmarty : architecture.getTypes()) {
             if (typeSmarty.getId().equals(id))
                 return typeSmarty;
         }
@@ -63,7 +63,7 @@ public class ArchitectureFindElementControl {
      * @return
      */
     public TypeSmarty findTypeSMartyByName(Architecture architecture, String name) {
-        for (TypeSmarty typeSmarty : architecture.getLstTypes()) {
+        for (TypeSmarty typeSmarty : architecture.getTypes()) {
             if (typeSmarty.getName().equals(name))
                 return typeSmarty;
         }
@@ -86,7 +86,7 @@ public class ArchitectureFindElementControl {
         if (name.length() == 0) {
             return findVoidType(architecture);
         }
-        for (TypeSmarty typeSmarty : architecture.getLstTypes()) {
+        for (TypeSmarty typeSmarty : architecture.getTypes()) {
             //System.out.println(typeSmarty.getName());
             if (typeSmarty.getName().equals(name))
                 return typeSmarty;
@@ -101,7 +101,7 @@ public class ArchitectureFindElementControl {
      * @return
      */
     private TypeSmarty findObjectType(Architecture architecture) {
-        for (TypeSmarty typeSmarty : architecture.getLstTypes()) {
+        for (TypeSmarty typeSmarty : architecture.getTypes()) {
             if (typeSmarty.getName().equals("Object"))
                 return typeSmarty;
         }
@@ -115,7 +115,7 @@ public class ArchitectureFindElementControl {
      * @return
      */
     private TypeSmarty findVoidType(Architecture architecture) {
-        for (TypeSmarty typeSmarty : architecture.getLstTypes()) {
+        for (TypeSmarty typeSmarty : architecture.getTypes()) {
             if (typeSmarty.getName().equals("void"))
                 return typeSmarty;
         }

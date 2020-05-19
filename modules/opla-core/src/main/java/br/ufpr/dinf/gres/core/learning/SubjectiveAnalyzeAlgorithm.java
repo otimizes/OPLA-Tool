@@ -5,6 +5,7 @@ import br.ufpr.dinf.gres.architecture.representation.Element;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
 import br.ufpr.dinf.gres.core.jmetal4.core.Solution;
 import br.ufpr.dinf.gres.core.jmetal4.core.SolutionSet;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import weka.classifiers.Evaluation;
@@ -166,7 +167,7 @@ public class SubjectiveAnalyzeAlgorithm {
     private void logMachineLearningModel() {
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + "LogMachineLearningModel_" + currentEvaluation + ".arff");
+            fileWriter = new FileWriter(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "LogMachineLearningModel_" + currentEvaluation + ".arff");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -261,7 +262,7 @@ public class SubjectiveAnalyzeAlgorithm {
     private void logMachineLearningModelEvaluation(StringBuilder stringBuilder) {
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + System.getProperty("file.separator") + "LogMachineLearningModelEvaluation_" + currentEvaluation + ".arff");
+            fileWriter = new FileWriter(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "LogMachineLearningModelEvaluation_" + currentEvaluation + ".arff");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

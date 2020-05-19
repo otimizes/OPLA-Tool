@@ -13,6 +13,9 @@ import org.apache.log4j.Logger;
 
 import java.util.*;
 
+/**
+ * Crossover operations methods
+ */
 public class CrossoverOperations {
 
     private static Logger LOGGER = LogManager.getLogger(CrossoverOperations.class.getName());

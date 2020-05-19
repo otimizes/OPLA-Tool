@@ -28,6 +28,7 @@ import br.ufpr.dinf.gres.core.jmetal4.util.comparators.DominanceComparator;
 import org.apache.log4j.Logger;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -68,7 +69,7 @@ public class BinaryTournament extends Selection {
         solution1 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
         solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
 
-        if (solutionSet.size() >= 2) {
+        if (solutionSet.size() >= 2 && !isAllEquals(solutionSet.getSolutionSet())) {
             while (solution1 == solution2) {
                 solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
             }
@@ -82,5 +83,10 @@ public class BinaryTournament extends Selection {
             return solution1;
         else
             return solution2;
+    }
+
+    private boolean isAllEquals(List<Solution> list) {
+        return list.isEmpty() || list.stream()
+                .allMatch(list.get(0)::equals);
     }
 }
