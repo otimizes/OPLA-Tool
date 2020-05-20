@@ -1,10 +1,8 @@
-package br.ufpr.dinf.gres.api.resource;
+package br.ufpr.dinf.gres.persistence.service;
 
-import br.ufpr.dinf.gres.api.dto.EmailDto;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfig;
-import br.ufpr.dinf.gres.domain.entity.User;
-import br.ufpr.dinf.gres.persistence.service.UserService;
+import br.ufpr.dinf.gres.domain.entity.EmailDto;
 import org.springframework.stereotype.Service;
 
 import javax.activation.DataHandler;
@@ -26,17 +24,8 @@ import java.util.Properties;
 @Service
 public class EmailService {
 
-    private final UserService userService;
-
-    public EmailService(UserService userService) {
-        this.userService = userService;
-    }
 
     public void send(EmailDto emailDto) {
-        User userByEmail = userService.findUserByToken(emailDto.token);
-        if (emailDto.to == null) emailDto.to = userByEmail.getLogin();
-        if (!userByEmail.getToken().equals(OPLAThreadScope.token.get()))
-            throw new RuntimeException("You are not allowed to do this.");
         final String username = ApplicationFileConfig.getInstance().getEmailUser();
         final String password = ApplicationFileConfig.getInstance().getEmailPassword();
 
@@ -54,9 +43,8 @@ public class EmailService {
                 });
 
         try {
-
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(userByEmail.getLogin()));
+            message.setFrom(new InternetAddress(username));
             message.setRecipients(
                     Message.RecipientType.TO,
                     InternetAddress.parse(emailDto.to)
@@ -82,10 +70,10 @@ public class EmailService {
 
             Transport.send(message);
 
-            System.out.println("E-mail sent from " + userByEmail.getLogin() + " to " + emailDto.to);
+            System.out.println("E-mail sent from " + username + " to " + emailDto.to);
 
         } catch (MessagingException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
     }
 

@@ -1,31 +1,43 @@
 package br.ufpr.dinf.gres.persistence.service;
 
-import br.ufpr.dinf.gres.domain.entity.LoginDto;
-import br.ufpr.dinf.gres.domain.entity.LoginResultDto;
-import br.ufpr.dinf.gres.domain.entity.LoginStatusDto;
-import br.ufpr.dinf.gres.domain.entity.User;
+import br.ufpr.dinf.gres.domain.entity.*;
 import br.ufpr.dinf.gres.persistence.base.BaseService;
 import br.ufpr.dinf.gres.persistence.repository.UserRepository;
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
 public class UserService extends BaseService<User> {
 
     private final UserRepository repository;
+    private final EmailService emailService;
 
-    public UserService(UserRepository repository) {
+    public UserService(UserRepository repository, EmailService emailService) {
         super(repository);
         this.repository = repository;
+        this.emailService = emailService;
     }
 
     @Transactional
-    public LoginResultDto login(LoginDto loginDto) {
+    public LoginResultDto forgot(LoginDto loginDto) {
+        LoginResultDto sigin = sigin(loginDto);
+        if (sigin.status.equals(LoginStatusDto.WRONG_PASSWORD)) {
+            sigin.user.setPassword(RandomStringUtils.randomNumeric(5));
+            sigin.user = repository.save(sigin.user);
+            emailService.send(new EmailDto(sigin.user.getLogin(), "Your OPLA-Tool password was changed.", "The new password is: " + sigin.user.getPassword()));
+            sigin.status = LoginStatusDto.CHANGED_PASSWORD;
+            return sigin;
+        }
+        return sigin;
+    }
+
+    @Transactional
+    public LoginResultDto sigin(LoginDto loginDto) {
         List<User> allByLoginAndPassword = repository.findAllByLogin(loginDto.login);
         if (allByLoginAndPassword.size() > 0) {
             if (allByLoginAndPassword.get(0).getPassword().equals(loginDto.password)) {

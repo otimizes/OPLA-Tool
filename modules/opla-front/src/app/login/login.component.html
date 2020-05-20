@@ -12,7 +12,7 @@
             <mat-label>Usuário</mat-label>
             <input matInput placeholder="Usuário" name="username"
                    formControlName="loginInput"
-                   (keydown.enter)="logar()"
+                   (keydown.enter)="login()"
                    required>
           </mat-form-field>
           <br>
@@ -20,14 +20,14 @@
             <mat-label>Senha</mat-label>
             <input matInput placeholder="Senha" type="password" name="password"
                    formControlName="passwordInput"
-                   (keydown.enter)="logar()"
+                   (keydown.enter)="login()"
                    required>
           </mat-form-field>
         </form>
       </mat-card-content>
       <mat-card-actions style="display: flex; justify-content: space-between;">
-        <button mat-button (click)="logar()">I forgot my password</button>
-        <button mat-raised-button (click)="logar()" color="primary">
+        <button mat-button (click)="forgot()">I forgot my password</button>
+        <button mat-raised-button (click)="login()" color="primary">
           <mat-icon [style.display]="showSpinner ? 'inline-block' : 'none'">
             <mat-spinner color="warn" diameter="20"></mat-spinner>
           </mat-icon>

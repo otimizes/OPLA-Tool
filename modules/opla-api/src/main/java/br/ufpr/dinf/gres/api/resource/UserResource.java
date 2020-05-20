@@ -22,7 +22,12 @@ public class UserResource extends BaseResource<User> {
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Mono<ResponseEntity<LoginResultDto>> update(@RequestBody LoginDto loginDto) {
-        return asyncMono(ResponseEntity.ok(((UserService) service).login(loginDto)));
+    public Mono<ResponseEntity<LoginResultDto>> sigin(@RequestBody LoginDto loginDto) {
+        return asyncMono(ResponseEntity.ok(((UserService) service).sigin(loginDto)));
+    }
+    @PostMapping(value = "/forgot", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Mono<ResponseEntity<LoginResultDto>> forgot(@RequestBody LoginDto loginDto) {
+        return asyncMono(ResponseEntity.ok(((UserService) service).forgot(loginDto)));
     }
 }

@@ -12,6 +12,7 @@ import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfig;
 import br.ufpr.dinf.gres.domain.config.ApplicationYamlConfig;
 import br.ufpr.dinf.gres.domain.config.FileConstants;
+import br.ufpr.dinf.gres.persistence.service.ZipFiles;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

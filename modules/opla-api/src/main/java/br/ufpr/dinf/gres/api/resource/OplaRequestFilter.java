@@ -21,7 +21,7 @@ public class OplaRequestFilter extends OncePerRequestFilter {
 //        response.setHeader("Access-Control-Allow-Headers", "Content-Type, authorization, Connection, group");
         String token = getAuthorization(request);
         OPLAThreadScope.token.set(token);
-        if (request.getRequestURI().equals("/api/user/login") || request.getMethod().equals("OPTIONS")) filterChain.doFilter(request, response);
+        if (request.getRequestURI().equals("/api/user/login") || request.getRequestURI().equals("/api/user/forgot") || request.getMethod().equals("OPTIONS")) filterChain.doFilter(request, response);
         else if (token == null && request.getRequestURI().startsWith("/api")) {
             String s = "METHOD: " + request.getMethod() + " URI: " + request.getRequestURI();
             throw new RuntimeException("NOT_ALLOWED::" + s);

@@ -29,14 +29,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  //logar(form) {
-  logar() {
-
+  login() {
     if (!this.loginForm.valid) {
-      this.message.createErrorAlert("Dados inválidos", "Complete as informações e tente novamente");
+      this.message.createErrorAlert("Invalid Data", "Fix and try again");
       return;
     }
-
     this.userService.login(this.loginForm.value.loginInput, this.loginForm.value.passwordInput)
       .subscribe(result => {
         if (result.status != 'WRONG_PASSWORD') {
@@ -44,7 +41,21 @@ export class LoginComponent implements OnInit {
           this.userService.setCurrentlyUser(result.user);
           this.router.navigate(['/opla']);
         } else {
-          this.message.createErrorAlert("Wops... I'm sorry " + result.user.login, result.status)
+          this.message.createErrorAlert("We could not login in" + result.user.login, result.status)
+        }
+      })
+  }
+  forgot() {
+    if (!this.loginForm.valid) {
+      this.message.createErrorAlert("Dados inválidos", "Fix and try again");
+      return;
+    }
+    this.userService.forgot(this.loginForm.value.loginInput, this.loginForm.value.passwordInput)
+      .subscribe(result => {
+        if (result.status == 'CHANGED_PASSWORD') {
+          this.message.createSuccessAlert("Your password was changed and sent to your e-mail", result.status);
+        } else {
+          this.message.createErrorAlert("Your password is right, try the login", result.status)
         }
       })
   }

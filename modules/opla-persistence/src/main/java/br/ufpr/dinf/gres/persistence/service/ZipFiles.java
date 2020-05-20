@@ -1,4 +1,4 @@
-package br.ufpr.dinf.gres.api.resource;
+package br.ufpr.dinf.gres.persistence.service;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,8 +9,10 @@ import java.util.zip.ZipOutputStream;
 public class ZipFiles {
 
     List<String> filesListInDir = new ArrayList<String>();
+
     /**
      * This method zips the directory
+     *
      * @param dir
      * @param zipDirName
      */
@@ -21,10 +23,10 @@ public class ZipFiles {
             //create ZipOutputStream to write to the zip file
             FileOutputStream fos = new FileOutputStream(zipDirName);
             ZipOutputStream zos = new ZipOutputStream(fos);
-            for(String filePath : filesListInDir){
-                System.out.println("Zipping "+filePath);
+            for (String filePath : filesListInDir) {
+                System.out.println("Zipping " + filePath);
                 //for ZipEntry we need to keep only relative file path, so we used substring on absolute path
-                ZipEntry ze = new ZipEntry(filePath.substring(dir.getAbsolutePath().length()+1));
+                ZipEntry ze = new ZipEntry(filePath.substring(dir.getAbsolutePath().length() + 1));
                 zos.putNextEntry(ze);
                 //read the file and write to ZipOutputStream
                 FileInputStream fis = new FileInputStream(filePath);
@@ -61,10 +63,10 @@ public class ZipFiles {
             //now zip files one by one
             //create ZipOutputStream to write to the zip file
             ZipOutputStream zos = new ZipOutputStream(fos);
-            for(String filePath : filesListInDir){
-                System.out.println("Zipping "+filePath);
+            for (String filePath : filesListInDir) {
+                System.out.println("Zipping " + filePath);
                 //for ZipEntry we need to keep only relative file path, so we used substring on absolute path
-                ZipEntry ze = new ZipEntry(filePath.substring(dir.getAbsolutePath().length()+1));
+                ZipEntry ze = new ZipEntry(filePath.substring(dir.getAbsolutePath().length() + 1));
                 zos.putNextEntry(ze);
                 //read the file and write to ZipOutputStream
                 FileInputStream fis = new FileInputStream(filePath);
@@ -85,19 +87,21 @@ public class ZipFiles {
 
     /**
      * This method populates all the files in a directory to a List
+     *
      * @param dir
      * @throws IOException
      */
     private void populateFilesList(File dir) throws IOException {
         File[] files = dir.listFiles();
-        for(File file : files){
-            if(file.isFile()) filesListInDir.add(file.getAbsolutePath());
+        for (File file : files) {
+            if (file.isFile()) filesListInDir.add(file.getAbsolutePath());
             else populateFilesList(file);
         }
     }
 
     /**
      * This method compresses the single file to zip format
+     *
      * @param file
      * @param zipFileName
      */
@@ -123,7 +127,7 @@ public class ZipFiles {
             zos.close();
             fis.close();
             fos.close();
-            System.out.println(file.getCanonicalPath()+" is zipped to "+zipFileName);
+            System.out.println(file.getCanonicalPath() + " is zipped to " + zipFileName);
 
         } catch (IOException e) {
             e.printStackTrace();

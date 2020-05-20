@@ -68,6 +68,12 @@ export class UserService {
       .pipe(catchError(this.errorHandler));
   }
 
+  forgot(loginInput: any, passwordInput: any): Observable<any> {
+    return this.http.post(`${UserService.baseUrl}/${this.collection}/forgot`,
+      {login: loginInput, password: passwordInput}, {headers: this.createAuthorizationHeader()})
+      .pipe(catchError(this.errorHandler));
+  }
+
   setCurrentlyUser(user: any) {
     UserService.user = user;
     window.localStorage.setItem("user", JSON.stringify(user));
