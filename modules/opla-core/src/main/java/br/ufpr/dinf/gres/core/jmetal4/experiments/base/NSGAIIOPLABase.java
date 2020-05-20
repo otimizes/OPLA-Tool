@@ -1,8 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments.base;
 
 import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
-import br.ufpr.dinf.gres.domain.OPLAThreadScope;
-import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
@@ -21,7 +19,7 @@ import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
 import br.ufpr.dinf.gres.core.learning.Moment;
 import br.ufpr.dinf.gres.core.persistence.ExperimentConfs;
 import br.ufpr.dinf.gres.core.persistence.Persistence;
-import br.ufpr.dinf.gres.domain.config.FileConstants;
+import br.ufpr.dinf.gres.domain.OPLAThreadScope;
 import br.ufpr.dinf.gres.domain.entity.Execution;
 import br.ufpr.dinf.gres.domain.entity.Experiment;
 import br.ufpr.dinf.gres.domain.entity.Info;
@@ -136,7 +134,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                 execution.setInfos(infos);
                 execution.setAllMetrics(allMetrics);
                 allRuns = allRuns.union(resultFront);
-                saveHypervolume(experiment.getId(), execution.getId(), resultFront, plaName);
+                OPLABaseUtils.saveHypervolume(experiment.getId(), execution.getId(), resultFront, plaName);
             }
 
             allRuns = problem.removeDominadas(allRuns);
@@ -157,7 +155,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
 
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
             mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
-            saveHypervolume(experiment.getId(), null, allRuns, plaName);
+            OPLABaseUtils.saveHypervolume(experiment.getId(), null, allRuns, plaName);
 
             SaveStringToFile.getInstance().deleteTempFolder();
 
@@ -196,21 +194,6 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
         LOGGER.info("tCross -> " + crossoverProbability);
         LOGGER.info("tMuta -> " + mutationProbability);
         LOGGER.info("================ NSGAII ================");
-    }
-
-
-    private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
-        String dir;
-        if (executionID != null)
-            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + FileConstants.FILE_SEPARATOR + executionID + "/Hypervolume/";
-        else
-            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + "/Hypervolume/";
-
-        File newDir = new File(dir);
-        if (!newDir.exists())
-            newDir.mkdirs();
-
-        new OPLASolutionSet(allSolutions).printObjectivesToFile(dir + "/hypervolume.txt");
     }
 
 }

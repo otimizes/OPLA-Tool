@@ -454,6 +454,35 @@ public class OPLASolutionSet {
      * @param path The output file name
      */
     public void printObjectivesToFile(String path) {
+        printObjectivesWithoutNormalizeToFile(path);
+        printObjectivesWithNormalizeToFile(path);
+    } // printObjectivesToFile
+
+    private void printObjectivesWithNormalizeToFile(String path) {
+        path = path.replace("txt", "normalize");
+        File file = new File(path);
+        file.getParentFile().mkdirs();
+        try {
+            FileOutputStream fos = new FileOutputStream(path);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter bw = new BufferedWriter(osw);
+            String executionId = solutionSet.get(0).getExecutionId();
+            for (int i = 0; i < solutionSet.solutionsList_.size(); i++) {
+                bw.write(Arrays.toString(getNormalizedSolution(i)).trim().replaceAll("]", "").replaceAll("\\[", "").replaceAll(", ", "\t")); // returns something
+                bw.newLine();
+                if (executionId != null && !executionId.equals(solutionSet.get(i).getExecutionId())) {
+                    executionId = solutionSet.get(i).getExecutionId();
+                    bw.newLine();
+                }
+            }
+            bw.close();
+        } catch (IOException e) {
+            Configuration.logger_.severe("Error acceding to the file");
+            e.printStackTrace();
+        }
+    }
+
+    private void printObjectivesWithoutNormalizeToFile(String path) {
         File file = new File(path);
         file.getParentFile().mkdirs();
         try {
@@ -470,7 +499,7 @@ public class OPLASolutionSet {
             Configuration.logger_.severe("Error acceding to the file");
             e.printStackTrace();
         }
-    } // printObjectivesToFile
+    }
 
     /**
      * Writes the decision variable values of the <code>Solution</code>
@@ -540,6 +569,44 @@ public class OPLASolutionSet {
                 arch.save(arch, pathToSave, String.valueOf(i));
             }
         }
+    }
+
+    public double[] getNormalizedSolution(int i) {
+        Solution solution = solutionSet.get(i);
+        Solution max = getMax();
+        Solution min = getMin();
+        double[] doubles = new double[solution.getObjectives().length];
+        if (solutionSet.size() == 1) return doubles;
+        for (int j = 0; j < solution.getObjectives().length; j++) {
+            doubles[j] = (max.getObjective(j) - min.getObjective(j)) == 0 ? 0 :
+                    (solution.getObjective(j) - min.getObjective(j)) / (max.getObjective(j) - min.getObjective(j));
+            if (doubles[j] == -0.0) doubles[j] = 0.0;
+        }
+        return doubles;
+    }
+
+    public Solution getMin() {
+        Solution solution = solutionSet.get(0);
+        for (int i = 0; i < solution.getObjectives().length; i++) {
+            for (Solution otherSolution : solutionSet.getSolutionSet()) {
+                if (otherSolution.getObjective(i) <= solution.getObjective(i)) {
+                    solution = otherSolution;
+                }
+            }
+        }
+        return solution;
+    }
+
+    public Solution getMax() {
+        Solution solution = solutionSet.get(0);
+        for (int i = 0; i < solution.getObjectives().length; i++) {
+            for (Solution otherSolution : solutionSet.getSolutionSet()) {
+                if (otherSolution.getObjective(i) >= solution.getObjective(i)) {
+                    solution = otherSolution;
+                }
+            }
+        }
+        return solution;
     }
 
     public Solution get(int i) {

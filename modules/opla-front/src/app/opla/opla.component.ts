@@ -148,6 +148,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
       });
       const url = window.URL.createObjectURL(blob);
       window.open(url);
+      OptimizationService.clearOptimizationInfo();
     });
   }
 

@@ -1,6 +1,5 @@
 package br.ufpr.dinf.gres.core.jmetal4.experiments.base;
 
-import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.core.Algorithm;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
@@ -27,7 +26,6 @@ import br.ufpr.dinf.gres.domain.entity.objectivefunctions.ObjectiveFunctionDomai
 import br.ufpr.dinf.gres.loglog.Level;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,7 +142,7 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
 
                 mp.save(execution);
                 allRuns = allRuns.union(resultFront);
-                saveHypervolume(experiment.getId(), execution.getId(), resultFront, plaName);
+                OPLABaseUtils.saveHypervolume(experiment.getId(), execution.getId(), resultFront, plaName);
             }
             allRuns = problem.removeDominadas(allRuns);
             allRuns = problem.removeRepetidas(allRuns);
@@ -164,7 +162,7 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
 
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
             mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
-            saveHypervolume(experiment.getId(), null, allRuns, plaName);
+            OPLABaseUtils.saveHypervolume(experiment.getId(), null, allRuns, plaName);
         }
     }
 
@@ -181,21 +179,4 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
         heapSize = (heapSize / 1024) / 1024;
         configs.getLogger().putLog("Heap Size: " + heapSize + "Mb\n");
     }
-
-
-    private void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
-        String dir;
-        if (executionID != null)
-            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + FileConstants.FILE_SEPARATOR + executionID + "/Hypervolume/";
-        else
-            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + "/Hypervolume/";
-
-        File newDir = new File(dir);
-        if (!newDir.exists())
-            newDir.mkdirs();
-
-        new OPLASolutionSet(allSolutions).printObjectivesToFile(dir + "/hypervolume.txt");
-    }
-
-
 }
