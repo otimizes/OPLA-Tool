@@ -70,7 +70,7 @@ public class Info implements Serializable {
 
     @Column(name = "objectives")
     private String objectives;
-
+    
     public String getId() {
         return id;
     }

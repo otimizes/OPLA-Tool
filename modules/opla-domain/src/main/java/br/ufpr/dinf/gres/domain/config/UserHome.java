@@ -27,6 +27,11 @@ public class UserHome {
         return FileConstants.USER_HOME + FileConstants.FILE_SEPARATOR + "oplatool" + FileConstants.FILE_SEPARATOR;
     }
 
+    public static String getOplaHv() {
+        return FileConstants.USER_HOME + FileConstants.FILE_SEPARATOR + "oplatool" + FileConstants.FILE_SEPARATOR + "bins" +
+                FileConstants.FILE_SEPARATOR + "hv" + FileConstants.FILE_SEPARATOR + "hv";
+    }
+
     public static Path getApplicationYamlConfig() {
         return Paths.get(getOplaUserHome()).resolve("application.yaml");
     }

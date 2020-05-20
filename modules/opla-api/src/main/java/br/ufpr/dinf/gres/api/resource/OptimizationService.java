@@ -3,7 +3,7 @@ package br.ufpr.dinf.gres.api.resource;
 import br.ufpr.dinf.gres.api.dto.OptimizationDto;
 import br.ufpr.dinf.gres.api.gateway.IGateway;
 import br.ufpr.dinf.gres.api.utils.Interactions;
-import br.ufpr.dinf.gres.api.utils.OpenPLA;
+import br.ufpr.dinf.gres.persistence.service.OPLACommand;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfo;
 import br.ufpr.dinf.gres.architecture.io.OptimizationInfoStatus;
 import br.ufpr.dinf.gres.core.jmetal4.core.OPLASolutionSet;
@@ -69,7 +69,7 @@ public class OptimizationService {
         File[] files = file.listFiles();
         File fileToOpen = files[0];
         String pathSmarty = ApplicationFileConfigThreadScope.getPathSmarty();
-        OpenPLA.executeJar(pathSmarty, fileToOpen.getAbsolutePath());
+        OPLACommand.executeJar(pathSmarty, fileToOpen.getAbsolutePath());
     }
 
     private boolean deleteDirectory(File dir) {
