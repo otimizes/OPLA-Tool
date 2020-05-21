@@ -41,6 +41,7 @@ Note that a screen will open with your changes. Click Create pull request.
 ### Step 7: Send pull request
 You are now opening a pull request, which is nothing more than a request to include your changes in the official version of the project. Write a comment and click Create Pull Request.
 
+![Step 6](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/contributing/step-7.png)
 
 ## Very important notes, read carefully
 When submitting your pull request, you will be sending your changes to the official version of the project, so keep in mind that your version must have the following prerequisites:
