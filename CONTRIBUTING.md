@@ -12,7 +12,7 @@ After creating the fork, a screen will appear like this, click refresh.
 Please note that a new project (link) will be created in your account. Click on clone or download and copy the project link. 
 
 ![Step 3](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/contributing/step-3.png)
-### Step 4: Clone the project by terminal
+### Step 4: Commit changes
 To clone run the command in the terminal: git clone copied_link
 
 After making the necessary changes, it is time to commit those changes.
