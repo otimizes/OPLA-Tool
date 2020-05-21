@@ -1,6 +1,6 @@
 # OPLA-Tool
 
-![OtimizesUEM](https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/master/logo-grupo-pesquisa.png)
+![OtimizesUEM](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/logo-grupo-pesquisa.png)
 
 ## Description
 
@@ -25,7 +25,7 @@ cd opla-tool
 ```
 - Download all projects:
 ```sh
-git clone https://github.com/SBSE-UEM/OPLA-Tool.git
+git clone https://github.com/otimizes/OPLA-Tool.git
 ```
 - Compile
 ```sh
@@ -33,10 +33,10 @@ mvn clean install Obs: If it is the first run, execute **mvn clean** first to in
 ```
 - Open OPLA-Tool:
 ```sh
-java -jar modules/opla-gui/target/opla-gui-1.0.0-SNAPSHOT-jar-with-dependencies
+java -jar modules/opla-api/target/opla-api-1.0.0-SNAPSHOT.jar
 ```
 ## How to use the tool
-[\<Click here to see how using the tool\>](https://github.com/SBSE-UEM/OPLA-Tool/blob/master/USAGE.md)
+[\<Click here to see how using the tool\>](https://github.com/otimizes/OPLA-Tool/blob/master/USAGE.md)
 
 ## How to open the PLAs
 
