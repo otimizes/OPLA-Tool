@@ -1,21 +1,18 @@
 # Contributing
 This document will assist you in the process of contributing to the project.
-### Step 1: Login
+### Step 1: Fork
 First, click on fork to create a copy of the project in your account
  
 ![Step 1](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/contributing/step-1.png)
-### Step 2: Logged User
+### Step 2: After fork
 After creating the fork, a screen will appear like this, click refresh.
 
 ![Step 2](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/contributing/step-2.png)
-### Step 3: Experiment configurations
-
-In this version, you can configure several parameters. They are introduced as follow.
-#### Step 3.0: Objective functions
+#### Step 2.1: Clone the project by url
 Please note that a new project (link) will be created in your account. Click on clone or download and copy the project link. 
 
 ![Step 3](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/contributing/step-3.png)
-### Step 4: Running the experiment
+### Step 4: Clone the project by terminal
 To clone run the command in the terminal: git clone copied_link
 
 After making the necessary changes, it is time to commit those changes.
@@ -33,16 +30,15 @@ Thus, you will see your changes committed on github.
 Attention, only perform the next step if you have completed all the changes and performed the necessary tests. Otherwise, be aware that your pull request may fail.
 
 
-![Step 4](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/contributing/step-4.png)
-### Step 5: View logs
+### Step 5: New pull request
 After entering the project page in your account, click on New pull request.
 
 ![Step 5](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/contributing/step-5.png)
-### Step 6: Download PLA
+### Step 6: Create pull request
 Note that a screen will open with your changes. Click Create pull request.
 
 ![Step 6](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/contributing/step-6.png)
-### Step 7: View experiments
+### Step 7: Send pull request
 You are now opening a pull request, which is nothing more than a request to include your changes in the official version of the project. Write a comment and click Create Pull Request.
 
 
