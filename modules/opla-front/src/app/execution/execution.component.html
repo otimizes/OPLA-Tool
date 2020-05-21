@@ -217,14 +217,6 @@
                     The PLA is <strong>required</strong>
                   </mat-error>
                 </mat-form-field>
-                <mat-form-field [floatLabel]="floatLabelControl.value">
-                  <mat-label>Change the output directory</mat-label>
-                  <input matInput placeholder="/home/..." [(ngModel)]="optimizationDto.config.directoryToExportModels"
-                         formControlName="outputDirectory">
-                  <mat-error *ngIf="formGroup.get('outputDirectory').hasError('required')">
-                    The output is <strong>required</strong>
-                  </mat-error>
-                </mat-form-field>
               </div>
             </mat-card>
           </opla-grid-tile>

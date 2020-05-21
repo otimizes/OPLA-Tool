@@ -61,8 +61,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
       maxInteractions: new FormControl(),
       firstInteraction: new FormControl(),
       intervalInteraction: new FormControl(),
-      inputArchitecture: ['', Validators.compose([Validators.required])],
-      outputDirectory: ['', Validators.compose([Validators.required])]
+      inputArchitecture: ['', Validators.compose([Validators.required])]
     });
     this.generalFormGroup = fb.group({
       pathToTemplateModelsDirectory: new FormControl(),

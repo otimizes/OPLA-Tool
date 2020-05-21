@@ -25,7 +25,7 @@
             <opla-grid-tile>
               <mat-form-field [floatLabel]="floatLabelControl.value">
                 <mat-label>Smarty Profile</mat-label>
-                <input [disabled]="!optimizationDto.config.smarty" matInput placeholder="Directory: /home/..."
+                <input [disabled]="!optimizationDto.config.smarty" matInput
                        [value]="optimizationDto.config.pathToProfile"
                        name="pathToProfile">
               </mat-form-field>
@@ -33,7 +33,7 @@
             <opla-grid-tile>
               <mat-form-field [floatLabel]="floatLabelControl.value">
                 <mat-label>Feature Profile</mat-label>
-                <input [disabled]="!optimizationDto.config.feature" matInput placeholder="Directory: /home/..."
+                <input [disabled]="!optimizationDto.config.feature" matInput
                        [value]="optimizationDto.config.pathToProfileConcern"
                        name="pathToProfileConcern">
               </mat-form-field>
@@ -43,7 +43,7 @@
             <opla-grid-tile>
               <mat-form-field [floatLabel]="floatLabelControl.value">
                 <mat-label>Pattern Profile</mat-label>
-                <input [disabled]="!optimizationDto.config.patterns" matInput placeholder="Directory: /home/..."
+                <input [disabled]="!optimizationDto.config.patterns" matInput
                        [value]="optimizationDto.config.pathToProfilePatterns"
                        name="pathToProfilePatterns">
               </mat-form-field>
@@ -51,29 +51,12 @@
             <opla-grid-tile>
               <mat-form-field [floatLabel]="floatLabelControl.value">
                 <mat-label>Relationship Configuration</mat-label>
-                <input [disabled]="!optimizationDto.config.relationships" matInput placeholder="Directory: /home/..."
+                <input [disabled]="!optimizationDto.config.relationships" matInput
                        [value]="optimizationDto.config.pathToProfileRelationships"
                        name="pathToProfileRelationships">
               </mat-form-field>
             </opla-grid-tile>
           </opla-grid-list>
-          <opla-grid-list>
-            <opla-grid-tile>
-              <mat-form-field [floatLabel]="floatLabelControl.value">
-                <mat-label>Template Configuration</mat-label>
-                <input [disabled]="true" matInput placeholder="Directory: /home/..."
-                       [value]="optimizationDto.config.pathToTemplateModelsDirectory">
-              </mat-form-field>
-            </opla-grid-tile>
-            <opla-grid-tile>
-              <mat-form-field [floatLabel]="floatLabelControl.value">
-                <mat-label>Manipulation Configuration</mat-label>
-                <input [disabled]="true" matInput placeholder="Directory: /home/..."
-                       [value]="optimizationDto.config.directoryToSaveModels">
-              </mat-form-field>
-            </opla-grid-tile>
-          </opla-grid-list>
-
         </form>
       </div>
     </mat-card>
