@@ -58,7 +58,10 @@
               <opla-grid-list class="operators-functions">
                 <opla-grid-tile *ngFor="let obj of optimizationOptions?.objectiveFunctions">
                   <mat-checkbox [checked]="isObjFunctionChecked(obj)"
-                                (change)="changeObjFunction(obj, $event.checked)">{{obj}}</mat-checkbox>
+                                [oplaI18n]="obj"
+                                (change)="changeObjFunction(obj, $event.checked)">
+                    <span>{{obj}}</span>
+                    </mat-checkbox>
                 </opla-grid-tile>
               </opla-grid-list>
             </mat-card>

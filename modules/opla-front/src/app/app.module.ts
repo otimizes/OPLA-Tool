@@ -42,6 +42,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.directive";
 
 @NgModule({
   declarations: [
@@ -55,10 +56,13 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
     DragDropDirectiveDirective,
     ReplaceallPipe,
     NgVarDirective,
+    OplaI18nDirective,
     LoginComponent,
     OplaComponent,
+    DialogTooltipInfo,
     InteractionDialogComponent
   ],
+  exports:[OplaI18nDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -94,7 +98,8 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
     MatAutocompleteModule
   ],
   entryComponents: [
-    InteractionDialogComponent
+    InteractionDialogComponent,
+    DialogTooltipInfo
   ],
   providers: [],
   bootstrap: [AppComponent],

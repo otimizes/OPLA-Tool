@@ -100,6 +100,7 @@ tr.element-row:not(.expanded-row):hover {
   max-width: 100vw !important;
   width: 97vw !important;
 }
+
 .opla-dialog-panel {
   height: 85vh;
   width: 60vw;
@@ -139,6 +140,70 @@ tr.element-row:not(.expanded-row):hover {
   font-size: 40px;
   font-weight: bold;
   line-height: normal;
+}
+
+.ng-tooltip-info {
+  font-size: 16px;
+  padding-left: 2px;
+}
+
+.ng-tooltip-info:hover {
+  opacity: .5;
+}
+
+.ng-tooltip {
+  background: #282a36;
+  border-radius: 4px;
+  color: #f8f8f2;
+  font-size: 14px;
+  max-width: 300px;
+  opacity: 0;
+  padding: 3px 8px;
+  position: absolute;
+  text-align: center;
+  z-index: 1000;
+}
+
+.ng-tooltip:after {
+  border-style: solid;
+  content: "";
+  position: absolute;
+}
+
+.ng-tooltip-top:after {
+  border-color: black transparent transparent transparent;
+  border-width: 5px;
+  left: 50%;
+  margin-left: -5px;
+  top: 100%;
+}
+
+.ng-tooltip-bottom:after {
+  border-color: transparent transparent black transparent;
+  border-width: 5px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+}
+
+.ng-tooltip-left:after {
+  border-color: transparent transparent transparent black;
+  border-width: 5px;
+  left: 100%;
+  margin-top: -5px;
+  top: 50%;
+}
+
+.ng-tooltip-right:after {
+  border-color: transparent black transparent transparent;
+  border-width: 5px;
+  margin-top: -5px;
+  right: 100%;
+  top: 50%;
+}
+
+.ng-tooltip-show {
+  opacity: 1;
 }
 
 @media screen and (max-width: 900px) {

@@ -17,6 +17,11 @@ export class OptimizationService {
   public static onOptimizationStart: EventEmitter<OptimizationInfo> = new EventEmitter<OptimizationInfo>();
   public static onOptimizationFinish: EventEmitter<OptimizationInfo> = new EventEmitter<OptimizationInfo>();
   public static source: EventSource;
+  public static i18nURLs = {
+    "en-us": "https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/i18n.en-us.json"
+  };
+  public static language = 'en-us';
+  public static i18n: any = {};
 
   constructor(private http: HttpClient, private userService: UserService) {
     if (OptimizationService.isRunning()) {
@@ -26,6 +31,16 @@ export class OptimizationService {
     if (OptimizationService.getPLA()) {
       OptimizationService.onSelectPLA.emit(OptimizationService.getPLA());
     }
+    for (let url of Object.keys(OptimizationService.i18nURLs)) {
+      this.getInternationalization(OptimizationService.i18nURLs[url])
+        .subscribe(result => {
+          OptimizationService.i18n[url] = result;
+        });
+    }
+  }
+
+  public static getI18n(key) {
+    return OptimizationService.i18n[OptimizationService.language][key]
   }
 
   public static getOptimizationInfo(): OptimizationInfo {
@@ -103,6 +118,11 @@ export class OptimizationService {
 
   getConfig(): Observable<Config> {
     return this.http.get<Config>(`${UserService.baseUrl}/optimization/config`, {headers: this.createAuthorizationHeader()})
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getInternationalization(url): Observable<any> {
+    return this.http.get<any>(url)
       .pipe(catchError(this.errorHandler));
   }
 
