@@ -164,6 +164,10 @@ public class Interface extends Element {
         return Collections.unmodifiableSet(dependents);
     }
 
+    public Set<Method> getModifiableOperations() {
+        return methods;
+    }
+
     @Override
     public Set<Concern> getAllConcerns() {
         Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());

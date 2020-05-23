@@ -50,6 +50,12 @@ public enum MutationOperators implements IOperators {
             return new AddManagerClassMutation();
         }
     },
+    FEATURE_DRIVEN_FOR_CLASS {
+        @Override
+        public IOperator getOperator() {
+            return new FeatureDrivenForClass();
+        }
+    },
     DESIGN_PATTERNS {
         @Override
         public IOperator getOperator() {

@@ -123,17 +123,6 @@ public enum Metrics implements ObjectiveFunctionsLink {
             return null;
         }
     },
-    CIBClass {
-        @Override
-        public Double evaluate(Architecture architecture) {
-            return new CIBClass(architecture).getResults();
-        }
-
-        @Override
-        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            return null;
-        }
-    },
     LCCClass {
         @Override
         public Double evaluate(Architecture architecture) {

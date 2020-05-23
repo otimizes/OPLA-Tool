@@ -936,4 +936,22 @@ public class Architecture extends Variable {
     public static Logger getLOGGER() {
         return LOGGER;
     }
+
+    public Set<Interface> getAllModifiableInterfaces() {
+        final Set<Interface> interfaces = new HashSet<Interface>();
+        for (Package p : this.packages)
+            interfaces.addAll(p.getAllInterfaces());
+
+        interfaces.addAll(this.interfaces);
+        return interfaces;
+    }
+
+    public Set<Class> getAllModifiableClasses() {
+        final Set<Class> klasses = new HashSet<Class>();
+        for (Package p : this.packages)
+            klasses.addAll(p.getAllClasses());
+
+        klasses.addAll(this.classes);
+        return klasses;
+    }
 }

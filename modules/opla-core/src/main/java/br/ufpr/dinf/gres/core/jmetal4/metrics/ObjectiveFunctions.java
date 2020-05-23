@@ -183,7 +183,6 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             fd.setLcc(ObjectiveFunctions.LCC.evaluate(arch));
             fd.setLccClass(Metrics.LCCClass.evaluate(arch));
             fd.setCdaClass(Metrics.CDAClass.evaluate(arch));
-            fd.setCibClass(Metrics.CIBClass.evaluate(arch));
             return fd;
         }
     },

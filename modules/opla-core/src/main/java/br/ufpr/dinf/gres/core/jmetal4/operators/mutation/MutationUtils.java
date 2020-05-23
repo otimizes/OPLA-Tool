@@ -1,5 +1,6 @@
 package br.ufpr.dinf.gres.core.jmetal4.operators.mutation;
 
+import br.ufpr.dinf.gres.architecture.exceptions.ConcernNotFoundException;
 import br.ufpr.dinf.gres.architecture.representation.Class;
 import br.ufpr.dinf.gres.architecture.representation.Package;
 import br.ufpr.dinf.gres.architecture.representation.*;
@@ -11,6 +12,7 @@ import br.ufpr.dinf.gres.core.jmetal4.util.PseudoRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -466,4 +468,211 @@ public class MutationUtils {
         }
         return true;
     }
+
+
+    /**
+     * Apply class to interface
+     *
+     * @param arch  architecture
+     * @param clazz class
+     * @throws ConcernNotFoundException default exception
+     */
+    public static void applyToClass(Architecture arch, Class clazz) throws ConcernNotFoundException {
+        Set<Concern> allConcerns = clazz.getAllConcernsWithoutImplementedInterfaces();
+        if (allConcerns.size() > 1) {
+            List<Package> collect = arch.getAllPackages().stream().filter(p -> p.getAllClasses().contains(clazz)).collect(Collectors.toList());
+            Package aPackage = collect.size() > 0 ? collect.get(0) : null;
+            if (VerifyIfIsHomonimo(clazz) || aPackage == null) return;
+
+            // Passo 2
+            Concern major = getMajorConcern(clazz);
+
+//                            Passo 3
+            for (Concern concern : allConcerns.stream().filter(co -> !co.equals(major)).collect(Collectors.toList())) {
+                Class newClass = findOrCreateClassWithConcernWithConcernName(aPackage, concern, clazz);
+                if (!arch.getAllClasses().contains(newClass)) {
+                    arch.addExternalClass(newClass);
+                }
+
+//                                Passo 4
+                RelationshipsHolder relationshipsHolder = new RelationshipsHolder();
+                AssociationRelationship associationRelationship = new AssociationRelationship(clazz, newClass);
+                relationshipsHolder.addRelationship(associationRelationship);
+                clazz.setRelationshipHolder(relationshipsHolder);
+                arch.addRelationship(associationRelationship);
+
+                RelationshipsHolder relationshipsHolder2 = new RelationshipsHolder();
+                AssociationRelationship associationRelationship2 = new AssociationRelationship(newClass, clazz);
+                relationshipsHolder2.addRelationship(associationRelationship2);
+                newClass.setRelationshipHolder(relationshipsHolder2);
+                arch.addRelationship(associationRelationship2);
+
+//                applyToClass(arch, c);
+
+            }
+        }
+    }
+
+    /**
+     * Verify if is homonimo
+     *
+     * @param clazz class
+     * @return is homonimo
+     */
+    public static boolean VerifyIfIsHomonimo(Class clazz) {
+        // Identifico se contem subclasse
+        boolean pci = clazz.getRelationships().stream().filter(r -> {
+            if (r instanceof GeneralizationRelationship) {
+                Class child = (Class) ((GeneralizationRelationship) r).getChild();
+                return child != clazz;
+            }
+            return false;
+        }).count() > 0;
+
+        if (pci) {
+//                           Passo 1
+            boolean homonimo = false;
+            for (Attribute attribute : clazz.getAllAttributes()) {
+                int count = 0;
+                for (Relationship relationship : clazz.getRelationships()) {
+                    if (relationship instanceof GeneralizationRelationship) {
+                        Class child = (Class) ((GeneralizationRelationship) relationship).getChild();
+                        long count1 = child.getAllAttributes().stream().filter(attr -> attr.getName().equals(attribute.getName())).count();
+                        if (count1 > 0) count++;
+                    }
+                }
+                homonimo = count >= clazz.getGeneralizations().size();
+            }
+            if (homonimo) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Apply interface to architecture
+     *
+     * @param arch   architecture
+     * @param interf interface
+     * @throws ConcernNotFoundException default exception
+     */
+    public static void applyToInterface(Architecture arch, Interface interf) throws ConcernNotFoundException {
+        Set<Concern> allConcerns = interf.getAllConcerns();
+        if (allConcerns.size() > 1) {
+            List<Package> collect = arch.getAllPackages().stream().filter(p -> p.getAllInterfaces().contains(interf)).collect(Collectors.toList());
+            Package aPackage = collect.size() > 0 ? collect.get(0) : null;
+            if (aPackage == null) return;
+
+            // Passo 2
+            Concern major = getMajorConcern(interf);
+
+            for (Concern concern : allConcerns.stream().filter(co -> !co.equals(major)).collect(Collectors.toList())) {
+                Interface newClass = findOrCreateInterfaceWithConcernWithConcernName(aPackage, concern, interf);
+                if (!arch.getAllInterfaces().contains(newClass)) {
+                    arch.addExternalInterface(newClass);
+                }
+
+//                                Passo 4
+                RelationshipsHolder relationshipsHolder = new RelationshipsHolder();
+                AssociationRelationship associationRelationship = new AssociationRelationship(interf, newClass);
+                relationshipsHolder.addRelationship(associationRelationship);
+                interf.setRelationshipHolder(relationshipsHolder);
+                arch.addRelationship(associationRelationship);
+
+                RelationshipsHolder relationshipsHolder2 = new RelationshipsHolder();
+                AssociationRelationship associationRelationship2 = new AssociationRelationship(newClass, interf);
+                relationshipsHolder2.addRelationship(associationRelationship2);
+                newClass.setRelationshipHolder(relationshipsHolder2);
+                arch.addRelationship(associationRelationship2);
+//                applyToInterface(arch, c);
+            }
+        }
+    }
+
+    public static Interface findOrCreateInterfaceWithConcernWithConcernName(Package targetComp, Concern concern, Interface origin) throws ConcernNotFoundException {
+        Set<Method> operations = origin.getModifiableOperations().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+
+        Interface targetClass = targetComp.createInterface(origin.getName() + concern.getName());
+        for (Method method : operations) {
+            origin.removeOperation(method);
+            targetClass.addExternalOperation(method);
+        }
+        origin.removeConcern(concern.getName());
+        targetClass.addConcern(concern.getName());
+        return targetClass;
+    }
+
+    /**
+     * Get major concern by class
+     *
+     * @param clazz class
+     * @return concern
+     */
+    public static Concern getMajorConcern(Class clazz) {
+        long count = 0;
+        Concern major = null;
+        for (Concern concern : clazz.getAllConcerns()) {
+            long count1 = clazz.getAllAttributes().stream().filter(attr -> attr.getAllConcerns().contains(concern)).count();
+            long count2 = clazz.getAllMethods().stream().filter(method -> method.getAllConcerns().contains(concern)).count();
+            long count3 = clazz.getAllAbstractMethods().stream().filter(method -> method.getAllConcerns().contains(concern)).count();
+            long ct = count1 + count2 + count3;
+            if (ct >= count) {
+                count = ct;
+                major = concern;
+            }
+        }
+        return major;
+    }
+
+    /**
+     * Get major concern by interface
+     *
+     * @param interf interface
+     * @return concern
+     */
+    public static Concern getMajorConcern(Interface interf) {
+        long count = 0;
+        Concern major = null;
+        for (Concern concern : interf.getAllConcerns()) {
+            long count1 = interf.getMethods().stream().filter(attr -> attr.getAllConcerns().contains(concern)).count();
+            long ct = count1;
+            if (ct >= count) {
+                count = ct;
+                major = concern;
+            }
+        }
+        return major;
+    }
+
+    /**
+     * Find or create a class with a concern according its name
+     *
+     * @param targetComp target
+     * @param concern    concern
+     * @param origin     origin
+     * @return found class
+     * @throws ConcernNotFoundException default exception
+     */
+    public static Class findOrCreateClassWithConcernWithConcernName(Package targetComp, Concern concern, Class origin) throws ConcernNotFoundException {
+        Set<Attribute> attrs = origin.getAllModifiableAttributes().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+        Set<Method> methods = origin.getAllModifiableMethods().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+        Set<Method> absmethods = origin.getAllModifiableAbstractMethods().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+
+        Class targetClass = targetComp.createClass(origin.getName() + concern.getName(), false);
+        for (Attribute attr : attrs) {
+            targetClass.addExternalAttribute(attr);
+            origin.removeAttribute(attr);
+        }
+        for (Method method : methods) {
+            targetClass.addExternalMethod(method);
+            origin.removeMethod(method);
+        }
+        for (Method method : absmethods) {
+            targetClass.addExternalMethod(method);
+            origin.removeMethod(method);
+        }
+        origin.removeConcern(concern.getName());
+        targetClass.addConcern(concern.getName());
+        return targetClass;
+    }
+
 }

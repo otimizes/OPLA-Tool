@@ -4,17 +4,15 @@ import br.ufpr.dinf.gres.architecture.exceptions.AttributeNotFoundException;
 import br.ufpr.dinf.gres.architecture.exceptions.MethodNotFoundException;
 import br.ufpr.dinf.gres.architecture.flyweights.VariantFlyweight;
 import br.ufpr.dinf.gres.architecture.helpers.UtilResources;
-import br.ufpr.dinf.gres.architecture.representation.relationship.AssociationClassRelationship;
-import br.ufpr.dinf.gres.architecture.representation.relationship.MemberEnd;
-import br.ufpr.dinf.gres.architecture.representation.relationship.Relationship;
-import br.ufpr.dinf.gres.architecture.representation.relationship.RelationshipCommons;
 import br.ufpr.dinf.gres.architecture.papyrus.touml.Types.Type;
 import br.ufpr.dinf.gres.architecture.papyrus.touml.VisibilityKind;
+import br.ufpr.dinf.gres.architecture.representation.relationship.*;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class representation
@@ -374,4 +372,40 @@ public class Class extends Element {
         return this.patternsOperations;
     }
 
+    public Set<Relationship> getGeneralizations() {
+        return getRelationships().stream().filter(r -> r instanceof GeneralizationRelationship).collect(Collectors.toSet());
+    }
+
+    public Set<Concern> getAllConcernsWithoutImplementedInterfaces() {
+        Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());
+
+        for (Method method : getAllMethods())
+            concerns.addAll(method.getAllConcerns());
+        for (Attribute attribute : getAllAttributes())
+            concerns.addAll(attribute.getAllConcerns());
+
+        return concerns;
+    }
+
+    public Set<Attribute> getAllModifiableAttributes() {
+        if (attributes.isEmpty())
+            return Collections.emptySet();
+        return attributes;
+    }
+
+    public Set<Method> getAllModifiableMethods() {
+        if (methods.isEmpty())
+            return Collections.emptySet();
+        return methods;
+    }
+
+    public List<Method> getAllModifiableAbstractMethods() {
+        List<Method> abstractMethods = new ArrayList<Method>();
+
+        for (Method m : getAllModifiableMethods())
+            if (m.isAbstract())
+                abstractMethods.add(m);
+
+        return abstractMethods;
+    }
 }
