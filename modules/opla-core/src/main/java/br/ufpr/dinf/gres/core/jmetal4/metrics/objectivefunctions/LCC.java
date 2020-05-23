@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Feature-based Cohesion (Santos et al., 2015)
+ * Lack of Concern-based Cohesion (Santos et al., 2015)
  * <p>
  * It aims to measure the cohesion based on characteristics by means
  * of the number of characteristics with which a given package is

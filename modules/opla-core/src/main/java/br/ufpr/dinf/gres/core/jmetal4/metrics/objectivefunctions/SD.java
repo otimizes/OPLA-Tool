@@ -7,7 +7,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.reusability.SSC;
 /**
  * Structure Similarity Coefficient (Zhang et al., 2008)
  * <p>
- * and proposal to measure the similarity of PLA.
+ * Proposal to measure the similarity of PLA.
  * <p>
  * (|Cc| / |Cc| + |Cv|)
  */

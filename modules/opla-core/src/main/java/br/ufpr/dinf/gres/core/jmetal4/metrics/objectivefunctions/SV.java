@@ -7,7 +7,7 @@ import br.ufpr.dinf.gres.core.jmetal4.metrics.mutability.SVC;
 /**
  * Structure Variability Coefficient (Ahrens et al., 2013)
  * <p>
- * and proposal to measure the variability of PLA.
+ * Proposal to measure the variability of PLA.
  * <p>
  * (|Cv| / |Cc| + |Cv|)
  */
