@@ -2,16 +2,14 @@
 <mat-horizontal-stepper labelPosition="bottom" #stepper>
   <mat-step state="execution">
     <ng-template matStepLabel><span class="hide-on-mobile">Execution Configuration</span></ng-template>
-    <app-execution [optimizationOptions]="optimizationOptions" [formGroup]="executionFormGroup"
+    <app-execution [optimizationOptions]="optimizationOptions"
+                   [formGroup]="executionFormGroup"
+                   [papyrusFormGroup]="papyrusFormGroup"
                    [(optimizationDto)]="optimizationDto"></app-execution>
   </mat-step>
   <mat-step state="patterns">
     <ng-template matStepLabel><span class="hide-on-mobile">Design Patterns</span></ng-template>
     <app-pattern [formGroup]="patternFormGroup" [optimizationDto]="optimizationDto"></app-pattern>
-  </mat-step>
-  <mat-step state="another">
-    <ng-template matStepLabel><span class="hide-on-mobile">Another Configurations</span></ng-template>
-    <app-another [formGroup]="generalFormGroup" [optimizationDto]="optimizationDto"></app-another>
   </mat-step>
   <mat-step state="experiments">
     <ng-template matStepLabel><span class="hide-on-mobile">Experiments</span></ng-template>
@@ -41,13 +39,10 @@
     <mat-icon>settings</mat-icon>
   </ng-template>
   <ng-template matStepperIcon="patterns">
-    <mat-icon>call_end</mat-icon>
-  </ng-template>
-  <ng-template matStepperIcon="another">
-    <mat-icon>unfold_more</mat-icon>
+    <mat-icon>view_comfy</mat-icon>
   </ng-template>
   <ng-template matStepperIcon="experiments">
-    <mat-icon>backup</mat-icon>
+    <mat-icon>cloud_done</mat-icon>
   </ng-template>
   <ng-template matStepperIcon="analysis">
     <mat-icon>show_chart</mat-icon>
@@ -57,19 +52,17 @@
   </ng-template>
   <ng-template matStepperIcon="edit" let-index="index">
     <mat-icon *ngIf="index === 0">settings</mat-icon>
-    <mat-icon *ngIf="index === 1">call_end</mat-icon>
-    <mat-icon *ngIf="index === 2">unfold_more</mat-icon>
-    <mat-icon *ngIf="index === 3">backup</mat-icon>
-    <mat-icon *ngIf="index === 4">show_chart</mat-icon>
-    <mat-icon *ngIf="index === 5">bug_report</mat-icon>
+    <mat-icon *ngIf="index === 1">view_comfy</mat-icon>
+    <mat-icon *ngIf="index === 2">cloud_done</mat-icon>
+    <mat-icon *ngIf="index === 3">show_chart</mat-icon>
+    <mat-icon *ngIf="index === 4">bug_report</mat-icon>
   </ng-template>
   <ng-template matStepperIcon="done" let-index="index">
     <mat-icon *ngIf="index === 0">settings</mat-icon>
-    <mat-icon *ngIf="index === 1">call_end</mat-icon>
-    <mat-icon *ngIf="index === 2">unfold_more</mat-icon>
-    <mat-icon *ngIf="index === 3">backup</mat-icon>
-    <mat-icon *ngIf="index === 4">show_chart</mat-icon>
-    <mat-icon *ngIf="index === 5">bug_report</mat-icon>
+    <mat-icon *ngIf="index === 1">view_comfy</mat-icon>
+    <mat-icon *ngIf="index === 2">cloud_done</mat-icon>
+    <mat-icon *ngIf="index === 3">show_chart</mat-icon>
+    <mat-icon *ngIf="index === 4">bug_report</mat-icon>
   </ng-template>
 </mat-horizontal-stepper>
 

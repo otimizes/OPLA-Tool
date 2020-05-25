@@ -459,7 +459,7 @@ public class OPLASolutionSet {
     } // printObjectivesToFile
 
     private void printObjectivesWithNormalizeToFile(String path) {
-        path = path.replace("txt", "normalize");
+        path = path.replace("txt", "normalized");
         File file = new File(path);
         file.getParentFile().mkdirs();
         try {

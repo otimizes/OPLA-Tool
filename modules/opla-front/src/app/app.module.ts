@@ -2,14 +2,13 @@ import {BrowserModule} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {ExecutionComponent} from './execution/execution.component';
+import {ExecutionComponent, PapyrusSettingsDialog} from './execution/execution.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatButtonModule} from "@angular/material/button";
 import {MatStepperModule} from "@angular/material/stepper";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {AnotherComponent} from './another/another.component';
 import {PatternComponent} from './pattern/pattern.component';
 import {ResultsComponent} from './results/results.component';
 import {ExperimentsComponent} from './experiments/experiments.component';
@@ -48,7 +47,6 @@ import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.direc
   declarations: [
     AppComponent,
     ExecutionComponent,
-    AnotherComponent,
     PatternComponent,
     ResultsComponent,
     ExperimentsComponent,
@@ -60,9 +58,10 @@ import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.direc
     LoginComponent,
     OplaComponent,
     DialogTooltipInfo,
-    InteractionDialogComponent
+    InteractionDialogComponent,
+    PapyrusSettingsDialog
   ],
-  exports:[OplaI18nDirective],
+  exports: [OplaI18nDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -99,7 +98,8 @@ import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.direc
   ],
   entryComponents: [
     InteractionDialogComponent,
-    DialogTooltipInfo
+    DialogTooltipInfo,
+    PapyrusSettingsDialog
   ],
   providers: [],
   bootstrap: [AppComponent],

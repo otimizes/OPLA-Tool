@@ -1,3 +1,7 @@
 .operators-functions > opla-grid-tile {
   min-width: 130px;
 }
+
+.slider-number {
+  font-size: 12px;
+}

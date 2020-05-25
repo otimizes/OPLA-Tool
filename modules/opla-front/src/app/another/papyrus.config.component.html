@@ -1,0 +1,62 @@
+<opla-grid-list>
+  <opla-grid-tile>
+    <div class="example-container" *ngIf="data.dto">
+      <form [formGroup]="formGroup">
+        <opla-grid-list>
+          <opla-grid-tile>
+            <mat-checkbox [(ngModel)]="data.dto.config.smarty" formControlName="smarty">SMarty</mat-checkbox>
+          </opla-grid-tile>
+          <opla-grid-tile>
+            <mat-checkbox [(ngModel)]="data.dto.config.feature" formControlName="feature">Feature
+            </mat-checkbox>
+          </opla-grid-tile>
+          <opla-grid-tile>
+            <mat-checkbox [(ngModel)]="data.dto.config.patterns" formControlName="patterns">Patterns
+            </mat-checkbox>
+          </opla-grid-tile>
+          <opla-grid-tile>
+            <mat-checkbox [(ngModel)]="data.dto.config.relationships" formControlName="relationships">
+              Relationships
+            </mat-checkbox>
+          </opla-grid-tile>
+        </opla-grid-list>
+        <opla-grid-list>
+          <opla-grid-tile>
+            <mat-form-field [floatLabel]="floatLabelControl.value">
+              <mat-label>SMarty Profile</mat-label>
+              <input [disabled]="!data.dto.config.smarty" matInput
+                     [(ngModel)]="data.dto.config.pathToProfile"
+                     formControlName="pathToProfile">
+            </mat-form-field>
+          </opla-grid-tile>
+          <opla-grid-tile>
+            <mat-form-field [floatLabel]="floatLabelControl.value">
+              <mat-label>Feature Profile</mat-label>
+              <input [disabled]="!data.dto.config.feature" matInput
+                     [(ngModel)]="data.dto.config.pathToProfileConcern"
+                     formControlName="pathToProfileConcern">
+            </mat-form-field>
+          </opla-grid-tile>
+        </opla-grid-list>
+        <opla-grid-list>
+          <opla-grid-tile>
+            <mat-form-field [floatLabel]="floatLabelControl.value">
+              <mat-label>Pattern Profile</mat-label>
+              <input [disabled]="!data.dto.config.patterns" matInput
+                     [(ngModel)]="data.dto.config.pathToProfilePatterns"
+                     formControlName="pathToProfilePatterns">
+            </mat-form-field>
+          </opla-grid-tile>
+          <opla-grid-tile>
+            <mat-form-field [floatLabel]="floatLabelControl.value">
+              <mat-label>Relationship Configuration</mat-label>
+              <input [disabled]="!data.dto.config.relationships" matInput
+                     [(ngModel)]="data.dto.config.pathToProfileRelationships"
+                     formControlName="pathToProfileRelationships">
+            </mat-form-field>
+          </opla-grid-tile>
+        </opla-grid-list>
+      </form>
+    </div>
+  </opla-grid-tile>
+</opla-grid-list>

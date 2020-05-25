@@ -1,8 +1,9 @@
-import {AfterContentChecked, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterContentChecked, Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {OptimizationDto} from "../dto/optimization-dto";
 import {OptimizationService} from "../services/optimization.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-execution',
@@ -12,13 +13,14 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class ExecutionComponent implements OnInit, AfterContentChecked {
 
   @Input() formGroup: FormGroup;
+  @Input() papyrusFormGroup: FormGroup;
   @Input() optimizationDto: OptimizationDto;
   @Output() optimizationDtoChange = new EventEmitter<OptimizationDto>();
   @Input() optimizationOptions: any;
   @ViewChild('fileInput', {static: false}) fileInput;
   floatLabelControl = new FormControl('auto');
 
-  constructor(fb: FormBuilder, protected service: OptimizationService, private snackBar: MatSnackBar) {
+  constructor(fb: FormBuilder, protected service: OptimizationService, private snackBar: MatSnackBar, public dialog: MatDialog) {
     OptimizationService.onSelectPLA.asObservable().subscribe(list => {
       this.selectProfiles(list);
     });
@@ -118,5 +120,29 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
     optimizationDto.maxInteractions = checked ? 3 : 0;
     optimizationDto.firstInteraction = checked ? 3 : 0;
     optimizationDto.intervalInteraction = checked ? 3 : 0;
+  }
+
+  papyrusSettings() {
+    this.dialog.open(PapyrusSettingsDialog, {
+      data: {
+        dto: this.optimizationDto,
+        formGroup: this.papyrusFormGroup
+      }
+    })
+  }
+}
+
+@Component({
+  selector: 'papyrus-settings-dialog',
+  templateUrl: '../another/papyrus.config.component.html',
+})
+export class PapyrusSettingsDialog {
+  optimizationDto: any;
+  formGroup: FormGroup;
+  floatLabelControl = new FormControl('auto');
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    this.optimizationDto = data.dto;
+    this.formGroup = data.formGroup;
   }
 }

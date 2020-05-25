@@ -24,11 +24,11 @@
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field [floatLabel]="floatLabelControl.value">
-                  <mat-label>Max evaluations</mat-label>
+                  <mat-label>Number of fitness evaluations</mat-label>
                   <input matInput placeholder="30000..." [(ngModel)]="optimizationDto.maxEvaluations"
                          formControlName="maxEvaluations">
                   <mat-error *ngIf="formGroup.get('maxEvaluations').hasError('required')">
-                    Max evaluations is <strong>required</strong>
+                    Number of fitness evaluations is <strong>required</strong>
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field [floatLabel]="floatLabelControl.value">
@@ -39,7 +39,7 @@
                     Population size is <strong>required</strong>
                   </mat-error>
                 </mat-form-field>
-                <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-form-field [floatLabel]="floatLabelControl.value" *ngIf="optimizationDto.algorithm === 'PAES'">
                   <mat-label>Archive size</mat-label>
                   <input matInput placeholder="2..." [(ngModel)]="optimizationDto.archiveSize"
                          formControlName="archiveSize">
@@ -72,7 +72,7 @@
               <div>
                 <mat-checkbox [checked]="optimizationDto.interactive"
                               (change)="optimizationDto.interactive = $event.checked; emit(optimizationDto); setInteractionParams($event.checked, optimizationDto); ">
-                  Interact during the optmization
+                  Interact during the optimization
                 </mat-checkbox>
                 <mat-form-field>
                   <mat-label>Select the clustering algorithm</mat-label>
@@ -84,7 +84,6 @@
                 <mat-form-field>
                   <mat-label>Select the clustering moment</mat-label>
                   <mat-select [(value)]="optimizationDto.clusteringMoment">
-                    <mat-option value="APRIORI">APRIORI</mat-option>
                     <mat-option value="INTERACTIVE">INTERACTIVE</mat-option>
                     <mat-option value="POSTERIORI">POSTERIORI</mat-option>
                     <mat-option value="BOTH">BOTH</mat-option>
@@ -125,8 +124,9 @@
               <opla-grid-list>
                 <opla-grid-tile style="align-items: center;">
                   <mat-checkbox [(ngModel)]="optimizationDto.crossover"
-                                formControlName="crossover">Crossover
+                                formControlName="crossover">Crossover rate
                   </mat-checkbox>&nbsp;
+                  <span class="slider-number">0</span>&nbsp;
                   <mat-slider
                     [disabled]="false"
                     [invert]="false"
@@ -134,17 +134,18 @@
                     [min]="0"
                     formControlName="crossoverProbability"
                     [step]="0.1"
-                    [thumbLabel]="false"
+                    [thumbLabel]="true"
                     [(ngModel)]="optimizationDto.crossoverProbability"
                     [vertical]="false">
                   </mat-slider>
+                  <span class="slider-number">1</span>
                 </opla-grid-tile>
               </opla-grid-list>
               <opla-grid-list>
                 <opla-grid-tile *ngFor="let fmo of optimizationOptions?.crossoverOperators">
                   <mat-checkbox (change)="changeOperators('crossoverOperators', fmo, $event.checked)"
                                 [disabled]="!optimizationDto.crossover">
-                    {{fmo | replaceall:'_':' ' | titlecase}}
+                    {{fmo | replaceall:'_':' '}}
                   </mat-checkbox>
                 </opla-grid-tile>
               </opla-grid-list>
@@ -161,8 +162,9 @@
               <opla-grid-list>
                 <opla-grid-tile style="align-items: center;">
                   <mat-checkbox [(ngModel)]="optimizationDto.mutation"
-                                formControlName="mutation">Mutation
+                                formControlName="mutation">Mutation rate
                   </mat-checkbox>&nbsp;
+                  <span class="slider-number">0</span>
                   <mat-slider
                     [disabled]="false"
                     [invert]="false"
@@ -170,10 +172,11 @@
                     [min]="0"
                     formControlName="mutationProbability"
                     [step]="0.1"
-                    [thumbLabel]="false"
+                    [thumbLabel]="true"
                     [(ngModel)]="optimizationDto.mutationProbability"
                     [vertical]="false">
                   </mat-slider>
+                  <span class="slider-number">1</span>
                   <mat-error
                     *ngIf="!optimizationDto.mutation || optimizationDto.mutationProbability <= 0">
                     The mutation is <strong>required</strong>
@@ -215,6 +218,11 @@
                   <button matTooltip="Select the directory of the PLA" mat-button matSuffix mat-icon-button
                           aria-label="Clear" (click)="selectPLA()">
                     <mat-icon>attach_file</mat-icon>
+                  </button>
+                  <button matTooltip="Settings" mat-button matSuffix mat-icon-button
+                          *ngIf="optimizationDto.architectureBuilder === 'PAPYRUS'"
+                          aria-label="Settings" (click)="papyrusSettings()">
+                    <mat-icon>settings</mat-icon>
                   </button>
                   <mat-error *ngIf="formGroup.get('inputArchitecture').hasError('required')">
                     The PLA is <strong>required</strong>

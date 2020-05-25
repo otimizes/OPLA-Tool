@@ -26,7 +26,7 @@ import {MatDialog} from "@angular/material/dialog";
 export class OplaComponent implements OnInit, AfterViewInit {
   title = 'static';
   isLinear = false;
-  generalFormGroup: FormGroup;
+  papyrusFormGroup: FormGroup;
   isOnInteraction = false;
   executionFormGroup: FormGroup;
   patternFormGroup: FormGroup;
@@ -63,9 +63,11 @@ export class OplaComponent implements OnInit, AfterViewInit {
       intervalInteraction: new FormControl(),
       inputArchitecture: ['', Validators.compose([Validators.required])]
     });
-    this.generalFormGroup = fb.group({
-      pathToTemplateModelsDirectory: new FormControl(),
-      directoryToSaveModels: new FormControl(),
+    this.papyrusFormGroup = fb.group({
+      pathToProfile: new FormControl(),
+      pathToProfileConcern: new FormControl(),
+      pathToProfilePatterns: new FormControl(),
+      pathToProfileRelationships: new FormControl(),
       smarty: new FormControl(),
       feature: new FormControl(),
       patterns: new FormControl(),
