@@ -137,7 +137,7 @@ tr.element-row:not(.expanded-row):hover {
 }
 
 .table-column-element-symbol {
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bold;
   line-height: normal;
 }

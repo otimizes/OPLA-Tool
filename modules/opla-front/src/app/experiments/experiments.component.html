@@ -27,7 +27,8 @@
                   <mat-icon>description</mat-icon>
                 </button>
                 <br>
-                <div class="pla-info" *ngFor="let experimentConfiguration of (element.experimentConfiguration | async)?.values">
+                <div class="pla-info"
+                     *ngFor="let experimentConfiguration of (element.experimentConfiguration | async)?.values">
                   <div>
                     Number of Runs: {{experimentConfiguration.numberOfRuns}}
                   </div>
@@ -55,25 +56,35 @@
             </div>
             <div>
               <h2>Solutions:</h2>
-              <div *ngFor="let info of (element.info | async)?.values; let i = index">
-                <mat-card style="width: 250px; float: left">
-                  <mat-card-content>
-                              <span [matBadge]="info.isAll"
-                                    matBadgeOverlap="false"> {{info.name | replaceall:'INFO_':''}} </span>
-                    <br><br>
-                    <b>Nr. Packages:</b> {{info.numberOfPackages || 0}}<br>
-                    <b>Nr. Classes:</b> {{info.numberOfClasses || 0}}<br>
-                    <b>Nr. Variabilities:</b> {{info.numberOfVariabilities || 0}}<br>
-                    <b>Nr. Interfaces:</b> {{info.numberOfInterfaces || 0}}<br>
-                    <b>Nr. Dependencies:</b> {{info.numberOfDependencies || 0}}<br>
-                    <b>Nr. Abstractions:</b> {{info.numberOfAbstractions || 0}}<br>
-                    <b>Nr. Generalizations:</b> {{info.numberOfGeneralizations || 0}}<br>
-                    <b>Nr. Associations:</b> {{info.numberOfAssociations || 0}}<br>
-                    <b>User Evaluation:</b> {{info.userEvaluation || 0}}<br>
-                    <b>Freezed Elements:</b> {{info.freezedElements}}<br>
-                    <b>Objective Values:</b> {{info.objectives}}<br>
-                  </mat-card-content>
-                </mat-card>
+              <div *ngFor="let executions of (element.info | async)?.values; let i = index">
+                <div *ngIf="executions[0].execution"><h3>Execution {{i + 1}}</h3></div>
+                <div *ngIf="!executions[0].execution"><h3>Non-dominated solutions after {{i}} executions</h3></div>
+                <opla-grid-list>
+                  <opla-grid-tile *ngFor="let info of executions; let j = index" style="max-width: 250px; margin-bottom: 10px;">
+                    <mat-card>
+                      <mat-card-content>
+                        <span [matBadge]="info.isAll ? '*' : null"
+                              matBadgeOverlap="false"> {{info.name | replaceall:'INFO_':''}} </span>
+                        <br><br>
+                        <b>Nr. Packages:</b> {{info.numberOfPackages || 0}}<br>
+                        <b>Nr. Classes:</b> {{info.numberOfClasses || 0}}<br>
+                        <b>Nr. Variabilities:</b> {{info.numberOfVariabilities || 0}}<br>
+                        <b>Nr. Interfaces:</b> {{info.numberOfInterfaces || 0}}<br>
+                        <b>Nr. Dependencies:</b> {{info.numberOfDependencies || 0}}<br>
+                        <b>Nr. Abstractions:</b> {{info.numberOfAbstractions || 0}}<br>
+                        <b>Nr. Generalizations:</b> {{info.numberOfGeneralizations || 0}}<br>
+                        <b>Nr. Associations:</b> {{info.numberOfAssociations || 0}}<br>
+                        <b>User Evaluation:</b> {{info.userEvaluation || 0}}<br>
+                        <b>Freezed Elements:</b> {{info.freezedElements}}<br>
+                        <b>Objective Values:</b> {{info.objectives}}<br>
+                      </mat-card-content>
+                    </mat-card>
+                  </opla-grid-tile>
+                </opla-grid-list>
+                <br>
+                <!--                <div>-->
+
+                <!--                </div>-->
               </div>
             </div>
           </div>

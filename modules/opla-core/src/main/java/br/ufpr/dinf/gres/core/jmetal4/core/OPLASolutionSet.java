@@ -457,12 +457,13 @@ public class OPLASolutionSet {
      */
     public void printObjectivesToFile(String path) {
         printObjectivesWithoutNormalizeToFile(path);
-        printObjectivesWithNormalizeToFile(path);
+        printObjectivesWithHypervolumeToFile(path);
+        printObjectivesNormalizedToFile(path);
         printQualityIndicators(path);
     } // printObjectivesToFile
 
-    private void printObjectivesWithNormalizeToFile(String pathNorm) {
-        String path = pathNorm.replace("txt", "normalized");
+    private void printObjectivesWithHypervolumeToFile(String pathNorm) {
+        String path = pathNorm.replace("txt", "hypervolume");
         File file = new File(path);
         file.getParentFile().mkdirs();
         try {
@@ -477,6 +478,25 @@ public class OPLASolutionSet {
                     executionId = solutionSet.get(i).getExecutionId();
                     bw.newLine();
                 }
+            }
+            bw.close();
+        } catch (IOException e) {
+            Configuration.logger_.severe("Error acceding to the file");
+            e.printStackTrace();
+        }
+    }
+    private void printObjectivesNormalizedToFile(String pathNorm) {
+        String path = pathNorm.replace("txt", "normalized");
+        File file = new File(path);
+        file.getParentFile().mkdirs();
+        try {
+            FileOutputStream fos = new FileOutputStream(path);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter bw = new BufferedWriter(osw);
+            String executionId = solutionSet.get(0).getExecutionId();
+            for (int i = 0; i < solutionSet.solutionsList_.size(); i++) {
+                bw.write(Arrays.toString(getNormalizedSolution(i)).trim().replaceAll("]", "").replaceAll("\\[", "").replaceAll(", ", "\t")); // returns something
+                bw.newLine();
             }
             bw.close();
         } catch (IOException e) {

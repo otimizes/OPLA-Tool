@@ -4,9 +4,9 @@ import {OptimizationService} from "../services/optimization.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ExperimentService} from "../services/experiment.service";
 import {ExperimentConfigurationService} from "../services/experiment-configuration.service";
-import {Observable} from "rxjs";
 import {ObjectiveService} from "../services/objective.service";
 import {InfoService} from "../services/info.service";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-experiments',
@@ -49,17 +49,36 @@ export class ExperimentsComponent implements OnInit {
     });
   }
 
+  getExecution(exec) {
+    return exec != null ? exec.id : null;
+  }
+
   showInfo(experiment) {
     experiment.experimentConfiguration = this.experimentConfigurationService.findByExperiment(experiment.id);
     experiment.objective = this.objectiveService.findByExperiment(experiment.id);
-    experiment.info = this.infoService.findByExperiment(experiment.id);
+    experiment.info = this.infoService.findByExperiment(experiment.id).pipe(map(v => {
+      let values = [];
+      let lastExecution = null;
+      let executionId = -1;
+      for (let value of v.values) {
+        if (lastExecution != this.getExecution(value.execution)) {
+          executionId++;
+        }
+        values[executionId] = values[executionId] || [];
+        values[executionId].push(value);
+        lastExecution = this.getExecution(value.execution);
+      }
+      v.values = values;
+      return v;
+    }));
   }
+
 
   downloadInfo(experiment) {
     this.infoService.findByExperiment(experiment.id).subscribe(info => {
       var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(info));
       var downloadAnchorNode = document.createElement('a');
-      downloadAnchorNode.setAttribute("href",     dataStr);
+      downloadAnchorNode.setAttribute("href", dataStr);
       downloadAnchorNode.setAttribute("download", experiment.id + ".info.json");
       document.body.appendChild(downloadAnchorNode); // required for firefox
       downloadAnchorNode.click();

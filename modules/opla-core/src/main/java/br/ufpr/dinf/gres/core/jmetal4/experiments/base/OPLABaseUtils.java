@@ -36,7 +36,7 @@ public class OPLABaseUtils {
         if (executionID == null) {
             String referencePoint = Arrays.stream(allSolutions.get(0).getObjectives()).mapToObj(s -> "1.01").collect(Collectors.joining(" "));
             try {
-                OPLACommand.execCmd(UserHome.getOplaHv() + " -r \"" + referencePoint + "\" " + dir + "fitness.normalize >> " + dir + "fitness.final");
+                OPLACommand.execCmd(UserHome.getOplaHv() + " -r \"" + referencePoint + "\" " + dir + "fitness.hypervolume >> " + dir + "fitness.hypervolume.final");
             } catch (IOException e) {
                 e.printStackTrace();
             }
