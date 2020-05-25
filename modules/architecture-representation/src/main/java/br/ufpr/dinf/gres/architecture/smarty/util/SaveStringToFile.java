@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.architecture.smarty.util;
 
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,7 +10,6 @@ import java.io.IOException;
 
 /**
  * This class help to save string in Logs and create and delete Log and Temp directory
- *
  */
 public class SaveStringToFile {
 
@@ -24,8 +24,9 @@ public class SaveStringToFile {
 
     /**
      * this method append a string in a file
+     *
      * @param fileName - file to save
-     * @param str - string to save
+     * @param str      - string to save
      */
     public void appendStrToFile(String fileName, String str) {
         try {
@@ -40,8 +41,8 @@ public class SaveStringToFile {
     /**
      * this method create a Log directory if not exists
      */
-    public void createLogDir(){
-        String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/Logs";
+    public void createLogDir() {
+        String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "logs";
         File file = new File(directory);
         file.mkdir();
     }
@@ -50,7 +51,7 @@ public class SaveStringToFile {
      * this method create a TEMP directory if not exists
      */
     public void createTempDir() {
-        String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/TEMP";
+        String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "TEMP";
         File file = new File(directory);
         file.mkdir();
     }
@@ -59,7 +60,7 @@ public class SaveStringToFile {
      * this method delete a TEMP directory and all of its content
      */
     public void deleteTempFolder() {
-        String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/TEMP";
+        String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "TEMP";
         File folder = new File(directory);
         File[] files = folder.listFiles();
         if (files != null) {

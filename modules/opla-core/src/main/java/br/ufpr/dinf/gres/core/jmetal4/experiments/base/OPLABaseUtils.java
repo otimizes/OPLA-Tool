@@ -18,9 +18,9 @@ public class OPLABaseUtils {
     public static void saveHypervolume(String experimentID, String executionID, SolutionSet allSolutions, String plaName) {
         String dir;
         if (executionID != null)
-            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + FileConstants.FILE_SEPARATOR + executionID + FileConstants.FILE_SEPARATOR + "Hypervolume" + FileConstants.FILE_SEPARATOR;
+            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + FileConstants.FILE_SEPARATOR + executionID + FileConstants.FILE_SEPARATOR + "fitness" + FileConstants.FILE_SEPARATOR;
         else
-            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + FileConstants.FILE_SEPARATOR + "Hypervolume" + FileConstants.FILE_SEPARATOR;
+            dir = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + experimentID + FileConstants.FILE_SEPARATOR + "fitness" + FileConstants.FILE_SEPARATOR;
 
         File newDir = new File(dir);
         if (!newDir.exists())
@@ -32,11 +32,11 @@ public class OPLABaseUtils {
                 solution.setExperimentId(experimentID);
             }
         }
-        new OPLASolutionSet(allSolutions).printObjectivesToFile(dir + FileConstants.FILE_SEPARATOR + "hypervolume.txt");
+        new OPLASolutionSet(allSolutions).printObjectivesToFile(dir + FileConstants.FILE_SEPARATOR + "fitness.txt");
         if (executionID == null) {
             String referencePoint = Arrays.stream(allSolutions.get(0).getObjectives()).mapToObj(s -> "1.01").collect(Collectors.joining(" "));
             try {
-                OPLACommand.execCmd(UserHome.getOplaHv() + " -r \"" + referencePoint + "\" " + dir + "hypervolume.normalize >> " + dir + "hypervolume.final");
+                OPLACommand.execCmd(UserHome.getOplaHv() + " -r \"" + referencePoint + "\" " + dir + "fitness.normalize >> " + dir + "fitness.final");
             } catch (IOException e) {
                 e.printStackTrace();
             }

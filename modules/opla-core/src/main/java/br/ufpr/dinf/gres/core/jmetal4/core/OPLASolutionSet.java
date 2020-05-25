@@ -7,9 +7,11 @@ import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.common.Configuration;
 import br.ufpr.dinf.gres.common.exceptions.JMException;
 import br.ufpr.dinf.gres.core.jmetal4.problems.OPLA;
+import br.ufpr.dinf.gres.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.ufpr.dinf.gres.core.learning.ArchitecturalElementType;
 import br.ufpr.dinf.gres.core.learning.DistributeUserEvaluation;
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import br.ufpr.dinf.gres.domain.entity.Info;
 import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
@@ -456,10 +458,11 @@ public class OPLASolutionSet {
     public void printObjectivesToFile(String path) {
         printObjectivesWithoutNormalizeToFile(path);
         printObjectivesWithNormalizeToFile(path);
+        printQualityIndicators(path);
     } // printObjectivesToFile
 
-    private void printObjectivesWithNormalizeToFile(String path) {
-        path = path.replace("txt", "normalized");
+    private void printObjectivesWithNormalizeToFile(String pathNorm) {
+        String path = pathNorm.replace("txt", "normalized");
         File file = new File(path);
         file.getParentFile().mkdirs();
         try {
@@ -475,6 +478,33 @@ public class OPLASolutionSet {
                     bw.newLine();
                 }
             }
+            bw.close();
+        } catch (IOException e) {
+            Configuration.logger_.severe("Error acceding to the file");
+            e.printStackTrace();
+        }
+    }
+
+    private void printQualityIndicators(String pathInd) {
+        String path = pathInd.replace("txt", "indicators");
+        File file = new File(path);
+        file.getParentFile().mkdirs();
+        try {
+            FileOutputStream fos = new FileOutputStream(path);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter bw = new BufferedWriter(osw);
+            QualityIndicator qualityIndicator = new QualityIndicator(solutionSet.get(0).getProblem(), pathInd.replace("txt", "normalized"));
+            bw.write("HV:" + qualityIndicator.getHypervolume(solutionSet));
+            bw.newLine();
+            bw.write("EPSILON:" + qualityIndicator.getEpsilon(solutionSet));
+            bw.newLine();
+            bw.write("IGD:" + qualityIndicator.getIGD(solutionSet));
+            bw.newLine();
+            bw.write("SPREAD:" + qualityIndicator.getSpread(solutionSet));
+            bw.newLine();
+            bw.write("GD:" + qualityIndicator.getGD(solutionSet));
+            bw.newLine();
+
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -540,7 +570,7 @@ public class OPLASolutionSet {
         int numberOfVariables = solutionSet.solutionsList_.get(0).getDecisionVariables().length;
 
         SaveStringToFile.getInstance().createLogDir();
-        String logPath = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/Logs/linkHypervolume.txt";
+        String logPath = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "logs" + FileConstants.FILE_SEPARATOR + "link_fitness.txt";
 
         if (logger != null)
             logger.putLog("Number of solutions: " + solutionSet.solutionsList_.size(), Level.INFO);

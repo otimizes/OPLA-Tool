@@ -1,6 +1,7 @@
 package br.ufpr.dinf.gres.persistence.base;
 
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
@@ -58,9 +59,9 @@ public abstract class BaseService<T> {
     public List<T> findAll() {
         String where = "";
         if (doesObjectContainField(domain, "hash")) {
-            where = " obj where obj.hash like '" + OPLAThreadScope.token.get() + "/%'";
+            where = " obj where obj.hash like '" + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR +  "%'";
         } else if (doesObjectContainField(domain, "experiment")) {
-            where = " obj where obj.experiment.hash like '" + OPLAThreadScope.token.get() + "/%'";
+            where = " obj where obj.experiment.hash like '" + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + "%'";
         }
         String select = "from " + domain.getName();
         Query query = entityManager.createQuery(select + where);

@@ -36,6 +36,7 @@ import br.ufpr.dinf.gres.core.jmetal4.util.comparators.CrowdingComparator;
 import br.ufpr.dinf.gres.core.learning.ClassifierAlgorithm;
 import br.ufpr.dinf.gres.core.learning.SubjectiveAnalyzeAlgorithm;
 import br.ufpr.dinf.gres.domain.OPLAThreadScope;
+import br.ufpr.dinf.gres.domain.config.FileConstants;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
@@ -289,20 +290,20 @@ public class NSGAII extends Algorithm {
         return newSolution;
     }
 
-    private void saveBaseHypervolume(Solution solution){
+    private void saveBaseHypervolume(Solution solution) {
         SaveStringToFile.getInstance().createLogDir();
-        String path = ApplicationFileConfigThreadScope.getDirectoryToExportModels()+"/Logs/hypervolume_base.txt";
+        String path = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "logs" + FileConstants.FILE_SEPARATOR + "fitness_base.txt";
         try {
             FileWriter fileWriter = new FileWriter(path);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
-            for(Double fit : solution.getObjectives()) {
+            for (Double fit : solution.getObjectives()) {
                 printWriter.write(fit.toString());
                 printWriter.write(" ");
             }
             printWriter.close();
             fileWriter.close();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex);
             ex.printStackTrace();
         }

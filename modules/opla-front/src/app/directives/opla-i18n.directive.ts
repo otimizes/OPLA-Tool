@@ -12,7 +12,7 @@ export class OplaI18nDirective {
   context: any = {};
   oplaI18n: HTMLElement;
   offset = 10;
-  delay = 500;
+  delay = 200;
   placement: string = 'top';
   info: HTMLElement;
 

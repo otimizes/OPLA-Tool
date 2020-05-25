@@ -163,7 +163,7 @@ public class NSGAIIOPLAPLAThenDPM {
 
         long[] time = new long[runsNumber];
 
-        Hypervolume.clearFile(directory + "/HYPERVOLUME.txt");
+        Hypervolume.clearFile(directory + "/fitness.txt");
 
         for (int runs = 0; runs < runsNumber; runs++) {
 
@@ -202,7 +202,7 @@ public class NSGAIIOPLAPLAThenDPM {
                 new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_");
             }
 
-            Hypervolume.printFormatedHypervolumeFile(resultFront, directory + "/HYPERVOLUME.txt", true);
+            Hypervolume.printFormatedHypervolumeFile(resultFront, directory + "/fitness.txt", true);
 
             //armazena as solucoes de todas runs
             todasRuns = todasRuns.union(resultFront);

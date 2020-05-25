@@ -134,7 +134,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
       this.snackBar.open("Optimization started", "View logs", {
         duration: 10000
       }).onAction().subscribe(() => {
-        this.stepper.selectedIndex = 5
+        this.stepper.selectedIndex = 4
       })
     })
   }

@@ -113,7 +113,7 @@ public class GeraTudoAKAGodClass {
                 stringBuilder.append("\"\n");
                 stringBuilder.append("\n");
                 stringBuilder.append("echo \"$system\"\n");
-                stringBuilder.append("FILES=./$system/HYPERVOLUME.txt\n");
+                stringBuilder.append("FILES=./$system/fitness.txt\n");
                 stringBuilder.append("for f in $FILES\n");
                 stringBuilder.append("do\n");
                 stringBuilder.append("\techo \"Processing $f\"\n");

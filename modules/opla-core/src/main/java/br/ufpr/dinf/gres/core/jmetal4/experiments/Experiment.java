@@ -163,7 +163,7 @@ public abstract class Experiment {
                     data[indicator][problem][algorithm] = new Vector<Object>();
 
                     String directory = experimentBaseDirectory_;
-                    directory += "/data/";
+                    directory += FileConstants.FILE_SEPARATOR + "data" + FileConstants.FILE_SEPARATOR;
                     directory += FileConstants.FILE_SEPARATOR + algorithmNameList_[algorithm];
                     directory += FileConstants.FILE_SEPARATOR + problemList_[problem];
                     directory += FileConstants.FILE_SEPARATOR + indicatorList_[indicator];

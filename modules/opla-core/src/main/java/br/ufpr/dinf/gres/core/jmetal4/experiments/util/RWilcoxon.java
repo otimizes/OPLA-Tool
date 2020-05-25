@@ -66,7 +66,7 @@ public class RWilcoxon {
             os.write(output + "\n");
 
             // Generate function latexHeader()
-            String dataDirectory = experiment.experimentBaseDirectory_ + "/data";
+            String dataDirectory = experiment.experimentBaseDirectory_ + FileConstants.FILE_SEPARATOR + "data";
             os.write("resultDirectory<-\"" + dataDirectory + "\"" + "\n");
             output = "latexHeader <- function() {" + "\n" +
                     "  write(\"\\\\documentclass{article}\", \"" + texFile + "\", append=TRUE)" + "\n" +

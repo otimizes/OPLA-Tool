@@ -31,7 +31,7 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
         }
         String path = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + name + ".smty";
         SaveStringToFile.getInstance().createLogDir();
-        String logPath = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/Logs/log_" + name + ".txt";
+        String logPath = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/logs/log_" + name + ".txt";
         try {
             FileWriter fileWriter = new FileWriter(path);
             PrintWriter printWriter = new PrintWriter(fileWriter);

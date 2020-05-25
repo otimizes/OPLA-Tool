@@ -41,9 +41,9 @@ public class FormatForMe {
                  * PF_{known}
                  *
                  */
-                String directoryPath = "experiment/" + pla + FileConstants.FILE_SEPARATOR;
+                String directoryPath = "experiment" + FileConstants.FILE_SEPARATOR + pla + FileConstants.FILE_SEPARATOR;
 
-                double[][] front = mu.readFront(directoryPath + FileConstants.FILE_SEPARATOR + context + "/FUN_All_" + pla + ".txt");
+                double[][] front = mu.readFront(directoryPath + FileConstants.FILE_SEPARATOR + context + FileConstants.FILE_SEPARATOR + "FUN_All_" + pla + ".txt");
 
                 System.out.println(pla + " " + context + ":");
 

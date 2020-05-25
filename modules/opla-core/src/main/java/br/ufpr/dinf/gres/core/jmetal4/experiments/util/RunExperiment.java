@@ -159,7 +159,7 @@ public class RunExperiment extends Thread {
                     File experimentDirectory;
                     String directory;
 
-                    directory = experimentBaseDirectory_ + "/data/" + algorithmNameList_[i] + FileConstants.FILE_SEPARATOR +
+                    directory = experimentBaseDirectory_ + FileConstants.FILE_SEPARATOR + "data" +FileConstants.FILE_SEPARATOR + algorithmNameList_[i] + FileConstants.FILE_SEPARATOR +
                             problemList_[problemId];
 
                     experimentDirectory = new File(directory);
@@ -197,7 +197,7 @@ public class RunExperiment extends Thread {
                                 double value = indicators.getHypervolume(resultFront);
                                 FileWriter os;
                                 try {
-                                    os = new FileWriter(experimentDirectory + "/HV", true);
+                                    os = new FileWriter(experimentDirectory + FileConstants.FILE_SEPARATOR + "HV", true);
                                     os.write("" + value + "\n");
                                     os.close();
                                 } catch (IOException ex) {
@@ -208,7 +208,7 @@ public class RunExperiment extends Thread {
                                 FileWriter os = null;
                                 try {
                                     double value = indicators.getSpread(resultFront);
-                                    os = new FileWriter(experimentDirectory + "/SPREAD", true);
+                                    os = new FileWriter(experimentDirectory + FileConstants.FILE_SEPARATOR + "SPREAD", true);
                                     os.write("" + value + "\n");
                                     os.close();
                                 } catch (IOException ex) {
@@ -225,7 +225,7 @@ public class RunExperiment extends Thread {
                                 FileWriter os = null;
                                 try {
                                     double value = indicators.getIGD(resultFront);
-                                    os = new FileWriter(experimentDirectory + "/IGD", true);
+                                    os = new FileWriter(experimentDirectory + FileConstants.FILE_SEPARATOR + "IGD", true);
                                     os.write("" + value + "\n");
                                     os.close();
                                 } catch (IOException ex) {
@@ -242,7 +242,7 @@ public class RunExperiment extends Thread {
                                 FileWriter os = null;
                                 try {
                                     double value = indicators.getEpsilon(resultFront);
-                                    os = new FileWriter(experimentDirectory + "/EPSILON", true);
+                                    os = new FileWriter(experimentDirectory + FileConstants.FILE_SEPARATOR + "EPSILON", true);
                                     os.write("" + value + "\n");
                                     os.close();
                                 } catch (IOException ex) {
