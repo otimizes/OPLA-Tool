@@ -119,7 +119,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.verifyInteraction(this.optimizationInfo);
-    this.stepper.selectedIndex = 0;
+    this.stepper.selectedIndex = 3;
   }
 
   ngOnInit() {

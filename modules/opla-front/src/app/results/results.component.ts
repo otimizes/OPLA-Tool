@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl} from "@angular/forms";
 import {ExperimentService} from "../services/experiment.service";
 import {MatAutocomplete} from "@angular/material/autocomplete";
@@ -9,14 +9,14 @@ import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 
+declare var d3: any;
+
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.css']
 })
-export class ResultsComponent implements OnInit {
-
-
+export class ResultsComponent implements OnInit, AfterViewInit {
   selectedExperiments = [];
   experiments = [];
   @Input() experimentConfigurationService: ExperimentConfigurationService;
@@ -28,48 +28,9 @@ export class ResultsComponent implements OnInit {
   experimentCtrl = new FormControl();
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredExperiments: Observable<string[]>;
-  multi: any[];
-  view: any[] = [700, 400];
-  showXAxis: boolean = true;
-  showYAxis: boolean = true;
-  gradient: boolean = false;
-  showLegend: boolean = true;
-  showXAxisLabel: boolean = true;
-  showYAxisLabel: boolean = true;
-  roundDomains: boolean = true;
-  showDataLabel: boolean = true;
-  disabled = [];
 
-  onSelect(data): void {
-    for (let i = 0; i < this.multi.length; i++) {
-      for (let j = 0; j < this.multi[i].series.length; j++) {
-        if (this.multi[i].series[j].name === data) {
-          this.disabled.push({
-            i: i,
-            j: j,
-            serie: Object.assign({}, this.multi[i].series[j])
-          });
-        }
-      }
-    }
-    let newMulti = Object.assign([], this.multi);
-    for (let disabled of this.disabled) {
-      console.log(disabled, newMulti[disabled.i].series[disabled.j]);
-      newMulti[disabled.i].series.splice(disabled.j, 1)
-    }
-    this.multi = newMulti;
-  }
-
-  onActivate(data): void {
-    // console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data): void {
-    // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
 
   constructor(fb: FormBuilder) {
-    Object.assign(this, {multi: this.multi})
   }
 
   private _filter(value: any): string[] {
@@ -95,6 +56,9 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit() {
     this.searchExperiments();
+  }
+
+  ngAfterViewInit(): void {
   }
 
   searchExperiments() {
@@ -134,39 +98,53 @@ export class ResultsComponent implements OnInit {
     this.createGraphs(this.selectedExperiments);
   }
 
+  createParallelChart(data) {
+    var colors = d3.scale.category20b();
+    var pc = d3.parcoords()("#opla-d3-chart")
+      .data(data)
+      .hideAxis(["experimentId", "executionId"])
+      .color(function (d, i) {
+        return colors(d.experimentId + d.executionId);
+      })
+      .composite("darken")
+      .render()
+      .alpha(0.35)
+      .brushMode("1D-axes")  // enable brushing
+      .interactive();
+  }
+
   createGraphs(selectedExperiments: any[]) {
     setTimeout(() => {
       if (selectedExperiments.length > 0) {
-        let chart = [];
-        for (let i = 0; i < selectedExperiments.length; i++) {
-          let experiment = selectedExperiments[i];
-          let chartI = {name: experiment.id + ' - ' + experiment.name, series: []};
-          let objectiveNames = this.getObjectivesNamesByStr(experiment.experimentConfiguration.objectives);
+        let chart = selectedExperiments[0].experimentConfiguration.objectives.replace('[', '').replace(']', '') + ",experimentId,executionId\n";
+        for (let experiment of selectedExperiments) {
           for (let obj of experiment.objective) {
-            if (obj.execution) {
-              let objectives = this.getObjectivesByStr(obj.objectives);
-              for (let j = 0; j < objectives.length; j++) {
-                chartI.series.push({
-                  name: objectiveNames[j],
-                  value: objectives[j]
-                })
-              }
-            }
+            chart += obj.objectives.split("|").join(",") + "," + obj.experiment.id + "," + (obj.execution ? obj.execution.id : 0) + "\n";
           }
-          chart.push(chartI);
         }
-        console.log(selectedExperiments, chart);
-        this.multi = chart;
+        this.createParallelChart(d3.csv.parse(chart));
       }
     }, 500)
 
   }
 
-  getObjectivesNamesByStr(str) {
-    return str.replace('[', '').replace(']', '').split(',');
+  doit: any;
+  resizeChart() {
+    let selectExp = [];
+    for (let exp of this.selectedExperiments) {
+      selectExp.push(Object.assign({}, exp));
+    }
+    this.selectedExperiments = [];
+    setTimeout(() => {
+      this.selectedExperiments = selectExp;
+      this.createGraphs(selectExp);
+    }, 250);
   }
 
-  getObjectivesByStr(str) {
-    return str.split("|");
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    clearTimeout(this.doit);
+    this.doit = setTimeout(() => this.resizeChart(), 250);
   }
+
 }

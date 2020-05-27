@@ -40,7 +40,6 @@ import {InteractionDialogComponent} from "./dialogs/interaction/interaction-dial
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {NgxChartsModule} from "@swimlane/ngx-charts";
 import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.directive";
 
 @NgModule({
@@ -65,7 +64,6 @@ import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.direc
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxChartsModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatStepperModule,

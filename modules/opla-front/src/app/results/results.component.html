@@ -12,7 +12,7 @@
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
           <input
-            placeholder="Select experiments..."
+            placeholder="Select the experiments..."
             #experimentInput
             (focus)="searchExperiments()"
             [formControl]="experimentCtrl"
@@ -35,26 +35,13 @@
   <opla-grid-tile style="height: 50vh">
     <mat-card style="height: 100%">
       <mat-card-content style="height: 100%">
-        <ngx-charts-bar-horizontal-2d
-          [scheme]="'cool'"
-          [results]="multi"
-          [gradient]="gradient"
-          [roundDomains]="roundDomains"
-          [showDataLabel]="showDataLabel"
-          [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [legend]="showLegend"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          xAxisLabel="Experiments"
-          yAxisLabel="Objective Values"
-          legendTitle="Objectives"
-          (select)="onSelect($event)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)">
-        </ngx-charts-bar-horizontal-2d>
+        <div class="title-chart">
+          <h3>Parallel Coordinates</h3>
+        </div>
+        <div id="opla-d3-chart" class="parcoords" style="width:100%;height:90%"></div>
       </mat-card-content>
     </mat-card>
   </opla-grid-tile>
+<!--  <opla-grid-tile></opla-grid-tile>-->
 </opla-grid-list>
 <br>
