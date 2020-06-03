@@ -47,7 +47,7 @@ The design patterns are applied in the PLA as mutation operators. However, you c
 In the right inferior button, it is possible to run the optimization process. When the process initialize,
 this button is disabled.
 
-![Step 4](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/usage/step-4.png)
+![Step 4](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/usage/step-3-6.png)
 ### Step 5: View logs
 In this tab, you are able to see the logs that show the optimization process status.
 
