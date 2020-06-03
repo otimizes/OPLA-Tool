@@ -1,6 +1,6 @@
 # OPLA-Tool
 
-![OtimizesUEM](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/logo-grupo-pesquisa.png)
+![OPLA-Tool](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/modules/opla-front/src/assets/logo.png)
 
 ## Description
 
