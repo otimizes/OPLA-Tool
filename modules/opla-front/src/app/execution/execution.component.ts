@@ -134,7 +134,7 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
 
 @Component({
   selector: 'papyrus-settings-dialog',
-  templateUrl: '../another/papyrus.config.component.html',
+  templateUrl: '../dialogs/papyrus-config/papyrus.config.component.html',
 })
 export class PapyrusSettingsDialog {
   optimizationDto: any;

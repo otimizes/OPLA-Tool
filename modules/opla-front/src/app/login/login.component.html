@@ -1,15 +1,15 @@
 <opla-grid-list>
   <opla-grid-tile style="display:flex; justify-content: center;">
     <mat-card class="login-card">
-      <mat-card-header style="width: 100%; display: flex; justify-content: center;">
+      <mat-card-header style="width: 100%; display: flex; justify-content: center; height: 60px; align-items: center;">
         <mat-card-title>
-            <img style="width: 150px" src="https://raw.githubusercontent.com/SBSE-UEM/OPLA-Tool/master/logo-grupo-pesquisa.png" alt="favicon">
+            <img style="width: 150px" src="assets/logo.png" alt="favicon">
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <form class="example-form" [formGroup]="loginForm">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Usuário</mat-label>
+            <mat-label>User</mat-label>
             <input matInput placeholder="Usuário" name="username"
                    formControlName="loginInput"
                    (keydown.enter)="login()"
@@ -17,7 +17,7 @@
           </mat-form-field>
           <br>
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Senha</mat-label>
+            <mat-label>Password</mat-label>
             <input matInput placeholder="Senha" type="password" name="password"
                    formControlName="passwordInput"
                    (keydown.enter)="login()"
