@@ -43,6 +43,7 @@ These are the mutation operators present in the tool. By default, all of them ar
 #### Step 3.6: Design patterns
 The design patterns are applied in the PLA as mutation operators. However, you can find them here, in this tab.
 
+![Step 3-6](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/usage/step-3-6.png)
 ### Step 4: Running the experiment
 In the right inferior button, it is possible to run the optimization process. When the process initialize,
 this button is disabled.
