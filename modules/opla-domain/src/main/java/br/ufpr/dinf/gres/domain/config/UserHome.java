@@ -71,9 +71,9 @@ public class UserHome {
     public static void createBinsHVPath() {
         Utils.createPath(getOplaUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR);
         URL systemResource = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.HV_FILE);
-        try {
-            Path path = Paths.get(getOplaUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR + FileConstants.HV_FILE);
-            FileUtils.copy(Paths.get(systemResource.toURI()), path);
+        Path path = Paths.get(getOplaUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR + FileConstants.HV_FILE);
+        if (!path.toFile().exists()) {
+            FileUtils.copy(Paths.get(systemResource.getPath()), path);
             File hvDir = new File(getOplaUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR + FileConstants.HV_DIR);
             boolean mkdirs = hvDir.mkdirs();
 
@@ -86,8 +86,6 @@ public class UserHome {
                 ua.setDestDirectory(hvDir);
                 ua.extract();
             }
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
         }
     }
 
