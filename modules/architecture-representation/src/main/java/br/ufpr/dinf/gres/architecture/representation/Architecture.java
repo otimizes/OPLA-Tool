@@ -16,6 +16,7 @@ import br.ufpr.dinf.gres.architecture.smarty.util.SaveStringToFile;
 import br.ufpr.dinf.gres.common.Variable;
 import br.ufpr.dinf.gres.domain.config.ApplicationFileConfigThreadScope;
 import br.ufpr.dinf.gres.domain.config.FileConstants;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
@@ -27,6 +28,12 @@ import java.util.stream.Collectors;
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
+@JsonIgnoreProperties({"elements", "elementsWithPackages", "allConcerns", "allPackages", "allMethods", "packages",
+        "allPackagesAllowedMofification", "interfaces", "allInterfaces", "classes", "allClasses",
+        "allVariationPoints", "allVariants", "allVariabilities", "freezedElements", "LOGGER", "relationshipHolder",
+        "atributtes", "allAtributtes", "upperBound", "lowerBound", "variableType", "value", "concerns", "types",
+        "variationPoints", "variabilities", "variants", "editableListPackages", "editableListClasses", "editableListPackages",
+        "editableListInterfaces", "relationships", "implementedInterfaces", "createClass", "allModifiableInterfaces", "allModifiableClasses"})
 public class Architecture extends Variable {
 
     private static Logger LOGGER = Logger.getLogger(Architecture.class);

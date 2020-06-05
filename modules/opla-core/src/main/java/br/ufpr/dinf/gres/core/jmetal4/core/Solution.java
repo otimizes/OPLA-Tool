@@ -673,12 +673,6 @@ public class Solution implements Serializable {
         return false;
     }
 
-    @JsonIgnoreProperties({"elements", "elementsWithPackages", "allConcerns", "allPackages", "allMethods",
-            "allPackagesAllowedMofification", "interfaces", "allInterfaces", "classes", "allClasses",
-            "allVariationPoints", "allVariants", "allVariabilities", "freezedElements", "LOGGER", "relationshipHolder",
-            "atributtes", "allAtributtes", "upperBound", "lowerBound", "variableType", "value", "concerns", "types",
-            "variationPoints", "variabilities", "variants", "editableListPackages", "editableListClasses", "editableListPackages",
-            "editableListInterfaces"})
     public Architecture getAlternativeArchitecture() {
         return (Architecture) getDecisionVariables()[0];
     }
