@@ -68,7 +68,7 @@
     "description": "It measures the complexity of the service or component, in terms of its operations (methods) that will be needed for other services or components; where service is defined as a function without a state, independent, that accepts a call (s) and returns a response (s) through a well-defined interface. The metric indicates that operations with many formal parameters are more likely to be complex than operations that require fewer parameters."
   },
   "LFCC": {
-    "value": "Lack of Concern-basedCohesion",
+    "value": "Lack of Concern-based Cohesion",
     "description": "It indicates the lack of feature-based cohesion by summing the number of features assessed by each class of a PLA."
   },
   "FDAC": {
@@ -76,7 +76,7 @@
     "description": "Considering an SPL architecture PLA, this function measures the feature diffusion by the summing the number of architectural classes associated with the SPL features."
   },
   "CIBF": {
-    "value": "Component-levelInterlacing Between Concerns",
+    "value": "Component-level Interlacing Between Concerns",
     "description": "It measures the feature interlacing of a PLA by summing the numbers of features that the assessed feature share in at least one architectural class."
   }
 }
