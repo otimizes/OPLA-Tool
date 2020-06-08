@@ -13,14 +13,17 @@ import br.otimizes.oplatool.domain.entity.objectivefunctions.*;
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.ACLASS ACLASS,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.ACOMP ACOMP,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.CM CM,}
+ * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.CIBF CIBF,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.COE COE,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.CS CS,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.DC DC,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.EC EC,}
+ * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.FDAC FDAC,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.ELEG ELEG,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.EXT EXT,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.FM FM,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.LCC LCC,}
+ * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.LFCC LFCC,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.RCC RCC,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.SD SD,}
  * {@link br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.SV SV,}
