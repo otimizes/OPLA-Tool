@@ -8,7 +8,7 @@
     <name>..:: OPLA - Architecture Representation ::..</name>
 
     <parent>
-        <groupId>br.ufpr.dinf.gres</groupId>
+        <groupId>br.otimizes.oplatool</groupId>
         <artifactId>opla-tool</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../../</relativePath>
@@ -116,7 +116,7 @@
             <artifactId>commons-collections4</artifactId>
         </dependency>
         <dependency>
-            <groupId>br.ufpr.dinf.gres</groupId>
+            <groupId>br.otimizes.oplatool</groupId>
             <artifactId>opla-domain</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>

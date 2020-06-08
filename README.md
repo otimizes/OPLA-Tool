@@ -66,9 +66,9 @@ Make Fork this project and create a Pull Request with your changes
 
 ### Implementing a new Objective Function 
 
-- [\<Click here to see the implemented Objective Functions\>](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/metrics/ObjectiveFunctions.html)
-- Create the persistent entity into the [opla-domain > objectivefunctions](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/domain/entity/objectivefunctions/package-summary.html).
-- Every Objective Function must inherit the class [ObjectiveFunctionDomain](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/domain/entity/objectivefunctions/ObjectiveFunctionDomain.html).
+- [\<Click here to see the implemented Objective Functions\>](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/metrics/ObjectiveFunctions.html)
+- Create the persistent entity into the [opla-domain > objectivefunctions](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/domain/entity/objectivefunctions/package-summary.html).
+- Every Objective Function must inherit the class [ObjectiveFunctionDomain](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/domain/entity/objectivefunctions/ObjectiveFunctionDomain.html).
 
 ```java
 @Entity
@@ -90,12 +90,12 @@ public class MYOBJObjectiveFunction extends ObjectiveFunctionDomain {
 }
 ```
 
-- Create the service and repository of your objective function into the [opla-persistence > service > objectivefunctions](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/persistence/service/objectivefunctions/package-summary.html) and [opla-persistence > repository > objectivefunctions](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/persistence/repository/objectivefunctions/package-summary.html)
-- Create the resource inside the [opla-api > resource > objectivefunctions](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/api/resource/objectivefunctions/package-summary.html).
+- Create the service and repository of your objective function into the [opla-persistence > service > objectivefunctions](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/persistence/service/objectivefunctions/package-summary.html) and [opla-persistence > repository > objectivefunctions](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/persistence/repository/objectivefunctions/package-summary.html)
+- Create the resource inside the [opla-api > resource > objectivefunctions](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/api/resource/objectivefunctions/package-summary.html).
 
-- The implementation of metrics must be inside a package in [opla-core > jmetal4 > metrics](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/metrics/package-summary.html).
-- The implementation of your objective function must be in [opla-core > jmetal4 > metrics > objectivefunctions](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/metrics/objectivefunctions/package-summary.html).
-- The implementation class must inherit the [ObjectiveFunctionImplementation](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/metrics/ObjectiveFunctionImplementation.html) and must be UPPERCASE. Read the comments in the code below.
+- The implementation of metrics must be inside a package in [opla-core > jmetal4 > metrics](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/metrics/package-summary.html).
+- The implementation of your objective function must be in [opla-core > jmetal4 > metrics > objectivefunctions](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/metrics/objectivefunctions/package-summary.html).
+- The implementation class must inherit the [ObjectiveFunctionImplementation](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/metrics/ObjectiveFunctionImplementation.html) and must be UPPERCASE. Read the comments in the code below.
 ```java
 public class MYOBJ extends ObjectiveFunctionImplementation {
 
@@ -112,7 +112,7 @@ public class MYOBJ extends ObjectiveFunctionImplementation {
 }
 ```
 
-- Add your metrics into Metrics Enum and the Objective Function into the [ObjectiveFunctions](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/metrics/ObjectiveFunctions.html) Enum.
+- Add your metrics into Metrics Enum and the Objective Function into the [ObjectiveFunctions](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/metrics/ObjectiveFunctions.html) Enum.
 ```java
 public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 // ...
@@ -135,7 +135,7 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 ```
 
 - Implement the tests in the core inside the MetricsTest
-- ** ATTENTION ** Use the exactly name of the object function (in enum [ObjectiveFunctions](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/metrics/ObjectiveFunctions.html)) as prefix of your resource, service and repository. Also use the pattern of posfix. It is used reflection to facilitate the development of new objective functions. 
+- ** ATTENTION ** Use the exactly name of the object function (in enum [ObjectiveFunctions](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/metrics/ObjectiveFunctions.html)) as prefix of your resource, service and repository. Also use the pattern of posfix. It is used reflection to facilitate the development of new objective functions. 
 -- Example: 
 - MYOBJ.java -> Implementation of the objective function
 - MYOBJObjectiveFunction.java -> Domain of the objective function
@@ -145,32 +145,32 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
 - It will appears in the front-end, at the Objective functions section
 
 ### Implementing a new Optimization Algorithm
-- [\<Click here to see the implemented Optimization algorithms\>](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/api/gateway/OptimizationAlgorithms.html)
+- [\<Click here to see the implemented Optimization algorithms\>](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/api/gateway/OptimizationAlgorithms.html)
 - Put your metaheuristic in jmetal4 > metaheuristics > youralgorithmpackage
 - Observe how was implemented the existent algorithms, following the current steps 
-- Create your config in [jmetal4 > experiments > base](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/experiments/base/package-summary.html) inheriting the ExperimentCommonConfigs
+- Create your config in [jmetal4 > experiments > base](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/experiments/base/package-summary.html) inheriting the ExperimentCommonConfigs
 - Use the name of optimization algorithm config with the posfix Configs, ex: MyOptAlgConfigs
-- Create your base to the Optimization Algorithm in [jmetal4 > experiments > base](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/experiments/base/package-summary.html)
+- Create your base to the Optimization Algorithm in [jmetal4 > experiments > base](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/experiments/base/package-summary.html)
 - Use the name of optimization algorithm base with the posfix OPLABase, ex: MyOptAlgOPLABase
-- In order to link the algorithm in the api, it is necessary to create the gateway into the [opla-api > gateway](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/api/gateway/package-frame.html)
+- In order to link the algorithm in the api, it is necessary to create the gateway into the [opla-api > gateway](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/api/gateway/package-frame.html)
 - Use the name of the gateway with the posfix Gateway, ex: MyOptAlgGateway
-- Add the gateway class in enum [OptimizationAlgorithms](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/api/gateway/OptimizationAlgorithms.html), implementing the method getType
+- Add the gateway class in enum [OptimizationAlgorithms](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/api/gateway/OptimizationAlgorithms.html), implementing the method getType
 - It will appears in the front-end, at the Settings section
 
 ### Implementing a new Mutation Operator
-- [\<Click here to see the implemented Mutation Operators\>](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/MutationOperators.html)
-- Create your class implementing [IMutationOperator](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/mutation/IMutationOperator.html) into [jmetal4 > operators > mutation](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/mutation/package-summary.html)
-- Insert the instance of it in [jmetal4 > operators > MutationOperators](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/MutationOperators.html) enum.
+- [\<Click here to see the implemented Mutation Operators\>](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/operators/MutationOperators.html)
+- Create your class implementing [IMutationOperator](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/operators/mutation/IMutationOperator.html) into [jmetal4 > operators > mutation](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/operators/mutation/package-summary.html)
+- Insert the instance of it in [jmetal4 > operators > MutationOperators](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/operators/MutationOperators.html) enum.
 - It will appears in the front-end, at the Mutation Operators section
 
 ### Implementing a new Crossover Operator
-- [\<Click here to see the implemented Crossover Operators\>](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/CrossoverOperators.html)
-- Create your class implementing [IMutationOperator](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/mutation/IMutationOperator.html) into [jmetal4 > operators > mutation](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/mutation/package-summary.html)
-- Insert the instance of it in [jmetal4 > operators > CrossoverOperators](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/operators/CrossoverOperators.html) enum.
+- [\<Click here to see the implemented Crossover Operators\>](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/operators/CrossoverOperators.html)
+- Create your class implementing [IMutationOperator](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/operators/mutation/IMutationOperator.html) into [jmetal4 > operators > mutation](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/operators/mutation/package-summary.html)
+- Insert the instance of it in [jmetal4 > operators > CrossoverOperators](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/operators/CrossoverOperators.html) enum.
 - It will appears in the front-end, at the Mutation Operators section
 
 ### Implementing new methods in JMetal
-- If you want to add new methods in [SolutionSet](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/core/SolutionSet.html), implement them at the [OPLASolutionSet](https://otimizes.github.io/OPLA-Tool/docs/br/ufpr/dinf/gres/core/jmetal4/core/OPLASolutionSet.html)
+- If you want to add new methods in [SolutionSet](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/core/SolutionSet.html), implement them at the [OPLASolutionSet](https://otimizes.github.io/OPLA-Tool/docs/br/otimizes/oplatool/core/jmetal4/core/OPLASolutionSet.html)
 
 ### Implementing tests and main classes
 - Every created method need to be in the tests at the respective module

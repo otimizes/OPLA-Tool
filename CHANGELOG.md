@@ -7,10 +7,11 @@
 In this version, you are able to access the http://localhost:8080 and use the web interface to optimize PLAs.
 It were fixed a lot of bugs and problems of the oldest version. Now, there is a documentation and MD files to assist 
 you in the contribution of this project. Currently, the default modeling tool is the SMartyModeling present in the 
-root path of this project. 
+root path of this project. The packages were renamed to br.otimizes.oplatool.
 
 
 ### Report
+- The packages were renamed to br.otimizes.oplatool
 - Web interface in angular 8 (view usage.md tutorial)
 - Every use have a login and the output directories are created according the user's token
 - Clean code modules

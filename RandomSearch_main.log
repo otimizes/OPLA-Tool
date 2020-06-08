@@ -7,7 +7,7 @@
   <sequence>0</sequence>
   <logger>jMetal</logger>
   <level>INFO</level>
-  <class>br.ufpr.dinf.gres.core.jmetal4.main.RandomSearch_main</class>
+  <class>br.otimizes.oplatool.core.jmetal4.main.RandomSearch_main</class>
   <method>main</method>
   <thread>1</thread>
   <message>Total execution time: 357ms</message>

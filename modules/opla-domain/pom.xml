@@ -9,7 +9,7 @@
 	<name>..:: OPLA - Domain ::..</name>
 
 	<parent>
-		<groupId>br.ufpr.dinf.gres</groupId>
+		<groupId>br.otimizes.oplatool</groupId>
 		<artifactId>opla-tool</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../../</relativePath>
