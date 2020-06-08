@@ -22,13 +22,13 @@ import java.util.logging.Level;
 /**
  * PLA Crossover 2
  */
-public class PLACrossover implements IOperator<Solution[]> {
+public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 
     private CrossoverUtils crossoverutils;
     private boolean variabilitiesOk = true;
     private String SCOPE_LEVEL;
 
-    public PLACrossover() {
+    public PLAFeatureDrivenCrossover() {
         crossoverutils = new CrossoverUtils();
     }
 

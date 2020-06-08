@@ -1,24 +1,24 @@
 package br.otimizes.oplatool.core.jmetal4.operators;
 
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.*;
-import br.otimizes.oplatool.core.jmetal4.operators.mutation.*;
 
 /**
  * Feature mutation operators enum
  * <p>
- * {@link FeatureMutation Feature Mutation,}
+ * {@link FeatureDrivenOperator Feature Mutation,}
  * {@link MoveMethodMutation Move Method Mutation,}
  * {@link MoveAttributeMutation Move Attribute Mutation,}
  * {@link MoveOperationMutation Move Operation Mutation,}
  * {@link AddClassMutation Add Class Mutation,}
  * {@link AddManagerClassMutation Add Manager Class Mutation}
+ * {@link FeatureDrivenOperatorForClass Feature Mutation for class}
  */
 public enum MutationOperators implements IOperators {
 
-    FEATURE_MUTATION {
+    FEATURE_DRIVEN_OPERATOR {
         @Override
         public IOperator getOperator() {
-            return new FeatureMutation();
+            return new FeatureDrivenOperator();
         }
     },
     MOVE_METHOD_MUTATION {
@@ -51,10 +51,10 @@ public enum MutationOperators implements IOperators {
             return new AddManagerClassMutation();
         }
     },
-    FEATURE_DRIVEN_FOR_CLASS {
+    FEATURE_DRIVEN_OPERATOR_FOR_CLASS {
         @Override
         public IOperator getOperator() {
-            return new FeatureDrivenForClass();
+            return new FeatureDrivenOperatorForClass();
         }
     },
     DESIGN_PATTERNS {

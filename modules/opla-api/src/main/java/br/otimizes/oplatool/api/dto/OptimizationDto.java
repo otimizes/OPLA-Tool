@@ -36,8 +36,8 @@ public class OptimizationDto {
     private ArchitectureBuilders architectureBuilder = ArchitectureBuilders.SMARTY;
     @JsonIgnore
     private InteractiveFunction interactiveFunction;
-    private List<String> mutationOperators = Arrays.asList("FEATURE_MUTATION", "MOVE_METHOD_MUTATION", "MOVE_ATTRIBUTE_MUTATION", "MOVE_OPERATION_MUTATION", "ADD_CLASS_MUTATION", "ADD_MANAGER_CLASS_MUTATION");
-    private List<String> crossoverOperators = Collections.singletonList("PLA_CROSSOVER");
+    private List<String> mutationOperators = Arrays.asList("FEATURE_DRIVEN_OPERATOR", "MOVE_METHOD_MUTATION", "MOVE_ATTRIBUTE_MUTATION", "MOVE_OPERATION_MUTATION", "ADD_CLASS_MUTATION", "ADD_MANAGER_CLASS_MUTATION");
+    private List<String> crossoverOperators = Collections.singletonList("PLA_FEATURE_DRIVEN_CROSSOVER");
     private List<String> patterns = new ArrayList<>();
     private ScopeSelection scopeSelection = ScopeSelection.RANDOM;
     private List<String> objectiveFunctions = new ArrayList<>();

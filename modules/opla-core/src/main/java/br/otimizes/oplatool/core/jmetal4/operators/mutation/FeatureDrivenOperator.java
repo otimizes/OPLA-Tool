@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * Feature mutation operator
  */
-public class FeatureMutation implements IOperator<Solution> {
+public class FeatureDrivenOperator implements IOperator<Solution> {
     @Override
     public Solution execute(Map<String, Object> parameters, Solution solution, String scope) {
         try {

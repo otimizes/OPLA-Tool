@@ -14,7 +14,7 @@ import java.util.logging.Level;
 /**
  * Feature-driven Operator for Class
  */
-public class FeatureDrivenForClass implements IOperator<Solution> {
+public class FeatureDrivenOperatorForClass implements IOperator<Solution> {
 
     @Override
     public Solution execute(Map<String, Object> parameters, Solution solution, String scope) {
