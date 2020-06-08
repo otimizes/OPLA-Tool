@@ -181,7 +181,7 @@ public class Utils {
                 String pathEmptyDbFile = FileConstants.PATH_EMPTY_DB + FileConstants.FILE_SEPARATOR + FileConstants.EMPTY_DB_NAME;
                 URI uri = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + pathEmptyDbFile).toURI();
                 FileUtils.createDirectory(Paths.get(UserHome.getOplaUserHome() + FileConstants.DB_DIR));
-                FileUtils.copy(Paths.get(uri.getSchemeSpecificPart()), pathDb);
+//                FileUtils.copy(Paths.get(uri.getSchemeSpecificPart()), pathDb);
             } catch (URISyntaxException e) {
                 LOGGER.info("Erro ao copiar arquivo de banco de dados");
             } catch (Exception e) {
