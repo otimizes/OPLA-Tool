@@ -6,6 +6,7 @@ import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.concernDif
 import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.CDAI;
 import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.CDAO;
 import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.CIBC;
+import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.CIBClass;
 import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.IIBC;
 import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.OOBC;
 import br.otimizes.oplatool.core.jmetal4.metrics.conventionalMetrics.*;
@@ -54,6 +55,17 @@ public enum Metrics implements ObjectiveFunctionsLink {
         @Override
         public Double evaluate(Architecture architecture) {
             return new CIBC(architecture).getResults();
+        }
+
+        @Override
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+            return null;
+        }
+    },
+    CIBClass {
+        @Override
+        public Double evaluate(Architecture architecture) {
+            return new CIBClass(architecture).getResults();
         }
 
         @Override

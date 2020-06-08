@@ -1,12 +1,11 @@
 package br.otimizes.oplatool.core.jmetal4.metrics;
 
-import br.otimizes.oplatool.core.jmetal4.metrics.conventionalMetrics.RelationalCohesion;
-import br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.*;
-import br.otimizes.oplatool.domain.entity.objectivefunctions.*;
 import br.otimizes.oplatool.architecture.representation.Architecture;
+import br.otimizes.oplatool.core.jmetal4.metrics.conventionalMetrics.RelationalCohesion;
 import br.otimizes.oplatool.core.jmetal4.metrics.objectivefunctions.*;
 import br.otimizes.oplatool.domain.entity.Execution;
 import br.otimizes.oplatool.domain.entity.Experiment;
+import br.otimizes.oplatool.domain.entity.objectivefunctions.*;
 
 /**
  * Objective Functions Enum
@@ -277,6 +276,45 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
             CSObjectiveFunction wocsInterface = new CSObjectiveFunction(idSolution, Execution, experiement);
             wocsInterface.setWocsinterface(ObjectiveFunctions.CS.evaluate(arch));
             return wocsInterface;
+        }
+    },
+    LFCC {
+        @Override
+        public Double evaluate(Architecture architecture) {
+            return new LFCC(architecture).getResults();
+        }
+
+        @Override
+        public LFCCObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+            LFCCObjectiveFunction value = new LFCCObjectiveFunction(idSolution, Execution, experiement);
+            value.setLfcc(ObjectiveFunctions.LFCC.evaluate(arch));
+            return value;
+        }
+    },
+    FDAC {
+        @Override
+        public Double evaluate(Architecture architecture) {
+            return new FDAC(architecture).getResults();
+        }
+
+        @Override
+        public FDACObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+            FDACObjectiveFunction value = new FDACObjectiveFunction(idSolution, Execution, experiement);
+            value.setFdac(ObjectiveFunctions.FDAC.evaluate(arch));
+            return value;
+        }
+    },
+    CIBF {
+        @Override
+        public Double evaluate(Architecture architecture) {
+            return new CIBF(architecture).getResults();
+        }
+
+        @Override
+        public CIBFObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+            CIBFObjectiveFunction value = new CIBFObjectiveFunction(idSolution, Execution, experiement);
+            value.setCibf(ObjectiveFunctions.CIBF.evaluate(arch));
+            return value;
         }
     }
 

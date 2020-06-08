@@ -66,5 +66,17 @@
   "WOCSCLASS": {
     "value": "Weighted Operations per Component or Service (Ribeiro et al., 2010)",
     "description": "It measures the complexity of the service or component, in terms of its operations (methods) that will be needed for other services or components; where service is defined as a function without a state, independent, that accepts a call (s) and returns a response (s) through a well-defined interface. The metric indicates that operations with many formal parameters are more likely to be complex than operations that require fewer parameters."
+  },
+  "LFCC": {
+    "value": "Lack of Concern-basedCohesion (Sant’Anna et al, 2008)",
+    "description": "It indicates the lack of feature-based cohesion by summing the number of features assessed by each class of a PLA, where\uD835\uDC50is the number of classes."
+  },
+  "FDAC": {
+    "value": "Feature Diffusion over Architectural Classes (Sant’Anna et al, 2008)",
+    "description": "Considering an SPL architecture PLA, this function measures the feature diffusion by the summing the number of architectural classes associated with the SPL features."
+  },
+  "CIBF": {
+    "value": "Component-levelInterlacing Between Concerns (Sant’Anna et al, 2008)",
+    "description": "It measures the feature interlacing of a PLA by summingthe numbers of features that the assessed feature share in at leastone architectural class."
   }
 }
