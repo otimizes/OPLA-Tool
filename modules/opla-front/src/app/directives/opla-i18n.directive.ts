@@ -127,15 +127,16 @@ export class OplaI18nDirective {
   template: `
       <div style="display: flex; align-items: center;">
           <mat-icon style="margin:10px">info_outline</mat-icon>
-          <span style="text-align: justify;">{{description}}</span>
+          <span style="text-align: justify;"><b>{{name}}: </b>{{description}}</span>
       </div>
   `,
 })
 export class DialogTooltipInfo {
   description: string;
+  name: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(data)
     this.description = data.description;
+    this.name = data.value;
   }
 }

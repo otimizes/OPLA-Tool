@@ -8,12 +8,18 @@ export class ReplaceallPipe implements PipeTransform {
   transform(value: string, ...args: any[]): any {
     let split = value.split(args[0]);
     let toReturn = "";
+    let i = 0;
     for (let str of split) {
-      if (str.toLowerCase() === "pla" || split.length <= 1) {
-        toReturn += str.toUpperCase() + args[1];
-      } else {
-        toReturn += this.capitalize(str.toLowerCase()) + args[1];
+      let splitter = args[1];
+      if (str.toLowerCase() === "feature" && split[i+1].toLowerCase() === "driven") {
+        splitter = "-";
       }
+      if (str.toLowerCase() === "pla" || split.length <= 1) {
+        toReturn += str.toUpperCase() + splitter;
+      } else {
+        toReturn += this.capitalize(str.toLowerCase()) + splitter;
+      }
+      i++;
     }
 
     return toReturn;
