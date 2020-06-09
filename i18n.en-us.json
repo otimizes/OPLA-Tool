@@ -1,82 +1,102 @@
 {
   "ACLASS": {
     "value": "Class Coupling",
+    "type": "",
     "description": "It aims to measure the 'number of input and output elements in which one class depends on another."
   },
   "ACOMP": {
     "value": "Component Coupling",
+    "type": "",
     "description": "It aims to measure the 'number of operations of an interface."
   },
   "CM": {
     "value": "Conventional Function",
+    "type": "",
     "description": "It aims to provide indicators on basic design principles including cohesion, coupling and size CM (pla) is formed by an aggregation of various metrics extracted from (W¨ust, 2016)."
   },
   "COE": {
     "value": "Cohesion",
+    "type": "",
     "description": "It aims to measure the relational cohesion between classes."
   },
   "CS": {
     "value": "Weighted Operations per Component or Service",
+    "type": "",
     "description": "It measures the complexity of the service or component, in terms of its operations (methods) that will be needed for other services or components; where service is defined as a function without a state, independent, that accepts a call(s) and returns a response(s) through a well-defined interface. The metric indicates that operations with many formal parameters are more likely to be complex than operations that require fewer parameters."
   },
   "DC": {
     "value": "Feature Diffusion",
+    "type": "",
     "description": "It aims to measure the diffusion of characteristics, adding the numbers of architectural elements (components, interfaces and operations of the project) that contribute to the realization of the characteristics of the LPS."
   },
   "EC": {
     "value": "Feature Interaction",
+    "type": "",
     "description": "It aims to measure the diffusion of characteristicIt aims to measure the intertwining of characteristics in a PLA, adding the numbers of the characteristics with which an interest shares at least with an architectural element, such as component, interface and operations, adding the numbers of architectural elements (components, interfaces and operations of the project) that contribute to the realization of the characteristics of the LPS."
   },
   "ELEG": {
     "value": "Elegance",
+    "type": "",
     "description": "Aims to provide indicators of the elegance of object-oriented design."
   },
   "EXT": {
     "value": "PLA Extensibility",
+    "type": "",
     "description": "It aims to indicate the degree of extensibility of the LPS."
   },
   "FM": {
     "value": "Feature Driven Function",
+    "type": "",
     "description": "It aims to measure the modularization of characteristics and, for this, it is composed of a set of various metrics directed to the characteristics proposed in (Sant'Anna, 2008)."
   },
   "LCC": {
     "value": "Lack of Concern-based Cohesion",
+    "type": "",
     "description": "It aims to measure the cohesion based on characteristics by means of the number of characteristics with which a given package is associated."
   },
   "RCC": {
     "value": "Relationship Coupling of Components",
+    "type": "",
     "description": "It is calculated based on the number of relationships between a service A, for example and other services."
   },
   "SD": {
     "value": "Structure Similarity Coefficient",
+    "type": "",
     "description": "Proposal to measure the similarity of PLA."
   },
   "SV": {
     "value": "Structure Variability Coefficient",
+    "type": "",
     "description": "Proposal to measure the variability of PLA."
   },
   "TAM": {
     "value": "Size of PLA",
+    "type": "",
     "description": "It has the goal to measure the number of operations in a interface."
   },
   "TV": {
     "value": "Architecture Variability",
+    "type": "",
     "description": "It measures the total variability of the PLA."
   },
   "WOCSCLASS": {
     "value": "Weighted Operations per Component or Service",
+    "type": "",
     "description": "It measures the complexity of the service or component, in terms of its operations (methods) that will be needed for other services or components; where service is defined as a function without a state, independent, that accepts a call (s) and returns a response (s) through a well-defined interface. The metric indicates that operations with many formal parameters are more likely to be complex than operations that require fewer parameters."
   },
   "LFCC": {
     "value": "Lack of Concern-based Cohesion",
+    "type": "",
     "description": "It indicates the lack of feature-based cohesion by summing the number of features assessed by each class of a PLA."
   },
   "FDAC": {
     "value": "Feature Diffusion over Architectural Classes",
+    "type": "",
     "description": "Considering an SPL architecture PLA, this function measures the feature diffusion by the summing the number of architectural classes associated with the SPL features."
   },
   "CIBF": {
     "value": "Component-level Interlacing Between Concerns",
+    "type": "",
     "description": "It measures the feature interlacing of a PLA by summing the numbers of features that the assessed feature share in at least one architectural class."
   }
 }

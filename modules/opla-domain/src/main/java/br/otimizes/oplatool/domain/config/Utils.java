@@ -173,27 +173,16 @@ public class Utils {
     }
 
     public static void createDataBaseIfNotExists() {
-        Path pathDb = Paths.get(UserHome.getPathToDb());
         LOGGER.info("Verificando diretorio da base de dados");
 
-        if (!Files.exists(pathDb)) {
-            try {
-                String pathEmptyDbFile = FileConstants.PATH_EMPTY_DB + FileConstants.FILE_SEPARATOR + FileConstants.EMPTY_DB_NAME;
-                URI uri = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + pathEmptyDbFile).toURI();
-                FileUtils.createDirectory(Paths.get(UserHome.getOplaUserHome() + FileConstants.DB_DIR));
-//                FileUtils.copy(Paths.get(uri.getSchemeSpecificPart()), pathDb);
-            } catch (URISyntaxException e) {
-                LOGGER.info("Erro ao copiar arquivo de banco de dados");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            LOGGER.info("Banco de dados já configurado");
-        }
         try {
+            String pathEmptyDbFile = FileConstants.PATH_EMPTY_DB + FileConstants.FILE_SEPARATOR + FileConstants.EMPTY_DB_NAME;
+            FileUtils.createDirectory(Paths.get(UserHome.getOplaUserHome() + FileConstants.DB_DIR));
+//                FileUtils.copy(Paths.get(uri.getSchemeSpecificPart()), pathDb);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     public static void executeCommand(String command) throws IOException {
