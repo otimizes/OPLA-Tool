@@ -46,6 +46,10 @@ public class AssociationClassRelationship extends Relationship {
         return memebersEnd;
     }
 
+    public void SetMemebersEnd(MemberEnd me){
+        memebersEnd.add(me);
+    }
+
     /**
      * Retorna  {@link Element } dona da AssociationClass.
      *

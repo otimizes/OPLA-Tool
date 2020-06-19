@@ -5,6 +5,7 @@ import br.otimizes.oplatool.architecture.representation.relationship.DependencyR
 import br.otimizes.oplatool.architecture.representation.relationship.RealizationRelationship;
 import br.otimizes.oplatool.architecture.representation.relationship.Relationship;
 import br.otimizes.oplatool.architecture.representation.relationship.RelationshipCommons;
+import com.rits.cloning.Cloner;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -22,6 +23,7 @@ public class Interface extends Element {
 
     static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
     private final Set<Method> methods = new HashSet<Method>();
+    private final Set<Method> operations = new HashSet<Method>();
     private RelationshipsHolder relationshipHolder;
     private PatternsOperations patternsOperations;
 
@@ -31,6 +33,30 @@ public class Interface extends Element {
         setRelationshipHolder(relationshipHolder);
     }
 
+    public Interface deepCopy() {
+        try {
+            return this.deepClone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Interface deepClone() throws CloneNotSupportedException {
+        Cloner cloner = new Cloner();
+        Interface anInterface = (Interface) cloner.deepClone(this);
+        cloner = null;
+        return anInterface;
+    }
+
+    public Method findOperationById(String id) {
+        for (Method m : getOperations()) {
+            if (m.getId().equalsIgnoreCase(id)) {
+                return m;
+            }
+        }
+        return  null;
+    }
     /**
      * Use este construtor quando você deseja criar uma interface.<br /><br />
      * <p>
@@ -73,6 +99,10 @@ public class Interface extends Element {
         return Collections.unmodifiableSet(methods);
     }
 
+    public Set<Method> getOperations() {
+        return Collections.unmodifiableSet(operations);
+    }
+
     public boolean removeOperation(Method operation) {
         if (methods.remove(operation)) {
             LOGGER.info("Removeu operação '" + operation + "', da interface: " + this.getName());
@@ -80,6 +110,17 @@ public class Interface extends Element {
         } else {
             LOGGER.info("TENTOU removeu operação '" + operation + "', da interface: " + this.getName() + " porém não conseguiu");
             return false;
+        }
+    }
+
+    public void removeOperationByID(String id) {
+        //Method operation = null;
+        for(Method m : this.operations){
+            if(m.getId().equalsIgnoreCase(id)){
+                //operation = m;
+                this.operations.remove(m);
+                return;
+            }
         }
     }
 

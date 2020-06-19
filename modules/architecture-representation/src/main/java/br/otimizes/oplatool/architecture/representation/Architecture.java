@@ -63,6 +63,169 @@ public class Architecture extends Variable {
         setName(name);
     }
 
+    public ArrayList<String> verifyClassWithoutRelationship(){
+
+        ArrayList<String> lstSemConexao = new ArrayList<>();
+        for(Class c: this.getAllClasses()){
+            if(c.getRelationships().size() == 0){
+
+                lstSemConexao.add(c.getId());
+            }
+        }
+        return  lstSemConexao;
+    }
+
+    public ArrayList<String> verifyInterfaceWithoutRelationship(){
+
+        ArrayList<String> lstSemConexao = new ArrayList<>();
+        for(Interface i: this.getAllInterfaces()){
+            if(i.getRelationships().size() == 0){
+
+                lstSemConexao.add(i.getId());
+            }
+        }
+        return  lstSemConexao;
+    }
+
+    public void clearArchitecture(){
+        this.classes.clear();
+        this.interfaces.clear();
+        this.packages.clear();
+        this.relationshipHolder.clearLists();
+    }
+
+    public void matchRequiredAndImplementedInterface() {
+        for(Package pkg : getAllPackages()){
+            pkg.matchImplementedInterface(this);
+            pkg.matchRequiredInterface(this);
+        }
+        for(Class clazz : getAllClasses()){
+            clazz.matchImplementedInterface(this);
+            clazz.matchRequiredInterface(this);
+        }
+
+    }
+
+    public void removeAllPackages() {
+        this.packages = new HashSet<>();
+    }
+
+    public void removePackageByID(String id) {
+        /**
+         * Remove qualquer relacionamento que os elementos do pacote
+         * que esta sendo deletado possa ter.
+         */
+        //Package p = null;
+
+        Set<Package> newHash = new HashSet<>();
+
+        for(Package px : this.packages){
+            if(!px.getId().equals(id)){
+                newHash.add(px);
+            }
+        }
+        this.packages.clear();
+        this.packages.addAll(newHash);
+    }
+
+    public void removeMethodByID(String id) {
+
+        for(Interface i: getAllInterfaces()) {
+            i.removeOperationByID(id);
+        }
+        for(Class clazz_ : getAllClasses()){
+            clazz_.removeMethodByID(id);
+        }
+    }
+
+    public void removeMethodOfClassByID(String id) {
+
+        for(Class clazz_ : getAllClasses()){
+            clazz_.removeMethodByID(id);
+        }
+    }
+
+    public void removeOperationOfInterfaceByID(String id) {
+        for(Interface i: getAllInterfaces()) {
+            i.removeOperationByID(id);
+        }
+    }
+
+    public void removeAttributeByID(String id) {
+        for(Class clazz_ : getAllClasses()){
+            clazz_.removeAttributeByID(id);
+        }
+    }
+
+    public Element findClassOrInterfaceOfMethodByID(String id){
+        for(Interface i: getAllInterfaces()) {
+            for(Method method : i.getOperations()){
+                if(method.getId().equals(id))
+                    return  i;
+            }
+        }
+        for(Class clazz_ : getAllClasses()){
+            for(Method method : clazz_.getAllMethods()){
+                if(method.getId().equals(id))
+                    return  clazz_;
+            }
+        }
+        return null;
+    }
+
+    public Class findClassOfMethodByID(String id){
+        for(Class clazz_ : getAllClasses()){
+            for(Method method : clazz_.getAllMethods()){
+                if(method.getId().equals(id))
+                    return  clazz_;
+            }
+        }
+        return null;
+    }
+
+    public Interface findInterfaceOfOperationByID(String id){
+        for(Interface i: getAllInterfaces()) {
+            for(Method method : i.getOperations()){
+                if(method.getId().equals(id))
+                    return  i;
+            }
+        }
+        return null;
+    }
+
+    public Class findClassOfAttributeByID(String id){
+        for(Class clazz_ : getAllClasses()){
+            for(Attribute attribute : clazz_.getAllAttributes()){
+                if(attribute.getId().equals(id))
+                    return  clazz_;
+            }
+        }
+        return null;
+    }
+
+    public void removeClassByID(String id) {
+
+        Set<Class> newHash = new HashSet<>();
+
+        for(Class c : this.classes){
+            if(!c.getId().equals(id)){
+                newHash.add(c);
+            }
+        }
+
+        this.classes.clear();
+        this.classes.addAll(newHash);
+        for(Package pkg : this.packages){
+            pkg.removeClassByID(id);
+        }
+
+    }
+
+    public Package findPackageOfInterface(Interface targetInterface) {
+        String packageName = UtilResources.extractPackageName(targetInterface.getNamespace());
+        return findPackageByName(packageName);
+    }
+
     public ArrayList<Concern> getConcerns() {
         return concerns;
     }
@@ -492,11 +655,11 @@ public class Architecture extends Variable {
         return VariabilityFlyweight.getInstance().getVariabilities();
     }
 
-    public Class findClassById(String idClass) throws ClassNotFound {
+    public Class findClassById(String idClass) {
         return ArchitectureFindElementControl.getInstance().findClassById(this, idClass);
     }
 
-    public Interface findIntefaceById(String idClass) throws ClassNotFound {
+    public Interface findInterfaceById(String idClass) {
         return ArchitectureFindElementControl.getInstance().findInterfaceById(this, idClass);
     }
 
@@ -506,7 +669,6 @@ public class Architecture extends Variable {
         else
             LOGGER.info("TENTOU adicionar a interface : " + interface_.getName() + " na arquiteutra, porém não conseguiu");
     }
-
 
     public void moveElementToPackage(Element klass, Package pkg) {
         if (pkg.getElements().contains(klass)) {
@@ -566,7 +728,7 @@ public class Architecture extends Variable {
         ArchitectureRemoveElementControl.getInstance().removeSubPackageByID(subPkg, id);
     }
 
-    private void addClassOrInterface(Element klass, Package pkg) {
+    public void addClassOrInterface(Element klass, Package pkg) {
         if (klass instanceof Class) {
             pkg.addExternalClass((Class) klass);
         } else if (klass instanceof Interface) {
@@ -701,7 +863,7 @@ public class Architecture extends Variable {
         return ArchitectureFindElementControl.getInstance().findPackageOfClass(this, targetClass);
     }
 
-    public Package findPackageOfElement(String id) {
+    public Package findPackageOfElementID(String id) {
         return ArchitectureFindElementControl.getInstance().findPackageOfElement(this, id);
     }
 

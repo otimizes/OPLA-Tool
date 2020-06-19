@@ -31,6 +31,7 @@ public class OPLA extends Problem {
     public static int countPackage = 0;
     public static int countInterface = 0;
     public static int countClass = 0;
+    public static int contDiscardedSolutions_ = 0;
 
     public Architecture architecture_;
     private List<String> selectedMetrics;
