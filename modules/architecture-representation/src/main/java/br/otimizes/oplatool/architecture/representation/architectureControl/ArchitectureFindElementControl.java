@@ -364,7 +364,7 @@ public class ArchitectureFindElementControl {
      * @param idClass      - id of element used to find its parent package
      * @return parent package if exists else null
      */
-    public Class findClassById(Architecture architecture, String idClass) throws ClassNotFound {
+    public Class findClassById(Architecture architecture, String idClass) {
         for (Class klass : architecture.getClasses())
             if (idClass.equalsIgnoreCase(klass.getId().trim()))
                 return klass;
@@ -374,7 +374,7 @@ public class ArchitectureFindElementControl {
                 if (idClass.equalsIgnoreCase(klass.getId().trim()))
                     return klass;
 
-        throw new ClassNotFound("Class " + idClass + " can not found.\n");
+        return null;
     }
 
     /**
@@ -384,11 +384,11 @@ public class ArchitectureFindElementControl {
      * @param idInterface  - id of element used to find its parent package
      * @return parent package if exists else null
      */
-    public Interface findInterfaceById(Architecture architecture, String idInterface) throws ClassNotFound {
+    public Interface findInterfaceById(Architecture architecture, String idInterface) {
         for (Interface inter : architecture.getInterfaces())
             if (idInterface.equalsIgnoreCase(inter.getId().trim()))
                 return inter;
-        throw new ClassNotFound("Class " + idInterface + " can not found.\n");
+        return null;
     }
 
     /**

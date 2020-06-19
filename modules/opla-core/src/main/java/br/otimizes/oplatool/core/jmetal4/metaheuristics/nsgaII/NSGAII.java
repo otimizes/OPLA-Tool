@@ -21,10 +21,15 @@
 
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII;
 
+import br.otimizes.oplatool.architecture.representation.Architecture;
+import br.otimizes.oplatool.architecture.representation.Class;
+import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.core.jmetal4.core.*;
 import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
+import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
+import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLACrossoverOperator;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.exceptions.JMException;
@@ -43,7 +48,10 @@ import org.apache.log4j.Logger;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -113,11 +121,17 @@ public class NSGAII extends Algorithm {
         crossoverOperator = operators_.get("crossover");
         selectionOperator = operators_.get("selection");
 
+        ArrayList<Integer> originalArchElementCount;
+        originalArchElementCount = new ArrayList<>();
+        ArrayList<Integer> newArchElementCount;
+        newArchElementCount = new ArrayList<>();
+
         try {
             Solution solution_base = new Solution(problem_);
             problem_.evaluateConstraints(solution_base);
             problem_.evaluate(solution_base);
             saveBaseHypervolume(solution_base);
+            originalArchElementCount = CountArchElements(solution_base);
         } catch (Exception e) {
             e.printStackTrace();
             throw new JMException(e.getMessage());
@@ -141,34 +155,28 @@ public class NSGAII extends Algorithm {
 
                 for (int i = 0; i < (populationSize / 2); i++) {
                     if (evaluations < maxEvaluations) {
-                        parents[0] = (Solution) selectionOperator.execute(population);
-                        parents[1] = (Solution) selectionOperator.execute(population);
 
-                        Object execute = crossoverOperator.execute(parents);
-                        if (execute instanceof Solution) {
-                            Solution offSpring = (Solution) crossoverOperator.execute(parents);
-                            problem_.evaluateConstraints(offSpring);
-                            mutationOperator.execute(offSpring);
-                            problem_.evaluateConstraints(offSpring);
-                            problem_.evaluate(offSpring);
-                            offspringPopulation.add(offSpring);
-                        } else {
-                            Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
-                            problem_.evaluateConstraints(offSpring[0]);
-                            problem_.evaluateConstraints(offSpring[1]);
-
-                            mutationOperator.execute(offSpring[0]);
-                            mutationOperator.execute(offSpring[1]);
-                            problem_.evaluateConstraints(offSpring[0]);
-                            problem_.evaluateConstraints(offSpring[1]);
-
-                            problem_.evaluate(offSpring[0]);
-                            problem_.evaluate(offSpring[1]);
-
-                            offspringPopulation.add(offSpring[0]);
-                            offspringPopulation.add(offSpring[1]);
+                        if(((PLACrossoverOperator) crossoverOperator).getMutationOperators().contains(CrossoverOperators.PLA_COMPLEMENTARY_CROSSOVER.name())) {
+                            parents = selectionComplementary(population);
                         }
-                        evaluations += 2;
+                        else {
+                            parents[0] = (Solution) selectionOperator.execute(population);
+                            parents[1] = (Solution) selectionOperator.execute(population);
+                        }
+
+                        Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
+                        for(Solution child : offSpring){
+                            problem_.evaluateConstraints(child);
+                            mutationOperator.execute(child);
+                            problem_.evaluateConstraints(child);
+                            problem_.evaluate(child);
+
+                            newArchElementCount = CountArchElements(child);
+                            if (IsValidArchElements(originalArchElementCount, newArchElementCount)) {
+                                offspringPopulation.add(child);
+                            }
+                            evaluations += 1;
+                        }
                     }
                 }
 
@@ -267,7 +275,6 @@ public class NSGAII extends Algorithm {
                 e.printStackTrace();
             }
         }
-
         return subfrontToReturn;
     }
 
@@ -286,7 +293,6 @@ public class NSGAII extends Algorithm {
         newSolution = new Solution(problem_);
         mutationOperator.execute(newSolution);
         problem_.evaluate(newSolution);
-
         problem_.evaluateConstraints(newSolution);
         return newSolution;
     }
@@ -308,5 +314,167 @@ public class NSGAII extends Algorithm {
             System.out.println(ex);
             ex.printStackTrace();
         }
+    }
+
+    public Solution[] selectionComplementary(SolutionSet pop){
+
+        ArrayList<ArrayList<Solution>> lstFitness = new ArrayList<>();
+
+        int num_obj = pop.get(0).numberOfObjectives();
+        for(int i=0;i<num_obj;i++) {
+            ArrayList<Solution> arrayList = new ArrayList<>();
+            lstFitness.add(arrayList);
+        }
+        for(Solution s : pop.getSolutionSet()){
+            for(int i=0;i<num_obj;i++) {
+                lstFitness.get(i).add(s);
+            }
+        }
+
+        for(int i=0;i<num_obj;i++) {
+            sortFitnessSoluction(lstFitness.get(i),i);
+        }
+
+        Random generator = new Random();
+        Solution[] parent = new Solution[2];
+
+        int lstFitness1Selected = 0;
+        int lstFitness2Selected = 0;
+        if(num_obj==2){
+            lstFitness2Selected = 1;
+        }if(num_obj>2){
+            lstFitness1Selected = generator.nextInt(num_obj);
+            lstFitness2Selected = generator.nextInt(num_obj);
+            while(lstFitness1Selected == lstFitness2Selected){
+                lstFitness1Selected = generator.nextInt(num_obj);
+            }
+        }
+
+        ArrayList<Integer> weightsList = new ArrayList<>();
+        int qtd_solution = pop.getSolutionSet().size();
+        int weight = qtd_solution * 2;
+        weightsList.add(weight);
+
+        for(int i = 1; i< qtd_solution; i++){
+            weight = (qtd_solution - i) + weightsList.get(i - 1);
+            weightsList.add(weight);
+        }
+        int max_weight = weightsList.get(weightsList.size()-1);
+        int pos_fitness1 = 0;
+        int pos_fitness2 = 0;
+
+        if(num_obj == 1){
+            int rnd = generator.nextInt(max_weight) + 1;
+            for(int pos=0;pos<qtd_solution;pos++){
+                if(weightsList.get(pos) >= rnd){
+                    pos_fitness1 = pos;
+                    break;
+                }
+            }
+            rnd = generator.nextInt(max_weight) + 1;
+            for(int pos=0;pos<qtd_solution;pos++){
+                if(weightsList.get(pos) >= rnd){
+                    pos_fitness2 = pos;
+                    break;
+                }
+            }
+            while (pos_fitness1 == pos_fitness2){
+                rnd = generator.nextInt(max_weight) + 1;
+                for(int pos=0;pos<qtd_solution;pos++){
+                    if(weightsList.get(pos) >= rnd){
+                        pos_fitness2 = pos;
+                        break;
+                    }
+                }
+            }
+        }
+        else{
+            int rnd = generator.nextInt(max_weight) + 1;
+            for(int pos=0;pos<qtd_solution;pos++){
+                if(weightsList.get(pos) >= rnd){
+                    pos_fitness1 = pos;
+                    break;
+                }
+            }
+            rnd = generator.nextInt(max_weight) + 1;
+            for(int pos=0;pos<qtd_solution;pos++){
+                if(weightsList.get(pos) >= rnd){
+                    pos_fitness2 = pos;
+                    break;
+                }
+            }
+        }
+
+        parent[0] = lstFitness.get(lstFitness1Selected).get(pos_fitness1);
+        parent[1] = lstFitness.get(lstFitness2Selected).get(pos_fitness2);
+
+        for(int i = 1; i < num_obj; i++){
+            lstFitness.get(i).clear();
+        }
+        lstFitness.clear();
+
+        return parent;
+    }
+
+    public void sortFitnessSoluction(ArrayList<Solution> listFitness, int objective){
+        for (int i = 0; i < listFitness.size() - 1; i++) {
+            for (int j = i+1; j < listFitness.size(); j++) {
+                if (listFitness.get(i).getObjective(objective) > listFitness.get(j).getObjective(objective)) {
+                    Solution aux = listFitness.get(i);
+                    listFitness.set(i,listFitness.get(j));
+                    listFitness.set(j,aux);
+                }
+            }
+        }
+    }
+
+    public ArrayList<Integer> CountArchElements(Solution solution){
+
+        ArrayList<Integer> countArchElements;
+        countArchElements = new ArrayList<>();
+        countArchElements.add(0);
+        countArchElements.add(0);
+        countArchElements.add(0);
+
+        try {
+
+            int tempAtr = 0;
+            int tempMet = 0;
+            int tempOP = 0;
+
+            Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
+
+            List<Class> allClasses = new ArrayList<>(arch.getAllClasses());
+            for(Class selectedClass: allClasses){
+                tempAtr = tempAtr + selectedClass.getAllAttributes().size();
+                tempMet = tempMet + selectedClass.getAllMethods().size();
+            }
+
+            List<Interface> allInterface = new ArrayList<>(arch.getAllInterfaces());
+            for(Interface selectedInterface: allInterface){
+                tempOP = tempOP + selectedInterface.getOperations().size();
+            }
+
+            countArchElements.set(0,tempAtr);
+            countArchElements.set(1,tempMet);
+            countArchElements.set(2,tempOP);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  countArchElements;
+    }
+
+    public boolean IsValidArchElements(ArrayList<Integer> lst1, ArrayList<Integer> lst2){
+        if(!(""+lst1.get(0)).equals(""+lst2.get(0))){
+            return  false;
+        }
+        if(!(""+lst1.get(1)).equals(""+lst2.get(1))){
+            return  false;
+        }
+        if(!(""+lst1.get(2)).equals(""+lst2.get(2))){
+            return  false;
+        }
+        return  true;
     }
 }

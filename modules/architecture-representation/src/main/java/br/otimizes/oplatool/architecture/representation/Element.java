@@ -1,6 +1,7 @@
 package br.otimizes.oplatool.architecture.representation;
 
 import br.otimizes.oplatool.architecture.exceptions.ConcernNotFoundException;
+import com.rits.cloning.Cloner;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.eclipse.uml2.uml.Interface;
 
@@ -46,6 +47,22 @@ public abstract class Element implements Serializable {
         setNamespace(namespace);
     }
 
+    public Element deepCopy() {
+        try {
+            return this.deepClone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Element deepClone() throws CloneNotSupportedException{
+
+        Cloner cloner = new Cloner();
+        Element pkg = (Element) cloner.deepClone(this);
+        cloner = null;
+        return pkg;
+    }
 
     public String getPosX() {
         return posX;

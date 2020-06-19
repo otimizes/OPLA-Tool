@@ -3,8 +3,10 @@ package br.otimizes.oplatool.architecture.representation;
 import br.otimizes.oplatool.architecture.representation.relationship.Relationship;
 import br.otimizes.oplatool.architecture.representation.relationship.RelationshipCommons;
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
+import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +30,81 @@ public class Package extends Element {
     private Set<Interface> implementedInterfaces = new HashSet<Interface>();
     private Set<Interface> requiredInterfaces = new HashSet<Interface>();
     private RelationshipsHolder relationshipHolder;
+
+    public Package deepCopy() {
+        try {
+            return this.deepClone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Package deepClone() throws CloneNotSupportedException{
+
+        Cloner cloner = new Cloner();
+        Package pkg = (Package) cloner.deepClone(this);
+        cloner = null;
+        return pkg;
+    }
+
+    public void matchImplementedInterface(Architecture architecture) {
+        if(implementedInterfaces == null)
+            return;
+        if(implementedInterfaces.size() == 0)
+            return;
+        ArrayList<String> id_list = new ArrayList<>();
+        for(Interface inter : implementedInterfaces){
+            id_list.add(inter.getId());
+        }
+        implementedInterfaces.clear();
+        for(String id : id_list){
+            Interface interface_arch = architecture.findInterfaceById(id);
+            if(interface_arch != null) {
+                implementedInterfaces.add(interface_arch);
+            }
+        }
+    }
+
+    public void matchRequiredInterface(Architecture architecture) {
+        if(requiredInterfaces == null)
+            return;
+        if(requiredInterfaces.size() == 0)
+            return;
+        ArrayList<String> id_list = new ArrayList<>();
+        for(Interface inter : requiredInterfaces){
+            id_list.add(inter.getId());
+        }
+        requiredInterfaces.clear();
+        for(String id : id_list){
+            Interface interface_arch = architecture.findInterfaceById(id);
+            if(interface_arch != null) {
+                requiredInterfaces.add(interface_arch);
+            }
+        }
+    }
+
+    public void removeClassByID(String id) {
+
+        Set<Class> newHash = new HashSet<>();
+
+
+        for(Class c : this.classes) {
+            if(!c.getId().equals(id)){
+                newHash.add(c);
+            }
+        }
+        this.classes.clear();
+        this.classes.addAll(newHash);
+    }
+
+    public void removeAllClass(){
+        this.classes.clear();
+    }
+
+    public void removeAllInterfaces(){
+        this.interfaces.clear();
+    }
 
     /**
      * Construtor Para um Elemento do Tipo Pacote

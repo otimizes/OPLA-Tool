@@ -18,6 +18,15 @@ public class PLACrossoverOperator extends Crossover {
 
     private static final long serialVersionUID = -51015356906090226L;
     private static List VALID_TYPES = Arrays.asList(ArchitectureSolutionType.class);
+
+    public List<String> getMutationOperators() {
+        return mutationOperators;
+    }
+
+    public void setMutationOperators(List<String> mutationOperators) {
+        this.mutationOperators = mutationOperators;
+    }
+
     private List<String> mutationOperators;
 
 
