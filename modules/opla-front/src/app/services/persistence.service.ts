@@ -1,7 +1,6 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {catchError} from "rxjs/operators";
-import {OptimizationService} from "./optimization.service";
 import {UserService} from "./user.service";
 
 export class PersistenceService {

@@ -20,6 +20,7 @@ export class OptimizationDto {
   intervalInteraction: number;
   clusteringAlgorithm: string = "KMEANS";
   clusteringMoment: string = "POSTERIORI";
+  crossoverOperators: string[] = [];
   mutationOperators: string[] = ["FEATURE_DRIVEN_OPERATOR", "MOVE_METHOD_MUTATION", "MOVE_ATTRIBUTE_MUTATION", "MOVE_OPERATION_MUTATION", "ADD_CLASS_MUTATION", "ADD_MANAGER_CLASS_MUTATION"];
   patterns: string[] = [];
   objectiveFunctions: string[] = [];

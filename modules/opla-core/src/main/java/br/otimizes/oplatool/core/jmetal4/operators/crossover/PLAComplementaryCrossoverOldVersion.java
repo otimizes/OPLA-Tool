@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 /**
- * PLA Complementary crossover
+ * PLA Complementary crossover old version
  */
 public class PLAComplementaryCrossoverOldVersion implements IOperator<Solution[]> {
 

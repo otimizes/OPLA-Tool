@@ -1,9 +1,5 @@
 package br.otimizes.oplatool.core.jmetal4.operators.crossover;
 
-import br.otimizes.oplatool.architecture.exceptions.ClassNotFound;
-import br.otimizes.oplatool.architecture.exceptions.ConcernNotFoundException;
-import br.otimizes.oplatool.architecture.exceptions.NotFoundException;
-import br.otimizes.oplatool.architecture.exceptions.PackageNotFound;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Interface;
@@ -11,24 +7,20 @@ import br.otimizes.oplatool.architecture.representation.Package;
 import br.otimizes.oplatool.architecture.representation.relationship.AssociationRelationship;
 import br.otimizes.oplatool.architecture.representation.relationship.RealizationRelationship;
 import br.otimizes.oplatool.architecture.representation.relationship.Relationship;
-import br.otimizes.oplatool.common.Configuration;
-import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.operators.IOperator;
 import br.otimizes.oplatool.core.jmetal4.util.PseudoRandom;
-import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 
-//import org.mockito.cglib.beans.BeanCopier.Generator;
 
 
 /**
  * @author Diego Fernandes da Silva
- * Proposta de operador PLAModularCrossover
+ * PLAModularCrossover first operator
  */
 
 public class PLAModularCrossover1 extends PLAModularCrossover implements IOperator<Solution[]> {

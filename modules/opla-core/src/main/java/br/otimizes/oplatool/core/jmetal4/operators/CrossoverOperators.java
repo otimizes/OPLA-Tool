@@ -1,7 +1,6 @@
 package br.otimizes.oplatool.core.jmetal4.operators;
 
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.*;
-import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLAFeatureDrivenCrossoverOldVersion;
 
 /**
  * Feature crossover operators enum

@@ -20,7 +20,7 @@ import java.util.*;
 import java.util.logging.Level;
 
 /**
- * PLA Crossover 2
+ * PLA Crossover old version
  */
 public class PLAFeatureDrivenCrossoverOldVersion implements IOperator<Solution[]> {
 

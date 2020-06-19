@@ -1,9 +1,7 @@
 package br.otimizes.oplatool.architecture.builders;
 
-import br.otimizes.oplatool.architecture.representation.*;
-import br.otimizes.oplatool.architecture.representation.Class;
-import br.otimizes.oplatool.architecture.representation.relationship.*;
 import br.otimizes.oplatool.architecture.helpers.ModelHelper;
+import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.representation.relationship.*;
 import br.otimizes.oplatool.domain.config.FileConstants;

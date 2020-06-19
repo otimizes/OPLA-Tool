@@ -74,6 +74,11 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
     this.emit(this.optimizationDto)
   }
 
+  changeCrossoverOperator(obj) {
+    this.optimizationDto.crossoverOperators = [obj];
+    this.emit(this.optimizationDto)
+  }
+
   addOOperator(element, obj) {
     if (!this.optimizationDto[element].includes(obj)) {
       this.optimizationDto[element].push(obj);

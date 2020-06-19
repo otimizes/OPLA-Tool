@@ -33,7 +33,6 @@ import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLACrossoverOperato
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.core.*;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
 import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.otimizes.oplatool.core.jmetal4.util.Distance;
@@ -156,7 +155,7 @@ public class NSGAII extends Algorithm {
                 for (int i = 0; i < (populationSize / 2); i++) {
                     if (evaluations < maxEvaluations) {
 
-                        if(((PLACrossoverOperator) crossoverOperator).getMutationOperators().contains(CrossoverOperators.PLA_COMPLEMENTARY_CROSSOVER.name())) {
+                        if(((PLACrossoverOperator) crossoverOperator).getOperators().contains(CrossoverOperators.PLA_COMPLEMENTARY_CROSSOVER.name())) {
                             parents = selectionComplementary(population);
                         }
                         else {
