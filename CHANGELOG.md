@@ -11,6 +11,7 @@ root path of this project. The packages were renamed to br.otimizes.oplatool.
 
 
 ### Report
+- Added new croosover/mutation operators and new objective functions
 - The packages were renamed to br.otimizes.oplatool
 - Web interface in angular 8 (view usage.md tutorial)
 - Every use have a login and the output directories are created according the user's token
