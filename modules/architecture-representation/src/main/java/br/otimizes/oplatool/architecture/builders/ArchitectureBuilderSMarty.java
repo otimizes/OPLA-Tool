@@ -1,9 +1,7 @@
 package br.otimizes.oplatool.architecture.builders;
 
-import br.otimizes.oplatool.architecture.representation.*;
-import br.otimizes.oplatool.architecture.representation.Class;
-import br.otimizes.oplatool.architecture.representation.relationship.*;
 import br.otimizes.oplatool.architecture.helpers.ModelHelper;
+import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.representation.relationship.*;
 import br.otimizes.oplatool.domain.config.FileConstants;
@@ -703,7 +701,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
                 variability.setId(current.getAttribute("id"));
                 variability.setConstraint(current.getAttribute("constraint"));
                 br.otimizes.oplatool.architecture.representation.Element el = architecture.findElementById(variability.getOwnerClass());
-                br.otimizes.oplatool.architecture.representation.Package pkg = architecture.findPackageOfElement(el.getId());
+                br.otimizes.oplatool.architecture.representation.Package pkg = architecture.findPackageOfElementID(el.getId());
                 if (pkg != null)
                     variability.setIdPackageOwner(pkg.getId());
                 ArrayList<String> variants = getVariants(current);

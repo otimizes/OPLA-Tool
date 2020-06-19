@@ -61,7 +61,7 @@
                                 [oplaI18n]="obj"
                                 (change)="changeObjFunction(obj, $event.checked)">
                     <span>{{obj}}</span>
-                    </mat-checkbox>
+                  </mat-checkbox>
                 </opla-grid-tile>
               </opla-grid-list>
             </mat-card>
@@ -142,11 +142,15 @@
                 </opla-grid-tile>
               </opla-grid-list>
               <opla-grid-list>
-                <opla-grid-tile *ngFor="let fmo of optimizationOptions?.crossoverOperators">
-                  <mat-checkbox (change)="changeOperators('crossoverOperators', fmo, $event.checked)"
-                                [disabled]="!optimizationDto.crossover">
-                    {{fmo | replaceall:'_':' '}}
-                  </mat-checkbox>
+                <opla-grid-tile>
+                  <mat-radio-group [disabled]="!optimizationDto.crossover">
+                    <mat-radio-button
+                      *ngFor="let fmo of optimizationOptions?.crossoverOperators"
+                      [value]="fmo"
+                      (change)="changeCrossoverOperator($event.value)">
+                      {{fmo | replaceall:'_':' '}}
+                    </mat-radio-button>
+                  </mat-radio-group>
                 </opla-grid-tile>
               </opla-grid-list>
             </mat-card>

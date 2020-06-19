@@ -21,32 +21,32 @@ public class PLAMutationOperator extends Mutation {
     private static final long serialVersionUID = 9039316729379302747L;
     static Logger LOGGER = LogManager.getLogger(PLAMutationOperator.class.getName());
 
-    private Double mutationProbability = null;
-    private List<String> mutationOperators;
+    private Double probability = null;
+    private List<String> operators;
 
-    public PLAMutationOperator(HashMap<String, Object> parameters, List<String> mutationOperators) {
+    public PLAMutationOperator(HashMap<String, Object> parameters, List<String> operators) {
         super(parameters);
-        this.mutationOperators = mutationOperators;
+        this.operators = operators;
 
         if (parameters.get("probability") != null) {
-            mutationProbability = (Double) parameters.get("probability");
+            probability = (Double) parameters.get("probability");
         }
     }
 
     public PLAMutationOperator(Map<String, Object> parameters) {
         super(parameters);
         if (parameters.get("probability") != null) {
-            mutationProbability = (Double) parameters.get("probability");
+            probability = (Double) parameters.get("probability");
         }
     }
 
     public void doMutation(double probability, Solution solution) throws Exception {
         String scope = "sameComponent"; //allLevels
 
-        int r = PseudoRandom.randInt(0, this.mutationOperators.size() - 1);
+        int r = PseudoRandom.randInt(0, this.operators.size() - 1);
         HashMap<Integer, String> operatorMap = new HashMap<>();
-        for (int i = 0; i < this.mutationOperators.size(); i++)
-            operatorMap.put(i, this.mutationOperators.get(i));
+        for (int i = 0; i < this.operators.size(); i++)
+            operatorMap.put(i, this.operators.get(i));
         MutationOperators selectedOperator = MutationOperators.valueOf(operatorMap.get(r));
         selectedOperator.getOperator().execute(parameters_, solution, scope);
     }
@@ -62,7 +62,7 @@ public class PLAMutationOperator extends Mutation {
             String name = cls.getName();
             throw new JMException("Exception in " + name + ".execute()");
         }
-        this.doMutation(mutationProbability, solution);
+        this.doMutation(this.probability, solution);
 
         if (!MutationUtils.isValidSolution(((Architecture) solution.getDecisionVariables()[0]))) {
             Architecture clone;
@@ -73,7 +73,7 @@ public class PLAMutationOperator extends Mutation {
         return solution;
     }
 
-    public List<String> getMutationOperators() {
-        return mutationOperators;
+    public List<String> getOperators() {
+        return operators;
     }
 }

@@ -54,6 +54,96 @@ public class Class extends Element {
         this.setPatternOperations(new PatternsOperations());
     }
 
+    public void matchImplementedInterface(Architecture architecture) {
+        if(implementedInterfaces == null)
+            return;
+        if(implementedInterfaces.size() == 0)
+            return;
+        ArrayList<String> id_list = new ArrayList<>();
+        for(Interface inter : implementedInterfaces){
+            id_list.add(inter.getId());
+        }
+        implementedInterfaces.clear();
+        for(String id : id_list){
+            Interface interface_arch = architecture.findInterfaceById(id);
+            if(interface_arch != null) {
+                implementedInterfaces.add(interface_arch);
+            }
+        }
+    }
+
+    public void matchRequiredInterface(Architecture architecture) {
+        if(requiredInterfaces == null)
+            return;
+        if(requiredInterfaces.size() == 0)
+            return;
+        ArrayList<String> id_list = new ArrayList<>();
+        for(Interface inter : requiredInterfaces){
+            id_list.add(inter.getId());
+        }
+        requiredInterfaces.clear();
+        for(String id : id_list){
+            Interface interface_arch = architecture.findInterfaceById(id);
+            if(interface_arch != null) {
+                requiredInterfaces.add(interface_arch);
+            }
+        }
+    }
+
+    public Attribute findAttributeById(String id) {
+
+        for (Attribute att : getAllAttributes())
+            if (att.getId().equalsIgnoreCase(id))
+                return att;
+        return null;
+    }
+
+    public Method findMethodById(String id) {
+        for (Method m : getAllMethods()) {
+            if (m.getId().equalsIgnoreCase(id)) {
+                return m;
+            }
+        }
+
+        return  null;
+    }
+
+    public void removeMethodByID(String id) {
+        Set<Method> newHash = new HashSet<>();
+        for(Method m : this.methods){
+            if(!m.getId().equals(id)){
+                newHash.add(m);
+            }
+        }
+        this.methods.clear();
+        this.methods.addAll(newHash);
+    }
+
+    public void removeAttributeByID(String id) {
+        Set<Attribute> newHash = new HashSet<>();
+        for(Attribute m : this.attributes){
+            if(!m.getId().equals(id)){
+                newHash.add(m);
+            }
+        }
+        this.attributes.clear();
+        this.attributes.addAll(newHash);
+    }
+
+    public boolean hasGeneralization(){
+        for(Relationship r : this.getRelationships()){
+            if (r instanceof GeneralizationRelationship) {
+                GeneralizationRelationship re1 = (GeneralizationRelationship)r;
+                if ((re1.getParent() != null) && (re1.getChild() != null)) {
+                    if (re1.getParent().getId().equals(this.getId())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return  false;
+    }
+
     public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
         String id = UtilResources.getRandonUUID();
         Attribute a = new Attribute(name, visibility.toString(), type.getName(), ArchitectureHolder.getName() + "::"

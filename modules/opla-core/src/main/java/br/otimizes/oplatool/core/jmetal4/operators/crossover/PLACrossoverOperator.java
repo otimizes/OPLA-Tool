@@ -18,12 +18,21 @@ public class PLACrossoverOperator extends Crossover {
 
     private static final long serialVersionUID = -51015356906090226L;
     private static List VALID_TYPES = Arrays.asList(ArchitectureSolutionType.class);
-    private List<String> mutationOperators;
+
+    public List<String> getOperators() {
+        return operators;
+    }
+
+    public void setOperators(List<String> operators) {
+        this.operators = operators;
+    }
+
+    private List<String> operators;
 
 
-    public PLACrossoverOperator(Map<String, Object> parameters, List<String> mutationOperators) {
+    public PLACrossoverOperator(Map<String, Object> parameters, List<String> operators) {
         super(parameters);
-        this.mutationOperators = mutationOperators;
+        this.operators = operators;
     }
 
     PLACrossoverOperator(Map<String, Object> parameters) {
@@ -42,10 +51,10 @@ public class PLACrossoverOperator extends Crossover {
             throw new JMException("Exception in " + name + ".execute()");
         }
 
-        int r = PseudoRandom.randInt(0, this.mutationOperators.size() - 1);
-        if (r != 0 && this.mutationOperators.size() == 1) r = 0;
-        else if (this.mutationOperators.size() <= 0) return object;
-        CrossoverOperators selectedOperator = CrossoverOperators.valueOf(this.mutationOperators.get(r));
+        int r = PseudoRandom.randInt(0, this.operators.size() - 1);
+        if (r != 0 && this.operators.size() == 1) r = 0;
+        else if (this.operators.size() <= 0) return object;
+        CrossoverOperators selectedOperator = CrossoverOperators.valueOf(this.operators.get(r));
         return selectedOperator.getOperator().execute(parameters_, parents, "allLevels");
     }
 

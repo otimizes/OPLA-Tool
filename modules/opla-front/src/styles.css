@@ -85,6 +85,9 @@ tr.element-row:not(.expanded-row):hover {
   width: 100%;
 }
 
+mat-radio-button {
+  margin: 5px 5px 5px 0;
+}
 
 .mat-form-field {
   margin-top: 16px;

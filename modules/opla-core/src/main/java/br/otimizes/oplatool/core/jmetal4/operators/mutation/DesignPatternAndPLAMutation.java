@@ -22,7 +22,7 @@ public class DesignPatternAndPLAMutation extends Mutation {
 
     @Override
     public Object execute(Object object) throws Exception {
-        int mutationQuantity = this.pf.getMutationOperators().size();
+        int mutationQuantity = this.pf.getOperators().size();
         int r = PseudoRandom.randInt(0, mutationQuantity);
         if (r == 0) {
             return this.dpm.execute(object);

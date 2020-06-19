@@ -1,13 +1,13 @@
 package br.otimizes.oplatool.core.jmetal4.operators;
 
-import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLAComplementaryCrossover;
-import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLAFeatureDrivenCrossover;
+import br.otimizes.oplatool.core.jmetal4.operators.crossover.*;
 
 /**
  * Feature crossover operators enum
  * <p>
- * {@link PLAFeatureDrivenCrossover PLA Crossover,}
- * {@link PLAComplementaryCrossover PLA Complementary Crossover}
+ * {@link PLAFeatureDrivenCrossoverOldVersion PLA Crossover,}
+ * {@link PLAComplementaryCrossoverOldVersion PLA Complementary Crossover}
+ * {@link PLAModularCrossover3 PLA Modular Crossover}
  */
 public enum CrossoverOperators implements IOperators {
 
@@ -21,6 +21,12 @@ public enum CrossoverOperators implements IOperators {
         @Override
         public IOperator getOperator() {
             return new PLAComplementaryCrossover();
+        }
+    },
+    PLA_MODULAR_CROSSOVER {
+        @Override
+        public IOperator getOperator() {
+            return new PLAModularCrossover3();
         }
     }
 }
