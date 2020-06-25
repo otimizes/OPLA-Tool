@@ -62,7 +62,9 @@ Make Fork this project and create a Pull Request with your changes
 
 ## Documentation
 
-[\<Click here to access the documentation\>](https://otimizes.github.io/OPLA-Tool/docs/index.html)
+[\<Click here to access the backend documentation\>](https://otimizes.github.io/OPLA-Tool/docs/index.html)
+
+[\<Click here to access the frontend documentation\>](https://otimizes.github.io/OPLA-Tool/docs/front/index.html)
 
 ### Implementing a new Objective Function 
 
