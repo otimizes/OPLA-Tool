@@ -35,6 +35,7 @@ mvn clean install Obs: If it is the first run, execute **mvn clean** first to in
 ```sh
 java -jar modules/opla-api/target/opla-api-1.0.0-SNAPSHOT.jar
 ```
+
 ## How to use the tool
 [\<Click here to see how using the tool\>](https://github.com/otimizes/OPLA-Tool/blob/master/USAGE.md)
 

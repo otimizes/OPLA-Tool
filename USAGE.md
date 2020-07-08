@@ -62,7 +62,7 @@ This tab contains all executions from experiments.
 
 ![Step 7](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/usage/step-7.png)
 ### Step 8: Results analysis
-Finally, you can analyse the results. Just select the desired experiments, and the graphics will be shown.
+Finally, you can analyse the results. Just select the desired experiments, and the charts will be shown.
 
 ![Step 8](https://raw.githubusercontent.com/otimizes/OPLA-Tool/master/docs/usage/step-8.png)
 
