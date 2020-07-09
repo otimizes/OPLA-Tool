@@ -3,7 +3,7 @@
 
 **Add your changes here 
 
-## [1.0.0] - 2020-05-19
+## [2.0.0] - 2020-07-09
 In this version, you are able to access the http://localhost:8080 and use the web interface to optimize PLAs.
 It were fixed a lot of bugs and problems of the oldest version. Now, there is a documentation and MD files to assist 
 you in the contribution of this project. Currently, the default modeling tool is the SMartyModeling present in the 
