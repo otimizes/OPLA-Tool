@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <name>..:: OPLA-Tool - Optimization for Project Line Architecture Tool ::..</name>
-    <url>http://www.inf.ufpr.br/gres/opla-tool/</url>
+    <url>https://otimizes.github.io/OPLA-Tool/</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
