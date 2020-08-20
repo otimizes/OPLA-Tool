@@ -1,6 +1,8 @@
 # Changelog
 
-## [2.0.1] - OPENED
+**Add your changes here
+
+## [2.0.1] - 2020-08-20
 **Add your changes here
 - Full compatibility with windows (cast double MathUtils and removed cast Node)
 - Added escaped file separator in file constants
