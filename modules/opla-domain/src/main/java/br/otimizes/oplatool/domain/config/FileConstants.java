@@ -28,4 +28,8 @@ public class FileConstants {
     public static final String SIMPLES_DI_NAME = "simples.di";
     public static final String SIMPLES_NOTATION_NAME = "simples.notation";
 
+    public static String getFileSeparator() {
+        return FileConstants.FILE_SEPARATOR.replace("\\", "\\\\");
+    }
+
 }

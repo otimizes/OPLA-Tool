@@ -165,7 +165,7 @@ public class Utils {
         if (!Files.exists(target)) {
             try {
                 URI uri = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.LOCAL_GUI_PATH).toURI();
-                FileUtils.copy(Paths.get(uri.getSchemeSpecificPart()), target);
+                FileUtils.copy(Paths.get(FileUtils.getURL(uri)), target);
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }

@@ -1,6 +1,7 @@
 package br.otimizes.oplatool.domain.config;
 
 import java.io.*;
+import java.net.URI;
 import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
@@ -32,6 +33,13 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         } catch (IOException e) {
             LOGGER.info("Não foi possível criar o diretório home" + path);
         }
+    }
+
+    public static String getURL(URI uri) {
+        String s = uri.getSchemeSpecificPart()
+                .replaceAll("/", FileConstants.FILE_SEPARATOR.replace("\\", "\\\\"));
+        if (s.startsWith("\\")) s = s.substring(1);
+        return s;
     }
 
     public static void copy(Path source, Path target) {

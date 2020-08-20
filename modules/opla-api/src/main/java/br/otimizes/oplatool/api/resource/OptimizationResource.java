@@ -113,7 +113,7 @@ public class OptimizationResource {
             }
         }
         List<Map.Entry<String, List<OptimizationInfo>>> collect = OPLALogs.lastLogs.entrySet().stream()
-                .filter(optimizationInfos -> optimizationInfos.getKey().startsWith(OPLAThreadScope.hash.get().split(FileConstants.FILE_SEPARATOR)[0])).collect(Collectors.toList());
+                .filter(optimizationInfos -> optimizationInfos.getKey().startsWith(OPLAThreadScope.hash.get().split(FileConstants.getFileSeparator())[0])).collect(Collectors.toList());
         return Mono.just(new Infos(collect)).subscribeOn(Schedulers.elastic());
     }
 

@@ -56,9 +56,9 @@ public class UserHome {
         Path externalPathSimplesDi = Paths.get(UserHome.getPathToTemplates() + simplesDiPath);
         Path externalPathSimplesNotation = Paths.get(UserHome.getPathToTemplates() + simplesNotationPath);
 
-        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesUmlPath), externalPathSimplesUml);
-        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesDiPath), externalPathSimplesDi);
-        FileUtils.copy(Paths.get(uriTemplatesDir.getSchemeSpecificPart()).resolve(simplesNotationPath), externalPathSimplesNotation);
+        FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesUmlPath), externalPathSimplesUml);
+        FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesDiPath), externalPathSimplesDi);
+        FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesNotationPath), externalPathSimplesNotation);
     }
 
     public static void createProfilesPath() {

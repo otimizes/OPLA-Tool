@@ -83,8 +83,8 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             expression = "/project";
             xPath = XPathFactory.newInstance().newXPath();
             nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
-            int tam = xmiFilePath.split(FileConstants.FILE_SEPARATOR.replace("\\", "\\\\")).length;
-            String arquitectureName = xmiFilePath.split(FileConstants.FILE_SEPARATOR.replace("\\", "\\\\"))[tam - 1].replace(".smty", "");
+            int tam = xmiFilePath.split(FileConstants.getFileSeparator()).length;
+            String arquitectureName = xmiFilePath.split(FileConstants.getFileSeparator())[tam - 1].replace(".smty", "");
             Architecture architecture = new Architecture(arquitectureName);
             architecture.setSMarty(true);
             architecture.setToSMarty(true);
