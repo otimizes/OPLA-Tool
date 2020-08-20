@@ -3,8 +3,8 @@
 **Add your changes here
 
 ## [2.0.1] - 2020-08-20
-**Add your changes here
 - Full compatibility with windows (cast double MathUtils and removed cast Node)
+- Full compatibility with new java versions
 - Added escaped file separator in file constants
 
 ## [2.0.0] - 2020-07-09
