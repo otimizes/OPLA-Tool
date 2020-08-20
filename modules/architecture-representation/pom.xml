@@ -122,4 +122,18 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <excludes>
+                    <exclude>doc</exclude>
+                    <exclude>doc/**</exclude>
+                    <exclude>lib</exclude>
+                    <exclude>lib/**</exclude>
+                </excludes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
 </project>
