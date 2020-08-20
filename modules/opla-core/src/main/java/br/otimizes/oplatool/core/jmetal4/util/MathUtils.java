@@ -73,10 +73,14 @@ public class MathUtils {
         return resultFront.getSolutionSet().stream().map(r -> {
             List<Double> values = new ArrayList<>();
             for (int i = 0; i < r.numberOfObjectives(); i++) {
-                values.add(i, (maxs.get(i) - mins.get(i)) == 0 ? 0 : (r.getObjective(i) - mins.get(i)) / (maxs.get(i) - mins.get(i)));
+                values.add(i, getElement(mins, maxs, r, i));
             }
             return values;
         }).collect(Collectors.toList());
+    }
+
+    private static double getElement(List<Double> mins, List<Double> maxs, Solution r, int i) {
+        return (maxs.get(i) - mins.get(i)) == 0 ? 0 : (r.getObjective(i) - mins.get(i)) / (maxs.get(i) - mins.get(i));
     }
 
     private static void selectMinsMax(List<Double> mins, List<Double> maxs, Solution r) {

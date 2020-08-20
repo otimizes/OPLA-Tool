@@ -1,19 +1,19 @@
 package br.otimizes.oplatool.architecture.generate;
 
 
+import br.otimizes.oplatool.architecture.papyrus.touml.ArchitectureBase;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.representation.Package;
 import br.otimizes.oplatool.architecture.smarty.*;
-import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
-import br.otimizes.oplatool.architecture.representation.*;
-import br.otimizes.oplatool.architecture.smarty.*;
 import br.otimizes.oplatool.architecture.smarty.relationship.SaveRelationshipSMarty;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
-import br.otimizes.oplatool.architecture.papyrus.touml.ArchitectureBase;
+import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -23,23 +23,25 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
 
     /**
      * create an .smty output file from an architecture
+     *
      * @param architecture - reference the architecture to be decoded
-     * @param name - name of pla to be created (the path is get using ReaderConfig)
+     * @param name         - name of pla to be created (the path is get using ReaderConfig)
      */
     public void generate(Architecture architecture, String name) {
         if (name.contains(FileConstants.FILE_SEPARATOR)) {
-            String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + name.split(FileConstants.FILE_SEPARATOR)[0];
+            String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + name.split(FileConstants.FILE_SEPARATOR.replace("\\", "\\\\"))[0];
             File file = new File(directory);
             file.mkdir();
         }
         String path = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + name + ".smty";
         SaveStringToFile.getInstance().createLogDir();
-        String logPath = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/logs/log_" + name + ".txt";
+        String logPath = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR +
+                "logs" + FileConstants.FILE_SEPARATOR + "log_" + name + ".txt";
         try {
             FileWriter fileWriter = new FileWriter(path);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             String halfTab = "  ";
-            printWriter.print("<project id=\"" + architecture.getProjectID() + "\" name=\"" + architecture.getProjectName() + "\" version=\""+architecture.getProjectVersion()+"\">");
+            printWriter.print("<project id=\"" + architecture.getProjectID() + "\" name=\"" + architecture.getProjectName() + "\" version=\"" + architecture.getProjectVersion() + "\">");
             VerifyMandatoryOptionalVariability.getInstance().Verify(architecture);
             SaveTypeSMarty.getInstance().Save(architecture, printWriter);
             SaveConcernListSMarty.getInstance().Save(architecture, printWriter);
@@ -60,7 +62,7 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
                 saveReference(pkg, printWriter);
             SaveVariabilitySMarty.getInstance().Save(architecture, printWriter, logPath);
             printWriter.write("\n" + halfTab + "</diagram>");
-            SaveConcernLinkSMart.getInstance().Save(architecture,printWriter);
+            SaveConcernLinkSMart.getInstance().Save(architecture, printWriter);
             printWriter.write("\n" + halfTab + "<products>");
             printWriter.write("\n" + halfTab + "</products>");
             printWriter.write("\n</project>");
@@ -75,7 +77,7 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
     /**
      * Save the list of references of subpackage with parent package
      *
-     * @param pkg - package that is parent to subpackage
+     * @param pkg         - package that is parent to subpackage
      * @param printWriter - used to save a string to file
      */
     private void saveReference(Package pkg, PrintWriter printWriter) {
@@ -85,8 +87,6 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
             saveReference(subPkg, printWriter);
         }
     }
-
-
 
 
 }

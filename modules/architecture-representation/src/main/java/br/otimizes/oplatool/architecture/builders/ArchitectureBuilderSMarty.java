@@ -83,8 +83,8 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             expression = "/project";
             xPath = XPathFactory.newInstance().newXPath();
             nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
-            int tam = xmiFilePath.split(FileConstants.FILE_SEPARATOR).length;
-            String arquitectureName = xmiFilePath.split(FileConstants.FILE_SEPARATOR)[tam - 1].replace(".smty", "");
+            int tam = xmiFilePath.split(FileConstants.FILE_SEPARATOR.replace("\\", "\\\\")).length;
+            String arquitectureName = xmiFilePath.split(FileConstants.FILE_SEPARATOR.replace("\\", "\\\\"))[tam - 1].replace(".smty", "");
             Architecture architecture = new Architecture(arquitectureName);
             architecture.setSMarty(true);
             architecture.setToSMarty(true);
@@ -252,6 +252,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
 
     /**
      * import comment of element as description from file
+     *
      * @param node
      * @param element
      */
@@ -277,7 +278,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             package_.setWidth(current.getAttribute("width"));
             package_.setHeight(current.getAttribute("height"));
             package_.setMandatory(current.getAttribute("mandatory").equals("true"));
-            this.importComments(current,package_);
+            this.importComments(current, package_);
             architecture.addPackage(package_);
         }
     }
@@ -302,7 +303,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             class_.setFinal(current.getAttribute("final").equals("true"));
             this.importAttributesClass(current, class_, architecture);
             this.importMethods(current, class_, architecture);
-            this.importComments(current,class_);
+            this.importComments(current, class_);
             if (current.getAttribute("parent").equals("")) {
                 architecture.addExternalClass(class_);
             } else {
@@ -394,7 +395,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             Set<String> stereotypes = new HashSet<>();
             newInterface.setPatternOperations(new PatternsOperations(stereotypes));
             this.importMethodsInterface(current, newInterface, architecture);
-            this.importComments(current,newInterface);
+            this.importComments(current, newInterface);
             if (current.getAttribute("parent").equals("")) {
                 architecture.addExternalInterface(newInterface);
             } else {

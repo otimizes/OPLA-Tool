@@ -4,7 +4,6 @@ package br.otimizes.oplatool.architecture.papyrus.touml;
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
 import br.otimizes.oplatool.architecture.helpers.XmiHelper;
 import br.otimizes.oplatool.architecture.representation.VariationPoint;
-import com.sun.org.apache.xerces.internal.dom.DeferredElementImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -85,7 +84,7 @@ public class NoteNode extends XmiHelper {
     }
 
     private Node getElementByAttr(String[] attrs, String[] ids) {
-        NodeList elements = ((DeferredElementImpl) modelRootNotation).getElementsByTagName("layoutConstraint");
+        NodeList elements = modelRootNotation.getChildNodes();
         int length = elements.getLength();
         for (int i = 0; i < length; i++) {
             Node item = elements.item(i);
