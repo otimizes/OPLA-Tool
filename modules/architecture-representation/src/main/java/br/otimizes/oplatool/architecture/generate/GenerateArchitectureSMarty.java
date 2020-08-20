@@ -29,7 +29,7 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
      */
     public void generate(Architecture architecture, String name) {
         if (name.contains(FileConstants.FILE_SEPARATOR)) {
-            String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + name.split(FileConstants.getFileSeparator())[0];
+            String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + name.split(FileConstants.getEscapedFileSeparator())[0];
             File file = new File(directory);
             file.mkdir();
         }
