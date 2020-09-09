@@ -5,12 +5,12 @@
     <parent>
         <groupId>br.otimizes.oplatool</groupId>
         <artifactId>opla-tool</artifactId>
-        <version>2.0.1-RELEASE</version>
+        <version>2.0.2-RELEASE</version>
         <relativePath>../../</relativePath>
     </parent>
 
     <artifactId>opla-api</artifactId>
-    <version>2.0.1-RELEASE</version>
+    <version>2.0.2-RELEASE</version>
     <name>opla-api</name>
     <description>Demo project for Spring Boot</description>
 
@@ -76,6 +76,10 @@
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>br.ufpr.dinf.gres</groupId>
+            <artifactId>loglog</artifactId>
         </dependency>
     </dependencies>
     <build>

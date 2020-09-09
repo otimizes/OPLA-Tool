@@ -2,6 +2,9 @@
 
 **Add your changes here
 
+## [2.0.2] - 2020-09-09
+- Allowed the selection of many crossover operators at the same time (using pseudo random)
+
 ## [2.0.1] - 2020-08-20
 - Full compatibility with windows (cast double MathUtils and removed cast Node)
 - Full compatibility with new java versions

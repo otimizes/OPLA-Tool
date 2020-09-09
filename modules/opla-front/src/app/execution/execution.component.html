@@ -142,15 +142,12 @@
                 </opla-grid-tile>
               </opla-grid-list>
               <opla-grid-list>
-                <opla-grid-tile>
-                  <mat-radio-group [disabled]="!optimizationDto.crossover">
-                    <mat-radio-button
-                      *ngFor="let fmo of optimizationOptions?.crossoverOperators"
-                      [value]="fmo"
-                      (change)="changeCrossoverOperator($event.value)">
+                <opla-grid-tile *ngFor="let fmo of optimizationOptions?.crossoverOperators">
+                    <mat-checkbox
+                      [disabled]="!optimizationDto.crossover"
+                      (change)="changeOperators('crossoverOperators', fmo, $event.checked)">
                       {{fmo | replaceall:'_':' '}}
-                    </mat-radio-button>
-                  </mat-radio-group>
+                    </mat-checkbox>
                 </opla-grid-tile>
               </opla-grid-list>
             </mat-card>
