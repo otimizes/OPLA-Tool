@@ -87,6 +87,21 @@ public class OPLA extends Problem {
         }
     }
 
+    public void evaluateLinkOverload(Solution solution) {
+        List<Fitness> fitnesses = new ArrayList<>();
+
+        for (String selectedMetric : selectedMetrics) {
+            ObjectiveFunctions metric = ObjectiveFunctions.valueOf(selectedMetric);
+            fitnesses.add(new Fitness(metric.evaluate((Architecture) solution.getDecisionVariables()[0])));
+        }
+
+
+        for (int i = 0; i < fitnesses.size(); i++) {
+            double peso = fitnesses.get(i).getValue()*100;
+            solution.setObjective(i, fitnesses.get(i).getValue() + (peso * ((Architecture)solution.getDecisionVariables()[0]).getExceedLink()));
+        }
+    }
+
     public SolutionSet removeDominadas(SolutionSet result) {
         List<Solution> collect = result.getSolutionSet().stream().filter(r -> (r.getEvaluation() >= 5)).collect(Collectors.toList());
         boolean dominador, dominado;

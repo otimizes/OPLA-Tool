@@ -134,11 +134,8 @@ public class Ranking {
                 }
             }
         }
-        //<-
-
         LOGGER.info("ranking_");
         ranking_ = new SolutionSet[i];
-        //0,1,2,....,i-1 are front, then i fronts
         for (int j = 0; j < i; j++) {
             ranking_[j] = new SolutionSet(front[j].size());
             it1 = front[j].iterator();
@@ -165,4 +162,11 @@ public class Ranking {
     public int getNumberOfSubfronts() {
         return ranking_.length;
     } // getNumberOfSubfronts
+
+    public void clear(){
+        solutionSet_.clear();
+        for (SolutionSet solutionSet_ : ranking_){
+            solutionSet_.clear();
+        }
+    }
 } // Ranking

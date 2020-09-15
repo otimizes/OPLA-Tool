@@ -20,6 +20,8 @@ public class PLAMutationOperator extends Mutation {
 
     private static final long serialVersionUID = 9039316729379302747L;
     static Logger LOGGER = LogManager.getLogger(PLAMutationOperator.class.getName());
+    private int threshold;
+    private int thresholdLc;
 
     private Double probability = null;
     private List<String> operators;
@@ -75,5 +77,21 @@ public class PLAMutationOperator extends Mutation {
 
     public List<String> getOperators() {
         return operators;
+    }
+
+    public int getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
+    }
+
+    public int getThresholdLc() {
+        return thresholdLc;
+    }
+
+    public void setThresholdLc(int thresholdLc) {
+        this.thresholdLc = thresholdLc;
     }
 }

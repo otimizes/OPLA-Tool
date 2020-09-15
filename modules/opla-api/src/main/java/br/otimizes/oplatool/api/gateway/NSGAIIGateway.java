@@ -6,10 +6,10 @@ import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIOPLABase;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NSGAGateway implements IGateway {
+public class NSGAIIGateway implements IGateway {
     private final NSGAIIOPLABase base;
 
-    public NSGAGateway(NSGAIIOPLABase base) {
+    public NSGAIIGateway(NSGAIIOPLABase base) {
         this.base = base;
     }
 

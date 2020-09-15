@@ -4,7 +4,6 @@ import br.otimizes.oplatool.architecture.exceptions.AttributeNotFoundException;
 import br.otimizes.oplatool.architecture.exceptions.MethodNotFoundException;
 import br.otimizes.oplatool.architecture.flyweights.VariantFlyweight;
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
-import br.otimizes.oplatool.architecture.representation.relationship.*;
 import br.otimizes.oplatool.architecture.papyrus.touml.Types.Type;
 import br.otimizes.oplatool.architecture.papyrus.touml.VisibilityKind;
 import br.otimizes.oplatool.architecture.representation.relationship.*;
@@ -55,36 +54,36 @@ public class Class extends Element {
     }
 
     public void matchImplementedInterface(Architecture architecture) {
-        if(implementedInterfaces == null)
+        if (implementedInterfaces == null)
             return;
-        if(implementedInterfaces.size() == 0)
+        if (implementedInterfaces.size() == 0)
             return;
         ArrayList<String> id_list = new ArrayList<>();
-        for(Interface inter : implementedInterfaces){
+        for (Interface inter : implementedInterfaces) {
             id_list.add(inter.getId());
         }
         implementedInterfaces.clear();
-        for(String id : id_list){
+        for (String id : id_list) {
             Interface interface_arch = architecture.findInterfaceById(id);
-            if(interface_arch != null) {
+            if (interface_arch != null) {
                 implementedInterfaces.add(interface_arch);
             }
         }
     }
 
     public void matchRequiredInterface(Architecture architecture) {
-        if(requiredInterfaces == null)
+        if (requiredInterfaces == null)
             return;
-        if(requiredInterfaces.size() == 0)
+        if (requiredInterfaces.size() == 0)
             return;
         ArrayList<String> id_list = new ArrayList<>();
-        for(Interface inter : requiredInterfaces){
+        for (Interface inter : requiredInterfaces) {
             id_list.add(inter.getId());
         }
         requiredInterfaces.clear();
-        for(String id : id_list){
+        for (String id : id_list) {
             Interface interface_arch = architecture.findInterfaceById(id);
-            if(interface_arch != null) {
+            if (interface_arch != null) {
                 requiredInterfaces.add(interface_arch);
             }
         }
@@ -105,13 +104,13 @@ public class Class extends Element {
             }
         }
 
-        return  null;
+        return null;
     }
 
     public void removeMethodByID(String id) {
         Set<Method> newHash = new HashSet<>();
-        for(Method m : this.methods){
-            if(!m.getId().equals(id)){
+        for (Method m : this.methods) {
+            if (!m.getId().equals(id)) {
                 newHash.add(m);
             }
         }
@@ -121,8 +120,8 @@ public class Class extends Element {
 
     public void removeAttributeByID(String id) {
         Set<Attribute> newHash = new HashSet<>();
-        for(Attribute m : this.attributes){
-            if(!m.getId().equals(id)){
+        for (Attribute m : this.attributes) {
+            if (!m.getId().equals(id)) {
                 newHash.add(m);
             }
         }
@@ -130,10 +129,10 @@ public class Class extends Element {
         this.attributes.addAll(newHash);
     }
 
-    public boolean hasGeneralization(){
-        for(Relationship r : this.getRelationships()){
+    public boolean hasGeneralization() {
+        for (Relationship r : this.getRelationships()) {
             if (r instanceof GeneralizationRelationship) {
-                GeneralizationRelationship re1 = (GeneralizationRelationship)r;
+                GeneralizationRelationship re1 = (GeneralizationRelationship) r;
                 if ((re1.getParent() != null) && (re1.getChild() != null)) {
                     if (re1.getParent().getId().equals(this.getId())) {
                         return true;
@@ -141,7 +140,7 @@ public class Class extends Element {
                 }
             }
         }
-        return  false;
+        return false;
     }
 
     public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
@@ -499,4 +498,31 @@ public class Class extends Element {
 
         return abstractMethods;
     }
+
+    public Set<Concern> getPriConcerns() {
+        Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns()); //titulo
+        for (Method method : getAllMethods()) { //para cada metodo da classe
+            for (Concern stereotype : method.getAllConcerns()) { //pra cada esteriotipo do metodo.
+                if (!listContainConcern(concerns, stereotype)) //verifica se o esteriotipo esta presente na lista, se nao estiver
+                    concerns.add(stereotype); //ele add na lista.
+            }
+        }
+
+        for (Attribute attribute : getAllAttributes()) { //para cada atributo da classe
+            for (Concern stereotype : attribute.getAllConcerns()) { //pra cada esteriotipo do atributo.
+                if (!listContainConcern(concerns, stereotype)) //verifica se o esteriotipo esta presente na lista, se nao estiver
+                    concerns.add(stereotype);//ele add na lista.
+            }
+        }
+        return concerns;
+    }
+
+    public boolean listContainConcern(Set<Concern> listConcerns, Concern concern) {
+        for (Concern conc : listConcerns) {
+            if (conc.getName().equalsIgnoreCase(concern.getName()))
+                return true;
+        }
+        return false;
+    }
+
 }

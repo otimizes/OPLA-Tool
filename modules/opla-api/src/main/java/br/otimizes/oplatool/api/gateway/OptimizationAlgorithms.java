@@ -9,7 +9,7 @@ import br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic.UntilBest;
 /**
  * Feature mutation operators enum
  * <p>
- * {@link NSGAGateway NSGAII Gateway,}
+ * {@link NSGAIIGateway NSGAII Gateway,}
  * {@link NSGAIIOPLABase NSGAII OPLABase,}
  * {@link br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII NSGAII,}
  * {@link PAESGateway PAES Gateway,}
@@ -26,13 +26,16 @@ import br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic.UntilBest;
  * {@link NoChoice NoChoice,}
  * {@link UntilBestGateway UntilBest Gateway,}
  * {@link UntilBestOPLABase UntilBest OPLABase,}
- * {@link UntilBest UntilBest}
+ * {@link UntilBest UntilBest,}
+ * {@link NSGAIIASPGateway NSGAII NSGAIIASPGateway,}
+ * {@link NSGAIIOPLABase NSGAII NSGAIIOPLABase,}
+ * {@link br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAIIASP NSGAIIASP,}
  */
 public enum OptimizationAlgorithms implements IOptimizationAlgorithm {
     NSGAII {
         @Override
         public Class<? extends IGateway> getType() {
-            return NSGAGateway.class;
+            return NSGAIIGateway.class;
         }
     },
     PAES {
@@ -63,6 +66,12 @@ public enum OptimizationAlgorithms implements IOptimizationAlgorithm {
         @Override
         public Class<? extends IGateway> getType() {
             return UntilBestGateway.class;
+        }
+    },
+    NSGAII_ASP {
+        @Override
+        public Class<? extends IGateway> getType() {
+            return NSGAIIASPGateway.class;
         }
     },
 }

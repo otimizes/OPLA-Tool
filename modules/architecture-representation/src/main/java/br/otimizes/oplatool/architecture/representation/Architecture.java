@@ -1,17 +1,15 @@
 package br.otimizes.oplatool.architecture.representation;
 
-import br.otimizes.oplatool.architecture.exceptions.ClassNotFound;
 import br.otimizes.oplatool.architecture.flyweights.VariabilityFlyweight;
 import br.otimizes.oplatool.architecture.flyweights.VariantFlyweight;
 import br.otimizes.oplatool.architecture.flyweights.VariationPointFlyweight;
 import br.otimizes.oplatool.architecture.generate.GenerateArchitecture;
 import br.otimizes.oplatool.architecture.generate.GenerateArchitectureSMarty;
+import br.otimizes.oplatool.architecture.helpers.ASPHelper;
+import br.otimizes.oplatool.architecture.helpers.UtilResources;
 import br.otimizes.oplatool.architecture.representation.architectureControl.ArchitectureFindElementControl;
 import br.otimizes.oplatool.architecture.representation.architectureControl.ArchitectureRemoveElementControl;
-import br.otimizes.oplatool.architecture.representation.relationship.DependencyRelationship;
-import br.otimizes.oplatool.architecture.representation.relationship.RealizationRelationship;
-import br.otimizes.oplatool.architecture.representation.relationship.Relationship;
-import br.otimizes.oplatool.architecture.helpers.UtilResources;
+import br.otimizes.oplatool.architecture.representation.relationship.*;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
@@ -58,36 +56,38 @@ public class Architecture extends Variable {
     private List<VariationPoint> variationPoints = new ArrayList<>();
     private List<Variability> variabilities = new ArrayList<>();
     private List<Variant> variants = new ArrayList<>();
+    private int linkOverloadViolation = 0;
+    private int exceedLink = 0;
 
     public Architecture(String name) {
         setName(name);
     }
 
-    public ArrayList<String> verifyClassWithoutRelationship(){
+    public ArrayList<String> verifyClassWithoutRelationship() {
 
         ArrayList<String> lstSemConexao = new ArrayList<>();
-        for(Class c: this.getAllClasses()){
-            if(c.getRelationships().size() == 0){
+        for (Class c : this.getAllClasses()) {
+            if (c.getRelationships().size() == 0) {
 
                 lstSemConexao.add(c.getId());
             }
         }
-        return  lstSemConexao;
+        return lstSemConexao;
     }
 
-    public ArrayList<String> verifyInterfaceWithoutRelationship(){
+    public ArrayList<String> verifyInterfaceWithoutRelationship() {
 
         ArrayList<String> lstSemConexao = new ArrayList<>();
-        for(Interface i: this.getAllInterfaces()){
-            if(i.getRelationships().size() == 0){
+        for (Interface i : this.getAllInterfaces()) {
+            if (i.getRelationships().size() == 0) {
 
                 lstSemConexao.add(i.getId());
             }
         }
-        return  lstSemConexao;
+        return lstSemConexao;
     }
 
-    public void clearArchitecture(){
+    public void clearArchitecture() {
         this.classes.clear();
         this.interfaces.clear();
         this.packages.clear();
@@ -95,11 +95,11 @@ public class Architecture extends Variable {
     }
 
     public void matchRequiredAndImplementedInterface() {
-        for(Package pkg : getAllPackages()){
+        for (Package pkg : getAllPackages()) {
             pkg.matchImplementedInterface(this);
             pkg.matchRequiredInterface(this);
         }
-        for(Class clazz : getAllClasses()){
+        for (Class clazz : getAllClasses()) {
             clazz.matchImplementedInterface(this);
             clazz.matchRequiredInterface(this);
         }
@@ -119,8 +119,8 @@ public class Architecture extends Variable {
 
         Set<Package> newHash = new HashSet<>();
 
-        for(Package px : this.packages){
-            if(!px.getId().equals(id)){
+        for (Package px : this.packages) {
+            if (!px.getId().equals(id)) {
                 newHash.add(px);
             }
         }
@@ -130,74 +130,74 @@ public class Architecture extends Variable {
 
     public void removeMethodByID(String id) {
 
-        for(Interface i: getAllInterfaces()) {
+        for (Interface i : getAllInterfaces()) {
             i.removeOperationByID(id);
         }
-        for(Class clazz_ : getAllClasses()){
+        for (Class clazz_ : getAllClasses()) {
             clazz_.removeMethodByID(id);
         }
     }
 
     public void removeMethodOfClassByID(String id) {
 
-        for(Class clazz_ : getAllClasses()){
+        for (Class clazz_ : getAllClasses()) {
             clazz_.removeMethodByID(id);
         }
     }
 
     public void removeOperationOfInterfaceByID(String id) {
-        for(Interface i: getAllInterfaces()) {
+        for (Interface i : getAllInterfaces()) {
             i.removeOperationByID(id);
         }
     }
 
     public void removeAttributeByID(String id) {
-        for(Class clazz_ : getAllClasses()){
+        for (Class clazz_ : getAllClasses()) {
             clazz_.removeAttributeByID(id);
         }
     }
 
-    public Element findClassOrInterfaceOfMethodByID(String id){
-        for(Interface i: getAllInterfaces()) {
-            for(Method method : i.getOperations()){
-                if(method.getId().equals(id))
-                    return  i;
+    public Element findClassOrInterfaceOfMethodByID(String id) {
+        for (Interface i : getAllInterfaces()) {
+            for (Method method : i.getOperations()) {
+                if (method.getId().equals(id))
+                    return i;
             }
         }
-        for(Class clazz_ : getAllClasses()){
-            for(Method method : clazz_.getAllMethods()){
-                if(method.getId().equals(id))
-                    return  clazz_;
-            }
-        }
-        return null;
-    }
-
-    public Class findClassOfMethodByID(String id){
-        for(Class clazz_ : getAllClasses()){
-            for(Method method : clazz_.getAllMethods()){
-                if(method.getId().equals(id))
-                    return  clazz_;
+        for (Class clazz_ : getAllClasses()) {
+            for (Method method : clazz_.getAllMethods()) {
+                if (method.getId().equals(id))
+                    return clazz_;
             }
         }
         return null;
     }
 
-    public Interface findInterfaceOfOperationByID(String id){
-        for(Interface i: getAllInterfaces()) {
-            for(Method method : i.getOperations()){
-                if(method.getId().equals(id))
-                    return  i;
+    public Class findClassOfMethodByID(String id) {
+        for (Class clazz_ : getAllClasses()) {
+            for (Method method : clazz_.getAllMethods()) {
+                if (method.getId().equals(id))
+                    return clazz_;
             }
         }
         return null;
     }
 
-    public Class findClassOfAttributeByID(String id){
-        for(Class clazz_ : getAllClasses()){
-            for(Attribute attribute : clazz_.getAllAttributes()){
-                if(attribute.getId().equals(id))
-                    return  clazz_;
+    public Interface findInterfaceOfOperationByID(String id) {
+        for (Interface i : getAllInterfaces()) {
+            for (Method method : i.getOperations()) {
+                if (method.getId().equals(id))
+                    return i;
+            }
+        }
+        return null;
+    }
+
+    public Class findClassOfAttributeByID(String id) {
+        for (Class clazz_ : getAllClasses()) {
+            for (Attribute attribute : clazz_.getAllAttributes()) {
+                if (attribute.getId().equals(id))
+                    return clazz_;
             }
         }
         return null;
@@ -207,15 +207,15 @@ public class Architecture extends Variable {
 
         Set<Class> newHash = new HashSet<>();
 
-        for(Class c : this.classes){
-            if(!c.getId().equals(id)){
+        for (Class c : this.classes) {
+            if (!c.getId().equals(id)) {
                 newHash.add(c);
             }
         }
 
         this.classes.clear();
         this.classes.addAll(newHash);
-        for(Package pkg : this.packages){
+        for (Package pkg : this.packages) {
             pkg.removeClassByID(id);
         }
 
@@ -1122,5 +1122,235 @@ public class Architecture extends Variable {
 
         klasses.addAll(this.classes);
         return klasses;
+    }
+
+    public ArrayList<Integer> getLinkOverload(Element element) { //funcao que incia uma lista vazia. pega o elemento e calcula o link desse elemento
+        ArrayList<Integer> linkOverload = new ArrayList<>(); //lista vazia
+        int input = 0;
+        int output = 0;
+        int both = 0;
+
+        if (element instanceof Class) { // se o elemento for do tiṕo classe // cast para o tipo classe
+            Class class_ = (Class) element;
+            for (Relationship r : class_.getRelationships()) { //pra cada relacionamento da classe verificar o tipo
+
+
+                if (r instanceof DependencyRelationship) { //  se for do tipo DEPENDENCIA
+
+                    DependencyRelationship dr = (DependencyRelationship) r; // castar
+
+                    if (dr.getClient().getId().equals(class_.getId())) {   // verificar qual lado do relacionamento e
+                        //elemento e o cliente
+                        input++;
+                    } else {
+                        output++;
+                    }
+                }
+                if (r instanceof RealizationRelationship) { //  se for do tipo REALIZAÇÃO
+                    RealizationRelationship dr = (RealizationRelationship) r; // castar
+                    if (dr.getClient().getId().equals(class_.getId())) {   // verificar qual lado do relacionamento e
+                        output++;
+                    } else {
+                        input++;
+                    }
+                }
+                if (r instanceof AbstractionRelationship) { //  se for do tipo ABSTRAÇÃO
+                    AbstractionRelationship dr = (AbstractionRelationship) r; // castar
+                    if (dr.getClient().getId().equals(class_.getId())) {   // verificar qual lado do relacionamento e
+                        //elemento e o cliente
+                        output++;
+                    } else {
+                        input++;
+                    }
+                }
+                if (r instanceof AssociationRelationship) { //  se for do tipo ASSOCIAÇÃO
+                    both++;
+                }
+                if (r instanceof AssociationClassRelationship) { //  se for do tipo dependencia
+                    both++;
+                }
+            }
+        }
+
+        if (element instanceof Interface) { //mesma coisa para nternface
+            Interface interface_ = (Interface) element; //cast
+            for (Relationship r : interface_.getRelationships()) { //pega da interface e verifica
+                if (r instanceof DependencyRelationship) { //  se for do tipo DEPENDENCIA
+                    DependencyRelationship dr = (DependencyRelationship) r; // castar
+                    if (dr.getClient().getId().equals(interface_.getId())) {   // verificar qual lado do relacionamento e
+                        input++;
+                    } else {
+                        output++;
+                    }
+                }
+                if (r instanceof RealizationRelationship) { //  se for do tipo REALIZAÇÃO
+                    RealizationRelationship dr = (RealizationRelationship) r; // castar
+                    if (dr.getClient().getId().equals(interface_.getId())) {   // verificar qual lado do relacionamento e
+                        output++;
+                    } else {
+                        input++;
+                    }
+                }
+                if (r instanceof AbstractionRelationship) { //  se for do tipo ABSTRAÇÃO
+                    AbstractionRelationship dr = (AbstractionRelationship) r; // castar
+                    if (dr.getClient().getId().equals(interface_.getId())) {   // verificar qual lado do relacionamento e
+                        output++;
+                    } else {
+                        input++;
+                    }
+                }
+                if (r instanceof AssociationRelationship) { //  se for do tipo ASSOCIAÇÃO
+                    both++;
+                }
+                if (r instanceof AssociationClassRelationship) { //  se for do tipo dependencia
+                    both++;
+                }
+            }
+        }
+
+        linkOverload.add(input); // add os links de entrada
+        linkOverload.add(output);
+        linkOverload.add(both);
+        return linkOverload;   //retorno da funcao //retorna a lista com 3 posições
+    }
+
+    public ArrayList<Integer> getTHZLinkOverload() {         //calculo do thz
+        ArrayList<Integer> linkOverload = new ArrayList<>();
+        ArrayList<Integer> inputLink = new ArrayList<>(); // pega lista de entrada
+        ArrayList<Integer> inputOut = new ArrayList<>();
+        ArrayList<Integer> bothLink = new ArrayList<>();
+
+        ArrayList<Integer> listAux = new ArrayList<>(); // armazenar o linkoverload de cada elemento (classe, interface)
+        for (Class clazz : this.getAllClasses()) { // cpra cada lasse existente
+
+            listAux = getLinkOverload(clazz); //calculando o link overload da classe
+
+            inputLink.add(listAux.get(0)); //add das 3 listas
+            inputOut.add(listAux.get(1));
+            bothLink.add(listAux.get(2));
+        }
+        for (Interface interface_ : this.getAllInterfaces()) {
+            listAux = getLinkOverload(interface_); //calculando o link overload da interface
+
+            inputLink.add(listAux.get(0)); //add das 3 listas
+            inputOut.add(listAux.get(1));
+            bothLink.add(listAux.get(2));
+        }
+
+        linkOverload.add(getThz(inputLink)); //calcula o thz de cada uma
+        linkOverload.add(getThz(inputOut));
+        linkOverload.add(getThz(bothLink));
+
+        return linkOverload; //retorna o thz das 3 listas
+    }
+
+
+    public int getThz(ArrayList<Integer> list) { //calculo que ja javia sido realisado para o concern overload
+        Double mean = 0.0;
+        for (Integer n : list) {
+            mean += n;
+        }
+        mean = mean / list.size();
+        System.out.println(("media:") + mean);
+        Double std = ASPHelper.getStandardDeviation(list);
+        System.out.println(("desvio padrão:" + std));
+
+        Double THzb = mean + std;
+        System.out.println("soma:" + THzb);
+        return (int) Math.ceil(THzb);
+    }
+
+    public void linkOverloadExists(ArrayList<Integer> thrz) { //verificar se existe linkoverload (anomalia)
+        ArrayList<Element> DectecLink = new ArrayList();
+        ArrayList<Integer> listAux = new ArrayList<>();
+        for (Class class_ : this.getAllClasses()) { // classe
+            listAux = getLinkOverload(class_); //verifica o link da classe
+
+            if (listAux.get(0) > thrz.get(0)) { // compara com o thz calculado anterionmente
+                DectecLink.add(class_);
+                continue;
+            }
+            if (listAux.get(1) > thrz.get(1)) { //se for maior, tem anomalia // se for igual ainda é aceitavel
+                DectecLink.add(class_);
+                continue;
+            }
+            if (listAux.get(2) > thrz.get(2)) {
+                DectecLink.add(class_);
+                continue;
+            }
+
+        }
+        for (Interface interface_ : this.getAllInterfaces()) { // verifica link na internface
+            listAux = getLinkOverload(interface_);
+
+            if (listAux.get(0) > thrz.get(0)) { // compara com o thz calculado anterionmente
+                DectecLink.add(interface_);
+                continue;
+            }
+            if (listAux.get(1) > thrz.get(1)) {
+                DectecLink.add(interface_);
+                continue;
+            }
+            if (listAux.get(2) > thrz.get(2)) {
+                DectecLink.add(interface_);
+                continue;
+            }
+        }
+
+        linkOverloadViolation = DectecLink.size();
+
+        DectecLink.clear();
+        listAux.clear();
+
+        linkOverloadExcedTHZ(thrz); // contar o total de relacionamentos que excede o thrz
+    }
+
+    public void linkOverloadExcedTHZ(ArrayList<Integer> thrz) { //contagem excesso além do thz
+        exceedLink = 0;
+        ArrayList<Integer> listAux = new ArrayList<>();
+        for (Class class_ : this.getAllClasses()) { // classe
+            listAux = getLinkOverload(class_); //verifica o link da classe
+
+            if (listAux.get(0) > thrz.get(0)) { // compara com o thz calculado anterionmente
+                exceedLink += (listAux.get(0) - thrz.get(0));
+            }
+            if (listAux.get(1) > thrz.get(1)) { //se for maior, tem anomalia // se for igual ainda é aceitavel
+                exceedLink += (listAux.get(1) - thrz.get(1));
+            }
+            if (listAux.get(2) > thrz.get(2)) {
+                exceedLink += (listAux.get(2) - thrz.get(2));
+            }
+
+        }
+        for (Interface interface_ : this.getAllInterfaces()) { // verifica link na internface
+            listAux = getLinkOverload(interface_);
+
+            if (listAux.get(0) > thrz.get(0)) { // compara com o thz calculado anterionmente
+                exceedLink += (listAux.get(0) - thrz.get(0));
+            }
+            if (listAux.get(1) > thrz.get(1)) {
+                exceedLink += (listAux.get(1) - thrz.get(1));
+            }
+            if (listAux.get(2) > thrz.get(2)) {
+                exceedLink += (listAux.get(2) - thrz.get(2));
+            }
+        }
+        listAux.clear();
+    }
+
+    public int getLinkOverloadViolation() {
+        return linkOverloadViolation;
+    }
+
+    public void setLinkOverloadViolation(int linkOverloadViolation) {
+        this.linkOverloadViolation = linkOverloadViolation;
+    }
+
+    public int getExceedLink() {
+        return exceedLink;
+    }
+
+    public void setExceedLink(int exceedLink) {
+        this.exceedLink = exceedLink;
     }
 }

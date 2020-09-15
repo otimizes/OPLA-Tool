@@ -2,6 +2,9 @@
 
 **Add your changes here
 
+## [2.1.0] - 2020-09-15
+- Added ASP implementation from https://github.com/tmadrigar/OPLA-Tool/
+
 ## [2.0.2] - 2020-09-09
 - Allowed the selection of many crossover operators at the same time (using pseudo random)
 

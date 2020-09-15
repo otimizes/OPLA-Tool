@@ -1,5 +1,8 @@
 package br.otimizes.oplatool.core.jmetal4.metrics;
 
+import br.otimizes.oplatool.architecture.representation.Architecture;
+import br.otimizes.oplatool.core.jmetal4.metrics.asp.EleganceEX;
+import br.otimizes.oplatool.core.jmetal4.metrics.asp.EleganceNAC;
 import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
 import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.CDAC;
 import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.CDAClass;
@@ -9,9 +12,6 @@ import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.interactio
 import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.CIBClass;
 import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.IIBC;
 import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.interactionBeteweenConcerns.OOBC;
-import br.otimizes.oplatool.core.jmetal4.metrics.conventionalMetrics.*;
-import br.otimizes.oplatool.architecture.representation.Architecture;
-import br.otimizes.oplatool.core.jmetal4.metrics.concernDrivenMetrics.concernDiffusion.*;
 import br.otimizes.oplatool.core.jmetal4.metrics.conventionalMetrics.*;
 import br.otimizes.oplatool.domain.entity.Execution;
 import br.otimizes.oplatool.domain.entity.Experiment;
@@ -209,6 +209,28 @@ public enum Metrics implements ObjectiveFunctionsLink {
         @Override
         public Double evaluate(Architecture architecture) {
             return new DependencyOut(architecture).getResults();
+        }
+
+        @Override
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+            return null;
+        }
+    },
+    EleganceEX {
+        @Override
+        public Double evaluate(Architecture architecture) {
+            return new EleganceEX(architecture).getResults();
+        }
+
+        @Override
+        public ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
+            return null;
+        }
+    },
+    EleganceNAC {
+        @Override
+        public Double evaluate(Architecture architecture) {
+            return new EleganceNAC(architecture).getResults();
         }
 
         @Override
