@@ -1,4 +1,8 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isRunning()"></mat-progress-bar>
+<button mat-icon-button matTooltip="Logout" matTooltipPosition="left"
+        aria-label="Logout" (click)="logout()" style="float: right">
+  <mat-icon>exit_to_app</mat-icon>
+</button>
 <mat-horizontal-stepper labelPosition="bottom" #stepper>
   <mat-step state="execution">
     <ng-template matStepLabel><span class="hide-on-mobile">Execution Configuration</span></ng-template>
@@ -76,7 +80,4 @@
 <button fixedVicButton matTooltip="Download" *ngIf="optimizationInfo != null && optimizationInfo.status == 'COMPLETE'"
         color="accent" mat-fab aria-label="Download" (click)="download(optimizationInfo.hash)">
   <mat-icon>cloud_download</mat-icon>
-</button>
-<button fixedVicButton2 matTooltip="Logout" color="warn" mat-fab aria-label="Logout" (click)="logout()">
-  <mat-icon>exit_to_app</mat-icon>
 </button>
