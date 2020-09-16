@@ -345,17 +345,17 @@
             </releases>
         </repository>
 
-        <!-- <repository> -->
-        <!-- <id>bintray-godoy-opla-tool</id> -->
-        <!-- <url>http://dl.bintray.com/godoy/opla-tool</url> -->
-        <!-- <name>LogLog-Repository</name> -->
-        <!-- <snapshots> -->
-        <!-- <enabled>false</enabled> -->
-        <!-- </snapshots> -->
-        <!-- <releases> -->
-        <!-- <enabled>true</enabled> -->
-        <!-- </releases> -->
-        <!-- </repository> -->
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/otimizes/repo</url>
+            <name>Github-repository</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
 
         <repository>
             <id>jitpack.io</id>
@@ -385,12 +385,11 @@
                         <version>0.12</version>
                         <configuration>
                             <merge>true</merge>
-                            <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+                            <message>Maven artifacts for ${project.version}</message>
                             <noJekyll>true
-                            </noJekyll>                                  <!-- disable webpage processing -->
-                            <!-- matches distribution management repository url above -->
+                            </noJekyll>
                             <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
-                            <branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
+                            <branch>refs/heads/mvn-repo</branch>
                             <includes>
                                 <include>modules/architecture-representation</include>
                                 <include>modules/opla-core</include>
@@ -398,11 +397,10 @@
                                 <include>modules/opla-patterns</include>
                                 <include>modules/opla-persistence</include>
                             </includes>
-                            <repositoryName>repo</repositoryName>      <!-- github repo name -->
-                            <repositoryOwner>otimizes</repositoryOwner>    <!-- github username  -->
+                            <repositoryName>repo</repositoryName>
+                            <repositoryOwner>otimizes</repositoryOwner>
                         </configuration>
                         <executions>
-                            <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
                             <execution>
                                 <goals>
                                     <goal>site</goal>

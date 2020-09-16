@@ -3,6 +3,7 @@
 **Add your changes here
 
 - Position of the logout button changed
+- Added new mvn repo, on github
 
 ## [2.1.0] - 2020-09-15
 - Added ASP implementation from https://github.com/tmadrigar/OPLA-Tool/
