@@ -132,11 +132,9 @@ public class OPLA extends Problem {
 
                 if (dominador) {
                     result.remove(j);
-                    this.configs.getLogger().putLog("removido Dominada");
                     j = j - 1;
                 } else if (dominado) {
                     result.remove(i);
-                    this.configs.getLogger().putLog("removido Dominada");
                     j = i;
                 }
             }

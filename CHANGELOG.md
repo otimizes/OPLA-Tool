@@ -1,7 +1,7 @@
 # Changelog
 
 **Add your changes here
-
+- Removed front Logs in portuguese
 - Position of the logout button changed
 - Added new mvn repo, on github
 
