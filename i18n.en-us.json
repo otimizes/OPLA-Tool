@@ -45,9 +45,9 @@
     "description": "It aims to indicate the degree of extensibility of the LPS."
   },
   "FM": {
-    "value": "Feature Driven Function",
+    "value": "Feature-Driven Modularization",
     "type": "",
-    "description": "It aims to measure the modularization of characteristics and, for this, it is composed of a set of various metrics directed to the characteristics proposed in (Sant'Anna, 2008)."
+    "description": "It aims to measure the modularization of features and, for this, it is composed of a set of various metrics directed to the features proposed in (Sant'Anna, 2008)."
   },
   "LCC": {
     "value": "Lack of Concern-based Cohesion",

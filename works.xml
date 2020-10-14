@@ -1,4 +1,65 @@
 <works>
+   <work>
+    <year>2020</year>
+    <title>Architectural Feature Re-Modularization for Software Product Line Evolution</title>
+    <author>Luciane Baldo Nicolodi</author>
+    <abstract>Extensive maintenance leads to the Software Product
+      Line Architecture (PLA) degradation over time. When there is the need of
+evolving the Software Product Line (SPL) to include new features,
+or move to a new platform, a degraded PLA requires considerable
+effort to understand and modify, demanding expensive refactoring
+activity. In the state of the art, search-based algorithms are used to
+improve PLA at package level. However, recent studies have shown
+that the most variability and implementation details of an SPL are
+described in the level of classes. There is a gap between existing
+approaches and existing practical needs. In this work, we extend
+the current state of the art to deal with feature modularization in
+the level of classes by introducing a new search operator and a set
+of objective functions to deal with feature modularization in a finer
+granularity of the architectural elements, namely at class level. We
+evaluated the proposal in an exploratory study with a PLA widely
+investigated and a real-world PLA. The results of quantitative and
+qualitative analysis point out that our proposal provides solutions
+to properly re-modularize features in a PLA, being preferred by
+practitioners, in order to support the evolution of SPLs.</abstract>
+    <paperlink>https://drive.google.com/file/d/1ZSQRgdvblb-68hPo4SS7fB8R-JDLhtba/view?usp=sharing</paperlink>
+  </work>
+   <work>
+    <year>2020</year>
+    <title>OPLA-Tool v2.0: a Tool for Product Line Architecture Design Optimization</title>
+    <author>Willian Marques Freire</author>
+    <git>http://github.com/wmfsystem</git>
+    <abstract>The Multi-objective Optimization Approach for Product Line Architecture Design (MOA4PLA) 
+      is the seminal approach that successfully optimizes Product Line Architecture (PLA) design using 
+      search algorithms. The tool named OPLA-Tool was developed in order to automate the use of MOA4PLA. 
+      Over time, the customization of the tool to suit the needs of new research and application scenarios 
+      led to several problems. The main problems identified in the original version of OPLA-Tool are environment 
+      configuration, maintainability and usability problems, and PLA design modeling and visualization.
+      Such problems motivated the development of a new version of this tool: OPLA-Tool v2.0, presented in this work.
+      In this version, those problems were solved by the source code refactoring, migration to a web-based graphical
+      user interface (GUI) and inclusion of a new support tool for PLA modeling and visualization. Furthermore, 
+      OPLA-Tool v2.0 has new functionalities, such as new objective functions, new search operators, intelligent 
+      interaction with users during the optimization process, multi-user authentication and simultaneous execution
+      of several experiments to PLA optimization. Such a new version of OPLA-Tool is an important achievement to PLA design optimization as it provides an easier and more complete way to automate this task. </abstract>
+    <paperlink>https://drive.google.com/file/d/1b3gQ59s1YWRLQ1zxwGCuMPqLubmv0BeJ/view?usp=sharing</paperlink>
+  </work>
+   <work>
+    <year>2020</year>
+    <title>Supporting user preferences in search-based product line architecture design using Machine Learning</title>
+    <author>Carlos Vinicius Bindewald</author>
+    <abstract>The Product Line Architecture (PLA) is one of the most important artifacts of a Software Product Line. 
+      PLA design requires intensive human effort as it involves several conflicting factors. In order to support this 
+      task, an interactive search-based approach, automated by a tool named OPLA-Tool, was proposed in a previous work. 
+      Through this tool the software architect evaluates the generated solutions during the optimization process. 
+      Considering that evaluating PLA is a complex task and search-based algorithms demand a high number of generations, 
+      the evaluation of all solutions in all generations cause human fatigue. In this work, we incorporated in OPLA-Tool 
+      a Machine Learning (ML) model to represent the architect in some moments during the optimization process aiming 
+      to decrease the architect's effort. Through the execution of a quanti-qualitative exploratory study it was possible
+      to demonstrate the reduction of the fatigue problem and that the solutions produced at the end of the process, in 
+      most cases, met the architect’s needs.</abstract>
+    <paperlink>https://drive.google.com/file/d/1YFyAqUD7Gh32Z5FD5RzgeywH0EJWQLzR/view?usp=sharing</paperlink>
+    <experimentalpackagelink>https://github.com/otimizes/experimental-package-interactive-vin</experimentalpackagelink>
+  </work>
   <work>
     <year>2019</year>
     <title>Supporting decision makers in search-based product line architecture design using clustering</title>
