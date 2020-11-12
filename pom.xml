@@ -420,4 +420,20 @@
             </distributionManagement>
         </profile>
     </profiles>
+    <developers>
+        <developer>
+            <id>willianmarquesfreire</id>
+            <name>Willian Marques Freire</name>
+            <email>willianmarquesfreire@gmail.com</email>
+            <url>https://wmfsystem.com.br</url>
+            <roles>
+                <role>researcher</role>
+                <role>developer</role>
+            </roles>
+            <timezone>America/Sao_Paulo</timezone>
+            <properties>
+                <picUrl>https://github.com/wmfsystem</picUrl>
+            </properties>
+        </developer>
+    </developers>
 </project>
