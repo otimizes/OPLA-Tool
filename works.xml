@@ -28,6 +28,7 @@ practitioners, in order to support the evolution of SPLs.</abstract>
     <year>2020</year>
     <title>OPLA-Tool v2.0: a Tool for Product Line Architecture Design Optimization</title>
     <author>Willian Marques Freire</author>
+    <photo>https://lh6.googleusercontent.com/g_B2ljx1CGJvAQ96D-L1LAUplixJCSZWd3VEZfNIia2Q-rD39ZGqVH7YVwE1rMJELD_8vbv4hj8feSlE42A=w1848-h981-rw</photo>
     <git>http://github.com/wmfsystem</git>
     <abstract>The Multi-objective Optimization Approach for Product Line Architecture Design (MOA4PLA) 
       is the seminal approach that successfully optimizes Product Line Architecture (PLA) design using 
@@ -64,6 +65,7 @@ practitioners, in order to support the evolution of SPLs.</abstract>
     <year>2019</year>
     <title>Supporting decision makers in search-based product line architecture design using clustering</title>
     <author>Willian Marques Freire</author>
+    <photo>https://lh6.googleusercontent.com/g_B2ljx1CGJvAQ96D-L1LAUplixJCSZWd3VEZfNIia2Q-rD39ZGqVH7YVwE1rMJELD_8vbv4hj8feSlE42A=w1848-h981-rw</photo>
     <git>http://github.com/wmfsystem</git>
     <abstract>The Product Line Architecture (PLA) is one of the most important artifacts of a Software Product Line (SPL). 
     PLA design can be formulated as an optimization problem with many factors. In this context, the MOA4PLA approach was 
