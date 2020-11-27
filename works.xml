@@ -399,7 +399,7 @@ this experiment. From the accomplishment of such activities, it was possible to 
 tool was accepted by these participants, being possible to analyze some of its positive and
 negative points.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/1MzEg04QWnfCJHMSlASgQsVZO-u25qhYU/view?usp=sharing</paperlink></paperlink>
+    <paperlink>https://drive.google.com/file/d/1MzEg04QWnfCJHMSlASgQsVZO-u25qhYU/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -466,6 +466,54 @@ roles and simplifying tasks so that software development within these groups occ
 most orderly way possible.
     </abstract>
     <paperlink>https://drive.google.com/file/d/1UcoWo8Pfv5hiefsCURHtZvThfdf77Q1i/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+   <work>
+    <year>2015</year>
+    <title>Prioritizing features to be modularized in product line architecture</title>
+    <author>Diego Fernandes da Silva</author>
+    <abstract>
+    One of main Software Product Line's (SPL) artifacts, which is an approach for the
+development of software applications in large scale, is the Product-Line Architecture
+(PLA). The MOA4PLA approach includes one searching operator for improving PLA
+projects in relation to features modularization through small modifications in a PLA
+project. However, this searching operator of the related approach do not prioritize
+features to be modularized. Thereby, all the features are modularized with the same
+ratio of probability. However, it is customary hold a list of the prioritized features
+involved in the SPL's products that will be derived or evolved. These features should
+have modularization's priority. In this context, this paper aims to perform necessary
+modifications in the OPLA-Tool, in which automates the application of the MOA4PLA
+approach, in order to allow the SPL features prioritization. Two methods to prioritize
+modularization's features are proposed: One in which the user select a order of features
+to be prioritized and another in which the features are prioritized automatically
+according to the feature's type. Only the first method was implemented due to the long
+time spent to compile OPLA-tool. After its implementation, an experiment was
+conducted using one PLA and prioritizing some features. The results showed
+improvement in modularization of prioritized features.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/1116TnpxBeS9_qRIBnIRnpB6u12RtWDj9/view?usp=sharing</paperlink>
+    <experimentalpackagelink></experimentalpackagelink>
+  </work> 
+  <work>
+    <year>2017</year>
+    <title>Qualitative Analysis of Software Product Line Architecture optimized from the OPLA-Tool</title>
+    <author>Thiago de Oliveira Lavezzo</author>
+    <abstract>
+    Software Product Line (LPS) is a collection of systems that share characteristics in a managed way through 
+       its various artifacts. It aims to increase software reuse, decrease production time and product development 
+       costs. In this approach, the main artifact is the LPS architecture (PLA - Product Line Architecture). 
+       Architectural metrics support architects to define and improve a PLA so that it is cohesive, modular and 
+       reusable. However, this task can involve several factors, which can often conflict with each other. 
+       When this occurs, architects must choose which ones to prioritize, this is not a simple task and requires 
+       great human effort, as there is not always an optimal and exact solution. In this context, Colanzi (2014)
+       introduced the MOA4PLA (Multi-Objective Approach for Product-Line Architecture) approach that aims to optimize 
+       PLAs. To allow the automation of the MOA4PLA approach, Colanzi (2014) proposed a tool called OPLA-Tool 
+       (Optimization for PLA Tool). This work consisted of a qualitative analysis of PLAs optimized from the OPLA-Tool. 
+       The results were obtained from the analysis of these PLAs by specialists in the area of Software Engineering. 
+       The results obtained from the qualitative analysis based on the experts' feedback, showed positive and negative 
+       points of the optimized PLAs, being that in general they were consistent with what was optimized in the project.
+    </abstract>
+    <paperlink>https://drive.google.com/file/d/18VvybfXxo-Me3suWHFLFSGmE3qp8zCGB/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
 </works>
