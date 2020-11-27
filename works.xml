@@ -133,7 +133,7 @@ study pointed out that the solutions obtained with AM, in the context of MOA4PLA
 good from the software architects point of view. The AM still needs to be refined with
 improvements identified during the steps of this work.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/1mXSaIOw_-rbI5rneNzGXQ6T2J0QRoBZ-/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/1y0RdTVWh9nH9n0YzjYPg84k8olO1ZyC1/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -166,7 +166,7 @@ proposal of the quality model for SBPD, the use of metrics for LPS oriented to s
 applied for the first time in the context of SBPD; and the new objective functions that
 let evaluate other architectural properties in the evaluation model of MOA4PLA.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/1EaEyYP_4zGtjlCIxkaYUNumd-i0qsTSX/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/1l4M7Gnr0YZaarUbquebR_b0AAC2lBCch/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -220,7 +220,7 @@ that most of the functions are negatively correlated, so that when one function 
 the other decreases. Thus the function has to be selected as an objective, if the architect
 wants to prioritize it in the optimization process.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/12Sro7Q62uCfHzGWGMSjgV6jmp0yTe7KW/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/16mdgNKEfw36Q41HU6GJ30ItR0JaeRZc8/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -249,7 +249,7 @@ values of the software metrics. A greater diversity of solutions was obtained, t
 architect can choose which one best fits his/her objectives. Therefore, the application of
 design patterns using the proposed operator contributes positively to the PLA design.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/1t1ql6Aa15rWrpO0UHT3yMPf65riw-IGu/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/1Y9C9mdg1lwOhoNM0viW9HzWg9JqhE_ot/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -275,7 +275,7 @@ more productive. The implementation and integration of such modules were evaluat
 using real PLAs. The obtained results show the usefulness of OPLA-Tool, which contri-
 butes to reduce the effort spent in the PLA design and improvement.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/1480r6ryCMJQwVl65ceMwQlW4x1Q9hLdY/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/1UIOdnHswYn86Z0Kw3VgJiD_bL_j73MxF/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -298,7 +298,7 @@ they were resolved by experiments and analyzes in PLAs generated. These solution
 as expected, the class and interfaces isolates issue, which also cause isolated package still
 exists. In addition, other problems were identified in OPLA-Tool.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/11RnhXNDROTQL41BCyHeTB1bULH5yjAPP/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/1tS7NCLGVqxIWMwpizJ7v2iUAEAAa2VL4/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -325,7 +325,7 @@ rithms were executed, with evaluation models of two, three and five objectives. 
 that, within the context of this work, NSGA-III created a solution set of better quality than the
 NSGA-II. Future study cases for improving the OPLA-Tool were also noted.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/17Kk4_-mM2GmgNW9_gnWtNriJZwjrSexs/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/1j3pK7KcvdONeyh8UvvJF5j8-rT3hJA6k/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -350,7 +350,7 @@ the feedback of the specialists allowed to identify that, as PLAs obtained are c
 the objectives that were optimized and that the architectural characteristics that the experts are
 judgments are just like that were evaluated in this study.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/1bU-F98SAHCDykGyqDHbpOkZgAkGEH9TV/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/1wzjnsmMNF08DapFakR9kSshKvMUPLHFl/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -373,7 +373,7 @@ verify the influence of OPLA-Tool on the types of anomalies present in the gener
 solutions, in contrast to the types of anomalies previously existing in the original solutions.
 Finally, guidelines were proposed to detect and remove the types of anomalies found.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/1mbQTfDcTOmahFk_QLu9kstd-snwJJce-/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/1FPfGUknBxRbNKEPyHqCfN7F6_yD5r8h_/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -399,7 +399,7 @@ this experiment. From the accomplishment of such activities, it was possible to 
 tool was accepted by these participants, being possible to analyze some of its positive and
 negative points.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/1QOKaR_g9Sb0ZToqae8gadQlF5XIlawM5/view?usp=sharing/paperlink></paperlink>
+    <paperlink>https://drive.google.com/file/d/1MzEg04QWnfCJHMSlASgQsVZO-u25qhYU/view?usp=sharing</paperlink></paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -419,7 +419,7 @@ questionnaire, which is in Annex A, some usability problems were found in the
 tool interface. For these cases, prototypes were made with the proposed
 improvements to the OPLA - Tool.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/16vaGo4C2-cWRy0RYxKz_JZ5b9vUxefP8/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/1WDPzLgx_sr9Fz6DVCAmu1IxS_xPchQSC/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -445,7 +445,7 @@ time spent to compile OPLA-tool. After its implementation, an experiment was
 conducted using one PLA and prioritizing some features. The results showed
 improvement in modularization of prioritized features.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/10mlTJEgkti4SOQHNd0luW-2rA7CpMhNy/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/1116TnpxBeS9_qRIBnIRnpB6u12RtWDj9/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
   <work>
@@ -465,7 +465,7 @@ configuration management model that meets the environment of research groups, ad
 roles and simplifying tasks so that software development within these groups occurs in the
 most orderly way possible.
     </abstract>
-    <paperlink>https://drive.google.com/file/d/1a5c__vYoIho1KK-3TiL_v4b34pPVtWv5/view?usp=sharing</paperlink>
+    <paperlink>https://drive.google.com/file/d/1UcoWo8Pfv5hiefsCURHtZvThfdf77Q1i/view?usp=sharing</paperlink>
     <experimentalpackagelink></experimentalpackagelink>
   </work> 
 </works>
