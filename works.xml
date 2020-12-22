@@ -18,6 +18,7 @@
        The results of this study show that the prevention of the studied architectural anomalies is feasible 
        and that there are points of improvement in relation to the Link Overload anomaly prevention guideline.</abstract>
     <paperlink>http://cibse2020.ppgia.pucpr.br/images/artigos/5/S05_P1.pdf</paperlink>
+    <experimentalpackagelink>https://github.com/otimizes/experimental-package-asp</experimentalpackagelink>
   </work>
    <work>
     <year>2020</year>
