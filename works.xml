@@ -1,6 +1,26 @@
 <works>
    <work>
     <year>2020</year>
+    <title>Prevention of Architectural Anomalies in Product Line Design Optimization</title>
+    <author>Tiago Tadeu Madrigar</author>
+    <abstract>The use of search algorithms has been successfully explored in the optimization 
+       of Software Product Line Architecture (PLA) design in the seminal approach called 
+       Multi-Objective Approach for Product-Line Architecture Design (MOA4PLA). Such an approach 
+       produces a set of PLA design alternatives that improves the different optimized factors. 
+       In addition to the optimization of these factors, the PLA projects obtained should ideally be 
+       free of architectural anomalies. An architectural anomaly can negatively impact both the 
+       variability and extensibility of PLA and other non-functional attributes. However, search-based 
+       approaches, such as MOA4PLA, adversely introduce architectural anomalies into the automatically 
+       generated solutions. Therefore, in the present work, we present the OPLA-Tool-ASP tool, which 
+       implements guidelines to prevent the Unused Interface, Unused Brick and Concern Overload anomalies 
+       in the context of MOA4PLA. In addition, we investigated the prevention of Link Overload anomaly. 
+       A study involving two experiments was conducted in order to analyze the efficiency of these guidelines. 
+       The results of this study show that the prevention of the studied architectural anomalies is feasible 
+       and that there are points of improvement in relation to the Link Overload anomaly prevention guideline.</abstract>
+    <paperlink>http://cibse2020.ppgia.pucpr.br/images/artigos/5/S05_P1.pdf</paperlink>
+  </work>
+   <work>
+    <year>2020</year>
     <title>Architectural Feature Re-Modularization for Software Product Line Evolution</title>
     <author>Luciane Baldo Nicolodi</author>
     <abstract>Extensive maintenance leads to the Software Product
