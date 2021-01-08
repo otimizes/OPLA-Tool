@@ -45,7 +45,10 @@ public class OptimizationService {
         thread.setName(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId());
         thread.start();
 //        Thread.currentThread().setName(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId());
-        return Mono.just(new OptimizationInfo(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId(), "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
+        OptimizationInfo optimizationInfo = new OptimizationInfo(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId(), "", OptimizationInfoStatus.RUNNING);
+        optimizationInfo.threadId = thread.getId();
+        optimizationInfo.currentGeneration = 0;
+        return Mono.just(optimizationInfo).subscribeOn(Schedulers.elastic());
     }
 
 

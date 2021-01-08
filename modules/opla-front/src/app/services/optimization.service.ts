@@ -55,7 +55,7 @@ export class OptimizationService {
   }
 
   public static isRunning() {
-    return (localStorage.getItem("optimizationInfo") != null && (this.getOptimizationInfo().status === "RUNNING" || this.getOptimizationInfo().status === 'INTERACT'));
+    return (localStorage.getItem("optimizationInfo") != null && ((this.getOptimizationInfo().status === "RUNNING" && this.getOptimizationInfo().threadId) || this.getOptimizationInfo().status === 'INTERACT'));
   }
 
   public static setPLA(listOfFiles) {
@@ -68,6 +68,8 @@ export class OptimizationService {
   }
 
   startEventListener(optimizationInfo: OptimizationInfo) {
+    console.log("startEventListener", optimizationInfo)
+    if (optimizationInfo.status == 'RUNNING' && !optimizationInfo.threadId) return;
     localStorage.setItem("optimizationInfo", JSON.stringify(optimizationInfo));
     if (!!window['EventSource'] && optimizationInfo.status != "COMPLETE") {
       OptimizationService.source = new EventSource(`${UserService.baseUrl}/optimization/optimization-info/${optimizationInfo.hash}?authorization=${UserService.user.token}`);

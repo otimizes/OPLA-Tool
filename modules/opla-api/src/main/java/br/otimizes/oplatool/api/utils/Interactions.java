@@ -36,8 +36,4 @@ public class Interactions {
     public static Interaction set(String id, Interaction interaction) {
         return Interactions.interactions.put(id, interaction);
     }
-
-    public static Interaction set(String token, String hash, Interaction interaction) {
-        return Interactions.set(token + FileConstants.FILE_SEPARATOR + hash, interaction);
-    }
 }

@@ -108,8 +108,8 @@ public class OptimizationResource {
     @GetMapping(value = "/optimization-infos")
     public Mono<Infos> optimizationInfos() {
         for (Map.Entry<String, List<OptimizationInfo>> stringListEntry : OPLALogs.lastLogs.entrySet()) {
-            if (OptimizationInfoStatus.COMPLETE.equals(stringListEntry.getValue().get(0).status)) {
-                OPLALogs.lastLogs.remove(stringListEntry.getKey());
+            if (stringListEntry.getValue().size() > 0 && OptimizationInfoStatus.COMPLETE.equals(stringListEntry.getValue().get(0).status)) {
+                OPLALogs.remove(stringListEntry.getKey());
             }
         }
         List<Map.Entry<String, List<OptimizationInfo>>> collect = OPLALogs.lastLogs.entrySet().stream()
@@ -134,9 +134,13 @@ public class OptimizationResource {
         return Flux.interval(Duration.ofMillis(500)).take(50).onBackpressureBuffer(50)
                 .map(str -> {
                     if (OPLALogs.get(token, hash) != null && !OPLALogs.get(token, hash).isEmpty()) {
-                        OptimizationInfo optimizationInfo = OPLALogs.get(token, hash).get(0);
-                        return OptimizationInfoStatus.COMPLETE.equals(optimizationInfo.status)
-                                ? clear(token, hash, optimizationInfo) : OPLALogs.get(token, hash).remove(0);
+                        OptimizationInfo optimizationInfo = OPLALogs.getFirst(token, hash);
+                        OptimizationInfo optimizationInfo1 = OptimizationInfoStatus.COMPLETE.equals(optimizationInfo.status)
+                                ? clear(token, hash, optimizationInfo) : optimizationInfo;
+                        if (OPLALogs.get(token, hash).size() <= 0) {
+                            System.out.println("asd");
+                        }
+                        return optimizationInfo1;
                     }
                     return new OptimizationInfo(token + FileConstants.FILE_SEPARATOR + hash, "", Interactions.interactions.size() > 0 &&
                             !(Optional.of(Interactions.get(token, hash)).orElse(new Interaction(true)).updated)
@@ -160,7 +164,7 @@ public class OptimizationResource {
     }
 
     @PostMapping("/interaction/{token}/{hash}")
-    public Mono<Object> postInteraction(@PathVariable String token, @PathVariable String hash, @RequestBody Interaction interaction) {
+    public Mono<Object> postInteraction(@PathVariable String token, @PathVariable String hash, @RequestBody() Interaction interaction) {
         Interactions.update(token, hash, interaction.solutionSet.getSolutionSet());
         return Mono.empty().subscribeOn(Schedulers.elastic());
     }

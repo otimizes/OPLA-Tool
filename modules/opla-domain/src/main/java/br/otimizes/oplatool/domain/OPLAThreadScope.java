@@ -15,7 +15,8 @@ public class OPLAThreadScope {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String format = simpleDateFormat.format(new Date());
 
-        return OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + OPLAThreadScope.mainThreadId.get() + format.concat("-" + Math.round(Math.random() * 10000));
+        Long mainThread = OPLAThreadScope.mainThreadId.get();
+        return OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + mainThread;
     });
 
     public static ThreadLocal<Long> mainThreadId = new ThreadLocal<>();

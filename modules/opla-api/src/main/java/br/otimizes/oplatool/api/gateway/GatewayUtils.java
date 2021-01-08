@@ -1,6 +1,7 @@
 package br.otimizes.oplatool.api.gateway;
 
 import br.otimizes.oplatool.api.dto.OptimizationDto;
+import br.otimizes.oplatool.api.utils.Interactions;
 import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
@@ -17,6 +18,7 @@ public class GatewayUtils {
 
     public static void log(String error) {
         OPLALogs.lastLogs.get(OPLAThreadScope.hash.get()).clear();
+        Interactions.interactions.remove(OPLAThreadScope.hash.get());
         OPLALogs.add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), error, OptimizationInfoStatus.COMPLETE));
     }
 

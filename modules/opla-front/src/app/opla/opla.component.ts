@@ -27,7 +27,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
   title = 'static';
   isLinear = false;
   papyrusFormGroup: FormGroup;
-  isOnInteraction = false;
+  public static isOnInteraction = false;
   executionFormGroup: FormGroup;
   patternFormGroup: FormGroup;
   resultsFormGroup: FormGroup;
@@ -94,10 +94,11 @@ export class OplaComponent implements OnInit, AfterViewInit {
   }
 
   verifyInteraction(optimizationInfo) {
-    if (optimizationInfo && optimizationInfo.status === "INTERACT" && !this.isOnInteraction) {
+    if (optimizationInfo && optimizationInfo.status === "INTERACT" && !OplaComponent.isOnInteraction) {
+      OplaComponent.isOnInteraction = true;
+      console.log("aquiiii", OplaComponent.isOnInteraction, optimizationInfo)
       this.optimizationService.getInteraction(optimizationInfo.hash).subscribe(interaction => {
         if (interaction.solutionSet) {
-          this.isOnInteraction = true;
           const dialogRef = this.dialog.open(InteractionDialogComponent, {
             panelClass: 'opla-dialog-full-panel',
             data: {info: optimizationInfo, interaction: interaction}
@@ -109,7 +110,9 @@ export class OplaComponent implements OnInit, AfterViewInit {
               solutionSet: result
             }).subscribe(putInt => {
               console.log("put", putInt);
-              this.isOnInteraction = false;
+              setTimeout(() => {
+                OplaComponent.isOnInteraction = false;
+              }, 1000)
             })
           });
         }
@@ -118,7 +121,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.verifyInteraction(this.optimizationInfo);
+    // this.verifyInteraction(this.optimizationInfo);
     this.stepper.selectedIndex = 0;
   }
 
