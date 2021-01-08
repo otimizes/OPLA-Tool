@@ -53,6 +53,7 @@ export class LogsComponent implements OnInit {
           this.infos.forEach(info => {
             let hash = Object.keys(info)[0];
             if (info[hash].length <= 0 || info[hash][0].status == 'INTERACT')
+              console.log("chamou no logs, info", info)
               this.optimizationService.getInteraction(Object.keys(info)[0]).subscribe(interaction => {
                 if (interaction.solutionSet) {
                   let optimizationInfo = new OptimizationInfo();

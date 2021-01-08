@@ -96,7 +96,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
   verifyInteraction(optimizationInfo) {
     if (optimizationInfo && optimizationInfo.status === "INTERACT" && !OplaComponent.isOnInteraction) {
       OplaComponent.isOnInteraction = true;
-      console.log("aquiiii", OplaComponent.isOnInteraction, optimizationInfo)
+      console.log("chamou no opla", OplaComponent.isOnInteraction, optimizationInfo)
       this.optimizationService.getInteraction(optimizationInfo.hash).subscribe(interaction => {
         if (interaction.solutionSet) {
           const dialogRef = this.dialog.open(InteractionDialogComponent, {
@@ -106,9 +106,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
 
           dialogRef.afterClosed().subscribe(result => {
             console.log("finish", result);
-            this.optimizationService.postInteraction(optimizationInfo.hash, {
-              solutionSet: result
-            }).subscribe(putInt => {
+            this.optimizationService.postInteraction(optimizationInfo.hash, result).subscribe(putInt => {
               console.log("put", putInt);
               setTimeout(() => {
                 OplaComponent.isOnInteraction = false;
