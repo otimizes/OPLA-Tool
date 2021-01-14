@@ -70,7 +70,7 @@ public class EmailService {
             System.out.println("E-mail sent from " + username + " to " + emailDto.to);
 
         } catch (RuntimeException | AddressException e) {
-            throw new RuntimeException(e.getMessage());
+            System.out.println(":: Error on send interaction e-mail, verify your configuration ::");
         } catch (MessagingException e) {
             e.printStackTrace();
         }

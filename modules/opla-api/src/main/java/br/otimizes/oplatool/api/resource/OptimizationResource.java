@@ -8,6 +8,9 @@ import br.otimizes.oplatool.api.utils.Interactions;
 import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
+import br.otimizes.oplatool.architecture.representation.Architecture;
+import br.otimizes.oplatool.core.jmetal4.core.Solution;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfig;
 import br.otimizes.oplatool.domain.config.ApplicationYamlConfig;
@@ -18,11 +21,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.xml.sax.SAXException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -62,7 +68,8 @@ public class OptimizationResource {
     }
 
     @GetMapping(value = "/open-alternative/{token}/{hash}/{id}", produces = "application/zip")
-    public void openAlternative(@PathVariable String token, @PathVariable String hash, @PathVariable Integer id) throws IOException {
+    public void openAlternative(@PathVariable String token, @PathVariable String hash, @PathVariable Integer id) throws InterruptedException, SAXException,
+            ParserConfigurationException, XPathExpressionException, IOException {
         optimizationService.openAlternative(token, hash, id);
     }
 
@@ -164,9 +171,44 @@ public class OptimizationResource {
     }
 
     @PostMapping("/interaction/{token}/{hash}")
-    public Mono<Object> postInteraction(@PathVariable String token, @PathVariable String hash, @RequestBody() Interaction interaction) {
-        Interactions.update(token, hash, interaction.solutionSet.getSolutionSet());
+    public Mono<Object> postInteraction(@PathVariable String token, @PathVariable String hash, @RequestBody() List<Solution> solutions) {
+        SolutionSet solutionSet = new SolutionSet(solutions.size());
+        solutionSet.setSolutionSet(solutions);
+        Interactions.update(token, hash, solutionSet);
         return Mono.empty().subscribeOn(Schedulers.elastic());
+    }
+
+    @PostMapping(value = "/architectural-interaction/{token}/{hash}/{solutionId}")
+    public ResponseEntity<List<String>> postArchitecturalInteraction(
+            @PathVariable String token,
+            @PathVariable String hash,
+            @PathVariable Integer solutionId,
+            @RequestParam("file") List<MultipartFile> files) {
+
+        String OUT_PATH = ApplicationFileConfig.getInstance().getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR
+                + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + hash + FileConstants.FILE_SEPARATOR;
+        List<String> paths = new ArrayList<>();
+
+        OptimizationInfo first = OPLALogs.getFirst(OPLAThreadScope.token.get(), hash);
+        try {
+            for (MultipartFile mf : files) {
+                byte[] bytes = mf.getBytes();
+                String s = OUT_PATH + "interaction-" + first.currentGeneration + ".solution-" + solutionId + ".smty";
+                paths.add(mf.getOriginalFilename());
+                createPathIfNotExists(s.substring(0, s.lastIndexOf(FileConstants.FILE_SEPARATOR)));
+                Path path = Paths.get(s);
+                Path write = Files.write(path, bytes);
+                File file = write.toFile();
+                Architecture architecture = optimizationService.setInteraction(OPLAThreadScope.token.get(), hash, solutionId, file);
+            }
+
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (ParserConfigurationException | XPathExpressionException | SAXException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.ok(paths);
     }
 
     @GetMapping("/optimization-options")

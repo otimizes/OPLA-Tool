@@ -5,6 +5,7 @@ import br.otimizes.oplatool.api.utils.Interactions;
 import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
+import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.domain.config.UserHome;
 import br.otimizes.oplatool.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.OPLAConfigs;
@@ -19,7 +20,9 @@ public class GatewayUtils {
     public static void log(String error) {
         OPLALogs.lastLogs.get(OPLAThreadScope.hash.get()).clear();
         Interactions.interactions.remove(OPLAThreadScope.hash.get());
-        OPLALogs.add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), error, OptimizationInfoStatus.COMPLETE));
+        OPLALogs.add(new OptimizationInfo(OPLAThreadScope.hashOnPosteriori.get(), OPLAThreadScope.mainThreadId.get(), error, OptimizationInfoStatus.COMPLETE));
+        SaveStringToFile.getInstance().deleteTempFolder();
+        SaveStringToFile.getInstance().moveProjectFinishPosteriori();
     }
 
     public static void addListener() {

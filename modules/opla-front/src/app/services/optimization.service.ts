@@ -144,7 +144,7 @@ export class OptimizationService {
   }
 
   postInteraction(id, solutionSet): Observable<any> {
-    return this.http.post<any>(`${UserService.baseUrl}/optimization/interaction/${id}`, solutionSet, {headers: this.createAuthorizationHeader()})
+    return this.http.post<any>(`${UserService.baseUrl}/optimization/interaction/${id}`, solutionSet.solutions, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
@@ -211,6 +211,23 @@ export class OptimizationService {
     }
 
     return this.http.post(`${UserService.baseUrl}/optimization/upload-pla`, formData, {
+      headers: new HttpHeaders({'enctype': 'multipart/form-data', "authorization": UserService.user.token})
+    });
+  }
+
+  postArchitecturalInteraction(files: FileList, hash, solutionId): Observable<any> {
+    let formData = new FormData();
+    if (files.length === 1) {
+      formData.append('file', files.item(0));
+    } else {
+      for (let filesKey in files) {
+        if (files[filesKey] instanceof Blob) {
+          formData.append("file", files[filesKey], files[filesKey]['webkitRelativePath']);
+        }
+      }
+    }
+
+    return this.http.post(`${UserService.baseUrl}/optimization/architectural-interaction/${hash}/${solutionId}`, formData, {
       headers: new HttpHeaders({'enctype': 'multipart/form-data', "authorization": UserService.user.token})
     });
   }

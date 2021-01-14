@@ -56,7 +56,7 @@ public abstract class Element implements Serializable {
         return null;
     }
 
-    private Element deepClone() throws CloneNotSupportedException{
+    private Element deepClone() throws CloneNotSupportedException {
 
         Cloner cloner = new Cloner();
         Element pkg = (Element) cloner.deepClone(this);
@@ -283,7 +283,8 @@ public abstract class Element implements Serializable {
     }
 
     public boolean isFreezeByDM() {
-        return this.comments != null && this.comments.stream().anyMatch(c -> c.getValue().contains("freeze"));
+        return this.comments != null && this.comments.stream().anyMatch(c -> (c.getValue() != null && c.getValue().contains("freeze"))
+                || (c.getName() != null && c.getName().contains("freeze")));
     }
 
     public boolean hasComments() {

@@ -485,6 +485,7 @@ public class OPLASolutionSet {
             e.printStackTrace();
         }
     }
+
     private void printObjectivesNormalizedToFile(String pathNorm) {
         String path = pathNorm.replace("txt", "normalized");
         File file = new File(path);
@@ -665,5 +666,10 @@ public class OPLASolutionSet {
 
     public List<Solution> getSolutions() {
         return getSolutionSet().solutionsList_;
+    }
+
+    public void setSolutions(List<Solution> solutions) {
+        solutionSet.setCapacity(solutions.size());
+        solutionSet.setSolutionSet(solutions);
     }
 }

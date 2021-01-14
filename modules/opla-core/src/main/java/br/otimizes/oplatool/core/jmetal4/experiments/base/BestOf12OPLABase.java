@@ -186,7 +186,6 @@ public class BestOf12OPLABase {
             mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             OPLABaseUtils.saveHypervolume(experiment.getId(), null, todasRuns, plaName);
 
-            SaveStringToFile.getInstance().deleteTempFolder();
         }
 
     }
