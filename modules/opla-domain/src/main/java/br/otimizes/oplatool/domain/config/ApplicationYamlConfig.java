@@ -13,7 +13,8 @@ public class ApplicationYamlConfig {
     private String directoryToSaveModels;
     private String directoryToInteraction;
     private String pathPapyrus;
-    private String pathSmarty;
+    private String pathSmarty = FileConstants.USER_HOME + FileConstants.FILE_SEPARATOR + "oplatool"
+            + FileConstants.FILE_SEPARATOR + "SMartyModeling.jar";
     private String directoryToExportModels;
     private String pathToProfile;
     private String pathToProfileConcern;

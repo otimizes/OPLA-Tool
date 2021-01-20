@@ -185,8 +185,6 @@ public class UntilBestOPLABase {
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
             mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             OPLABaseUtils.saveHypervolume(experiment.getId(), null, todasRuns, plaName);
-
-            SaveStringToFile.getInstance().deleteTempFolder();
         }
 
     }

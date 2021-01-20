@@ -3,7 +3,7 @@ package br.otimizes.oplatool.core.jmetal4.core;
 /**
  * OPLA extension of solution, implement all new methods here
  */
-public class OPLASolution extends Solution{
+public class OPLASolution extends Solution {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,7 +17,7 @@ public class OPLASolution extends Solution{
         this.solution = solution;
     }
 
-    public OPLASolution(Solution input){
+    public OPLASolution(Solution input) {
         this.setSolution(new Solution(input));
     }
 }

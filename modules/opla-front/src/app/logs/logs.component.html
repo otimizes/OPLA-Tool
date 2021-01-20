@@ -1,6 +1,6 @@
-<opla-grid-list *ngIf="infos && infos.length > 0" style="font-size: 15px;">
+<opla-grid-list *ngIf="infos && getInfos(infos) && getInfos(infos).length > 0" style="font-size: 15px;">
   <opla-grid-tile>
-    There are {{infos.length}} experiments running:
+    There are {{getInfos(infos).length}} experiments running:
   </opla-grid-tile>
   <opla-grid-tile *ngFor="let info of getInfos(infos); let index;">
     <span style="text-decoration: underline; padding: 0 10px;">Experiment {{info.id}}</span>

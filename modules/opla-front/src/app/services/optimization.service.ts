@@ -55,7 +55,7 @@ export class OptimizationService {
   }
 
   public static isRunning() {
-    return (localStorage.getItem("optimizationInfo") != null && (this.getOptimizationInfo().status === "RUNNING" || this.getOptimizationInfo().status === 'INTERACT'));
+    return (localStorage.getItem("optimizationInfo") != null && ((this.getOptimizationInfo().status === "RUNNING" && this.getOptimizationInfo().threadId) || this.getOptimizationInfo().status === 'INTERACT'));
   }
 
   public static setPLA(listOfFiles) {
@@ -68,6 +68,8 @@ export class OptimizationService {
   }
 
   startEventListener(optimizationInfo: OptimizationInfo) {
+    console.log("startEventListener", optimizationInfo)
+    if (optimizationInfo.status == 'RUNNING' && !optimizationInfo.threadId) return;
     localStorage.setItem("optimizationInfo", JSON.stringify(optimizationInfo));
     if (!!window['EventSource'] && optimizationInfo.status != "COMPLETE") {
       OptimizationService.source = new EventSource(`${UserService.baseUrl}/optimization/optimization-info/${optimizationInfo.hash}?authorization=${UserService.user.token}`);
@@ -142,7 +144,7 @@ export class OptimizationService {
   }
 
   postInteraction(id, solutionSet): Observable<any> {
-    return this.http.post<any>(`${UserService.baseUrl}/optimization/interaction/${id}`, solutionSet, {headers: this.createAuthorizationHeader()})
+    return this.http.post<any>(`${UserService.baseUrl}/optimization/interaction/${id}`, solutionSet.solutions, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
 
@@ -209,6 +211,23 @@ export class OptimizationService {
     }
 
     return this.http.post(`${UserService.baseUrl}/optimization/upload-pla`, formData, {
+      headers: new HttpHeaders({'enctype': 'multipart/form-data', "authorization": UserService.user.token})
+    });
+  }
+
+  postArchitecturalInteraction(files: FileList, hash, solutionId): Observable<any> {
+    let formData = new FormData();
+    if (files.length === 1) {
+      formData.append('file', files.item(0));
+    } else {
+      for (let filesKey in files) {
+        if (files[filesKey] instanceof Blob) {
+          formData.append("file", files[filesKey], files[filesKey]['webkitRelativePath']);
+        }
+      }
+    }
+
+    return this.http.post(`${UserService.baseUrl}/optimization/architectural-interaction/${hash}/${solutionId}`, formData, {
       headers: new HttpHeaders({'enctype': 'multipart/form-data', "authorization": UserService.user.token})
     });
   }

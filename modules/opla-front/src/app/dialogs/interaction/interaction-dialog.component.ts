@@ -29,7 +29,6 @@ export class InteractionDialogComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("----", this.data);
     this.solutionSet = this.data.interaction.solutionSet;
     this.solutions = this.solutionSet.solutions;
     this.info = this.data.info;
@@ -73,10 +72,10 @@ export class InteractionDialogComponent implements OnInit {
   }
 
   open(id?) {
+    this.snackBar.open("Your PLA is opening, wait a minute", "OK", {
+      duration: 5000
+    });
     this.optimizationService.openOneAlternative(this.info.hash, id).subscribe(result => {
-      this.snackBar.open("Your PLA is opening, wait a minute", "OK", {
-        duration: 5000
-      });
     })
   }
 
@@ -84,4 +83,19 @@ export class InteractionDialogComponent implements OnInit {
     return Number(value);
   }
 
+  onFileSelected(solution, index) {
+    let element = document.getElementById('file-' + index);
+    let files = <FileList>element['files'];
+    console.log(solution, index, files)
+    this.optimizationService.postArchitecturalInteraction(files, this.info.hash, index)
+      .subscribe(res => {
+        this.snackBar.open("The file was uploaded", null, {
+          duration: 2000
+        })
+      })
+  }
+
+  selectPLA(index) {
+    document.getElementById('file-' + index).click()
+  }
 }

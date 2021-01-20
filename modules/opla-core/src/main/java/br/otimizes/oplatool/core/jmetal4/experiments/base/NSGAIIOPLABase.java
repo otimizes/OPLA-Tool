@@ -9,7 +9,6 @@ import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
-import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.database.Result;
 import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
@@ -70,7 +69,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
             Result result = new Result();
-            experiment = mp.save(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
+            experiment = mp.save(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hashOnPosteriori.get());
             ExperimentConfs conf = new ExperimentConfs(experiment.getId(), "NSGAII", configs);
             mp.save(conf);
 
@@ -156,8 +155,6 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
             mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             OPLABaseUtils.saveHypervolume(experiment.getId(), null, allRuns, plaName);
-
-            SaveStringToFile.getInstance().deleteTempFolder();
 
             if (Moment.POSTERIORI.equals(configs.getClusteringMoment())) {
                 configs.getInteractiveFunction().run(allRuns);

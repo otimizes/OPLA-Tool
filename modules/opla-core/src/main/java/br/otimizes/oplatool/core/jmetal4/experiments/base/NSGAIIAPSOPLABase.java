@@ -157,8 +157,6 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
             mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             OPLABaseUtils.saveHypervolume(experiment.getId(), null, allRuns, plaName);
 
-            SaveStringToFile.getInstance().deleteTempFolder();
-
             if (Moment.POSTERIORI.equals(configs.getClusteringMoment())) {
                 configs.getInteractiveFunction().run(allRuns);
             }

@@ -2,24 +2,32 @@ package br.otimizes.oplatool.api.resource;
 
 import br.otimizes.oplatool.api.dto.OptimizationDto;
 import br.otimizes.oplatool.api.gateway.IGateway;
+import br.otimizes.oplatool.api.utils.Interaction;
 import br.otimizes.oplatool.api.utils.Interactions;
-import br.otimizes.oplatool.persistence.service.OPLACommand;
+import br.otimizes.oplatool.architecture.builders.ArchitectureBuilderSMarty;
+import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
+import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
+import br.otimizes.oplatool.persistence.service.OPLACommand;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
+import java.io.IOException;
 
 @Service
 public class OptimizationService {
@@ -44,32 +52,45 @@ public class OptimizationService {
         });
         thread.setName(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId());
         thread.start();
-//        Thread.currentThread().setName(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId());
-        return Mono.just(new OptimizationInfo(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId(), "", OptimizationInfoStatus.RUNNING)).subscribeOn(Schedulers.elastic());
+        OptimizationInfo optimizationInfo = new OptimizationInfo(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + thread.getId(), "", OptimizationInfoStatus.RUNNING);
+        optimizationInfo.threadId = thread.getId();
+        optimizationInfo.currentGeneration = 0;
+        return Mono.just(optimizationInfo).subscribeOn(Schedulers.elastic());
     }
 
 
     File downloadAlternative(String token, String hash, Integer id) {
         SolutionSet solutionSet = Interactions.get(token, hash).solutionSet.getSolutionSet();
         Solution solution = solutionSet.get(id);
-        String plaNameOnAnalyses = "Interaction_" + token + "_" + hash + "_" + id + "_" + solution.getAlternativeArchitecture().getName();
-        String dirOnAnalyses = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + "interaction/";
-        boolean delete = deleteDirectory(new File(dirOnAnalyses));
-        boolean create = new File(dirOnAnalyses).mkdir();
+        OptimizationInfo first = OPLALogs.getFirst(token, hash);
+        String dirOnAnalysis = OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + hash + FileConstants.FILE_SEPARATOR + "interaction";
+        deleteDirectory(new File(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + dirOnAnalysis));
+        File fileOnAnalysis = new File(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + dirOnAnalysis);
+        fileOnAnalysis.mkdir();
         SolutionSet solutionSet1 = new SolutionSet();
         solutionSet1.setCapacity(1);
         solutionSet1.add(solution);
-        new OPLASolutionSet(solutionSet1).saveVariablesToFile(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + "interaction/" + plaNameOnAnalyses);
-        File file = new File(dirOnAnalyses);
-        return file;
+        new OPLASolutionSet(solutionSet1).saveVariablesToFile(dirOnAnalysis + FileConstants.FILE_SEPARATOR + "interaction-" + first.currentGeneration + ".solution-" + id + ".smty");
+        return fileOnAnalysis;
     }
 
-    void openAlternative(String token, String hash, Integer id) {
+    void openAlternative(String token, String hash, Integer id) throws InterruptedException, SAXException,
+            ParserConfigurationException, XPathExpressionException, IOException {
         File file = downloadAlternative(token, hash, id);
         File[] files = file.listFiles();
         File fileToOpen = files[0];
         String pathSmarty = ApplicationFileConfigThreadScope.getPathSmarty();
-        OPLACommand.executeJar(pathSmarty, fileToOpen.getAbsolutePath());
+        Process process = OPLACommand.executeJar(pathSmarty, fileToOpen.getAbsolutePath());
+        process.waitFor();
+        setInteraction(token, hash, id, fileToOpen);
+    }
+
+    public Architecture setInteraction(String token, String hash, Integer solutionId, File file) throws SAXException, IOException, ParserConfigurationException, XPathExpressionException {
+        Architecture architecture = new ArchitectureBuilderSMarty().create(file);
+        Interaction interaction = Interactions.get(token, hash);
+        Solution solution = interaction.solutionSet.get(solutionId);
+        solution.setDecisionVariables(new Architecture[]{architecture});
+        return architecture;
     }
 
     private boolean deleteDirectory(File dir) {
@@ -109,6 +130,5 @@ public class OptimizationService {
         optimizationDto.setInputArchitecture(OPLAThreadScope.pla.get());
         optimizationDto.setInteractiveFunction(solutionSet -> interactiveEmail.run(solutionSet, optimizationDto));
     }
-
 
 }

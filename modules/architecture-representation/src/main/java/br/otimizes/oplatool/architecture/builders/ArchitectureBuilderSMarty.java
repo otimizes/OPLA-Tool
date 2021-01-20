@@ -11,13 +11,16 @@ import org.eclipse.uml2.uml.Package;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -75,45 +78,49 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
      */
     public Architecture create(String xmiFilePath) {
         try {
-            modelHelper = null;
-            model = null;
             File file = new File(xmiFilePath);
-            document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
-            document.getDocumentElement().normalize();
-            expression = "/project";
-            xPath = XPathFactory.newInstance().newXPath();
-            nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
-            int tam = xmiFilePath.split(FileConstants.getEscapedFileSeparator()).length;
-            String arquitectureName = xmiFilePath.split(FileConstants.getEscapedFileSeparator())[tam - 1].replace(".smty", "");
-            Architecture architecture = new Architecture(arquitectureName);
-            architecture.setSMarty(true);
-            architecture.setToSMarty(true);
-            Element element = (Element) this.nodeList.item(0);
-            architecture.setProjectID(element.getAttribute("id"));
-            architecture.setProjectName(element.getAttribute("name"));
-            architecture.setProjectVersion(element.getAttribute("version"));
-            architecture.setConcerns(importStereotypesSMarty());
-            architecture.setTypes(importTypesSMarty());
-            importDiagrams(architecture);
-            importLinkStereotypesSMarty(architecture);
-            for (Class clazz : architecture.getAllClasses()) {
-                clazz.setRelationshipHolder(architecture.getRelationshipHolder());
-            }
-            for (Interface clazz : architecture.getAllInterfaces()) {
-                clazz.setRelationshipHolder(architecture.getRelationshipHolder());
-            }
-            for (br.otimizes.oplatool.architecture.representation.Package clazz : architecture.getAllPackages()) {
-                clazz.setRelationshipHolder(architecture.getRelationshipHolder());
-            }
-            Cloner cloner = new Cloner();
-            architecture.setCloner(cloner);
-            ArchitectureHolder.setName(architecture.getName());
-            return architecture;
+            return create(file);
         } catch (Exception e) {
             LOGGER.error(e);
             e.printStackTrace();
             throw new RuntimeException();
         }
+    }
+
+    public Architecture create(File file) throws SAXException, IOException, ParserConfigurationException, XPathExpressionException {
+        modelHelper = null;
+        model = null;
+        document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
+        document.getDocumentElement().normalize();
+        expression = "/project";
+        xPath = XPathFactory.newInstance().newXPath();
+        nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+        int tam = file.getAbsolutePath().split(FileConstants.getEscapedFileSeparator()).length;
+        String arquitectureName = file.getAbsolutePath().split(FileConstants.getEscapedFileSeparator())[tam - 1].replace(".smty", "");
+        Architecture architecture = new Architecture(arquitectureName);
+        architecture.setSMarty(true);
+        architecture.setToSMarty(true);
+        Element element = (Element) this.nodeList.item(0);
+        architecture.setProjectID(element.getAttribute("id"));
+        architecture.setProjectName(element.getAttribute("name"));
+        architecture.setProjectVersion(element.getAttribute("version"));
+        architecture.setConcerns(importStereotypesSMarty());
+        architecture.setTypes(importTypesSMarty());
+        importDiagrams(architecture);
+        importLinkStereotypesSMarty(architecture);
+        for (Class clazz : architecture.getAllClasses()) {
+            clazz.setRelationshipHolder(architecture.getRelationshipHolder());
+        }
+        for (Interface clazz : architecture.getAllInterfaces()) {
+            clazz.setRelationshipHolder(architecture.getRelationshipHolder());
+        }
+        for (br.otimizes.oplatool.architecture.representation.Package clazz : architecture.getAllPackages()) {
+            clazz.setRelationshipHolder(architecture.getRelationshipHolder());
+        }
+        Cloner cloner = new Cloner();
+        architecture.setCloner(cloner);
+        ArchitectureHolder.setName(architecture.getName());
+        return architecture;
     }
 
     /**

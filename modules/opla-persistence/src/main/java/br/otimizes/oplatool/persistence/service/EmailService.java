@@ -9,10 +9,7 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.*;
 import java.io.File;
 import java.util.Properties;
 
@@ -72,8 +69,10 @@ public class EmailService {
 
             System.out.println("E-mail sent from " + username + " to " + emailDto.to);
 
+        } catch (RuntimeException | AddressException e) {
+            System.out.println(":: Error on send interaction e-mail, verify your configuration ::");
         } catch (MessagingException e) {
-            throw new RuntimeException(e.getMessage());
+            e.printStackTrace();
         }
     }
 
