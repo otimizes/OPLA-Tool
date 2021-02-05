@@ -292,7 +292,8 @@ public abstract class Element implements Serializable {
     }
 
     public boolean unsetFreezeFromDM() {
-        this.comments = this.comments.stream().filter(c -> !c.getValue().contains("freeze")).collect(Collectors.toSet());
+        this.comments = this.comments.stream().filter(c -> c.getValue() != null && !c.getValue().contains("freeze"))
+                .collect(Collectors.toSet());
         return this.isFreezeByDM();
     }
 

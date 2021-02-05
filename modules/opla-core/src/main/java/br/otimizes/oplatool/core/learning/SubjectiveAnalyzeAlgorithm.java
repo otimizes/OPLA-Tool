@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.DenseInstance;
+import weka.core.Instances;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -127,6 +128,7 @@ public class SubjectiveAnalyzeAlgorithm {
                 ArffExecution newArffArchitectureMLP = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
                 if (newArffArchitectureMLP.getData() != null) {
                     newArffArchitectureMLP.getData().setClassIndex(newArffArchitectureMLP.getAttrIndices());
+                    if (architecturalArffExecution == null) architecturalArffExecution = newArffArchitectureMLP;
                     architecturalArffExecution.getData().addAll(newArffArchitectureMLP.getData());
                 }
             }
@@ -251,15 +253,21 @@ public class SubjectiveAnalyzeAlgorithm {
         if (architecturalArffExecution.getData() == null) return;
         LOGGER.info("MLP() buildArchitecturalMLP()");
         try {
-            architecturalMLP.buildClassifier(architecturalArffExecution.getData());
+            Instances data = architecturalArffExecution.getData();
+            int trainSize = Math.toIntExact(Math.round(data.numInstances() * getRatioTest()));
+            int testSize = data.numInstances() - trainSize;
+            Instances train = new Instances(data, 0, trainSize);
+            Instances test = new Instances(data, trainSize, testSize);
+
+            architecturalMLP.buildClassifier(train);
             LOGGER.info("MLP() Evaluation Architectural");
-            architectureEval = new Evaluation(architecturalArffExecution.getData());
+            architectureEval = new Evaluation(test);
             switch (evaluationModel) {
                 case TRAINING_SET:
-                    architectureEval.evaluateModel(architecturalMLP, architecturalArffExecution.getData());
+                    architectureEval.evaluateModel(architecturalMLP, test);
                     break;
                 case CROSS_VALIDATION:
-                    architectureEval.crossValidateModel(architecturalMLP, architecturalArffExecution.getData(), 5, new Random(1));
+                    architectureEval.crossValidateModel(architecturalMLP, test, 10, new Random(1));
                     break;
             }
 
@@ -267,15 +275,15 @@ public class SubjectiveAnalyzeAlgorithm {
             stringBuilder.append("::: Architectural Evaluation ::: \n");
             stringBuilder.append("Architecture Error: " + architectureEval.errorRate() + "\n");
             stringBuilder.append("Architecture Summary: " + architectureEval.toSummaryString() + "\n");
-            for (int i = 0; i < architecturalArffExecution.getData().size(); i++) {
-                List<Element> elementWithNumberId = getResultFront().findElementWithNumberId(architecturalArffExecution.getData().get(i).value(3));
-                stringBuilder.append(elementWithNumberId.get(0).getTypeElement() + " " + elementWithNumberId.get(0).getName() + ": Expected: " + architecturalArffExecution.getData().get(i).classValue() + " - Predicted: " + ((int) architecturalMLP.classifyInstance(architecturalArffExecution.getData().get(i))) + "\n");
-            }
             LOGGER.info(stringBuilder.toString());
             logMachineLearningModelEvaluation(stringBuilder);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private Double getRatioTest() {
+        return 0.66;
     }
 
     private void logMachineLearningModelEvaluation(StringBuilder stringBuilder) {

@@ -43,8 +43,8 @@ public class SubjectiveAnalyzeAlgorithmTest {
                 Architecture architecture = (Architecture) solution.getDecisionVariables()[0];
                 Set<Class> allClasses = architecture.getAllClasses();
                 System.out.println(allClasses.stream().map(Element::getName).collect(Collectors.joining(",")));
-                Class userClass = allClasses.stream().filter(clazz -> "User".equals(clazz.getName())).sorted(Comparator.comparing(Element::getName)).findFirst().orElse(null);
-                Class userMgrClass = allClasses.stream().filter(clazz -> "UserMgr".equals(clazz.getName())).sorted(Comparator.comparing(Element::getName)).findFirst().orElse(null);
+                Class userClass = allClasses.stream().filter(clazz -> "User".equals(clazz.getName())).min(Comparator.comparing(Element::getName)).orElse(null);
+                Class userMgrClass = allClasses.stream().filter(clazz -> "UserMgr".equals(clazz.getName())).min(Comparator.comparing(Element::getName)).orElse(null);
                 if (userClass != null && (userClass.getAllMethods().size() != 2 || userClass.getAllAttributes().size() != 3)) {
                     System.out.println(":: User freezed by DM" + userClass.getAllMethods().size() + " - " + userClass.getAllAttributes().size());
                     userClass.setComments("freeze");
@@ -108,11 +108,11 @@ public class SubjectiveAnalyzeAlgorithmTest {
 
     private NSGAIIConfigs getNsgaiiConfigs() {
         NSGAIIConfigs configs = new NSGAIIConfigs();
-        configs.setPopulationSize(200);
+        configs.setPopulationSize(50);
         configs.setInteractive(true);
         configs.setClusteringAlgorithm(ClusteringAlgorithm.KMEANS);
         configs.setClusteringMoment(Moment.POSTERIORI);
-        configs.setMaxEvaluations(3000);
+        configs.setMaxEvaluations(1000);
         configs.setArchitectureBuilder(ArchitectureBuilders.SMARTY);
         configs.setDescription("mm");
         configs.setFirstInteraction(3);
