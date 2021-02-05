@@ -21,19 +21,18 @@
 
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII;
 
-import br.otimizes.oplatool.architecture.representation.Architecture;
-import br.otimizes.oplatool.architecture.representation.Class;
-import br.otimizes.oplatool.architecture.representation.Interface;
-import br.otimizes.oplatool.core.jmetal4.core.*;
 import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
-import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
-import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLACrossoverOperator;
-import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
+import br.otimizes.oplatool.architecture.representation.Architecture;
+import br.otimizes.oplatool.architecture.representation.Class;
+import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.exceptions.JMException;
+import br.otimizes.oplatool.core.jmetal4.core.*;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
+import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
+import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLACrossoverOperator;
 import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.otimizes.oplatool.core.jmetal4.util.Distance;
 import br.otimizes.oplatool.core.jmetal4.util.Ranking;
@@ -41,6 +40,7 @@ import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
 import br.otimizes.oplatool.core.learning.ClassifierAlgorithm;
 import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
+import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
@@ -60,6 +60,7 @@ public class NSGAII extends Algorithm {
 
     private static final long serialVersionUID = 5815971727148859507L;
     private static final Logger LOGGER = Logger.getLogger(NSGAII.class);
+    SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
 
     /**
      * Constructor
@@ -97,7 +98,6 @@ public class NSGAII extends Algorithm {
         Operator selectionOperator;
 
         Distance distance = new Distance();
-        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
 
         populationSize = (Integer) getInputParameter("populationSize");
         maxEvaluations = (Integer) getInputParameter("maxEvaluations");
@@ -155,16 +155,15 @@ public class NSGAII extends Algorithm {
                 for (int i = 0; i < (populationSize / 2); i++) {
                     if (evaluations < maxEvaluations) {
 
-                        if(((PLACrossoverOperator) crossoverOperator).getOperators().contains(CrossoverOperators.PLA_COMPLEMENTARY_CROSSOVER.name())) {
+                        if (((PLACrossoverOperator) crossoverOperator).getOperators().contains(CrossoverOperators.PLA_COMPLEMENTARY_CROSSOVER.name())) {
                             parents = selectionComplementary(population);
-                        }
-                        else {
+                        } else {
                             parents[0] = (Solution) selectionOperator.execute(population);
                             parents[1] = (Solution) selectionOperator.execute(population);
                         }
 
                         Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
-                        for(Solution child : offSpring){
+                        for (Solution child : offSpring) {
                             problem_.evaluateConstraints(child);
                             mutationOperator.execute(child);
                             problem_.evaluateConstraints(child);
@@ -315,23 +314,23 @@ public class NSGAII extends Algorithm {
         }
     }
 
-    public Solution[] selectionComplementary(SolutionSet pop){
+    public Solution[] selectionComplementary(SolutionSet pop) {
 
         ArrayList<ArrayList<Solution>> lstFitness = new ArrayList<>();
 
         int num_obj = pop.get(0).numberOfObjectives();
-        for(int i=0;i<num_obj;i++) {
+        for (int i = 0; i < num_obj; i++) {
             ArrayList<Solution> arrayList = new ArrayList<>();
             lstFitness.add(arrayList);
         }
-        for(Solution s : pop.getSolutionSet()){
-            for(int i=0;i<num_obj;i++) {
+        for (Solution s : pop.getSolutionSet()) {
+            for (int i = 0; i < num_obj; i++) {
                 lstFitness.get(i).add(s);
             }
         }
 
-        for(int i=0;i<num_obj;i++) {
-            sortFitnessSoluction(lstFitness.get(i),i);
+        for (int i = 0; i < num_obj; i++) {
+            sortFitnessSoluction(lstFitness.get(i), i);
         }
 
         Random generator = new Random();
@@ -339,12 +338,13 @@ public class NSGAII extends Algorithm {
 
         int lstFitness1Selected = 0;
         int lstFitness2Selected = 0;
-        if(num_obj==2){
+        if (num_obj == 2) {
             lstFitness2Selected = 1;
-        }if(num_obj>2){
+        }
+        if (num_obj > 2) {
             lstFitness1Selected = generator.nextInt(num_obj);
             lstFitness2Selected = generator.nextInt(num_obj);
-            while(lstFitness1Selected == lstFitness2Selected){
+            while (lstFitness1Selected == lstFitness2Selected) {
                 lstFitness1Selected = generator.nextInt(num_obj);
             }
         }
@@ -354,50 +354,49 @@ public class NSGAII extends Algorithm {
         int weight = qtd_solution * 2;
         weightsList.add(weight);
 
-        for(int i = 1; i< qtd_solution; i++){
+        for (int i = 1; i < qtd_solution; i++) {
             weight = (qtd_solution - i) + weightsList.get(i - 1);
             weightsList.add(weight);
         }
-        int max_weight = weightsList.get(weightsList.size()-1);
+        int max_weight = weightsList.get(weightsList.size() - 1);
         int pos_fitness1 = 0;
         int pos_fitness2 = 0;
 
-        if(num_obj == 1){
+        if (num_obj == 1) {
             int rnd = generator.nextInt(max_weight) + 1;
-            for(int pos=0;pos<qtd_solution;pos++){
-                if(weightsList.get(pos) >= rnd){
+            for (int pos = 0; pos < qtd_solution; pos++) {
+                if (weightsList.get(pos) >= rnd) {
                     pos_fitness1 = pos;
                     break;
                 }
             }
             rnd = generator.nextInt(max_weight) + 1;
-            for(int pos=0;pos<qtd_solution;pos++){
-                if(weightsList.get(pos) >= rnd){
+            for (int pos = 0; pos < qtd_solution; pos++) {
+                if (weightsList.get(pos) >= rnd) {
                     pos_fitness2 = pos;
                     break;
                 }
             }
-            while (pos_fitness1 == pos_fitness2){
+            while (pos_fitness1 == pos_fitness2) {
                 rnd = generator.nextInt(max_weight) + 1;
-                for(int pos=0;pos<qtd_solution;pos++){
-                    if(weightsList.get(pos) >= rnd){
+                for (int pos = 0; pos < qtd_solution; pos++) {
+                    if (weightsList.get(pos) >= rnd) {
                         pos_fitness2 = pos;
                         break;
                     }
                 }
             }
-        }
-        else{
+        } else {
             int rnd = generator.nextInt(max_weight) + 1;
-            for(int pos=0;pos<qtd_solution;pos++){
-                if(weightsList.get(pos) >= rnd){
+            for (int pos = 0; pos < qtd_solution; pos++) {
+                if (weightsList.get(pos) >= rnd) {
                     pos_fitness1 = pos;
                     break;
                 }
             }
             rnd = generator.nextInt(max_weight) + 1;
-            for(int pos=0;pos<qtd_solution;pos++){
-                if(weightsList.get(pos) >= rnd){
+            for (int pos = 0; pos < qtd_solution; pos++) {
+                if (weightsList.get(pos) >= rnd) {
                     pos_fitness2 = pos;
                     break;
                 }
@@ -407,7 +406,7 @@ public class NSGAII extends Algorithm {
         parent[0] = lstFitness.get(lstFitness1Selected).get(pos_fitness1);
         parent[1] = lstFitness.get(lstFitness2Selected).get(pos_fitness2);
 
-        for(int i = 1; i < num_obj; i++){
+        for (int i = 1; i < num_obj; i++) {
             lstFitness.get(i).clear();
         }
         lstFitness.clear();
@@ -415,19 +414,19 @@ public class NSGAII extends Algorithm {
         return parent;
     }
 
-    public void sortFitnessSoluction(ArrayList<Solution> listFitness, int objective){
+    public void sortFitnessSoluction(ArrayList<Solution> listFitness, int objective) {
         for (int i = 0; i < listFitness.size() - 1; i++) {
-            for (int j = i+1; j < listFitness.size(); j++) {
+            for (int j = i + 1; j < listFitness.size(); j++) {
                 if (listFitness.get(i).getObjective(objective) > listFitness.get(j).getObjective(objective)) {
                     Solution aux = listFitness.get(i);
-                    listFitness.set(i,listFitness.get(j));
-                    listFitness.set(j,aux);
+                    listFitness.set(i, listFitness.get(j));
+                    listFitness.set(j, aux);
                 }
             }
         }
     }
 
-    public ArrayList<Integer> CountArchElements(Solution solution){
+    public ArrayList<Integer> CountArchElements(Solution solution) {
 
         ArrayList<Integer> countArchElements;
         countArchElements = new ArrayList<>();
@@ -444,36 +443,44 @@ public class NSGAII extends Algorithm {
             Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
 
             List<Class> allClasses = new ArrayList<>(arch.getAllClasses());
-            for(Class selectedClass: allClasses){
+            for (Class selectedClass : allClasses) {
                 tempAtr = tempAtr + selectedClass.getAllAttributes().size();
                 tempMet = tempMet + selectedClass.getAllMethods().size();
             }
 
             List<Interface> allInterface = new ArrayList<>(arch.getAllInterfaces());
-            for(Interface selectedInterface: allInterface){
+            for (Interface selectedInterface : allInterface) {
                 tempOP = tempOP + selectedInterface.getOperations().size();
             }
 
-            countArchElements.set(0,tempAtr);
-            countArchElements.set(1,tempMet);
-            countArchElements.set(2,tempOP);
+            countArchElements.set(0, tempAtr);
+            countArchElements.set(1, tempMet);
+            countArchElements.set(2, tempOP);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return  countArchElements;
+        return countArchElements;
     }
 
-    public boolean IsValidArchElements(ArrayList<Integer> lst1, ArrayList<Integer> lst2){
-        if(!(""+lst1.get(0)).equals(""+lst2.get(0))){
-            return  false;
+    public boolean IsValidArchElements(ArrayList<Integer> lst1, ArrayList<Integer> lst2) {
+        if (!("" + lst1.get(0)).equals("" + lst2.get(0))) {
+            return false;
         }
-        if(!(""+lst1.get(1)).equals(""+lst2.get(1))){
-            return  false;
+        if (!("" + lst1.get(1)).equals("" + lst2.get(1))) {
+            return false;
         }
-        if(!(""+lst1.get(2)).equals(""+lst2.get(2))){
-            return  false;
+        if (!("" + lst1.get(2)).equals("" + lst2.get(2))) {
+            return false;
         }
-        return  true;
+        return true;
+    }
+
+    public SubjectiveAnalyzeAlgorithm getSubjectiveAnalyzeAlgorithm() {
+        return subjectiveAnalyzeAlgorithm;
+    }
+
+    public void setSubjectiveAnalyzeAlgorithm(SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm) {
+        this.subjectiveAnalyzeAlgorithm = subjectiveAnalyzeAlgorithm;
     }
 }

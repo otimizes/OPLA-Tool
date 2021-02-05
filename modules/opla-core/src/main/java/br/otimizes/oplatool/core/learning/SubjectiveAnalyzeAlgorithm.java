@@ -45,6 +45,8 @@ public class SubjectiveAnalyzeAlgorithm {
     private List<OPLASolutionSet> interactions = new ArrayList<>();
     private boolean trained = false;
     public static int currentEvaluation = 0;
+    Evaluation subjectiveEval;
+    Evaluation architectureEval;
 
     public SubjectiveAnalyzeAlgorithm() {
     }
@@ -251,7 +253,7 @@ public class SubjectiveAnalyzeAlgorithm {
         try {
             architecturalMLP.buildClassifier(architecturalArffExecution.getData());
             LOGGER.info("MLP() Evaluation Architectural");
-            Evaluation architectureEval = new Evaluation(architecturalArffExecution.getData());
+            architectureEval = new Evaluation(architecturalArffExecution.getData());
             switch (evaluationModel) {
                 case TRAINING_SET:
                     architectureEval.evaluateModel(architecturalMLP, architecturalArffExecution.getData());
@@ -298,7 +300,7 @@ public class SubjectiveAnalyzeAlgorithm {
         try {
             subjectiveMLP.buildClassifier(subjectiveArffExecution.getData());
             LOGGER.info("MLP() Evaluation Subjective");
-            Evaluation subjectiveEval = new Evaluation(subjectiveArffExecution.getData());
+            subjectiveEval = new Evaluation(subjectiveArffExecution.getData());
             switch (evaluationModel) {
                 case TRAINING_SET:
                     subjectiveEval.evaluateModel(subjectiveMLP, subjectiveArffExecution.getData());
@@ -459,5 +461,21 @@ public class SubjectiveAnalyzeAlgorithm {
 
     public void setTrained(boolean trained) {
         this.trained = trained;
+    }
+
+    public Evaluation getSubjectiveEval() {
+        return subjectiveEval;
+    }
+
+    public void setSubjectiveEval(Evaluation subjectiveEval) {
+        this.subjectiveEval = subjectiveEval;
+    }
+
+    public Evaluation getArchitectureEval() {
+        return architectureEval;
+    }
+
+    public void setArchitectureEval(Evaluation architectureEval) {
+        this.architectureEval = architectureEval;
     }
 }
