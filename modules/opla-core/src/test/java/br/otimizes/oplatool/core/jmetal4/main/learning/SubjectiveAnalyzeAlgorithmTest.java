@@ -4,8 +4,6 @@ import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Element;
-import br.otimizes.oplatool.common.Variable;
-import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.experiments.OPLAConfigs;
@@ -23,13 +21,12 @@ import br.otimizes.oplatool.core.learning.Moment;
 import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
 import br.otimizes.oplatool.domain.config.FileConstants;
 import org.junit.Test;
+import weka.classifiers.Evaluation;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Set;
+import static org.junit.Assert.*;
+
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SubjectiveAnalyzeAlgorithmTest {
 
@@ -38,27 +35,28 @@ public class SubjectiveAnalyzeAlgorithmTest {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "MMAtual.smty";
         NSGAIIConfigs configs = getNsgaiiConfigs();
+        NSGAII algorithm;
         configs.setInteractiveFunction(solutionSet -> {
+            int i = 0;
             for (Solution solution : solutionSet.getSolutionSet()) {
+                System.out.println("Print na solução " + i);
                 Architecture architecture = (Architecture) solution.getDecisionVariables()[0];
                 Set<Class> allClasses = architecture.getAllClasses();
-                System.out.println(allClasses.stream().map(Element::getName).collect(Collectors.joining(",")));
                 Class userClass = allClasses.stream().filter(clazz -> "User".equals(clazz.getName())).min(Comparator.comparing(Element::getName)).orElse(null);
                 Class userMgrClass = allClasses.stream().filter(clazz -> "UserMgr".equals(clazz.getName())).min(Comparator.comparing(Element::getName)).orElse(null);
                 if (userClass != null && (userClass.getAllMethods().size() != 2 || userClass.getAllAttributes().size() != 3)) {
-                    System.out.println(":: User freezed by DM" + userClass.getAllMethods().size() + " - " + userClass.getAllAttributes().size());
+                    System.out.println(":: User freezed by DM :" + userClass.getAllMethods().size() + " - " + userClass.getAllAttributes().size());
                     userClass.setComments("freeze");
                 }
                 if (userMgrClass != null && (userMgrClass.getAllMethods().size() != 1 || userMgrClass.getAllAttributes().size() != 1)) {
-                    System.out.println(":: UserMgr freezed by DM" + userMgrClass.getAllMethods().size() + " - " + userMgrClass.getAllAttributes().size());
+                    System.out.println(":: UserMgr freezed by DM :" + userMgrClass.getAllMethods().size() + " - " + userMgrClass.getAllAttributes().size());
                     userMgrClass.setComments("freeze");
                 }
+                i++;
             }
-            System.out.println(solutionSet);
             return solutionSet;
         });
-//        MediaCtrl User
-        NSGAII algorithm = (NSGAII) getAlgorithm(xmiFilePath, configs);
+        algorithm = getAlgorithm(xmiFilePath, configs);
         SolutionSet solutionSet = algorithm.execute();
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
             Solution solution = solutionSet.getSolutionSet().get(i);
@@ -71,15 +69,43 @@ public class SubjectiveAnalyzeAlgorithmTest {
             }
         }
 
-
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = algorithm.getSubjectiveAnalyzeAlgorithm();
-        System.out.println(subjectiveAnalyzeAlgorithm.getArchitectureEval().toSummaryString());
+        List<Element> truePositive = subjectiveAnalyzeAlgorithm.getNotFreezedElements().stream()
+                .filter(element -> {
+                    if (!(element instanceof Class)) return false;
+                    Class clazz = (Class) element;
+                    return (clazz.getName().equals("User") && (clazz.getAllMethods().size() != 2 || clazz.getAllAttributes().size() != 3))
+                            || (clazz.getName().equals("UserMgr") && (clazz.getAllMethods().size() != 1 || clazz.getAllAttributes().size() != 1));
+                })
+                .collect(Collectors.toList());
+
+
+        List<Element> falsePositive = subjectiveAnalyzeAlgorithm.getNotFreezedElements().stream()
+                .filter(element -> {
+                    if (!(element instanceof Class)) return false;
+                    Class clazz = (Class) element;
+                    return (clazz.getName().equals("User") && (clazz.getAllMethods().size() == 2 || clazz.getAllAttributes().size() == 3))
+                            || (clazz.getName().equals("UserMgr") && (clazz.getAllMethods().size() == 1 || clazz.getAllAttributes().size() == 1));
+                })
+                .collect(Collectors.toList());
+
+        System.out.println("::False Positive:: " + falsePositive.size() + " itens.");
+        System.out.println(":::: " + falsePositive.stream().map(Element::getName).collect(Collectors.joining(",")));
+
+        Evaluation architectureEval = subjectiveAnalyzeAlgorithm.getArchitectureEval();
+        System.out.println(architectureEval.toSummaryString());
+
+        assertEquals(0, truePositive.size());
+        assertTrue(architectureEval.meanAbsoluteError() < 1);
+        assertTrue(architectureEval.rootMeanSquaredError() < 1);
+        assertTrue(architectureEval.relativeAbsoluteError() < 10);
+        assertTrue(architectureEval.rootRelativeSquaredError() < 10);
     }
 
-    private Algorithm getAlgorithm(String xmiFilePath, NSGAIIConfigs configs) throws Exception {
+    private NSGAII getAlgorithm(String xmiFilePath, NSGAIIConfigs configs) throws Exception {
         OPLA opla = new OPLA(xmiFilePath, configs);
 
-        Algorithm algorithm = new NSGAII(opla);
+        NSGAII algorithm = new NSGAII(opla);
         algorithm.setInputParameter("populationSize", configs.getPopulationSize());
         algorithm.setInputParameter("maxEvaluations", configs.getMaxEvaluation());
         algorithm.setInputParameter("interactiveFunction", configs.getInteractiveFunction());
@@ -108,11 +134,11 @@ public class SubjectiveAnalyzeAlgorithmTest {
 
     private NSGAIIConfigs getNsgaiiConfigs() {
         NSGAIIConfigs configs = new NSGAIIConfigs();
-        configs.setPopulationSize(50);
+        configs.setPopulationSize(20);
         configs.setInteractive(true);
         configs.setClusteringAlgorithm(ClusteringAlgorithm.KMEANS);
         configs.setClusteringMoment(Moment.POSTERIORI);
-        configs.setMaxEvaluations(1000);
+        configs.setMaxEvaluations(400);
         configs.setArchitectureBuilder(ArchitectureBuilders.SMARTY);
         configs.setDescription("mm");
         configs.setFirstInteraction(3);
@@ -120,7 +146,8 @@ public class SubjectiveAnalyzeAlgorithmTest {
         configs.setIntervalInteraction(3);
         configs.disableCrossover();
         configs.setMutationProbability(0.9);
-        configs.setMutationOperators(Arrays.asList("FEATURE_DRIVEN_OPERATOR",
+        configs.setMutationOperators(Arrays.asList(
+                "FEATURE_DRIVEN_OPERATOR",
                 "MOVE_METHOD_MUTATION",
                 "MOVE_ATTRIBUTE_MUTATION",
                 "MOVE_OPERATION_MUTATION",

@@ -1,12 +1,12 @@
 package br.otimizes.oplatool.core.jmetal4.experiments;
 
+import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
 import br.otimizes.oplatool.core.jmetal4.operators.MutationOperators;
 import br.otimizes.oplatool.core.learning.ClusteringAlgorithm;
 import br.otimizes.oplatool.core.learning.Moment;
-import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
-import br.ufpr.dinf.gres.loglog.LogLog;
 import br.otimizes.oplatool.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
+import br.ufpr.dinf.gres.loglog.LogLog;
 import org.apache.commons.lang.WordUtils;
 
 import java.util.ArrayList;

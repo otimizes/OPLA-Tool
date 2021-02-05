@@ -48,6 +48,8 @@ public class SubjectiveAnalyzeAlgorithm {
     public static int currentEvaluation = 0;
     Evaluation subjectiveEval;
     Evaluation architectureEval;
+    List<Element> freezedElements = new ArrayList<>();
+    List<Element> notFreezedElements = new ArrayList<>();
 
     public SubjectiveAnalyzeAlgorithm() {
     }
@@ -117,51 +119,16 @@ public class SubjectiveAnalyzeAlgorithm {
         }
 
         if (solutionSet != null) {
-            if (!solutionSet.hasUserEvaluation()) {
-                LOGGER.info("MLP() donthasUserEvaluation");
-                evaluateSolutionSetSubjectiveMLP(solutionSet);
-            } else {
-                LOGGER.info("MLP() hasUserEvaluation");
-                distributeUserEvaluations(solutionSet);
-            }
-            if (!inOnmiddle) {
-                ArffExecution newArffArchitectureMLP = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
-                if (newArffArchitectureMLP.getData() != null) {
-                    newArffArchitectureMLP.getData().setClassIndex(newArffArchitectureMLP.getAttrIndices());
-                    if (architecturalArffExecution == null) architecturalArffExecution = newArffArchitectureMLP;
-                    architecturalArffExecution.getData().addAll(newArffArchitectureMLP.getData());
-                }
-            }
-            ArffExecution newArffSubjectiveMLP = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(), solutionSet.writeUserEvaluationsToMatrix(), null);
-            newArffSubjectiveMLP.getData().setClassIndex(newArffSubjectiveMLP.getAttrIndices());
-            resultFront.getSolutionSet().getSolutionSet().addAll(solutionSet.getSolutionSet().getSolutionSet());
-            subjectiveArffExecution.getData().addAll(newArffSubjectiveMLP.getData());
+            joinSolutionSet(solutionSet, inOnmiddle);
         }
-        if (subjectiveArffExecution.getData() != null)
-            subjectiveArffExecution.getData().setClassIndex(subjectiveArffExecution.getAttrIndices());
-        if (architecturalArffExecution.getData() != null)
-            architecturalArffExecution.getData().setClassIndex(architecturalArffExecution.getAttrIndices());
-        Thread threadSubjectiveMLP = new Thread(this::buildSubjectiveMLP);
-        threadSubjectiveMLP.start();
-        Thread threadArchitecturalMLP = null;
-        if (!inOnmiddle) {
-            threadArchitecturalMLP = new Thread(this::buildArchitecturalMLP);
-            threadArchitecturalMLP.start();
-        }
-
-        try {
-            threadSubjectiveMLP.join();
-            if (threadArchitecturalMLP != null) {
-                threadArchitecturalMLP.join();
-                logMachineLearningModel();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        setArffExecutionClassIndex(subjectiveArffExecution);
+        setArffExecutionClassIndex(architecturalArffExecution);
+        startAlgorithms(inOnmiddle);
 
         LOGGER.info("::: Time: " + ((new Date().getTime() - startsIn) / 1000));
         return resultFront.getSolutionSet();
     }
+
 
     private MultilayerPerceptron newSubjectivelyMLP() {
         MultilayerPerceptron subjectiveMLP = new MultilayerPerceptron();
@@ -179,6 +146,54 @@ public class SubjectiveAnalyzeAlgorithm {
         architecturalMLP.setLearningRate(getLearningRate());
         architecturalMLP.setMomentum(getMomentum());
         return architecturalMLP;
+    }
+
+    private void joinSolutionSet(OPLASolutionSet solutionSet, boolean inOnmiddle) {
+        if (!solutionSet.hasUserEvaluation()) {
+            LOGGER.info("MLP() donthasUserEvaluation");
+            evaluateSolutionSetSubjectiveMLP(solutionSet);
+        } else {
+            LOGGER.info("MLP() hasUserEvaluation");
+            distributeUserEvaluations(solutionSet);
+        }
+        if (!inOnmiddle) {
+            ArffExecution newArffArchitectureMLP = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
+            if (newArffArchitectureMLP.getData() != null) {
+                newArffArchitectureMLP.getData().setClassIndex(newArffArchitectureMLP.getAttrIndices());
+                if (architecturalArffExecution.getData() == null) architecturalArffExecution = newArffArchitectureMLP;
+                else architecturalArffExecution.getData().addAll(newArffArchitectureMLP.getData());
+            }
+        }
+        ArffExecution newArffSubjectiveMLP = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(), solutionSet.writeUserEvaluationsToMatrix(), null);
+        newArffSubjectiveMLP.getData().setClassIndex(newArffSubjectiveMLP.getAttrIndices());
+        resultFront.getSolutionSet().getSolutionSet().addAll(solutionSet.getSolutionSet().getSolutionSet());
+        subjectiveArffExecution.getData().addAll(newArffSubjectiveMLP.getData());
+    }
+
+    private void setArffExecutionClassIndex(ArffExecution subjectiveArffExecution) {
+        if (subjectiveArffExecution.getData() != null)
+            subjectiveArffExecution.getData().setClassIndex(subjectiveArffExecution.getAttrIndices());
+    }
+
+
+    private void startAlgorithms(boolean inOnMiddle) {
+        Thread threadSubjectiveMLP = new Thread(this::buildSubjectiveMLP);
+        threadSubjectiveMLP.start();
+        Thread threadArchitecturalMLP = null;
+        if (!inOnMiddle) {
+            threadArchitecturalMLP = new Thread(this::buildArchitecturalMLP);
+            threadArchitecturalMLP.start();
+        }
+
+        try {
+            threadSubjectiveMLP.join();
+            if (threadArchitecturalMLP != null) {
+                threadArchitecturalMLP.join();
+                logMachineLearningModel();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void logMachineLearningModel() {
@@ -215,27 +230,13 @@ public class SubjectiveAnalyzeAlgorithm {
     public void evaluateSolutionSetSubjectiveAndArchitecturalMLP(OPLASolutionSet solutionSet, boolean subjective) throws Exception {
         LOGGER.info("evaluateSolutionSetSubjectiveAndArchitecturalMLP()");
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
+            Solution solution = solutionSet.getSolutionSet().get(i);
+            double[] solutionMatrix = solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i];
             if (subjective) {
-                solutionSet.getSolutionSet().get(i).setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
+                solution.setEvaluation((int) subjectiveMLP.classifyInstance(new DenseInstance(1.0, solutionMatrix)));
             }
-            for (Element element : solutionSet.getSolutionSet().get(i).getAlternativeArchitecture().getElementsWithPackages()) {
-                double[] data = solutionSet.getSolutionSet().get(i).getObjectives();
-                data = ArrayUtils.addAll(data, solutionSet.writeCharacteristicsFromElement(element, solutionSet.getSolutionSet().get(i)));
-
-                Solution solution = solutionSet.getSolutionSet().getSolutionSet().get(i);
-                double[] objectives = new double[0];
-                try {
-                    objectives = solutionSet.generateSolutionFromElementsAndGetObjectives(element, solution);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                data = ArrayUtils.addAll(data, objectives);
-
-                data = ArrayUtils.addAll(data, new double[]{
-                        solutionSet.getSolutionSet().get(i).containsArchitecturalEvaluation() ? 1 : 0,
-                        element.isFreezeByDM() ? 1 : 0
-                });
+            for (Element element : solution.getAlternativeArchitecture().getElementsWithPackages()) {
+                double[] data = getDataSet(solutionSet, solution, element);
                 if (architecturalArffExecution.getData() != null) {
                     DenseInstance denseInstance = new DenseInstance(1.0, data);
                     denseInstance.setDataset(architecturalArffExecution.getData());
@@ -243,10 +244,27 @@ public class SubjectiveAnalyzeAlgorithm {
                     LOGGER.info(element.getName() + ":" + element.getTypeElement() + " was " + (element.isFreezeByDM() ? " FREEZED" : " NOT FREEZED"));
                     if (element.isFreezeByDM()) {
                         LOGGER.info("::: Freezed " + element.getName());
+                        this.freezedElements.add(element);
+                    } else {
+                        this.notFreezedElements.add(element);
                     }
                 }
             }
         }
+    }
+
+    private double[] getDataSet(OPLASolutionSet solutionSet, Solution solution, Element element) {
+        double[] data = solution.getObjectives();
+        double[] objectives = solutionSet.writeObjectiveFromElementsAndObjectives(element, solution);
+        double[] characteristics = solutionSet.writeCharacteristicsFromElement(element, solution);
+
+        data = ArrayUtils.addAll(data, characteristics);
+        data = ArrayUtils.addAll(data, objectives);
+        data = ArrayUtils.addAll(data, new double[]{
+                solution.containsArchitecturalEvaluation() ? 1 : 0,
+                element.isFreezeByDM() ? 1 : 0
+        });
+        return data;
     }
 
     private void buildArchitecturalMLP() {
@@ -270,13 +288,7 @@ public class SubjectiveAnalyzeAlgorithm {
                     architectureEval.crossValidateModel(architecturalMLP, test, 10, new Random(1));
                     break;
             }
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("::: Architectural Evaluation ::: \n");
-            stringBuilder.append("Architecture Error: " + architectureEval.errorRate() + "\n");
-            stringBuilder.append("Architecture Summary: " + architectureEval.toSummaryString() + "\n");
-            LOGGER.info(stringBuilder.toString());
-            logMachineLearningModelEvaluation(stringBuilder);
+            logArchitectureModelEvaluation();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -286,7 +298,13 @@ public class SubjectiveAnalyzeAlgorithm {
         return 0.66;
     }
 
-    private void logMachineLearningModelEvaluation(StringBuilder stringBuilder) {
+    private void logArchitectureModelEvaluation() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("::: Architectural Evaluation ::: \n");
+        stringBuilder.append("Architecture Error: ").append(architectureEval.errorRate()).append("\n");
+        stringBuilder.append("Architecture Summary: ").append(architectureEval.toSummaryString()).append("\n");
+        LOGGER.info(stringBuilder.toString());
+
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "LogMachineLearningModelEvaluation_" + currentEvaluation + ".arff");
@@ -317,13 +335,17 @@ public class SubjectiveAnalyzeAlgorithm {
                     subjectiveEval.crossValidateModel(subjectiveMLP, subjectiveArffExecution.getData(), 5, new Random(1));
                     break;
             }
-            LOGGER.info("::: Subjective Evaluation :::");
-            LOGGER.info("Subjective Error: " + subjectiveEval.errorRate());
-            LOGGER.info("Subjective Summary: " + subjectiveEval.toSummaryString());
+            logSubjectiveModelEvaluation();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void logSubjectiveModelEvaluation() {
+        LOGGER.info("::: Subjective Evaluation :::");
+        LOGGER.info("Subjective Error: " + subjectiveEval.errorRate());
+        LOGGER.info("Subjective Summary: " + subjectiveEval.toSummaryString());
     }
 
     public static long getSerialVersionUID() {
@@ -485,5 +507,21 @@ public class SubjectiveAnalyzeAlgorithm {
 
     public void setArchitectureEval(Evaluation architectureEval) {
         this.architectureEval = architectureEval;
+    }
+
+    public List<Element> getFreezedElements() {
+        return freezedElements;
+    }
+
+    public void setFreezedElements(List<Element> freezedElements) {
+        this.freezedElements = freezedElements;
+    }
+
+    public List<Element> getNotFreezedElements() {
+        return notFreezedElements;
+    }
+
+    public void setNotFreezedElements(List<Element> notFreezedElements) {
+        this.notFreezedElements = notFreezedElements;
     }
 }

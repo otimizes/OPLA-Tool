@@ -3,12 +3,9 @@ package br.otimizes.oplatool.core.learning;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instances;
-import weka.filters.Filter;
-import weka.filters.unsupervised.attribute.Normalize;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Attribute-Relation File Format Object used in Machine Learnings presents in Weka
@@ -86,16 +83,6 @@ public class ArffExecution {
                 vals[attributes[0].length] = 0;
             data.add(new DenseInstance(1.0, vals));
         }
-
-        Normalize normalize = new Normalize();
-        try {
-            normalize.setInputFormat(getData());
-            setData(Filter.useFilter(getData(), normalize));
-            getData().randomize(new Random(1));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("add");
     }
 
     public ArrayList<Attribute> getAtts() {
