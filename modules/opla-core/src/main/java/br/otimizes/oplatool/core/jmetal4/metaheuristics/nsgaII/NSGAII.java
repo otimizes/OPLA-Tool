@@ -206,39 +206,9 @@ public class NSGAII extends Algorithm {
                     }
                     remain = 0;
                 }
-                int generation = evaluations / populationSize;
-                OPLAThreadScope.currentGeneration.set(generation);
-                OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
-                for (Solution solution : offspringPopulation.getSolutionSet()) {
-                    solution.setEvaluation(0);
-//                        If you wish block replicated freezed solutions, uncomment this line
-//                        for (Element elementsWithPackage : solution.getAlternativeArchitecture().getElementsWithPackages()) {
-//                            elementsWithPackage.unsetFreeze();
-//                        }
-                }
-                if (interactive && currentInteraction < maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
-                    offspringPopulation = interactiveFunction.run(offspringPopulation);
-                    if (subjectiveAnalyzeAlgorithm == null) {
-                        subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(offspringPopulation), ClassifierAlgorithm.CLUSTERING_MLP);
-                        subjectiveAnalyzeAlgorithm.run(null, false);
-                    } else {
-                        subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(offspringPopulation), false);
-                    }
-                    bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5 && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
-                    currentInteraction++;
-                }
-
-                if (interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction) {
-                    subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(offspringPopulation), true);
-                }
-
-                if (interactive && subjectiveAnalyzeAlgorithm != null && !subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions) {
-                    subjectiveAnalyzeAlgorithm.setTrained(true);
-                }
-
-                if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained() && currentInteraction >= maxInteractions && ((generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction)) {
-                    subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(new OPLASolutionSet(offspringPopulation), true);
-                }
+                currentInteraction = interactWithDM(populationSize, evaluations, offspringPopulation, maxInteractions,
+                        firstInteraction, intervalInteraction, interactive, interactiveFunction, currentInteraction,
+                        bestOfUserEvaluation);
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
                     double HV = indicators.getHypervolume(population);
@@ -268,12 +238,53 @@ public class NSGAII extends Algorithm {
 
         if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
             try {
-                subjectiveAnalyzeAlgorithm.evaluateSolutionSetSubjectiveAndArchitecturalMLP(new OPLASolutionSet(subfrontToReturn), false);
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(subfrontToReturn), false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return subfrontToReturn;
+    }
+
+    private int interactWithDM(int populationSize, int evaluations, SolutionSet offspringPopulation, int maxInteractions, int firstInteraction, int intervalInteraction, Boolean interactive, InteractiveFunction interactiveFunction, int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
+        int generation = evaluations / populationSize;
+        OPLAThreadScope.currentGeneration.set(generation);
+        OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
+        for (Solution solution : offspringPopulation.getSolutionSet()) {
+            solution.setEvaluation(0);
+        }
+        boolean isOnInteraction = (generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction;
+        boolean inTrainingDuring = interactive && currentInteraction < maxInteractions && isOnInteraction;
+        if (inTrainingDuring) {
+            offspringPopulation = interactiveFunction.run(offspringPopulation);
+            if (subjectiveAnalyzeAlgorithm == null) {
+                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(offspringPopulation), ClassifierAlgorithm.CLUSTERING_MLP);
+                subjectiveAnalyzeAlgorithm.run(null, false);
+            } else {
+                subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(offspringPopulation), false);
+            }
+            bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5 && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
+            currentInteraction++;
+        }
+
+        boolean inTrainingAPosteriori = interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction
+                * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction;
+        if (inTrainingAPosteriori) {
+            subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(offspringPopulation), true);
+        }
+
+        if (subjectiveAnalyzeAlgorithm != null) {
+            subjectiveAnalyzeAlgorithm.setTrained(interactive && !subjectiveAnalyzeAlgorithm.isTrained()
+                    && currentInteraction >= maxInteractions);
+
+
+            boolean isTrainFinished = interactive && subjectiveAnalyzeAlgorithm.isTrained() &&
+                    currentInteraction >= maxInteractions && isOnInteraction;
+            if (isTrainFinished) {
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(offspringPopulation), true);
+            }
+        }
+        return currentInteraction;
     }
 
     private void removeBadSolutions(SolutionSet population, SolutionSet original, Boolean interactive) {
