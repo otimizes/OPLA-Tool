@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 
 public class SubjectiveAnalyzeAlgorithmTest {
 
-    @Test
+//    @Test
     public void testMMWithoutMLP() throws Exception {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "MMAtual.smty";

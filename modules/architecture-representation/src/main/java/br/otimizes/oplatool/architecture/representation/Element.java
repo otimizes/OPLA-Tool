@@ -158,6 +158,10 @@ public abstract class Element implements Serializable {
         return numberId * 0.0000001f;
     }
 
+    public static void main(String[] args) {
+        System.out.println(-390232832 * 0.0000001f);
+    }
+
     /**
      * @param id the id to set
      */
