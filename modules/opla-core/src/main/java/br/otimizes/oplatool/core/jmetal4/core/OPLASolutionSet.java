@@ -110,8 +110,13 @@ public class OPLASolutionSet {
      * @return list of objectives
      * @throws ClassNotFoundException Exception on create the new solution by param
      */
-    public double[] generateSolutionFromElementsAndGetObjectives(Element element, Solution solution) throws ClassNotFoundException {
-        Solution newSolution = new Solution(solution.getProblem());
+    public double[] writeObjectiveFromElementsAndObjectives(Element element, Solution solution) {
+        Solution newSolution = null;
+        try {
+            newSolution = new Solution(solution.getProblem());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         OPLA.getLOGGER().setLevel(org.apache.log4j.Level.OFF);
         newSolution.getAlternativeArchitecture().getLOGGER().setLevel(org.apache.log4j.Level.OFF);
         Architecture architecture = new Architecture("agm");
@@ -202,12 +207,8 @@ public class OPLASolutionSet {
         elm[4] = element instanceof Class ? (double) ((Class) element).getAllAttributes().size() : 0;
         elm[5] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() :
                 element instanceof Interface ? (double) ((Interface) element).getMethods().size() : 0;
-        try {
-            double[] doubles = generateSolutionFromElementsAndGetObjectives(element, solution);
-            elm = ArrayUtils.addAll(elm, doubles);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        double[] doubles = writeObjectiveFromElementsAndObjectives(element, solution);
+        elm = ArrayUtils.addAll(elm, doubles);
         elm = ArrayUtils.addAll(elm, new double[]{
                 solution.containsArchitecturalEvaluation() ? 1 : 0
         });

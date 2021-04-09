@@ -2,9 +2,9 @@ package br.otimizes.oplatool.core.learning;
 
 import weka.core.Attribute;
 import weka.core.DenseInstance;
-import weka.core.FastVector;
 import weka.core.Instances;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -12,8 +12,8 @@ import java.util.Arrays;
  */
 public class ArffExecution {
 
-    private FastVector atts;
-    private FastVector attVals;
+    private ArrayList<Attribute> atts = new ArrayList<>();
+    private ArrayList<Attribute> attVals = new ArrayList<>();
     private Instances data;
     private double[] vals;
     private int attrIndices;
@@ -54,8 +54,6 @@ public class ArffExecution {
         if (attributes.length <= 0) return;
         attrIndices = attributes[0].length;
         this.attributes = attributes;
-        atts = new FastVector();
-        attVals = new FastVector();
         // - numeric
         if (descAttributes != null) {
             for (String descOjective : descAttributes) {
@@ -63,14 +61,14 @@ public class ArffExecution {
             }
         } else {
             for (int j = 0; j < attributes[0].length; j++) {
-                atts.addElement(new Attribute("obj" + (j + 1)));
+                atts.add(new Attribute("obj" + (j + 1)));
             }
         }
         // - string
         if (binary) {
-            atts.addElement(new Attribute("class", Arrays.asList("0", "1")));
+            atts.add(new Attribute("class", Arrays.asList("0", "1")));
         } else {
-            atts.addElement(new Attribute("class", Arrays.asList("0", "1", "2", "3", "4", "5")));
+            atts.add(new Attribute("class", Arrays.asList("0", "1", "2", "3", "4", "5")));
         }
         data = new Instances("MyRelation", atts, 0);
 
@@ -87,19 +85,19 @@ public class ArffExecution {
         }
     }
 
-    public FastVector getAtts() {
+    public ArrayList<Attribute> getAtts() {
         return atts;
     }
 
-    public void setAtts(FastVector atts) {
+    public void setAtts(ArrayList<Attribute> atts) {
         this.atts = atts;
     }
 
-    public FastVector getAttVals() {
+    public ArrayList<Attribute> getAttVals() {
         return attVals;
     }
 
-    public void setAttVals(FastVector attVals) {
+    public void setAttVals(ArrayList<Attribute> attVals) {
         this.attVals = attVals;
     }
 

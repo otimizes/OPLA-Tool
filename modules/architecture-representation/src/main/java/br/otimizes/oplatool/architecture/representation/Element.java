@@ -154,7 +154,8 @@ public abstract class Element implements Serializable {
         int minValue = Integer.MIN_VALUE;
         int maxValue = Integer.MAX_VALUE;
         int numberId = HashCodeBuilder.reflectionHashCode(this.getNamespace() + ":" + this.getTypeElement() + ":" + this.getName(), true);
-        return (numberId - minValue) / (maxValue - minValue);
+//        return (numberId - minValue) / (maxValue - minValue);
+        return numberId * 0.0000001f;
     }
 
     /**
@@ -292,7 +293,8 @@ public abstract class Element implements Serializable {
     }
 
     public boolean unsetFreezeFromDM() {
-        this.comments = this.comments.stream().filter(c -> !c.getValue().contains("freeze")).collect(Collectors.toSet());
+        this.comments = this.comments.stream().filter(c -> c.getValue() != null && !c.getValue().contains("freeze"))
+                .collect(Collectors.toSet());
         return this.isFreezeByDM();
     }
 
