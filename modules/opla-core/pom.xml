@@ -23,6 +23,10 @@
 			<groupId>nz.ac.waikato.cms.weka</groupId>
 			<artifactId>optics_dbScan</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>leastMedSquared</artifactId>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/LibSVM -->
 		<dependency>
 			<groupId>nz.ac.waikato.cms.weka</groupId>
