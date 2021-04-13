@@ -141,7 +141,8 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
                 br.otimizes.oplatool.architecture.representation.Element target = architecture.findAttributeById(id_element);
                 for (Concern c1 : lstConcern) {
                     if (c1.getId().equals(id_stereotype) && !c1.getPrimitive()) {
-                        target.addExternalConcern(c1);
+                        if (target != null)
+                            target.addExternalConcern(c1);
                     }
                 }
                 continue;
@@ -150,7 +151,8 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
                 br.otimizes.oplatool.architecture.representation.Element target = architecture.findMethodById(id_element);
                 for (Concern c1 : lstConcern) {
                     if (c1.getId().equals(id_stereotype) && !c1.getPrimitive()) {
-                        target.addExternalConcern(c1);
+                        if (target != null)
+                            target.addExternalConcern(c1);
                     }
                 }
                 continue;

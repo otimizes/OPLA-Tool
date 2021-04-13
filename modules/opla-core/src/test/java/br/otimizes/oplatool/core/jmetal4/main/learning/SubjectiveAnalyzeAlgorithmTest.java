@@ -4,11 +4,14 @@ import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Element;
+import br.otimizes.oplatool.common.Variable;
+import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.experiments.OPLAConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIConfigs;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII;
+import br.otimizes.oplatool.core.jmetal4.metrics.ObjectiveFunctions;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
@@ -38,11 +41,45 @@ public class SubjectiveAnalyzeAlgorithmTest {
         File dirUser = Arrays.stream(dirOutput.listFiles()).filter(file -> file.isDirectory()).findFirst().orElse(null);
         OPLA opla = new OPLA(Arrays.stream(dirUser.listFiles()).filter(file -> file.isFile()).findFirst().orElse(null).getPath(), configs);
         File dirSolutions = Arrays.stream(dirUser.listFiles()).filter(file -> file.isDirectory()).findFirst().orElse(null);
+        SolutionSet allSolutions = new SolutionSet();
         for (File file : dirSolutions.listFiles()) {
             if (file.isFile() && file.getName().contains(".smty") && !file.getName().contains("ALL")) {
-                System.out.println("FILE: " + file.getName());
+                try {
+                    OPLA solutionOPLA = new OPLA(file.getPath(), configs);
+                    ObjectiveFunctions[] values = new ObjectiveFunctions[]{ObjectiveFunctions.ACLASS, ObjectiveFunctions.COE, ObjectiveFunctions.FM};
+                    SolutionSet solutionSet = new SolutionSet();
+                    Solution solution = new Solution(values.length);
+                    solution.setProblem(opla);
+                    solution.setDecisionVariables(new Variable[]{solutionOPLA.getArchitecture_()});
+                    solutionSet.setCapacity(1);
+                    solutionSet.add(solution);
+
+                    opla.setSelectedMetrics(new ArrayList<>());
+                    solution.setNumberOfObjectives(values.length);
+                    for (int i = 0; i < values.length; i++) {
+                        opla.getSelectedMetrics().add(values[i].toString());
+                    }
+
+                    opla.evaluate(solution);
+                    SolutionSet solutionSet1 = new SolutionSet(1);
+                    solutionSet1.add(solution);
+                    allSolutions = allSolutions.union(solutionSet1);
+                    System.out.println("FILE: " + file.getName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
+        allSolutions = opla.removeDominadas(allSolutions);
+        allSolutions = opla.removeRepetidas(allSolutions);
+        for (int i = 0; i < allSolutions.getSolutionSet().size(); i++) {
+            Solution solution = allSolutions.get(i);
+            Architecture architecture = (Architecture) solution.getDecisionVariables()[0];
+            architecture.save(architecture, dirSolutions.getPath().substring(dirSolutions.getPath().indexOf("output")+6) + "/VAR_ALL_", i + "");
+            System.out.println("salvou");
+        }
+
+        System.out.println("here");
     }
 
     //    @Test
@@ -161,6 +198,7 @@ public class SubjectiveAnalyzeAlgorithmTest {
         configs.setIntervalInteraction(3);
         configs.disableCrossover();
         configs.setMutationProbability(0.9);
+        configs.setArchitectureBuilder(ArchitectureBuilders.SMARTY);
         configs.setMutationOperators(Arrays.asList(
                 "FEATURE_DRIVEN_OPERATOR",
                 "MOVE_METHOD_MUTATION",
