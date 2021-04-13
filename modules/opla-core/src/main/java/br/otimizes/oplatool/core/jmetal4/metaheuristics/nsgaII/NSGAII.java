@@ -206,9 +206,10 @@ public class NSGAII extends Algorithm {
                     }
                     remain = 0;
                 }
-                currentInteraction = interactWithDM(populationSize, evaluations, offspringPopulation, maxInteractions,
-                        firstInteraction, intervalInteraction, interactive, interactiveFunction, currentInteraction,
-                        bestOfUserEvaluation);
+                if (interactive)
+                    currentInteraction = interactWithDM(populationSize, evaluations, offspringPopulation, maxInteractions,
+                            firstInteraction, intervalInteraction, interactive, interactiveFunction, currentInteraction,
+                            bestOfUserEvaluation);
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
                     double HV = indicators.getHypervolume(population);
@@ -254,7 +255,7 @@ public class NSGAII extends Algorithm {
             solution.setEvaluation(0);
         }
         boolean isOnInteraction = (generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction;
-        boolean inTrainingDuring = interactive && currentInteraction < maxInteractions && isOnInteraction;
+        boolean inTrainingDuring = currentInteraction < maxInteractions && isOnInteraction;
         if (inTrainingDuring) {
             offspringPopulation = interactiveFunction.run(offspringPopulation);
             if (subjectiveAnalyzeAlgorithm == null) {
