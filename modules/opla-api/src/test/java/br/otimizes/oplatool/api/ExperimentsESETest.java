@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class ExperimentsESETest {
 
     public static void main(String... args) throws Exception {
-        String currentDir = "oplatool-config1-agm1";
+        String currentDir = "oplatool-config2-agm1";
         FileConstants.USER_HOME = "/home/wmfsystem/Documents/experimentos-20210409T113119Z-001/" + currentDir;
         FileConstants.CONFIG_PATH = FileConstants.USER_HOME;
         String dir = FileConstants.USER_HOME + "/output";
@@ -45,7 +45,7 @@ public class ExperimentsESETest {
             if (file.isFile() && file.getName().contains(".smty") && !file.getName().contains("ALL")) {
                 try {
                     OPLA solutionOPLA = new OPLA(file.getPath(), configs);
-                    ObjectiveFunctions[] values = new ObjectiveFunctions[]{ObjectiveFunctions.COE, ObjectiveFunctions.FM, ObjectiveFunctions.CLASS};
+                    ObjectiveFunctions[] values = new ObjectiveFunctions[]{ObjectiveFunctions.COE, ObjectiveFunctions.FM, ObjectiveFunctions.ACLASS};
                     SolutionSet solutionSet = new SolutionSet();
                     Solution solution = new Solution(values.length);
                     solution.setProblem(opla);
