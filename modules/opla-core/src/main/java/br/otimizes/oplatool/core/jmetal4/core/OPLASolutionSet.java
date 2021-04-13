@@ -17,6 +17,8 @@ import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.*;
 import java.util.*;
@@ -603,6 +605,8 @@ public class OPLASolutionSet {
                 String originalName = ((OPLA) solutionSet.solutionsList_.get(i).getProblem()).getArchitecture_().getName();
                 funResults.get(i).setName(pathToSave + originalName);
                 if (generate) {
+                    if (funResults.get(i).getId() == null) funResults.get(i).setId(funResults.get(i).getObjectives()
+                            .replace("|", "-") + "-" + RandomStringUtils.randomNumeric(3));
                     arch.save(arch, pathToSave, "-" + funResults.get(i).getId());
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\n" + pathToSave + arch.getName() + funResults.get(i).getId() + "\t" + solutionSet.solutionsList_.get(i).toString());
                 }

@@ -20,17 +20,32 @@ import br.otimizes.oplatool.core.learning.ClusteringAlgorithm;
 import br.otimizes.oplatool.core.learning.Moment;
 import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
 import br.otimizes.oplatool.domain.config.FileConstants;
-import org.junit.Test;
 import weka.classifiers.Evaluation;
 
-import static org.junit.Assert.*;
-
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class SubjectiveAnalyzeAlgorithmTest {
 
-//    @Test
+    public static void main(String... args) throws Exception {
+        String dir = "/home/wmfsystem/oplatool/output";
+        NSGAIIConfigs configs = getNsgaiiConfigs();
+        File dirOutput = new File(dir);
+        File dirUser = Arrays.stream(dirOutput.listFiles()).filter(file -> file.isDirectory()).findFirst().orElse(null);
+        OPLA opla = new OPLA(Arrays.stream(dirUser.listFiles()).filter(file -> file.isFile()).findFirst().orElse(null).getPath(), configs);
+        File dirSolutions = Arrays.stream(dirUser.listFiles()).filter(file -> file.isDirectory()).findFirst().orElse(null);
+        for (File file : dirSolutions.listFiles()) {
+            if (file.isFile() && file.getName().contains(".smty") && !file.getName().contains("ALL")) {
+                System.out.println("FILE: " + file.getName());
+            }
+        }
+    }
+
+    //    @Test
     public void testMMWithoutMLP() throws Exception {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "MMAtual.smty";
@@ -132,7 +147,7 @@ public class SubjectiveAnalyzeAlgorithmTest {
         return algorithm;
     }
 
-    private NSGAIIConfigs getNsgaiiConfigs() {
+    private static NSGAIIConfigs getNsgaiiConfigs() {
         NSGAIIConfigs configs = new NSGAIIConfigs();
         configs.setPopulationSize(10);
         configs.setInteractive(true);
