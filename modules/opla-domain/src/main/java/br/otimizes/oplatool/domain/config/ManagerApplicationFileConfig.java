@@ -34,9 +34,10 @@ public class ManagerApplicationFileConfig {
                 }
             }
 
-        } catch (IOException ex) {
-            LOGGER.info(ex.getMessage());
-            System.exit(0);
+        } catch (Exception ex) {
+            System.out.println("::ERROR ON MANAGER APP FILE CONFIG::");
+//            LOGGER.info(ex.getMessage());
+//            System.exit(0);
         }
     }
 
