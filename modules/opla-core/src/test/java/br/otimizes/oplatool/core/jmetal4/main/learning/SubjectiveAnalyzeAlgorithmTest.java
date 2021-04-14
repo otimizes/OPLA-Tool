@@ -33,55 +33,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class SubjectiveAnalyzeAlgorithmTest {
-
-    public static void main(String... args) throws Exception {
-        String dir = "/home/wmfsystem/oplatool/output";
-        NSGAIIConfigs configs = getNsgaiiConfigs();
-        File dirOutput = new File(dir);
-        File dirUser = Arrays.stream(dirOutput.listFiles()).filter(file -> file.isDirectory()).findFirst().orElse(null);
-        OPLA opla = new OPLA(Arrays.stream(dirUser.listFiles()).filter(file -> file.isFile()).findFirst().orElse(null).getPath(), configs);
-        File dirSolutions = Arrays.stream(dirUser.listFiles()).filter(file -> file.isDirectory()).findFirst().orElse(null);
-        SolutionSet allSolutions = new SolutionSet();
-        for (File file : dirSolutions.listFiles()) {
-            if (file.isFile() && file.getName().contains(".smty") && !file.getName().contains("ALL")) {
-                try {
-                    OPLA solutionOPLA = new OPLA(file.getPath(), configs);
-                    ObjectiveFunctions[] values = new ObjectiveFunctions[]{ObjectiveFunctions.ACLASS, ObjectiveFunctions.COE, ObjectiveFunctions.FM};
-                    SolutionSet solutionSet = new SolutionSet();
-                    Solution solution = new Solution(values.length);
-                    solution.setProblem(opla);
-                    solution.setDecisionVariables(new Variable[]{solutionOPLA.getArchitecture_()});
-                    solutionSet.setCapacity(1);
-                    solutionSet.add(solution);
-
-                    opla.setSelectedMetrics(new ArrayList<>());
-                    solution.setNumberOfObjectives(values.length);
-                    for (int i = 0; i < values.length; i++) {
-                        opla.getSelectedMetrics().add(values[i].toString());
-                    }
-
-                    opla.evaluate(solution);
-                    SolutionSet solutionSet1 = new SolutionSet(1);
-                    solutionSet1.add(solution);
-                    allSolutions = allSolutions.union(solutionSet1);
-                    System.out.println("FILE: " + file.getName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        allSolutions = opla.removeDominadas(allSolutions);
-        allSolutions = opla.removeRepetidas(allSolutions);
-        for (int i = 0; i < allSolutions.getSolutionSet().size(); i++) {
-            Solution solution = allSolutions.get(i);
-            Architecture architecture = (Architecture) solution.getDecisionVariables()[0];
-            architecture.save(architecture, dirSolutions.getPath().substring(dirSolutions.getPath().indexOf("output")+6) + "/VAR_ALL_", i + "");
-            System.out.println("salvou");
-        }
-
-        System.out.println("here");
-    }
-
     //    @Test
     public void testMMWithoutMLP() throws Exception {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();

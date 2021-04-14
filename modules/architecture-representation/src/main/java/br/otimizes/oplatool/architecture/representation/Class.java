@@ -451,6 +451,7 @@ public class Class extends Element {
     }
 
     public Set<Relationship> getRelationships() {
+        if (relationshipHolder == null) return new HashSet<>();
         return RelationshipCommons.getRelationships(relationshipHolder.getRelationships(), this);
     }
 
