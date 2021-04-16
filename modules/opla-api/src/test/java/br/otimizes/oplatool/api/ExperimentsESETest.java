@@ -16,24 +16,25 @@ import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationYamlConfig;
 import br.otimizes.oplatool.domain.config.FileConstants;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ExperimentsESETest {
 
     public static void main(String... args) throws Exception {
-        String currentDir = "oplatool-config1-agm2";
-        FileConstants.USER_HOME = "/home/wmfsystem/Documents/experimentos-20210409T113119Z-001/" + currentDir;
-        FileConstants.CONFIG_PATH = FileConstants.USER_HOME;
+        String currentDir = "oplatool-config2-agm1";
+//        FileConstants.USER_HOME = "/home/wmfsystem/Documents/experimentos-20210409T113119Z-001/" + currentDir;
+        System.setProperty("user.home", "/home/wmfsystem/Documents/experimentos-20210409T113119Z-001/" + currentDir);
+//        FileConstants.CONFIG_PATH = FileConstants.USER_HOME;
         String dir = FileConstants.USER_HOME + "/output";
 
         ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
@@ -53,7 +54,7 @@ public class ExperimentsESETest {
             if (file.isFile() && file.getName().contains(".smty") && !file.getName().contains("ALL")) {
                 try {
                     Architecture architecture = new ArchitectureBuilderSMarty().create(file.getPath());
-                    ObjectiveFunctions[] values = new ObjectiveFunctions[]{ObjectiveFunctions.ACLASS, ObjectiveFunctions.COE, ObjectiveFunctions.FM};
+                    ObjectiveFunctions[] values = new ObjectiveFunctions[]{ObjectiveFunctions.ACLASS, ObjectiveFunctions.FM, ObjectiveFunctions.COE};
                     SolutionSet solutionSet = new SolutionSet();
                     Solution solution = new Solution(values.length);
                     String id = file.getName().replace("VAR_", "");
@@ -89,18 +90,35 @@ public class ExperimentsESETest {
     }
 
     static String readFile(String path)
-            throws IOException
-    {
+            throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, Charset.defaultCharset());
     }
 
-    private static void removeNonDominatedAndSaveLog(File dirSolutions, SolutionSet allSolutions, OPLA opla) throws IOException {
-        allSolutions = opla.removeDominadas(allSolutions);
-        allSolutions = opla.removeRepetidas(allSolutions);
+    private static void removeNonDominatedAndSaveLog(File dirSolutions, SolutionSet solutionSet, OPLA opla) throws IOException {
+        ArrayList<List<Solution>> lists = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            lists.add(new ArrayList<>());
+        }
+        for (Solution solution : solutionSet.getSolutionSet()) {
+            int i = Integer.parseInt(solution.getExecutionId());
+            lists.get(i).add(solution);
+        }
+
         File file = new File(dirSolutions.getPath() + "/non-dominated-solutions");
+        if (file.exists()) file.delete();
+        file.createNewFile();
+        SolutionSet allSolutions = new SolutionSet(1);
+        for (List<Solution> fromLists : lists) {
+            if (fromLists.isEmpty()) continue;
+            SolutionSet solutionSet1 = new SolutionSet(fromLists.size());
+            allSolutions = allSolutions.union(solutionSet1);
+        }
+
+        allSolutions = opla.removeDominadas(solutionSet);
+        allSolutions = opla.removeRepetidas(solutionSet);
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < allSolutions.getSolutionSet().size(); i++) {
+        for (int i = 0; i < allSolutions.size(); i++) {
             Solution solution = allSolutions.get(i);
             Architecture architecture = (Architecture) solution.getDecisionVariables()[0];
             architecture.save(architecture, dirSolutions.getPath().substring(dirSolutions.getPath()
@@ -109,12 +127,10 @@ public class ExperimentsESETest {
             stringBuilder.append(architecture.getName() + "\n");
             System.out.println("A solução " + architecture.getName() + " é não dominada");
         }
-        BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter(file));
-            writer.write(stringBuilder.toString());
-        } finally {
-            if (writer != null) writer.close();
+            Files.write(file.toPath(), stringBuilder.toString().getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            //exception handling left as an exercise for the reader
         }
         System.out.println("here");
     }
@@ -127,7 +143,7 @@ public class ExperimentsESETest {
         configs.setClusteringMoment(Moment.POSTERIORI);
         configs.setMaxEvaluations(30000);
         configs.setArchitectureBuilder(ArchitectureBuilders.SMARTY);
-        configs.setDescription("mm");
+        configs.setDescription("agm1");
         configs.disableCrossover();
         configs.setMutationProbability(0.8);
         configs.setArchitectureBuilder(ArchitectureBuilders.SMARTY);
@@ -142,7 +158,7 @@ public class ExperimentsESETest {
                 "ADD_MANAGER_CLASS_MUTATION"
         ));
         OPLAConfigs oplaConfigs = new OPLAConfigs();
-        oplaConfigs.setSelectedObjectiveFunctions(Arrays.asList("ACLASS", "COE", "FM"));
+        oplaConfigs.setSelectedObjectiveFunctions(Arrays.asList("ACLASS", "FM", "COE"));
         configs.setOplaConfigs(oplaConfigs);
         return configs;
     }

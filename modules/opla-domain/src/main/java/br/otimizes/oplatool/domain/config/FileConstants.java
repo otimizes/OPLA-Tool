@@ -8,12 +8,12 @@ import java.nio.file.FileSystems;
 public class FileConstants {
 
     public static String BASE_RESOURCES = "";
-    public static String USER_HOME = System.getProperty("user.home");
+    public static final String USER_HOME = System.getProperty("user.home");
     public static final String FILE_SEPARATOR = FileSystems.getDefault().getSeparator();
     public static final String APPLICATION_YAML_NAME = "application.yaml";
     public static final String GUI_SETTINGS = "guisettings.yml";
     public static final String LOCAL_GUI_PATH = FileConstants.CONFIG_PATH + FileConstants.FILE_SEPARATOR + FileConstants.GUI_SETTINGS;
-    public static String CONFIG_PATH = "config";
+    public static final String CONFIG_PATH = "config";
     public static final String LOCAL_YAML_PATH = FileConstants.CONFIG_PATH + FileConstants.FILE_SEPARATOR + FileConstants.APPLICATION_YAML_NAME;
     public static final String PATH_EMPTY_DB = "emptyDB";
     public static final String EMPTY_DB_NAME = "oplatool.db";
