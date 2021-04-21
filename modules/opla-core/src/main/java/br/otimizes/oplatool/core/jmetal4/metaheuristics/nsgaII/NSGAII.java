@@ -206,8 +206,11 @@ public class NSGAII extends Algorithm {
                     }
                     remain = 0;
                 }
+                int generation = evaluations / populationSize;
+                OPLAThreadScope.currentGeneration.set(generation);
+                OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
                 if (interactive)
-                    currentInteraction = interactWithDM(populationSize, evaluations, offspringPopulation, maxInteractions,
+                    currentInteraction = interactWithDM(generation, offspringPopulation, maxInteractions,
                             firstInteraction, intervalInteraction, interactive, interactiveFunction, currentInteraction,
                             bestOfUserEvaluation);
 
@@ -247,10 +250,7 @@ public class NSGAII extends Algorithm {
         return subfrontToReturn;
     }
 
-    private int interactWithDM(int populationSize, int evaluations, SolutionSet offspringPopulation, int maxInteractions, int firstInteraction, int intervalInteraction, Boolean interactive, InteractiveFunction interactiveFunction, int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
-        int generation = evaluations / populationSize;
-        OPLAThreadScope.currentGeneration.set(generation);
-        OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
+    private int interactWithDM(int generation, SolutionSet offspringPopulation, int maxInteractions, int firstInteraction, int intervalInteraction, Boolean interactive, InteractiveFunction interactiveFunction, int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
         for (Solution solution : offspringPopulation.getSolutionSet()) {
             solution.setEvaluation(0);
         }
