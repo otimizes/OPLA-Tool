@@ -48,7 +48,7 @@ public class RelationshipCommons {
             }
             if (r instanceof AssociationRelationship) {
                 for (AssociationEnd a : ((AssociationRelationship) r).getParticipants()) {
-                    if (a != null && a.getCLSClass().equals(element)) {
+                    if (a != null && a.getCLSClass() != null && a.getCLSClass().equals(element)) {
                         relations.add(r);
                     }
                 }
@@ -56,7 +56,7 @@ public class RelationshipCommons {
 
             if (r instanceof AssociationClassRelationship) {
                 for (MemberEnd memberEnd : ((AssociationClassRelationship) r).getMemebersEnd()) {
-                    if (memberEnd != null && memberEnd.getType().equals(element)) {
+                    if (memberEnd != null && memberEnd.getType() != null && memberEnd.getType().equals(element)) {
                         relations.add(r);
                     }
                 }
