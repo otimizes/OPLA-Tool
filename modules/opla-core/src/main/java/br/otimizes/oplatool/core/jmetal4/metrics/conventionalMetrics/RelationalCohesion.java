@@ -181,21 +181,21 @@ public class RelationalCohesion extends ObjectiveFunctionImplementation {
             for (Relationship relationship : relationships) {
                 if (relationship instanceof GeneralizationRelationship) {
                     GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-                    if (generalization.getParent().equals(c.getName()) && (!(associationDepClasses.contains(c))))
+                    if (generalization.getParent() != null && generalization.getParent().equals(c.getName()) && (!(associationDepClasses.contains(c))))
                         associationDepClasses.add(c);
 
                 }
 
                 if (relationship instanceof DependencyRelationship) {
                     DependencyRelationship dependency = (DependencyRelationship) relationship;
-                    if (dependency.getClient().equals(c.getName()) && (!(associationDepClasses.contains(c))))
+                    if (dependency.getClient() != null && dependency.getClient().equals(c.getName()) && (!(associationDepClasses.contains(c))))
                         associationDepClasses.add(c);
                 }
 
                 if (relationship instanceof AssociationRelationship) {
                     AssociationRelationship association = (AssociationRelationship) relationship;
                     for (AssociationEnd associationEnd : association.getParticipants()) {
-                        if (associationEnd.getCLSClass().equals(c.getName()) && (!(associationDepClasses.contains(c)))) {
+                        if (associationEnd.getCLSClass() != null && associationEnd.getCLSClass().equals(c.getName()) && (!(associationDepClasses.contains(c)))) {
                             associationDepClasses.add(c);
                         }
                     }
@@ -208,7 +208,7 @@ public class RelationalCohesion extends ObjectiveFunctionImplementation {
             for (Relationship relationship : relationships) {
                 if (relationship instanceof GeneralizationRelationship) {
                     GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-                    if (generalization.getParent().equals(itf.getName()) && (!(associationDepInterfaces.contains(itf))))
+                    if (generalization.getParent() != null && generalization.getParent().equals(itf.getName()) && (!(associationDepInterfaces.contains(itf))))
                         associationDepInterfaces.add(itf);
 
                 }
@@ -222,7 +222,7 @@ public class RelationalCohesion extends ObjectiveFunctionImplementation {
                 if (relationship instanceof AssociationRelationship) {
                     AssociationRelationship association = (AssociationRelationship) relationship;
                     for (AssociationEnd associationEnd : association.getParticipants()) {
-                        if (associationEnd.getCLSClass().equals(itf.getName())
+                        if (associationEnd.getCLSClass() != null && associationEnd.getCLSClass().equals(itf.getName())
                                 && (!(associationDepInterfaces.contains(itf)))) {
                             associationDepInterfaces.add(itf);
                         }
