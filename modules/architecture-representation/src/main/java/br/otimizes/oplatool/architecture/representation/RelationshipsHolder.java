@@ -59,7 +59,7 @@ public class RelationshipsHolder {
             if (r instanceof AssociationRelationship) {
                 boolean remove = false;
                 for (AssociationEnd a : ((AssociationRelationship) r).getParticipants()) {
-                    if (a.getCLSClass().equals(element)) {
+                    if (a.getCLSClass() != null && a.getCLSClass().equals(element)) {
                         remove = true;
                     }
                 }
