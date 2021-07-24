@@ -29,14 +29,14 @@ public class ClassOperations extends XmiHelper {
     private static final String WITHOUT_PACKAGE = ""; // Classe sem pacote
     static Logger LOGGER = LogManager.getLogger(ClassOperations.class.getName());
     private String idClass;
-    private DocumentManager documentManager;
-    private ElementXmiGenerator elementXmiGenerator;
+    private final DocumentManager documentManager;
+    private final ElementXmiGenerator elementXmiGenerator;
     private String idsProperties = "";
     private String idsMethods = "";
     private Node klass;
     private boolean isAbstract = false;
 
-    private Uml2Helper uml2Helper;
+    private final Uml2Helper uml2Helper;
 
     private org.eclipse.uml2.uml.Stereotype stereotype;
 
@@ -59,7 +59,7 @@ public class ClassOperations extends XmiHelper {
      * @return
      * @throws CustonTypeNotFound
      * @throws NodeNotFound
-     * @throws InvalidMultiplictyForAssociationException
+     * @throws InvalidMultiplicityForAssociationException
      */
     public ClassOperations withAttribute(final List<Attribute> attributes) {
 
@@ -121,7 +121,7 @@ public class ClassOperations extends XmiHelper {
      * @return {@link Map} com informações sobre a classe criada.
      * @throws NodeNotFound
      * @throws CustonTypeNotFound
-     * @throws InvalidMultiplictyForAssociationException
+     * @throws InvalidMultiplicityForAssociationException
      */
     public Map<String, String> build() {
 
@@ -207,11 +207,11 @@ public class ClassOperations extends XmiHelper {
      * @throws SMartyProfileNotAppliedToModelException
      * @throws ModelIncompleteException
      * @throws ModelNotFoundException
-     * @throws InvalidMultiplictyForAssociationException
+     * @throws InvalidMultiplicityForAssociationException
      * @throws NodeNotFound
      * @throws CustonTypeNotFound
      */
-    public ClassOperations withStereoype(final Variant... stereotypeNames) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+    public ClassOperations withStereoype(final Variant... stereotypeNames) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException, CustonTypeNotFound, NodeNotFound, InvalidMultiplicityForAssociationException {
 
         Profile profile = uml2Helper.loadSMartyProfile();
 
@@ -246,7 +246,7 @@ public class ClassOperations extends XmiHelper {
      * @throws SMartyProfileNotAppliedToModelException
      * @throws CustonTypeNotFound
      * @throws NodeNotFound
-     * @throws InvalidMultiplictyForAssociationException
+     * @throws InvalidMultiplicityForAssociationException
      */
     public void addStereotype(final String id, final Variant variant) {
         Document.executeTransformation(documentManager, new Transformation() {
@@ -266,7 +266,7 @@ public class ClassOperations extends XmiHelper {
      * @return {@link ClassOperations}
      * @throws CustonTypeNotFound
      * @throws NodeNotFound
-     * @throws InvalidMultiplictyForAssociationException
+     * @throws InvalidMultiplicityForAssociationException
      */
     public ClassOperations isVariationPoint(final String variants, final String variabilities, final String bidingTime) {
         if ((!variants.isEmpty()) || (!variabilities.isEmpty())) {
@@ -284,7 +284,7 @@ public class ClassOperations extends XmiHelper {
      * Anota uma classe com um dado comentário
      *
      * @param id - ID do comentário.
-     * @throws InvalidMultiplictyForAssociationException
+     * @throws InvalidMultiplicityForAssociationException
      * @throws NodeNotFound
      * @throws CustonTypeNotFound
      */
@@ -303,14 +303,14 @@ public class ClassOperations extends XmiHelper {
 
                 Element edges = documentManager.getDocNotation().createElement("edges");
                 edges.setAttribute("xmi:type", "notation:Connector");
-                edges.setAttribute("xmi:id", UtilResources.getRandonUUID());
+                edges.setAttribute("xmi:id", UtilResources.getRandomUUID());
                 edges.setAttribute("type", "4013");
                 edges.setAttribute("source", idCommentNotation);
                 edges.setAttribute("target", idClassNotation);
                 edges.setAttribute("lineColor", "0");
 
                 Element styles = documentManager.getDocNotation().createElement("styles");
-                styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
+                styles.setAttribute("xmi:id", UtilResources.getRandomUUID());
                 styles.setAttribute("fontName", "Lucida Grande");
                 styles.setAttribute("xmi:type", "notation:FontStyle");
                 styles.setAttribute("fontHeight", "11");
@@ -322,13 +322,13 @@ public class ClassOperations extends XmiHelper {
 
                 Element bendpoints = documentManager.getDocNotation().createElement("bendpoints");
                 bendpoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
-                bendpoints.setAttribute("xmi:id", UtilResources.getRandonUUID());
+                bendpoints.setAttribute("xmi:id", UtilResources.getRandomUUID());
                 bendpoints.setAttribute("points", "[-10, 17, 55, -89]$[-63, 156, 2, 50]");
                 edges.appendChild(bendpoints);
 
                 Element sourceAnchor = documentManager.getDocNotation().createElement("sourceAnchor");
                 sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
-                sourceAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
+                sourceAnchor.setAttribute("xmi:id", UtilResources.getRandomUUID());
                 sourceAnchor.setAttribute("id", "(1.0,0.7166666666666667)");
                 edges.appendChild(sourceAnchor);
 

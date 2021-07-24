@@ -8,7 +8,6 @@ import br.otimizes.oplatool.architecture.helpers.XmiHelper;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.representation.Package;
-import br.otimizes.oplatool.architecture.representation.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,10 +27,10 @@ public class ClassNotation extends XmiHelper {
     private final String fontName = "Lucida Grande";
     private final String fontHeight = "11";
     private final String lineColor = "0";
-    private String xmitype = "notation:Shape";
+    private final String xmitype = "notation:Shape";
     private Node notatioChildren;
     private Element notationBasicProperty;
-    private DocumentManager documentManager;
+    private final DocumentManager documentManager;
     public static int xElement = 1;
     public static int yElement = 1;
     public static int xPackage = 1;
@@ -57,7 +56,7 @@ public class ClassNotation extends XmiHelper {
         Element node = documentManager.getDocNotation().createElement("children");
 
         node.setAttribute("xmi:type", this.xmitype);
-        node.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        node.setAttribute("xmi:id", UtilResources.getRandomUUID());
         node.setAttribute("type", type);
         node.setAttribute("fontName", this.fontName);
         node.setAttribute("fontHeight", this.fontHeight);
@@ -67,12 +66,12 @@ public class ClassNotation extends XmiHelper {
         Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");
         eAnnotations.setAttribute("xmi:type", "ecore:EAnnotation");
         eAnnotations.setAttribute("source", "CustomAppearance_Annotation");
-        eAnnotations.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        eAnnotations.setAttribute("xmi:id", UtilResources.getRandomUUID());
 
 
         Element details = documentManager.getDocNotation().createElement("details");
         details.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
-        details.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        details.setAttribute("xmi:id", UtilResources.getRandomUUID());
         details.setAttribute("key", "CustomAppearance_MaskValue");
         details.setAttribute("value", SHOW_PROPERTY_TYPE);
         eAnnotations.appendChild(details);
@@ -87,7 +86,7 @@ public class ClassNotation extends XmiHelper {
 
         Element layoutConstraint = documentManager.getDocNotation().createElement("layoutConstraint");
         layoutConstraint.setAttribute("xmi:type", "notation:Location");
-        layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        layoutConstraint.setAttribute("xmi:id", UtilResources.getRandomUUID());
         node.appendChild(layoutConstraint);
 
         if (appendTo != null)
@@ -106,7 +105,7 @@ public class ClassNotation extends XmiHelper {
 
         Element node = documentManager.getDocNotation().createElement("children");
         node.setAttribute("xmi:type", this.xmitype);
-        String idChildren = UtilResources.getRandonUUID();
+        String idChildren = UtilResources.getRandomUUID();
         node.setAttribute("xmi:id", idChildren);
         node.setAttribute("type", TYPE_CLASS);
         node.setAttribute("fontName", this.fontName);
@@ -116,7 +115,7 @@ public class ClassNotation extends XmiHelper {
 
         Element notationDecoratioNode = documentManager.getDocNotation().createElement("children");
         notationDecoratioNode.setAttribute("xmi:type", "notation:DecorationNode");
-        notationDecoratioNode.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        notationDecoratioNode.setAttribute("xmi:id", UtilResources.getRandomUUID());
         notationDecoratioNode.setAttribute("type", "5029");
         node.appendChild(notationDecoratioNode);
 
@@ -153,23 +152,23 @@ public class ClassNotation extends XmiHelper {
     private Element createChildrenComportament(Document doc, Element node, String type, br.otimizes.oplatool.architecture.representation.Element aClass) {
         Element element = doc.createElement("children");
         element.setAttribute("xmi:type", "notation:BasicCompartment");
-        element.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        element.setAttribute("xmi:id", UtilResources.getRandomUUID());
         element.setAttribute("type", type);
         node.appendChild(element);
 
         Element notationTitleStyle = doc.createElement("styles");
         notationTitleStyle.setAttribute("xmi:type", "notation:TitleStyle");
-        notationTitleStyle.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        notationTitleStyle.setAttribute("xmi:id", UtilResources.getRandomUUID());
         element.appendChild(notationTitleStyle);
 
         Element notationSortingStyle = doc.createElement("styles");
         notationSortingStyle.setAttribute("xmi:type", "notation:SortingStyle");
-        notationSortingStyle.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        notationSortingStyle.setAttribute("xmi:id", UtilResources.getRandomUUID());
         element.appendChild(notationSortingStyle);
 
         Element notationFilteringStyle = doc.createElement("styles");
         notationFilteringStyle.setAttribute("xmi:type", "notation:FilteringStyle");
-        notationFilteringStyle.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        notationFilteringStyle.setAttribute("xmi:id", UtilResources.getRandomUUID());
         element.appendChild(notationFilteringStyle);
 
 //        Element notationBounds = doc.createElement("layoutConstraint");
@@ -179,7 +178,7 @@ public class ClassNotation extends XmiHelper {
 
         Element layoutConstraint = doc.createElement("layoutConstraint");
         layoutConstraint.setAttribute("x", String.valueOf(xElement));
-        layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        layoutConstraint.setAttribute("xmi:id", UtilResources.getRandomUUID());
         layoutConstraint.setAttribute("xmi:type", "notation:Bounds");
         layoutConstraint.setAttribute("y", String.valueOf(yElement));
         layoutConstraint.setAttribute("additionalInfo", aClass.getNamespace() + ":" + aClass.getName());
@@ -254,7 +253,7 @@ public class ClassNotation extends XmiHelper {
 
         Element nodeChildren = documentManager.getDocNotation().createElement("children");
         nodeChildren.setAttribute("xmi:type", this.xmitype);
-        nodeChildren.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        nodeChildren.setAttribute("xmi:id", UtilResources.getRandomUUID());
         nodeChildren.setAttribute("type", TYPE_PACKAGE);
         nodeChildren.setAttribute("fontName", this.fontName);
         nodeChildren.setAttribute("fontHeight", this.fontHeight);
@@ -266,11 +265,11 @@ public class ClassNotation extends XmiHelper {
 
         Element layoutConstraint = documentManager.getDocNotation().createElement("layoutConstraint");
         layoutConstraint.setAttribute("xmi:type", "notation:Bounds");
-        layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        layoutConstraint.setAttribute("xmi:id", UtilResources.getRandomUUID());
 
         Element styles = documentManager.getDocNotation().createElement("styles");
         styles.setAttribute("xmi:type", "notation:TitleStyle");
-        styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        styles.setAttribute("xmi:id", UtilResources.getRandomUUID());
         childrenDecorationnode7016.appendChild(styles);
         childrenDecorationnode7016.appendChild(layoutConstraint);
 
@@ -286,7 +285,7 @@ public class ClassNotation extends XmiHelper {
         //TODO mover comum
         Element layoutConstraint2 = documentManager.getDocNotation().createElement("layoutConstraint");
         layoutConstraint2.setAttribute("x", String.valueOf(xPackage));
-        layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandomUUID());
         layoutConstraint2.setAttribute("xmi:type", "notation:Bounds");
         layoutConstraint2.setAttribute("y", String.valueOf(yPackage));
         layoutConstraint2.setAttribute("width", String.valueOf(original.getElements().size() * 300)); //TODO ver uma maneira de criar conforme necessidade
@@ -309,7 +308,7 @@ public class ClassNotation extends XmiHelper {
     private Element createChildrenDecorationnode(String type) {
         Element childrenDecorationnode = documentManager.getDocNotation().createElement("children");
         childrenDecorationnode.setAttribute("xmi:type", "notation:DecorationNode");
-        childrenDecorationnode.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        childrenDecorationnode.setAttribute("xmi:id", UtilResources.getRandomUUID());
         childrenDecorationnode.setAttribute("type", type);
         return childrenDecorationnode;
     }
@@ -373,7 +372,7 @@ public class ClassNotation extends XmiHelper {
 
         Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");
         eAnnotations.setAttribute("xmi:type", "ecore:EAnnotation");
-        eAnnotations.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        eAnnotations.setAttribute("xmi:id", UtilResources.getRandomUUID());
 
         if (addEcorePrefix)
             eAnnotations.setAttribute("source", "ecore:Stereotype_Annotation");
@@ -382,14 +381,14 @@ public class ClassNotation extends XmiHelper {
 
         Element details = documentManager.getDocNotation().createElement("details");
         details.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
-        details.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        details.setAttribute("xmi:id", UtilResources.getRandomUUID());
         details.setAttribute("key", "StereotypeWithQualifiedNameList");
         details.setAttribute("value", "");
         eAnnotations.appendChild(details);
 
         Element details2 = documentManager.getDocNotation().createElement("details");
         details2.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
-        details2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        details2.setAttribute("xmi:id", UtilResources.getRandomUUID());
         details2.setAttribute("key", "StereotypeList");
         if ("smarty".equalsIgnoreCase(perfilType))
             details2.setAttribute("value", "smarty::" + name);
@@ -401,21 +400,21 @@ public class ClassNotation extends XmiHelper {
 
         Element details3 = documentManager.getDocNotation().createElement("details");
         details3.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
-        details3.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        details3.setAttribute("xmi:id", UtilResources.getRandomUUID());
         details3.setAttribute("key", "Stereotype_Presentation_Kind");
         details3.setAttribute("value", "HorizontalStereo");
         eAnnotations.appendChild(details3);
 
         Element details4 = documentManager.getDocNotation().createElement("details");
         details4.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
-        details4.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        details4.setAttribute("xmi:id", UtilResources.getRandomUUID());
         details4.setAttribute("key", "PropStereoDisplay");
         details4.setAttribute("value", "");
         eAnnotations.appendChild(details4);
 
         Element details5 = documentManager.getDocNotation().createElement("details");
         details5.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
-        details5.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        details5.setAttribute("xmi:id", UtilResources.getRandomUUID());
         details5.setAttribute("key", "StereotypePropertyLocation");
         details5.setAttribute("value", "Compartment");
         eAnnotations.appendChild(details5);

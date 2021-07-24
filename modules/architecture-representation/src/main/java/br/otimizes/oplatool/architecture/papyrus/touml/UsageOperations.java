@@ -12,7 +12,7 @@ public class UsageOperations implements Relationship {
 
     private static final String USAGE = "usage";
 
-    private DocumentManager documentManager;
+    private final DocumentManager documentManager;
 
     private String clientElement;
     private String supplierElement;

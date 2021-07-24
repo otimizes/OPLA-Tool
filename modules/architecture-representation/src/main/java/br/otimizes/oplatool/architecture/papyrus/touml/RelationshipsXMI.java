@@ -18,7 +18,7 @@ public class RelationshipsXMI {
         String strStereotypes = stereotypesToString(stereotypes);
 
         eAnnotations.setAttribute("xmi:type", "ecore:EAnnotation");
-        eAnnotations.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        eAnnotations.setAttribute("xmi:id", UtilResources.getRandomUUID());
         eAnnotations.setAttribute("source", "Stereotype_Annotation");
 
         eAnnotations.appendChild(createDetailsTag(docNotation, "StereotypeWithQualifiedNameList", ""));
@@ -61,7 +61,7 @@ public class RelationshipsXMI {
     private static Element createChildren(Document docNotation, String type) {
         Element children = docNotation.createElement("children");
         children.setAttribute("xmi:type", "notation:DecorationNode");
-        children.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        children.setAttribute("xmi:id", UtilResources.getRandomUUID());
         children.setAttribute("type", type);
         return children;
     }
@@ -76,7 +76,7 @@ public class RelationshipsXMI {
         Node nodeXmi = docUml.getElementsByTagName("uml:Model").item(0);
 
         Element relationships = docUml.createElement("relationships:" + name);
-        relationships.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        relationships.setAttribute("xmi:id", UtilResources.getRandomUUID());
         relationships.setAttribute("base_Relationship", idElement);
         nodeXmi.getParentNode().appendChild(relationships);
     }
@@ -97,7 +97,7 @@ public class RelationshipsXMI {
         String type = "ecore:EStringToStringMapEntry";
         Element details = docNotation.createElement("details");
         details.setAttribute("xmi:type", type);
-        details.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        details.setAttribute("xmi:id", UtilResources.getRandomUUID());
         details.setAttribute("key", key);
         details.setAttribute("value", value);
 

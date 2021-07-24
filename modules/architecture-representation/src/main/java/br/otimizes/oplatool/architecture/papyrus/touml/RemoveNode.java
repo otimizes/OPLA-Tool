@@ -17,8 +17,8 @@ public class RemoveNode extends XmiHelper {
 
     static Logger LOGGER = LogManager.getLogger(RemoveNode.class.getName());
 
-    private Document docUml;
-    private Document docNotation;
+    private final Document docUml;
+    private final Document docNotation;
 
 
     public RemoveNode(Document docUml, Document docNotation) {

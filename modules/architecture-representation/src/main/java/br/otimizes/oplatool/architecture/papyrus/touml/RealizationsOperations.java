@@ -10,7 +10,7 @@ public class RealizationsOperations implements Relationship {
 
     private static final String REALIZATION = "realization";
 
-    private DocumentManager documentManager;
+    private final DocumentManager documentManager;
 
     private String clientElement;
     private String supplierElement;

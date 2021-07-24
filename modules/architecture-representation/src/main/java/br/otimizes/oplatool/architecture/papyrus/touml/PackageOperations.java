@@ -1,7 +1,7 @@
 package br.otimizes.oplatool.architecture.papyrus.touml;
 
 import br.otimizes.oplatool.architecture.exceptions.CustonTypeNotFound;
-import br.otimizes.oplatool.architecture.exceptions.InvalidMultiplictyForAssociationException;
+import br.otimizes.oplatool.architecture.exceptions.InvalidMultiplicityForAssociationException;
 import br.otimizes.oplatool.architecture.exceptions.NodeNotFound;
 import br.otimizes.oplatool.architecture.helpers.XmiHelper;
 import br.otimizes.oplatool.architecture.representation.Package;
@@ -19,11 +19,11 @@ import java.util.Map;
  */
 public class PackageOperations extends XmiHelper {
 
-    private DocumentManager documentManager;
-    private Node umlModelChild;
-    private Node notatioChildren;
+    private final DocumentManager documentManager;
+    private final Node umlModelChild;
+    private final Node notatioChildren;
     private Element pkg;
-    private ClassNotation notation;
+    private final ClassNotation notation;
     private String id;
     private String packageRecieve;
 
@@ -35,7 +35,7 @@ public class PackageOperations extends XmiHelper {
     }
 
 
-    public PackageOperations createPacakge(final Package pack) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+    public PackageOperations createPacakge(final Package pack) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplicityForAssociationException {
         setIdPackage(pack.getId());
         Document.executeTransformation(documentManager, new Transformation() {
 
@@ -69,16 +69,16 @@ public class PackageOperations extends XmiHelper {
      * @return
      * @throws CustonTypeNotFound
      * @throws NodeNotFound
-     * @throws InvalidMultiplictyForAssociationException
+     * @throws InvalidMultiplicityForAssociationException
      */
-    public PackageOperations withClass(final List<String> ids, Package pack) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+    public PackageOperations withClass(final List<String> ids, Package pack) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplicityForAssociationException {
         for (final String _id : ids)
             move(_id, pack.getId());
         return this;
     }
 
 
-    public PackageOperations withClass(final String idklass) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+    public PackageOperations withClass(final String idklass) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplicityForAssociationException {
         move(idklass, null);
         return this;
     }
@@ -102,8 +102,8 @@ public class PackageOperations extends XmiHelper {
                         final Node packageToAdd = findByID(documentManager.getDocUml(), id, "packagedElement");
 
                         //Agora buscamos no arquivo .notaiton
-                        Node classToMoveNotation = findByIDInNotationFile(documentManager.getDocNotation(), _id);
-                        Node packageToAddNotation = findByIDInNotationFile(documentManager.getDocNotation(), id);
+                        final Node classToMoveNotation = findByIDInNotationFile(documentManager.getDocNotation(), _id);
+                        final Node packageToAddNotation = findByIDInNotationFile(documentManager.getDocNotation(), id);
 
                         public void useTransformation() {
                             packageToAdd.appendChild(classToMove);

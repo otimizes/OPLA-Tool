@@ -26,7 +26,7 @@ public class VariabilityStereotype implements Stereotype {
         setMaxSelection(variabilityStereotype.getMaxSelection());
         setAllowAddingVar(variabilityStereotype.allowAddingVar());
         setBindingTime(variabilityStereotype.getBindingTime());
-        setVariants(Strings.spliterVariants(variabilityStereotype.getVariants()));
+        setVariants(Strings.splitVariants(variabilityStereotype.getVariants()));
         setidForPackageOwner(variabilityStereotype.getIdPackageOwner());
     }
 

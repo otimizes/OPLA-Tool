@@ -22,16 +22,16 @@ public class AssociationNode extends XmiHelper {
     static Logger LOGGER = LogManager.getLogger(AssociationNode.class.getName());
     private final String idAssocation;
     private final String newModelName;
-    private Document docUml;
-    private Document docNotation;
-    private ElementXmiGenerator elementXmiGenerator;
+    private final Document docUml;
+    private final Document docNotation;
+    private final ElementXmiGenerator elementXmiGenerator;
 
     public AssociationNode(DocumentManager doc, Architecture a) {
         this.newModelName = doc.getModelName();
         this.docUml = doc.getDocUml();
         this.docNotation = doc.getDocNotation();
 
-        this.idAssocation = UtilResources.getRandonUUID();
+        this.idAssocation = UtilResources.getRandomUUID();
         this.elementXmiGenerator = new ElementXmiGenerator(doc, a);
     }
 
@@ -53,8 +53,8 @@ public class AssociationNode extends XmiHelper {
         packageElement.setAttribute("name", nameAssociation);
 
 
-        String memberEnd1Id = UtilResources.getRandonUUID();
-        String memberEnd2Id = UtilResources.getRandonUUID();
+        String memberEnd1Id = UtilResources.getRandomUUID();
+        String memberEnd2Id = UtilResources.getRandomUUID();
         packageElement.setAttribute("memberEnd", memberEnd1Id + " " + memberEnd2Id);
 
         Element ownedEnd1 = this.docUml.createElement("ownedEnd");
@@ -98,7 +98,7 @@ public class AssociationNode extends XmiHelper {
 
         Element lowerValue = this.docUml.createElement("lowerValue");
         lowerValue.setAttribute("xmi:type", "uml:LiteralInteger");
-        lowerValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        lowerValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
         if (memberEnd1.getMultiplicity() == null)
             lowerValue.setAttribute("value", "1");
         else
@@ -107,7 +107,7 @@ public class AssociationNode extends XmiHelper {
 
         Element upperValue = this.docUml.createElement("upperValue");
         upperValue.setAttribute("xmi:type", "uml:LiteralUnlimitedNatural");
-        upperValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        upperValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
         if (memberEnd1.getMultiplicity() == null)
             upperValue.setAttribute("value", "1");
         else
@@ -116,7 +116,7 @@ public class AssociationNode extends XmiHelper {
 
         Element lowerValue2 = this.docUml.createElement("lowerValue");
         lowerValue2.setAttribute("xmi:type", "uml:LiteralInteger");
-        lowerValue2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        lowerValue2.setAttribute("xmi:id", UtilResources.getRandomUUID());
         if (memberEnd2.getMultiplicity() == null)
             lowerValue2.setAttribute("value", "1");
         else
@@ -125,7 +125,7 @@ public class AssociationNode extends XmiHelper {
 
         Element upperValue2 = this.docUml.createElement("upperValue");
         upperValue2.setAttribute("xmi:type", "uml:LiteralUnlimitedNatural");
-        upperValue2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        upperValue2.setAttribute("xmi:id", UtilResources.getRandomUUID());
         if (memberEnd2.getMultiplicity() == null)
             upperValue2.setAttribute("value", "1");
         else

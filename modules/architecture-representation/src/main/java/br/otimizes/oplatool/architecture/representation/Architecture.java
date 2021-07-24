@@ -5,7 +5,7 @@ import br.otimizes.oplatool.architecture.flyweights.VariantFlyweight;
 import br.otimizes.oplatool.architecture.flyweights.VariationPointFlyweight;
 import br.otimizes.oplatool.architecture.generate.GenerateArchitecture;
 import br.otimizes.oplatool.architecture.generate.GenerateArchitectureSMarty;
-import br.otimizes.oplatool.architecture.helpers.ASPHelper;
+import br.otimizes.oplatool.architecture.helpers.StatisticalMethodsHelper;
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
 import br.otimizes.oplatool.architecture.representation.architectureControl.ArchitectureFindElementControl;
 import br.otimizes.oplatool.architecture.representation.architectureControl.ArchitectureRemoveElementControl;
@@ -34,16 +34,16 @@ import java.util.stream.Collectors;
         "editableListInterfaces", "relationships", "implementedInterfaces", "createClass", "allModifiableInterfaces", "allModifiableClasses"})
 public class Architecture extends Variable {
 
-    private static Logger LOGGER = Logger.getLogger(Architecture.class);
+    private static final Logger LOGGER = Logger.getLogger(Architecture.class);
     private static final long serialVersionUID = -7764906574709840088L;
     public static String ARCHITECTURE_TYPE = "br.otimizes.oplatool.architecture.representation.Architecture";
     private Cloner cloner;
     private Set<Package> packages = new HashSet<Package>();
-    private Set<Class> classes = new HashSet<Class>();
-    private Set<Interface> interfaces = new HashSet<Interface>();
+    private final Set<Class> classes = new HashSet<Class>();
+    private final Set<Interface> interfaces = new HashSet<Interface>();
     private String name;
     private boolean appliedPatterns;
-    private RelationshipsHolder relationshipHolder = new RelationshipsHolder();
+    private final RelationshipsHolder relationshipHolder = new RelationshipsHolder();
     private ArrayList<Concern> concerns = new ArrayList<>();
     private ArrayList<TypeSmarty> types = new ArrayList<>();
     private boolean isSMarty = false;
@@ -53,9 +53,9 @@ public class Architecture extends Variable {
     private String projectVersion = "1.0";
     private String diagramID = "DIAGRAM#1";
     private String diagramName = "DIAGRAM#1";
-    private List<VariationPoint> variationPoints = new ArrayList<>();
-    private List<Variability> variabilities = new ArrayList<>();
-    private List<Variant> variants = new ArrayList<>();
+    private final List<VariationPoint> variationPoints = new ArrayList<>();
+    private final List<Variability> variabilities = new ArrayList<>();
+    private final List<Variant> variants = new ArrayList<>();
     private int linkOverloadViolation = 0;
     private int exceedLink = 0;
 
@@ -772,7 +772,7 @@ public class Architecture extends Variable {
     public boolean addImplementedInterface(Interface supplier, Class client) {
         if (!client.isTotalyFreezed()) {
             if (!haveRelationship(supplier, client)) {
-                if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))) {
+                if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandomUUID()))) {
                     LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada na classe: " + client.getName());
                     return true;
                 } else {
@@ -799,7 +799,7 @@ public class Architecture extends Variable {
     public boolean addImplementedInterface(Interface supplier, Package client) {
         if (!client.isTotalyFreezed()) {
             if (!haveRelationship(supplier, client)) {
-                if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))) {
+                if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandomUUID()))) {
                     LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada ao pacote: " + client.getName());
                     return true;
                 } else {
@@ -821,7 +821,7 @@ public class Architecture extends Variable {
 
     public void addRequiredInterface(Interface supplier, Class client) {
         if (!haveRelationship(supplier, client)) {
-            if (addRelationship(new DependencyRelationship(supplier, client, "", UtilResources.getRandonUUID())))
+            if (addRelationship(new DependencyRelationship(supplier, client, "", UtilResources.getRandomUUID())))
                 LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " + client.getName());
             else
                 LOGGER.info("TENTOU adicionar RequiredInterface: " + supplier.getName() + " a : " + client.getName() + " porém não consegiu");
@@ -830,7 +830,7 @@ public class Architecture extends Variable {
 
     public void addRequiredInterface(Interface supplier, Package client) {
         if (!haveRelationship(supplier, client)) {
-            if (addRelationship(new DependencyRelationship(supplier, client, "", UtilResources.getRandonUUID())))
+            if (addRelationship(new DependencyRelationship(supplier, client, "", UtilResources.getRandomUUID())))
                 LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " + client.getName());
             else
                 LOGGER.info("TENTOU adicionar RequiredInterface: " + supplier.getName() + " a : " + client.getName() + " porém não consegiu");
@@ -1252,7 +1252,7 @@ public class Architecture extends Variable {
         }
         mean = mean / list.size();
         System.out.println(("media:") + mean);
-        Double std = ASPHelper.getStandardDeviation(list);
+        Double std = StatisticalMethodsHelper.getStandardDeviation(list);
         System.out.println(("desvio padrão:" + std));
 
         Double THzb = mean + std;

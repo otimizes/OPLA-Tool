@@ -23,7 +23,7 @@ public class Attribute {
 
     public static Attribute create() {
         Attribute attr = new Attribute();
-        attr.setId(UtilResources.getRandonUUID());
+        attr.setId(UtilResources.getRandomUUID());
         return attr;
 
     }

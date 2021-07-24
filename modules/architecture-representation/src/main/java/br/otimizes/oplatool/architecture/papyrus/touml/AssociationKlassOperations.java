@@ -1,11 +1,11 @@
 package br.otimizes.oplatool.architecture.papyrus.touml;
 
+import br.otimizes.oplatool.architecture.generate.GenerateArchitecture;
 import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.representation.Attribute;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Method;
 import br.otimizes.oplatool.architecture.representation.relationship.AssociationClassRelationship;
-import br.otimizes.oplatool.architecture.representation.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,14 +17,14 @@ import java.util.Set;
  */
 public class AssociationKlassOperations {
 
-    private DocumentManager documentManager;
+    private final DocumentManager documentManager;
     private String ownedEnd;
     private String associationEnd2;
     private String id;
     private ElementXmiGenerator elementXmiGenerator;
     private Set<br.otimizes.oplatool.architecture.papyrus.touml.Attribute> attrs;
     private Set<br.otimizes.oplatool.architecture.papyrus.touml.Method> methods;
-    private Architecture architecture;
+    private final Architecture architecture;
     private Class associationClass;
 
     public AssociationKlassOperations(DocumentManager doc, Architecture a) {
@@ -43,27 +43,7 @@ public class AssociationKlassOperations {
             List<ParameterMethod> paramsMethod = method.getParameters();
             List<Argument> currentMethodParams = new ArrayList<Argument>();
 
-            for (ParameterMethod param : paramsMethod) {
-                currentMethodParams.add(Argument.create(param.getName(), Types.getByName(param.getType()), param.getDirection()));
-            }
-
-            if (method.isAbstract()) {
-                br.otimizes.oplatool.architecture.papyrus.touml.Method m = br.otimizes.oplatool.architecture.papyrus.touml.Method.create()
-                        .withId(method.getId())
-                        .withName(method.getName()).abstractMethod()
-                        .withArguments(currentMethodParams)
-                        .withConcerns(method.getOwnConcerns())
-                        .withReturn(Types.getByName(method.getReturnType())).build();
-                methods.add(m);
-            } else {
-                br.otimizes.oplatool.architecture.papyrus.touml.Method m = br.otimizes.oplatool.architecture.papyrus.touml.Method.create()
-                        .withId(method.getId())
-                        .withName(method.getName())
-                        .withArguments(currentMethodParams)
-                        .withConcerns(method.getOwnConcerns())
-                        .withReturn(Types.getByName(method.getReturnType())).build();
-                methods.add(m);
-            }
+            GenerateArchitecture.createAndAddNewMethodsWithParams(methods, method, paramsMethod, currentMethodParams);
 
         }
 

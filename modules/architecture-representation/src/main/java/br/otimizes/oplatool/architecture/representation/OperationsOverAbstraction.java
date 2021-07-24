@@ -12,7 +12,7 @@ public class OperationsOverAbstraction {
 
     static Logger LOGGER = LogManager.getLogger(OperationsOverAbstraction.class.getName());
 
-    private Architecture architecture;
+    private final Architecture architecture;
 
     public OperationsOverAbstraction(Architecture architecture) {
         this.architecture = architecture;
@@ -63,7 +63,7 @@ public class OperationsOverAbstraction {
     }
 
     public AbstractionRelationship create(Element newClient, Element newSupplier) {
-        String id = UtilResources.getRandonUUID();
+        String id = UtilResources.getRandomUUID();
         AbstractionRelationship abs = new AbstractionRelationship(newClient, newSupplier, id);
         architecture.addRelationship(abs);
         this.architecture.addRelationship(abs);

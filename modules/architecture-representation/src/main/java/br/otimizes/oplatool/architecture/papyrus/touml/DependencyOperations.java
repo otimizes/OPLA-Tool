@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class DependencyOperations implements Relationship {
 
-    private DocumentManager documentManager;
+    private final DocumentManager documentManager;
 
     private String clientElement;
     private String supplierElement;

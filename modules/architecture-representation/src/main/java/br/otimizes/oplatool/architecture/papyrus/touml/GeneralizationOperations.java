@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
 public class GeneralizationOperations extends XmiHelper implements Relationship {
 
 
-    private DocumentManager documentManager;
+    private final DocumentManager documentManager;
 
     private String general;
     private String client;

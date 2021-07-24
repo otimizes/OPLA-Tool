@@ -44,7 +44,7 @@ public class Interface extends Element {
 
     public Interface deepClone() throws CloneNotSupportedException {
         Cloner cloner = new Cloner();
-        Interface anInterface = (Interface) cloner.deepClone(this);
+        Interface anInterface = cloner.deepClone(this);
         cloner = null;
         return anInterface;
     }
@@ -68,12 +68,12 @@ public class Interface extends Element {
      * @param relationshipHolder
      */
     public Interface(RelationshipsHolder relationshipHolder, String name, Package packagee) {
-        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), packagee.getName()), UtilResources.getRandonUUID());
+        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), packagee.getName()), UtilResources.getRandomUUID());
         this.setPatternOperations(new PatternsOperations());
     }
 
     public Interface(RelationshipsHolder relationshipHolder, String name) {
-        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
+        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandomUUID());
         this.setPatternOperations(new PatternsOperations());
     }
 

@@ -10,7 +10,7 @@ public class AbstractionOperations implements Relationship {
 
     private static final String ABSTRACTION = "abstraction";
 
-    private DocumentManager documentManager;
+    private final DocumentManager documentManager;
 
     private String clientElement;
     private String supplierElement;

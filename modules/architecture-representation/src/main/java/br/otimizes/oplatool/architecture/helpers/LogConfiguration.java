@@ -18,11 +18,9 @@ import java.util.List;
 public class LogConfiguration {
 
     public static void setLogLevel(Level level) {
-
         @SuppressWarnings("unchecked")
         Enumeration<Logger> currentLoggers = LogManager.getCurrentLoggers();
-        ArrayList<Logger> list = Collections.list(currentLoggers);
-        List<Logger> loggers = list;
+        List<Logger> loggers = Collections.list(currentLoggers);
         loggers.add(LogManager.getRootLogger());
         for (Logger logger : loggers) {
             logger.setLevel(level);

@@ -1,7 +1,7 @@
 package br.otimizes.oplatool.architecture.papyrus.touml;
 
 import br.otimizes.oplatool.architecture.exceptions.CustonTypeNotFound;
-import br.otimizes.oplatool.architecture.exceptions.InvalidMultiplictyForAssociationException;
+import br.otimizes.oplatool.architecture.exceptions.InvalidMultiplicityForAssociationException;
 import br.otimizes.oplatool.architecture.exceptions.NodeNotFound;
 import br.otimizes.oplatool.architecture.representation.relationship.AssociationEnd;
 
@@ -12,7 +12,7 @@ import br.otimizes.oplatool.architecture.representation.relationship.Association
  */
 public class CompositionOperations {
 
-    private DocumentManager doc;
+    private final DocumentManager doc;
     private AssociationEnd client;
     private AssociationEnd target;
     private String name;
@@ -40,7 +40,7 @@ public class CompositionOperations {
         return this;
     }
 
-    public void build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+    public void build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplicityForAssociationException {
         final AssociationNode cn = new AssociationNode(doc, null);
 
         Document.executeTransformation(doc, new Transformation() {

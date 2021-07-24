@@ -31,20 +31,20 @@ public class VerifyMandatoryOptionalVariability {
     public void Verify(Architecture architecture) {
         for (Class clazz : architecture.getClasses()) {
             if (clazz.getVariant() != null) {
-                if (clazz.getVariant().getVariantType().toLowerCase().equals("mandatory")) {
+                if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
                     clazz.setMandatory(true);
                 }
-                if (clazz.getVariant().getVariantType().toLowerCase().equals("optional")) {
+                if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
                     clazz.setMandatory(false);
                 }
             }
         }
         for (Interface clazz : architecture.getInterfaces()) {
             if (clazz.getVariant() != null) {
-                if (clazz.getVariant().getVariantType().toLowerCase().equals("mandatory")) {
+                if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
                     clazz.setMandatory(true);
                 }
-                if (clazz.getVariant().getVariantType().toLowerCase().equals("optional")) {
+                if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
                     clazz.setMandatory(false);
                 }
             }
@@ -52,20 +52,20 @@ public class VerifyMandatoryOptionalVariability {
         for (Package pkg : architecture.getAllPackages()) {
             for (Class clazz : pkg.getAllClasses()) {
                 if (clazz.getVariant() != null) {
-                    if (clazz.getVariant().getVariantType().toLowerCase().equals("mandatory")) {
+                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
                         clazz.setMandatory(true);
                     }
-                    if (clazz.getVariant().getVariantType().toLowerCase().equals("optional")) {
+                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
                         clazz.setMandatory(false);
                     }
                 }
             }
             for (Interface clazz : pkg.getAllInterfaces()) {
                 if (clazz.getVariant() != null) {
-                    if (clazz.getVariant().getVariantType().toLowerCase().equals("mandatory")) {
+                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
                         clazz.setMandatory(true);
                     }
-                    if (clazz.getVariant().getVariantType().toLowerCase().equals("optional")) {
+                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
                         clazz.setMandatory(false);
                     }
                 }
@@ -79,20 +79,20 @@ public class VerifyMandatoryOptionalVariability {
     public void verifyMandatorySubPackage(Package pkg) {
         for (Class clazz : pkg.getAllClasses()) {
             if (clazz.getVariant() != null) {
-                if (clazz.getVariant().getVariantType().toLowerCase().equals("mandatory")) {
+                if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
                     clazz.setMandatory(true);
                 }
-                if (clazz.getVariant().getVariantType().toLowerCase().equals("optional")) {
+                if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
                     clazz.setMandatory(false);
                 }
             }
         }
         for (Interface clazz : pkg.getAllInterfaces()) {
             if (clazz.getVariant() != null) {
-                if (clazz.getVariant().getVariantType().toLowerCase().equals("mandatory")) {
+                if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
                     clazz.setMandatory(true);
                 }
-                if (clazz.getVariant().getVariantType().toLowerCase().equals("optional")) {
+                if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
                     clazz.setMandatory(false);
                 }
             }

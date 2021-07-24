@@ -19,9 +19,9 @@ import java.util.Set;
 public class AssociationClassRelationship extends Relationship {
 
     public List<MemberEnd> memebersEnd = new ArrayList<MemberEnd>();
-    private Element ownedEnd;
-    private Class associationClass;
-    private String idOwner;
+    private final Element ownedEnd;
+    private final Class associationClass;
+    private final String idOwner;
 
     public AssociationClassRelationship(String name, List<MemberEnd> ends, Element ownedEnd, String id, String idOwner, Class associationClass) {
         super.setName(name);

@@ -33,7 +33,7 @@ public class GeneralizationRelationship extends Relationship {
         setParent(parentClass);
         setChild(childClass);
         this.relationshipHolder = relationshipHolder;
-        setId(UtilResources.getRandonUUID());
+        setId(UtilResources.getRandomUUID());
         super.setType(ElementsTypes.GENERALIZATION);
     }
 

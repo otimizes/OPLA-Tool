@@ -29,13 +29,13 @@ public class ElementXmiGenerator extends XmiHelper {
     private static final String PROPERTY_TYPE = "uml:Property";
     static Logger LOGGER = LogManager.getLogger(ElementXmiGenerator.class.getName());
     private Element element;
-    private DocumentManager documentManager;
-    private Node notatioChildren;
-    private Node umlModelChild;
+    private final DocumentManager documentManager;
+    private final Node notatioChildren;
+    private final Node umlModelChild;
     private Element notationBasicOperation;
-    private Architecture a;
+    private final Architecture a;
     private Node klass;
-    private ClassNotation notation;
+    private final ClassNotation notation;
 
     /**
      * documentUml é o arquivo .uml
@@ -100,7 +100,7 @@ public class ElementXmiGenerator extends XmiHelper {
                     String id = findIdByName(arg.getType().getName(), a.getElements());
                     if ("".equals(id)) LOGGER.warn("Type " + arg.getType().getName() + " not found");
                     Element ownedParameter = documentManager.getDocUml().createElement("ownedParameter");
-                    ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
+                    ownedParameter.setAttribute("xmi:id", UtilResources.getRandomUUID());
                     ownedParameter.setAttribute("name", arg.getName());
                     ownedParameter.setAttribute("isUnique", "false");
                     ownedParameter.setAttribute("type", id);
@@ -108,7 +108,7 @@ public class ElementXmiGenerator extends XmiHelper {
                 } else {
 
                     Element ownedParameter = documentManager.getDocUml().createElement("ownedParameter");
-                    ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
+                    ownedParameter.setAttribute("xmi:id", UtilResources.getRandomUUID());
                     ownedParameter.setAttribute("name", arg.getName());
                     ownedParameter.setAttribute("isUnique", "false");
 
@@ -122,7 +122,7 @@ public class ElementXmiGenerator extends XmiHelper {
         }
 
         Element ownedParameterReturnType = documentManager.getDocUml().createElement("ownedParameter");
-        ownedParameterReturnType.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        ownedParameterReturnType.setAttribute("xmi:id", UtilResources.getRandomUUID());
         ownedParameterReturnType.setAttribute("name", "");
         ownedParameterReturnType.setAttribute("direction", "return");
 
@@ -185,19 +185,19 @@ public class ElementXmiGenerator extends XmiHelper {
 
         Element lowerValue = documentManager.getDocUml().createElement("lowerValue");
         lowerValue.setAttribute("xmi:type", "uml:LiteralInteger");
-        lowerValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        lowerValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
         lowerValue.setAttribute("value", "1");
         ownedAttribute.appendChild(lowerValue);
 
         Element upperValue = documentManager.getDocUml().createElement("upperValue");
         upperValue.setAttribute("xmi:type", "uml:LiteralUnlimitedNatural");
-        upperValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        upperValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
         upperValue.setAttribute("value", "1");
         ownedAttribute.appendChild(upperValue);
 
         Element defaultValue = documentManager.getDocUml().createElement("defaultValue");
         defaultValue.setAttribute("xmi:type", "uml:LiteralString");
-        defaultValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        defaultValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
         ownedAttribute.appendChild(defaultValue);
 
         Element value = documentManager.getDocUml().createElement("value");
@@ -234,7 +234,7 @@ public class ElementXmiGenerator extends XmiHelper {
 
         Element edges = docNotation.createElement("edges");
         edges.setAttribute("xmi:type", "notation:Connector");
-        String id = UtilResources.getRandonUUID();
+        String id = UtilResources.getRandomUUID();
         edges.setAttribute("xmi:id", id);
         edges.setAttribute("type", "4001");
         edges.setAttribute("source", idSource);
@@ -245,13 +245,13 @@ public class ElementXmiGenerator extends XmiHelper {
         //Aparecer nome no relacionamento
         Element childrenDecorationNode = docNotation.createElement("children");
         childrenDecorationNode.setAttribute("xmi:type", "notation:DecorationNode");
-        childrenDecorationNode.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        childrenDecorationNode.setAttribute("xmi:id", UtilResources.getRandomUUID());
         childrenDecorationNode.setAttribute("type", "6033");
         edges.appendChild(childrenDecorationNode);
 
         Element childrenDecorationNodeName = docNotation.createElement("children");
         childrenDecorationNodeName.setAttribute("xmi:type", "notation:DecorationNode");
-        childrenDecorationNodeName.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        childrenDecorationNodeName.setAttribute("xmi:id", UtilResources.getRandomUUID());
         childrenDecorationNodeName.setAttribute("type", "6002");
         edges.appendChild(childrenDecorationNodeName);
 
@@ -259,26 +259,26 @@ public class ElementXmiGenerator extends XmiHelper {
 
         Element layoutConstraintName = docNotation.createElement("layoutConstraint");
         layoutConstraintName.setAttribute("xmi:type", "notation:Location");
-        layoutConstraintName.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        layoutConstraintName.setAttribute("xmi:id", UtilResources.getRandomUUID());
         layoutConstraintName.setAttribute("y", "20");
         childrenDecorationNodeName.appendChild(layoutConstraintName);
 
         Element layoutConstraint = docNotation.createElement("layoutConstraint");
         layoutConstraint.setAttribute("xmi:type", "notation:Location");
-        layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        layoutConstraint.setAttribute("xmi:id", UtilResources.getRandomUUID());
         layoutConstraint.setAttribute("y", "20");
         childrenDecorationNode.appendChild(layoutConstraint);
 
 
         Element childrenDecorationNode2 = docNotation.createElement("children");
         childrenDecorationNode2.setAttribute("xmi:type", "notation:DecorationNode");
-        childrenDecorationNode2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        childrenDecorationNode2.setAttribute("xmi:id", UtilResources.getRandomUUID());
         childrenDecorationNode2.setAttribute("type", "6034");
         edges.appendChild(childrenDecorationNode2);
 
         Element layoutConstraint2 = docNotation.createElement("layoutConstraint");
         layoutConstraint2.setAttribute("xmi:type", "notation:Location");
-        layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandomUUID());
         layoutConstraint2.setAttribute("y", "-20");
         childrenDecorationNode2.appendChild(layoutConstraint2);
 
@@ -291,20 +291,20 @@ public class ElementXmiGenerator extends XmiHelper {
 
         Element styles = docNotation.createElement("styles");
         styles.setAttribute("xmi:type", "notation:FontStyle");
-        styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        styles.setAttribute("xmi:id", UtilResources.getRandomUUID());
         styles.setAttribute("fontName", "Lucida Grande");
         styles.setAttribute("fontHeight", "11");
         edges.appendChild(styles);
 
         Element bendpoints = docNotation.createElement("bendpoints");
         bendpoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
-        bendpoints.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        bendpoints.setAttribute("xmi:id", UtilResources.getRandomUUID());
         bendpoints.setAttribute("points", "[0, 0, -200, -20]$[255, -30, -6, -50]");
         edges.appendChild(bendpoints);
 
         Element sourceAnchor = docNotation.createElement("sourceAnchor");
         sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
-        sourceAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        sourceAnchor.setAttribute("xmi:id", UtilResources.getRandomUUID());
         sourceAnchor.setAttribute("id", "(1.0,0.36)");
         edges.appendChild(sourceAnchor);
 
@@ -321,19 +321,19 @@ public class ElementXmiGenerator extends XmiHelper {
     private void addStereotypeToUmlFile(Variant variant, String idClass) {
         Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
         Element stereotype = this.documentManager.getDocUml().createElement("smarty:" + variant.getVariantType());
-        stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        stereotype.setAttribute("xmi:id", UtilResources.getRandomUUID());
         stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
 
 
         stereotype.setAttribute("rootVP", variant.getRootVP());
-        stereotype.setAttribute("variabilities", Strings.spliterVariabilities(variant.getVariabilities()));
+        stereotype.setAttribute("variabilities", Strings.splitVariabilities(variant.getVariabilities()));
         nodeXmi.getParentNode().appendChild(stereotype);
     }
 
     public void createStereotypeVariationPoint(String idClass, String variants, String variabilities, String dESIGN_TIME) {
         Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
         Element stereotype = this.documentManager.getDocUml().createElement("smarty:variationPoint");
-        stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        stereotype.setAttribute("xmi:id", UtilResources.getRandomUUID());
         stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
         stereotype.setAttribute("variants", variants);
         stereotype.setAttribute("variabilities", variabilities);
@@ -347,7 +347,7 @@ public class ElementXmiGenerator extends XmiHelper {
     public void createStereotypeVariability(String idNote, VariabilityStereotype a) {
         Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
         Element stereotype = this.documentManager.getDocUml().createElement("smarty:" + a.getStereotypeName());
-        stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        stereotype.setAttribute("xmi:id", UtilResources.getRandomUUID());
 
         String type = findTypeById(idNote, documentManager.getDocUml());
 
@@ -372,7 +372,7 @@ public class ElementXmiGenerator extends XmiHelper {
     private void createConcern(String name, String idClass, String type) {
         Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
         Element stereotype = this.documentManager.getDocUml().createElement(type + ":" + name);
-        stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        stereotype.setAttribute("xmi:id", UtilResources.getRandomUUID());
         stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
         nodeXmi.getParentNode().appendChild(stereotype);
         notation.createXmiForStereotype(name, idClass, type);
@@ -381,7 +381,7 @@ public class ElementXmiGenerator extends XmiHelper {
     public void interfaceStereoptye(String idClass) {
         Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
         Element stereotype = this.documentManager.getDocUml().createElement("smarty:interface");
-        stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        stereotype.setAttribute("xmi:id", UtilResources.getRandomUUID());
         stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
         nodeXmi.getParentNode().appendChild(stereotype);
 
@@ -408,7 +408,7 @@ public class ElementXmiGenerator extends XmiHelper {
 
         Element edges = this.documentManager.getDocNotation().createElement("edges");
         edges.setAttribute("xmi:type", "notation:Connector");
-        String id = UtilResources.getRandonUUID();
+        String id = UtilResources.getRandomUUID();
         edges.setAttribute("xmi:id", id);
         edges.setAttribute("type", "4016");
         edges.setAttribute("source", idEdge);

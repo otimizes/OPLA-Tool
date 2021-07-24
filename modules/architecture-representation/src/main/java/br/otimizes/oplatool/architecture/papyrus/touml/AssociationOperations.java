@@ -10,7 +10,7 @@ import br.otimizes.oplatool.architecture.representation.relationship.Association
  */
 public class AssociationOperations {
 
-    private DocumentManager documentManager;
+    private final DocumentManager documentManager;
 
     private AssociationEnd idClassOwnnerAssociation;
     private AssociationEnd idClassDestinationAssociation;

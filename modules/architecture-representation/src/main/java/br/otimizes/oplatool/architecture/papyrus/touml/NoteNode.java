@@ -16,11 +16,11 @@ import org.w3c.dom.NodeList;
  */
 public class NoteNode extends XmiHelper {
 
-    private Document docUml;
-    private Document docNotation;
+    private final Document docUml;
+    private final Document docNotation;
     private Node modelRootUml;
     private Node modelRootNotation;
-    private String newModelName;
+    private final String newModelName;
     private String id;
 
     public NoteNode(DocumentManager documentManager) {
@@ -46,7 +46,7 @@ public class NoteNode extends XmiHelper {
         Element childrenComment = docNotation.createElement("children");
 
         childrenComment.setAttribute("xmi:type", "notation:Shape");
-        childrenComment.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        childrenComment.setAttribute("xmi:id", UtilResources.getRandomUUID());
         childrenComment.setAttribute("type", "2012");
         childrenComment.setAttribute("fontName", "Lucida Grande");
         childrenComment.setAttribute("fontHeight", "11");
@@ -55,7 +55,7 @@ public class NoteNode extends XmiHelper {
         //<children xmi:type="notation:DecorationNode" xmi:id="_77c8RsFKEeKazYM6BmtXSg" type="5038"/>
         Element childrenDecoration = docNotation.createElement("children");
         childrenDecoration.setAttribute("xmi:type", "notation:DecorationNode");
-        childrenDecoration.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        childrenDecoration.setAttribute("xmi:id", UtilResources.getRandomUUID());
         childrenDecoration.setAttribute("type", "5038");
         childrenComment.appendChild(childrenDecoration);
 
@@ -67,7 +67,7 @@ public class NoteNode extends XmiHelper {
         //<layoutConstraint xmi:type="notation:Bounds" xmi:id="_77cVMcFKEeKazYM6BmtXSg" x="434" y="63"/>
         Element layoutConstraint = docNotation.createElement("layoutConstraint");
         layoutConstraint.setAttribute("xmi:type", "notation:Bounds");
-        layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        layoutConstraint.setAttribute("xmi:id", UtilResources.getRandomUUID());
         Node elementByAttr = getElementByAttr(new String[]{"xmi:type", "additionalInfo"}, new String[]{"notation:Bounds", variationPointForVariability.getVariationPointElement().getNamespace() + ":" + variationPointForVariability.getVariationPointElement().getName()});
         assert elementByAttr != null;
         int x = Integer.parseInt(elementByAttr.getAttributes().getNamedItem("x").getNodeValue()) + 100;

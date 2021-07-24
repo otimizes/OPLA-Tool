@@ -22,7 +22,7 @@ public enum ConcernHolder {
      * <p>
      * Ex: Ao adicionar um  concern em uma classe, o mesmo deve estar presente nesta lista.
      */
-    private List<Concern> allowedConcerns = new ArrayList<Concern>();
+    private final List<Concern> allowedConcerns = new ArrayList<Concern>();
 
     /**
      * Procura concern por nome.

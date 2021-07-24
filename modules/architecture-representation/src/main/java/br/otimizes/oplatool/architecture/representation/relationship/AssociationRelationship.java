@@ -22,7 +22,7 @@ public class AssociationRelationship extends Relationship {
     }
 
     public AssociationRelationship(Element class1, Element class2) {
-        setId(UtilResources.getRandonUUID());
+        setId(UtilResources.getRandomUUID());
         Multiplicity mul1 = new Multiplicity("1", "1");
         Multiplicity mul2 = new Multiplicity("1", "1");
         getParticipants().add(new AssociationEnd(class1, false, "association", mul1, ""));

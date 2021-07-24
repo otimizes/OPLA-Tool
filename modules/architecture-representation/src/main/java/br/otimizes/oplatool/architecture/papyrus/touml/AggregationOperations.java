@@ -12,7 +12,7 @@ import br.otimizes.oplatool.architecture.representation.relationship.Association
 public class AggregationOperations {
 
     private static final String SHARED = "shared";
-    private DocumentManager doc;
+    private final DocumentManager doc;
     private AssociationEnd client;
     private AssociationEnd target;
     private String name;

@@ -14,7 +14,7 @@ public class StereotypeOperations {
 
     private static final String PATTERNS = "br.otimizes.oplatool.patterns";
     private static final String CONCERNS = "concerns";
-    private ElementXmiGenerator elementXmiGenerator;
+    private final ElementXmiGenerator elementXmiGenerator;
 
     public StereotypeOperations(DocumentManager documentManager) {
         this.elementXmiGenerator = new ElementXmiGenerator(documentManager, null);

@@ -21,13 +21,13 @@ import java.io.IOException;
 public class SmartyProfile {
 
 
-    private static ThreadLocal<Uml2Helper> helperThread = ThreadLocal.withInitial(() -> {
+    private static final ThreadLocal<Uml2Helper> helperThread = ThreadLocal.withInitial(() -> {
         return Uml2HelperFactory.instance.get();
     });
 
-    private Profile profile;
+    private final Profile profile;
     private Enumeration bindingTime;
-    private Uml2Helper helper;
+    private final Uml2Helper helper;
 
     public SmartyProfile(String profileName) throws ModelNotFoundException {
         this.helper = SmartyProfile.helperThread.get();

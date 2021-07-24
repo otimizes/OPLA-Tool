@@ -13,8 +13,8 @@ import org.w3c.dom.Node;
  */
 public class NoteOperations extends XmiHelper {
 
-    private DocumentManager documentManager;
-    private ElementXmiGenerator elementXmiGenerator;
+    private final DocumentManager documentManager;
+    private final ElementXmiGenerator elementXmiGenerator;
     private String id;
 
     public NoteOperations(DocumentManager documentManager, Architecture a) {
@@ -25,7 +25,7 @@ public class NoteOperations extends XmiHelper {
 
     public NoteOperations createNote(VariationPoint variationPointForVariability) {
         final NoteNode noteNode = new NoteNode(documentManager);
-        this.id = UtilResources.getRandonUUID();
+        this.id = UtilResources.getRandomUUID();
         Document.executeTransformation(documentManager, new Transformation() {
             public void useTransformation() {
                 noteNode.createNote(id, variationPointForVariability);

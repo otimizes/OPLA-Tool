@@ -38,7 +38,7 @@ public class DependencyRelationship extends Relationship {
         setSupplier(supplier);
         setClient(client);
         setName(name);
-        setId(UtilResources.getRandonUUID());
+        setId(UtilResources.getRandomUUID());
         super.setType(ElementsTypes.DEPENDENCY);
 
         setRequiredInterfaces(supplier, client);

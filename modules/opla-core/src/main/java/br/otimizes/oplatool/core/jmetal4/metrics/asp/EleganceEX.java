@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.core.jmetal4.metrics.asp;
 
-import br.otimizes.oplatool.architecture.helpers.ASPHelper;
+import br.otimizes.oplatool.architecture.helpers.StatisticalMethodsHelper;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Interface;
@@ -33,7 +33,7 @@ public class EleganceEX extends ObjectiveFunctionImplementation {
 
         }
         // calculo do desvio padrao
-        Double thzEX = ASPHelper.getStandardDeviation(externalcouples);
+        Double thzEX = StatisticalMethodsHelper.getStandardDeviation(externalcouples);
         System.out.println(("THZ de ExternalCouples" + thzEX));
 
         this.setResults(thzEX);

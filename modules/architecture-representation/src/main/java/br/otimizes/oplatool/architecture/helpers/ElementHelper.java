@@ -16,7 +16,7 @@ import java.util.*;
  */
 public abstract class ElementHelper {
 
-    private static Map<String, EClass> types = new HashMap<String, EClass>();
+    private static final Map<String, EClass> types = new HashMap<String, EClass>();
 
     static {
         types.put("class", UMLPackage.Literals.CLASS);
@@ -35,11 +35,11 @@ public abstract class ElementHelper {
     }
 
     /**
-     * Retorna todos os elementos do tipo dado.
+     * Returns all elements of the given type.
      *
      * @param model element
-     * @param type  type
-     * @param <T>   type of element
+     * @param type type
+     * @param <T> type of element
      * @return list of element
      */
     @SuppressWarnings("unchecked")

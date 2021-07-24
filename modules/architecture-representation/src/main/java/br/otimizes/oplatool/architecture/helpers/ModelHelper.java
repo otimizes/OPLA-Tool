@@ -24,62 +24,31 @@ import java.util.List;
 import static br.otimizes.oplatool.architecture.helpers.ElementsTypes.*;
 
 /**
- * Helper to execute a model (br.otimizes.oplatool.architecture)
+ * Helper to execute a model
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class ModelHelper extends ElementHelper {
 
-    private ThreadLocal<Uml2Helper> uml2Helper = ThreadLocal.withInitial(() -> Uml2HelperFactory.instance.get());
+    private final ThreadLocal<Uml2Helper> uml2Helper = ThreadLocal.withInitial(() -> Uml2HelperFactory.instance.get());
 
-
-    /**
-     * Recupera Classes de um pacote.
-     *
-     * @param model
-     * @return
-     */
-    public List<org.eclipse.uml2.uml.Class> getClasses(NamedElement model) {
-        return getAllElementsByType(model, CLASS);
+    public List<org.eclipse.uml2.uml.Class> getClasses(NamedElement element) {
+        return getAllElementsByType(element, CLASS);
     }
 
-    /**
-     * Retorna todas as classes de um modelo e seus pacotes
-     *
-     * @param model
-     * @return {@link List}
-     */
-    public List<org.eclipse.uml2.uml.Class> getAllClasses(NamedElement model) {
-        List<org.eclipse.uml2.uml.Class> classes = new ArrayList<org.eclipse.uml2.uml.Class>();
-        List<Package> pacotes = getAllPackages(model);
-
-        classes.addAll(getClasses(model));
-
-        for (int i = 0; i < pacotes.size(); i++)
-            classes.addAll(getAllClassesOfPackage(pacotes.get(i)));
-
+    public List<org.eclipse.uml2.uml.Class> getAllClasses(NamedElement element) {
+        List<Package> packages = getAllPackages(element);
+        List<Class> classes = new ArrayList<>(getClasses(element));
+        for (Package aPackage : packages) classes.addAll(getAllClassesOfPackage(aPackage));
         if (classes.isEmpty()) return Collections.emptyList();
-
         return classes;
     }
 
-    /**
-     * Retorna todas as classes de um modelo e seus pacotes
-     *
-     * @param model
-     * @return {@link List}
-     */
-    public List<br.otimizes.oplatool.architecture.representation.Element> getAllConnectors(NamedElement model) {
-        return getAllElementsByType(model, CONNECTOR);
-    }
-
-
     public List<Property> getAllAttributesForAClass(NamedElement aClass) {
-        List<Property> allPropertys = new ArrayList<Property>();
-        allPropertys = getAllElementsByType(aClass, ElementsTypes.PROPERTY);
+        List<Property> allProperties = getAllElementsByType(aClass, ElementsTypes.PROPERTY);
 
-        if (allPropertys.isEmpty()) return Collections.emptyList();
-        return allPropertys;
+        if (allProperties.isEmpty()) return Collections.emptyList();
+        return allProperties;
     }
 
     public List<org.eclipse.uml2.uml.Class> getAllInterfaces(NamedElement model) {
@@ -96,54 +65,43 @@ public class ModelHelper extends ElementHelper {
 
         List<Association> r = new ArrayList<Association>();
 
-        List<Package> paks = getAllPackages(model);
-        for (Package pack : paks) {
+        List<Package> packages = getAllPackages(model);
+        for (Package pack : packages) {
             EList<org.eclipse.uml2.uml.Element> a = pack.getOwnedElements();
             for (org.eclipse.uml2.uml.Element element : a)
                 if (element instanceof Association)
                     r.add(((Association) element));
         }
-        for (Association d : associations) r.add(d);
-
+        r.addAll(associations);
         return r;
-
     }
 
     public List<AssociationClass> getAllAssociationsClass(NamedElement model) {
-        List<AssociationClass> relations = new ArrayList<AssociationClass>();
-        relations = getAllElementsByType(model, ASSOCIATIONCLASS);
-
-        List<AssociationClass> r = new ArrayList<AssociationClass>();
-
-        List<Package> paks = getAllPackages(model);
-        for (Package pack : paks) {
+        List<AssociationClass> relations = getAllElementsByType(model, ASSOCIATIONCLASS);
+        List<AssociationClass> r = new ArrayList<>();
+        List<Package> packages = getAllPackages(model);
+        for (Package pack : packages) {
             EList<org.eclipse.uml2.uml.Element> a = pack.getOwnedElements();
             for (org.eclipse.uml2.uml.Element element : a)
                 if (element instanceof AssociationClass)
                     r.add(((AssociationClass) element));
         }
-        for (AssociationClass d : relations) r.add(d);
-
+        r.addAll(relations);
         return r;
-
     }
 
 
     private List<Dependency> getDependencies(NamedElement model) {
-
-        List<Dependency> relationsDependencies = new ArrayList<Dependency>();
-        relationsDependencies = getAllElementsByType(model, DEPENDENCY);
-        List<Dependency> r = new ArrayList<Dependency>();
-
-        List<Package> paks = getAllPackages(model);
-        for (Package pack : paks) {
+        List<Dependency> relationsDependencies = getAllElementsByType(model, DEPENDENCY);
+        List<Dependency> r = new ArrayList<>();
+        List<Package> packages = getAllPackages(model);
+        for (Package pack : packages) {
             EList<org.eclipse.uml2.uml.Element> a = pack.getOwnedElements();
             for (org.eclipse.uml2.uml.Element element : a)
                 if (element instanceof Dependency)
                     r.add(((Dependency) element));
         }
-        for (Dependency d : relationsDependencies) r.add(d);
-
+        r.addAll(relationsDependencies);
         return r;
     }
 
@@ -164,16 +122,16 @@ public class ModelHelper extends ElementHelper {
     }
 
     public List<Package> getAllPackages(NamedElement model) {
-        List<Package> pks = new ArrayList<Package>();
-        searchPeackages(model, pks);
+        List<Package> pks = new ArrayList<>();
+        searchPackages(model, pks);
         return pks;
     }
 
-    private void searchPeackages(NamedElement model, List<Package> pks) {
+    private void searchPackages(NamedElement model, List<Package> pks) {
         for (Element package1 : model.getOwnedElements()) {
             if ((package1 instanceof PackageImpl) && !(package1 instanceof ModelImpl)) {
                 pks.add((Package) package1);
-                searchPeackages((Package) package1, pks);
+                searchPackages((Package) package1, pks);
             }
         }
     }
@@ -183,7 +141,7 @@ public class ModelHelper extends ElementHelper {
     }
 
     public List<Realization> getAllRealizations(Package model) {
-        List<Realization> realizations = new ArrayList<Realization>();
+        List<Realization> realizations = new ArrayList<>();
         List<Dependency> dependencies = getDependencies(model);
 
         for (Dependency dependency : dependencies)
@@ -197,39 +155,26 @@ public class ModelHelper extends ElementHelper {
     }
 
     public List<EList<Generalization>> getAllGeneralizations(NamedElement model) {
-
         List<org.eclipse.uml2.uml.Class> allClasses = getAllClasses(model);
-        List<EList<Generalization>> lista = new ArrayList<EList<Generalization>>();
+        List<EList<Generalization>> list = new ArrayList<>();
 
-        for (NamedElement classImpl : allClasses) {
-            if (!((Classifier) classImpl).getGeneralizations().isEmpty()) {
-                EList<Generalization> g = ((Classifier) classImpl).getGeneralizations();
-                lista.add(g);
+        for (Classifier classImpl : allClasses) {
+            if (!classImpl.getGeneralizations().isEmpty()) {
+                EList<Generalization> g = classImpl.getGeneralizations();
+                list.add(g);
             }
         }
-
-        return lista;
+        return list;
     }
 
     public String getName(String xmiFile) throws ModelNotFoundException {
-        //System.out.println("getName");
         if (modelExists(xmiFile))
             return new File(xmiFile).getName().split("\\.")[0];
 
         throw new ModelNotFoundException("Model " + xmiFile + " not found");
     }
 
-    /**
-     * Retorno o modelo dado um path. Lança uma exceção caso  o mesmo não exista.
-     *
-     * @param xmiFile
-     * @return
-     * @throws ModelNotFoundException
-     * @throws ModelIncompleteException
-     * @throws SMartyProfileNotAppliedToModelException
-     */
     public Package getModel(String xmiFile) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException {
-        //System.out.println(xmiFile);
         if (modelExists(xmiFile))
             return uml2Helper.get().load(URI.createURI(xmiFile).toString());
 
@@ -245,40 +190,22 @@ public class ModelHelper extends ElementHelper {
         return getAllElementsByType(model, OPERATION);
     }
 
-    /**
-     * Retorna todas as variabilidades de um modelo.
-     * <p>
-     * Essas variabilidades estão em elementos do tipo {@link Comment}
-     *
-     * @param model
-     * @return List<{ @ link Comment }>
-     */
     public List<Comment> getAllVariabilities(Package model) {
-        List<Comment> variabilities = new ArrayList<Comment>();
-        List<org.eclipse.uml2.uml.Class> classes = new ArrayList<org.eclipse.uml2.uml.Class>();
+        List<Comment> variabilities = new ArrayList<>();
+        List<org.eclipse.uml2.uml.Class> classes = getAllClasses(model);
 
-        classes = getAllClasses(model);
-
-        for (int i = 0; i < classes.size(); i++)
-            if (StereotypeHelper.isVariability(classes.get(i)))
-                variabilities.addAll(StereotypeHelper.getCommentVariability(classes.get(i)));
+        for (Class aClass : classes)
+            if (StereotypeHelper.isVariability(aClass))
+                variabilities.addAll(StereotypeHelper.getCommentVariability(aClass));
 
         if (!variabilities.isEmpty()) return variabilities;
         return Collections.emptyList();
     }
 
-    private List<org.eclipse.uml2.uml.Class> getAllClassesOfPackage(Package pacote) {
-        List<org.eclipse.uml2.uml.Class> classes = new ArrayList<org.eclipse.uml2.uml.Class>();
-        classes.addAll(getClasses(pacote));
-        return classes;
+    private List<org.eclipse.uml2.uml.Class> getAllClassesOfPackage(Package pkg) {
+        return new ArrayList<>(getClasses(pkg));
     }
 
-    /**
-     * Retorna o XMIID de um elemento
-     *
-     * @param eObject
-     * @return {@link String}
-     */
     public String getXmiId(EObject eObject) {
         Resource xmiResource = eObject.eResource();
         if (xmiResource == null) return null;

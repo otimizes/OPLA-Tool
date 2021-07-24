@@ -15,11 +15,11 @@ import org.w3c.dom.Node;
  */
 public class GeneralizationNode extends XmiHelper {
 
-    private DocumentManager documentManager;
-    private Document docUml;
-    private Document docNotation;
-    private String clientElement;
-    private String general;
+    private final DocumentManager documentManager;
+    private final Document docUml;
+    private final Document docNotation;
+    private final String clientElement;
+    private final String general;
     private String id;
 
     public GeneralizationNode(DocumentManager documentManager, String general, String client) {
@@ -41,7 +41,7 @@ public class GeneralizationNode extends XmiHelper {
         Node node = this.docNotation.getElementsByTagName("notation:Diagram").item(0);
         Element edges = this.docNotation.createElement("edges");
         edges.setAttribute("xmi:type", "notation:Connector");
-        edges.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        edges.setAttribute("xmi:id", UtilResources.getRandomUUID());
         edges.setAttribute("type", "4002");
         edges.setAttribute("source", idSource);
         edges.setAttribute("target", idTarget);
@@ -55,26 +55,26 @@ public class GeneralizationNode extends XmiHelper {
 
         Element childrenDocorationnode1 = this.docNotation.createElement("children");
         childrenDocorationnode1.setAttribute("xmi:type", "notation:DecorationNode");
-        childrenDocorationnode1.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        childrenDocorationnode1.setAttribute("xmi:id", UtilResources.getRandomUUID());
         childrenDocorationnode1.setAttribute("type", "6007");
         edges.appendChild(childrenDocorationnode1);
 
 
         Element bendpoints = docNotation.createElement("bendpoints");
         bendpoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
-        bendpoints.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        bendpoints.setAttribute("xmi:id", UtilResources.getRandomUUID());
         bendpoints.setAttribute("points", "[0, 0, 476, 181]$[-467, -170, 9, 11]");
         edges.appendChild(bendpoints);
 
         Element sourceAnchor = docNotation.createElement("sourceAnchor");
         sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
-        sourceAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        sourceAnchor.setAttribute("xmi:id", UtilResources.getRandomUUID());
         sourceAnchor.setAttribute("id", "(0.42,0.0)");
         edges.appendChild(sourceAnchor);
 
         Element targetAnchor = docNotation.createElement("targetAnchor");
         targetAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
-        targetAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        targetAnchor.setAttribute("xmi:id", UtilResources.getRandomUUID());
         targetAnchor.setAttribute("id", "(0.82,0.89)");
         edges.appendChild(targetAnchor);
 
@@ -82,7 +82,7 @@ public class GeneralizationNode extends XmiHelper {
     }
 
     private void createNodeInUmlFile() {
-        this.id = UtilResources.getRandonUUID();
+        this.id = UtilResources.getRandomUUID();
         Element classClient = (Element) findByID(this.docUml, this.clientElement, "packagedElement");
         Element generalization = this.docUml.createElement("generalization");
         generalization.setAttribute("xmi:id", id);

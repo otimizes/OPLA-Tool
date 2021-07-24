@@ -12,12 +12,12 @@ import org.w3c.dom.Node;
  * Association class node
  */
 public class AssociationClassNode extends XmiHelper {
-    private String newModelName;
-    private Document docUml;
-    private Document docNotation;
-    private ElementXmiGenerator elementXmiGenerator;
+    private final String newModelName;
+    private final Document docUml;
+    private final Document docNotation;
+    private final ElementXmiGenerator elementXmiGenerator;
     private String idAssociation;
-    private ClassNotation notation;
+    private final ClassNotation notation;
 
     public AssociationClassNode(DocumentManager documentManager, Architecture a) {
         this.newModelName = documentManager.getModelName();
@@ -34,8 +34,8 @@ public class AssociationClassNode extends XmiHelper {
         Node nodeToAddOwnedAttributeForAssociationClass = null;
         String idOwnedAttribute = null;
 
-        idOwnedAttribute = UtilResources.getRandonUUID();
-        String idOwnedEnd = UtilResources.getRandonUUID();
+        idOwnedAttribute = UtilResources.getRandomUUID();
+        String idOwnedEnd = UtilResources.getRandomUUID();
 
         Node modelRoot = this.docUml.getElementsByTagName("uml:Model").item(0);
         nodeToAddOwnedAttributeForAssociationClass = findByID(docUml, ownedEndElement, "packagedElement");
@@ -54,13 +54,13 @@ public class AssociationClassNode extends XmiHelper {
 
         Element lowerValue = this.docUml.createElement("lowerValue");
         lowerValue.setAttribute("xmi:type", "uml:LiteralInteger");
-        lowerValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        lowerValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
         lowerValue.setAttribute("value", "1");
         ownedEnd.appendChild(lowerValue);
 
         Element upperValue = this.docUml.createElement("upperValue");
         upperValue.setAttribute("xmi:type", "uml:LiteralInteger");
-        upperValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        upperValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
         upperValue.setAttribute("value", "1");
         ownedEnd.appendChild(upperValue);
         packageElement.appendChild(ownedEnd);
@@ -89,13 +89,13 @@ public class AssociationClassNode extends XmiHelper {
 
         Element lowerValue = this.docUml.createElement("lowerValue");
         lowerValue.setAttribute("xmi:type", "uml:LiteralInteger");
-        lowerValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        lowerValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
         lowerValue.setAttribute("value", "1");
         ownedAttibute.appendChild(lowerValue);
 
         Element upperValue = this.docUml.createElement("upperValue");
         upperValue.setAttribute("xmi:type", "uml:LiteralInteger");
-        upperValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
+        upperValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
         upperValue.setAttribute("value", "1");
         ownedAttibute.appendChild(upperValue);
 

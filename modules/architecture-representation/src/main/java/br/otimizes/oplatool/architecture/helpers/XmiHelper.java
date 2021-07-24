@@ -1,7 +1,6 @@
 package br.otimizes.oplatool.architecture.helpers;
 
 import br.otimizes.oplatool.architecture.exceptions.NodeIdNotFound;
-import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Package;
 import br.otimizes.oplatool.architecture.representation.*;
@@ -32,7 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Random;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -47,13 +46,6 @@ public class XmiHelper {
     static Logger LOGGER = LogManager.getLogger(XmiHelper.class.getName());
     private static Document originalNotation;
 
-    /**
-     * Busca por {@link Node} dado um id e um {@link Document}.
-     *
-     * @param docNotaion - Deve ser o arquivo .notation
-     * @param id         - Id a ser buscado
-     * @return {@link Node}
-     */
     public static Node findByIDInNotationFile(Document docNotaion, String id) {
         NodeList node = docNotaion.getElementsByTagName("children");
         Node nodeFound = null;
@@ -90,29 +82,22 @@ public class XmiHelper {
     public static Node findByID(Document doc, String id, String tagName) {
         NodeList node = doc.getElementsByTagName(tagName);
         for (int i = 0; i < node.getLength(); i++) {
-            NamedNodeMap attributtes = node.item(i).getAttributes();
-            for (int j = 0; j < attributtes.getLength(); j++)
-                if (id.equalsIgnoreCase(attributtes.item(j).getNodeValue()))
+            NamedNodeMap attributes = node.item(i).getAttributes();
+            for (int j = 0; j < attributes.getLength(); j++)
+                if (id.equalsIgnoreCase(attributes.item(j).getNodeValue()))
                     return node.item(i);
         }
 
         return null;
     }
 
-    /**
-     * Retorna o Id de um dado {@link Node}.
-     *
-     * @param node
-     * @return String
-     * @throws NodeIdNotFound
-     */
     public static String getIdForNode(Node node) throws NodeIdNotFound {
         if (node != null) {
             String nodeId = node.getAttributes().getNamedItem("xmi:id").getNodeValue();
             if (nodeId == null) throw new NodeIdNotFound("Cannot find id for node: " + node);
             return nodeId;
         } else {
-            throw new NodeIdNotFound("Cannot find id for node: " + node);
+            throw new NodeIdNotFound("Cannot find id for node");
         }
     }
 
@@ -144,38 +129,40 @@ public class XmiHelper {
 
     private static String getXYValueForElement(Document docNotation, String elementId, String type) {
         Node x = XmiHelper.findByIDInNotationFile(docNotation, elementId);
-        NodeList nodes = x.getChildNodes();
-        for (int i = 0; i < nodes.getLength(); i++) {
-            if (nodes.item(i).getNodeName().equals("layoutConstraint")) {
-                if ("position".equals(type)) {
-                    String xy = nodes.item(i).getAttributes().getNamedItem("x").getNodeValue() + ",";
-                    xy += nodes.item(i).getAttributes().getNamedItem("y").getNodeValue();
-                    return xy;
-                } else if ("size".equals(type)) {
-                    String xy = nodes.item(i).getAttributes().getNamedItem("width").getNodeValue() + ",";
-                    xy += nodes.item(i).getAttributes().getNamedItem("height").getNodeValue();
-                    return xy;
+        if (x != null) {
+            NodeList nodes = x.getChildNodes();
+            for (int i = 0; i < nodes.getLength(); i++) {
+                if (nodes.item(i).getNodeName().equals("layoutConstraint")) {
+                    if ("position".equals(type)) {
+                        String xy = nodes.item(i).getAttributes().getNamedItem("x").getNodeValue() + ",";
+                        xy += nodes.item(i).getAttributes().getNamedItem("y").getNodeValue();
+                        return xy;
+                    } else if ("size".equals(type)) {
+                        String xy = nodes.item(i).getAttributes().getNamedItem("width").getNodeValue() + ",";
+                        xy += nodes.item(i).getAttributes().getNamedItem("height").getNodeValue();
+                        return xy;
+                    }
                 }
-            }
 
+            }
         }
         return null;
     }
 
     public static String getXValueForElement(String id) {
-        return getXYValueForElement(getOriginalNotation(), id, "position").split(",")[0];
+        return Objects.requireNonNull(getXYValueForElement(getOriginalNotation(), id, "position")).split(",")[0];
     }
 
     public static String getYValueForElement(String id) {
-        return getXYValueForElement(getOriginalNotation(), id, "position").split(",")[1];
+        return Objects.requireNonNull(getXYValueForElement(getOriginalNotation(), id, "position")).split(",")[1];
     }
 
     public static String getWidhtForPackage(String idPackage) {
-        return getXYValueForElement(getOriginalNotation(), idPackage, "size").split(",")[0];
+        return Objects.requireNonNull(getXYValueForElement(getOriginalNotation(), idPackage, "size")).split(",")[0];
     }
 
     public static String getHeightForPackage(String idPackage) {
-        return getXYValueForElement(getOriginalNotation(), idPackage, "size").split(",")[1];
+        return Objects.requireNonNull(getXYValueForElement(getOriginalNotation(), idPackage, "size")).split(",")[1];
     }
 
     public static void setNotationOriginalFile(String xmiFilePath) {
@@ -190,10 +177,9 @@ public class XmiHelper {
         }
 
         try {
-            setOriginalNotation(docBuilderNotation.parse(pathToNotation));
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            if (docBuilderNotation != null)
+                setOriginalNotation(docBuilderNotation.parse(pathToNotation));
+        } catch (SAXException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -206,11 +192,6 @@ public class XmiHelper {
         originalNotation = notation;
     }
 
-    /**
-     * @param document         - Document que deseja-se remover o nodo
-     * @param nodeNameToRemove - nome do nodo
-     * @param nodeIdToRemove   - id do nodo
-     */
     public static void removeNode(Document document, String nodeNameToRemove, String nodeIdToRemove) {
         NodeList elements = document.getElementsByTagName(nodeNameToRemove);
         for (int i = 0; i < elements.getLength(); i++) {
@@ -224,15 +205,6 @@ public class XmiHelper {
         }
     }
 
-    /**
-     * Retorna se o elemento é uma classe ou um comentário (note).
-     * <p>
-     * Caso não for encontrado retorna uma string vazia ("").
-     *
-     * @param id
-     * @param umlDocument
-     * @return
-     */
     public String findTypeById(String id, Document umlDocument) {
         Node element = umlDocument.getElementsByTagName("uml:Model").item(0);
 
@@ -241,14 +213,14 @@ public class XmiHelper {
             String elementId = "";
             try {
                 elementId = element.getChildNodes().item(i).getAttributes().getNamedItem("xmi:id").getNodeValue();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
             if ("packagedElement".equalsIgnoreCase(elementName)) {
                 try {
                     String elementValue = element.getChildNodes().item(i).getAttributes().getNamedItem("xmi:type").getNodeValue();
                     if ("uml:Class".equalsIgnoreCase(elementValue) && (id.equalsIgnoreCase(elementId)))
                         return "class";
-                } catch (NullPointerException e) {
+                } catch (NullPointerException ignored) {
 
                 }
             } else {
@@ -256,19 +228,6 @@ public class XmiHelper {
             }
         }
         return "";
-
-    }
-
-    /**
-     * Método usado para gerar as posições de X e Y para os elementos.
-     *
-     * @return String
-     */
-    public String randomNum() {
-        Random rn = new Random();
-        int range = 1000 - 0 + 1;
-        int randomNum = rn.nextInt(range) + 0;
-        return Integer.toString(randomNum);
     }
 
     public static void setRecursiveOwnedComments(NamedElement modelElement, Element element) {
@@ -277,8 +236,8 @@ public class XmiHelper {
             EList<org.eclipse.uml2.uml.Element> ownedElements = modelElement.getOwnedElements();
             for (org.eclipse.uml2.uml.Element ownedElement : ownedElements) {
                 for (Comment ownedComment : ownedComments) {
-                    Comment nownedComment = ownedElement.createOwnedComment();
-                    nownedComment.setBody(ownedComment.getBody());
+                    Comment newOwnedComment = ownedElement.createOwnedComment();
+                    newOwnedComment.setBody(ownedComment.getBody());
                 }
             }
 
@@ -310,58 +269,7 @@ public class XmiHelper {
             ownedComment.setBody(variability);
             ownedComments.add(ownedComment);
             ((ClassImpl) modelElement).getPackage().createOwnedComment();
-
-
-//            VariationPointFlyweight variationPointFlyweight = VariationPointFlyweight.getInstance();
-//            variationPointFlyweight.setArchitecture(element.getArchitecture());
-//            VariationPoint variationPoint = null;
-//            try {
-//                variationPoint = variationPointFlyweight.getOrCreateVariationPoint((ClassImpl) modelElement);
-//            } catch (VariationPointElementTypeErrorException e) {
-//                e.printStackTrace();
-//            }
-//            Stereotype varitionPointSte = StereotypeHelper.getStereotypeByName(modelElement, "variationPoint");
-//            Variability variabilityMap = getVariabilityMap(variability, modelElement, element);
-//            VariabilityStereotype variabilityStereotype = new VariabilityStereotype(variabilityMap);
-//            variabilityMap.setVariationPoint(variationPoint);
         }
-    }
-
-    private static Variability getVariabilityMap(String variability, NamedElement modelElement, Element element) {
-        String[] split = variability.split("\"");
-        String name = null;
-        String minSelection = null;
-        String maxSelection = null;
-        String bindingTime = "DESIGN_TIME";
-        Boolean allowAddingVar = null;
-        String variants = null;
-        for (int i = 0; i < split.length; i++) {
-            if (i < split.length - 1) {
-                switch (split[i]) {
-                    case " name=":
-                        name = split[i + 1];
-                        break;
-                    case " minSelection=":
-                        minSelection = split[i + 1];
-                        break;
-                    case " maxSelection=":
-                        maxSelection = split[i + 1];
-                        break;
-                    case " allowAddingVar=":
-                        allowAddingVar = Boolean.valueOf(split[i + 1]);
-                        break;
-                    case " variants=":
-                        variants = split[i + 1];
-                        break;
-                    case " bindingTime=":
-                        bindingTime = split[i + 1];
-                        break;
-                    default:
-                }
-            }
-        }
-        return new Variability(name, minSelection, maxSelection, bindingTime, allowAddingVar,
-                element.getName(), XmiHelper.getXmiId(((ClassImpl) modelElement).getPackage()));
     }
 
     private static String getVariabilityXmiLine(NamedElement modelElement, Element element) {
@@ -374,24 +282,27 @@ public class XmiHelper {
             e.printStackTrace();
         }
 
-        String variabilityStr = collect.stream().filter(ln -> ln.contains(element.getId())).findFirst().orElse(null);
-        if (variabilityStr == null) return null;
+        if (collect != null) {
+            String variabilityStr = collect.stream().filter(ln -> ln.contains(element.getId())).findFirst().orElse(null);
+            if (variabilityStr == null) return null;
 
-        Pattern compile = Pattern.compile("xmi\\:id\\=\\\".*\" ");
-        Matcher matcher = compile.matcher(variabilityStr);
-        String finded = null;
-        if (matcher.find()) {
-            finded = matcher.group(0).replace("xmi:id=", "");
+            Pattern compile = Pattern.compile("xmi\\:id\\=\\\".*\" ");
+            Matcher matcher = compile.matcher(variabilityStr);
+            String finded = null;
+            if (matcher.find()) {
+                finded = matcher.group(0).replace("xmi:id=", "");
+            }
+            String finalFinded = finded;
+            String findedStr = collect.stream().filter(txt -> txt.contains("smarty:variability") && txt.contains(finalFinded))
+                    .findFirst().orElse(null);
+
+
+            Pattern compile1 = Pattern.compile("xmi\\:id\\=\\\".*");
+            Matcher matcher1 = compile1.matcher(findedStr);
+            matcher1.find();
+            return matcher1.group(0).replace("/>", "");
         }
-        String finalFinded = finded;
-        String findedStr = collect.stream().filter(txt -> txt.contains("smarty:variability") && txt.contains(finalFinded))
-                .findFirst().orElse(null);
-
-
-        Pattern compile1 = Pattern.compile("xmi\\:id\\=\\\".*");
-        Matcher matcher1 = compile1.matcher(findedStr);
-        matcher1.find();
-        return matcher1.group(0).replace("/>", "");
+        return null;
     }
 
 

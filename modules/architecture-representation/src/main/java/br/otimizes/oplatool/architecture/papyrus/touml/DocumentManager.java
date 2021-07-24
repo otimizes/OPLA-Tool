@@ -258,7 +258,7 @@ public class DocumentManager extends XmiHelper {
      * @throws ModelIncompleteException
      * @throws CustonTypeNotFound
      * @throws NodeNotFound
-     * @throws InvalidMultiplictyForAssociationException
+     * @throws InvalidMultiplicityForAssociationException
      */
     public void updateProfilesRefs() {
         LOGGER.info("updateProfilesRefs()");

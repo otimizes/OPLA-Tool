@@ -27,7 +27,7 @@ public class UsageRelationship extends Relationship {
         super();
         this.supplier = supplier2;
         this.client = client2;
-        setId(UtilResources.getRandonUUID());
+        setId(UtilResources.getRandomUUID());
         super.setType(ElementsTypes.USAGE);
     }
 

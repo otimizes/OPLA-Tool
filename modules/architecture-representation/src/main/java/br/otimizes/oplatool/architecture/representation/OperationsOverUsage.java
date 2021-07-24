@@ -12,7 +12,7 @@ public class OperationsOverUsage {
 
     static Logger LOGGER = LogManager.getLogger(OperationsOverUsage.class.getName());
 
-    private Architecture architecture;
+    private final Architecture architecture;
 
     public OperationsOverUsage(Architecture architecture) {
         this.architecture = architecture;
@@ -42,7 +42,7 @@ public class OperationsOverUsage {
      * @return
      */
     public UsageRelationship create(Element client, Element supplier) {
-        UsageRelationship usage = new UsageRelationship("", supplier, client, UtilResources.getRandonUUID());
+        UsageRelationship usage = new UsageRelationship("", supplier, client, UtilResources.getRandomUUID());
         this.architecture.addRelationship(usage);
         return usage;
     }

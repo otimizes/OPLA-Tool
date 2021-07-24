@@ -394,7 +394,7 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         usageRelationshipBuilder = new UsageRelationshipBuilder(architecture);
 
         VariabilityFlyweight.getInstance().resetVariabilities();
-        VariationPointFlyweight.getInstance().resertVariationPoints();
+        VariationPointFlyweight.getInstance().resetVariationPoints();
         VariantFlyweight.getInstance().resetVariants();
     }
 

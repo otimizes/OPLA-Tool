@@ -2,7 +2,6 @@ package br.otimizes.oplatool.architecture.representation;
 
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
 import br.otimizes.oplatool.architecture.representation.relationship.*;
-import br.otimizes.oplatool.architecture.representation.relationship.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -13,7 +12,7 @@ public class OperationsOverRelationships {
 
     static Logger LOGGER = LogManager.getLogger(OperationsOverRelationships.class.getName());
 
-    private Architecture architecture;
+    private final Architecture architecture;
 
     public OperationsOverRelationships(Architecture architecture) {
         this.architecture = architecture;
@@ -110,7 +109,7 @@ public class OperationsOverRelationships {
     }
 
     public void createNewRealization(Element client, Element supplier) {
-        String id = UtilResources.getRandonUUID();
+        String id = UtilResources.getRandomUUID();
         RealizationRelationship realization = new RealizationRelationship(client, supplier, "", id);
         this.architecture.addRelationship(realization);
     }

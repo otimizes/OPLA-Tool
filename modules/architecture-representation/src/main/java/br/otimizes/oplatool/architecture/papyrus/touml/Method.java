@@ -17,7 +17,7 @@ public class Method {
     private Method method;
     private VisibilityKind visibility;
     private String name;
-    private List<Argument> arguments = new ArrayList<Argument>();
+    private final List<Argument> arguments = new ArrayList<Argument>();
     private Types.Type typeReturn;
     private boolean isAbstract = false;
     private Set<Concern> concerns = new HashSet<Concern>();
@@ -98,7 +98,7 @@ public class Method {
 
     public Method build() {
         if (this.id == null)
-            setId(UtilResources.getRandonUUID());
+            setId(UtilResources.getRandomUUID());
         return this;
     }
 

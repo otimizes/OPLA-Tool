@@ -18,13 +18,13 @@ import java.util.List;
  */
 public class DependencyNode extends XmiHelper {
 
-    private Document docUml;
-    private Document docNotation;
-    private DocumentManager documentManager;
-    private String clientElement;
-    private String supplierElement;
+    private final Document docUml;
+    private final Document docNotation;
+    private final DocumentManager documentManager;
+    private final String clientElement;
+    private final String supplierElement;
     private List<String> stereotypes = new ArrayList<String>();
-    private String name;
+    private final String name;
     private String id;
 
     public DependencyNode(DocumentManager documentManager, String name, String clientElement, String supplierElement, List<String> stereotypes, Architecture a) {
@@ -46,7 +46,7 @@ public class DependencyNode extends XmiHelper {
             Node node = this.docNotation.getElementsByTagName("notation:Diagram").item(0);
             Element edges = this.docNotation.createElement("edges");
             edges.setAttribute("xmi:type", "notation:Connector");
-            edges.setAttribute("xmi:id", UtilResources.getRandonUUID());
+            edges.setAttribute("xmi:id", UtilResources.getRandomUUID());
             edges.setAttribute("routing", "Rectilinear");
             if ("dependency".equalsIgnoreCase(type))
                 edges.setAttribute("type", "4008");
@@ -59,7 +59,7 @@ public class DependencyNode extends XmiHelper {
 
             Element childrenDocorationnode1 = this.docNotation.createElement("children");
             childrenDocorationnode1.setAttribute("xmi:type", "notation:DecorationNode");
-            childrenDocorationnode1.setAttribute("xmi:id", UtilResources.getRandonUUID());
+            childrenDocorationnode1.setAttribute("xmi:id", UtilResources.getRandomUUID());
             if ("dependency".equalsIgnoreCase(type))
                 childrenDocorationnode1.setAttribute("type", "6026");
             if ("realization".equalsIgnoreCase(type))
@@ -72,12 +72,12 @@ public class DependencyNode extends XmiHelper {
             if ("usage".equalsIgnoreCase(type)) {
                 Element childrenDocorationnode2 = this.docNotation.createElement("children");
                 childrenDocorationnode2.setAttribute("xmi:type", "notation:DecorationNode");
-                childrenDocorationnode2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+                childrenDocorationnode2.setAttribute("xmi:id", UtilResources.getRandomUUID());
                 childrenDocorationnode2.setAttribute("type", "6017"); // <usage>
 
                 Element layoutConstraint = this.docNotation.createElement("layoutConstraint");
                 layoutConstraint.setAttribute("xmi:type", "notation:Location");
-                layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
+                layoutConstraint.setAttribute("xmi:id", UtilResources.getRandomUUID());
                 layoutConstraint.setAttribute("y", "20");
                 childrenDocorationnode1.appendChild(layoutConstraint);
                 childrenDocorationnode2.appendChild(layoutConstraint);
@@ -86,7 +86,7 @@ public class DependencyNode extends XmiHelper {
 
             Element layoutConstraint = this.docNotation.createElement("layoutConstraint");
             layoutConstraint.setAttribute("xmi:type", "notation:Location");
-            layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
+            layoutConstraint.setAttribute("xmi:id", UtilResources.getRandomUUID());
             layoutConstraint.setAttribute("y", "20");
             childrenDocorationnode1.appendChild(layoutConstraint);
             edges.appendChild(childrenDocorationnode1);
@@ -121,7 +121,7 @@ public class DependencyNode extends XmiHelper {
 
             Element bendpoints = docNotation.createElement("bendpoints");
             bendpoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
-            bendpoints.setAttribute("xmi:id", UtilResources.getRandonUUID());
+            bendpoints.setAttribute("xmi:id", UtilResources.getRandomUUID());
             bendpoints.setAttribute("points", "[0, 0, 476, 181]$[-467, -170, 9, 11]");
             edges.appendChild(bendpoints);
 
@@ -139,7 +139,7 @@ public class DependencyNode extends XmiHelper {
     private void createDependencyInUmlFile(String dependency) {
         Node modelRoot = this.docUml.getElementsByTagName("uml:Model").item(0);
 
-        String idDependency = UtilResources.getRandonUUID();
+        String idDependency = UtilResources.getRandomUUID();
         this.id = idDependency;
 
         Element elementDependency = this.docUml.createElement("packagedElement");

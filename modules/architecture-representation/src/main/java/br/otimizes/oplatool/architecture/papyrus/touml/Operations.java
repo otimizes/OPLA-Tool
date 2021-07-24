@@ -10,7 +10,7 @@ import br.otimizes.oplatool.architecture.representation.Architecture;
  */
 public class Operations {
 
-    private DocumentManager doc;
+    private final DocumentManager doc;
     private ClassOperations classOperation;
     private AssociationOperations associationOperation;
     private PackageOperations packageOperaiton;
