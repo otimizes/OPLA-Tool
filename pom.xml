@@ -340,22 +340,10 @@
 
     <repositories>
 
-<!--         <repository> -->
-<!--             <id>zapix</id> -->
-<!--             <url>https://nexus.zapix.com.br/repository/maven-releases/</url> -->
-<!--             <name>Zapix-Repository</name> -->
-<!--             <snapshots> -->
-<!--                 <enabled>false</enabled> -->
-<!--             </snapshots> -->
-<!--             <releases> -->
-<!--                 <enabled>true</enabled> -->
-<!--             </releases> -->
-<!--         </repository> -->
-
         <repository>
-            <id>github-aczavads</id>
-            <url>https://maven.pkg.github.com/aczavads/mvn</url>
-            <name>Github-aczavads-Repository</name>
+            <id>zapix</id>
+            <url>https://nexus.zapix.com.br/repository/maven-releases/</url>
+            <name>Zapix-Repository</name>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -363,6 +351,18 @@
                 <enabled>true</enabled>
             </releases>
         </repository>
+
+<!--         <repository> -->
+<!--             <id>github-aczavads</id> -->
+<!--             <url>https://maven.pkg.github.com/aczavads/mvn</url> -->
+<!--             <name>Github-aczavads-Repository</name> -->
+<!--             <snapshots> -->
+<!--                 <enabled>false</enabled> -->
+<!--             </snapshots> -->
+<!--             <releases> -->
+<!--                 <enabled>true</enabled> -->
+<!--             </releases> -->
+<!--         </repository> -->
 
         <repository>
             <id>github</id>
