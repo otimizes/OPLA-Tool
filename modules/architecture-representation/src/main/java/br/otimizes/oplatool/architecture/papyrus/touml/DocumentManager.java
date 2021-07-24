@@ -3,7 +3,6 @@ package br.otimizes.oplatool.architecture.papyrus.touml;
 import br.otimizes.oplatool.architecture.exceptions.*;
 import br.otimizes.oplatool.architecture.helpers.XmiHelper;
 import br.otimizes.oplatool.architecture.io.SaveAndMove;
-import br.otimizes.oplatool.architecture.exceptions.*;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileUtils;
 import com.google.common.io.Files;
@@ -170,7 +169,7 @@ public class DocumentManager extends XmiHelper {
      * @param modelName
      * @throws ModelIncompleteException
      * @throws ModelNotFoundException
-     * @throws SMartyProfileNotAppliedToModelExcepetion
+     * @throws SMartyProfileNotAppliedToModelException
      * @throws IOException
      */
     private void makeACopy(String modelName) throws ModelNotFoundException, ModelIncompleteException {

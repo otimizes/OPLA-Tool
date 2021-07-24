@@ -1,5 +1,6 @@
 package br.otimizes.oplatool.architecture.builders;
 
+import br.otimizes.oplatool.architecture.exceptions.VariationPointElementTypeErrorException;
 import br.otimizes.oplatool.architecture.helpers.ModelHelper;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.*;
@@ -46,11 +47,8 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
      * create a instance of this class
      */
     public ArchitectureBuilderSMarty() {
-        // RelationshipHolder.clearLists();
         LOGGER.info("Clean Relationships");
         ConcernHolder.INSTANCE.clear();
-        LOGGER.info("Model Helper");
-        //modelHelper = ModelHelperFactory.getModelHelper();
     }
 
     /**
@@ -96,18 +94,31 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
         xPath = XPathFactory.newInstance().newXPath();
         nodeList = (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
         int tam = file.getAbsolutePath().split(FileConstants.getEscapedFileSeparator()).length;
-        String arquitectureName = file.getAbsolutePath().split(FileConstants.getEscapedFileSeparator())[tam - 1].replace(".smty", "");
-        Architecture architecture = new Architecture(arquitectureName);
+        String architectureName = file.getAbsolutePath().split(FileConstants.getEscapedFileSeparator())[tam - 1].replace(".smty", "");
+        Architecture architecture = new Architecture(architectureName);
         architecture.setSMarty(true);
         architecture.setToSMarty(true);
+        setElementOnArchitecture(architecture);
+        System.out.println(architecture);
+        importDiagrams(architecture);
+        importLinkStereotypesSMarty(architecture);
+        setRelationshipHolder(architecture);
+        Cloner cloner = new Cloner();
+        architecture.setCloner(cloner);
+        ArchitectureHolder.setName(architecture.getName());
+        return architecture;
+    }
+
+    private void setElementOnArchitecture(Architecture architecture) throws XPathExpressionException {
         Element element = (Element) this.nodeList.item(0);
         architecture.setProjectID(element.getAttribute("id"));
         architecture.setProjectName(element.getAttribute("name"));
         architecture.setProjectVersion(element.getAttribute("version"));
         architecture.setConcerns(importStereotypesSMarty());
         architecture.setTypes(importTypesSMarty());
-        importDiagrams(architecture);
-        importLinkStereotypesSMarty(architecture);
+    }
+
+    private void setRelationshipHolder(Architecture architecture) {
         for (Class clazz : architecture.getAllClasses()) {
             clazz.setRelationshipHolder(architecture.getRelationshipHolder());
         }
@@ -117,10 +128,6 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
         for (br.otimizes.oplatool.architecture.representation.Package clazz : architecture.getAllPackages()) {
             clazz.setRelationshipHolder(architecture.getRelationshipHolder());
         }
-        Cloner cloner = new Cloner();
-        architecture.setCloner(cloner);
-        ArchitectureHolder.setName(architecture.getName());
-        return architecture;
     }
 
     /**
@@ -130,58 +137,78 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
      * @param architecture - architecture to insert the link of stereotypes
      */
     private void importLinkStereotypesSMarty(Architecture architecture) throws XPathExpressionException {
-        ArrayList<Concern> lstConcern = architecture.getConcerns();
         this.expression = "/project/links/link";
         this.nodeList = (NodeList) this.xPath.compile(this.expression).evaluate(this.document, XPathConstants.NODESET);
         for (int i = 0; i < this.nodeList.getLength(); i++) {
             Element element = (Element) this.nodeList.item(i);
-            String id_element = element.getAttribute("element");
-            String id_stereotype = element.getAttribute("stereotype");
-            if (id_element.contains("ATTRIBUTE")) {
-                br.otimizes.oplatool.architecture.representation.Element target = architecture.findAttributeById(id_element);
-                for (Concern c1 : lstConcern) {
-                    if (c1.getId().equals(id_stereotype) && !c1.getPrimitive()) {
-                        if (target != null)
-                            target.addExternalConcern(c1);
-                    }
-                }
-                continue;
-            }
-            if (id_element.contains("METHOD")) {
-                br.otimizes.oplatool.architecture.representation.Element target = architecture.findMethodById(id_element);
-                for (Concern c1 : lstConcern) {
-                    if (c1.getId().equals(id_stereotype) && !c1.getPrimitive()) {
-                        if (target != null)
-                            target.addExternalConcern(c1);
-                    }
-                }
-                continue;
-            }
-            br.otimizes.oplatool.architecture.representation.Element target = architecture.findElementById(id_element);
+            if (isAttributeAndWasAddedLastConcern(architecture, element)) continue;
+            if (isMethodAndWasAddedLastConcern(architecture, element)) continue;
+            addConcernsAndSetVariantsTypes(architecture, element);
+        }
+    }
+
+    private boolean isMethodAndWasAddedLastConcern(Architecture architecture, Element element) {
+        ArrayList<Concern> lstConcern = architecture.getConcerns();
+        String id_element = element.getAttribute("element");
+        String id_stereotype = element.getAttribute("stereotype");
+        if (id_element.contains("METHOD")) {
+            br.otimizes.oplatool.architecture.representation.Element target = architecture.findMethodById(id_element);
             for (Concern c1 : lstConcern) {
                 if (c1.getId().equals(id_stereotype) && !c1.getPrimitive()) {
-                    try {
+                    if (target != null)
                         target.addExternalConcern(c1);
-                    } catch (NullPointerException ex) {
-                        System.out.println("Impossible to add the concern " + c1 + " on " + id_element);
-                    }
-                } else {
-                    if (c1.getId().equals(id_stereotype)) {
-                        for (Variant variant : architecture.getAllVariants()) {
-                            if (variant.getVariantElement().getId().equals(target.getId())) {
-                                if (c1.getName().equals("alternative_OR")) {
-                                    variant.setVariantType("alternative_OR");
-                                }
-                                if (c1.getName().equals("alternative_XOR")) {
-                                    variant.setVariantType("alternative_XOR");
-                                }
-                                if (c1.getName().equals("mandatory")) {
-                                    variant.setVariantType("mandatory");
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 
-                                }
-                                if (c1.getName().equals("optional")) {
-                                    variant.setVariantType("optional");
-                                }
+    private boolean isAttributeAndWasAddedLastConcern(Architecture architecture, Element element) {
+        ArrayList<Concern> lstConcern = architecture.getConcerns();
+        String id_element = element.getAttribute("element");
+        String id_stereotype = element.getAttribute("stereotype");
+        if (id_element.contains("ATTRIBUTE")) {
+            br.otimizes.oplatool.architecture.representation.Element target = architecture.findAttributeById(id_element);
+            for (Concern c1 : lstConcern) {
+                if (c1.getId().equals(id_stereotype) && !c1.getPrimitive()) {
+                    if (target != null)
+                        target.addExternalConcern(c1);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private void addConcernsAndSetVariantsTypes(Architecture architecture, Element element) {
+        ArrayList<Concern> lstConcern = architecture.getConcerns();
+        String id_element = element.getAttribute("element");
+        String id_stereotype = element.getAttribute("stereotype");
+        br.otimizes.oplatool.architecture.representation.Element target = architecture.findElementById(id_element);
+        for (Concern c1 : lstConcern) {
+            if (c1.getId().equals(id_stereotype) && !c1.getPrimitive()) {
+                try {
+                    target.addExternalConcern(c1);
+                } catch (NullPointerException ex) {
+                    System.out.println("Impossible to add the concern " + c1 + " on " + id_element);
+                }
+            } else {
+                if (c1.getId().equals(id_stereotype)) {
+                    for (Variant variant : architecture.getAllVariants()) {
+                        if (variant.getVariantElement().getId().equals(target.getId())) {
+                            if (c1.getName().equals("alternative_OR")) {
+                                variant.setVariantType("alternative_OR");
+                            }
+                            if (c1.getName().equals("alternative_XOR")) {
+                                variant.setVariantType("alternative_XOR");
+                            }
+                            if (c1.getName().equals("mandatory")) {
+                                variant.setVariantType("mandatory");
+
+                            }
+                            if (c1.getName().equals("optional")) {
+                                variant.setVariantType("optional");
                             }
                         }
                     }
@@ -262,8 +289,8 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
     /**
      * import comment of element as description from file
      *
-     * @param node
-     * @param element
+     * @param node    node
+     * @param element element
      */
     private void importComments(Element node, br.otimizes.oplatool.architecture.representation.Element element) {
         NodeList aClass = node.getElementsByTagName("description");
@@ -715,23 +742,8 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
                 if (pkg != null)
                     variability.setIdPackageOwner(pkg.getId());
                 ArrayList<String> variants = getVariants(current);
-                List<Variant> variantsList = new ArrayList<>();
-                for (String id : variants) {
-                    Variant vt = new Variant();
-                    br.otimizes.oplatool.architecture.representation.Element ve = architecture.findElementById(id);
-                    vt.setVariantElement(ve);
-                    vt.setName(ve.getName());
-                    vt.andRootVp(el.getId());
-                    variantsList.add(vt);
-                }
-                VariationPoint vp = new VariationPoint(el, variantsList, current.getAttribute("bindingTime"));
-                variability.setVariationPoint(vp);
-                for (Variant variant : variantsList) {
-                    variability.addVariant(variant);
-                    variant.addVariability(variability);
-                    variant.addVariationPoint(vp);
-                    variant.getVariantElement().setVariant(variant);
-                }
+                List<Variant> variantsList = getVariantsList(architecture, el, variants);
+                VariationPoint vp = getVariationPoint(current, variability, el, variantsList);
                 architecture.getAllVariabilities().add(variability);
                 architecture.getAllVariationPoints().add(vp);
                 vp.getVariationPointElement().setVariationPoint(vp);
@@ -739,12 +751,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
                     architecture.getAllVariants().add(variant);
                     variant.getVariantElement().setVariant(variant);
                 }
-                Variant vpVariant = new Variant();
-                vpVariant.setVariantElement(vp.getVariationPointElement());
-                vpVariant.setName(vp.getVariationPointElement().getName());
-                vpVariant.setRootVP(vp.getVariationPointElement().getName());
-                vpVariant.addVariability(variability);
-                vpVariant.setVariantType("variationPoint");
+                Variant vpVariant = getVariant(variability, vp);
                 vp.getVariationPointElement().setVariant(vpVariant);
             } catch (Exception ex) {
                 System.out.println(ex);
@@ -766,6 +773,41 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             lstVariant.add(current.getAttribute("id"));
         }
         return lstVariant;
+    }
+
+    private List<Variant> getVariantsList(Architecture architecture, br.otimizes.oplatool.architecture.representation.Element el, ArrayList<String> variants) {
+        List<Variant> variantsList = new ArrayList<>();
+        for (String id : variants) {
+            Variant vt = new Variant();
+            br.otimizes.oplatool.architecture.representation.Element ve = architecture.findElementById(id);
+            vt.setVariantElement(ve);
+            vt.setName(ve.getName());
+            vt.andRootVp(el.getId());
+            variantsList.add(vt);
+        }
+        return variantsList;
+    }
+
+    private VariationPoint getVariationPoint(Element current, Variability variability, br.otimizes.oplatool.architecture.representation.Element el, List<Variant> variantsList) throws VariationPointElementTypeErrorException {
+        VariationPoint vp = new VariationPoint(el, variantsList, current.getAttribute("bindingTime"));
+        variability.setVariationPoint(vp);
+        for (Variant variant : variantsList) {
+            variability.addVariant(variant);
+            variant.addVariability(variability);
+            variant.addVariationPoint(vp);
+            variant.getVariantElement().setVariant(variant);
+        }
+        return vp;
+    }
+
+    private Variant getVariant(Variability variability, VariationPoint vp) {
+        Variant vpVariant = new Variant();
+        vpVariant.setVariantElement(vp.getVariationPointElement());
+        vpVariant.setName(vp.getVariationPointElement().getName());
+        vpVariant.setRootVP(vp.getVariationPointElement().getName());
+        vpVariant.addVariability(variability);
+        vpVariant.setVariantType("variationPoint");
+        return vpVariant;
     }
 
     public Package getModel() {

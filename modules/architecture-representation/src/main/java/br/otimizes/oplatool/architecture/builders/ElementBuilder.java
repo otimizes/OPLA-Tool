@@ -1,11 +1,11 @@
 package br.otimizes.oplatool.architecture.builders;
 
-import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.architecture.exceptions.ConcernNotFoundException;
 import br.otimizes.oplatool.architecture.helpers.ModelElementHelper;
 import br.otimizes.oplatool.architecture.helpers.StereotypeHelper;
 import br.otimizes.oplatool.architecture.helpers.XmiHelper;
 import br.otimizes.oplatool.architecture.representation.Architecture;
+import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.architecture.representation.Variant;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
@@ -24,7 +24,7 @@ import java.util.List;
 public abstract class ElementBuilder<T extends Element> {
 
     protected final Architecture architecture;
-    private final HashMap<String, T> createdElements = new HashMap<String, T>();
+    private final HashMap<String, T> createdElements = new HashMap<>();
     protected String name;
     protected Boolean isVariationPoint;
     protected Variant variantType;
@@ -85,7 +85,6 @@ public abstract class ElementBuilder<T extends Element> {
         name = "";
         isVariationPoint = false;
         variantType = null;
-        concerns = new ArrayList<String>();
+        concerns = new ArrayList<>();
     }
-
 }

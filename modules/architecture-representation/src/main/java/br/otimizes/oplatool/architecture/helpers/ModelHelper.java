@@ -3,7 +3,7 @@ package br.otimizes.oplatool.architecture.helpers;
 
 import br.otimizes.oplatool.architecture.exceptions.ModelIncompleteException;
 import br.otimizes.oplatool.architecture.exceptions.ModelNotFoundException;
-import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -226,9 +226,9 @@ public class ModelHelper extends ElementHelper {
      * @return
      * @throws ModelNotFoundException
      * @throws ModelIncompleteException
-     * @throws SMartyProfileNotAppliedToModelExcepetion
+     * @throws SMartyProfileNotAppliedToModelException
      */
-    public Package getModel(String xmiFile) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
+    public Package getModel(String xmiFile) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException {
         //System.out.println(xmiFile);
         if (modelExists(xmiFile))
             return uml2Helper.get().load(URI.createURI(xmiFile).toString());

@@ -143,7 +143,7 @@ public class GenerateArchitecture extends ArchitectureBase {
             LOGGER.warn("Cannot find model: " + e1.getMessage());
         } catch (ModelIncompleteException e1) {
             LOGGER.warn("Model Incomplete" + e1.getMessage());
-        } catch (SMartyProfileNotAppliedToModelExcepetion e1) {
+        } catch (SMartyProfileNotAppliedToModelException e1) {
             LOGGER.warn("Smarty Profile note Applied: " + e1.getMessage());
         }
 

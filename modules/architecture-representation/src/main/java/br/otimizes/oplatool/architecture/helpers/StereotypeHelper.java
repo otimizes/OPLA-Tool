@@ -3,7 +3,7 @@ package br.otimizes.oplatool.architecture.helpers;
 import br.otimizes.oplatool.architecture.exceptions.ConcernNotFoundException;
 import br.otimizes.oplatool.architecture.exceptions.ModelIncompleteException;
 import br.otimizes.oplatool.architecture.exceptions.ModelNotFoundException;
-import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.*;
@@ -201,14 +201,12 @@ public class StereotypeHelper {
      * @return {@link Map}
      * @throws ModelNotFoundException
      * @throws ModelIncompleteException
-     * @throws SMartyProfileNotAppliedToModelExcepetion
+     * @throws SMartyProfileNotAppliedToModelException
      */
-    public static Map<String, String> getVariabilityAttributes(NamedElement klass, Comment comment) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
-
+    public static Map<String, String> getVariabilityAttributes(NamedElement klass, Comment comment) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException {
         if (comment != null) {
-
             Stereotype variability = getStereotypeByName(klass, "variability");
-            Map<String, String> variabilityProps = new HashMap<String, String>();
+            Map<String, String> variabilityProps = new HashMap<>();
 
             String name = getValueOfAttribute(comment, variability, "name");
             String bidingTime = getValueOfAttribute(comment, variability, "bindingTime");

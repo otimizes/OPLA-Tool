@@ -2,7 +2,6 @@ package br.otimizes.oplatool.architecture.helpers;
 
 import br.otimizes.oplatool.architecture.base.Base;
 import br.otimizes.oplatool.architecture.exceptions.*;
-import br.otimizes.oplatool.architecture.exceptions.*;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -227,7 +226,7 @@ public class Uml2Helper extends Base {
     }
 
     public org.eclipse.uml2.uml.Package load(String pathAbsolute)
-            throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
+            throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException {
 
         File file = new File(pathAbsolute);
         FilenameFilter filter = new OnlyCompleteResources();

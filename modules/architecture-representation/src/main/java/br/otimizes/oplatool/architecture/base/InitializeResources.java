@@ -76,7 +76,6 @@ public class InitializeResources {
                     .getExtensionToFactoryMap();
             extensionToFactoryMap.put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
             extensionToFactoryMap.put(UMLResource.PROFILE_FILE_EXTENSION, UMLResource.Factory.INSTANCE);
-            extensionToFactoryMap.put("uml", XMI2UMLResource.Factory.INSTANCE);
         } catch (Exception a) {
             a.printStackTrace();
 

@@ -3,7 +3,7 @@ package br.otimizes.oplatool.architecture.generate;
 import br.otimizes.oplatool.architecture.builders.ArchitectureBuilderPapyrus;
 import br.otimizes.oplatool.architecture.exceptions.ModelIncompleteException;
 import br.otimizes.oplatool.architecture.exceptions.ModelNotFoundException;
-import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelException;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 
 public class Main {
@@ -13,7 +13,7 @@ public class Main {
      * @throws Exception
      * @throws ModelIncompleteException
      * @throws ModelNotFoundException
-     * @throws SMartyProfileNotAppliedToModelExcepetion
+     * @throws SMartyProfileNotAppliedToModelException
      */
     public static void main(String[] args) throws Exception {
 

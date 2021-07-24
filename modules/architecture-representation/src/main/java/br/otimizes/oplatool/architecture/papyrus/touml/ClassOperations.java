@@ -7,7 +7,6 @@ import br.otimizes.oplatool.architecture.helpers.UtilResources;
 import br.otimizes.oplatool.architecture.helpers.XmiHelper;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Variant;
-import br.otimizes.oplatool.architecture.exceptions.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.eclipse.uml2.uml.Profile;
@@ -205,14 +204,14 @@ public class ClassOperations extends XmiHelper {
      *
      * @param stereotypeName
      * @return ClassOperations
-     * @throws SMartyProfileNotAppliedToModelExcepetion
+     * @throws SMartyProfileNotAppliedToModelException
      * @throws ModelIncompleteException
      * @throws ModelNotFoundException
      * @throws InvalidMultiplictyForAssociationException
      * @throws NodeNotFound
      * @throws CustonTypeNotFound
      */
-    public ClassOperations withStereoype(final Variant... stereotypeNames) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+    public ClassOperations withStereoype(final Variant... stereotypeNames) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 
         Profile profile = uml2Helper.loadSMartyProfile();
 
@@ -244,7 +243,7 @@ public class ClassOperations extends XmiHelper {
      * @param variant - Estereótipo
      * @throws ModelNotFoundException
      * @throws ModelIncompleteException
-     * @throws SMartyProfileNotAppliedToModelExcepetion
+     * @throws SMartyProfileNotAppliedToModelException
      * @throws CustonTypeNotFound
      * @throws NodeNotFound
      * @throws InvalidMultiplictyForAssociationException
