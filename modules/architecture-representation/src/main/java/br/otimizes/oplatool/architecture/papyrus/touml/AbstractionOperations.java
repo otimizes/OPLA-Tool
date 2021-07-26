@@ -42,19 +42,12 @@ public class AbstractionOperations implements Relationship {
 
     public String build() {
         final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement, null, a);
-
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                dependencyNode.createDependency(ABSTRACTION);
-            }
-        });
-
-        return ""; //TODO return id;
-
+        Document.executeTransformation(documentManager, () -> dependencyNode.createDependency(ABSTRACTION));
+        return "";
     }
 
-    public Relationship withMultiplicy(String string) throws NotSuppportedOperation {
-        throw new NotSuppportedOperation("Realization dont have multiplicy");
+    public Relationship withMultiplicity(String string) throws NotSuppportedOperation {
+        throw new NotSuppportedOperation("Realization dont have multiplicity");
     }
 
     public AbstractionOperations withName(String realizationName) {
@@ -64,5 +57,4 @@ public class AbstractionOperations implements Relationship {
             this.name = realizationName;
         return this;
     }
-
 }

@@ -12,7 +12,7 @@ public class AssociationOperations {
 
     private final DocumentManager documentManager;
 
-    private AssociationEnd idClassOwnnerAssociation;
+    private AssociationEnd idClassOwnerAssociation;
     private AssociationEnd idClassDestinationAssociation;
     private String name;
 
@@ -26,7 +26,7 @@ public class AssociationOperations {
     }
 
     public AssociationOperations betweenClass(AssociationEnd associationEnd) {
-        this.idClassOwnnerAssociation = associationEnd;
+        this.idClassOwnerAssociation = associationEnd;
         return this;
     }
 
@@ -36,21 +36,14 @@ public class AssociationOperations {
     }
 
     public String build() {
-        //Refactoring, document.getNewName is br.otimizes.oplatool.common for many classes
         final AssociationNode associationNode = new AssociationNode(this.documentManager, null);
-
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                associationNode.createAssociation(idClassOwnnerAssociation, idClassDestinationAssociation, name, "none");
-            }
-        });
-
-        return associationNode.getIdAssocation();
+        Document.executeTransformation(documentManager, () -> associationNode
+                .createAssociation(idClassOwnerAssociation, idClassDestinationAssociation, name, "none"));
+        return associationNode.getIdAssociation();
     }
 
     public AssociationOperations withName(String name) {
         this.name = name;
         return this;
     }
-
 }

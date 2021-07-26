@@ -29,77 +29,83 @@ public class AssociationClassNode extends XmiHelper {
     }
 
     public void createAssociationClass(String id, String ownedEndElement, String associationEndDestination, String nameAssociationClass) {
-
         this.idAssociation = id;
-        Node nodeToAddOwnedAttributeForAssociationClass = null;
-        String idOwnedAttribute = null;
-
-        idOwnedAttribute = UtilResources.getRandomUUID();
+        String idOwnedAttribute = UtilResources.getRandomUUID();
         String idOwnedEnd = UtilResources.getRandomUUID();
 
         Node modelRoot = this.docUml.getElementsByTagName("uml:Model").item(0);
-        nodeToAddOwnedAttributeForAssociationClass = findByID(docUml, ownedEndElement, "packagedElement");
+        Node nodeToAddOwnedAttributeForAssociationClass = findByID(docUml, ownedEndElement, "packagedElement");
 
+        Element packageElement = getPackageElement(nameAssociationClass, idOwnedAttribute, idOwnedEnd);
+        Element ownedEnd = getOwnedEnd(ownedEndElement, idOwnedEnd);
+        Element lowerValue = getLowerValue();
+        ownedEnd.appendChild(lowerValue);
+
+        Element upperValue = getUpperValue();
+        ownedEnd.appendChild(upperValue);
+        packageElement.appendChild(ownedEnd);
+        modelRoot.appendChild(packageElement);
+
+        Element ownedAttribute = getOwnedAttribute(associationEndDestination, idOwnedAttribute);
+        Element newLowerValue = getLowerValue();
+        ownedAttribute.appendChild(newLowerValue);
+
+        Element newUpperValue = getUpperValue();
+        ownedAttribute.appendChild(newUpperValue);
+
+        if (nodeToAddOwnedAttributeForAssociationClass != null)
+            nodeToAddOwnedAttributeForAssociationClass.appendChild(ownedAttribute);
+
+        try {
+            String idChildren = notation.createXmiForClassInNotationFile(this.idAssociation, null, "associationClass", null);
+            String idEdge = elementXmiGenerator.createEgdeAssocationOnNotationFile(docNotation, newModelName,
+                    ownedEndElement, associationEndDestination, this.idAssociation);
+            elementXmiGenerator.createEgdgeAssociationClassOnNotationFile(idChildren, idEdge);
+        } catch (NullReferenceFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Element getPackageElement(String nameAssociationClass, String idOwnedAttribute, String idOwnedEnd) {
         Element packageElement = this.docUml.createElement("packagedElement");
         packageElement.setAttribute("xmi:type", "uml:AssociationClass");
         packageElement.setAttribute("xmi:id", this.idAssociation);
         packageElement.setAttribute("name", nameAssociationClass);
         packageElement.setAttribute("memberEnd", idOwnedAttribute + " " + idOwnedEnd);
+        return packageElement;
+    }
 
+    private Element getOwnedEnd(String ownedEndElement, String idOwnedEnd) {
         Element ownedEnd = this.docUml.createElement("ownedEnd");
         ownedEnd.setAttribute("xmi:id", idOwnedEnd);
         ownedEnd.setAttribute("name", "nome");
         ownedEnd.setAttribute("type", ownedEndElement);
         ownedEnd.setAttribute("association", this.idAssociation);
+        return ownedEnd;
+    }
 
+    private Element getLowerValue() {
         Element lowerValue = this.docUml.createElement("lowerValue");
         lowerValue.setAttribute("xmi:type", "uml:LiteralInteger");
         lowerValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
         lowerValue.setAttribute("value", "1");
-        ownedEnd.appendChild(lowerValue);
-
-        Element upperValue = this.docUml.createElement("upperValue");
-        upperValue.setAttribute("xmi:type", "uml:LiteralInteger");
-        upperValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
-        upperValue.setAttribute("value", "1");
-        ownedEnd.appendChild(upperValue);
-        packageElement.appendChild(ownedEnd);
-
-        modelRoot.appendChild(packageElement);
-
-        ownedAttibute(nodeToAddOwnedAttributeForAssociationClass, idOwnedAttribute, associationEndDestination);
-
-        try {
-            String idChildren = notation.createXmiForClassInNotationFile(this.idAssociation, null, "associationClass", null);
-            String idEdge = elementXmiGenerator.createEgdeAssocationOnNotationFile(docNotation, newModelName, ownedEndElement, associationEndDestination, this.idAssociation);
-            elementXmiGenerator.createEgdgeAssociationClassOnNotationFile(idChildren, idEdge);
-        } catch (NullReferenceFoundException e) {
-            e.printStackTrace();
-        }
-
+        return lowerValue;
     }
 
-    private void ownedAttibute(Node nodeToAddAttribute, String idOwnedAttribute, String associationEndDestination) {
-
-        Element ownedAttibute = this.docUml.createElement("ownedAttribute");
-        ownedAttibute.setAttribute("xmi:id", idOwnedAttribute);
-        ownedAttibute.setAttribute("name", "ClassDestination");
-        ownedAttibute.setAttribute("type", associationEndDestination);
-        ownedAttibute.setAttribute("association", this.idAssociation);
-
-        Element lowerValue = this.docUml.createElement("lowerValue");
-        lowerValue.setAttribute("xmi:type", "uml:LiteralInteger");
-        lowerValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
-        lowerValue.setAttribute("value", "1");
-        ownedAttibute.appendChild(lowerValue);
-
-        Element upperValue = this.docUml.createElement("upperValue");
-        upperValue.setAttribute("xmi:type", "uml:LiteralInteger");
-        upperValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
-        upperValue.setAttribute("value", "1");
-        ownedAttibute.appendChild(upperValue);
-
-        nodeToAddAttribute.appendChild(ownedAttibute);
+    private Element getUpperValue() {
+        Element newUpperValue = this.docUml.createElement("upperValue");
+        newUpperValue.setAttribute("xmi:type", "uml:LiteralInteger");
+        newUpperValue.setAttribute("xmi:id", UtilResources.getRandomUUID());
+        newUpperValue.setAttribute("value", "1");
+        return newUpperValue;
     }
 
+    private Element getOwnedAttribute(String associationEndDestination, String idOwnedAttribute) {
+        Element ownedAttribute = this.docUml.createElement("ownedAttribute");
+        ownedAttribute.setAttribute("xmi:id", idOwnedAttribute);
+        ownedAttribute.setAttribute("name", "ClassDestination");
+        ownedAttribute.setAttribute("type", associationEndDestination);
+        ownedAttribute.setAttribute("association", this.idAssociation);
+        return ownedAttribute;
+    }
 }

@@ -12,8 +12,6 @@ import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToMod
 public abstract class ArchitectureBase {
 
     public static DocumentManager givenADocument(String outputModelName) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException {
-        DocumentManager documentManager = new DocumentManager(outputModelName);
-        return documentManager;
+        return new DocumentManager(outputModelName);
     }
-
 }

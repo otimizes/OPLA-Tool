@@ -17,6 +17,6 @@ public interface Relationship {
 
     String build();
 
-    Relationship withMultiplicy(String string) throws NotSuppportedOperation;
+    Relationship withMultiplicity(String string) throws NotSuppportedOperation;
 
 }

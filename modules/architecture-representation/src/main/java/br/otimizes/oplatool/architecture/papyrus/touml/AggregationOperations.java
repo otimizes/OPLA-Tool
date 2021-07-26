@@ -34,14 +34,6 @@ public class AggregationOperations {
         return this;
     }
 
-//	public AggregationOperations withMultiplicy(String multiplicity) {
-//		if(this.target != null)
-//			this.multiplicityClassTarget = multiplicity;
-//		else if(this.client != null)
-//			this.multiplicityClassClient = multiplicity;
-//		return this;
-//	}
-
     public AggregationOperations and(AssociationEnd element) {
         this.target = element;
         return this;
@@ -49,14 +41,8 @@ public class AggregationOperations {
 
     public String build() {
         final AssociationNode associationNode = new AssociationNode(doc, null);
-
-        Document.executeTransformation(doc, new Transformation() {
-            public void useTransformation() {
-                associationNode.createAssociation(client, target, name, SHARED);
-            }
-        });
-
-        return ""; //TODO return id;
+        Document.executeTransformation(doc, () -> associationNode.createAssociation(client, target, name, SHARED));
+        return "";
     }
 
     public AggregationOperations createRelation() {
@@ -68,8 +54,6 @@ public class AggregationOperations {
             this.name = "";
         else
             this.name = relationshipName;
-
         return this;
     }
-
 }

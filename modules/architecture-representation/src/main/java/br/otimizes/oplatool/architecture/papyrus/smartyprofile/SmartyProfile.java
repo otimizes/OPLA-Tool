@@ -5,6 +5,7 @@ import br.otimizes.oplatool.architecture.exceptions.ModelNotFoundException;
 import br.otimizes.oplatool.architecture.exceptions.StereotypeNotFoundException;
 import br.otimizes.oplatool.architecture.helpers.Uml2Helper;
 import br.otimizes.oplatool.architecture.helpers.Uml2HelperFactory;
+import br.otimizes.oplatool.domain.config.FileConstants;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.*;
@@ -43,10 +44,8 @@ public class SmartyProfile {
         createConcernStereotype();
 
         try {
-            URI profileURI = URI.createFileURI("/Users/edipofederle/Desktop/" + profileName); // Local para salvar o arquivo
+            URI profileURI = URI.createFileURI(FileConstants.USER_HOME + FileConstants.FILE_SEPARATOR + profileName);
             helper.saveResources(this.profile, profileURI);
-            System.out.println("\n");
-            System.out.println("Perfil " + profileName + " salvo com sucesso em: " + profileURI);
         } catch (IOException e) {
             e.printStackTrace();
         }

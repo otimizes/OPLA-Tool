@@ -1,6 +1,5 @@
 package br.otimizes.oplatool.architecture.papyrus.touml;
 
-import br.otimizes.oplatool.architecture.exceptions.*;
 import br.otimizes.oplatool.architecture.helpers.Uml2Helper;
 import br.otimizes.oplatool.architecture.helpers.Uml2HelperFactory;
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
@@ -25,8 +24,7 @@ import java.util.Set;
  */
 public class ClassOperations extends XmiHelper {
 
-
-    private static final String WITHOUT_PACKAGE = ""; // Classe sem pacote
+    private static final String WITHOUT_PACKAGE = "";
     static Logger LOGGER = LogManager.getLogger(ClassOperations.class.getName());
     private String idClass;
     private final DocumentManager documentManager;
@@ -35,10 +33,7 @@ public class ClassOperations extends XmiHelper {
     private String idsMethods = "";
     private Node klass;
     private boolean isAbstract = false;
-
     private final Uml2Helper uml2Helper;
-
-    private org.eclipse.uml2.uml.Stereotype stereotype;
 
     public ClassOperations(DocumentManager documentManager, Architecture a) {
         uml2Helper = Uml2HelperFactory.instance.get();
@@ -52,87 +47,42 @@ public class ClassOperations extends XmiHelper {
         return this;
     }
 
-    /**
-     * Cria {@link Attribute} para a classe
-     *
-     * @param attributes
-     * @return
-     * @throws CustonTypeNotFound
-     * @throws NodeNotFound
-     * @throws InvalidMultiplicityForAssociationException
-     */
     public ClassOperations withAttribute(final List<Attribute> attributes) {
-
         for (final Attribute attribute : attributes) {
-            Document.executeTransformation(documentManager, new Transformation() {
-                public void useTransformation() {
-                    elementXmiGenerator.generateAttribute(attribute, idClass);
-                    idsProperties += attribute.getId() + " ";
-
-                }
+            Document.executeTransformation(documentManager, () -> {
+                elementXmiGenerator.generateAttribute(attribute, idClass);
+                idsProperties += attribute.getId() + " ";
             });
         }
-
-
         return this;
     }
 
-
-    /**
-     * Recebe vários métodos
-     *
-     * @param methods
-     * @return
-     */
     public ClassOperations withMethods(final Set<Method> methods) {
-
         for (final Method method : methods) {
             createMethod(method);
         }
-
-
         return this;
     }
 
-    /**
-     * Recebe um único método.
-     *
-     * @param method
-     * @return
-     */
     public ClassOperations withMethod(final Method method) {
         createMethod(method);
         return this;
     }
 
     private void createMethod(final Method method) {
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                elementXmiGenerator.generateMethod(method, idClass);
-                idsMethods += method.getId() + " ";
-            }
+        Document.executeTransformation(documentManager, () -> {
+            elementXmiGenerator.generateMethod(method, idClass);
+            idsMethods += method.getId() + " ";
         });
     }
 
-
-    /**
-     * Finaliza a criação da classe.
-     *
-     * @return {@link Map} com informações sobre a classe criada.
-     * @throws NodeNotFound
-     * @throws CustonTypeNotFound
-     * @throws InvalidMultiplicityForAssociationException
-     */
     public Map<String, String> build() {
-
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                Element e = (Element) klass;
-                e.setAttribute("isAbstract", isClassAbstract(isAbstract));
-            }
+        Document.executeTransformation(documentManager, () -> {
+            Element e = (Element) klass;
+            e.setAttribute("isAbstract", isClassAbstract(isAbstract));
         });
 
-        Map<String, String> createdClassInfos = new HashMap<String, String>();
+        Map<String, String> createdClassInfos = new HashMap<>();
         createdClassInfos.put("id", this.idClass);
         createdClassInfos.put("idsProperties", this.idsProperties);
         createdClassInfos.put("idsMethods", this.idsMethods);
@@ -142,203 +92,138 @@ public class ClassOperations extends XmiHelper {
 
 
     public void removeClassById(final String id) {
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                RemoveNode removeClass = new RemoveNode(documentManager.getDocUml(), documentManager.getDocNotation());
-                removeClass.removeClassById(id);
-            }
+        Document.executeTransformation(documentManager, () -> {
+            RemoveNode removeClass = new RemoveNode(documentManager.getDocUml(), documentManager.getDocNotation());
+            removeClass.removeClassById(id);
         });
     }
 
 
     public void removeAttribute(final String idAttributeToRemove) {
         final RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
-
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                removeClass.removeAttributeeById(idAttributeToRemove, idClass);
-            }
-        });
+        Document.executeTransformation(documentManager, () -> removeClass.removeAttributeeById(idAttributeToRemove, idClass));
     }
 
     public void removeMethod(final String idMethodoToRmove) {
         final RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
-
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                removeClass.removeMethodById(idMethodoToRmove, idClass);
-            }
-        });
+        Document.executeTransformation(documentManager, () -> removeClass.removeMethodById(idMethodoToRmove, idClass));
     }
 
-
     public ClassOperations addMethodToClass(final String idClass, final Method method) {
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                elementXmiGenerator.generateMethod(method, idClass);
-                idsMethods += method.getId() + " ";
-            }
+        Document.executeTransformation(documentManager, () -> {
+            elementXmiGenerator.generateMethod(method, idClass);
+            idsMethods += method.getId() + " ";
         });
-
         return this;
     }
 
     public void addAttributeToClass(final String idClass, final Attribute attribute) {
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                elementXmiGenerator.generateAttribute(attribute, idClass);
-                idsProperties += attribute.getId() + " ";
-            }
+        Document.executeTransformation(documentManager, () -> {
+            elementXmiGenerator.generateAttribute(attribute, idClass);
+            idsProperties += attribute.getId() + " ";
         });
     }
 
-
-    //TODO move comon
     public ClassOperations isAbstract() {
         this.isAbstract = true;
         return this;
     }
 
-    /**
-     * Aplica um estereótipo na classe. Se o estereótipo não existir no profile uma exceção é lançada.
-     *
-     * @param stereotypeName
-     * @return ClassOperations
-     * @throws SMartyProfileNotAppliedToModelException
-     * @throws ModelIncompleteException
-     * @throws ModelNotFoundException
-     * @throws InvalidMultiplicityForAssociationException
-     * @throws NodeNotFound
-     * @throws CustonTypeNotFound
-     */
-    public ClassOperations withStereoype(final Variant... stereotypeNames) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException, CustonTypeNotFound, NodeNotFound, InvalidMultiplicityForAssociationException {
-
+    public ClassOperations withStereotype(final Variant... stereotypeNames) {
         Profile profile = uml2Helper.loadSMartyProfile();
-
-
         for (final Variant variant : stereotypeNames) {
-            stereotype = profile.getOwnedStereotype(variant.getVariantName());
+            org.eclipse.uml2.uml.Stereotype stereotype = profile.getOwnedStereotype(variant.getVariantName());
             if (stereotype == null)
                 LOGGER.warn("Stereotype + " + variant.getVariantName() + " cannot be found at profile.");
-
-            Document.executeTransformation(documentManager, new Transformation() {
-                public void useTransformation() {
-                    elementXmiGenerator.createStereotype(variant, idClass);
-                }
-            });
+            Document.executeTransformation(documentManager, () -> elementXmiGenerator.createStereotype(variant, idClass));
         }
-
         return this;
     }
 
-    /**
-     * Aplica um dado estereótipo a classe. Aplicavéis são:
-     * <p>
-     * <li>mandatory</li>
-     * <li>optional</li>
-     * <li>alternative_OR</li>
-     * </li>alternative_XOR</li>
-     *
-     * @param id      - Classe id
-     * @param variant - Estereótipo
-     * @throws ModelNotFoundException
-     * @throws ModelIncompleteException
-     * @throws SMartyProfileNotAppliedToModelException
-     * @throws CustonTypeNotFound
-     * @throws NodeNotFound
-     * @throws InvalidMultiplicityForAssociationException
-     */
     public void addStereotype(final String id, final Variant variant) {
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                elementXmiGenerator.createStereotype(variant, id);
-            }
-        });
+        Document.executeTransformation(documentManager, () -> elementXmiGenerator.createStereotype(variant, id));
     }
 
-
-    /**
-     * Indica que a classe sendo criada é um ponto de variação, ou seja, possui o estereótipo <b>variationPoint</b>
-     *
-     * @param variants      - uma String (com nomes das variantes) separada por virgula.
-     * @param variabilities - uma String (com nomes das variabilities) separada por virgula
-     * @param bidingTime    - {@link BindingTime}
-     * @return {@link ClassOperations}
-     * @throws CustonTypeNotFound
-     * @throws NodeNotFound
-     * @throws InvalidMultiplicityForAssociationException
-     */
     public ClassOperations isVariationPoint(final String variants, final String variabilities, final String bidingTime) {
         if ((!variants.isEmpty()) || (!variabilities.isEmpty())) {
-            Document.executeTransformation(documentManager, new Transformation() {
-                public void useTransformation() {
-                    elementXmiGenerator.createStereotypeVariationPoint(idClass, variants, variabilities, bidingTime);
-                }
-            });
+            Document.executeTransformation(documentManager, () -> elementXmiGenerator.createStereotypeVariationPoint(idClass, variants, variabilities, bidingTime));
         }
-
         return this;
     }
 
-    /**
-     * Anota uma classe com um dado comentário
-     *
-     * @param id - ID do comentário.
-     * @throws InvalidMultiplicityForAssociationException
-     * @throws NodeNotFound
-     * @throws CustonTypeNotFound
-     */
     public ClassOperations linkToNote(final String id) {
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-
-                Element comment = (Element) findByID(documentManager.getDocUml(), id, "ownedComment");
+        Document.executeTransformation(documentManager, () -> {
+            Element comment = (Element) findByID(documentManager.getDocUml(), id, "ownedComment");
+            if (comment != null)
                 comment.setAttribute("annotatedElement", idClass);
 
-                //pega o id do source e do target no arquivo .notation
-                Node commentElement = findByIDInNotationFile(documentManager.getDocNotation(), id);
-                Node classElement = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
-                String idCommentNotation = commentElement.getAttributes().getNamedItem("xmi:id").getNodeValue();
-                String idClassNotation = classElement.getAttributes().getNamedItem("xmi:id").getNodeValue();
+            Element edges = getEdges(id);
 
-                Element edges = documentManager.getDocNotation().createElement("edges");
-                edges.setAttribute("xmi:type", "notation:Connector");
-                edges.setAttribute("xmi:id", UtilResources.getRandomUUID());
-                edges.setAttribute("type", "4013");
-                edges.setAttribute("source", idCommentNotation);
-                edges.setAttribute("target", idClassNotation);
-                edges.setAttribute("lineColor", "0");
+            Element styles = getStyles();
+            edges.appendChild(styles);
 
-                Element styles = documentManager.getDocNotation().createElement("styles");
-                styles.setAttribute("xmi:id", UtilResources.getRandomUUID());
-                styles.setAttribute("fontName", "Lucida Grande");
-                styles.setAttribute("xmi:type", "notation:FontStyle");
-                styles.setAttribute("fontHeight", "11");
-                edges.appendChild(styles);
+            Element element = getNilElement();
+            edges.appendChild(element);
 
-                Element element = documentManager.getDocNotation().createElement("element");
-                element.setAttribute("xsi:nil", "true");
-                edges.appendChild(element);
+            Element bendPoints = getBendPoints();
+            edges.appendChild(bendPoints);
 
-                Element bendpoints = documentManager.getDocNotation().createElement("bendpoints");
-                bendpoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
-                bendpoints.setAttribute("xmi:id", UtilResources.getRandomUUID());
-                bendpoints.setAttribute("points", "[-10, 17, 55, -89]$[-63, 156, 2, 50]");
-                edges.appendChild(bendpoints);
+            Element sourceAnchor = getSourceAnchor();
+            edges.appendChild(sourceAnchor);
 
-                Element sourceAnchor = documentManager.getDocNotation().createElement("sourceAnchor");
-                sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
-                sourceAnchor.setAttribute("xmi:id", UtilResources.getRandomUUID());
-                sourceAnchor.setAttribute("id", "(1.0,0.7166666666666667)");
-                edges.appendChild(sourceAnchor);
-
-                Node root = documentManager.getDocNotation().getElementsByTagName("notation:Diagram").item(0);
-                root.appendChild(edges);
-
-            }
+            Node root = documentManager.getDocNotation().getElementsByTagName("notation:Diagram").item(0);
+            root.appendChild(edges);
         });
-
         return this;
+    }
+
+    private Element getEdges(String id) {
+        Node commentElement = findByIDInNotationFile(documentManager.getDocNotation(), id);
+        Node classElement = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
+        Element edges = null;
+        if (commentElement != null && classElement != null) {
+            String idCommentNotation = commentElement.getAttributes().getNamedItem("xmi:id").getNodeValue();
+            String idClassNotation = classElement.getAttributes().getNamedItem("xmi:id").getNodeValue();
+            edges = documentManager.getDocNotation().createElement("edges");
+            edges.setAttribute("xmi:type", "notation:Connector");
+            edges.setAttribute("xmi:id", UtilResources.getRandomUUID());
+            edges.setAttribute("type", "4013");
+            edges.setAttribute("source", idCommentNotation);
+            edges.setAttribute("target", idClassNotation);
+            edges.setAttribute("lineColor", "0");
+        }
+        return edges;
+    }
+
+    private Element getStyles() {
+        Element styles = documentManager.getDocNotation().createElement("styles");
+        styles.setAttribute("xmi:id", UtilResources.getRandomUUID());
+        styles.setAttribute("fontName", "Lucida Grande");
+        styles.setAttribute("xmi:type", "notation:FontStyle");
+        styles.setAttribute("fontHeight", "11");
+        return styles;
+    }
+
+    private Element getNilElement() {
+        Element element = documentManager.getDocNotation().createElement("element");
+        element.setAttribute("xsi:nil", "true");
+        return element;
+    }
+
+    private Element getBendPoints() {
+        Element bendPoints = documentManager.getDocNotation().createElement("bendpoints");
+        bendPoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
+        bendPoints.setAttribute("xmi:id", UtilResources.getRandomUUID());
+        bendPoints.setAttribute("points", "[-10, 17, 55, -89]$[-63, 156, 2, 50]");
+        return bendPoints;
+    }
+
+    private Element getSourceAnchor() {
+        Element sourceAnchor = documentManager.getDocNotation().createElement("sourceAnchor");
+        sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
+        sourceAnchor.setAttribute("xmi:id", UtilResources.getRandomUUID());
+        sourceAnchor.setAttribute("id", "(1.0,0.7166666666666667)");
+        return sourceAnchor;
     }
 
     public ClassOperations withId(String ownerClass) {
@@ -346,16 +231,8 @@ public class ClassOperations extends XmiHelper {
         return this;
     }
 
-
     public ClassOperations asInterface() {
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                elementXmiGenerator.interfaceStereoptye(idClass);
-            }
-        });
-
+        Document.executeTransformation(documentManager, () -> elementXmiGenerator.interfaceStereoptye(idClass));
         return this;
     }
-
-
 }

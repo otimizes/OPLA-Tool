@@ -42,13 +42,6 @@ public class CompositionOperations {
 
     public void build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplicityForAssociationException {
         final AssociationNode cn = new AssociationNode(doc, null);
-
-        Document.executeTransformation(doc, new Transformation() {
-            public void useTransformation() {
-                cn.createAssociation(client, target, name, "composite");
-            }
-        });
+        Document.executeTransformation(doc, () -> cn.createAssociation(client, target, name, "composite"));
     }
-
-
 }

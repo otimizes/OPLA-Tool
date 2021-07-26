@@ -54,7 +54,7 @@ public class UsageOperations implements Relationship {
 
     }
 
-    public UsageOperations withMultiplicy(String string) throws NotSuppportedOperation {
+    public UsageOperations withMultiplicity(String string) throws NotSuppportedOperation {
         throw new NotSuppportedOperation("Usage dont have multiplicy");
     }
 

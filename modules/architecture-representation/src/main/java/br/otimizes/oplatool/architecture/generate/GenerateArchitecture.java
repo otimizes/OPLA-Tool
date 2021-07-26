@@ -121,7 +121,7 @@ public class GenerateArchitecture extends ArchitectureBase {
         for (Attribute attribute : klass.getAllAttributes()) {
             br.otimizes.oplatool.architecture.papyrus.touml.Attribute attr = br.otimizes.oplatool.architecture.papyrus
                     .touml.Attribute.create().withName(attribute.getName())
-                    .grafics(attribute.isGeneratVisualAttribute()).withConcerns(attribute.getOwnConcerns())
+                    .getGraphics(attribute.isGeneratVisualAttribute()).withConcerns(attribute.getOwnConcerns())
                     .withVisibility(VisibilityKind.getByName(attribute.getVisibility()))
                     .withType(Types.getByName(attribute.getType()));
 

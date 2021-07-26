@@ -52,7 +52,7 @@ public class RealizationsOperations implements Relationship {
 
     }
 
-    public Relationship withMultiplicy(String string) throws NotSuppportedOperation {
+    public Relationship withMultiplicity(String string) throws NotSuppportedOperation {
         throw new NotSuppportedOperation("Realization dont have multiplicy");
     }
 

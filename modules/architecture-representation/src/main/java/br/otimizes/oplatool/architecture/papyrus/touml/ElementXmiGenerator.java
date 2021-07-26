@@ -22,7 +22,7 @@ import org.w3c.dom.Node;
 public class ElementXmiGenerator extends XmiHelper {
 
     private static final String METHOD_ID = "3013";
-    private static final String METHODO_TYPE = "uml:Operation";
+    private static final String METHOD_TYPE = "uml:Operation";
     private static final String LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE = "7018";
     private static final String LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE = "7017";
     private static final String PROPERTY_ID = "3012";
@@ -30,24 +30,16 @@ public class ElementXmiGenerator extends XmiHelper {
     static Logger LOGGER = LogManager.getLogger(ElementXmiGenerator.class.getName());
     private Element element;
     private final DocumentManager documentManager;
-    private final Node notatioChildren;
     private final Node umlModelChild;
-    private Element notationBasicOperation;
     private final Architecture a;
     private Node klass;
     private final ClassNotation notation;
 
-    /**
-     * documentUml é o arquivo .uml
-     *
-     * @param a
-     * @param documentUml
-     */
     public ElementXmiGenerator(DocumentManager documentManager, Architecture a) {
         this.documentManager = documentManager;
         this.umlModelChild = documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
-        this.notatioChildren = documentManager.getDocNotation().getElementsByTagName("notation:Diagram").item(0);
-        notation = new ClassNotation(this.documentManager, notatioChildren);
+        Node notationChildren = documentManager.getDocNotation().getElementsByTagName("notation:Diagram").item(0);
+        notation = new ClassNotation(this.documentManager, notationChildren);
         this.a = a;
     }
 
@@ -139,10 +131,10 @@ public class ElementXmiGenerator extends XmiHelper {
         if (idClass != null) {
             final Node klassToAddMethod = findByID(documentManager.getDocUml(), idClass, "packagedElement");
             klassToAddMethod.appendChild(ownedOperation);
-            writeOnNotationFile(method.getId(), METHOD_ID, METHODO_TYPE, getNodeToAddMethodInNotationFile(idClass, LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE));
+            writeOnNotationFile(method.getId(), METHOD_ID, METHOD_TYPE, getNodeToAddMethodInNotationFile(idClass, LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE));
         } else {
             klass.appendChild(ownedOperation);
-            writeOnNotationFile(method.getId(), METHOD_ID, METHODO_TYPE, notationBasicOperation);
+            writeOnNotationFile(method.getId(), METHOD_ID, METHOD_TYPE, null);
         }
     }
 
