@@ -8,7 +8,6 @@ import br.otimizes.oplatool.architecture.exceptions.NotSuppportedOperation;
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public interface Relationship {
-
     Relationship createRelation();
 
     Relationship between(String idElement) throws NotSuppportedOperation;
@@ -18,5 +17,4 @@ public interface Relationship {
     String build();
 
     Relationship withMultiplicity(String string) throws NotSuppportedOperation;
-
 }

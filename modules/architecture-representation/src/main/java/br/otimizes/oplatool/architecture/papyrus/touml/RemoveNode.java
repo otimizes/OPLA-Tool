@@ -26,12 +26,6 @@ public class RemoveNode extends XmiHelper {
         this.docNotation = docNotation;
     }
 
-    /**
-     * Remove node de um dado documento com o id informado.
-     *
-     * @param document
-     * @param id
-     */
     public void removeClassById(String id) {
         Node umlNOde = this.docUml.getElementsByTagName("uml:Model").item(0);
         try {
@@ -40,20 +34,19 @@ public class RemoveNode extends XmiHelper {
 
             LOGGER.info("Class with id: " + id + " removed from UML file.");
         } catch (Exception e) {
-            LOGGER.info("Cannot reemove Class with id: " + id + ".");
+            LOGGER.info("Cannot remove Class with id: " + id + ".");
         }
     }
 
-    public void removeAttributeeById(String id, String idClass) {
+    public void removeAttributeById(String id, String idClass) {
         try {
             removeNodeFromUmlFile(id, idClass, "ownedAttribute");
             removeNodeFromNotationFile(id);
             LOGGER.info("Attribute with id: " + id + " removed.");
         } catch (Exception e) {
-            LOGGER.info("Cannot reemove Attribute with id: " + id + ".");
+            LOGGER.info("Cannot remove Attribute with id: " + id + ".");
         }
     }
-
 
     public void removeMethodById(String idMethodToRemove, String idClass) {
         try {
@@ -61,7 +54,7 @@ public class RemoveNode extends XmiHelper {
             removeNodeFromNotationFile(idMethodToRemove);
             LOGGER.info("Method with id: " + idMethodToRemove + " removed.");
         } catch (Exception e) {
-            LOGGER.info("Cannot reemove method with id: " + idMethodToRemove + ".");
+            LOGGER.info("Cannot remove method with id: " + idMethodToRemove + ".");
         }
     }
 
@@ -81,12 +74,10 @@ public class RemoveNode extends XmiHelper {
     private void removeNodeFromNotationFile(String id) {
         try {
             Node notationNode = findByIDInNotationFile(this.docNotation, id);
-            notationNode.getParentNode().removeChild(notationNode);
+            if (notationNode != null) notationNode.getParentNode().removeChild(notationNode);
             LOGGER.info("Class with id: " + id + " removed from NOTATION file.");
         } catch (Exception e) {
             LOGGER.info("Problem when trying remove node with id: " + id + " from notation file. " + e.getMessage());
         }
-
     }
-
 }

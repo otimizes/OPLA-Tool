@@ -39,8 +39,7 @@ public enum VisibilityKind implements Enumerator {
     }
 
     public static VisibilityKind get(String literal) {
-        for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-            VisibilityKind result = VALUES_ARRAY[i];
+        for (VisibilityKind result : VALUES_ARRAY) {
             if (result.toString().equals(literal)) {
                 return result;
             }
@@ -49,8 +48,7 @@ public enum VisibilityKind implements Enumerator {
     }
 
     public static VisibilityKind getByName(String name) {
-        for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-            VisibilityKind result = VALUES_ARRAY[i];
+        for (VisibilityKind result : VALUES_ARRAY) {
             if (result.getName().equals(name)) {
                 return result;
             }
@@ -90,5 +88,4 @@ public enum VisibilityKind implements Enumerator {
     public String toString() {
         return literal;
     }
-
 }

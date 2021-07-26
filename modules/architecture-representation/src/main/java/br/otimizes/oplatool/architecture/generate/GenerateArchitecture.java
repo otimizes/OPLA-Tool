@@ -407,7 +407,7 @@ public class GenerateArchitecture extends ArchitectureBase {
         buildPackage(op, packages.iterator().next());
 
         for (Package p : packages) {
-            op.forPackage().createPacakge(p).withClass(getOnlyInterfacesAndClasses(p), p).build();
+            op.forPackage().createPackage(p).withClass(getOnlyInterfacesAndClasses(p), p).build();
         }
     }
 
@@ -419,7 +419,7 @@ public class GenerateArchitecture extends ArchitectureBase {
             if (!p.getNestedPackages().isEmpty())
                 buildPackage(op, p);
             if (!packageCreated.contains(p.getId())) {
-                op.forPackage().createPacakge(p).withClass(getOnlyInterfacesAndClasses(p), p).build();
+                op.forPackage().createPackage(p).withClass(getOnlyInterfacesAndClasses(p), p).build();
                 packageCreated.add(p.getId());
             }
         }

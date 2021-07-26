@@ -31,14 +31,35 @@ public class GeneralizationNode extends XmiHelper {
     }
 
     public void createGeneralization() throws DOMException {
-
         createNodeInUmlFile();
+        Node notationFileClient = findByIDInNotationFile(docNotation, clientElement);
+        Node notationFileGeneral = findByIDInNotationFile(docNotation, general);
+        if (notationFileClient != null && notationFileGeneral != null) {
+            String idSource = notationFileClient.getAttributes().getNamedItem("xmi:id").getNodeValue();
+            String idTarget = notationFileGeneral.getAttributes().getNamedItem("xmi:id").getNodeValue();
+            Node node = this.docNotation.getElementsByTagName("notation:Diagram").item(0);
+            Element edges = getEdges(idSource, idTarget);
 
+            Element element = getElement();
+            edges.appendChild(element);
 
-        String idSource = findByIDInNotationFile(docNotation, clientElement).getAttributes().getNamedItem("xmi:id").getNodeValue();
-        String idTarget = findByIDInNotationFile(docNotation, general).getAttributes().getNamedItem("xmi:id").getNodeValue();
+            Element firstChildrenDecorationNode = getChildrenDecorationNode();
+            edges.appendChild(firstChildrenDecorationNode);
 
-        Node node = this.docNotation.getElementsByTagName("notation:Diagram").item(0);
+            Element bendPoints = getBendPoints();
+            edges.appendChild(bendPoints);
+
+            Element sourceAnchor = getSourceAnchor();
+            edges.appendChild(sourceAnchor);
+
+            Element targetAnchor = getTargetAnchor();
+            edges.appendChild(targetAnchor);
+
+            node.appendChild(edges);
+        }
+    }
+
+    private Element getEdges(String idSource, String idTarget) {
         Element edges = this.docNotation.createElement("edges");
         edges.setAttribute("xmi:type", "notation:Connector");
         edges.setAttribute("xmi:id", UtilResources.getRandomUUID());
@@ -47,38 +68,46 @@ public class GeneralizationNode extends XmiHelper {
         edges.setAttribute("target", idTarget);
         edges.setAttribute("routing", "Rectilinear");
         edges.setAttribute("lineColor", "0");
+        return edges;
+    }
 
+    private Element getElement() {
         Element element = docNotation.createElement("element");
         element.setAttribute("xmi:type", "uml:Dependency");
         element.setAttribute("href", documentManager.getNewModelName() + ".uml#" + this.id);
-        edges.appendChild(element);
+        return element;
+    }
 
-        Element childrenDocorationnode1 = this.docNotation.createElement("children");
-        childrenDocorationnode1.setAttribute("xmi:type", "notation:DecorationNode");
-        childrenDocorationnode1.setAttribute("xmi:id", UtilResources.getRandomUUID());
-        childrenDocorationnode1.setAttribute("type", "6007");
-        edges.appendChild(childrenDocorationnode1);
+    private Element getChildrenDecorationNode() {
+        Element firstChildrenDecorationNode = this.docNotation.createElement("children");
+        firstChildrenDecorationNode.setAttribute("xmi:type", "notation:DecorationNode");
+        firstChildrenDecorationNode.setAttribute("xmi:id", UtilResources.getRandomUUID());
+        firstChildrenDecorationNode.setAttribute("type", "6007");
+        return firstChildrenDecorationNode;
+    }
 
+    private Element getBendPoints() {
+        Element bendPoints = docNotation.createElement("bendpoints");
+        bendPoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
+        bendPoints.setAttribute("xmi:id", UtilResources.getRandomUUID());
+        bendPoints.setAttribute("points", "[0, 0, 476, 181]$[-467, -170, 9, 11]");
+        return bendPoints;
+    }
 
-        Element bendpoints = docNotation.createElement("bendpoints");
-        bendpoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
-        bendpoints.setAttribute("xmi:id", UtilResources.getRandomUUID());
-        bendpoints.setAttribute("points", "[0, 0, 476, 181]$[-467, -170, 9, 11]");
-        edges.appendChild(bendpoints);
-
+    private Element getSourceAnchor() {
         Element sourceAnchor = docNotation.createElement("sourceAnchor");
         sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
         sourceAnchor.setAttribute("xmi:id", UtilResources.getRandomUUID());
         sourceAnchor.setAttribute("id", "(0.42,0.0)");
-        edges.appendChild(sourceAnchor);
+        return sourceAnchor;
+    }
 
+    private Element getTargetAnchor() {
         Element targetAnchor = docNotation.createElement("targetAnchor");
         targetAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
         targetAnchor.setAttribute("xmi:id", UtilResources.getRandomUUID());
         targetAnchor.setAttribute("id", "(0.82,0.89)");
-        edges.appendChild(targetAnchor);
-
-        node.appendChild(edges);
+        return targetAnchor;
     }
 
     private void createNodeInUmlFile() {
@@ -87,8 +116,6 @@ public class GeneralizationNode extends XmiHelper {
         Element generalization = this.docUml.createElement("generalization");
         generalization.setAttribute("xmi:id", id);
         generalization.setAttribute("general", this.general);
-
-        classClient.appendChild(generalization);
+        if (classClient != null) classClient.appendChild(generalization);
     }
-
 }

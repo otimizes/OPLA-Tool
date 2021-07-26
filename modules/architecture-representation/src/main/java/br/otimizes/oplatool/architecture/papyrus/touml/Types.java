@@ -12,9 +12,6 @@ import java.util.List;
  */
 public class Types {
 
-    /*
-     * Primitive Representations
-     */
     public static final Type BOOLEAN = new Type() {
         public String getName() {
             return "Boolean";
@@ -66,69 +63,9 @@ public class Types {
         }
     };
 
-    /*
-     * Custom Type
-     */
     public static Type custom(final String customType) {
-        return new Type() {
-            public String getName() {
-                return customType;
-            }
-        };
+        return () -> customType;
     }
-
-//	/*
-//	 * Wrapper Representations
-//	 */
-//	public static final Type BOOLEAN_WRAPPER = new Type() {
-//		public String getName() {
-//			return "Boolean";
-//		}
-//	};
-//	public static final Type BYTE_WRAPPER = new Type() {
-//		public String getName() {
-//			return "java.lang.Byte";
-//		}
-//	};
-//	public static final Type CHAR_WRAPPER = new Type() {
-//		public String getName() {
-//			return "java.lang.Character";
-//		}
-//	};
-//	public static final Type SHORT_WRAPPER = new Type() {
-//		public String getName() {
-//			return "java.lang.Short";
-//		}
-//	};
-//	public static final Type INTEGER_WRAPPER = new Type() {
-//		public String getName() {
-//			return "Integer";
-//		}
-//	};
-//	public static final Type DOUBLE_WRAPPER = new Type() {
-//		public String getName() {
-//			return "Double";
-//		}
-//	};
-//	public static final Type FLOAT_WRAPPER = new Type() {
-//		public String getName() {
-//			return "Float";
-//		}
-//	};
-//	public static final Type LONG_WRAPPER = new Type() {
-//		public String getName() {
-//			return "java.lang.Long";
-//		}
-//	};
-// 
-//	/*
-//	 * String
-//	 */
-//	public static final Type STRING = new Type() {
-//		public String getName() {
-//			return "String";
-//		}
-//	};
 
     public static boolean isCustomType(String userType) {
         boolean custom = true;
@@ -138,13 +75,14 @@ public class Types {
                     custom = false;
                     break;
                 }
-            } catch (Exception e) { /* who cares?? */ }
+            } catch (Exception ignored) {
+            }
         }
         return custom;
     }
 
     private static List<Field> getNativeTypes() {
-        List<Field> staticFields = new ArrayList<Field>();
+        List<Field> staticFields = new ArrayList<>();
         for (Field field : Types.class.getDeclaredFields())
             if (Modifier.isStatic(field.getModifiers()))
                 staticFields.add(field);
@@ -152,11 +90,7 @@ public class Types {
     }
 
     public static Type getByName(final String type) {
-        return new Type() {
-            public String getName() {
-                return type;
-            }
-        };
+        return () -> type;
     }
 
     public interface Type {

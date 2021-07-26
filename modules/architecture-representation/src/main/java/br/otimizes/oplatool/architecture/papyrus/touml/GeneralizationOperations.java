@@ -5,14 +5,14 @@ import br.otimizes.oplatool.architecture.exceptions.NotSuppportedOperation;
 import br.otimizes.oplatool.architecture.helpers.XmiHelper;
 import org.w3c.dom.Node;
 
+import java.util.Objects;
+
 /**
  * Generalization operations
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class GeneralizationOperations extends XmiHelper implements Relationship {
-
-
     private final DocumentManager documentManager;
 
     private String general;
@@ -26,50 +26,37 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
         return this;
     }
 
-    /**
-     * A client
-     */
     public Relationship between(String idElement) throws NotSuppportedOperation {
         if (isElementAClass(idElement)) {
             this.client = idElement;
             return this;
         } else {
-            throw new NotSuppportedOperation("Cannot create generaliazation with package");
+            throw new NotSuppportedOperation("Cannot create generalization with package");
         }
     }
 
-    /**
-     * A general
-     */
     public Relationship and(String idElement) throws NotSuppportedOperation {
         if (isElementAClass(idElement)) {
             this.general = idElement;
             return this;
         } else {
-            throw new NotSuppportedOperation("Cannot create generaliazation with package");
+            throw new NotSuppportedOperation("Cannot create generalization with package");
         }
     }
 
 
     private boolean isElementAClass(String idElement) {
         Node element = findByID(documentManager.getDocUml(), idElement, "packagedElement");
-        return "uml:Class".equalsIgnoreCase(element.getAttributes().getNamedItem("xmi:type").getNodeValue());
+        return "uml:Class".equalsIgnoreCase(Objects.requireNonNull(element).getAttributes().getNamedItem("xmi:type").getNodeValue());
     }
 
     public String build() {
         final GeneralizationNode generalizationNode = new GeneralizationNode(this.documentManager, this.general, this.client);
-
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                generalizationNode.createGeneralization();
-            }
-        });
-
+        Document.executeTransformation(documentManager, generalizationNode::createGeneralization);
         return "";
     }
 
     public Relationship withMultiplicity(String string) throws NotSuppportedOperation {
         throw new NotSuppportedOperation("Generalization not support multiplicity");
     }
-
 }

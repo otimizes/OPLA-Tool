@@ -101,7 +101,7 @@ public class ClassOperations extends XmiHelper {
 
     public void removeAttribute(final String idAttributeToRemove) {
         final RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
-        Document.executeTransformation(documentManager, () -> removeClass.removeAttributeeById(idAttributeToRemove, idClass));
+        Document.executeTransformation(documentManager, () -> removeClass.removeAttributeById(idAttributeToRemove, idClass));
     }
 
     public void removeMethod(final String idMethodoToRmove) {
@@ -232,7 +232,7 @@ public class ClassOperations extends XmiHelper {
     }
 
     public ClassOperations asInterface() {
-        Document.executeTransformation(documentManager, () -> elementXmiGenerator.interfaceStereoptye(idClass));
+        Document.executeTransformation(documentManager, () -> elementXmiGenerator.interfaceStereotype(idClass));
         return this;
     }
 }

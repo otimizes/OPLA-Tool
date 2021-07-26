@@ -13,7 +13,7 @@ public class Operations {
     private final DocumentManager doc;
     private ClassOperations classOperation;
     private AssociationOperations associationOperation;
-    private PackageOperations packageOperaiton;
+    private PackageOperations packageOperation;
     private DependencyOperations dependencyOperation;
     private UsageOperations usageOperation;
     private GeneralizationOperations generalizationOperations;
@@ -75,7 +75,7 @@ public class Operations {
     }
 
     private void createUsageOperations(Architecture a) {
-        this.usageOperation = new UsageOperations(doc, a);
+        this.usageOperation = new UsageOperations(doc);
     }
 
     private void createDependencyOperations(Architecture a) {
@@ -83,7 +83,7 @@ public class Operations {
     }
 
     private void createPackageOperations() {
-        this.packageOperaiton = new PackageOperations(doc);
+        this.packageOperation = new PackageOperations(doc);
     }
 
     private void createAssociationOperations() {
@@ -107,7 +107,7 @@ public class Operations {
     }
 
     public PackageOperations forPackage() {
-        return packageOperaiton;
+        return packageOperation;
     }
 
     public DependencyOperations forDependency() {

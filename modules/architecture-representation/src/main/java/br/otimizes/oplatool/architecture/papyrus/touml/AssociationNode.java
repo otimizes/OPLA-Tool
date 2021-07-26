@@ -86,7 +86,7 @@ public class AssociationNode extends XmiHelper {
         ownedEnd2.appendChild(upperValue2);
 
         modelRoot.appendChild(packageElement);
-        elementXmiGenerator.createEgdeAssocationOnNotationFile(docNotation, newModelName, memberEnd1.getCLSClass().getId(), memberEnd2.getCLSClass().getId(), this.idAssociation);
+        elementXmiGenerator.createEdgeAssociationOnNotationFile(docNotation, newModelName, memberEnd1.getCLSClass().getId(), memberEnd2.getCLSClass().getId(), this.idAssociation);
 
     }
 
