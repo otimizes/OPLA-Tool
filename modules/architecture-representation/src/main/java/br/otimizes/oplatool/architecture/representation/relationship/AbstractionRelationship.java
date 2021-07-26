@@ -3,6 +3,8 @@ package br.otimizes.oplatool.architecture.representation.relationship;
 import br.otimizes.oplatool.architecture.helpers.ElementsTypes;
 import br.otimizes.oplatool.architecture.representation.Element;
 
+import java.util.Objects;
+
 /**
  * Abstraction relationship class
  *
@@ -60,10 +62,9 @@ public class AbstractionRelationship extends Relationship {
             return false;
         }
         final AbstractionRelationship other = (AbstractionRelationship) obj;
-        if (this.supplier != other.supplier && (this.supplier == null || !this.supplier.equals(other.supplier))) {
+        if (!Objects.equals(this.supplier, other.supplier)) {
             return false;
         }
-        return this.client == other.client || (this.client != null && this.client.equals(other.client));
+        return Objects.equals(this.client, other.client);
     }
-
 }

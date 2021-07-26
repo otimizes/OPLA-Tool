@@ -47,8 +47,8 @@ public class AssociationKlassOperations {
 
     public AssociationKlassOperations createAssociationClass(AssociationClassRelationship asr) {
         this.id = asr.getId();
-        this.ownedEnd = asr.getMemebersEnd().get(0).getType().getId();
-        this.associationEnd2 = asr.getMemebersEnd().get(1).getType().getId();
+        this.ownedEnd = asr.getMembersEnd().get(0).getType().getId();
+        this.associationEnd2 = asr.getMembersEnd().get(1).getType().getId();
         this.elementXmiGenerator = new ElementXmiGenerator(documentManager, this.architecture);
         this.attrs = buildAttributes(asr);
         this.methods = createMethods(asr);

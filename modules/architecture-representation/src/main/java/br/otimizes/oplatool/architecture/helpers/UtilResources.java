@@ -71,7 +71,7 @@ public class UtilResources {
         }
 
         if (r instanceof AssociationClassRelationship) {
-            strLog += "AssociationClass: " + ((AssociationClassRelationship) r).getAssociationClass().getName() + ". MembersEnd: " + membersEndToStr(((AssociationClassRelationship) r).getMemebersEnd());
+            strLog += "AssociationClass: " + ((AssociationClassRelationship) r).getAssociationClass().getName() + ". MembersEnd: " + membersEndToStr(((AssociationClassRelationship) r).getMembersEnd());
         }
 
         return strLog;

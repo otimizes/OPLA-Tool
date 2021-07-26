@@ -31,9 +31,7 @@ public class MutexRelationship extends Relationship {
         setName(name);
         setId(id);
         super.setType(ElementsTypes.MUTEX);
-
         setRequiredInterfaces(supplier, client);
-
     }
 
     public MutexRelationship(Element supplier, Element client, String string) {
@@ -46,12 +44,6 @@ public class MutexRelationship extends Relationship {
         setRequiredInterfaces(supplier, client);
     }
 
-    /**
-     * Retorna o {@link Package}
-     *
-     * @return Package se existir.
-     * @throws NotFoundException caso não exista pacote envolvido no mutex.
-     */
     public Package getPackageOfDependency() throws NotFoundException {
         if (this.client instanceof Package)
             return (Package) this.client;
@@ -60,7 +52,6 @@ public class MutexRelationship extends Relationship {
 
         throw new NotFoundException("There is no Package in this mutex.");
     }
-
 
     public Element getClient() {
         return client;
@@ -128,5 +119,4 @@ public class MutexRelationship extends Relationship {
         }
         return Objects.equals(this.client, other.client);
     }
-
 }

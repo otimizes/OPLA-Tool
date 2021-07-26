@@ -1,7 +1,6 @@
 package br.otimizes.oplatool.architecture.representation.relationship;
 
 import br.otimizes.oplatool.architecture.helpers.ElementsTypes;
-import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.*;
 
@@ -18,14 +17,14 @@ import java.util.Set;
  */
 public class AssociationClassRelationship extends Relationship {
 
-    public List<MemberEnd> memebersEnd = new ArrayList<MemberEnd>();
+    public List<MemberEnd> membersEnd;
     private final Element ownedEnd;
     private final Class associationClass;
     private final String idOwner;
 
     public AssociationClassRelationship(String name, List<MemberEnd> ends, Element ownedEnd, String id, String idOwner, Class associationClass) {
         super.setName(name);
-        this.memebersEnd = ends;
+        this.membersEnd = ends;
         this.ownedEnd = ownedEnd;
         this.idOwner = idOwner;
         this.associationClass = associationClass;
@@ -33,46 +32,26 @@ public class AssociationClassRelationship extends Relationship {
         super.setType(ElementsTypes.ASSOCIATIONCLASS);
     }
 
-
-    /**
-     * @return the attributes
-     */
     public Set<Attribute> getAllAttributes() {
         return this.associationClass.getAllAttributes();
     }
 
-
-    public List<MemberEnd> getMemebersEnd() {
-        return memebersEnd;
+    public List<MemberEnd> getMembersEnd() {
+        return membersEnd;
     }
 
-    public void SetMemebersEnd(MemberEnd me){
-        memebersEnd.add(me);
+    public void setMembersEnd(MemberEnd me) {
+        membersEnd.add(me);
     }
 
-    /**
-     * Retorna  {@link Element } dona da AssociationClass.
-     *
-     * @return
-     */
     public Element getOwnedEnd() {
         return ownedEnd;
     }
 
-    /**
-     * Retorna o ID do pacote que a associationClass pertence.
-     *
-     * @return String
-     */
     public String getPackageOwner() {
         return this.idOwner;
     }
 
-    /**
-     * Retorna os métodos para associationClass
-     *
-     * @return {@link Method}
-     */
     public Set<Method> getAllMethods() {
         return this.associationClass.getAllMethods();
     }
@@ -92,9 +71,6 @@ public class AssociationClassRelationship extends Relationship {
         return concerns;
     }
 
-    /**
-     * @return the associationClass
-     */
     public Class getAssociationClass() {
         return associationClass;
     }
@@ -108,7 +84,7 @@ public class AssociationClassRelationship extends Relationship {
                 * result
                 + ((associationClass == null) ? 0 : associationClass.hashCode());
         result = prime * result
-                + ((memebersEnd == null) ? 0 : memebersEnd.hashCode());
+                + ((membersEnd == null) ? 0 : membersEnd.hashCode());
         result = prime * result
                 + ((ownedEnd == null) ? 0 : ownedEnd.hashCode());
         return result;
@@ -123,9 +99,9 @@ public class AssociationClassRelationship extends Relationship {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        return ((AssociationClassRelationship) obj).getMemebersEnd().get(0).getType().getName().equals(this.getMemebersEnd().get(0).getType().getName())
-                && ((AssociationClassRelationship) obj).getMemebersEnd().get(1).getType().getName().equals(this.getMemebersEnd().get(1).getType().getName());
+        return ((AssociationClassRelationship) obj).getMembersEnd().get(0)
+                .getType().getName().equals(this.getMembersEnd().get(0).getType().getName())
+                && ((AssociationClassRelationship) obj).getMembersEnd().get(1)
+                .getType().getName().equals(this.getMembersEnd().get(1).getType().getName());
     }
-
-
 }

@@ -8,6 +8,7 @@ import br.otimizes.oplatool.architecture.representation.RelationshipsHolder;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -40,16 +41,10 @@ public class GeneralizationRelationship extends Relationship {
     public GeneralizationRelationship() {
     }
 
-    /**
-     * @return the child
-     */
     public Element getChild() {
         return child;
     }
 
-    /**
-     * @param child the child to set
-     */
     public void setChild(Element child) {
         this.child = child;
     }
@@ -62,18 +57,13 @@ public class GeneralizationRelationship extends Relationship {
         this.parent = parent;
     }
 
-    /**
-     * Método que retorna todas as classes filhas para a parent class (general)
-     *
-     * @return
-     */
     public Set<Element> getAllChildrenForGeneralClass() {
-        Set<Element> childreen = new HashSet<Element>();
+        Set<Element> children = new HashSet<Element>();
         for (GeneralizationRelationship generalization : this.relationshipHolder.getAllGeneralizations())
             if (generalization.getParent().getName().equalsIgnoreCase(this.parent.getName()))
-                childreen.add(generalization.getChild());
+                children.add(generalization.getChild());
 
-        return Collections.unmodifiableSet(childreen);
+        return Collections.unmodifiableSet(children);
 
     }
 
@@ -103,10 +93,9 @@ public class GeneralizationRelationship extends Relationship {
             return false;
         }
         final GeneralizationRelationship other = (GeneralizationRelationship) obj;
-        if (this.parent != other.parent && (this.parent == null || !this.parent.equals(other.parent))) {
+        if (!Objects.equals(this.parent, other.parent)) {
             return false;
         }
-        return this.child == other.child || (this.child != null && this.child.equals(other.child));
+        return Objects.equals(this.child, other.child);
     }
-
 }

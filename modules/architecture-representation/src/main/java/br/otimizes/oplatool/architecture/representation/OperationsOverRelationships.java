@@ -24,9 +24,9 @@ public class OperationsOverRelationships {
     }
 
     public void moveAssociationClass(AssociationClassRelationship association, Class member1, Class member2) {
-        association.getMemebersEnd().clear();
-        association.getMemebersEnd().add(new MemberEnd("none", null, "public", member1));
-        association.getMemebersEnd().add(new MemberEnd("none", null, "public", member2));
+        association.getMembersEnd().clear();
+        association.getMembersEnd().add(new MemberEnd("none", null, "public", member1));
+        association.getMembersEnd().add(new MemberEnd("none", null, "public", member2));
     }
 
     public void moveDependency(DependencyRelationship dependency, Class client, Class supplier) {

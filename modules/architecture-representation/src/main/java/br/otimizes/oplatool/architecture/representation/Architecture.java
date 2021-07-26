@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
  * @author edipofederle<edipofederle @ gmail.com>
  */
 @JsonIgnoreProperties({"elements", "elementsWithPackages", "allConcerns", "allPackages", "allMethods", "packages",
-        "allPackagesAllowedMofification", "interfaces", "allInterfaces", "classes", "allClasses",
+        "allPackagesAllowedModification", "interfaces", "allInterfaces", "classes", "allClasses",
         "allVariationPoints", "allVariants", "allVariabilities", "freezedElements", "LOGGER", "relationshipHolder",
-        "atributtes", "allAtributtes", "upperBound", "lowerBound", "variableType", "value", "concerns", "types",
+        "attributes", "allAttributes", "upperBound", "lowerBound", "variableType", "value", "concerns", "types",
         "variationPoints", "variabilities", "variants", "editableListPackages", "editableListClasses", "editableListPackages",
         "editableListInterfaces", "relationships", "implementedInterfaces", "createClass", "allModifiableInterfaces", "allModifiableClasses"})
 public class Architecture extends Variable {
@@ -38,9 +38,9 @@ public class Architecture extends Variable {
     private static final long serialVersionUID = -7764906574709840088L;
     public static String ARCHITECTURE_TYPE = "br.otimizes.oplatool.architecture.representation.Architecture";
     private Cloner cloner;
-    private Set<Package> packages = new HashSet<Package>();
-    private final Set<Class> classes = new HashSet<Class>();
-    private final Set<Interface> interfaces = new HashSet<Interface>();
+    private Set<Package> packages = new HashSet<>();
+    private final Set<Class> classes = new HashSet<>();
+    private final Set<Interface> interfaces = new HashSet<>();
     private String name;
     private boolean appliedPatterns;
     private final RelationshipsHolder relationshipHolder = new RelationshipsHolder();

@@ -5,7 +5,7 @@ import br.otimizes.oplatool.architecture.representation.Element;
 import java.io.Serializable;
 
 /**
- * MemberEnd usada nas associações do tipo AssociationClass
+ * MemberEnd used in AssociationClass
  * <p>
  * Each end represents participation of instances of the classifier connected to the end in links of the association (Papyrus info)
  *

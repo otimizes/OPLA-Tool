@@ -389,7 +389,7 @@ public class Class extends Element {
                 AssociationClassRelationship asc = (AssociationClassRelationship) r;
                 if (asc.getAssociationClass().equals(this))
                     associationsClasses.add((AssociationClassRelationship) r);
-                for (MemberEnd member : asc.getMemebersEnd()) {
+                for (MemberEnd member : asc.getMembersEnd()) {
                     if (member.getType().equals(this))
                         associationsClasses.add((AssociationClassRelationship) r);
                 }
