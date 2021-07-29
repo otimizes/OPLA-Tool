@@ -23,7 +23,6 @@ public class Interface extends Element {
 
     static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
     private final Set<Method> methods = new HashSet<Method>();
-    private final Set<Method> operations = new HashSet<Method>();
     private RelationshipsHolder relationshipHolder;
     private PatternsOperations patternsOperations;
 
@@ -50,7 +49,7 @@ public class Interface extends Element {
     }
 
     public Method findOperationById(String id) {
-        for (Method m : getOperations()) {
+        for (Method m : getMethods()) {
             if (m.getId().equalsIgnoreCase(id)) {
                 return m;
             }
@@ -99,10 +98,6 @@ public class Interface extends Element {
         return Collections.unmodifiableSet(methods);
     }
 
-    public Set<Method> getOperations() {
-        return Collections.unmodifiableSet(operations);
-    }
-
     public boolean removeOperation(Method operation) {
         if (methods.remove(operation)) {
             LOGGER.info("Removeu operação '" + operation + "', da interface: " + this.getName());
@@ -115,10 +110,10 @@ public class Interface extends Element {
 
     public void removeOperationByID(String id) {
         //Method operation = null;
-        for(Method m : this.operations){
+        for(Method m : this.methods){
             if(m.getId().equalsIgnoreCase(id)){
                 //operation = m;
-                this.operations.remove(m);
+                this.methods.remove(m);
                 return;
             }
         }

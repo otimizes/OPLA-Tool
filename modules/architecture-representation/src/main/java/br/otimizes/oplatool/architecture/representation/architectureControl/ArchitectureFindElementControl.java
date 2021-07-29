@@ -78,11 +78,11 @@ public class ArchitectureFindElementControl {
     }
 
     public Element findElementByNameInPackageAndSubPackage(Architecture architecture, String elementName) {
-        for (Class clazz_ : architecture.getClasses()) {
+        for (Class clazz_ : architecture.getAllClasses()) {
             if (clazz_.getName().equals(elementName))
                 return clazz_;
         }
-        for (Interface inter : architecture.getInterfaces()) {
+        for (Interface inter : architecture.getAllInterfaces()) {
             if (inter.getName().equals(elementName))
                 return inter;
         }
@@ -119,7 +119,7 @@ public class ArchitectureFindElementControl {
 
     public Element findElement(Architecture architecture, String name, String type) {
         if (type.equalsIgnoreCase("class")) {
-            for (Element element : architecture.getClasses()) {
+            for (Element element : architecture.getAllClasses()) {
                 if (element.getName().equalsIgnoreCase(name))
                     return element;
             }
@@ -131,7 +131,7 @@ public class ArchitectureFindElementControl {
             }
         }
         if (type.equalsIgnoreCase("interface")) {
-            for (Element element : architecture.getInterfaces()) {
+            for (Element element : architecture.getAllInterfaces()) {
                 if (element.getName().equalsIgnoreCase(name))
                     return element;
             }
@@ -152,7 +152,7 @@ public class ArchitectureFindElementControl {
 
     public List<Class> findClassByName(Architecture architecture, String className) {
         List<Class> classesFound = new ArrayList<>();
-        for (Class klass : architecture.getClasses())
+        for (Class klass : architecture.getAllClasses())
             if (className.trim().equalsIgnoreCase(klass.getName().trim()))
                 classesFound.add(klass);
 
@@ -169,10 +169,10 @@ public class ArchitectureFindElementControl {
     public Element findElementByName(Architecture architecture, String elementName) {
         Element element = searchRecursivelyInPackage(architecture.getAllPackages(), elementName);
         if (element == null) {
-            for (Class klass : architecture.getClasses())
+            for (Class klass : architecture.getAllClasses())
                 if (klass.getName().equals(elementName))
                     return klass;
-            for (Interface inter : architecture.getInterfaces())
+            for (Interface inter : architecture.getAllInterfaces())
                 if (inter.getName().equals(elementName))
                     return inter;
         }
@@ -198,7 +198,7 @@ public class ArchitectureFindElementControl {
     }
 
     public Interface findInterfaceByName(Architecture architecture, String interfaceName) {
-        for (Interface interfaceFromArchitecture : architecture.getInterfaces())
+        for (Interface interfaceFromArchitecture : architecture.getAllInterfaces())
             if (interfaceName.equalsIgnoreCase(interfaceFromArchitecture.getName()))
                 return interfaceFromArchitecture;
         for (Package p : architecture.getAllPackages())
@@ -244,7 +244,7 @@ public class ArchitectureFindElementControl {
     }
 
     public Class findClassById(Architecture architecture, String idClass) {
-        for (Class klass : architecture.getClasses())
+        for (Class klass : architecture.getAllClasses())
             if (idClass.equalsIgnoreCase(klass.getId().trim()))
                 return klass;
 
@@ -257,7 +257,7 @@ public class ArchitectureFindElementControl {
     }
 
     public Interface findInterfaceById(Architecture architecture, String idInterface) {
-        for (Interface inter : architecture.getInterfaces())
+        for (Interface inter : architecture.getAllInterfaces())
             if (idInterface.equalsIgnoreCase(inter.getId().trim()))
                 return inter;
         return null;
@@ -269,11 +269,11 @@ public class ArchitectureFindElementControl {
     }
 
     public Package findPackageOfElement(Architecture architecture, String id) {
-        for (Class c1 : architecture.getClasses()) {
+        for (Class c1 : architecture.getAllClasses()) {
             if (c1.getId().equals(id))
                 return null;
         }
-        for (Interface inter : architecture.getInterfaces()) {
+        for (Interface inter : architecture.getAllInterfaces()) {
             if (inter.getId().equals(id))
                 return null;
         }
@@ -291,11 +291,11 @@ public class ArchitectureFindElementControl {
     }
 
     public Element findElementById(Architecture architecture, String xmiId) {
-        for (Class element : architecture.getClasses()) {
+        for (Class element : architecture.getAllClasses()) {
             Element element1 = findElementInPackage(xmiId, element);
             if (element1 != null) return element1;
         }
-        for (Interface element : architecture.getInterfaces()) {
+        for (Interface element : architecture.getAllInterfaces()) {
             if (element.getId().equals(xmiId))
                 return element;
             for (Method m : element.getMethods()) {
@@ -390,13 +390,13 @@ public class ArchitectureFindElementControl {
     }
 
     public Element findMethodById(Architecture architecture, String xmiId) {
-        for (Class element : architecture.getClasses()) {
+        for (Class element : architecture.getAllClasses()) {
             for (Method m : element.getAllMethods()) {
                 if (m.getId().equals(xmiId))
                     return m;
             }
         }
-        for (Interface element : architecture.getInterfaces()) {
+        for (Interface element : architecture.getAllInterfaces()) {
             for (Method m : element.getMethods()) {
                 if (m.getId().equals(xmiId))
                     return m;
@@ -410,7 +410,7 @@ public class ArchitectureFindElementControl {
     }
 
     public Element findAttributeById(Architecture architecture, String xmiId) {
-        for (Class element : architecture.getClasses()) {
+        for (Class element : architecture.getAllClasses()) {
             for (Attribute a : element.getAllAttributes()) {
                 if (a.getId().equals(xmiId))
                     return a;

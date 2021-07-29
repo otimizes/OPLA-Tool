@@ -415,7 +415,7 @@ public class PLAModularCrossover  {
 		final List<Interface> allInterfaces = new ArrayList<Interface>(solution.getAllInterfaces());
 		if (!allInterfaces.isEmpty()) {
 			for (Interface itf : allInterfaces) {
-				if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())) {
+				if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getMethods().isEmpty())) {
 					return false;
 				}
 			}

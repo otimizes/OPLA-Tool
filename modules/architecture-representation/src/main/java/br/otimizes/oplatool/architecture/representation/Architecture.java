@@ -159,7 +159,7 @@ public class Architecture extends Variable {
 
     public Element findClassOrInterfaceOfMethodByID(String id) {
         for (Interface i : getAllInterfaces()) {
-            for (Method method : i.getOperations()) {
+            for (Method method : i.getMethods()) {
                 if (method.getId().equals(id))
                     return i;
             }
@@ -185,7 +185,7 @@ public class Architecture extends Variable {
 
     public Interface findInterfaceOfOperationByID(String id) {
         for (Interface i : getAllInterfaces()) {
-            for (Method method : i.getOperations()) {
+            for (Method method : i.getMethods()) {
                 if (method.getId().equals(id))
                     return i;
             }

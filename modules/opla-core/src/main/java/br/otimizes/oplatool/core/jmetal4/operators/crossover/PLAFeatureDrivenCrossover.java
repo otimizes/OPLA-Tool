@@ -331,7 +331,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 			if(clazz_.getOwnConcerns().size()==1 && clazz_.getOwnConcerns().contains(feature)){
 				elementsAssociatedWithFeature.add(clazz_);
 			}else {
-				for (Method method : clazz_.getOperations()) {
+				for (Method method : clazz_.getMethods()) {
 					if (method.getOwnConcerns().size() == 1 && method.getOwnConcerns().contains(feature)) {
 						elementsAssociatedWithFeature.add(method);
 					}
@@ -389,7 +389,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 	public ArrayList<Method> getOperationAssociatedWithFeature(Architecture architecture, Concern feature){
 		ArrayList<Method> elementsAssociatedWithFeature = new ArrayList<>();
 		for(Interface clazz_ : architecture.getAllInterfaces()) {
-			for (Method method : clazz_.getOperations()) {
+			for (Method method : clazz_.getMethods()) {
 				if (method.getOwnConcerns().size() == 1 && method.getOwnConcerns().contains(feature)) {
 					elementsAssociatedWithFeature.add(method);
 				}
@@ -583,7 +583,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 	public void addInterfaceRealizingFeature(Architecture child, ArrayList<Interface> elements, Architecture parent) {
 		for (Interface interface_ : elements) {
 			for(Interface cx : child.getAllInterfaces()){
-				for(Method a : cx.getOperations()){
+				for(Method a : cx.getMethods()){
 					interface_.removeOperationByID(a.getId());
 				}
 			}
@@ -688,7 +688,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 			boolean exist = false;
 			for(Interface cx : child.getAllInterfaces()){
 
-				for(Method a : cx.getOperations()){
+				for(Method a : cx.getMethods()){
 					if(method.getId().equals(a.getId()))
 						exist = true;
 				}
@@ -726,7 +726,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 		final List<Interface> allInterfaces = new ArrayList<Interface>(solution.getAllInterfaces());
 		if (!allInterfaces.isEmpty()) {
 			for (Interface itf : allInterfaces) {
-				if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())) {
+				if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getMethods().isEmpty())) {
 					return false;
 				}
 			}
