@@ -20,7 +20,7 @@ public class Variability extends Comment {
     private String idPackageOwner; //Pacote a qual a classe pertence
 
     private VariationPoint variationPoint;
-    private List<Variant> variants = new ArrayList<Variant>();
+    private final List<Variant> variants = new ArrayList<Variant>();
 
     private String id;
     public String constraint;
@@ -132,7 +132,7 @@ public class Variability extends Comment {
     }
 
     public String generateNote(VariationPoint variationPoint) {
-        return String.format("%1s%2s", toString(), variationPoint.toString());
+        return String.format("%1s%2s", this, variationPoint.toString());
     }
 
 

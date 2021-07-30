@@ -25,7 +25,7 @@ public class MethodBuilder extends ElementBuilder<Method> {
     }
 
     /**
-     * Cria um elemento do tipo {@link Method}
+     * Creates new method
      */
     @Override
     protected Method buildElement(NamedElement modelElement) {
@@ -33,10 +33,8 @@ public class MethodBuilder extends ElementBuilder<Method> {
             Operation method = ((Operation) modelElement);
             Type methodReturnType = method.getType();
             String type = methodReturnType != null ? methodReturnType.getName() : "";
-            boolean isAbstract = false;
-
-            List<ParameterMethod> parameterMethodReceives = new ArrayList<ParameterMethod>();
-
+            boolean isAbstract;
+            List<ParameterMethod> parameterMethodReceives = new ArrayList<>();
             isAbstract = method.isAbstract();
             EList<Parameter> params = method.getOwnedParameters();
             try {
@@ -51,13 +49,11 @@ public class MethodBuilder extends ElementBuilder<Method> {
             }
             String namespace = modelElement.getNamespace().getQualifiedName();
 
-            Method m = new Method(name, variantType, type, isAbstract, parameterMethodReceives, namespace,
+            return new Method(name, variantType, type, isAbstract, parameterMethodReceives, namespace,
                     XmiHelper.getXmiId(modelElement));
-            return m;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-
 }

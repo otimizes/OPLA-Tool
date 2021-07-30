@@ -15,9 +15,9 @@ import java.util.List;
 public class VariationPoint {
 
     private Element variationPointElement;
-    private List<Variant> variants;
-    private List<Variability> variabilities = new ArrayList<Variability>();
-    private String bindingTime;
+    private final List<Variant> variants;
+    private final List<Variability> variabilities = new ArrayList<Variability>();
+    private final String bindingTime;
 
     /**
      * @param variationPointElement {@link Element}

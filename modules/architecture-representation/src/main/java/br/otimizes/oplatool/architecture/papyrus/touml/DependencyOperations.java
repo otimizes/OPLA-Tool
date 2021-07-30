@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class DependencyOperations implements Relationship {
 
-    private DocumentManager documentManager;
+    private final DocumentManager documentManager;
 
     private String clientElement;
     private String supplierElement;
@@ -47,15 +47,8 @@ public class DependencyOperations implements Relationship {
 
     public String build() {
         final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement, stereotypes, a);
-
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                dependencyNode.createDependency("dependency");
-            }
-        });
-
-        return ""; //TODO return id;
-
+        Document.executeTransformation(documentManager, () -> dependencyNode.createDependency("dependency"));
+        return "";
     }
 
     public DependencyOperations withStereotypes(List<String> stereotypes) {
@@ -63,7 +56,7 @@ public class DependencyOperations implements Relationship {
         return this;
     }
 
-    public DependencyOperations withMultiplicy(String string) throws NotSuppportedOperation {
+    public DependencyOperations withMultiplicity(String string) throws NotSuppportedOperation {
         throw new NotSuppportedOperation("Dependency dont have multiplicy");
     }
 
@@ -72,8 +65,6 @@ public class DependencyOperations implements Relationship {
             this.name = "";
         else
             this.name = relationshipName;
-
         return this;
     }
-
 }

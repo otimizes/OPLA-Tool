@@ -4,7 +4,6 @@ import br.otimizes.oplatool.architecture.exceptions.ClassNotFound;
 import br.otimizes.oplatool.architecture.representation.relationship.*;
 import br.otimizes.oplatool.architecture.helpers.Predicate;
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
-import br.otimizes.oplatool.architecture.representation.relationship.*;
 
 import java.util.*;
 
@@ -59,7 +58,7 @@ public class RelationshipsHolder {
             if (r instanceof AssociationRelationship) {
                 boolean remove = false;
                 for (AssociationEnd a : ((AssociationRelationship) r).getParticipants()) {
-                    if (a.getCLSClass().equals(element)) {
+                    if (a.getCLSClass() != null && a.getCLSClass().equals(element)) {
                         remove = true;
                     }
                 }
@@ -70,7 +69,7 @@ public class RelationshipsHolder {
 
             if (r instanceof AssociationClassRelationship) {
                 boolean remove = false;
-                for (MemberEnd memberEnd : ((AssociationClassRelationship) r).getMemebersEnd()) {
+                for (MemberEnd memberEnd : ((AssociationClassRelationship) r).getMembersEnd()) {
                     if (memberEnd.getType().equals(element)) {
                         remove = true;
                     }
@@ -281,21 +280,21 @@ public class RelationshipsHolder {
         if (r instanceof AssociationClassRelationship) {
 
 
-            if(((AssociationClassRelationship) r).getMemebersEnd().size() == 2){
+            if(((AssociationClassRelationship) r).getMembersEnd().size() == 2){
 
-                Element part1 = target.findElementById((((AssociationClassRelationship) r).getMemebersEnd()).get(0).getType().getId());
+                Element part1 = target.findElementById((((AssociationClassRelationship) r).getMembersEnd()).get(0).getType().getId());
 
-                Element part2 = target.findElementById((((AssociationClassRelationship) r).getMemebersEnd()).get(1).getType().getId());
+                Element part2 = target.findElementById((((AssociationClassRelationship) r).getMembersEnd()).get(1).getType().getId());
 
                 if(part2 != null && part1 != null) {
-                    if ((((AssociationClassRelationship) r).getMemebersEnd()).get(0).getMultiplicity() != null && (((AssociationClassRelationship) r).getMemebersEnd()).get(1).getMultiplicity() != null) {
-                        AssociationClassRelationship ar = new AssociationClassRelationship(r.getName(), ((AssociationClassRelationship) r).getMemebersEnd(), ((AssociationClassRelationship) r).getOwnedEnd(), r.getId(), ((AssociationClassRelationship) r).getOwnedEnd().getId(), ((AssociationClassRelationship) r).getAssociationClass());
-                        Multiplicity mult1 = new Multiplicity((((AssociationClassRelationship) r).getMemebersEnd()).get(0).getMultiplicity().getLowerValue(), (((AssociationClassRelationship) r).getMemebersEnd()).get(0).getMultiplicity().getUpperValue());
-                        MemberEnd me1 = new MemberEnd((((AssociationClassRelationship) r).getMemebersEnd().get(0).getAggregation()), mult1, (((AssociationClassRelationship) r).getMemebersEnd()).get(0).getVisibility(), target.findElementById(((AssociationClassRelationship) r).getMemebersEnd().get(0).getType().getId()));
-                        Multiplicity mult2 = new Multiplicity((((AssociationClassRelationship) r).getMemebersEnd()).get(1).getMultiplicity().getLowerValue(), (((AssociationClassRelationship) r).getMemebersEnd()).get(1).getMultiplicity().getUpperValue());
-                        MemberEnd me2 = new MemberEnd((((AssociationClassRelationship) r).getMemebersEnd().get(1).getAggregation()), mult2, (((AssociationClassRelationship) r).getMemebersEnd()).get(1).getVisibility(), target.findElementById(((AssociationClassRelationship) r).getMemebersEnd().get(1).getType().getId()));
-                        ar.SetMemebersEnd(me1);
-                        ar.SetMemebersEnd(me2);
+                    if ((((AssociationClassRelationship) r).getMembersEnd()).get(0).getMultiplicity() != null && (((AssociationClassRelationship) r).getMembersEnd()).get(1).getMultiplicity() != null) {
+                        AssociationClassRelationship ar = new AssociationClassRelationship(r.getName(), ((AssociationClassRelationship) r).getMembersEnd(), ((AssociationClassRelationship) r).getOwnedEnd(), r.getId(), ((AssociationClassRelationship) r).getOwnedEnd().getId(), ((AssociationClassRelationship) r).getAssociationClass());
+                        Multiplicity mult1 = new Multiplicity((((AssociationClassRelationship) r).getMembersEnd()).get(0).getMultiplicity().getLowerValue(), (((AssociationClassRelationship) r).getMembersEnd()).get(0).getMultiplicity().getUpperValue());
+                        MemberEnd me1 = new MemberEnd((((AssociationClassRelationship) r).getMembersEnd().get(0).getAggregation()), mult1, (((AssociationClassRelationship) r).getMembersEnd()).get(0).getVisibility(), target.findElementById(((AssociationClassRelationship) r).getMembersEnd().get(0).getType().getId()));
+                        Multiplicity mult2 = new Multiplicity((((AssociationClassRelationship) r).getMembersEnd()).get(1).getMultiplicity().getLowerValue(), (((AssociationClassRelationship) r).getMembersEnd()).get(1).getMultiplicity().getUpperValue());
+                        MemberEnd me2 = new MemberEnd((((AssociationClassRelationship) r).getMembersEnd().get(1).getAggregation()), mult2, (((AssociationClassRelationship) r).getMembersEnd()).get(1).getVisibility(), target.findElementById(((AssociationClassRelationship) r).getMembersEnd().get(1).getType().getId()));
+                        ar.setMembersEnd(me1);
+                        ar.setMembersEnd(me2);
                         target.getRelationshipHolder().addRelationship(ar);
                         return;
                     }

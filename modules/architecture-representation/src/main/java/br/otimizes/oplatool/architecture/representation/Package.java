@@ -25,10 +25,10 @@ public class Package extends Element {
 
     private static final long serialVersionUID = -3080328928563871488L;
     public Set<Package> nestedPackages = new HashSet<Package>();
-    private Set<Class> classes = new HashSet<Class>();
-    private Set<Interface> interfaces = new HashSet<Interface>();
-    private Set<Interface> implementedInterfaces = new HashSet<Interface>();
-    private Set<Interface> requiredInterfaces = new HashSet<Interface>();
+    private final Set<Class> classes = new HashSet<Class>();
+    private final Set<Interface> interfaces = new HashSet<Interface>();
+    private final Set<Interface> implementedInterfaces = new HashSet<Interface>();
+    private final Set<Interface> requiredInterfaces = new HashSet<Interface>();
     private RelationshipsHolder relationshipHolder;
 
     public Package deepCopy() {
@@ -43,7 +43,7 @@ public class Package extends Element {
     private Package deepClone() throws CloneNotSupportedException{
 
         Cloner cloner = new Cloner();
-        Package pkg = (Package) cloner.deepClone(this);
+        Package pkg = cloner.deepClone(this);
         cloner = null;
         return pkg;
     }
@@ -121,7 +121,7 @@ public class Package extends Element {
     }
 
     public Package(RelationshipsHolder relationshipHolder, String name) {
-        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
+        this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandomUUID());
     }
 
     public Package(RelationshipsHolder relationshipHolder, String name, String id) {

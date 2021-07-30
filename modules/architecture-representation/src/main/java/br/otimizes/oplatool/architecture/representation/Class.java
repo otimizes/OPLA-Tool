@@ -27,8 +27,8 @@ public class Class extends Element {
     private final Set<Attribute> attributes = new HashSet<Attribute>();
     private final Set<Method> methods = new HashSet<Method>();
     private boolean isAbstract;
-    private Set<Interface> implementedInterfaces = new HashSet<Interface>();
-    private Set<Interface> requiredInterfaces = new HashSet<Interface>();
+    private final Set<Interface> implementedInterfaces = new HashSet<Interface>();
+    private final Set<Interface> requiredInterfaces = new HashSet<Interface>();
 
     private PatternsOperations patternsOperations;
     private RelationshipsHolder relationshipHolder;
@@ -43,13 +43,13 @@ public class Class extends Element {
 
     public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract) {
         this(relationshipHolder, name, null, isAbstract, UtilResources.createNamespace(ArchitectureHolder.getName(),
-                name), UtilResources.getRandonUUID());
+                name), UtilResources.getRandomUUID());
         this.setPatternOperations(new PatternsOperations());
     }
 
     public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract, String packageName) {
         this(relationshipHolder, name, null, isAbstract, UtilResources.createNamespace(ArchitectureHolder.getName(),
-                packageName), UtilResources.getRandonUUID());
+                packageName), UtilResources.getRandomUUID());
         this.setPatternOperations(new PatternsOperations());
     }
 
@@ -144,7 +144,7 @@ public class Class extends Element {
     }
 
     public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
-        String id = UtilResources.getRandonUUID();
+        String id = UtilResources.getRandomUUID();
         Attribute a = new Attribute(name, visibility.toString(), type.getName(), ArchitectureHolder.getName() + "::"
                 + this.getName(), id);
         addExternalAttribute(a);
@@ -224,7 +224,7 @@ public class Class extends Element {
 
     public Method createMethod(String name, String type, boolean isAbstract, List<ParameterMethod> parameters) {
         if (!methodExistsOnClass(name, type)) {
-            String id = UtilResources.getRandonUUID();
+            String id = UtilResources.getRandomUUID();
             Method method = new Method(name, type, this.getName(), isAbstract, id);
             if (parameters != null)
                 method.getParameters().addAll(parameters);
@@ -389,7 +389,7 @@ public class Class extends Element {
                 AssociationClassRelationship asc = (AssociationClassRelationship) r;
                 if (asc.getAssociationClass().equals(this))
                     associationsClasses.add((AssociationClassRelationship) r);
-                for (MemberEnd member : asc.getMemebersEnd()) {
+                for (MemberEnd member : asc.getMembersEnd()) {
                     if (member.getType().equals(this))
                         associationsClasses.add((AssociationClassRelationship) r);
                 }

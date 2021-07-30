@@ -1,9 +1,9 @@
 package br.otimizes.oplatool.architecture.builders;
 
-import br.otimizes.oplatool.architecture.representation.relationship.AssociationRelationship;
 import br.otimizes.oplatool.architecture.base.ArchitectureHelper;
 import br.otimizes.oplatool.architecture.base.AssociationHelper;
 import br.otimizes.oplatool.architecture.representation.Architecture;
+import br.otimizes.oplatool.architecture.representation.relationship.AssociationRelationship;
 import org.eclipse.uml2.uml.Association;
 
 /**
@@ -13,26 +13,18 @@ import org.eclipse.uml2.uml.Association;
  */
 public class AssociationRelationshipBuilder extends ArchitectureHelper {
 
-    private final AssociationEndBuilder associationEndBuilder;
-    private AssociationHelper associationHelper;
-
+    private final AssociationHelper associationHelper;
 
     public AssociationRelationshipBuilder(Architecture architecture) {
-        associationEndBuilder = new AssociationEndBuilder();
+        AssociationEndBuilder associationEndBuilder = new AssociationEndBuilder();
         associationHelper = new AssociationHelper(associationEndBuilder, architecture);
     }
 
     public AssociationRelationship create(Association association) {
-
         AssociationRelationship associationRelationship = new AssociationRelationship(getModelHelper().getXmiId(association));
         associationRelationship.getParticipants().addAll(associationHelper.getParticipants(association));
         associationRelationship.setType("association");
         associationRelationship.setName(association.getName());
-
-//		for(AssociationEnd associationEnd : associationRelationship.getParticipants()){
-//			associationEnd.getCLSClass().addRelationship(associationRelationship);
-//		}
-
         return associationRelationship;
     }
 

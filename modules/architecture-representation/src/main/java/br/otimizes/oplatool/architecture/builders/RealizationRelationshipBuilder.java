@@ -1,12 +1,11 @@
 package br.otimizes.oplatool.architecture.builders;
 
 
-import br.otimizes.oplatool.architecture.representation.*;
+import br.otimizes.oplatool.architecture.base.ArchitectureHelper;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Package;
-import br.otimizes.oplatool.architecture.representation.relationship.RealizationRelationship;
-import br.otimizes.oplatool.architecture.base.ArchitectureHelper;
 import br.otimizes.oplatool.architecture.representation.*;
+import br.otimizes.oplatool.architecture.representation.relationship.RealizationRelationship;
 import org.eclipse.uml2.uml.Realization;
 
 /**
@@ -16,7 +15,7 @@ import org.eclipse.uml2.uml.Realization;
  */
 public class RealizationRelationshipBuilder extends ArchitectureHelper {
 
-    private Architecture architecture;
+    private final Architecture architecture;
 
     public RealizationRelationshipBuilder(Architecture architecture) {
         this.architecture = architecture;
@@ -43,13 +42,7 @@ public class RealizationRelationshipBuilder extends ArchitectureHelper {
         if ((clientElement instanceof Package) && (supplierElement instanceof Interface))
             ((Package) clientElement).addImplementedInterface((Interface) supplierElement);
 
-        RealizationRelationship realizationRelationship = new RealizationRelationship(
+        return new RealizationRelationship(
                 clientElement, supplierElement, name, getModelHelper().getXmiId(realization));
-
-        //realizationRelationship.getClient().addRelationship(realizationRelationship);
-        //realizationRelationship.getSupplier().addRelationship(realizationRelationship);
-
-        return realizationRelationship;
     }
-
 }

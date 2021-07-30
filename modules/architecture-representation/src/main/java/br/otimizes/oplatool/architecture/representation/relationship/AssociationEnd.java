@@ -37,7 +37,6 @@ public class AssociationEnd implements Serializable {
     public AssociationEnd() {
     }
 
-
     public String getPosX() {
         return posX;
     }
@@ -78,31 +77,14 @@ public class AssociationEnd implements Serializable {
         this.isNavigable = isNavigable;
     }
 
-    /**
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * Retorna o tipo da associação.<br />
-     * Tipos:
-     * <p>
-     * <ul>
-     * <li>Composiçãao - Composite</li>
-     * <li>Agregação - Shared</li>
-     * </ul>
-     *
-     * @return
-     */
     public String getAggregation() {
         if ("shared".equalsIgnoreCase(aggregation))
             return "shared";
@@ -110,7 +92,6 @@ public class AssociationEnd implements Serializable {
             return "composite";
         else
             return "none";
-
     }
 
     public void replaceCLSClass(Class c) {
@@ -158,5 +139,4 @@ public class AssociationEnd implements Serializable {
             return other.klass == null;
         } else return klass.equals(other.klass);
     }
-
 }

@@ -8,10 +8,13 @@ import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.representation.Package;
 
+import java.util.Objects;
+
 /**
- * Requires relationship class
+ * Requires relationship
  */
 public class RequiresRelationship extends Relationship {
+
     String name;
     private Element client;
     private Element supplier;
@@ -25,42 +28,26 @@ public class RequiresRelationship extends Relationship {
         setName(name);
         setId(id);
         super.setType(ElementsTypes.REQUIRES);
-
         setRequiredInterfaces(supplier, client);
-
     }
 
     public RequiresRelationship(Element supplier, Element client, String string) {
         setSupplier(supplier);
         setClient(client);
         setName(name);
-        setId(UtilResources.getRandonUUID());
+        setId(UtilResources.getRandomUUID());
         super.setType(ElementsTypes.DEPENDENCY);
-
         setRequiredInterfaces(supplier, client);
     }
 
-    /**
-     * Retorna o {@link Package}
-     *
-     * @return Package se existir.
-     * @throws NotFoundException caso não exista pacote envolvido na dependencia.
-     */
     public Package getPackageOfDependency() throws NotFoundException {
         if (this.client instanceof Package)
             return (Package) this.client;
         else if (this.supplier instanceof Package)
             return (Package) this.supplier;
-
         throw new NotFoundException("There is no Package in this dependency.");
     }
 
-    /**
-     * Retorna a {@link Interface}
-     *
-     * @return Interface se existir.
-     * @throws NotFoundException caso não exista interface envolvido na dependencia.
-     */
     public Interface getInterfaceOfDependency() throws NotFoundException {
         if (this.client instanceof Interface)
             return (Interface) this.client;
@@ -131,9 +118,9 @@ public class RequiresRelationship extends Relationship {
             return false;
         }
         final RequiresRelationship other = (RequiresRelationship) obj;
-        if (this.supplier != other.supplier && (this.supplier == null || !this.supplier.equals(other.supplier))) {
+        if (!Objects.equals(this.supplier, other.supplier)) {
             return false;
         }
-        return this.client == other.client || (this.client != null && this.client.equals(other.client));
+        return Objects.equals(this.client, other.client);
     }
 }

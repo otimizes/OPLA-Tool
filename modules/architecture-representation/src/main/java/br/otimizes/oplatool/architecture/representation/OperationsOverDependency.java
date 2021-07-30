@@ -9,7 +9,7 @@ import br.otimizes.oplatool.architecture.helpers.UtilResources;
 public class OperationsOverDependency {
 
     private DependencyRelationship dependency;
-    private RelationshipsHolder relationshipHolder;
+    private final RelationshipsHolder relationshipHolder;
 
     public OperationsOverDependency(RelationshipsHolder relationshipHolder) {
         this.relationshipHolder = relationshipHolder;
@@ -23,7 +23,7 @@ public class OperationsOverDependency {
      */
     public OperationsOverDependency create(String name) {
         dependency = new DependencyRelationship();
-        dependency.setId(UtilResources.getRandonUUID());
+        dependency.setId(UtilResources.getRandomUUID());
         dependency.setName(name);
         return this;
     }

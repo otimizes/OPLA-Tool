@@ -3,8 +3,8 @@ package br.otimizes.oplatool.architecture.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ASPHelper {
-    public static strictfp Double getMedia(ArrayList<Integer> valor) { // calculo da media de uma lista
+public class StatisticalMethodsHelper {
+    public static strictfp Double getMedia(ArrayList<Integer> valor) {
         try {
             return getSum(valor) / valor.size();
         } catch (NullPointerException e) {
@@ -12,22 +12,22 @@ public class ASPHelper {
         }
     }
 
-    public static strictfp Double getSum(List<Integer> valor) { //calculo da soma
+    public static strictfp Double getSum(List<Integer> valor) {
         Double soma = 0D;
-        for (int i = 0; i < valor.size(); i++) {
-            soma += valor.get(i);
+        for (Integer integer : valor) {
+            soma += integer;
         }
         return soma;
     }
 
-    public static strictfp Double getStandardDeviation(ArrayList<Integer> valor) { //desvio padrao
+    public static strictfp Double getStandardDeviation(ArrayList<Integer> valor) {
         Double media = getMedia(valor);
         int tam = valor.size();
-        Double desvPadrao = 0D;
+        double stdDeviation = 0D;
         for (Integer vlr : valor) {
             Double aux = vlr - media;
-            desvPadrao += aux * aux;
+            stdDeviation += aux * aux;
         }
-        return Math.sqrt(desvPadrao / (tam - 1));
+        return Math.sqrt(stdDeviation / (tam - 1));
     }
 }

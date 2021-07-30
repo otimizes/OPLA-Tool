@@ -5,7 +5,11 @@ import br.otimizes.oplatool.architecture.helpers.UtilResources;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Element;
 
+import java.util.Objects;
+
 /**
+ * Usage Relationship
+ *
  * @author edipofederle<edipofederle@gmail.com>
  */
 public class UsageRelationship extends Relationship {
@@ -27,7 +31,7 @@ public class UsageRelationship extends Relationship {
         super();
         this.supplier = supplier2;
         this.client = client2;
-        setId(UtilResources.getRandonUUID());
+        setId(UtilResources.getRandomUUID());
         super.setType(ElementsTypes.USAGE);
     }
 
@@ -67,9 +71,9 @@ public class UsageRelationship extends Relationship {
             return false;
         }
         final UsageRelationship other = (UsageRelationship) obj;
-        if (this.supplier != other.supplier && (this.supplier == null || !this.supplier.equals(other.supplier))) {
+        if (!Objects.equals(this.supplier, other.supplier)) {
             return false;
         }
-        return this.client == other.client || (this.client != null && this.client.equals(other.client));
+        return Objects.equals(this.client, other.client);
     }
 }

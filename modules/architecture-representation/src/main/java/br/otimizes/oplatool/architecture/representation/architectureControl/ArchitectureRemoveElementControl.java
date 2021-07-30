@@ -1,10 +1,9 @@
 package br.otimizes.oplatool.architecture.representation.architectureControl;
 
-import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Package;
-import br.otimizes.oplatool.architecture.representation.relationship.Relationship;
 import br.otimizes.oplatool.architecture.representation.*;
+import br.otimizes.oplatool.architecture.representation.relationship.Relationship;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +22,8 @@ public class ArchitectureRemoveElementControl {
     }
 
     /**
-     * remove an interface using its id from the list of interfaces. To remove, create a new list of interfaces that not contain the specific interface and replace the original list
+     * remove an interface using its id from the list of interfaces. To remove, create a new list of interfaces that
+     * not contain the specific interface and replace the original list
      * the method applies this technique because some times hash cannot remove an element even if exists in hash
      *
      * @param architecture - target architecture
@@ -62,37 +62,38 @@ public class ArchitectureRemoveElementControl {
     /**
      * remove an interface from the list of interfaces using method removeInterfaceFromArch.
      *
-     * @param architecture - target architecture
-     * @param interfacee   - target interface
+     * @param architecture    - target architecture
+     * @param targetInterface - target interface
      */
-    public void removeInterface(Architecture architecture, Interface interfacee) {
-        if (interfacee.isTotalyFreezed()) return;
-        interfacee.removeInterfaceFromRequiredOrImplemented();
-        architecture.getRelationshipHolder().removeRelatedRelationships(interfacee);
-        if (removeInterfaceFromArch(architecture, interfacee)) {
-            System.out.println("Interface:" + interfacee.getName() + " removida da br.otimizes.oplatool.arquitetura");
+    public void removeInterface(Architecture architecture, Interface targetInterface) {
+        if (targetInterface.isTotalyFreezed()) return;
+        targetInterface.removeInterfaceFromRequiredOrImplemented();
+        architecture.getRelationshipHolder().removeRelatedRelationships(targetInterface);
+        if (removeInterfaceFromArch(architecture, targetInterface)) {
+            System.out.println("Interface" + targetInterface.getName() + " removed");
         }
     }
 
     /**
      * remove an interface using traditional method of hash
-     * if cannot removed by hash, remove an interface using its id from the list of interfaces. To remove, create a new list of interfaces that not contain the specific interface and replace the original list
+     * if cannot removed by hash, remove an interface using its id from the list of interfaces. To remove, create a
+     * new list of interfaces that not contain the specific interface and replace the original list
      * the method applies this technique because some times hash cannot remove an element even if exists in hash
      *
-     * @param architecture - target architecture
-     * @param interfacee   - target interface
+     * @param architecture      - target architecture
+     * @param interfaceToRemove - target interface
      */
-    private boolean removeInterfaceFromArch(Architecture architecture, Interface interfacee) {
-        if (!interfacee.isTotalyFreezed()) {
-            if (architecture.getEditableListInterfaces().remove(interfacee))
+    private boolean removeInterfaceFromArch(Architecture architecture, Interface interfaceToRemove) {
+        if (!interfaceToRemove.isTotalyFreezed()) {
+            if (architecture.getEditableListInterfaces().remove(interfaceToRemove))
                 return true;
             for (Package p : architecture.getEditableListPackages()) {
-                if (p.removeInterface(interfacee))
+                if (p.removeInterface(interfaceToRemove))
                     return true;
             }
         }
-        if (ArchitectureFindElementControl.getInstance().findElementById(architecture, interfacee.getId()) != null) {
-            removeInterfaceByID(architecture, interfacee.getId());
+        if (ArchitectureFindElementControl.getInstance().findElementById(architecture, interfaceToRemove.getId()) != null) {
+            removeInterfaceByID(architecture, interfaceToRemove.getId());
             return true;
         }
         return false;
@@ -108,12 +109,12 @@ public class ArchitectureRemoveElementControl {
         if (klass.isTotalyFreezed()) return;
         architecture.getRelationshipHolder().removeRelatedRelationships(klass);
         if (architecture.getEditableListClasses().remove(klass)) {
-            System.out.println("Classe " + klass.getName() + "(" + klass.getId() + ") removida da br.otimizes.oplatool.arquitetura");
+            System.out.println("Class " + klass.getName() + "(" + klass.getId() + ") removed");
         }
         for (Package pkg : architecture.getEditableListPackages()) {
             if (pkg.getAllClasses().contains(klass)) {
                 if (pkg.removeClass(klass)) {
-                    System.out.println("Classe " + klass.getName() + "(" + klass.getId() + ") removida da br.otimizes.oplatool.arquitetura. Pacote(" + pkg.getName() + ")");
+                    System.out.println("Class " + klass.getName() + "(" + klass.getId() + ") removed. Package(" + pkg.getName() + ")");
                 }
             }
         }
@@ -145,17 +146,17 @@ public class ArchitectureRemoveElementControl {
         System.out.println("removeRelationship()");
         if (as == null) return false;
         if (architecture.getRelationshipHolder().removeRelationship(as)) {
-            System.out.println("Relacionamento : " + as.getType() + " removido da br.otimizes.oplatool.arquitetura");
+            System.out.println("Relationship : " + as.getType() + " removed");
             return true;
         } else {
-            System.out.println("TENTOU remover Relacionamento : " + as.getType() + " da br.otimizes.oplatool.arquitetura porém não consegiu");
+            System.out.println("Trying to remove " + as.getType());
             return false;
         }
     }
 
-    public void removeImplementedInterface(Architecture architecture, Interface inter, Package pacote) {
-        if (inter.isTotalyFreezed() || pacote.isTotalyFreezed()) return;
-        pacote.removeImplementedInterface(inter);
+    public void removeImplementedInterface(Architecture architecture, Interface inter, Package pkg) {
+        if (inter.isTotalyFreezed() || pkg.isTotalyFreezed()) return;
+        pkg.removeImplementedInterface(inter);
         architecture.getRelationshipHolder().removeRelatedRelationships(inter);
     }
 
@@ -167,13 +168,13 @@ public class ArchitectureRemoveElementControl {
 
     public void removeRequiredInterface(Architecture architecture, Interface supplier, Package client) {
         if (supplier.isTotalyFreezed() || client.isTotalyFreezed()) return;
-        if (!client.removeRequiredInterface(supplier)) ;
+        client.removeRequiredInterface(supplier);
         architecture.getRelationshipHolder().removeRelatedRelationships(supplier);
     }
 
     public void removeRequiredInterface(Architecture architecture, Interface supplier, Class client) {
         if (supplier.isTotalyFreezed() || client.isTotalyFreezed()) return;
-        if (!client.removeRequiredInterface(supplier)) ;
+        client.removeRequiredInterface(supplier);
         architecture.getRelationshipHolder().removeRelatedRelationships(supplier);
     }
 
@@ -188,19 +189,16 @@ public class ArchitectureRemoveElementControl {
         if (!element.isTotalyFreezed()) {
             if (element instanceof Class) {
                 if (architecture.getEditableListClasses().remove(element)) {
-                    //LOGGER.info("Classe: " + element.getName() + " removida do pacote: " + architecture.getName());
-                    System.out.println("Classe: " + element.getName() + " removida do pacote: " + architecture.getName());
+                    System.out.println("Class " + element.getName() + " removed from package " + architecture.getName());
                     return true;
                 }
             } else if (element instanceof Interface) {
                 if (architecture.getEditableListInterfaces().remove(element)) {
-                    //LOGGER.info("Interface: " + element.getName() + " removida do pacote: " + architecture.getName());
-                    System.out.println("Interface: " + element.getName() + " removida do pacote: " + architecture.getName());
+                    System.out.println("Interface " + element.getName() + " removed from package " + architecture.getName());
                     return true;
                 }
             }
         }
         return false;
     }
-
 }

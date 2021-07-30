@@ -2,7 +2,7 @@ package br.otimizes.oplatool.architecture.papyrus.touml;
 
 import br.otimizes.oplatool.architecture.exceptions.ModelIncompleteException;
 import br.otimizes.oplatool.architecture.exceptions.ModelNotFoundException;
-import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelException;
 
 /**
  * Architecture base class
@@ -11,9 +11,7 @@ import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToMod
  */
 public abstract class ArchitectureBase {
 
-    public static DocumentManager givenADocument(String outputModelName) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
-        DocumentManager documentManager = new DocumentManager(outputModelName);
-        return documentManager;
+    public static DocumentManager givenADocument(String outputModelName) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException {
+        return new DocumentManager(outputModelName);
     }
-
 }

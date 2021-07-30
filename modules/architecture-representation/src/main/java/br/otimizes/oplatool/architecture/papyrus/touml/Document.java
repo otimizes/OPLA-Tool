@@ -20,5 +20,4 @@ public class Document {
             documentManager.saveAndCopy(documentManager.getNewModelName());
         }
     }
-
 }

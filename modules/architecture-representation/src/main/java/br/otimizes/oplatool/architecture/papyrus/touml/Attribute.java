@@ -18,14 +18,13 @@ public class Attribute {
     private String name;
     private VisibilityKind visibility;
     private Types.Type type;
-    private Set<Concern> concerns = new HashSet<Concern>();
+    private Set<Concern> concerns = new HashSet<>();
     private boolean generateVisualAttribute;
 
     public static Attribute create() {
         Attribute attr = new Attribute();
-        attr.setId(UtilResources.getRandonUUID());
+        attr.setId(UtilResources.getRandomUUID());
         return attr;
-
     }
 
     /**
@@ -115,15 +114,8 @@ public class Attribute {
         return this;
     }
 
-    /**
-     * Gera ou não graticamente o atributo
-     *
-     * @param generatVisualAttribute
-     * @return
-     */
-    public Attribute grafics(boolean generatVisualAttribute) {
-        this.generateVisualAttribute = generatVisualAttribute;
+    public Attribute getGraphics(boolean generatesVisualAttribute) {
+        this.generateVisualAttribute = generatesVisualAttribute;
         return this;
     }
-
 }

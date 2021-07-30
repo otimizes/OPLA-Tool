@@ -1,13 +1,12 @@
 package br.otimizes.oplatool.architecture.builders;
 
 
-import br.otimizes.oplatool.architecture.representation.*;
-import br.otimizes.oplatool.architecture.representation.Class;
-import br.otimizes.oplatool.architecture.representation.Package;
-import br.otimizes.oplatool.architecture.representation.relationship.DependencyRelationship;
 import br.otimizes.oplatool.architecture.base.ArchitectureHelper;
 import br.otimizes.oplatool.architecture.helpers.StereotypeHelper;
+import br.otimizes.oplatool.architecture.representation.Class;
+import br.otimizes.oplatool.architecture.representation.Package;
 import br.otimizes.oplatool.architecture.representation.*;
+import br.otimizes.oplatool.architecture.representation.relationship.DependencyRelationship;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.NamedElement;
@@ -19,7 +18,7 @@ import org.eclipse.uml2.uml.NamedElement;
  */
 public class DependencyRelationshipBuilder extends ArchitectureHelper {
 
-    private Architecture architecture;
+    private final Architecture architecture;
 
     public DependencyRelationshipBuilder(Architecture architecture) {
         this.architecture = architecture;
@@ -32,12 +31,10 @@ public class DependencyRelationshipBuilder extends ArchitectureHelper {
      * @return dependency relationship
      */
     public DependencyRelationship create(Dependency element) {
-
-
         EList<NamedElement> suppliers = element.getSuppliers();
-        EList<NamedElement> clieents = element.getClients();
+        EList<NamedElement> clients = element.getClients();
 
-        Element client = architecture.findElementById(getModelHelper().getXmiId(clieents.get(0)));
+        Element client = architecture.findElementById(getModelHelper().getXmiId(clients.get(0)));
         Element supplier = architecture.findElementById(getModelHelper().getXmiId(suppliers.get(0)));
 
         if ((client instanceof Class) && (supplier instanceof Interface))

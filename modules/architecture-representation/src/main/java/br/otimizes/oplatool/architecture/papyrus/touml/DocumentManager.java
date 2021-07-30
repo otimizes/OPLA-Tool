@@ -1,9 +1,9 @@
 package br.otimizes.oplatool.architecture.papyrus.touml;
 
-import br.otimizes.oplatool.architecture.exceptions.*;
+import br.otimizes.oplatool.architecture.exceptions.ModelIncompleteException;
+import br.otimizes.oplatool.architecture.exceptions.ModelNotFoundException;
 import br.otimizes.oplatool.architecture.helpers.XmiHelper;
 import br.otimizes.oplatool.architecture.io.SaveAndMove;
-import br.otimizes.oplatool.architecture.exceptions.*;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileUtils;
 import com.google.common.io.Files;
@@ -38,20 +38,14 @@ public class DocumentManager extends XmiHelper {
 
     public DocumentManager(String outputModelName) throws ModelNotFoundException, ModelIncompleteException {
         this.outputModelName = outputModelName;
-        LOGGER.info("Copiando");
         makeACopy(BASE_DOCUMENT);
-        LOGGER.info("Criando Xmi");
         createXMIDocument();
-
-        LOGGER.info("Atualizando Profiles");
         updateProfilesRefs();
         copyProfilesToDestination();
-
         this.saveAndCopy(outputModelName);
     }
 
     private void copyProfilesToDestination() {
-
         try {
             createResourcesDirectoryIfNotExist();
 
@@ -62,13 +56,7 @@ public class DocumentManager extends XmiHelper {
                         ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/resources/smarty.profile.uml");
                 Files.copy(sourceFileSmarty, destFileSmarty);
             } else {
-                // Caso perfil não esteja setado remove do arquivo de tempalte
-                XmiHelper.removeNode(docUml, "profileApplication", "_2RlssY9OEeO5xq3Ur4qgFw"); // id
-                // setado
-                // no
-                // arquivo
-                // de
-                // template
+                XmiHelper.removeNode(docUml, "profileApplication", "_2RlssY9OEeO5xq3Ur4qgFw");
             }
 
             if (ApplicationFileConfigThreadScope.hasConcernsProfile()) {
@@ -78,40 +66,24 @@ public class DocumentManager extends XmiHelper {
                         ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/resources/concerns.profile.uml");
                 Files.copy(sourceFileConcern, destFileConcern);
             } else {
-                // Caso perfil não esteja setado remove do arquivo de tempalte
-                XmiHelper.removeNode(docUml, "profileApplication", "_2Q2s4I9OEeO5xq3Ur4qgFw"); // id
-                // setado
-                // no
-                // arquivo
-                // de
-                // template
+                XmiHelper.removeNode(docUml, "profileApplication", "_2Q2s4I9OEeO5xq3Ur4qgFw");
             }
 
             if (ApplicationFileConfigThreadScope.hasRelationsShipProfile()) {
                 String pathToProfileRelationships = ApplicationFileConfigThreadScope.getPathToProfileRelationships();
                 final File sourceFileRelationships = new File(pathToProfileRelationships);
                 final File destFileRelationship = new File(
-                        ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/resources/relationships.profile.uml"); // id
-                // setado
-                // no arquivo
-                // de
-                // template
+                        ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/resources/relationships.profile.uml");
                 Files.copy(sourceFileRelationships, destFileRelationship);
             } else {
-                // Caso perfil não esteja setado remove do arquivo de tempalte
                 XmiHelper.removeNode(docUml, "profileApplication", "_2RXDMI9OEeO5xq3Ur4qgFw");
             }
 
             if (ApplicationFileConfigThreadScope.hasPatternsProfile()) {
                 final File destFileRelationship = new File(
-                        ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/resources/br.otimizes.oplatool.patterns.profile.uml"); // id
-                // setado
-                // no
-                // arquivo de
-                // template
+                        ApplicationFileConfigThreadScope.getDirectoryToExportModels() + "/resources/br.otimizes.oplatool.patterns.profile.uml");
                 Files.copy(new File(ApplicationFileConfigThreadScope.getPathToProfilePatterns()), destFileRelationship);
             } else {
-                // Caso perfil não esteja setado remove do arquivo de tempalte
                 XmiHelper.removeNode(docUml, "profileApplication", "_cyBBIJJmEeOENZsdUoZvrw");
             }
 
@@ -131,8 +103,8 @@ public class DocumentManager extends XmiHelper {
     private void createXMIDocument() {
         LOGGER.info("createXMIDocument()");
         DocumentBuilderFactory docBuilderFactoryNotation = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilderNotation = null;
-        DocumentBuilder docBuilderUml = null;
+        DocumentBuilder docBuilderNotation;
+        DocumentBuilder docBuilderUml;
 
         try {
             docBuilderNotation = docBuilderFactoryNotation.newDocumentBuilder();
@@ -160,25 +132,8 @@ public class DocumentManager extends XmiHelper {
         }
     }
 
-    /**
-     * Realiza um cópia dos três arquivos para o diretório <b>manipulation</b>.
-     * <p>
-     * Esse diretório deve ser setado no arquivo de configuração
-     * <b>application.yml</b> na propriedade "directoryToSaveModels".
-     *
-     * @param pathToFiles
-     * @param modelName
-     * @throws ModelIncompleteException
-     * @throws ModelNotFoundException
-     * @throws SMartyProfileNotAppliedToModelExcepetion
-     * @throws IOException
-     */
     private void makeACopy(String modelName) throws ModelNotFoundException, ModelIncompleteException {
-
         LOGGER.info("makeACopy(String modelName) - Enter");
-
-        // Verifica se o diretorio configurado em directoryToSaveModels existe.
-        // caso nao exista, o cria.
         File temp = new File(ApplicationFileConfigThreadScope.getDirectoryToSaveModels());
         if (!temp.exists())
             temp.mkdirs();
@@ -192,20 +147,17 @@ public class DocumentManager extends XmiHelper {
         URL d = null;
         try {
             URL baseUrl = new URL("file:" + ApplicationFileConfigThreadScope.getPathToTemplateModelsDirectory());
-            if (baseUrl != null) {
-                // Arquivos vazios usados para geração da nova br.otimizes.oplatool.arquitetura
-                n = new URL(baseUrl, modelName + ".notation");
-                u = new URL(baseUrl, modelName + ".uml");
-                d = new URL(baseUrl, modelName + ".di");
-            }
+            n = new URL(baseUrl, modelName + ".notation");
+            u = new URL(baseUrl, modelName + ".uml");
+            d = new URL(baseUrl, modelName + ".di");
         } catch (MalformedURLException e) {
             LOGGER.error("makeACopy(String modelName) - Could not find template files directory: "
                     + ApplicationFileConfigThreadScope.getPathToTemplateModelsDirectory());
         }
 
-        FileUtils.copyFile(new File(n.getPath()), new File(notationCopy));
-        FileUtils.copyFile(new File(u.getPath()), new File(umlCopy));
-        FileUtils.copyFile(new File(d.getPath()), new File(diCopy));
+        if (n != null) FileUtils.copyFile(new File(n.getPath()), new File(notationCopy));
+        if (u != null) FileUtils.copyFile(new File(u.getPath()), new File(umlCopy));
+        if (d != null) FileUtils.copyFile(new File(d.getPath()), new File(diCopy));
 
         LOGGER.info("makeACopy(String modelName) - Exit");
 
@@ -230,10 +182,7 @@ public class DocumentManager extends XmiHelper {
 
         try {
             SaveAndMove.saveAndMove(docNotation, docUml, docDi, BASE_DOCUMENT, newModelName);
-        } catch (TransformerException e) {
-            LOGGER.error(e);
-            throw new RuntimeException();
-        } catch (IOException e) {
+        } catch (TransformerException | IOException e) {
             LOGGER.error(e);
             throw new RuntimeException();
         }
@@ -247,20 +196,6 @@ public class DocumentManager extends XmiHelper {
         return this.outputModelName;
     }
 
-    /**
-     * Esse método é responsável por atualizar as referencias aos profiles
-     * (definidos no arquivo application.yml) que são usados no modelo.
-     * <p>
-     * Basicamente é lido dois valores de cada arquivo de profile e atualizado no
-     * arquivo simples.uml do qual é usado como base para escrever o modelo
-     * novamente em disco.
-     *
-     * @throws ModelNotFoundException
-     * @throws ModelIncompleteException
-     * @throws CustonTypeNotFound
-     * @throws NodeNotFound
-     * @throws InvalidMultiplictyForAssociationException
-     */
     public void updateProfilesRefs() {
         LOGGER.info("updateProfilesRefs()");
         String pathToProfileConcern = ApplicationFileConfigThreadScope.getPathToProfileConcern();
@@ -277,48 +212,41 @@ public class DocumentManager extends XmiHelper {
                 LOGGER.info("docConcern");
                 final Document docConcern = profileConcern.parse(pathToProfileConcern);
 
-                updateHrefAtt(getIdOnNode(docConcern, "contents", "xmi:id"), "concerns", "appliedProfile", false);
-                updateHrefAtt(getIdOnNode(docConcern, "uml:Profile", "xmi:id"), "concerns", "appliedProfile", true);
+                updateHrefAtt(getIdOnNode(docConcern, "contents", "xmi:id"),
+                        false);
+                updateHrefAtt(getIdOnNode(docConcern, "uml:Profile", "xmi:id"),
+                        true);
 
-                final String nsUriPerfilConcern = getIdOnNode(docConcern, "contents", "nsURI");
-                br.otimizes.oplatool.architecture.papyrus.touml.Document.executeTransformation(this, new Transformation() {
-                    public void useTransformation() {
-                        Node xmlsnsConcern = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes()
-                                .getNamedItem("xmlns:concerns");
-                        xmlsnsConcern.setNodeValue(nsUriPerfilConcern);
-                        String concernLocaltionSchema = nsUriPerfilConcern + " " + "resources/concerns.profile.uml#"
-                                + getIdOnNode(docConcern, "contents", "xmi:id");
+                final String nsUriProfileConcern = getIdOnNode(docConcern, "contents", "nsURI");
+                br.otimizes.oplatool.architecture.papyrus.touml.Document.executeTransformation(this, () -> {
+                    Node xmlSnsConcern = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes()
+                            .getNamedItem("xmlns:concerns");
+                    xmlSnsConcern.setNodeValue(nsUriProfileConcern);
+                    String concernLocaltionSchema = nsUriProfileConcern + " " + "resources/concerns.profile.uml#"
+                            + getIdOnNode(docConcern, "contents", "xmi:id");
 
-                        Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes()
-                                .getNamedItem("xsi:schemaLocation");
-                        nodeSchemaLocation
-                                .setNodeValue(nodeSchemaLocation.getNodeValue() + " " + concernLocaltionSchema + " ");
-                    }
+                    Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes()
+                            .getNamedItem("xsi:schemaLocation");
+                    nodeSchemaLocation
+                            .setNodeValue(nodeSchemaLocation.getNodeValue() + " " + concernLocaltionSchema + " ");
                 });
-
             }
-
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
+        } catch (SAXException | IOException | ParserConfigurationException e) {
             e.printStackTrace();
         }
-
     }
 
-    private void updateHrefAtt(final String idApplied, final String profileName, final String tagName,
+    private void updateHrefAtt(final String idApplied,
                                final boolean updateReference) {
         LOGGER.info("updateHrefAtt()");
-        br.otimizes.oplatool.architecture.papyrus.touml.Document.executeTransformation(this, new Transformation() {
-            public void useTransformation() {
-                Node node = null;
-                if (updateReference) {
-                    node = getAppliedHrefProfile(profileName, tagName);
-                } else {
-                    node = getReference(profileName, tagName);
-                }
+        br.otimizes.oplatool.architecture.papyrus.touml.Document.executeTransformation(this, () -> {
+            Node node;
+            if (updateReference) {
+                node = getAppliedHrefProfile();
+            } else {
+                node = getReference();
+            }
+            if (node != null) {
                 Node nodeAttr = node.getAttributes().getNamedItem("href");
                 String oldValueAttr = nodeAttr.getNodeValue().substring(0, nodeAttr.getNodeValue().indexOf("#"));
                 nodeAttr.setNodeValue(oldValueAttr + "#" + idApplied);
@@ -326,53 +254,44 @@ public class DocumentManager extends XmiHelper {
         });
     }
 
-    private Node getAppliedHrefProfile(String profileName, String tagName) {
+    private Node getAppliedHrefProfile() {
         NodeList elements = docUml.getElementsByTagName("profileApplication");
         for (int i = 0; i < elements.getLength(); i++) {
-            NodeList childs = (elements.item(i).getChildNodes());
-            for (int j = 0; j < childs.getLength(); j++)
-                if (childs.item(j).getNodeName().equals(tagName)
-                        && (childs.item(j).getAttributes().getNamedItem("href").getNodeValue().contains(profileName)))
-                    return childs.item(j);
+            NodeList children = (elements.item(i).getChildNodes());
+            for (int j = 0; j < children.getLength(); j++)
+                if (children.item(j).getNodeName().equals("appliedProfile")
+                        && (children.item(j).getAttributes().getNamedItem("href").getNodeValue().contains("concerns")))
+                    return children.item(j);
         }
         return null;
     }
 
-    private Node getReference(String profileName, String tagName) {
+    private Node getReference() {
         NodeList elements = this.docUml.getElementsByTagName("profileApplication");
         for (int i = 0; i < elements.getLength(); i++) {
-            NodeList childs = (elements.item(i).getChildNodes());
-            for (int j = 0; j < childs.getLength(); j++) {
-                if (childs.item(j).getNodeName().equalsIgnoreCase("eAnnotations")) {
-                    for (int k = 0; k < childs.item(j).getChildNodes().getLength(); k++) {
-                        if (childs.item(j).getChildNodes().item(k).getNodeName().equalsIgnoreCase("references")) {
-                            NodeList eAnnotationsChilds = childs.item(j).getChildNodes();
-                            for (int l = 0; l < eAnnotationsChilds.getLength(); l++)
-                                if (isProfileNode(profileName, eAnnotationsChilds, l))
-                                    return eAnnotationsChilds.item(l);
+            NodeList children = (elements.item(i).getChildNodes());
+            for (int j = 0; j < children.getLength(); j++) {
+                if (children.item(j).getNodeName().equalsIgnoreCase("eAnnotations")) {
+                    for (int k = 0; k < children.item(j).getChildNodes().getLength(); k++) {
+                        if (children.item(j).getChildNodes().item(k).getNodeName().equalsIgnoreCase("references")) {
+                            NodeList eAnnotationsChildren = children.item(j).getChildNodes();
+                            for (int l = 0; l < eAnnotationsChildren.getLength(); l++)
+                                if (isProfileNode(eAnnotationsChildren, l))
+                                    return eAnnotationsChildren.item(l);
                         }
                     }
                 }
-
             }
         }
-
         return null;
     }
 
-    private boolean isProfileNode(String profileName, NodeList eAnnotationsChilds, int l) {
-        return (eAnnotationsChilds.item(l).getNodeName().equalsIgnoreCase("references") && (eAnnotationsChilds.item(l)
-                .getAttributes().getNamedItem("href").getNodeValue().contains(profileName)));
+    private boolean isProfileNode(NodeList eAnnotationsChildren, int l) {
+        return (eAnnotationsChildren.item(l).getNodeName().equalsIgnoreCase("references") && (eAnnotationsChildren.item(l)
+                .getAttributes().getNamedItem("href").getNodeValue().contains("concerns")));
     }
 
-    /**
-     * @param document - O documento em que se quer pesquisar.
-     * @param tagName  - elemento desejado
-     * @param attrName - atributo do elemento desejado
-     * @return
-     */
     private String getIdOnNode(Document document, String tagName, String attrName) {
         return document.getElementsByTagName(tagName).item(0).getAttributes().getNamedItem(attrName).getNodeValue();
     }
-
 }

@@ -3,7 +3,10 @@ package br.otimizes.oplatool.architecture.io;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class OPLALogs {
     public static Map<String, List<OptimizationInfo>> lastLogs = new HashMap<>();

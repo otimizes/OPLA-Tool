@@ -21,6 +21,7 @@
 
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII;
 
+import br.otimizes.oplatool.architecture.helpers.StatisticalMethodsHelper;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Interface;
@@ -307,7 +308,7 @@ public class NSGAIIASP extends Algorithm {
         final List<Interface> allInterfaces = new ArrayList<Interface>(solution.getAllInterfaces());
         if (!allInterfaces.isEmpty()) {
             for (Interface itf : allInterfaces) {
-                if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())) {
+                if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getMethods().isEmpty())) {
                     return false;
                 }
             }
@@ -365,7 +366,7 @@ public class NSGAIIASP extends Algorithm {
 
 
         // calculo do desvio padrao
-        Double stdDevOfBrickConcerns = getDesvioPadrao(lstConcernCount);
+        Double stdDevOfBrickConcerns = StatisticalMethodsHelper.getStandardDeviation(lstConcernCount);
         System.out.println(("desvio padrão" + stdDevOfBrickConcerns));
 
         // media + desvio padrão
@@ -399,7 +400,7 @@ public class NSGAIIASP extends Algorithm {
 
 
         // calculo do desvio padrao
-        Double stdDevOfBrickConcerns = getDesvioPadrao(lstAtribMeth);
+        Double stdDevOfBrickConcerns = StatisticalMethodsHelper.getStandardDeviation(lstAtribMeth);
         System.out.println(("desvio padrão" + stdDevOfBrickConcerns));
 
         // media + desvio padrão
@@ -425,17 +426,6 @@ public class NSGAIIASP extends Algorithm {
             soma += valor.get(i);
         }
         return soma;
-    }
-
-    public strictfp Double getDesvioPadrao(ArrayList<Integer> valor) {
-        Double media = getMedia(valor);
-        int tam = valor.size();
-        Double desvPadrao = 0D;
-        for (Integer vlr : valor) {
-            Double aux = vlr - media;
-            desvPadrao += aux * aux;
-        }
-        return Math.sqrt(desvPadrao / (tam - 1));
     }
 } // NSGA-II
 

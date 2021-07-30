@@ -22,7 +22,7 @@ public abstract class Element implements Serializable {
     private String name;
     private VariationPoint variationPoint;
     private Variant variant;
-    private Set<Concern> concerns = new HashSet<>();
+    private final Set<Concern> concerns = new HashSet<>();
     private Set<Comment> comments = new HashSet<>();
     private Architecture architecture;
     private String typeElement;
@@ -59,7 +59,7 @@ public abstract class Element implements Serializable {
     private Element deepClone() throws CloneNotSupportedException {
 
         Cloner cloner = new Cloner();
-        Element pkg = (Element) cloner.deepClone(this);
+        Element pkg = cloner.deepClone(this);
         cloner = null;
         return pkg;
     }

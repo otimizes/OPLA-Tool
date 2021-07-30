@@ -373,12 +373,12 @@ public class CrossoverUtils {
             List<Interface> diffListInterface = new ArrayList<>();
             for(Interface selectedInterface: allInterfacesFather){
                 for(Interface selectedInterfaceChild: allInterfacesChild){
-                    for(Method method : selectedInterfaceChild.getOperations()) {
+                    for(Method method : selectedInterfaceChild.getMethods()) {
                         selectedInterface.removeOperationByID(method.getId());
                     }
                 }
-                if(selectedInterface.getOperations() != null){
-                    if(selectedInterface.getOperations().size() > 0){
+                if(selectedInterface.getMethods() != null){
+                    if(selectedInterface.getMethods().size() > 0){
                         diffListInterface.add(selectedInterface);
                     }
                 }
@@ -410,7 +410,7 @@ public class CrossoverUtils {
                             }
                         }
                     }else{
-                        for(Method m : interfaceDiff.getOperations()){
+                        for(Method m : interfaceDiff.getMethods()){
                             interfaceChild.addExternalOperation(m);
                         }
                     }
@@ -427,7 +427,6 @@ public class CrossoverUtils {
         fatherClassPackage = null;
         fatherInterfacePackage = null;
         fatherDiff = null;
-
 
     }
 
@@ -666,7 +665,7 @@ public class CrossoverUtils {
             for(Interface interfaceChild : child.getAllInterfaces() ){
 
                 lstOperationRemove.clear();
-                for(Element interfaceOperation : interfaceChild.getOperations()){
+                for(Element interfaceOperation : interfaceChild.getMethods()){
                     ex = false;
                     for(String d : lstMethodAttributeOperationID){
                         if(d.equals(interfaceOperation.getId()))
@@ -685,7 +684,12 @@ public class CrossoverUtils {
                             lstOperationRemove.add(interfaceOperation.getId());
                         }else {
                             Interface existInterface = child.findInterfaceById(lstClassInterfaceID.get(posReplic));
-                            Method operation1 = existInterface.findOperationById(interfaceOperation.getId());
+                            Method operation1 = null;
+                            try {
+                                operation1 = existInterface.findOperationById(interfaceOperation.getId());
+                            } catch (Exception excp) {
+                                excp.printStackTrace();
+                            }
 
 
                             if (operation1 == null) {
@@ -745,11 +749,11 @@ public class CrossoverUtils {
             }
 
             for(Interface cr : child.getAllInterfaces()){
-                if(cr.getOperations() == null){
+                if(cr.getMethods() == null){
                     if(cr.getDependents().size() == 0 && cr.getImplementors().size() == 0)
                         lstInterfaceRemove.add(cr.getId());
                 }else{
-                    if(cr.getOperations().size() == 0){
+                    if(cr.getMethods().size() == 0){
                         if(cr.getDependents().size() == 0 && cr.getImplementors().size() == 0)
                             lstInterfaceRemove.add(cr.getId());
                     }
@@ -827,7 +831,7 @@ public class CrossoverUtils {
             return 0;
         }
         int count = 0;
-        for(Method elem : parentInterfaceConcern.getOperations()){
+        for(Method elem : parentInterfaceConcern.getMethods()){
             if(elem.getOwnConcerns().containsAll(elementConcern) && elem.getOwnConcerns().size() == elementConcern.size()){
                 count++;
             }
@@ -876,7 +880,7 @@ public class CrossoverUtils {
 
             List<Interface> allInterface = new ArrayList<>(arch.getAllInterfaces());
             for(Interface selectedInterface: allInterface){
-                tempOP = tempOP + selectedInterface.getOperations().size();
+                tempOP = tempOP + selectedInterface.getMethods().size();
             }
 
             countArchElements.set(0,tempAtr);

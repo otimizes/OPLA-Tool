@@ -17,7 +17,10 @@ public class VariabilityStereotype implements Stereotype {
     private String maxSelection;
     private boolean allowAddingVar;
     private String bindingTime;
-    private String variants; // Nomes separados por virgulas(,)
+    /**
+     * Names separated by comma
+     */
+    private String variants;
     private String idPackageOwner;
 
     public VariabilityStereotype(Variability variabilityStereotype) {
@@ -26,11 +29,11 @@ public class VariabilityStereotype implements Stereotype {
         setMaxSelection(variabilityStereotype.getMaxSelection());
         setAllowAddingVar(variabilityStereotype.allowAddingVar());
         setBindingTime(variabilityStereotype.getBindingTime());
-        setVariants(Strings.spliterVariants(variabilityStereotype.getVariants()));
-        setidForPackageOwner(variabilityStereotype.getIdPackageOwner());
+        setVariants(Strings.splitVariants(variabilityStereotype.getVariants()));
+        setIdForPackageOwner(variabilityStereotype.getIdPackageOwner());
     }
 
-    private void setidForPackageOwner(String idPackageOwner) {
+    private void setIdForPackageOwner(String idPackageOwner) {
         this.idPackageOwner = idPackageOwner;
     }
 
@@ -123,5 +126,4 @@ public class VariabilityStereotype implements Stereotype {
     public void setStereotypeName(String stereotypeName) {
         this.stereotypeName = stereotypeName;
     }
-
 }

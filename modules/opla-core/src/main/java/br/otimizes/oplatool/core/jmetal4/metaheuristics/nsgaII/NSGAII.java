@@ -462,7 +462,7 @@ public class NSGAII extends Algorithm {
 
             List<Interface> allInterface = new ArrayList<>(arch.getAllInterfaces());
             for (Interface selectedInterface : allInterface) {
-                tempOP = tempOP + selectedInterface.getOperations().size();
+                tempOP = tempOP + selectedInterface.getMethods().size();
             }
 
             countArchElements.set(0, tempAtr);

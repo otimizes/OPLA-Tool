@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
  */
 public abstract class Base {
 
-    private static ThreadLocal<InitializeResources> resources = ThreadLocal.withInitial(() -> InitializeResources.initializeResources.get());
+    private static final ThreadLocal<InitializeResources> resources = ThreadLocal.withInitial(() -> InitializeResources.initializeResources.get());
 
     public Base() {
     }

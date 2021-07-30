@@ -8,6 +8,4 @@ public class ConcernCannotBeAppliedToPackagesException extends Exception {
     public ConcernCannotBeAppliedToPackagesException() {
         super("Concerns Cannot be applied to packages");
     }
-
-
 }

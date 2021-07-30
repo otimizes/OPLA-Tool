@@ -11,15 +11,8 @@ import java.util.Set;
  */
 public class RelationshipCommons {
 
-    /**
-     * Retornar todos os relacionamentos para o elemento passado
-     *
-     * @param relationships - Lista com relacionamentos
-     * @param element       - Elemento que se deseja recuperar relacionamentos
-     * @return - set imutavel com os relacionamentos
-     */
     public static Set<Relationship> getRelationships(Set<Relationship> relationships, Element element) {
-        Set<Relationship> relations = new HashSet<Relationship>();
+        Set<Relationship> relations = new HashSet<>();
         for (Relationship r : relationships) {
             if (r instanceof GeneralizationRelationship) {
                 if (((GeneralizationRelationship) r).getParent().equals(element) || ((GeneralizationRelationship) r).getChild().equals(element)) {
@@ -55,7 +48,7 @@ public class RelationshipCommons {
             }
 
             if (r instanceof AssociationClassRelationship) {
-                for (MemberEnd memberEnd : ((AssociationClassRelationship) r).getMemebersEnd()) {
+                for (MemberEnd memberEnd : ((AssociationClassRelationship) r).getMembersEnd()) {
                     if (memberEnd != null && memberEnd.getType() != null && memberEnd.getType().equals(element)) {
                         relations.add(r);
                     }

@@ -2,7 +2,6 @@ package br.otimizes.oplatool.architecture.representation;
 
 import br.otimizes.oplatool.architecture.representation.relationship.*;
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
-import br.otimizes.oplatool.architecture.representation.relationship.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +25,12 @@ import java.util.Set;
 public class OperationsOverAssociation {
 
     private AssociationEnd associationEnd1;
-    private AssociationRelationship association;
-    private RelationshipsHolder relationshipHolder;
+    private final AssociationRelationship association;
+    private final RelationshipsHolder relationshipHolder;
 
     public OperationsOverAssociation(RelationshipsHolder relationshipHolder) {
         this.relationshipHolder = relationshipHolder;
-        String id = UtilResources.getRandonUUID();
+        String id = UtilResources.getRandomUUID();
         association = new AssociationRelationship(id);
     }
 
@@ -95,7 +94,7 @@ public class OperationsOverAssociation {
      */
     public void createAssociationClass(Set<Attribute> listAttrs, Set<Method> listMethods, Element owner, Element klass, String associationClassName) {
         String namespace = UtilResources.createNamespace(ArchitectureHolder.getName(), "AssociationClass");
-        Class asClass = new Class(relationshipHolder, associationClassName, null, false, namespace, UtilResources.getRandonUUID());
+        Class asClass = new Class(relationshipHolder, associationClassName, null, false, namespace, UtilResources.getRandomUUID());
 
         for (Attribute a : listAttrs)
             asClass.addExternalAttribute(a);

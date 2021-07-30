@@ -10,7 +10,7 @@ public class RealizationsOperations implements Relationship {
 
     private static final String REALIZATION = "realization";
 
-    private DocumentManager documentManager;
+    private final DocumentManager documentManager;
 
     private String clientElement;
     private String supplierElement;
@@ -41,19 +41,14 @@ public class RealizationsOperations implements Relationship {
     }
 
     public String build() {
-        final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement, null, a);
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                dependencyNode.createDependency(REALIZATION);
-            }
-        });
-
-        return ""; //TODO return id;
-
+        final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement,
+                this.supplierElement, null, a);
+        Document.executeTransformation(documentManager, () -> dependencyNode.createDependency(REALIZATION));
+        return "";
     }
 
-    public Relationship withMultiplicy(String string) throws NotSuppportedOperation {
-        throw new NotSuppportedOperation("Realization dont have multiplicy");
+    public Relationship withMultiplicity(String string) throws NotSuppportedOperation {
+        throw new NotSuppportedOperation("Realization dont have multiplicity");
     }
 
     public RealizationsOperations withName(String realizationName) {
@@ -63,5 +58,4 @@ public class RealizationsOperations implements Relationship {
             this.name = realizationName;
         return this;
     }
-
 }

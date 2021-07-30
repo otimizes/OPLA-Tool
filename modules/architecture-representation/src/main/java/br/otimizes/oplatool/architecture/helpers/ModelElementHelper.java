@@ -18,50 +18,31 @@ import java.util.List;
 public class ModelElementHelper {
 
     /**
-     * Retorna todos os estereótipo de uma dada ELemento. <br />
+     * Returns all stereotypes of a given Element. <br />
      * <p>
-     * Se nenhum esterótipo for encontrado retorna uma lista vazia.
+     * If no stereotype is found returns an empty list.
      *
-     * @param element
-     * @return List<{ @ link Stereotype }>
+     * @param element element
+     * @return List<{ @ Stereotype link }>
      */
     public static <T> List<Stereotype> getAllStereotypes(NamedElement element) {
-        List<Stereotype> stereotypes = new ArrayList<Stereotype>();
-
-        for (Stereotype stereotype : element.getAppliedStereotypes())
-            stereotypes.add(stereotype);
-
+        List<Stereotype> stereotypes = new ArrayList<>(element.getAppliedStereotypes());
         if (element instanceof Class) {
             EList<Comment> comments = ((Class) element).getPackage().getOwnedComments();
-
             for (Comment comment : comments)
-                for (Stereotype stereotype : comment.getAppliedStereotypes())
-                    stereotypes.add(stereotype);
+                stereotypes.addAll(comment.getAppliedStereotypes());
         }
-
         if (stereotypes.isEmpty()) return Collections.emptyList();
-
         return stereotypes;
     }
 
     /**
-     * Verifica se uma classe é uma interface.
+     * Checks if a class is an interface.
      *
-     * @param klass
+     * @param element element
      * @return boolean
      */
-    public static boolean isInterface(NamedElement klass) {
-        return StereotypeHelper.hasStereotype(klass, StereotypesTypes.INTERFACE);
+    public static boolean isInterface(NamedElement element) {
+        return StereotypeHelper.hasStereotype(element, StereotypesTypes.INTERFACE);
     }
-
-    /**
-     * Verifica se elemento é uma classe
-     *
-     * @param klass
-     * @return {@link boolean}
-     */
-    public static boolean isClass(NamedElement klass) {
-        return !isInterface(klass);
-    }
-
 }

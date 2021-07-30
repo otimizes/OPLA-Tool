@@ -27,7 +27,7 @@ public class UnoptimizedDeepCopy {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream out = new ObjectOutputStream(bos);
             if (orig == null) {
-                JOptionPane.showMessageDialog(null, "objeto nulo");
+                JOptionPane.showMessageDialog(null, "Null object");
             }
             out.writeObject(orig);
             out.flush();
@@ -38,10 +38,8 @@ public class UnoptimizedDeepCopy {
             ObjectInputStream in = new ObjectInputStream(
                     new ByteArrayInputStream(bos.toByteArray()));
             obj = in.readObject();
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException cnfe) {
-            cnfe.printStackTrace();
         }
         return obj;
     }

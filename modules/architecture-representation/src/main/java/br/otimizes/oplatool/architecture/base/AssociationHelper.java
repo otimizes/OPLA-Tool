@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class AssociationHelper extends ArchitectureHelper {
 
-    private AssociationEndBuilder associationEndBuilder;
-    private Architecture architecture;
+    private final AssociationEndBuilder associationEndBuilder;
+    private final Architecture architecture;
 
     public AssociationHelper(AssociationEndBuilder associationEndBuilder, Architecture architecture) {
         this.associationEndBuilder = associationEndBuilder;
@@ -30,7 +30,7 @@ public class AssociationHelper extends ArchitectureHelper {
      * @return association ends
      */
     public List<? extends AssociationEnd> getParticipants(Association association) {
-        List<AssociationEnd> elementsOfAssociation = new ArrayList<AssociationEnd>();
+        List<AssociationEnd> elementsOfAssociation = new ArrayList<>();
 
         for (Property a : association.getMemberEnds()) {
             try {
@@ -42,8 +42,6 @@ public class AssociationHelper extends ArchitectureHelper {
                 e.printStackTrace();
             }
         }
-
         return elementsOfAssociation;
-
     }
 }

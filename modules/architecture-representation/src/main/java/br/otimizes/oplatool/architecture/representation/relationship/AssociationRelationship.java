@@ -15,21 +15,19 @@ import java.util.List;
  */
 public class AssociationRelationship extends Relationship {
 
-    private final List<AssociationEnd> participants = new ArrayList<AssociationEnd>();
+    private final List<AssociationEnd> participants = new ArrayList<>();
 
     public AssociationRelationship(String id) {
         setId(id);
     }
 
     public AssociationRelationship(Element class1, Element class2) {
-        setId(UtilResources.getRandonUUID());
+        setId(UtilResources.getRandomUUID());
         Multiplicity mul1 = new Multiplicity("1", "1");
         Multiplicity mul2 = new Multiplicity("1", "1");
         getParticipants().add(new AssociationEnd(class1, false, "association", mul1, ""));
         getParticipants().add(new AssociationEnd(class2, false, "association", mul2, ""));
-
         super.setType(ElementsTypes.ASSOCIATION);
-
     }
 
     public AssociationRelationship() {
@@ -48,10 +46,9 @@ public class AssociationRelationship extends Relationship {
         final int prime = 31;
         int result = super.hashCode();
         result = prime * result
-                + ((participants == null) ? 0 : participants.hashCode());
+                + participants.hashCode();
         return result;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -62,9 +59,6 @@ public class AssociationRelationship extends Relationship {
         if (getClass() != obj.getClass())
             return false;
         AssociationRelationship other = (AssociationRelationship) obj;
-        if (participants == null) {
-            return other.participants == null;
-        } else return participants.containsAll(other.participants);
+        return participants.containsAll(other.participants);
     }
-
 }

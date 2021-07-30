@@ -23,8 +23,8 @@ public class VariationPointFlyweight {
 
     private static final VariationPointFlyweight INSTANCE = new VariationPointFlyweight();
     private Architecture architecture;
-    private HashMap<String, VariationPoint> variationPoints = new HashMap<String, VariationPoint>();
-    private ModelHelper modelHelper;
+    private HashMap<String, VariationPoint> variationPoints = new HashMap<>();
+    private final ModelHelper modelHelper;
     private Package model;
 
     private VariationPointFlyweight() {
@@ -43,23 +43,20 @@ public class VariationPointFlyweight {
      * @throws VariationPointElementTypeErrorException type error
      */
     public VariationPoint getOrCreateVariationPoint(Classifier klass) throws VariationPointElementTypeErrorException {
-        Element variationPointElement = null;
-        variationPointElement = architecture.findElementByName(klass.getName(), "class"); // Busca Classe ja na representacao
+        Element variationPointElement = architecture.findElementByName(klass.getName(), "class");
         if (variationPointElement == null)
-            variationPointElement = architecture.findElementByName(klass.getName(), "interface"); // Busca Classe ja na representacao
+            variationPointElement = architecture.findElementByName(klass.getName(), "interface");
         Stereotype variantTypeForVariationPointElement = StereotypeHelper.getVariantType(klass);
         VariationPoint variationPoint = variationPoints.get(variationPointElement.getId());
 
         if (variationPoint == null) {
-
             Stereotype variationPointStereotype = StereotypeHelper.getStereotypeByName(klass, "variationPoint");
             if (variationPointStereotype != null) {
-
                 VariantFlyweight variantFlyweight = VariantFlyweight.getInstance();
                 variantFlyweight.setArchitecture(architecture);
 
                 String bindingTime = StereotypeHelper.getValueOfAttribute(klass, variationPointStereotype, "bindingTime");
-                List<Variant> variants = new ArrayList<Variant>();
+                List<Variant> variants = new ArrayList<>();
                 String[] variantsElements = StereotypeHelper.getValueOfAttribute(klass, variationPointStereotype, "variants").split(",");
 
                 for (String variantElement : variantsElements) {
@@ -80,7 +77,6 @@ public class VariationPointFlyweight {
                 variationPoints.put(variationPointElement.getId(), variationPoint);
             }
         }
-
         return variationPoint;
     }
 
@@ -106,7 +102,7 @@ public class VariationPointFlyweight {
         this.variationPoints = variationPoints;
     }
 
-    public void resertVariationPoints() {
+    public void resetVariationPoints() {
         this.variationPoints.clear();
     }
 
