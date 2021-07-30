@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
-public class Class extends Element {
+public class Class extends Element implements Linkable {
 
     private static final long serialVersionUID = -5450511036321846093L;
 

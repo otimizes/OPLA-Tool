@@ -16,7 +16,7 @@ import java.util.*;
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
-public class Interface extends Element {
+public class Interface extends Element implements Linkable {
 
 
     private static final long serialVersionUID = -1779316062511432020L;
@@ -54,8 +54,9 @@ public class Interface extends Element {
                 return m;
             }
         }
-        return  null;
+        return null;
     }
+
     /**
      * Use este construtor quando você deseja criar uma interface.<br /><br />
      * <p>
@@ -110,8 +111,8 @@ public class Interface extends Element {
 
     public void removeOperationByID(String id) {
         //Method operation = null;
-        for(Method m : this.methods){
-            if(m.getId().equalsIgnoreCase(id)){
+        for (Method m : this.methods) {
+            if (m.getId().equalsIgnoreCase(id)) {
                 //operation = m;
                 this.methods.remove(m);
                 return;

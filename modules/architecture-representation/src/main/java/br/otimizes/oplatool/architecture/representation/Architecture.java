@@ -848,24 +848,11 @@ public class Architecture extends Variable {
     }
 
     public String getDetailedString(boolean withAttributes) {
-        List<Integer> attributes = new ArrayList<>();
-        List<Integer> methods = new ArrayList<>();
-        int classesWithoutAttribute = 0;
-
-        for (Class aClass : getAllClasses()) {
-            if (aClass.getAllAttributes().size() != 0)
-                attributes.add(aClass.getAllAttributes().size());
-            else
-                classesWithoutAttribute++;
-            if (aClass.getAllMethods().size() != 0)
-                methods.add(aClass.getAllMethods().size());
-        }
         List<Element> freezedElements = getFreezedElements();
         StringBuilder str = new StringBuilder();
         str.append("Packages: ").append(getAllPackages()).append(", qtdPackages: ").append(getAllPackages().size())
                 .append(", qtdClasses: ").append(getAllClasses().size())
                 .append(", qtdInterfaces: ").append(getAllInterfaces().size())
-                .append(", qtdClassesSemAttr: ").append(classesWithoutAttribute)
                 .append(", qtdFreezedElements: ").append(freezedElements.size())
                 .append(", \nfreezedElements: ").append(freezedElements.stream().map(s -> s.getName() + ":" + s.getTypeElement())
                 .collect(Collectors.toList()))
@@ -915,7 +902,7 @@ public class Architecture extends Variable {
     }
 
     public Set<Interface> getAllModifiableInterfaces() {
-        final Set<Interface> interfaces = new HashSet<Interface>();
+        final Set<Interface> interfaces = new HashSet<>();
         for (Package p : this.packages)
             interfaces.addAll(p.getAllInterfaces());
 
@@ -938,210 +925,142 @@ public class Architecture extends Variable {
         int output = 0;
         int both = 0;
 
-        if (element instanceof Class) {
-            Class class_ = (Class) element;
-            for (Relationship r : class_.getRelationships()) {
-
-
-                if (r instanceof DependencyRelationship) {
-
-                    DependencyRelationship dr = (DependencyRelationship) r;
-
-                    if (dr.getClient().getId().equals(class_.getId())) {
+        if (element instanceof Linkable) {
+            Linkable classElement = (Linkable) element;
+            for (Relationship relationship : classElement.getRelationships()) {
+                if (relationship instanceof DependencyRelationship) {
+                    DependencyRelationship dependencyRelationship = (DependencyRelationship) relationship;
+                    if (dependencyRelationship.getClient().getId().equals(classElement.getId())) {
                         input++;
                     } else {
                         output++;
                     }
                 }
-                if (r instanceof RealizationRelationship) {
-                    RealizationRelationship dr = (RealizationRelationship) r;
-                    if (dr.getClient().getId().equals(class_.getId())) {
+                if (relationship instanceof RealizationRelationship) {
+                    RealizationRelationship realizationRelationship = (RealizationRelationship) relationship;
+                    if (realizationRelationship.getClient().getId().equals(classElement.getId())) {
                         output++;
                     } else {
                         input++;
                     }
                 }
-                if (r instanceof AbstractionRelationship) {
-                    AbstractionRelationship dr = (AbstractionRelationship) r;
-                    if (dr.getClient().getId().equals(class_.getId())) {
+                if (relationship instanceof AbstractionRelationship) {
+                    AbstractionRelationship abstractionRelationship = (AbstractionRelationship) relationship;
+                    if (abstractionRelationship.getClient().getId().equals(classElement.getId())) {
                         output++;
                     } else {
                         input++;
                     }
                 }
-                if (r instanceof AssociationRelationship) {
+                if (relationship instanceof AssociationRelationship) {
                     both++;
                 }
-                if (r instanceof AssociationClassRelationship) {
+                if (relationship instanceof AssociationClassRelationship) {
                     both++;
                 }
             }
         }
 
-        if (element instanceof Interface) {
-            Interface interface_ = (Interface) element;
-            for (Relationship r : interface_.getRelationships()) {
-                if (r instanceof DependencyRelationship) {
-                    DependencyRelationship dr = (DependencyRelationship) r;
-                    if (dr.getClient().getId().equals(interface_.getId())) {
-                        input++;
-                    } else {
-                        output++;
-                    }
-                }
-                if (r instanceof RealizationRelationship) { //  se for do tipo REALIZAÇÃO
-                    RealizationRelationship dr = (RealizationRelationship) r; // castar
-                    if (dr.getClient().getId().equals(interface_.getId())) {   // verificar qual lado do relacionamento e
-                        output++;
-                    } else {
-                        input++;
-                    }
-                }
-                if (r instanceof AbstractionRelationship) { //  se for do tipo ABSTRAÇÃO
-                    AbstractionRelationship dr = (AbstractionRelationship) r; // castar
-                    if (dr.getClient().getId().equals(interface_.getId())) {   // verificar qual lado do relacionamento e
-                        output++;
-                    } else {
-                        input++;
-                    }
-                }
-                if (r instanceof AssociationRelationship) { //  se for do tipo ASSOCIAÇÃO
-                    both++;
-                }
-                if (r instanceof AssociationClassRelationship) { //  se for do tipo dependencia
-                    both++;
-                }
-            }
-        }
-
-        linkOverload.add(input); // add os links de entrada
+        linkOverload.add(input);
         linkOverload.add(output);
         linkOverload.add(both);
-        return linkOverload;   //retorno da funcao //retorna a lista com 3 posições
+        return linkOverload;
     }
 
-    public ArrayList<Integer> getTHZLinkOverload() {         //calculo do thz
+    public ArrayList<Integer> getTHZLinkOverload() {
         ArrayList<Integer> linkOverload = new ArrayList<>();
-        ArrayList<Integer> inputLink = new ArrayList<>(); // pega lista de entrada
+        ArrayList<Integer> inputLink = new ArrayList<>();
         ArrayList<Integer> inputOut = new ArrayList<>();
         ArrayList<Integer> bothLink = new ArrayList<>();
+        ArrayList<Integer> listOfOverloads;
 
-        ArrayList<Integer> listAux = new ArrayList<>(); // armazenar o linkoverload de cada elemento (classe, interface)
-        for (Class clazz : this.getAllClasses()) { // cpra cada lasse existente
-
-            listAux = getLinkOverload(clazz); //calculando o link overload da classe
-
-            inputLink.add(listAux.get(0)); //add das 3 listas
-            inputOut.add(listAux.get(1));
-            bothLink.add(listAux.get(2));
+        for (Class classToGetOverload : this.getAllClasses()) {
+            listOfOverloads = getLinkOverload(classToGetOverload);
+            inputLink.add(listOfOverloads.get(0));
+            inputOut.add(listOfOverloads.get(1));
+            bothLink.add(listOfOverloads.get(2));
         }
-        for (Interface interface_ : this.getAllInterfaces()) {
-            listAux = getLinkOverload(interface_); //calculando o link overload da interface
-
-            inputLink.add(listAux.get(0)); //add das 3 listas
-            inputOut.add(listAux.get(1));
-            bothLink.add(listAux.get(2));
+        for (Interface interfaceToGetOverload : this.getAllInterfaces()) {
+            listOfOverloads = getLinkOverload(interfaceToGetOverload);
+            inputLink.add(listOfOverloads.get(0));
+            inputOut.add(listOfOverloads.get(1));
+            bothLink.add(listOfOverloads.get(2));
         }
-
-        linkOverload.add(getThz(inputLink)); //calcula o thz de cada uma
+        linkOverload.add(getThz(inputLink));
         linkOverload.add(getThz(inputOut));
         linkOverload.add(getThz(bothLink));
-
-        return linkOverload; //retorna o thz das 3 listas
+        return linkOverload;
     }
 
 
-    public int getThz(ArrayList<Integer> list) { //calculo que ja javia sido realisado para o concern overload
+    public int getThz(ArrayList<Integer> list) {
         Double mean = 0.0;
         for (Integer n : list) {
             mean += n;
         }
         mean = mean / list.size();
-        System.out.println(("media:") + mean);
+        System.out.println(("Mean:") + mean);
         Double std = StatisticalMethodsHelper.getStandardDeviation(list);
-        System.out.println(("desvio padrão:" + std));
-
-        Double THzb = mean + std;
-        System.out.println("soma:" + THzb);
+        System.out.println(("Standard Deviation:" + std));
+        double THzb = mean + std;
+        System.out.println("Sum:" + THzb);
         return (int) Math.ceil(THzb);
     }
 
-    public void linkOverloadExists(ArrayList<Integer> thrz) { //verificar se existe linkoverload (anomalia)
-        ArrayList<Element> DectecLink = new ArrayList();
-        ArrayList<Integer> listAux = new ArrayList<>();
-        for (Class class_ : this.getAllClasses()) { // classe
-            listAux = getLinkOverload(class_); //verifica o link da classe
-
-            if (listAux.get(0) > thrz.get(0)) { // compara com o thz calculado anterionmente
-                DectecLink.add(class_);
-                continue;
-            }
-            if (listAux.get(1) > thrz.get(1)) { //se for maior, tem anomalia // se for igual ainda é aceitavel
-                DectecLink.add(class_);
-                continue;
-            }
-            if (listAux.get(2) > thrz.get(2)) {
-                DectecLink.add(class_);
-                continue;
-            }
-
-        }
-        for (Interface interface_ : this.getAllInterfaces()) { // verifica link na internface
-            listAux = getLinkOverload(interface_);
-
-            if (listAux.get(0) > thrz.get(0)) { // compara com o thz calculado anterionmente
-                DectecLink.add(interface_);
-                continue;
-            }
-            if (listAux.get(1) > thrz.get(1)) {
-                DectecLink.add(interface_);
-                continue;
-            }
-            if (listAux.get(2) > thrz.get(2)) {
-                DectecLink.add(interface_);
-                continue;
-            }
-        }
-
-        linkOverloadViolation = DectecLink.size();
-
-        DectecLink.clear();
-        listAux.clear();
-
-        linkOverloadExcedTHZ(thrz); // contar o total de relacionamentos que excede o thrz
+    public void verifyIfLinkOverloadAnomalyExists(ArrayList<Integer> thrz) {
+        List<Element> detectedLinksOverload = new ArrayList<>();
+        List<Integer> linkOverloadsFromElement = new ArrayList<>();
+        linkOverloadsFromElement.addAll(getIntegers(thrz, detectedLinksOverload, linkOverloadsFromElement, this.getAllClasses()));
+        linkOverloadsFromElement.addAll(getIntegers(thrz, detectedLinksOverload, linkOverloadsFromElement, this.getAllInterfaces()));
+        linkOverloadViolation = detectedLinksOverload.size();
+        detectedLinksOverload.clear();
+        linkOverloadsFromElement.clear();
+        verifyIfLinkOverloadExceedTHZ(thrz);
     }
 
-    public void linkOverloadExcedTHZ(ArrayList<Integer> thrz) { //contagem excesso além do thz
+    private List<Integer> getIntegers(ArrayList<Integer> thrz, List<Element> detectedLinksOverload,
+                                      List<Integer> linkOverloadsFromElement, Set<? extends Element> elements) {
+        for (Element class_ : elements) {
+            linkOverloadsFromElement = getLinkOverload(class_);
+            if (linkOverloadsFromElement.get(0) > thrz.get(0)) {
+                detectedLinksOverload.add(class_);
+                continue;
+            }
+            if (linkOverloadsFromElement.get(1) > thrz.get(1)) {
+                detectedLinksOverload.add(class_);
+                continue;
+            }
+            if (linkOverloadsFromElement.get(2) > thrz.get(2)) {
+                detectedLinksOverload.add(class_);
+            }
+        }
+        return linkOverloadsFromElement;
+    }
+
+    public void verifyIfLinkOverloadExceedTHZ(ArrayList<Integer> thrz) {
         exceedLink = 0;
-        ArrayList<Integer> listAux = new ArrayList<>();
-        for (Class class_ : this.getAllClasses()) { // classe
-            listAux = getLinkOverload(class_); //verifica o link da classe
+        ArrayList<Integer> linkOverloadsFromElement = new ArrayList<>();
+        linkOverloadsFromElement.addAll(getIntegers(thrz, linkOverloadsFromElement, this.getAllClasses()));
+        linkOverloadsFromElement.addAll(getIntegers(thrz, linkOverloadsFromElement, this.getAllInterfaces()));
+        linkOverloadsFromElement.clear();
+    }
 
-            if (listAux.get(0) > thrz.get(0)) { // compara com o thz calculado anterionmente
-                exceedLink += (listAux.get(0) - thrz.get(0));
+    private ArrayList<Integer> getIntegers(ArrayList<Integer> thrz, ArrayList<Integer> linkOverloadsFromElement,
+                                           Set<? extends Element> elements) {
+        for (Element class_ : elements) {
+            linkOverloadsFromElement = getLinkOverload(class_);
+            if (linkOverloadsFromElement.get(0) > thrz.get(0)) {
+                exceedLink += (linkOverloadsFromElement.get(0) - thrz.get(0));
             }
-            if (listAux.get(1) > thrz.get(1)) { //se for maior, tem anomalia // se for igual ainda é aceitavel
-                exceedLink += (listAux.get(1) - thrz.get(1));
+            boolean hasAnomaly = linkOverloadsFromElement.get(1) > thrz.get(1);
+            if (hasAnomaly) {
+                exceedLink += (linkOverloadsFromElement.get(1) - thrz.get(1));
             }
-            if (listAux.get(2) > thrz.get(2)) {
-                exceedLink += (listAux.get(2) - thrz.get(2));
-            }
-
-        }
-        for (Interface interface_ : this.getAllInterfaces()) { // verifica link na internface
-            listAux = getLinkOverload(interface_);
-
-            if (listAux.get(0) > thrz.get(0)) { // compara com o thz calculado anterionmente
-                exceedLink += (listAux.get(0) - thrz.get(0));
-            }
-            if (listAux.get(1) > thrz.get(1)) {
-                exceedLink += (listAux.get(1) - thrz.get(1));
-            }
-            if (listAux.get(2) > thrz.get(2)) {
-                exceedLink += (listAux.get(2) - thrz.get(2));
+            if (linkOverloadsFromElement.get(2) > thrz.get(2)) {
+                exceedLink += (linkOverloadsFromElement.get(2) - thrz.get(2));
             }
         }
-        listAux.clear();
+        return linkOverloadsFromElement;
     }
 
     public int getLinkOverloadViolation() {
