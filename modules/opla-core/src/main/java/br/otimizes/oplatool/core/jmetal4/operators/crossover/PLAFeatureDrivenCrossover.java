@@ -161,7 +161,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 			archP1.clearArchitecture();
 			archP2.clearArchitecture();
 
-			ArrayList<String> semLig = child1.verifyClassWithoutRelationship();
+			ArrayList<String> semLig = child1.getClassesWithoutRelationship();
 
 			if(semLig.size() > 0){
 				for(String id : semLig) {
@@ -191,7 +191,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 
 
 
-			semLig = child1.verifyInterfaceWithoutRelationship();
+			semLig = child1.getInterfacesWithoutRelationship();
 
 
 			if(semLig.size() > 0){
@@ -219,7 +219,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 
 
 
-			semLig = child2.verifyClassWithoutRelationship();
+			semLig = child2.getClassesWithoutRelationship();
 
 			if(semLig.size() > 0){
 				for(String id : semLig) {
@@ -248,7 +248,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 			}
 
 
-			semLig = child2.verifyInterfaceWithoutRelationship();
+			semLig = child2.getInterfacesWithoutRelationship();
 
 			if(semLig.size() > 0){
 				for(String id : semLig) {

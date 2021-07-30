@@ -86,16 +86,7 @@ public class Package extends Element {
 
     public void removeClassByID(String id) {
 
-        Set<Class> newHash = new HashSet<>();
-
-
-        for(Class c : this.classes) {
-            if(!c.getId().equals(id)){
-                newHash.add(c);
-            }
-        }
-        this.classes.clear();
-        this.classes.addAll(newHash);
+        Architecture.addAllClassesThatMatchToId(id, this.classes);
     }
 
     public void removeAllClass(){

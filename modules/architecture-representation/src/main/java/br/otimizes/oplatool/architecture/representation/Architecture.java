@@ -10,10 +10,7 @@ import br.otimizes.oplatool.architecture.helpers.UtilResources;
 import br.otimizes.oplatool.architecture.representation.architectureControl.ArchitectureFindElementControl;
 import br.otimizes.oplatool.architecture.representation.architectureControl.ArchitectureRemoveElementControl;
 import br.otimizes.oplatool.architecture.representation.relationship.*;
-import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.Variable;
-import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
-import br.otimizes.oplatool.domain.config.FileConstants;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
@@ -47,7 +44,7 @@ public class Architecture extends Variable {
     private ArrayList<Concern> concerns = new ArrayList<>();
     private ArrayList<TypeSmarty> types = new ArrayList<>();
     private boolean isSMarty = false;
-    private boolean toSMarty = false;   // variável para dizer se utiliza o decoding para SMarty ou não
+    private boolean toSMarty = false;
     private String projectID = "5b729c3f25e758ce87cf8d710761283c";
     private String projectName = "Project0";
     private String projectVersion = "1.0";
@@ -63,28 +60,24 @@ public class Architecture extends Variable {
         setName(name);
     }
 
-    public ArrayList<String> verifyClassWithoutRelationship() {
-
-        ArrayList<String> lstSemConexao = new ArrayList<>();
+    public ArrayList<String> getClassesWithoutRelationship() {
+        ArrayList<String> lstWithoutRelationship = new ArrayList<>();
         for (Class c : this.getAllClasses()) {
             if (c.getRelationships().size() == 0) {
-
-                lstSemConexao.add(c.getId());
+                lstWithoutRelationship.add(c.getId());
             }
         }
-        return lstSemConexao;
+        return lstWithoutRelationship;
     }
 
-    public ArrayList<String> verifyInterfaceWithoutRelationship() {
-
-        ArrayList<String> lstSemConexao = new ArrayList<>();
+    public ArrayList<String> getInterfacesWithoutRelationship() {
+        ArrayList<String> lstWithoutRelationship = new ArrayList<>();
         for (Interface i : this.getAllInterfaces()) {
             if (i.getRelationships().size() == 0) {
-
-                lstSemConexao.add(i.getId());
+                lstWithoutRelationship.add(i.getId());
             }
         }
-        return lstSemConexao;
+        return lstWithoutRelationship;
     }
 
     public void clearArchitecture() {
@@ -103,7 +96,6 @@ public class Architecture extends Variable {
             clazz.matchImplementedInterface(this);
             clazz.matchRequiredInterface(this);
         }
-
     }
 
     public void removeAllPackages() {
@@ -111,17 +103,10 @@ public class Architecture extends Variable {
     }
 
     public void removePackageByID(String id) {
-        /**
-         * Remove qualquer relacionamento que os elementos do pacote
-         * que esta sendo deletado possa ter.
-         */
-        //Package p = null;
-
         Set<Package> newHash = new HashSet<>();
-
-        for (Package px : this.packages) {
-            if (!px.getId().equals(id)) {
-                newHash.add(px);
+        for (Package packageToMatch : this.packages) {
+            if (!packageToMatch.getId().equals(id)) {
+                newHash.add(packageToMatch);
             }
         }
         this.packages.clear();
@@ -129,96 +114,94 @@ public class Architecture extends Variable {
     }
 
     public void removeMethodByID(String id) {
-
-        for (Interface i : getAllInterfaces()) {
-            i.removeOperationByID(id);
+        for (Interface interfaceToRemoveMethod : getAllInterfaces()) {
+            interfaceToRemoveMethod.removeOperationByID(id);
         }
-        for (Class clazz_ : getAllClasses()) {
-            clazz_.removeMethodByID(id);
+        for (Class classToRemoveMethod : getAllClasses()) {
+            classToRemoveMethod.removeMethodByID(id);
         }
     }
 
     public void removeMethodOfClassByID(String id) {
-
-        for (Class clazz_ : getAllClasses()) {
-            clazz_.removeMethodByID(id);
+        for (Class clazzToRemoveMethod : getAllClasses()) {
+            clazzToRemoveMethod.removeMethodByID(id);
         }
     }
 
     public void removeOperationOfInterfaceByID(String id) {
-        for (Interface i : getAllInterfaces()) {
-            i.removeOperationByID(id);
+        for (Interface interfaceToRemoveMethod : getAllInterfaces()) {
+            interfaceToRemoveMethod.removeOperationByID(id);
         }
     }
 
     public void removeAttributeByID(String id) {
-        for (Class clazz_ : getAllClasses()) {
-            clazz_.removeAttributeByID(id);
+        for (Class classToRemoveAttribute : getAllClasses()) {
+            classToRemoveAttribute.removeAttributeByID(id);
         }
     }
 
     public Element findClassOrInterfaceOfMethodByID(String id) {
-        for (Interface i : getAllInterfaces()) {
-            for (Method method : i.getMethods()) {
+        for (Interface interfaceToMatch : getAllInterfaces()) {
+            for (Method method : interfaceToMatch.getMethods()) {
                 if (method.getId().equals(id))
-                    return i;
+                    return interfaceToMatch;
             }
         }
-        for (Class clazz_ : getAllClasses()) {
-            for (Method method : clazz_.getAllMethods()) {
+        for (Class classToMatch : getAllClasses()) {
+            for (Method method : classToMatch.getAllMethods()) {
                 if (method.getId().equals(id))
-                    return clazz_;
+                    return classToMatch;
             }
         }
         return null;
     }
 
     public Class findClassOfMethodByID(String id) {
-        for (Class clazz_ : getAllClasses()) {
-            for (Method method : clazz_.getAllMethods()) {
+        for (Class clazzToMatch : getAllClasses()) {
+            for (Method method : clazzToMatch.getAllMethods()) {
                 if (method.getId().equals(id))
-                    return clazz_;
+                    return clazzToMatch;
             }
         }
         return null;
     }
 
     public Interface findInterfaceOfOperationByID(String id) {
-        for (Interface i : getAllInterfaces()) {
-            for (Method method : i.getMethods()) {
+        for (Interface interfaceToMatch : getAllInterfaces()) {
+            for (Method method : interfaceToMatch.getMethods()) {
                 if (method.getId().equals(id))
-                    return i;
+                    return interfaceToMatch;
             }
         }
         return null;
     }
 
     public Class findClassOfAttributeByID(String id) {
-        for (Class clazz_ : getAllClasses()) {
-            for (Attribute attribute : clazz_.getAllAttributes()) {
+        for (Class classToMatch : getAllClasses()) {
+            for (Attribute attribute : classToMatch.getAllAttributes()) {
                 if (attribute.getId().equals(id))
-                    return clazz_;
+                    return classToMatch;
             }
         }
         return null;
     }
 
     public void removeClassByID(String id) {
-
-        Set<Class> newHash = new HashSet<>();
-
-        for (Class c : this.classes) {
-            if (!c.getId().equals(id)) {
-                newHash.add(c);
-            }
-        }
-
-        this.classes.clear();
-        this.classes.addAll(newHash);
+        addAllClassesThatMatchToId(id, this.classes);
         for (Package pkg : this.packages) {
             pkg.removeClassByID(id);
         }
+    }
 
+    static void addAllClassesThatMatchToId(String id, Set<Class> classes) {
+        Set<Class> newHash = new HashSet<>();
+        for (Class classToMatch : classes) {
+            if (!classToMatch.getId().equals(id)) {
+                newHash.add(classToMatch);
+            }
+        }
+        classes.clear();
+        classes.addAll(newHash);
     }
 
     public Package findPackageOfInterface(Interface targetInterface) {
@@ -246,29 +229,24 @@ public class Architecture extends Variable {
         return ArchitectureFindElementControl.getInstance().findConcernByName(this, name);
     }
 
-    /**
-     * get a list of duplicated interfaces if has
-     *
-     * @return list of duplicated interfaces
-     */
-    public ArrayList<Interface> getDuplicateInterface() {
-        ArrayList<String> interfacesID = new ArrayList<>();
-        ArrayList<Interface> interfacesDup = new ArrayList<>();
+    public ArrayList<Interface> getDuplicatedInterface() {
+        ArrayList<String> matchedInterfaces = new ArrayList<>();
+        ArrayList<Interface> duplicatedInterfaces = new ArrayList<>();
         for (Interface inter : getInterfaces()) {
-            if (interfacesID.contains(inter.getId())) {
-                interfacesDup.add(inter);
+            if (matchedInterfaces.contains(inter.getId())) {
+                duplicatedInterfaces.add(inter);
             }
-            interfacesID.add((inter.getId()));
+            matchedInterfaces.add((inter.getId()));
         }
         for (Package pkg : getAllPackages()) {
             for (Interface inter : pkg.getAllInterfaces()) {
-                if (interfacesID.contains(inter.getId())) {
-                    interfacesDup.add(inter);
+                if (matchedInterfaces.contains(inter.getId())) {
+                    duplicatedInterfaces.add(inter);
                 }
-                interfacesID.add((inter.getId()));
+                matchedInterfaces.add((inter.getId()));
             }
         }
-        return interfacesDup;
+        return duplicatedInterfaces;
     }
 
     public ArrayList<TypeSmarty> getTypes() {
@@ -360,51 +338,33 @@ public class Architecture extends Variable {
     }
 
     public List<Element> getElements() {
-        final List<Element> elts = new ArrayList<Element>();
-
+        final List<Element> elements = new ArrayList<>();
         for (Package p : getAllPackages())
-            for (Element element : p.getElements())
-                elts.add(element);
-
-        for (Class c : this.classes)
-            elts.add(c);
-        for (Interface i : this.interfaces)
-            elts.add(i);
-
-        return elts;
+            elements.addAll(p.getElements());
+        elements.addAll(this.classes);
+        elements.addAll(this.interfaces);
+        return elements;
     }
 
     public List<Element> getElementsWithPackages() {
-        final List<Element> elts = new ArrayList<Element>();
-
-        for (Package p : getAllPackagesAllowedMofification()) {
-            elts.add(p);
-            for (Element element : p.getElements())
-                elts.add(element);
+        final List<Element> elementsAllowingModification = new ArrayList<>();
+        for (Package p : getAllPackagesAllowedModification()) {
+            elementsAllowingModification.add(p);
+            elementsAllowingModification.addAll(p.getElements());
         }
-
-        for (Class c : this.classes)
-            elts.add(c);
-        for (Interface i : this.interfaces)
-            elts.add(i);
-
-        return elts;
+        elementsAllowingModification.addAll(this.classes);
+        elementsAllowingModification.addAll(this.interfaces);
+        return elementsAllowingModification;
     }
 
     public List<Element> findElementByNumberId(Double idElem) {
         List<Element> elementsWithPackages = getElementsWithPackages();
-        List<Element> collect = elementsWithPackages.stream().filter(e -> Double.valueOf(e.getNumberId()).equals(idElem)).collect(Collectors.toList());
-        return collect;
+        return elementsWithPackages.stream().filter(e -> Double.valueOf(e.getNumberId())
+                .equals(idElem)).collect(Collectors.toList());
     }
 
-    /**
-     * Retorna um Map imutável. É feito isso para garantir que nenhum modificação seja
-     * feita diretamente na lista
-     *
-     * @return Map<String, Concern>
-     */
     public List<Concern> getAllConcerns() {
-        final List<Concern> concerns = new ArrayList<Concern>();
+        final List<Concern> concerns = new ArrayList<>();
         for (Map.Entry<String, Concern> entry : ConcernHolder.INSTANCE.getConcerns().entrySet()) {
             concerns.add(entry.getValue());
         }
@@ -412,37 +372,24 @@ public class Architecture extends Variable {
     }
 
     public List<String> getAllComments() {
-        List<String> comments = getAllClasses().stream().filter(Element::hasComments).map(Element::getStringComments).collect(Collectors.toList());
-        comments.addAll(getAllPackages().stream().filter(Element::hasComments).map(Element::getStringComments).collect(Collectors.toList()));
-        comments.addAll(getAllInterfaces().stream().filter(Element::hasComments).map(Element::getStringComments).collect(Collectors.toList()));
+        List<String> comments = getAllClasses().stream().filter(Element::hasComments)
+                .map(Element::getStringComments).collect(Collectors.toList());
+        comments.addAll(getAllPackages().stream().filter(Element::hasComments)
+                .map(Element::getStringComments).collect(Collectors.toList()));
+        comments.addAll(getAllInterfaces().stream().filter(Element::hasComments)
+                .map(Element::getStringComments).collect(Collectors.toList()));
         return comments;
     }
 
-    /**
-     * Retorna um Map imutável. É feito isso para garantir que nenhum modificação seja
-     * feita diretamente na lista
-     * <p>
-     * Set<Package>
-     *
-     * @return Set<Package>
-     */
     public Set<Package> getAllPackages() {
         return Collections.unmodifiableSet(this.packages);
     }
 
-    /**
-     * Retorna um Map mutável. É feito isso para permitir que modificação seja
-     * feita diretamente na lista
-     * <p>
-     * Set<Package>
-     *
-     * @return Set<Package>
-     */
     public Set<Package> getEditableListPackages() {
         return this.packages;
     }
 
-    public List<Attribute> getAllAtributtes() {
+    public List<Attribute> getAllAttributes() {
         List<Attribute> attrs = new ArrayList<>();
         for (Class allClass : this.getAllClasses()) {
             attrs.addAll(allClass.getAllAttributes());
@@ -461,18 +408,10 @@ public class Architecture extends Variable {
         return attrs;
     }
 
-    public List<Package> getAllPackagesAllowedMofification() {
+    public List<Package> getAllPackagesAllowedModification() {
         return new ArrayList<>(this.packages);
     }
 
-    /**
-     * Retorna interfaces que não tem nenhum pacote.
-     * <p>
-     * Retorna um Set imutável. É feito isso para garantir que nenhum modificação seja
-     * feita diretamente na lista.
-     *
-     * @return Set<Class>
-     */
     public Set<Interface> getInterfaces() {
         return Collections.unmodifiableSet(this.interfaces);
     }
@@ -481,29 +420,14 @@ public class Architecture extends Variable {
         return this.interfaces;
     }
 
-    /**
-     * Retorna todas as interfaces que existem na arquiteutra.
-     * Este método faz um merge de todas as interfaces de todos os pacotes + as interfaces que não tem pacote
-     *
-     * @return
-     */
     public Set<Interface> getAllInterfaces() {
-        final Set<Interface> interfaces = new HashSet<Interface>();
+        final Set<Interface> interfaces = new HashSet<>();
         for (Package p : this.packages)
             interfaces.addAll(p.getAllInterfaces());
-
         interfaces.addAll(this.interfaces);
         return Collections.unmodifiableSet(interfaces);
     }
 
-    /**
-     * Retorna classes que não tem nenhum pacote.
-     * <p>
-     * Retorna um Set imutável. É feito isso para garantir que nenhum modificação seja
-     * feita diretamente na lista
-     *
-     * @return Set<Class>
-     */
     public Set<Class> getClasses() {
         return Collections.unmodifiableSet(this.classes);
     }
@@ -512,54 +436,22 @@ public class Architecture extends Variable {
         return this.classes;
     }
 
-    /**
-     * Retorna todas as classes que existem na arquiteutra.
-     * Este método faz um merge de todas as classes de todos os pacotes + as classes que não tem pacote
-     *
-     * @return
-     */
     public Set<Class> getAllClasses() {
-        final Set<Class> klasses = new HashSet<Class>();
+        final Set<Class> classes = new HashSet<>();
         for (Package p : this.packages)
-            klasses.addAll(p.getAllClasses());
-
-        klasses.addAll(this.classes);
-        return Collections.unmodifiableSet(klasses);
-
+            classes.addAll(p.getAllClasses());
+        classes.addAll(this.classes);
+        return Collections.unmodifiableSet(classes);
     }
 
-    /**
-     * Busca elemento por nome.<br/>
-     * <p>
-     * No momento busca por class, interface ou package <br/>
-     * <p>
-     * <p>
-     * TODO refatorar para buscar todo tipo de elemento
-     *
-     * @param name - Nome do elemento
-     * @return
-     * @parm type - tipo do elemento (class, interface ou package)
-     */
     public Element findElementByName(String name, String type) {
         return ArchitectureFindElementControl.getInstance().findElement(this, name, type);
     }
 
-    /**
-     * Recupera uma classe por nome.
-     *
-     * @param className
-     * @return {@link Class}
-     */
     public List<Class> findClassByName(String className) {
         return ArchitectureFindElementControl.getInstance().findClassByName(this, className);
     }
 
-    /**
-     * Busca elemento por nome.
-     *
-     * @param elementName
-     * @return - null se nao encontrar
-     */
     public Element findElementByName(String elementName) {
         return ArchitectureFindElementControl.getInstance().findElementByName(this, elementName);
     }
@@ -568,12 +460,6 @@ public class Architecture extends Variable {
         return ArchitectureFindElementControl.getInstance().findInterfaceByName(this, interfaceName);
     }
 
-    /**
-     * Busca um pacote por nome.
-     *
-     * @param packageName
-     * @return Package
-     */
     public Package findPackageByName(String packageName) {
         return ArchitectureFindElementControl.getInstance().findPackageByName(this, packageName);
     }
@@ -581,7 +467,6 @@ public class Architecture extends Variable {
     public void removeInterfaceByID(String id) {
         ArchitectureRemoveElementControl.getInstance().removeInterfaceByID(this, id);
     }
-
 
     public Package findPackageByID(String id) {
         return ArchitectureFindElementControl.getInstance().findPackageByID(this, id);
@@ -604,15 +489,15 @@ public class Architecture extends Variable {
     }
 
     public Interface createInterface(String interfaceName) {
-        Interface interfacee = new Interface(getRelationshipHolder(), interfaceName);
-        this.addExternalInterface(interfacee);
-        return interfacee;
+        Interface newInterface = new Interface(getRelationshipHolder(), interfaceName);
+        this.addExternalInterface(newInterface);
+        return newInterface;
     }
 
     public Interface createInterface(String interfaceName, String id) {
-        Interface interfacee = new Interface(getRelationshipHolder(), interfaceName, id);
-        this.addExternalInterface(interfacee);
-        return interfacee;
+        Interface newInterface = new Interface(getRelationshipHolder(), interfaceName, id);
+        this.addExternalInterface(newInterface);
+        return newInterface;
     }
 
     public Class createClass(String klassName, boolean isAbstract) {
@@ -621,12 +506,12 @@ public class Architecture extends Variable {
         return klass;
     }
 
-    public void removeInterface(Interface interfacee) {
-        ArchitectureRemoveElementControl.getInstance().removeInterface(this, interfacee);
+    public void removeInterface(Interface interfaceToRemove) {
+        ArchitectureRemoveElementControl.getInstance().removeInterface(this, interfaceToRemove);
     }
 
-    public void removeClass(Element klass) {
-        ArchitectureRemoveElementControl.getInstance().removeClass(this, klass);
+    public void removeClass(Element classToRemove) {
+        ArchitectureRemoveElementControl.getInstance().removeClass(this, classToRemove);
     }
 
     public List<VariationPoint> getAllVariationPoints() {
@@ -643,11 +528,6 @@ public class Architecture extends Variable {
         return VariantFlyweight.getInstance().getVariants();
     }
 
-    /**
-     * return a list of variability. if input is smty, return a local list from architecture, else use flyweight
-     *
-     * @return
-     */
     public List<Variability> getAllVariabilities() {
         if (isSMarty) {
             return variabilities;
@@ -655,55 +535,49 @@ public class Architecture extends Variable {
         return VariabilityFlyweight.getInstance().getVariabilities();
     }
 
-    public Class findClassById(String idClass) {
-        return ArchitectureFindElementControl.getInstance().findClassById(this, idClass);
+    public Class findClassById(String classId) {
+        return ArchitectureFindElementControl.getInstance().findClassById(this, classId);
     }
 
-    public Interface findInterfaceById(String idClass) {
-        return ArchitectureFindElementControl.getInstance().findInterfaceById(this, idClass);
+    public Interface findInterfaceById(String interfaceId) {
+        return ArchitectureFindElementControl.getInstance().findInterfaceById(this, interfaceId);
     }
 
-    public void addExternalInterface(Interface interface_) {
-        if (interfaces.add(interface_))
-            LOGGER.info("Interface: " + interface_.getName() + " adicionada na arquiteutra");
+    public void addExternalInterface(Interface externalInterface) {
+        if (interfaces.add(externalInterface))
+            LOGGER.info("Interface: " + externalInterface.getName() + " added on architecture");
         else
-            LOGGER.info("TENTOU adicionar a interface : " + interface_.getName() + " na arquiteutra, porém não conseguiu");
+            LOGGER.info("Tried to add: " + externalInterface.getName() + ", but it couldn't");
     }
 
-    public void moveElementToPackage(Element klass, Package pkg) {
-        if (pkg.getElements().contains(klass)) {
+    public void moveElementToPackage(Element elementToMove, Package destinationPackage) {
+        if (destinationPackage.getElements().contains(elementToMove)) {
             return;
         }
         for (Class clazz : this.classes) {
-            if (clazz.getId().equals(klass.getId()))
+            if (clazz.getId().equals(elementToMove.getId()))
                 return;
         }
         for (Interface clazz : this.interfaces) {
-            if (clazz.getId().equals(klass.getId()))
+            if (clazz.getId().equals(elementToMove.getId()))
                 return;
         }
-        String oldPackageName = UtilResources.extractPackageName(klass.getNamespace());
-        if (this.packages.contains(pkg)) {
+        String oldPackageName = UtilResources.extractPackageName(elementToMove.getNamespace());
+        if (this.packages.contains(destinationPackage)) {
             if (oldPackageName.equals("model")) {
-                addClassOrInterface(klass, pkg);
-                this.removeOnlyElement(klass);
+                addClassOrInterface(elementToMove, destinationPackage);
+                this.removeOnlyElement(elementToMove);
             } else {
                 Package oldPackage = this.findPackageByName(oldPackageName);
                 if (oldPackage != null) {
-                    addClassOrInterface(klass, pkg);
-                    oldPackage.removeOnlyElement(klass);
+                    addClassOrInterface(elementToMove, destinationPackage);
+                    oldPackage.removeOnlyElement(elementToMove);
                 }
             }
         }
-        klass.setNamespace(ArchitectureHolder.getName() + "::" + pkg.getName());
+        elementToMove.setNamespace(ArchitectureHolder.getName() + "::" + destinationPackage.getName());
     }
 
-    /**
-     * move a package to other package
-     *
-     * @param packageID - id of package that will be moved
-     * @param parentID  - id of destiny package to be moved
-     */
     public void movePackageToParent(String packageID, String parentID) {
         Package origin = findPackageByID(packageID);
         Package newParent = findPackageByID(parentID);
@@ -724,8 +598,8 @@ public class Architecture extends Variable {
         }
     }
 
-    public void removeSubPackageByID(Package subPkg, String id) {
-        ArchitectureRemoveElementControl.getInstance().removeSubPackageByID(subPkg, id);
+    public void removeSubPackageByID(Package subPackage, String id) {
+        ArchitectureRemoveElementControl.getInstance().removeSubPackageByID(subPackage, id);
     }
 
     public void addClassOrInterface(Element klass, Package pkg) {
@@ -752,31 +626,24 @@ public class Architecture extends Variable {
         return new OperationsOverUsage(this);
     }
 
-    /**
-     * Create an exact copy of the <code>Architecture</code> object.
-     *
-     * @return An exact copy of the object.
-     */
     public Variable deepCopy() {
         return this.deepClone();
     }
 
-    //private static int count = 1;
     public Architecture deepClone() {
         if (cloner == null)
             cloner = new Cloner();
-        Architecture newArchitecture = cloner.deepClone(this);
-        return newArchitecture;
+        return cloner.deepClone(this);
     }
 
     public boolean addImplementedInterface(Interface supplier, Class client) {
         if (!client.isTotalyFreezed()) {
-            if (!haveRelationship(supplier, client)) {
+            if (!doesHaveRelationship(supplier, client)) {
                 if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandomUUID()))) {
-                    LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada na classe: " + client.getName());
+                    LOGGER.info("ImplementedInterface: " + supplier.getName() + " added on class: " + client.getName());
                     return true;
                 } else {
-                    LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada pela classe: " + client.getName());
+                    LOGGER.info("Tried to add interface " + supplier.getName() + " as interface implemented by class: " + client.getName());
                     return false;
                 }
             }
@@ -784,7 +651,7 @@ public class Architecture extends Variable {
         return false;
     }
 
-    private boolean haveRelationship(Interface supplier, Element client) {
+    private boolean doesHaveRelationship(Interface supplier, Element client) {
         for (Relationship r : relationshipHolder.getAllRelationships()) {
             if (r instanceof RealizationRelationship)
                 if (((RealizationRelationship) r).getClient().equals(client) && ((RealizationRelationship) r).getSupplier().equals(supplier))
@@ -798,12 +665,12 @@ public class Architecture extends Variable {
 
     public boolean addImplementedInterface(Interface supplier, Package client) {
         if (!client.isTotalyFreezed()) {
-            if (!haveRelationship(supplier, client)) {
+            if (!doesHaveRelationship(supplier, client)) {
                 if (addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandomUUID()))) {
-                    LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada ao pacote: " + client.getName());
+                    LOGGER.info("Implemented Interface: " + supplier.getName() + " added on package: " + client.getName());
                     return true;
                 } else {
-                    LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada no pacote: " + client.getName());
+                    LOGGER.info("Tried to add interface " + supplier.getName() + " as interface implemented on package: " + client.getName());
                     return false;
                 }
             }
@@ -811,8 +678,8 @@ public class Architecture extends Variable {
         return false;
     }
 
-    public void removeImplementedInterface(Interface inter, Package pacote) {
-        ArchitectureRemoveElementControl.getInstance().removeImplementedInterface(this, inter, pacote);
+    public void removeImplementedInterface(Interface interfaceToRemove, Package sourcePackage) {
+        ArchitectureRemoveElementControl.getInstance().removeImplementedInterface(this, interfaceToRemove, sourcePackage);
     }
 
     public void removeImplementedInterface(Class foo, Interface inter) {
@@ -820,39 +687,38 @@ public class Architecture extends Variable {
     }
 
     public void addRequiredInterface(Interface supplier, Class client) {
-        if (!haveRelationship(supplier, client)) {
+        if (!doesHaveRelationship(supplier, client)) {
             if (addRelationship(new DependencyRelationship(supplier, client, "", UtilResources.getRandomUUID())))
-                LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " + client.getName());
+                LOGGER.info("Required Interface: " + supplier.getName() + " added on: " + client.getName());
             else
-                LOGGER.info("TENTOU adicionar RequiredInterface: " + supplier.getName() + " a : " + client.getName() + " porém não consegiu");
+                LOGGER.info("Tried to add Required Interface: " + supplier.getName() + " on : " + client.getName() + " but it couldn't");
         }
     }
 
     public void addRequiredInterface(Interface supplier, Package client) {
-        if (!haveRelationship(supplier, client)) {
+        if (!doesHaveRelationship(supplier, client)) {
             if (addRelationship(new DependencyRelationship(supplier, client, "", UtilResources.getRandomUUID())))
-                LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " + client.getName());
+                LOGGER.info("Required Interface: " + supplier.getName() + " added on: " + client.getName());
             else
-                LOGGER.info("TENTOU adicionar RequiredInterface: " + supplier.getName() + " a : " + client.getName() + " porém não consegiu");
+                LOGGER.info("Tried to add Required Interface: " + supplier.getName() + " a : " + client.getName() + " but it couldn't");
         }
     }
 
-    public void deleteClassRelationships(Class class_) {
-        Collection<Relationship> relationships = new ArrayList<Relationship>(class_.getRelationships());
-        if (relationships != null) {
-            for (Relationship relationship : relationships) {
-                this.removeRelationship(relationship);
-            }
+    public void deleteClassRelationships(Class classToRemoveRelationship) {
+        Collection<Relationship> relationships = new ArrayList<>(classToRemoveRelationship.getRelationships());
+        for (Relationship relationship : relationships) {
+            this.removeRelationship(relationship);
         }
     }
 
     public boolean addRelationship(Relationship relationship) {
         if (!relationshipHolder.haveRelationship(relationship)) {
             if (relationshipHolder.addRelationship(relationship)) {
-                LOGGER.info("Relacionamento: " + relationship.getType() + " adicionado na br.otimizes.oplatool.arquitetura.(" + UtilResources.detailLogRelationship(relationship) + ")");
+                LOGGER.info("Relationship: " + relationship.getType() + " added on architecture ("
+                        + UtilResources.detailLogRelationship(relationship) + ")");
                 return true;
             } else {
-                LOGGER.info("TENTOU adicionar Relacionamento: " + relationship.getType() + " na br.otimizes.oplatool.arquitetura porém não consegiu");
+                LOGGER.info("Tried to add relationship: " + relationship.getType() + " on architecture, but it couldn't");
                 return false;
             }
         }
@@ -867,103 +733,45 @@ public class Architecture extends Variable {
         return ArchitectureFindElementControl.getInstance().findPackageOfElement(this, id);
     }
 
-    /**
-     * save an architecture to output
-     * if toSMarty is true, save to .smty format, else save to .uml
-     *
-     * @param architecture - target architecture
-     * @param pathToSave   - name of the output file
-     * @param i            -
-     */
-    public void save(Architecture architecture, String pathToSave, String i) {
+    public void save(Architecture architecture, String pathToSave, String indexOfSolution) {
         if (this.toSMarty) {
             GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
-            generate.generate(architecture, pathToSave + architecture.getName() + i);
+            generate.generate(architecture, pathToSave + architecture.getName() + indexOfSolution);
         } else {
             GenerateArchitecture generate = new GenerateArchitecture();
-            generate.generate(architecture, pathToSave + architecture.getName() + i);
+            generate.generate(architecture, pathToSave + architecture.getName() + indexOfSolution);
         }
     }
 
-    /**
-     * save an architecture in .smty format without consider the format of input architecture
-     *
-     * @param architecture - target architecture
-     * @param pathToSave   - name of output file
-     */
     public void saveToSMarty(Architecture architecture, String pathToSave) {
         GenerateArchitectureSMarty generate = new GenerateArchitectureSMarty();
         generate.generate(architecture, pathToSave);
     }
 
-    // open a temporary PLA in execution. Stop execution of OPLA-Tool while PLA is open in SMarty Modeling
-    public void openTempArchitecture() {
-        SaveStringToFile.getInstance().createTempDir();
-        saveToSMarty(this, "TEMP/TEMP");
-        System.out.println("Saved");
-        try {
-            System.out.println(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "TEMP" + FileConstants.FILE_SEPARATOR + "TEMP.smty");
-            Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar " + ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "TEMP" + FileConstants.FILE_SEPARATOR + "TEMP.smty");
-            //Process proc = Runtime.getRuntime().exec("java -jar SMartyModeling.jar");
-            proc.waitFor();
-        } catch (Exception ex) {
-            System.out.println("Exception Open");
-            System.out.println(ex.getStackTrace());
-
-        }
+    public Element findElementById(String id) {
+        return ArchitectureFindElementControl.getInstance().findElementById(this, id);
     }
 
-    /**
-     * Procura um elemento por ID.<br>
-     * Este método busca por elementos diretamente no primeiro nível da arquitetura (Ex: classes que não possuem pacotes)
-     * , e também em pacotes.<br/><br/>
-     *
-     * @param xmiId
-     * @return
-     */
-    public Element findElementById(String xmiId) {
-        return ArchitectureFindElementControl.getInstance().findElementById(this, xmiId);
+    public Element findMethodById(String id) {
+        return ArchitectureFindElementControl.getInstance().findMethodById(this, id);
     }
 
-    /**
-     * Procura um Method por ID.<br>
-     * Este método busca por elementos diretamente no primeiro nível da arquitetura (Ex: classes que não possuem pacotes)
-     * , e também em pacotes.<br/><br/>
-     *
-     * @param xmiId
-     * @return
-     */
-    public Element findMethodById(String xmiId) {
-        return ArchitectureFindElementControl.getInstance().findMethodById(this, xmiId);
+    public Element findAttributeById(String id) {
+        return ArchitectureFindElementControl.getInstance().findAttributeById(this, id);
     }
 
-
-    public Element findAttributeById(String xmiId) {
-        return ArchitectureFindElementControl.getInstance().findAttributeById(this, xmiId);
-    }
-
-    /**
-     * Adiciona um pacote na lista de pacotes
-     *
-     * @param {@link Package}
-     */
-    public void addPackage(Package p) {
-        if (this.packages.add(p))
-            LOGGER.info("Pacote: " + p.getName() + " adicionado na br.otimizes.oplatool.arquitetura");
+    public void addPackage(Package packageToAdd) {
+        if (this.packages.add(packageToAdd))
+            LOGGER.info("Package: " + packageToAdd.getName() + " added on architecture");
         else
-            LOGGER.info("TENTOU adicionar o Pacote: " + p.getName() + " na br.otimizes.oplatool.arquitetura porém não consegiu");
+            LOGGER.info("Tried to add the package: " + packageToAdd.getName() + " on architecture, but it couldn't");
     }
 
-    /**
-     * Adiciona uma classe na lista de classes.
-     *
-     * @param {@link Class}
-     */
     public void addExternalClass(Class klass) {
         if (this.classes.add(klass))
-            LOGGER.info("Classe: " + klass.getName() + " adicionado na br.otimizes.oplatool.arquitetura");
+            LOGGER.info("Class: " + klass.getName() + " added on architecture");
         else
-            LOGGER.info("TENTOU adicionar a Classe: " + klass.getName() + " na br.otimizes.oplatool.arquitetura porém não consegiu");
+            LOGGER.info("Tried to add class: " + klass.getName() + " on architecture, but it couldn't");
     }
 
     public void removeRequiredInterface(Interface supplier, Package client) {
@@ -991,7 +799,6 @@ public class Architecture extends Variable {
     }
 
     public void setAppliedPatterns(boolean b) {
-        // TODO Auto-generated method stub
         this.appliedPatterns = b;
     }
 
@@ -1024,7 +831,8 @@ public class Architecture extends Variable {
 
     public static Double median(List<Integer> values) {
         List<Integer> sortedValues = values.stream().sorted().collect(Collectors.toList());
-        return sortedValues.size() % 2 == 0 ? (sortedValues.get((sortedValues.size() / 2) - 1) + sortedValues.get((sortedValues.size() / 2))) / 2 : Double.valueOf(sortedValues.get((int) Math.floor(sortedValues.size() / 2)));
+        return sortedValues.size() % 2 == 0 ? (sortedValues.get((sortedValues.size() / 2) - 1)
+                + sortedValues.get((sortedValues.size() / 2))) / 2 : Double.valueOf(sortedValues.get((int) Math.floor(sortedValues.size() / 2)));
     }
 
     public static Double mean(List<Integer> values) {
@@ -1039,36 +847,36 @@ public class Architecture extends Variable {
         return this.getDetailedString(true);
     }
 
-    public String getDetailedString(boolean withAttrs) {
-        List<Integer> qtdAtributosPorClasse = new ArrayList<>();
-        List<Integer> qtdMetodosPorClasse = new ArrayList<>();
-        int qtdClassesSemAttr = 0;
+    public String getDetailedString(boolean withAttributes) {
+        List<Integer> attributes = new ArrayList<>();
+        List<Integer> methods = new ArrayList<>();
+        int classesWithoutAttribute = 0;
 
         for (Class aClass : getAllClasses()) {
             if (aClass.getAllAttributes().size() != 0)
-                qtdAtributosPorClasse.add(aClass.getAllAttributes().size());
+                attributes.add(aClass.getAllAttributes().size());
             else
-                qtdClassesSemAttr++;
+                classesWithoutAttribute++;
             if (aClass.getAllMethods().size() != 0)
-                qtdMetodosPorClasse.add(aClass.getAllMethods().size());
+                methods.add(aClass.getAllMethods().size());
         }
         List<Element> freezedElements = getFreezedElements();
         StringBuilder str = new StringBuilder();
-        str.append("Packages: " + getAllPackages() +
-                ", qtdPackages: " + getAllPackages().size() +
-                ", qtdClasses: " + getAllClasses().size() +
-                ", qtdInterfaces: " + getAllInterfaces().size() +
-                ", qtdClassesSemAttr: " + qtdClassesSemAttr +
-                ", qtdFreezedElements: " + freezedElements.size() +
-                ", \nfreezedElements: " + freezedElements.stream().map(s -> s.getName() + ":" + s.getTypeElement()).collect(Collectors.toList()) +
-                ", \nqtdAggregation: " + getRelationshipHolder().getAllAgragations().size() +
-                ", \ngetAllCompositions: " + getRelationshipHolder().getAllCompositions().size() +
-                ", \ngetAllDependencies: " + getRelationshipHolder().getAllDependencies().size() +
-                ", \ngetAllAssociations: " + getRelationshipHolder().getAllAssociations().size() +
-                ", \ngetAllGeneralizations: " + getRelationshipHolder().getAllGeneralizations().size() +
-                ", \ngetAllRelationships: " + getRelationshipHolder().getAllRelationships().size() +
-                "\n");
-        if (withAttrs) {
+        str.append("Packages: ").append(getAllPackages()).append(", qtdPackages: ").append(getAllPackages().size())
+                .append(", qtdClasses: ").append(getAllClasses().size())
+                .append(", qtdInterfaces: ").append(getAllInterfaces().size())
+                .append(", qtdClassesSemAttr: ").append(classesWithoutAttribute)
+                .append(", qtdFreezedElements: ").append(freezedElements.size())
+                .append(", \nfreezedElements: ").append(freezedElements.stream().map(s -> s.getName() + ":" + s.getTypeElement())
+                .collect(Collectors.toList()))
+                .append(", \nqtdAggregation: ").append(getRelationshipHolder().getAllAgragations().size())
+                .append(", \ngetAllCompositions: ").append(getRelationshipHolder().getAllCompositions().size())
+                .append(", \ngetAllDependencies: ")
+                .append(getRelationshipHolder().getAllDependencies().size())
+                .append(", \ngetAllAssociations: ").append(getRelationshipHolder().getAllAssociations().size())
+                .append(", \ngetAllGeneralizations: ").append(getRelationshipHolder().getAllGeneralizations().size())
+                .append(", \ngetAllRelationships: ").append(getRelationshipHolder().getAllRelationships().size()).append("\n");
+        if (withAttributes) {
             str.append("    Classes: \n");
             str.append(getAllClasses().stream().map(clazz -> {
                 return "       " + clazz.getName() +
@@ -1116,68 +924,66 @@ public class Architecture extends Variable {
     }
 
     public Set<Class> getAllModifiableClasses() {
-        final Set<Class> klasses = new HashSet<Class>();
+        final Set<Class> modifiableClasses = new HashSet<>();
         for (Package p : this.packages)
-            klasses.addAll(p.getAllClasses());
+            modifiableClasses.addAll(p.getAllClasses());
 
-        klasses.addAll(this.classes);
-        return klasses;
+        modifiableClasses.addAll(this.classes);
+        return modifiableClasses;
     }
 
-    public ArrayList<Integer> getLinkOverload(Element element) { //funcao que incia uma lista vazia. pega o elemento e calcula o link desse elemento
-        ArrayList<Integer> linkOverload = new ArrayList<>(); //lista vazia
+    public ArrayList<Integer> getLinkOverload(Element element) {
+        ArrayList<Integer> linkOverload = new ArrayList<>();
         int input = 0;
         int output = 0;
         int both = 0;
 
-        if (element instanceof Class) { // se o elemento for do tiṕo classe // cast para o tipo classe
+        if (element instanceof Class) {
             Class class_ = (Class) element;
-            for (Relationship r : class_.getRelationships()) { //pra cada relacionamento da classe verificar o tipo
+            for (Relationship r : class_.getRelationships()) {
 
 
-                if (r instanceof DependencyRelationship) { //  se for do tipo DEPENDENCIA
+                if (r instanceof DependencyRelationship) {
 
-                    DependencyRelationship dr = (DependencyRelationship) r; // castar
+                    DependencyRelationship dr = (DependencyRelationship) r;
 
-                    if (dr.getClient().getId().equals(class_.getId())) {   // verificar qual lado do relacionamento e
-                        //elemento e o cliente
+                    if (dr.getClient().getId().equals(class_.getId())) {
                         input++;
                     } else {
                         output++;
                     }
                 }
-                if (r instanceof RealizationRelationship) { //  se for do tipo REALIZAÇÃO
-                    RealizationRelationship dr = (RealizationRelationship) r; // castar
-                    if (dr.getClient().getId().equals(class_.getId())) {   // verificar qual lado do relacionamento e
+                if (r instanceof RealizationRelationship) {
+                    RealizationRelationship dr = (RealizationRelationship) r;
+                    if (dr.getClient().getId().equals(class_.getId())) {
                         output++;
                     } else {
                         input++;
                     }
                 }
-                if (r instanceof AbstractionRelationship) { //  se for do tipo ABSTRAÇÃO
-                    AbstractionRelationship dr = (AbstractionRelationship) r; // castar
-                    if (dr.getClient().getId().equals(class_.getId())) {   // verificar qual lado do relacionamento e
-                        //elemento e o cliente
+                if (r instanceof AbstractionRelationship) {
+                    AbstractionRelationship dr = (AbstractionRelationship) r;
+                    if (dr.getClient().getId().equals(class_.getId())) {
                         output++;
                     } else {
                         input++;
                     }
                 }
-                if (r instanceof AssociationRelationship) { //  se for do tipo ASSOCIAÇÃO
+                if (r instanceof AssociationRelationship) {
                     both++;
                 }
-                if (r instanceof AssociationClassRelationship) { //  se for do tipo dependencia
+                if (r instanceof AssociationClassRelationship) {
                     both++;
                 }
             }
         }
 
-        if (element instanceof Interface) { //mesma coisa para nternface
-            Interface interface_ = (Interface) element; //cast
-            for (Relationship r : interface_.getRelationships()) { //pega da interface e verifica
-                if (r instanceof DependencyRelationship) { //  se for do tipo DEPENDENCIA
-                    DependencyRelationship dr = (DependencyRelationship) r; // castar
-                    if (dr.getClient().getId().equals(interface_.getId())) {   // verificar qual lado do relacionamento e
+        if (element instanceof Interface) {
+            Interface interface_ = (Interface) element;
+            for (Relationship r : interface_.getRelationships()) {
+                if (r instanceof DependencyRelationship) {
+                    DependencyRelationship dr = (DependencyRelationship) r;
+                    if (dr.getClient().getId().equals(interface_.getId())) {
                         input++;
                     } else {
                         output++;
