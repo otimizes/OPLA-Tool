@@ -428,7 +428,6 @@ public class CrossoverUtils {
         fatherInterfacePackage = null;
         fatherDiff = null;
 
-
     }
 
 
