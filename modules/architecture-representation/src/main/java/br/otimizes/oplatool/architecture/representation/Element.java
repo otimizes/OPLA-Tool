@@ -24,7 +24,6 @@ public abstract class Element implements Serializable {
     private Variant variant;
     private final Set<Concern> concerns = new HashSet<>();
     private Set<Comment> comments = new HashSet<>();
-    private Architecture architecture;
     private String typeElement;
     private String namespace;
     private boolean belongsToGeneralization;
@@ -57,7 +56,6 @@ public abstract class Element implements Serializable {
     }
 
     private Element deepClone() throws CloneNotSupportedException {
-
         Cloner cloner = new Cloner();
         Element pkg = cloner.deepClone(this);
         cloner = null;
@@ -138,22 +136,15 @@ public abstract class Element implements Serializable {
 
     public abstract Collection<Concern> getAllConcerns();
 
-    /**
-     * @return the id
-     */
     public String getId() {
         return id;
     }
 
-    /**
-     * Generates Unique Integer Id according to the namespace:elementType:elementName
-     *
-     * @return Unique Integer Id
-     */
     public float getNumberId() {
         int minValue = Integer.MIN_VALUE;
         int maxValue = Integer.MAX_VALUE;
-        int numberId = HashCodeBuilder.reflectionHashCode(this.getNamespace() + ":" + this.getTypeElement() + ":" + this.getName(), true);
+        int numberId = HashCodeBuilder.reflectionHashCode(this.getNamespace() + ":" + this.getTypeElement() +
+                ":" + this.getName(), true);
 //        return (numberId - minValue) / (maxValue - minValue);
         return numberId * 0.0000001f;
     }
@@ -162,9 +153,6 @@ public abstract class Element implements Serializable {
         System.out.println(-390232832 * 0.0000001f);
     }
 
-    /**
-     * @param id the id to set
-     */
     private void setId(String id) {
         this.id = id;
     }
@@ -202,20 +190,15 @@ public abstract class Element implements Serializable {
         return getName();
     }
 
-    /**
-     * Retorna apenas os interesses pertencentes a este elemento.<br />
-     *
-     * @return List<{ @ link Concern }>
-     */
     public Set<Concern> getOwnConcerns() {
-        if (concerns == null || concerns.isEmpty())
+        if (concerns.isEmpty())
             return Collections.emptySet();
         return concerns;
     }
 
     public boolean containsConcern(Concern concern) {
-        for (Concern conc : getOwnConcerns()) {
-            if (conc.getName().equalsIgnoreCase(concern.getName()))
+        for (Concern ownConcern : getOwnConcerns()) {
+            if (ownConcern.getName().equalsIgnoreCase(concern.getName()))
                 return true;
         }
         return false;
@@ -230,16 +213,6 @@ public abstract class Element implements Serializable {
         concerns.add(concern);
     }
 
-
-    /**
-     * Adiciona um interesse a classe.<br/>
-     * <p>
-     * Somente irá incluir o interesse se o mesmo estive presente no arquivo de
-     * perfil que contêm os interesses</br>
-     *
-     * @param concernName
-     * @throws ConcernNotFoundException
-     */
     public void addConcern(String concernName) throws ConcernNotFoundException {
         Concern concern = ConcernHolder.INSTANCE.getOrCreateConcern(concernName);
         concerns.add(concern);
@@ -250,9 +223,6 @@ public abstract class Element implements Serializable {
         concerns.remove(concern);
     }
 
-    /**
-     * @return the namespace
-     */
     public String getNamespace() {
         return namespace;
     }
@@ -261,25 +231,15 @@ public abstract class Element implements Serializable {
         this.namespace = namespace;
     }
 
-    public Architecture getArchitecture() {
-        return architecture;
-    }
-
-    /**
-     * @return the variationPoint
-     */
     public VariationPoint getVariationPoint() {
         return variationPoint;
     }
 
-    /**
-     * @param variationPoint the variationPoint to set
-     */
     public void setVariationPoint(VariationPoint variationPoint) {
         this.variationPoint = variationPoint;
     }
 
-    public boolean belongsToGeneralization() {
+    public boolean doesBelongToGeneralization() {
         return this.belongsToGeneralization;
     }
 
@@ -380,21 +340,20 @@ public abstract class Element implements Serializable {
     }
 
     public boolean totalyEquals(Element other) {
-        boolean isEquals = this.getNumberId() == other.getNumberId();
+        boolean doesEqual = this.getNumberId() == other.getNumberId();
         if (this instanceof Class && other instanceof Class) {
-            isEquals &= ((Class) this).getAllAttributes().equals(((Class) other).getAllAttributes());
-            isEquals &= ((Class) this).getAllMethods().equals(((Class) other).getAllMethods());
+            doesEqual &= ((Class) this).getAllAttributes().equals(((Class) other).getAllAttributes());
+            doesEqual &= ((Class) this).getAllMethods().equals(((Class) other).getAllMethods());
         } else if (this instanceof Interface && other instanceof Interface) {
-            isEquals &= ((Interface) this).getOperations().equals(((Interface) other).getOperations());
+            doesEqual &= ((Interface) this).getOperations().equals(((Interface) other).getOperations());
         } else if (this instanceof Package && other instanceof Package) {
             Set<Element> collect = ((Package) this).getElements();
             Set<Element> collect1 = ((Package) other).getElements();
             if (collect.size() != collect1.size()) return false;
             for (Element element : collect) {
-                isEquals &= element.totalyEquals(other);
+                doesEqual &= element.totalyEquals(other);
             }
         }
-        return isEquals;
+        return doesEqual;
     }
-
 }
