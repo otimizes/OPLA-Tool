@@ -61,7 +61,7 @@ public class AssociationKlassOperations {
         for (Attribute attribute : asr.getAssociationClass().getAllAttributes()) {
             br.otimizes.oplatool.architecture.papyrus.touml.Attribute attr = br.otimizes.oplatool.architecture.papyrus.touml.Attribute.create()
                     .withName(attribute.getName())
-                    .getGraphics(attribute.isGeneratVisualAttribute())
+                    .getGraphics(attribute.isGenerateVisualAttribute())
                     .withConcerns(attribute.getOwnConcerns())
                     .withVisibility(VisibilityKind.getByName(attribute.getVisibility()))
                     .withType(Types.getByName(attribute.getType()));

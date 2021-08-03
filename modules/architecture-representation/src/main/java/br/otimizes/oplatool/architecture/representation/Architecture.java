@@ -123,8 +123,8 @@ public class Architecture extends Variable {
     }
 
     public void removeMethodOfClassByID(String id) {
-        for (Class clazzToRemoveMethod : getAllClasses()) {
-            clazzToRemoveMethod.removeMethodByID(id);
+        for (Class classToRemoveMethod : getAllClasses()) {
+            classToRemoveMethod.removeMethodByID(id);
         }
     }
 
@@ -232,18 +232,18 @@ public class Architecture extends Variable {
     public ArrayList<Interface> getDuplicatedInterface() {
         ArrayList<String> matchedInterfaces = new ArrayList<>();
         ArrayList<Interface> duplicatedInterfaces = new ArrayList<>();
-        for (Interface inter : getInterfaces()) {
-            if (matchedInterfaces.contains(inter.getId())) {
-                duplicatedInterfaces.add(inter);
+        for (Interface interfaceFromArchitecture : getInterfaces()) {
+            if (matchedInterfaces.contains(interfaceFromArchitecture.getId())) {
+                duplicatedInterfaces.add(interfaceFromArchitecture);
             }
-            matchedInterfaces.add((inter.getId()));
+            matchedInterfaces.add((interfaceFromArchitecture.getId()));
         }
         for (Package pkg : getAllPackages()) {
-            for (Interface inter : pkg.getAllInterfaces()) {
-                if (matchedInterfaces.contains(inter.getId())) {
-                    duplicatedInterfaces.add(inter);
+            for (Interface interfaceFromPackages : pkg.getAllInterfaces()) {
+                if (matchedInterfaces.contains(interfaceFromPackages.getId())) {
+                    duplicatedInterfaces.add(interfaceFromPackages);
                 }
-                matchedInterfaces.add((inter.getId()));
+                matchedInterfaces.add((interfaceFromPackages.getId()));
             }
         }
         return duplicatedInterfaces;
@@ -339,8 +339,8 @@ public class Architecture extends Variable {
 
     public List<Element> getElements() {
         final List<Element> elements = new ArrayList<>();
-        for (Package p : getAllPackages())
-            elements.addAll(p.getElements());
+        for (Package pkg : getAllPackages())
+            elements.addAll(pkg.getElements());
         elements.addAll(this.classes);
         elements.addAll(this.interfaces);
         return elements;
@@ -348,9 +348,9 @@ public class Architecture extends Variable {
 
     public List<Element> getElementsWithPackages() {
         final List<Element> elementsAllowingModification = new ArrayList<>();
-        for (Package p : getAllPackagesAllowedModification()) {
-            elementsAllowingModification.add(p);
-            elementsAllowingModification.addAll(p.getElements());
+        for (Package pkg : getAllPackagesAllowedModification()) {
+            elementsAllowingModification.add(pkg);
+            elementsAllowingModification.addAll(pkg.getElements());
         }
         elementsAllowingModification.addAll(this.classes);
         elementsAllowingModification.addAll(this.interfaces);
@@ -390,20 +390,20 @@ public class Architecture extends Variable {
     }
 
     public List<Attribute> getAllAttributes() {
-        List<Attribute> attrs = new ArrayList<>();
-        for (Class allClass : this.getAllClasses()) {
-            attrs.addAll(allClass.getAllAttributes());
+        List<Attribute> attributes = new ArrayList<>();
+        for (Class classFromPackages : this.getAllClasses()) {
+            attributes.addAll(classFromPackages.getAllAttributes());
         }
-        return attrs;
+        return attributes;
     }
 
     public List<Method> getAllMethods() {
         List<Method> attrs = new ArrayList<>();
-        for (Class allClass : this.getAllClasses()) {
-            attrs.addAll(allClass.getAllMethods());
+        for (Class classFromPackages : this.getAllClasses()) {
+            attrs.addAll(classFromPackages.getAllMethods());
         }
-        for (Interface allClass : this.getAllInterfaces()) {
-            attrs.addAll(allClass.getMethods());
+        for (Interface interfaceFromPackages : this.getAllInterfaces()) {
+            attrs.addAll(interfaceFromPackages.getMethods());
         }
         return attrs;
     }
@@ -422,8 +422,8 @@ public class Architecture extends Variable {
 
     public Set<Interface> getAllInterfaces() {
         final Set<Interface> interfaces = new HashSet<>();
-        for (Package p : this.packages)
-            interfaces.addAll(p.getAllInterfaces());
+        for (Package pkg : this.packages)
+            interfaces.addAll(pkg.getAllInterfaces());
         interfaces.addAll(this.interfaces);
         return Collections.unmodifiableSet(interfaces);
     }
@@ -438,8 +438,8 @@ public class Architecture extends Variable {
 
     public Set<Class> getAllClasses() {
         final Set<Class> classes = new HashSet<>();
-        for (Package p : this.packages)
-            classes.addAll(p.getAllClasses());
+        for (Package pkg : this.packages)
+            classes.addAll(pkg.getAllClasses());
         classes.addAll(this.classes);
         return Collections.unmodifiableSet(classes);
     }
@@ -501,9 +501,9 @@ public class Architecture extends Variable {
     }
 
     public Class createClass(String klassName, boolean isAbstract) {
-        Class klass = new Class(getRelationshipHolder(), klassName, isAbstract);
-        this.addExternalClass(klass);
-        return klass;
+        Class classWithRelationship = new Class(getRelationshipHolder(), klassName, isAbstract);
+        this.addExternalClass(classWithRelationship);
+        return classWithRelationship;
     }
 
     public void removeInterface(Interface interfaceToRemove) {
@@ -554,12 +554,12 @@ public class Architecture extends Variable {
         if (destinationPackage.getElements().contains(elementToMove)) {
             return;
         }
-        for (Class clazz : this.classes) {
-            if (clazz.getId().equals(elementToMove.getId()))
+        for (Class classFromArchitecture : this.classes) {
+            if (classFromArchitecture.getId().equals(elementToMove.getId()))
                 return;
         }
-        for (Interface clazz : this.interfaces) {
-            if (clazz.getId().equals(elementToMove.getId()))
+        for (Interface interfaceFromArchitecture : this.interfaces) {
+            if (interfaceFromArchitecture.getId().equals(elementToMove.getId()))
                 return;
         }
         String oldPackageName = UtilResources.extractPackageName(elementToMove.getNamespace());
@@ -602,11 +602,11 @@ public class Architecture extends Variable {
         ArchitectureRemoveElementControl.getInstance().removeSubPackageByID(subPackage, id);
     }
 
-    public void addClassOrInterface(Element klass, Package pkg) {
-        if (klass instanceof Class) {
-            pkg.addExternalClass((Class) klass);
-        } else if (klass instanceof Interface) {
-            pkg.addExternalInterface((Interface) klass);
+    public void addClassOrInterface(Element element, Package pkg) {
+        if (element instanceof Class) {
+            pkg.addExternalClass((Class) element);
+        } else if (element instanceof Interface) {
+            pkg.addExternalInterface((Interface) element);
         }
     }
 
@@ -652,12 +652,14 @@ public class Architecture extends Variable {
     }
 
     private boolean doesHaveRelationship(Interface supplier, Element client) {
-        for (Relationship r : relationshipHolder.getAllRelationships()) {
-            if (r instanceof RealizationRelationship)
-                if (((RealizationRelationship) r).getClient().equals(client) && ((RealizationRelationship) r).getSupplier().equals(supplier))
+        for (Relationship relationship : relationshipHolder.getAllRelationships()) {
+            if (relationship instanceof RealizationRelationship)
+                if (((RealizationRelationship) relationship).getClient().equals(client)
+                        && ((RealizationRelationship) relationship).getSupplier().equals(supplier))
                     return true;
-            if (r instanceof DependencyRelationship)
-                if (((DependencyRelationship) r).getClient().equals(client) && ((DependencyRelationship) r).getSupplier().equals(supplier))
+            if (relationship instanceof DependencyRelationship)
+                if (((DependencyRelationship) relationship).getClient().equals(client)
+                        && ((DependencyRelationship) relationship).getSupplier().equals(supplier))
                     return true;
         }
         return false;

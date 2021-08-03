@@ -6,7 +6,6 @@ import br.otimizes.oplatool.architecture.helpers.UtilResources;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,39 +48,11 @@ public class Package extends Element {
     }
 
     public void matchImplementedInterface(Architecture architecture) {
-        if(implementedInterfaces == null)
-            return;
-        if(implementedInterfaces.size() == 0)
-            return;
-        ArrayList<String> id_list = new ArrayList<>();
-        for(Interface inter : implementedInterfaces){
-            id_list.add(inter.getId());
-        }
-        implementedInterfaces.clear();
-        for(String id : id_list){
-            Interface interface_arch = architecture.findInterfaceById(id);
-            if(interface_arch != null) {
-                implementedInterfaces.add(interface_arch);
-            }
-        }
+        Class.matchInterfaces(architecture, implementedInterfaces);
     }
 
     public void matchRequiredInterface(Architecture architecture) {
-        if(requiredInterfaces == null)
-            return;
-        if(requiredInterfaces.size() == 0)
-            return;
-        ArrayList<String> id_list = new ArrayList<>();
-        for(Interface inter : requiredInterfaces){
-            id_list.add(inter.getId());
-        }
-        requiredInterfaces.clear();
-        for(String id : id_list){
-            Interface interface_arch = architecture.findInterfaceById(id);
-            if(interface_arch != null) {
-                requiredInterfaces.add(interface_arch);
-            }
-        }
+        Class.matchInterfaces(architecture, requiredInterfaces);
     }
 
     public void removeClassByID(String id) {
