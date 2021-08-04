@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
-public class Class extends Element implements Linkable {
+public class Class extends Element implements Linkable, Functioning {
 
     private static final long serialVersionUID = -5450511036321846093L;
 
@@ -161,6 +161,10 @@ public class Class extends Element implements Linkable {
         if (methods.isEmpty())
             return Collections.emptySet();
         return Collections.unmodifiableSet(methods);
+    }
+
+    public Set<Method> getModifiableMethods() {
+        return methods;
     }
 
     public Attribute findAttributeByName(String name) throws AttributeNotFoundException {

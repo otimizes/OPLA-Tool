@@ -115,7 +115,7 @@ public class Architecture extends Variable {
 
     public void removeMethodByID(String id) {
         for (Interface interfaceToRemoveMethod : getAllInterfaces()) {
-            interfaceToRemoveMethod.removeOperationByID(id);
+            interfaceToRemoveMethod.removeMethodByID(id);
         }
         for (Class classToRemoveMethod : getAllClasses()) {
             classToRemoveMethod.removeMethodByID(id);
@@ -130,7 +130,7 @@ public class Architecture extends Variable {
 
     public void removeOperationOfInterfaceByID(String id) {
         for (Interface interfaceToRemoveMethod : getAllInterfaces()) {
-            interfaceToRemoveMethod.removeOperationByID(id);
+            interfaceToRemoveMethod.removeMethodByID(id);
         }
     }
 

@@ -313,7 +313,7 @@ public class PLAFeatureDrivenCrossoverOldVersion implements IOperator<Solution[]
                     saveAllRelationshiopForElement(interfaceComp, parent, offspring);
                 }
                 //interfaceComp.moveOperationToInterface(operation, targetInterface);
-                targetInterface.addExternalOperation(operation);
+                targetInterface.addExternalMethod(operation);
             }
         }
     }

@@ -36,7 +36,7 @@ public class InterfaceBuilder extends ElementBuilder<Interface> {
         List<Operation> elements = ((org.eclipse.uml2.uml.Class) modelElement).getOperations();
         XmiHelper.setRecursiveOwnedComments(modelElement, interfaces);
         for (Operation operation : elements)
-            interfaces.addExternalOperation(methodBuilder.create(operation));
+            interfaces.addExternalMethod(methodBuilder.create(operation));
         interfaces.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));
         return interfaces;
     }
