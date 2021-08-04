@@ -106,7 +106,7 @@ public class Interface extends Element implements Linkable, Functioning {
     }
 
     public Method createMethod(String methodName) throws Exception {
-        Method method = new Method(methodName, false, null, "void",
+        Method method = new Method(methodName, "void",
                 false, null, "", "");
         methods.add(method);
         return method;

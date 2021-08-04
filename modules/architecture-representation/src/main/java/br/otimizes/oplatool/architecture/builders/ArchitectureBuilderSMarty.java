@@ -381,7 +381,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             Element current = (Element) methods.item(i);
             ArrayList<ParameterMethod> parameterMethodArrayList = importParameterMethods(current, architecture);
             String type = architecture.findTypeSMartyByID(current.getAttribute("return")).getName();
-            Method method = new Method(current.getAttribute("name"), false, null, type, current.getAttribute("abstract").equals("true"), parameterMethodArrayList, class_.getNamespace() + "::" + class_.getName(), current.getAttribute("id"));
+            Method method = new Method(current.getAttribute("name"), type, current.getAttribute("abstract").equals("true"), parameterMethodArrayList, class_.getNamespace() + "::" + class_.getName(), current.getAttribute("id"));
             method.setStatic(current.getAttribute("static").equals("true"));
             method.setFinal(current.getAttribute("final").equals("true"));
             method.setConstructor(current.getAttribute("constructor").equals("true"));
@@ -454,7 +454,7 @@ public class ArchitectureBuilderSMarty implements IArchitectureBuilder {
             Element current = (Element) methods.item(i);
             ArrayList<ParameterMethod> parameterMethodArrayList = importParameterMethods(current, architecture);
             String type = architecture.findTypeSMartyByID(current.getAttribute("return")).getName();
-            Method method = new Method(current.getAttribute("name"), false, null, type, current.getAttribute("abstract").equals("true"), parameterMethodArrayList, interface_.getNamespace() + "::" + interface_.getName(), current.getAttribute("id"));
+            Method method = new Method(current.getAttribute("name"), type, current.getAttribute("abstract").equals("true"), parameterMethodArrayList, interface_.getNamespace() + "::" + interface_.getName(), current.getAttribute("id"));
             method.setStatic(current.getAttribute("static").equals("true"));
             method.setFinal(current.getAttribute("final").equals("true"));
             method.setConstructor(current.getAttribute("constructor").equals("true"));
