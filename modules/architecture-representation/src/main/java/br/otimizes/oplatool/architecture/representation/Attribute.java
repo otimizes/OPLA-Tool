@@ -14,13 +14,14 @@ public class Attribute extends Element {
 
     private String type;
     private String visibilityKind;
-    private boolean generatVisualAttribute;
+    private boolean generateVisualAttribute;
 
-    public Attribute(String name, String visibilityKind, Variant variantType, String type, String namesapce, String id, boolean shouldGenerateVisualAttribute) {
-        super(name, variantType, "attribute", namesapce, id);
+    public Attribute(String name, String visibilityKind, Variant variantType, String type, String namespace,
+                     String id, boolean shouldGenerateVisualAttribute) {
+        super(name, variantType, "attribute", namespace, id);
         setType(type);
         setVisibilityKind(visibilityKind);
-        setGeneratVisualAttribute(shouldGenerateVisualAttribute);
+        setGenerateVisualAttribute(shouldGenerateVisualAttribute);
     }
 
     public Attribute(String name, String visibilityKind, String type, String namespace, String id) {
@@ -31,16 +32,12 @@ public class Attribute extends Element {
         this.visibilityKind = visibilityKind;
     }
 
-
-    /**
-     * @return the generatVisualAttribute
-     */
-    public boolean isGeneratVisualAttribute() {
-        return generatVisualAttribute;
+    public boolean isGenerateVisualAttribute() {
+        return generateVisualAttribute;
     }
 
-    private void setGeneratVisualAttribute(boolean shouldGenerateVisualAttribute) {
-        this.generatVisualAttribute = shouldGenerateVisualAttribute;
+    private void setGenerateVisualAttribute(boolean shouldGenerateVisualAttribute) {
+        this.generateVisualAttribute = shouldGenerateVisualAttribute;
     }
 
     public String getType() {
@@ -53,7 +50,6 @@ public class Attribute extends Element {
 
     public String getVisibility() {
         return this.visibilityKind;
-
     }
 
     @Override

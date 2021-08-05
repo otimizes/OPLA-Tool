@@ -327,11 +327,11 @@ public class PLAModularCrossover1 extends PLAModularCrossover implements IOperat
 			CrossoverUtils.getInstance().removeDuplicateElements((Architecture) offspring.getDecisionVariables()[0]);
 
 
-			((Architecture) parent1.getDecisionVariables()[0]).verifyClassWithoutRelationship();
+			((Architecture) parent1.getDecisionVariables()[0]).getClassesWithoutRelationship();
 
-			((Architecture) parent2.getDecisionVariables()[0]).verifyClassWithoutRelationship();
+			((Architecture) parent2.getDecisionVariables()[0]).getClassesWithoutRelationship();
 
-			ArrayList<String> semLig = child.verifyClassWithoutRelationship();
+			ArrayList<String> semLig = child.getClassesWithoutRelationship();
 
 
 
@@ -360,15 +360,15 @@ public class PLAModularCrossover1 extends PLAModularCrossover implements IOperat
 				}
 			}
 
-			semLig = child.verifyClassWithoutRelationship();
+			semLig = child.getClassesWithoutRelationship();
 
 
 
-			((Architecture) parent1.getDecisionVariables()[0]).verifyInterfaceWithoutRelationship();
+			((Architecture) parent1.getDecisionVariables()[0]).getInterfacesWithoutRelationship();
 
-			((Architecture) parent2.getDecisionVariables()[0]).verifyInterfaceWithoutRelationship();
+			((Architecture) parent2.getDecisionVariables()[0]).getInterfacesWithoutRelationship();
 
-			semLig = child.verifyInterfaceWithoutRelationship();
+			semLig = child.getInterfacesWithoutRelationship();
 
 
 			if(semLig.size() > 0){
@@ -391,7 +391,7 @@ public class PLAModularCrossover1 extends PLAModularCrossover implements IOperat
 				}
 			}
 
-			semLig = child.verifyInterfaceWithoutRelationship();
+			semLig = child.getInterfacesWithoutRelationship();
 
 
 		} catch (Exception e) {

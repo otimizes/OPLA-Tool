@@ -158,7 +158,7 @@ public class MediatorUtil {
 
             Method operation = new Method(Character.toLowerCase(concern.getName().charAt(0)) + concern.getName().substring(1) + "Event", "void", mediator.getName(), false, UUID.randomUUID().toString());
             operation.getParameters().add(new ParameterMethod("eventOfInterest", "Object", "in"));
-            mediator.addExternalOperation(operation);
+            mediator.addExternalMethod(operation);
 
             RelationshipUtil.createNewUsageRelationship("uses", mediator, eventOfInterest);
         }
@@ -263,11 +263,11 @@ public class MediatorUtil {
 
             Method operation = new Method("attachMediator", "void", colleague.getName(), false, UUID.randomUUID().toString());
             operation.getParameters().add(new ParameterMethod("mediator", "Object", "in"));
-            colleague.addExternalOperation(operation);
+            colleague.addExternalMethod(operation);
 
             operation = new Method("detachMediator", "void", colleague.getName(), false, UUID.randomUUID().toString());
             operation.getParameters().add(new ParameterMethod("mediator", "Object", "in"));
-            colleague.addExternalOperation(operation);
+            colleague.addExternalMethod(operation);
 
             RelationshipUtil.createNewUsageRelationship("uses", colleague, eventOfInterest);
             RelationshipUtil.createNewUsageRelationship("uses", colleague, mediatorInterface);

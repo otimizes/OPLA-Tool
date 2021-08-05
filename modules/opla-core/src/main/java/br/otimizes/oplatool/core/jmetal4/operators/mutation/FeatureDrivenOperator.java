@@ -289,10 +289,10 @@ public class FeatureDrivenOperator implements IOperator<Solution> {
 
             if (targetInterface == null) {
                 targetInterface = targetComp.createInterface("Interface" + OPLA.countInterface++);
-                sourceInterface.moveOperationToInterface(operation, targetInterface);
+                sourceInterface.moveMethodToInterface(operation, targetInterface);
                 targetInterface.addConcern(concern.getName());
             } else {
-                sourceInterface.moveOperationToInterface(operation, targetInterface);
+                sourceInterface.moveMethodToInterface(operation, targetInterface);
             }
 
             addRelationship(sourceInterface, targetComp, sourceComp, architecture, concern, targetInterface);

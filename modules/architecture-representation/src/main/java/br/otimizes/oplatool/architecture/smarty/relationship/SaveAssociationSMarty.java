@@ -13,7 +13,6 @@ import java.util.Random;
 
 /**
  * This class save Association relationship to file
- *
  */
 public class SaveAssociationSMarty {
 
@@ -26,91 +25,119 @@ public class SaveAssociationSMarty {
         return INSTANCE;
     }
 
-    /**
-     * This class save Association relationship to file
-     *
-     * @param architecture - architecture to be decoded
-     * @param printWriter - used to save a string in file
-     * @param logPath - path to save log if has a error
-     */
     public void Save(Architecture architecture, PrintWriter printWriter, String logPath) {
         String halfTab = "  ";
         String tab = "    ";
-        int id_rel = 1;
-        for (Relationship r : architecture.getRelationshipHolder().getAllRelationships()) {
-            if (r instanceof AssociationRelationship) {
-                AssociationRelationship ar = (AssociationRelationship) r;
-                AssociationEnd ae1 = ar.getParticipants().get(0);
-                AssociationEnd ae2 = ar.getParticipants().get(1);
-                Element e1 = architecture.findElementByNameInPackageAndSubPackage(ae1.getCLSClass().getName());
-                if (e1 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Association " + ar.getId() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nElement 1: " + ae1.getCLSClass().getId() + " - " + ae1.getCLSClass().getName() + " not found");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nElement 2: " + ae2.getCLSClass().getId() + " - " + ae2.getCLSClass().getName());
-                    continue;
-                }
-                Element e2 = architecture.findElementByNameInPackageAndSubPackage(ae2.getCLSClass().getName());
-                if (e2 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nElement 1: " + ae1.getCLSClass().getId() + " - " + ae1.getCLSClass().getName());
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nElement 2: " + ae2.getCLSClass().getId() + " - " + ae2.getCLSClass().getName() + " not found");
-                    continue;
-                }
-                Multiplicity mult1 = ae1.getMultiplicity();
-                Multiplicity mult2 = ae2.getMultiplicity();
+        int idRelationship = 1;
+        for (Relationship relationship : architecture.getRelationshipHolder().getAllRelationships()) {
+            if (relationship instanceof AssociationRelationship) {
+                AssociationRelationship associationRelationship = (AssociationRelationship) relationship;
+                AssociationEnd firstAssociationEnd = associationRelationship.getParticipants().get(0);
+                AssociationEnd secondAssociationEnd = associationRelationship.getParticipants().get(1);
+                Element firstElement = getFirstElement(architecture, logPath, associationRelationship, firstAssociationEnd, secondAssociationEnd);
+                if (firstElement == null) continue;
+                Element secondElement = getSecondElement(architecture, logPath, firstAssociationEnd, secondAssociationEnd);
+                if (secondElement == null) continue;
+                Multiplicity firstMultiplicity = firstAssociationEnd.getMultiplicity();
+                Multiplicity secondMultiplicity = secondAssociationEnd.getMultiplicity();
                 String category = "normal";
-                if (ae1.getAggregation().equals("shared")) {
+                if (firstAssociationEnd.getAggregation().equals("shared")) {
                     category = "aggregation";
                 }
-                if (ae1.getAggregation().equals("composite"))
+                if (firstAssociationEnd.getAggregation().equals("composite"))
                     category = "composition";
-                if (mult1 == null) {
-                    mult1 = new Multiplicity("1", "1");
+                if (firstMultiplicity == null) {
+                    firstMultiplicity = new Multiplicity("1", "1");
                 }
-                if (mult2 == null) {
-                    mult2 = new Multiplicity("1", "1");
+                if (secondMultiplicity == null) {
+                    secondMultiplicity = new Multiplicity("1", "1");
                 }
                 Random rnd = new Random();
-                int new_x = Integer.parseInt(ae1.getCLSClass().getGlobalPosX()) + Integer.parseInt(ae1.getCLSClass().getWidth()) / 2;
-                int new_y = Integer.parseInt(ae1.getCLSClass().getGlobalPosY()) + Integer.parseInt(ae1.getCLSClass().getHeight()) / 2;
-                ae1.setPosX("" + (new_x + rnd.nextInt(10)));
-                ae1.setPosY("" + (new_y + rnd.nextInt(10)));
-                new_x = Integer.parseInt(ae2.getCLSClass().getGlobalPosX()) + Integer.parseInt(ae2.getCLSClass().getWidth()) / 2;
-                new_y = Integer.parseInt(ae2.getCLSClass().getGlobalPosY()) + Integer.parseInt(ae2.getCLSClass().getHeight()) / 2;
-                ae2.setPosX("" + (new_x + rnd.nextInt(10)));
-                ae2.setPosY("" + (new_y + rnd.nextInt(10)));
-                if (ae1.getName().length() == 0) {
-                    ae1.setName(ae1.getCLSClass().getName());
+                int newX = Integer.parseInt(firstAssociationEnd.getCLSClass().getGlobalPosX())
+                        + Integer.parseInt(firstAssociationEnd.getCLSClass().getWidth()) / 2;
+                int newY = Integer.parseInt(firstAssociationEnd.getCLSClass().getGlobalPosY())
+                        + Integer.parseInt(firstAssociationEnd.getCLSClass().getHeight()) / 2;
+                firstAssociationEnd.setPosX("" + (newX + rnd.nextInt(10)));
+                firstAssociationEnd.setPosY("" + (newY + rnd.nextInt(10)));
+                newX = Integer.parseInt(secondAssociationEnd.getCLSClass().getGlobalPosX())
+                        + Integer.parseInt(secondAssociationEnd.getCLSClass().getWidth()) / 2;
+                newY = Integer.parseInt(secondAssociationEnd.getCLSClass().getGlobalPosY())
+                        + Integer.parseInt(secondAssociationEnd.getCLSClass().getHeight()) / 2;
+                secondAssociationEnd.setPosX("" + (newX + rnd.nextInt(10)));
+                secondAssociationEnd.setPosY("" + (newY + rnd.nextInt(10)));
+                if (firstAssociationEnd.getName().length() == 0) {
+                    firstAssociationEnd.setName(firstAssociationEnd.getCLSClass().getName());
                 }
-                if (ae2.getName().length() == 0) {
-                    ae2.setName(ae2.getCLSClass().getName());
+                if (secondAssociationEnd.getName().length() == 0) {
+                    secondAssociationEnd.setName(secondAssociationEnd.getCLSClass().getName());
                 }
-                if (ae1.getVisibility().length() == 0)
-                    ae1.setVisibility("private");
-                if (ae2.getVisibility().length() == 0)
-                    ae2.setVisibility("private");
-                if (ar.getId().length() == 0) {
-                    boolean existID = true;
-                    while (existID) {
-                        existID = false;
-                        for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
-                            if (r2.getId().equals("ASSOCIATION#" + id_rel)) {
-                                id_rel++;
-                                existID = true;
-                                break;
-                            }
-                        }
-                    }
-                    ar.setId("ASSOCIATION#" + id_rel);
-                    id_rel++;
-                }
-                printWriter.write("\n" + tab + "<association id=\"" + ar.getId() + "\" name=\"" + ar.getName() + "\" category=\"" + category + "\" direction=\"" + ae1.isNavigable() + "\">");
-                printWriter.write("\n" + tab + halfTab + "<source entity=\"" + e1.getId() + "\" sourceVisibility=\"" + ae1.getVisibility() + "\" sourceName=\"" + ae1.getName() + "\" sourceMin=\"" + mult1.getLowerValue() + "\" sourceMax=\"" + mult1.getUpperValue() + "\" sourceX=\"" + ae1.getPosX() + "\" sourceY=\"" + ae1.getPosY() + "\"/>");
-                printWriter.write("\n" + tab + halfTab + "<target entity=\"" + e2.getId() + "\" targetVisibility=\"" + ae2.getVisibility() + "\" targetName=\"" + ae2.getName() + "\" targetMin=\"" + mult2.getLowerValue() + "\" targetMax=\"" + mult2.getUpperValue() + "\" targetX=\"" + ae2.getPosX() + "\" targetY=\"" + ae2.getPosY() + "\"/>");
+                if (firstAssociationEnd.getVisibility().length() == 0)
+                    firstAssociationEnd.setVisibility("private");
+                if (secondAssociationEnd.getVisibility().length() == 0)
+                    secondAssociationEnd.setVisibility("private");
+                idRelationship = getIdRelationship(architecture, idRelationship, associationRelationship);
+                printWriter.write("\n" + tab + "<association id=\"" + associationRelationship.getId()
+                        + "\" name=\"" + associationRelationship.getName() + "\" category=\"" + category
+                        + "\" direction=\"" + firstAssociationEnd.isNavigable() + "\">");
+                printWriter.write("\n" + tab + halfTab + "<source entity=\"" + firstElement.getId()
+                        + "\" sourceVisibility=\"" + firstAssociationEnd.getVisibility() + "\" sourceName=\""
+                        + firstAssociationEnd.getName() + "\" sourceMin=\"" + firstMultiplicity.getLowerValue()
+                        + "\" sourceMax=\"" + firstMultiplicity.getUpperValue()
+                        + "\" sourceX=\"" + firstAssociationEnd.getPosX()
+                        + "\" sourceY=\"" + firstAssociationEnd.getPosY() + "\"/>");
+                printWriter.write("\n" + tab + halfTab + "<target entity=\"" + secondElement.getId()
+                        + "\" targetVisibility=\"" + secondAssociationEnd.getVisibility()
+                        + "\" targetName=\"" + secondAssociationEnd.getName()
+                        + "\" targetMin=\"" + secondMultiplicity.getLowerValue()
+                        + "\" targetMax=\"" + secondMultiplicity.getUpperValue()
+                        + "\" targetX=\"" + secondAssociationEnd.getPosX()
+                        + "\" targetY=\"" + secondAssociationEnd.getPosY() + "\"/>");
                 printWriter.write("\n" + tab + "</association>");
-
             }
         }
     }
 
+    private Element getFirstElement(Architecture architecture, String logPath, AssociationRelationship associationRelationship, AssociationEnd firstAssociationEnd, AssociationEnd secondAssociationEnd) {
+        Element firstElement = architecture.findElementByNameInPackageAndSubPackage(firstAssociationEnd.getCLSClass().getName());
+        if (firstElement == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Association " + associationRelationship.getId() + ":");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nElement 1: "
+                    + firstAssociationEnd.getCLSClass().getId() + " - " + firstAssociationEnd.getCLSClass().getName() + " not found");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nElement 2: "
+                    + secondAssociationEnd.getCLSClass().getId() + " - " + secondAssociationEnd.getCLSClass().getName());
+            return null;
+        }
+        return firstElement;
+    }
 
+    private Element getSecondElement(Architecture architecture, String logPath, AssociationEnd firstAssociationEnd, AssociationEnd secondAssociationEnd) {
+        Element secondElement = architecture.findElementByNameInPackageAndSubPackage(secondAssociationEnd.getCLSClass().getName());
+        if (secondElement == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nElement 1: "
+                    + firstAssociationEnd.getCLSClass().getId() + " - " + firstAssociationEnd.getCLSClass().getName());
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nElement 2: "
+                    + secondAssociationEnd.getCLSClass().getId() + " - " + secondAssociationEnd.getCLSClass().getName() + " not found");
+            return null;
+        }
+        return secondElement;
+    }
+
+    private int getIdRelationship(Architecture architecture, int idRelationship, AssociationRelationship associationRelationship) {
+        if (associationRelationship.getId().length() == 0) {
+            boolean ExistId = true;
+            while (ExistId) {
+                ExistId = false;
+                for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
+                    if (r2.getId().equals("ASSOCIATION#" + idRelationship)) {
+                        idRelationship++;
+                        ExistId = true;
+                        break;
+                    }
+                }
+            }
+            associationRelationship.setId("ASSOCIATION#" + idRelationship);
+            idRelationship++;
+        }
+        return idRelationship;
+    }
 }

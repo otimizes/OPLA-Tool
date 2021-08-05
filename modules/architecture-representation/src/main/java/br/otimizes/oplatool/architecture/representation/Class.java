@@ -19,16 +19,16 @@ import java.util.stream.Collectors;
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
-public class Class extends Element {
+public class Class extends Element implements Linkable, Functioning {
 
     private static final long serialVersionUID = -5450511036321846093L;
 
     static Logger LOGGER = LogManager.getLogger(Class.class.getName());
-    private final Set<Attribute> attributes = new HashSet<Attribute>();
-    private final Set<Method> methods = new HashSet<Method>();
+    private final Set<Attribute> attributes = new HashSet<>();
+    private final Set<Method> methods = new HashSet<>();
     private boolean isAbstract;
-    private final Set<Interface> implementedInterfaces = new HashSet<Interface>();
-    private final Set<Interface> requiredInterfaces = new HashSet<Interface>();
+    private final Set<Interface> implementedInterfaces = new HashSet<>();
+    private final Set<Interface> requiredInterfaces = new HashSet<>();
 
     private PatternsOperations patternsOperations;
     private RelationshipsHolder relationshipHolder;
@@ -54,64 +54,52 @@ public class Class extends Element {
     }
 
     public void matchImplementedInterface(Architecture architecture) {
-        if (implementedInterfaces == null)
+        matchInterfaces(architecture, implementedInterfaces);
+    }
+
+    static void matchInterfaces(Architecture architecture, Set<Interface> interfaces) {
+        if (interfaces == null)
             return;
-        if (implementedInterfaces.size() == 0)
+        if (interfaces.size() == 0)
             return;
-        ArrayList<String> id_list = new ArrayList<>();
-        for (Interface inter : implementedInterfaces) {
-            id_list.add(inter.getId());
+        ArrayList<String> listId = new ArrayList<>();
+        for (Interface inter : interfaces) {
+            listId.add(inter.getId());
         }
-        implementedInterfaces.clear();
-        for (String id : id_list) {
-            Interface interface_arch = architecture.findInterfaceById(id);
-            if (interface_arch != null) {
-                implementedInterfaces.add(interface_arch);
+        interfaces.clear();
+        for (String id : listId) {
+            Interface architectureInterfaceById = architecture.findInterfaceById(id);
+            if (architectureInterfaceById != null) {
+                interfaces.add(architectureInterfaceById);
             }
         }
     }
 
     public void matchRequiredInterface(Architecture architecture) {
-        if (requiredInterfaces == null)
-            return;
-        if (requiredInterfaces.size() == 0)
-            return;
-        ArrayList<String> id_list = new ArrayList<>();
-        for (Interface inter : requiredInterfaces) {
-            id_list.add(inter.getId());
-        }
-        requiredInterfaces.clear();
-        for (String id : id_list) {
-            Interface interface_arch = architecture.findInterfaceById(id);
-            if (interface_arch != null) {
-                requiredInterfaces.add(interface_arch);
-            }
-        }
+        matchInterfaces(architecture, requiredInterfaces);
     }
 
     public Attribute findAttributeById(String id) {
-
-        for (Attribute att : getAllAttributes())
-            if (att.getId().equalsIgnoreCase(id))
-                return att;
+        for (Attribute attribute : getAllAttributes())
+            if (attribute.getId().equalsIgnoreCase(id))
+                return attribute;
         return null;
     }
 
     public Method findMethodById(String id) {
-        for (Method m : getAllMethods()) {
-            if (m.getId().equalsIgnoreCase(id)) {
-                return m;
+        for (Method method : getAllMethods()) {
+            if (method.getId().equalsIgnoreCase(id)) {
+                return method;
             }
         }
-
         return null;
     }
 
     public void removeMethodByID(String id) {
         Set<Method> newHash = new HashSet<>();
-        for (Method m : this.methods) {
-            if (!m.getId().equals(id)) {
-                newHash.add(m);
+        for (Method method : this.methods) {
+            if (!method.getId().equals(id)) {
+                newHash.add(method);
             }
         }
         this.methods.clear();
@@ -120,9 +108,9 @@ public class Class extends Element {
 
     public void removeAttributeByID(String id) {
         Set<Attribute> newHash = new HashSet<>();
-        for (Attribute m : this.attributes) {
-            if (!m.getId().equals(id)) {
-                newHash.add(m);
+        for (Attribute attribute : this.attributes) {
+            if (!attribute.getId().equals(id)) {
+                newHash.add(attribute);
             }
         }
         this.attributes.clear();
@@ -130,11 +118,11 @@ public class Class extends Element {
     }
 
     public boolean hasGeneralization() {
-        for (Relationship r : this.getRelationships()) {
-            if (r instanceof GeneralizationRelationship) {
-                GeneralizationRelationship re1 = (GeneralizationRelationship) r;
-                if ((re1.getParent() != null) && (re1.getChild() != null)) {
-                    if (re1.getParent().getId().equals(this.getId())) {
+        for (Relationship relationship : this.getRelationships()) {
+            if (relationship instanceof GeneralizationRelationship) {
+                GeneralizationRelationship generalizationRelationship = (GeneralizationRelationship) relationship;
+                if ((generalizationRelationship.getParent() != null) && (generalizationRelationship.getChild() != null)) {
+                    if (generalizationRelationship.getParent().getId().equals(this.getId())) {
                         return true;
                     }
                 }
@@ -145,14 +133,14 @@ public class Class extends Element {
 
     public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
         String id = UtilResources.getRandomUUID();
-        Attribute a = new Attribute(name, visibility.toString(), type.getName(), ArchitectureHolder.getName() + "::"
+        Attribute attribute = new Attribute(name, visibility.toString(), type.getName(), ArchitectureHolder.getName() + "::"
                 + this.getName(), id);
-        addExternalAttribute(a);
-        return a;
+        addExternalAttribute(attribute);
+        return attribute;
     }
 
-    public void setAttribute(Attribute attr) {
-        this.attributes.add(attr);
+    public void setAttribute(Attribute attribute) {
+        this.attributes.add(attribute);
     }
 
     public Set<Attribute> getAllAttributes() {
@@ -175,50 +163,43 @@ public class Class extends Element {
         return Collections.unmodifiableSet(methods);
     }
 
-    public Attribute findAttributeByName(String name) throws AttributeNotFoundException {
-        String message = "atributo '" + name + "' não encontrado na classe '" + this.getName() + "'.\n";
+    public Set<Method> getModifiableMethods() {
+        return methods;
+    }
 
-        for (Attribute att : getAllAttributes())
-            if (name.equalsIgnoreCase(att.getName()))
-                return att;
+    public Attribute findAttributeByName(String name) throws AttributeNotFoundException {
+        String message = "Attribute '" + name + "' not found in the class '" + this.getName() + "'.\n";
+        for (Attribute attribute : getAllAttributes())
+            if (name.equalsIgnoreCase(attribute.getName()))
+                return attribute;
         LOGGER.info(message);
         throw new AttributeNotFoundException(message);
     }
 
-    public boolean moveAttributeToClass(Attribute attribute, Class destinationKlass) {
-        if (!destinationKlass.addExternalAttribute(attribute))
+    public boolean moveAttributeToClass(Attribute attribute, Class destinationClass) {
+        if (!destinationClass.addExternalAttribute(attribute))
             return false;
 
         if (!removeAttribute(attribute)) {
-            destinationKlass.removeAttribute(attribute);
+            destinationClass.removeAttribute(attribute);
             return false;
         }
-        attribute.setNamespace(ArchitectureHolder.getName() + "::" + destinationKlass.getName());
-        LOGGER.info("Moveu atributo: " + attribute.getName() + " de " + this.getName() + " para "
-                + destinationKlass.getName());
+        attribute.setNamespace(ArchitectureHolder.getName() + "::" + destinationClass.getName());
+        LOGGER.info("Moved attribute: " + attribute.getName() + " from " + this.getName() + " to "
+                + destinationClass.getName());
         return true;
     }
 
-    /**
-     * Move um método de uma classe para outra.
-     *
-     * @param method           - Método a ser movido
-     * @param destinationKlass - Classe que irá receber o método
-     * @return -false se o método a ser movido não existir na classe.<br/>
-     * -true se o método for movido com sucesso.
-     */
-    public boolean moveMethodToClass(Method method, Class destinationKlass) {
-        if (!destinationKlass.addExternalMethod(method))
+    public boolean moveMethodToClass(Method method, Class destinationClass) {
+        if (!destinationClass.addExternalMethod(method))
             return false;
-
         if (!removeMethod(method)) {
-            destinationKlass.removeMethod(method);
+            destinationClass.removeMethod(method);
             return false;
         }
-
-        method.setNamespace(ArchitectureHolder.getName() + "::" + destinationKlass.getName());
-        LOGGER.info("Moveu método: " + method.getName() + " de " + this.getName() + " para "
-                + destinationKlass.getName());
+        method.setNamespace(ArchitectureHolder.getName() + "::" + destinationClass.getName());
+        LOGGER.info("Moved method: " + method.getName() + " from " + this.getName() + " to "
+                + destinationClass.getName());
         return true;
     }
 
@@ -235,23 +216,20 @@ public class Class extends Element {
     }
 
     private boolean methodExistsOnClass(String name, String type) {
-        for (Method m : getAllMethods()) {
-            if ((name.equalsIgnoreCase(m.getName())) && (type.equalsIgnoreCase(m.getReturnType()))) {
-                LOGGER.info("Método '" + name + ":" + type + "' já existe na classe: '" + this.getName() + "'.\n");
+        for (Method method : getAllMethods()) {
+            if ((name.equalsIgnoreCase(method.getName())) && (type.equalsIgnoreCase(method.getReturnType()))) {
+                LOGGER.info("Method '" + name + ":" + type + "' already exists in the class: '" + this.getName() + "'.\n");
                 return true;
             }
         }
-
         return false;
     }
 
-    // TODO verificar metodos com mesmo nome e tipo diferente
     public Method findMethodByName(String name) throws MethodNotFoundException {
-        String message = "Método '" + name + "' não encontrado na classe '" + this.getName() + "'.\n";
-
-        for (Method m : getAllMethods())
-            if ((name.equalsIgnoreCase(m.getName())))
-                return m;
+        String message = "Method '" + name + "' not found in the class '" + this.getName() + "'.\n";
+        for (Method method : getAllMethods())
+            if ((name.equalsIgnoreCase(method.getName())))
+                return method;
 
         LOGGER.info(message);
         throw new MethodNotFoundException(message);
@@ -259,143 +237,97 @@ public class Class extends Element {
 
     public boolean addExternalMethod(Method method) {
         if (methods.add(method)) {
-            LOGGER.info("Metodo " + method.getName() + " adicionado na classe " + this.getName());
+            LOGGER.info("Method  " + method.getName() + " added in the class " + this.getName());
             return true;
         } else {
-            LOGGER.info("TENTOU remover o Método: " + method.getName() + " da classe: " + this.getName()
-                    + " porém não consegiu");
+            LOGGER.info("Tried to remove the method: " + method.getName() + " from class: " + this.getName() + " but couldn't");
             return false;
         }
 
     }
 
-    public boolean addExternalAttribute(Attribute a) {
-        if (this.attributes.add(a)) {
-            LOGGER.info("Atributo: " + a.getName() + " adicionado na classe: " + this.getName());
+    public boolean addExternalAttribute(Attribute attribute) {
+        if (this.attributes.add(attribute)) {
+            LOGGER.info("Attribute: " + attribute.getName() + " added in the class: " + this.getName());
             return true;
         } else {
-            LOGGER.info("TENTOU remover o Atributo: " + a.getName() + " da classe: " + this.getName()
-                    + " porém não consegiu");
+            LOGGER.info("Tried to remove the method: " + attribute.getName() + " from class: " + this.getName() + " but couldn't");
             return false;
         }
     }
 
-    /**
-     * Remove Método da classe
-     *
-     * @param method - Método a ser removido.
-     * @return -true se o método for removido.<br/>
-     * -false se método não existir na classe.
-     */
     public boolean removeMethod(Method method) {
         if (this.methods.remove(method)) {
-            LOGGER.info("Método: " + method.getName() + " removido da classe: " + this.getName());
+            LOGGER.info("Method: " + method.getName() + " removed of class: " + this.getName());
             return true;
         } else {
-            LOGGER.info("TENTOU remover o método: " + method.getName() + " classe: " + this.getName()
-                    + " porém não consegiu");
+            LOGGER.info("Tried to remove the method: " + method.getName() + " from class: " + this.getName()
+                    + " but couldn't");
             return false;
         }
     }
 
-    /**
-     * @param attribute
-     * @return
-     */
     public boolean removeAttribute(Attribute attribute) {
         if (this.attributes.remove(attribute)) {
-            LOGGER.info("Atributo: " + attribute.getName() + " removido da classe: " + this.getName());
+            LOGGER.info("Attribute: " + attribute.getName() + " removed from class: " + this.getName());
             return true;
         } else {
-            LOGGER.info("TENTOU remover o atributo: " + attribute.getName() + " classe: " + this.getName()
-                    + " porém não consegiu");
+            LOGGER.info("Tried to remove the attribute: " + attribute.getName() + " from class: " + this.getName()
+                    + " but couldn't");
             return false;
         }
     }
 
     public List<Method> getAllAbstractMethods() {
-        List<Method> abstractMethods = new ArrayList<Method>();
-
-        for (Method m : getAllMethods())
-            if (m.isAbstract())
-                abstractMethods.add(m);
-
+        List<Method> abstractMethods = new ArrayList<>();
+        for (Method method : getAllMethods())
+            if (method.isAbstract())
+                abstractMethods.add(method);
         return abstractMethods;
     }
 
-    // public boolean dontHaveAnyRelationship() {
-    //
-    // if(getRelationshipHolder().getRelationships().isEmpty()){
-    // return true;
-    // }else{
-    // return false;
-    // }
-    // }
 
     public void updateId(String id) {
         super.id = id;
-
     }
 
     public Object getAllStereotype() {
         return null;
     }
 
-    /**
-     * Retorna o tipo de variant (ex: alternative_OR).<br/>
-     * <p>
-     * Retorna null se não existir
-     *
-     * @return String (ex: alternative_OR).
-     */
     public String getVariantType() {
-        for (Variant v : VariantFlyweight.getInstance().getVariants()) {
-            if (v.getName().equalsIgnoreCase(this.getName()))
-                return v.getVariantType();
+        for (Variant variant : VariantFlyweight.getInstance().getVariants()) {
+            if (variant.getName().equalsIgnoreCase(this.getName()))
+                return variant.getVariantType();
         }
-
         return null;
     }
 
-    /**
-     * Retorna todo os interesses da classe, como "todos", entende-se:<br/>
-     * <ul>
-     * <li>Interesses anotados na classe</li>
-     * <li>Interesses anotados nos atributos e métodos da classe</li>
-     * <li>Interesses anotados nas interesses que a classe implementa</li>
-     * </ul>
-     *
-     * @return {@link Set} Imutável
-     */
     @Override
     public Set<Concern> getAllConcerns() {
-        Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());
-
+        Set<Concern> concerns = new HashSet<>(getOwnConcerns());
         for (Method method : getAllMethods())
             concerns.addAll(method.getAllConcerns());
         for (Attribute attribute : getAllAttributes())
             concerns.addAll(attribute.getAllConcerns());
-        for (Interface inte : this.getImplementedInterfaces())
-            concerns.addAll(inte.getAllConcerns());
-
+        for (Interface implementedInterface : this.getImplementedInterfaces())
+            concerns.addAll(implementedInterface.getAllConcerns());
         return Collections.unmodifiableSet(concerns);
     }
 
     public List<AssociationClassRelationship> getAllAssociationClass() {
-        List<AssociationClassRelationship> associationsClasses = new ArrayList<AssociationClassRelationship>();
-
-        for (Relationship r : getRelationshipHolder().getRelationships()) {
-            if (r instanceof AssociationClassRelationship) {
-                AssociationClassRelationship asc = (AssociationClassRelationship) r;
-                if (asc.getAssociationClass().equals(this))
-                    associationsClasses.add((AssociationClassRelationship) r);
-                for (MemberEnd member : asc.getMembersEnd()) {
+        List<AssociationClassRelationship> associationsClasses = new ArrayList<>();
+        for (Relationship relationship : getRelationshipHolder().getRelationships()) {
+            if (relationship instanceof AssociationClassRelationship) {
+                AssociationClassRelationship associationClassRelationship = (AssociationClassRelationship) relationship;
+                if (associationClassRelationship.getAssociationClass().equals(this))
+                    associationsClasses.add((AssociationClassRelationship) relationship);
+                for (MemberEnd member : associationClassRelationship.getMembersEnd()) {
                     if (member.getType().equals(this))
-                        associationsClasses.add((AssociationClassRelationship) r);
+                        associationsClasses.add((AssociationClassRelationship) relationship);
                 }
             }
         }
-
         return associationsClasses;
     }
 
@@ -468,13 +400,11 @@ public class Class extends Element {
     }
 
     public Set<Concern> getAllConcernsWithoutImplementedInterfaces() {
-        Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());
-
+        Set<Concern> concerns = new HashSet<>(getOwnConcerns());
         for (Method method : getAllMethods())
             concerns.addAll(method.getAllConcerns());
         for (Attribute attribute : getAllAttributes())
             concerns.addAll(attribute.getAllConcerns());
-
         return concerns;
     }
 
@@ -491,39 +421,35 @@ public class Class extends Element {
     }
 
     public List<Method> getAllModifiableAbstractMethods() {
-        List<Method> abstractMethods = new ArrayList<Method>();
-
-        for (Method m : getAllModifiableMethods())
-            if (m.isAbstract())
-                abstractMethods.add(m);
-
+        List<Method> abstractMethods = new ArrayList<>();
+        for (Method method : getAllModifiableMethods())
+            if (method.isAbstract())
+                abstractMethods.add(method);
         return abstractMethods;
     }
 
     public Set<Concern> getPriConcerns() {
-        Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns()); //titulo
-        for (Method method : getAllMethods()) { //para cada metodo da classe
-            for (Concern stereotype : method.getAllConcerns()) { //pra cada esteriotipo do metodo.
-                if (!listContainConcern(concerns, stereotype)) //verifica se o esteriotipo esta presente na lista, se nao estiver
-                    concerns.add(stereotype); //ele add na lista.
+        Set<Concern> concerns = new HashSet<>(getOwnConcerns());
+        for (Method method : getAllMethods()) {
+            for (Concern stereotype : method.getAllConcerns()) {
+                if (!listContainConcern(concerns, stereotype))
+                    concerns.add(stereotype);
             }
         }
-
-        for (Attribute attribute : getAllAttributes()) { //para cada atributo da classe
-            for (Concern stereotype : attribute.getAllConcerns()) { //pra cada esteriotipo do atributo.
-                if (!listContainConcern(concerns, stereotype)) //verifica se o esteriotipo esta presente na lista, se nao estiver
-                    concerns.add(stereotype);//ele add na lista.
+        for (Attribute attribute : getAllAttributes()) {
+            for (Concern stereotype : attribute.getAllConcerns()) {
+                if (!listContainConcern(concerns, stereotype))
+                    concerns.add(stereotype);
             }
         }
         return concerns;
     }
 
     public boolean listContainConcern(Set<Concern> listConcerns, Concern concern) {
-        for (Concern conc : listConcerns) {
-            if (conc.getName().equalsIgnoreCase(concern.getName()))
+        for (Concern concernFromList : listConcerns) {
+            if (concernFromList.getName().equalsIgnoreCase(concern.getName()))
                 return true;
         }
         return false;
     }
-
 }

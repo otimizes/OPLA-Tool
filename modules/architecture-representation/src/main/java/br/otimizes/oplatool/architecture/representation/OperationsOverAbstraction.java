@@ -1,7 +1,7 @@
 package br.otimizes.oplatool.architecture.representation;
 
-import br.otimizes.oplatool.architecture.representation.relationship.AbstractionRelationship;
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
+import br.otimizes.oplatool.architecture.representation.relationship.AbstractionRelationship;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -34,7 +34,6 @@ public class OperationsOverAbstraction {
         updateRelationship(abstractionRelationship, abstractionRelationship.getSupplier());
         abstractionRelationship.setSupplier(newSupplier);
         architecture.addRelationship(abstractionRelationship);
-
     }
 
     private void updateRelationship(AbstractionRelationship abstractionRelationship, Element element) {
@@ -55,10 +54,8 @@ public class OperationsOverAbstraction {
     public void move(AbstractionRelationship abstractionRelationship, Class newSupplier, Class newCliente) {
         updateRelationship(abstractionRelationship, abstractionRelationship.getSupplier());
         updateRelationship(abstractionRelationship, abstractionRelationship.getClient());
-
         abstractionRelationship.setSupplier(newSupplier);
         abstractionRelationship.setClient(newCliente);
-
         architecture.addRelationship(abstractionRelationship);
     }
 
@@ -69,5 +66,4 @@ public class OperationsOverAbstraction {
         this.architecture.addRelationship(abs);
         return abs;
     }
-
 }

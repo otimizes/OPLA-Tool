@@ -144,7 +144,7 @@ public class NSGAIIASP extends Algorithm {
             LOGGER.info("threashold Link Overload original: " + linkOverloadThrz); //print do threashold
 
             for (Solution inic : population.getSolutionSet()) {
-                ((Architecture) inic.getDecisionVariables()[0]).linkOverloadExists(linkOverloadThrz);
+                ((Architecture) inic.getDecisionVariables()[0]).verifyIfLinkOverloadAnomalyExists(linkOverloadThrz);
                 opla.evaluateLinkOverload(inic);
             }
 
@@ -167,7 +167,7 @@ public class NSGAIIASP extends Algorithm {
                                 if (isValidSolution((Architecture) offSpring.getDecisionVariables()[0])) {
 
                                     // Verificar a quantidade de violações link overload
-                                    ((Architecture) offSpring.getDecisionVariables()[0]).linkOverloadExists(linkOverloadThrz);
+                                    ((Architecture) offSpring.getDecisionVariables()[0]).verifyIfLinkOverloadAnomalyExists(linkOverloadThrz);
 
                                     problem_.evaluateConstraints(offSpring);
 
@@ -195,7 +195,7 @@ public class NSGAIIASP extends Algorithm {
                                     problem_.evaluateConstraints(offSpring[0]);
 
                                     // Verificar a quantidade de violações link overload
-                                    ((Architecture) offSpring[0].getDecisionVariables()[0]).linkOverloadExists(linkOverloadThrz);
+                                    ((Architecture) offSpring[0].getDecisionVariables()[0]).verifyIfLinkOverloadAnomalyExists(linkOverloadThrz);
                                     opla.evaluateLinkOverload(offSpring[0]);
                                     //problem_.evaluate(offSpring[0]);
                                     offspringPopulation.add(offSpring[0]);
@@ -213,7 +213,7 @@ public class NSGAIIASP extends Algorithm {
                                 if (isValidSolution((Architecture) offSpring[1].getDecisionVariables()[0])) {
                                     problem_.evaluateConstraints(offSpring[1]);
                                     // Verificar a quantidade de violações link overload
-                                    ((Architecture) offSpring[1].getDecisionVariables()[0]).linkOverloadExists(linkOverloadThrz);
+                                    ((Architecture) offSpring[1].getDecisionVariables()[0]).verifyIfLinkOverloadAnomalyExists(linkOverloadThrz);
                                     opla.evaluateLinkOverload(offSpring[1]);
                                     ///problem_.evaluate(offSpring[1]);
                                     offspringPopulation.add(offSpring[1]);

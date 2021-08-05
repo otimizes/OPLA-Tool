@@ -13,5 +13,4 @@ public class ArchitectureHolder {
     public static void setName(String n) {
         name = n;
     }
-
 }

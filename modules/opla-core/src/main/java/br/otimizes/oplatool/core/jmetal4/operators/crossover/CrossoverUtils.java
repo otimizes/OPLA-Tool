@@ -3,7 +3,6 @@ package br.otimizes.oplatool.core.jmetal4.operators.crossover;
 import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Package;
-import br.otimizes.oplatool.architecture.representation.architectureControl.ArchitectureFindElementControl;
 import br.otimizes.oplatool.architecture.representation.relationship.GeneralizationRelationship;
 import br.otimizes.oplatool.architecture.representation.relationship.Relationship;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
@@ -176,7 +175,7 @@ public class CrossoverUtils {
             while (iteratorOperations.hasNext()) {
                 Method operation = iteratorOperations.next();
                 if (operation.containsConcern(feature) && operation.getOwnConcerns().size() == 1)
-                    interfaceComp.removeOperation(operation);
+                    interfaceComp.removeMethod(operation);
             }
         }
     }
@@ -374,7 +373,7 @@ public class CrossoverUtils {
             for(Interface selectedInterface: allInterfacesFather){
                 for(Interface selectedInterfaceChild: allInterfacesChild){
                     for(Method method : selectedInterfaceChild.getMethods()) {
-                        selectedInterface.removeOperationByID(method.getId());
+                        selectedInterface.removeMethodByID(method.getId());
                     }
                 }
                 if(selectedInterface.getMethods() != null){
@@ -411,7 +410,7 @@ public class CrossoverUtils {
                         }
                     }else{
                         for(Method m : interfaceDiff.getMethods()){
-                            interfaceChild.addExternalOperation(m);
+                            interfaceChild.addExternalMethod(m);
                         }
                     }
                 }
@@ -686,7 +685,7 @@ public class CrossoverUtils {
                             Interface existInterface = child.findInterfaceById(lstClassInterfaceID.get(posReplic));
                             Method operation1 = null;
                             try {
-                                operation1 = existInterface.findOperationById(interfaceOperation.getId());
+                                operation1 = existInterface.findMethodById(interfaceOperation.getId());
                             } catch (Exception excp) {
                                 excp.printStackTrace();
                             }
@@ -702,7 +701,7 @@ public class CrossoverUtils {
                                     lstOperationRemove.add(interfaceOperation.getId());
                                 } else {
                                     if (countConcernEqualNew > countConcernEqualList) {
-                                        existInterface.removeOperationByID(interfaceOperation.getId());
+                                        existInterface.removeMethodByID(interfaceOperation.getId());
 
                                         lstClassInterfaceID.add(interfaceChild.getId());
                                         lstMethodAttributeOperationID.add(interfaceOperation.getId());
@@ -713,7 +712,7 @@ public class CrossoverUtils {
                                             lstOperationRemove.add(interfaceOperation.getId());
                                         } else {
                                             if (countDiffConcernsList > countDiffConcernsNew) {
-                                                existInterface.removeOperationByID(interfaceOperation.getId());
+                                                existInterface.removeMethodByID(interfaceOperation.getId());
 
                                                 lstClassInterfaceID.remove(posReplic);
                                                 lstMethodAttributeOperationID.remove(posReplic);
@@ -725,7 +724,7 @@ public class CrossoverUtils {
                                                 if (countNewElemRelatedWithConcern <= countCurrentElemRelatedWithConcern) {
                                                     lstOperationRemove.add(interfaceOperation.getId());
                                                 } else {
-                                                    existInterface.removeOperationByID(interfaceOperation.getId());
+                                                    existInterface.removeMethodByID(interfaceOperation.getId());
 
                                                     lstClassInterfaceID.remove(posReplic);
                                                     lstMethodAttributeOperationID.remove(posReplic);
@@ -744,7 +743,7 @@ public class CrossoverUtils {
                 }
 
                 for(String id_Element : lstOperationRemove){
-                    interfaceChild.removeOperationByID(id_Element);
+                    interfaceChild.removeMethodByID(id_Element);
                 }
             }
 

@@ -121,7 +121,7 @@ public class GenerateArchitecture extends ArchitectureBase {
         for (Attribute attribute : klass.getAllAttributes()) {
             br.otimizes.oplatool.architecture.papyrus.touml.Attribute attr = br.otimizes.oplatool.architecture.papyrus
                     .touml.Attribute.create().withName(attribute.getName())
-                    .getGraphics(attribute.isGeneratVisualAttribute()).withConcerns(attribute.getOwnConcerns())
+                    .getGraphics(attribute.isGenerateVisualAttribute()).withConcerns(attribute.getOwnConcerns())
                     .withVisibility(VisibilityKind.getByName(attribute.getVisibility()))
                     .withType(Types.getByName(attribute.getType()));
 
@@ -170,7 +170,7 @@ public class GenerateArchitecture extends ArchitectureBase {
             for (AssociationRelationship r : a.getRelationshipHolder().getAllCompositions())
                 generateComposition(op, r);
 
-            for (AssociationRelationship r : a.getRelationshipHolder().getAllAgragations())
+            for (AssociationRelationship r : a.getRelationshipHolder().getAllAggregations())
                 generateAggregation(op, r);
 
             for (GeneralizationRelationship g : a.getRelationshipHolder().getAllGeneralizations()) {
@@ -292,7 +292,7 @@ public class GenerateArchitecture extends ArchitectureBase {
             try {
                 String rootVp = getRootVariationPoint(a, variant);
                 Variant v = Variant.createVariant().withName(variant.getVariantName()).andRootVp(rootVp)
-                        .wihtVariabilities(variant.getVariabilities())
+                        .withVariabilities(variant.getVariabilities())
                         .withVariantType(variant.getVariantType()).build();
                 if (v != null) {
                     op.forClass().addStereotype(_interface.getId(), v);
@@ -345,7 +345,7 @@ public class GenerateArchitecture extends ArchitectureBase {
             try {
                 String rootVp = getRootVariationPoint(a, variant);
                 Variant v = Variant.createVariant().withName(variant.getVariantName()).andRootVp(rootVp)
-                        .wihtVariabilities(variant.getVariabilities())
+                        .withVariabilities(variant.getVariabilities())
                         .withVariantType(variant.getVariantType()).build();
                 if (v != null) {
                     op.forClass().addStereotype(klass.getId(), v);

@@ -589,12 +589,12 @@ public class MutationUtils {
     }
 
     public static Interface findOrCreateInterfaceWithConcernWithConcernName(Package targetComp, Concern concern, Interface origin) throws ConcernNotFoundException {
-        Set<Method> operations = origin.getModifiableOperations().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
+        Set<Method> operations = origin.getModifiableMethods().stream().filter(attr -> attr.getAllConcerns().contains(concern)).collect(Collectors.toSet());
 
         Interface targetClass = targetComp.createInterface(origin.getName() + concern.getName());
         for (Method method : operations) {
-            origin.removeOperation(method);
-            targetClass.addExternalOperation(method);
+            origin.removeMethod(method);
+            targetClass.addExternalMethod(method);
         }
         origin.removeConcern(concern.getName());
         targetClass.addConcern(concern.getName());
