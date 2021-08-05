@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 
 /**
  * This class save Requires relationship to file
- *
  */
 public class SaveRequiresSMarty {
 
@@ -23,52 +22,66 @@ public class SaveRequiresSMarty {
         return INSTANCE;
     }
 
-    /**
-     * This class save Requires relationship to file
-     *
-     * @param architecture - architecture to be decoded
-     * @param printWriter - used to save a string in file
-     * @param logPath - path to save log if has a error
-     */
-    public void Save(Architecture architecture, PrintWriter printWriter, String logPath) {
+    public void save(Architecture architecture, PrintWriter printWriter, String logPath) {
         String tab = "    ";
-        int id_rel = 1;
-        for (Relationship r : architecture.getRelationshipHolder().getAllRelationships()) {
-            if (r instanceof RequiresRelationship) {
-                RequiresRelationship dr = (RequiresRelationship) r;
-                Element e1 = architecture.findElementByNameInPackageAndSubPackage(dr.getClient().getName());
-                if (e1 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Requires " + dr.getId() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName());
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName() + " not found");
-                    continue;
-                }
-                Element e2 = architecture.findElementByNameInPackageAndSubPackage(dr.getSupplier().getName());
-                if (e2 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Requires " + dr.getId() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName() + " not found");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName());
-                    continue;
-                }
-                if (dr.getId().length() == 0) {
-                    boolean existID = true;
-                    while (existID) {
-                        existID = false;
-                        for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
-                            if (r2.getId().equals("REQUIRES#" + id_rel)) {
-                                id_rel++;
-                                existID = true;
-                                break;
-                            }
-                        }
-                    }
-                    dr.setId("REQUIRES#" + id_rel);
-                    id_rel++;
-                }
-                printWriter.write("\n" + tab + "<requires id=\"" + dr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");
+        int idRelationship = 1;
+        for (Relationship relationship : architecture.getRelationshipHolder().getAllRelationships()) {
+            if (relationship instanceof RequiresRelationship) {
+                RequiresRelationship requiresRelationship = (RequiresRelationship) relationship;
+                Element firstElement = getFirstElement(architecture, logPath, requiresRelationship);
+                if (firstElement == null) continue;
+                Element secondElement = getSecondElement(architecture, logPath, requiresRelationship);
+                if (secondElement == null) continue;
+                idRelationship = getIdRelationship(architecture, idRelationship, requiresRelationship);
+                printWriter.write("\n" + tab + "<requires id=\"" + requiresRelationship.getId() + "\" source=\""
+                        + firstElement.getId() + "\" target=\"" + secondElement.getId() + "\">");
                 printWriter.write("\n" + tab + "</requires>");
             }
         }
     }
 
+    private Element getFirstElement(Architecture architecture, String logPath, RequiresRelationship requiresRelationship) {
+        Element firstElement = architecture.findElementByNameInPackageAndSubPackage(requiresRelationship.getClient().getName());
+        if (firstElement == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Requires " + requiresRelationship.getId() + ":");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + requiresRelationship.getSupplier().getId()
+                    + " - " + requiresRelationship.getSupplier().getName());
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + requiresRelationship.getClient().getId()
+                    + " - " + requiresRelationship.getClient().getName() + " not found");
+            return null;
+        }
+        return firstElement;
+    }
+
+    private Element getSecondElement(Architecture architecture, String logPath, RequiresRelationship requiresRelationship) {
+        Element secondElement = architecture.findElementByNameInPackageAndSubPackage(requiresRelationship.getSupplier().getName());
+        if (secondElement == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Requires " + requiresRelationship.getId() + ":");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + requiresRelationship.getSupplier().getId()
+                    + " - " + requiresRelationship.getSupplier().getName() + " not found");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + requiresRelationship.getClient().getId()
+                    + " - " + requiresRelationship.getClient().getName());
+            return null;
+        }
+        return secondElement;
+    }
+
+    private int getIdRelationship(Architecture architecture, int idRelationship, RequiresRelationship requiresRelationship) {
+        if (requiresRelationship.getId().length() == 0) {
+            boolean existID = true;
+            while (existID) {
+                existID = false;
+                for (Relationship secondRelationship : architecture.getRelationshipHolder().getAllRelationships()) {
+                    if (secondRelationship.getId().equals("REQUIRES#" + idRelationship)) {
+                        idRelationship++;
+                        existID = true;
+                        break;
+                    }
+                }
+            }
+            requiresRelationship.setId("REQUIRES#" + idRelationship);
+            idRelationship++;
+        }
+        return idRelationship;
+    }
 }

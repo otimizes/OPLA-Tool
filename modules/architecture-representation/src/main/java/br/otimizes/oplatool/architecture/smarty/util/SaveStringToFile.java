@@ -25,43 +25,28 @@ public class SaveStringToFile {
         return INSTANCE;
     }
 
-    /**
-     * this method append a string in a file
-     *
-     * @param fileName - file to save
-     * @param str      - string to save
-     */
     public void appendStrToFile(String fileName, String str) {
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(fileName, true));
             out.write(str);
             out.close();
         } catch (IOException e) {
-            System.out.println("exception occoured" + e);
+            System.out.println("exception occurred" + e);
         }
     }
 
-    /**
-     * this method create a Log directory if not exists
-     */
     public void createLogDir() {
         String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "logs";
         File file = new File(directory);
         file.mkdir();
     }
 
-    /**
-     * this method create a TEMP directory if not exists
-     */
     public void createTempDir() {
         String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + FileConstants.TEMP_DIR;
         File file = new File(directory);
         file.mkdir();
     }
 
-    /**
-     * this method delete a TEMP directory and all of its content
-     */
     public void deleteTempFolder() {
         String directory = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + FileConstants.TEMP_DIR;
         File folder = new File(directory);
@@ -74,9 +59,6 @@ public class SaveStringToFile {
         folder.delete();
     }
 
-    /**
-     * this method delete a TEMP directory and all of its content
-     */
     public void moveProjectFinishPosteriori() {
         String fromDirectory = ApplicationFileConfigThreadScope.getDirectoryToExportModels();
         File fromFolder = new File(fromDirectory);
@@ -88,5 +70,4 @@ public class SaveStringToFile {
             e.printStackTrace();
         }
     }
-
 }

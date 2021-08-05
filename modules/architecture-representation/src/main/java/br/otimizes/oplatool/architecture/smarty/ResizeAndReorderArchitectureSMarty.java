@@ -25,7 +25,8 @@ public class ResizeAndReorderArchitectureSMarty {
      * Resize and reorder all elements of architecture
      * this class ensures that none of elements overlap other in the interface
      * first, resize all class and interface (includes elements inside of subpackages)
-     * reposition elements inside of subpackages (class, interface and subpackage - use recursive method to subpackage until not has package in subpackage)
+     * reposition elements inside of subpackages (class, interface and subpackage
+     * - use recursive method to subpackage until not has package in subpackage)
      * resize all of most external packages
      * reposition all external elements (class and interface without package and packages most external)
      * recalculate the global position of all architectural elements
@@ -40,11 +41,6 @@ public class ResizeAndReorderArchitectureSMarty {
         getGlobalPosElements(architecture);
     }
 
-    /**
-     * first, resize all class and interface (not includes elements inside of subpackages but includes elements in the external packages)
-     *
-     * @param architecture - input architecture
-     */
     private void resizeClassAndInterface(Architecture architecture) {
         for (Class clazz : architecture.getClasses()) {
             clazz.setHeight("" + ((clazz.getAllMethods().size() + clazz.getOwnConcerns().size() + clazz.getAllAttributes().size()) * 20 + 200));
@@ -454,19 +450,12 @@ public class ResizeAndReorderArchitectureSMarty {
      * @param architecture - input architecture
      */
     private void rePosExternalElements(Architecture architecture) {
-        int size;
         int div;
-        int x;
-        int y;
-        int nexty;
-        int posLista;
-
-        x = 40;
-        y = 40;
-        nexty = 40;
-        posLista = 0;
-
-        size = architecture.getAllPackages().size();
+        int x = 40;
+        int y = 40;
+        int nexty = 40;
+        int posLista = 0;
+        int size = architecture.getAllPackages().size();
         if (size == 1) {
             for (br.otimizes.oplatool.architecture.representation.Package clazz : architecture.getAllPackages()) {
                 clazz.setPosX("" + x);
@@ -504,7 +493,13 @@ public class ResizeAndReorderArchitectureSMarty {
                 posLista++;
             }
         }
+        nexty = setClassPositions(architecture, nexty);
+        setInterfacePositions(architecture, nexty);
+    }
 
+    private int setClassPositions(Architecture architecture, int nexty) {
+        int y;
+        int x;
         if (architecture.getClasses().size() > 0) {
             y = nexty + 40;
             x = 40;
@@ -518,6 +513,12 @@ public class ResizeAndReorderArchitectureSMarty {
                 }
             }
         }
+        return nexty;
+    }
+
+    private void setInterfacePositions(Architecture architecture, int nexty) {
+        int y;
+        int x;
         if (architecture.getInterfaces().size() > 0) {
             y = nexty + 40;
             x = 40;
@@ -553,14 +554,7 @@ public class ResizeAndReorderArchitectureSMarty {
             pkg.setGlobalPosY(pkg.getPosY());
             pkgPosX = Integer.parseInt(pkg.getPosX());
             pkgPosY = Integer.parseInt(pkg.getPosY());
-            for (Class clazz : pkg.getAllClasses()) {
-                clazz.setGlobalPosX("" + (Integer.parseInt(clazz.getPosX()) + pkgPosX));
-                clazz.setGlobalPosY("" + (Integer.parseInt(clazz.getPosY()) + pkgPosY));
-            }
-            for (Interface inter : pkg.getAllInterfaces()) {
-                inter.setGlobalPosX("" + (Integer.parseInt(inter.getPosX()) + pkgPosX));
-                inter.setGlobalPosY("" + (Integer.parseInt(inter.getPosY()) + pkgPosY));
-            }
+            setPositionsInPackage(pkgPosX, pkgPosY, pkg);
             getGlobalPosElementsSubPackage(pkg);
         }
     }
@@ -571,8 +565,8 @@ public class ResizeAndReorderArchitectureSMarty {
      * @param pkg - package that has subpackage
      */
     private void getGlobalPosElementsSubPackage(br.otimizes.oplatool.architecture.representation.Package pkg) {
-        int pkgPosX = 0;
-        int pkgPosY = 0;
+        int pkgPosX;
+        int pkgPosY;
         for (Package subPkg : pkg.getNestedPackages()) {
             pkgPosX = Integer.parseInt(pkg.getPosX());
             pkgPosY = Integer.parseInt(pkg.getPosY());
@@ -580,14 +574,18 @@ public class ResizeAndReorderArchitectureSMarty {
             subPkg.setGlobalPosY("" + (Integer.parseInt(subPkg.getPosY()) + pkgPosY));
             pkgPosX = Integer.parseInt(subPkg.getPosX()) + Integer.parseInt(pkg.getPosX());
             pkgPosY = Integer.parseInt(subPkg.getPosY()) + Integer.parseInt(pkg.getPosY());
-            for (Class clazz : subPkg.getAllClasses()) {
-                clazz.setGlobalPosX("" + (Integer.parseInt(clazz.getPosX()) + pkgPosX));
-                clazz.setGlobalPosY("" + (Integer.parseInt(clazz.getPosY()) + pkgPosY));
-            }
-            for (Interface inter : subPkg.getAllInterfaces()) {
-                inter.setGlobalPosX("" + (Integer.parseInt(inter.getPosX()) + pkgPosX));
-                inter.setGlobalPosY("" + (Integer.parseInt(inter.getPosY()) + pkgPosY));
-            }
+            setPositionsInPackage(pkgPosX, pkgPosY, subPkg);
+        }
+    }
+
+    private void setPositionsInPackage(int pkgPosX, int pkgPosY, Package subPkg) {
+        for (Class clazz : subPkg.getAllClasses()) {
+            clazz.setGlobalPosX("" + (Integer.parseInt(clazz.getPosX()) + pkgPosX));
+            clazz.setGlobalPosY("" + (Integer.parseInt(clazz.getPosY()) + pkgPosY));
+        }
+        for (Interface inter : subPkg.getAllInterfaces()) {
+            inter.setGlobalPosX("" + (Integer.parseInt(inter.getPosX()) + pkgPosX));
+            inter.setGlobalPosY("" + (Integer.parseInt(inter.getPosY()) + pkgPosY));
         }
     }
 

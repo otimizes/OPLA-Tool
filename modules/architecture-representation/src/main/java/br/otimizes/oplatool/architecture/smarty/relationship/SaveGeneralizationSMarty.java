@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 
 /**
  * This class save Generalization relationship to file
- *
  */
 public class SaveGeneralizationSMarty {
     public SaveGeneralizationSMarty() {
@@ -22,52 +21,66 @@ public class SaveGeneralizationSMarty {
         return INSTANCE;
     }
 
-    /**
-     * This class save Generalization relationship to file
-     *
-     * @param architecture - architecture to be decoded
-     * @param printWriter - used to save a string in file
-     * @param logPath - path to save log if has a error
-     */
     public void Save(Architecture architecture, PrintWriter printWriter, String logPath) {
         String tab = "    ";
-        int id_rel = 1;
-        for (Relationship r : architecture.getRelationshipHolder().getAllRelationships()) {
-            if (r instanceof GeneralizationRelationship) {
-                GeneralizationRelationship gr = (GeneralizationRelationship) r;
-                Element e1 = architecture.findElementByNameInPackageAndSubPackage(gr.getChild().getName());
-                if (e1 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Generealization " + gr.getId() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nParent: " + gr.getParent().getId() + " - " + gr.getParent().getName());
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nChild: " + gr.getChild().getId() + " - " + gr.getChild().getName() + " not found");
-                    continue;
-                }
-                Element e2 = architecture.findElementByNameInPackageAndSubPackage(gr.getParent().getName());
-                if (e2 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Genelarization " + gr.getId() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nParent: " + gr.getParent().getId() + " - " + gr.getParent().getName() + " not found");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nChild: " + gr.getChild().getId() + " - " + gr.getChild().getName());
-                    continue;
-                }
-                if (gr.getId().length() == 0) {
-                    boolean existID = true;
-                    while (existID) {
-                        existID = false;
-                        for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
-                            if (r2.getId().equals("GENERALIZATION#" + id_rel)) {
-                                id_rel++;
-                                existID = true;
-                                break;
-                            }
-                        }
-                    }
-                    gr.setId("GENERALIZATION#" + id_rel);
-                    id_rel++;
-                }
-                printWriter.write("\n" + tab + "<generalization id=\"" + gr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");
+        int idRelationship = 1;
+        for (Relationship relationship : architecture.getRelationshipHolder().getAllRelationships()) {
+            if (relationship instanceof GeneralizationRelationship) {
+                GeneralizationRelationship generalizationRelationship = (GeneralizationRelationship) relationship;
+                Element firstElement = getFirstElement(architecture, logPath, generalizationRelationship);
+                if (firstElement == null) continue;
+                Element secondElement = getSecondElement(architecture, logPath, generalizationRelationship);
+                if (secondElement == null) continue;
+                idRelationship = getIdRelationship(architecture, idRelationship, generalizationRelationship);
+                printWriter.write("\n" + tab + "<generalization id=\"" + generalizationRelationship.getId()
+                        + "\" source=\"" + firstElement.getId() + "\" target=\"" + secondElement.getId() + "\">");
                 printWriter.write("\n" + tab + "</generalization>");
             }
         }
     }
 
+    private Element getFirstElement(Architecture architecture, String logPath, GeneralizationRelationship generalizationRelationship) {
+        Element firstElement = architecture.findElementByNameInPackageAndSubPackage(generalizationRelationship.getChild().getName());
+        if (firstElement == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Generalization " + generalizationRelationship.getId() + ":");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nParent: "
+                    + generalizationRelationship.getParent().getId() + " - " + generalizationRelationship.getParent().getName());
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nChild: " + generalizationRelationship.getChild().getId()
+                    + " - " + generalizationRelationship.getChild().getName() + " not found");
+            return null;
+        }
+        return firstElement;
+    }
+
+    private Element getSecondElement(Architecture architecture, String logPath, GeneralizationRelationship generalizationRelationship) {
+        Element secondElement = architecture.findElementByNameInPackageAndSubPackage(generalizationRelationship.getParent().getName());
+        if (secondElement == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Generalization " + generalizationRelationship.getId() + ":");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nParent: " + generalizationRelationship.getParent().getId() + " - "
+                    + generalizationRelationship.getParent().getName() + " not found");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nChild: " + generalizationRelationship.getChild().getId() + " - "
+                    + generalizationRelationship.getChild().getName());
+            return null;
+        }
+        return secondElement;
+    }
+
+    private int getIdRelationship(Architecture architecture, int idRelationship, GeneralizationRelationship generalizationRelationship) {
+        if (generalizationRelationship.getId().length() == 0) {
+            boolean existID = true;
+            while (existID) {
+                existID = false;
+                for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
+                    if (r2.getId().equals("GENERALIZATION#" + idRelationship)) {
+                        idRelationship++;
+                        existID = true;
+                        break;
+                    }
+                }
+            }
+            generalizationRelationship.setId("GENERALIZATION#" + idRelationship);
+            idRelationship++;
+        }
+        return idRelationship;
+    }
 }

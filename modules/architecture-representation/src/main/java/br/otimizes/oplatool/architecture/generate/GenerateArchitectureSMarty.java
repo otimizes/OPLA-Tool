@@ -57,7 +57,7 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
             SavePackagesSMarty.getInstance().Save(architecture, printWriter);
             SaveClassSMarty.getInstance().Save(architecture, printWriter);
             SaveInterfaceSMarty.getInstance().Save(architecture, printWriter);
-            SaveRelationshipSMarty.getInstance().Save(architecture, printWriter, logPath);
+            SaveRelationshipSMarty.getInstance().save(architecture, printWriter, logPath);
             for (Package pkg : architecture.getAllPackages())
                 saveReference(pkg, printWriter);
             SaveVariabilitySMarty.getInstance().Save(architecture, printWriter, logPath);

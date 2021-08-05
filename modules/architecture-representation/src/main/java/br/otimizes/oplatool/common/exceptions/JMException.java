@@ -32,7 +32,7 @@ public class JMException extends Exception implements Serializable {
     /**
      * Constructor
      *
-     * @param Error message
+     * @param message error message
      */
     public JMException(String message) {
         super(message);

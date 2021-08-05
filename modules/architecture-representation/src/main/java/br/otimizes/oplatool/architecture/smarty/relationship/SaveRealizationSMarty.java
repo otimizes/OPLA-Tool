@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 
 /**
  * This class save Realization relationship to file
- *
  */
 public class SaveRealizationSMarty {
 
@@ -23,53 +22,65 @@ public class SaveRealizationSMarty {
         return INSTANCE;
     }
 
-    /**
-     * This class save Realization relationship to file
-     *
-     * @param architecture - architecture to be decoded
-     * @param printWriter - used to save a string in file
-     * @param logPath - path to save log if has a error
-     */
     public void Save(Architecture architecture, PrintWriter printWriter, String logPath) {
         String tab = "    ";
-        int id_rel = 1;
-        for (Relationship r : architecture.getRelationshipHolder().getAllRelationships()) {
-            if (r instanceof RealizationRelationship) {
-                RealizationRelationship rr = (RealizationRelationship) r;
-
-                Element e1 = architecture.findElementByNameInPackageAndSubPackage(rr.getSupplier().getName());
-                if (e1 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Realization " + rr.getId() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + rr.getClient().getId() + " - " + rr.getClient().getName());
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + rr.getSupplier().getId() + " - " + rr.getSupplier().getName() + " not found");
-                    continue;
-                }
-                Element e2 = architecture.findElementByNameInPackageAndSubPackage(rr.getClient().getName());
-                if (e2 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Realization " + rr.getId() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClint: " + rr.getClient().getId() + " - " + rr.getClient().getName() + " not found");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + rr.getSupplier().getId() + " - " + rr.getSupplier().getName());
-                    continue;
-                }
-                if (rr.getId().length() == 0) {
-                    boolean existID = true;
-                    while (existID) {
-                        existID = false;
-                        for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
-                            if (r2.getId().equals("REALIZATION#" + id_rel)) {
-                                id_rel++;
-                                existID = true;
-                                break;
-                            }
-                        }
-                    }
-                    rr.setId("REALIZATION#" + id_rel);
-                    id_rel++;
-                }
-                printWriter.write("\n" + tab + "<realization id=\"" + rr.getId() + "\" class=\"" + e2.getId() + "\" interface=\"" + e1.getId() + "\">");
+        int idRelationship = 1;
+        for (Relationship relationship : architecture.getRelationshipHolder().getAllRelationships()) {
+            if (relationship instanceof RealizationRelationship) {
+                RealizationRelationship realizationRelationship = (RealizationRelationship) relationship;
+                Element firstElement = getFirstElement(architecture, logPath, realizationRelationship);
+                if (firstElement == null) continue;
+                Element secondElement = getSecondElement(architecture, logPath, realizationRelationship);
+                if (secondElement == null) continue;
+                idRelationship = getIdRelationship(architecture, idRelationship, realizationRelationship);
+                printWriter.write("\n" + tab + "<realization id=\"" + realizationRelationship.getId() + "\" class=\"" + secondElement.getId() + "\" interface=\"" + firstElement.getId() + "\">");
                 printWriter.write("\n" + tab + "</realization>");
             }
         }
     }
 
+    private Element getFirstElement(Architecture architecture, String logPath, RealizationRelationship realizationRelationship) {
+        Element firstElement = architecture.findElementByNameInPackageAndSubPackage(realizationRelationship.getSupplier().getName());
+        if (firstElement == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Realization " + realizationRelationship.getId() + ":");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + realizationRelationship.getClient().getId()
+                    + " - " + realizationRelationship.getClient().getName());
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + realizationRelationship.getSupplier().getId()
+                    + " - " + realizationRelationship.getSupplier().getName() + " not found");
+            return null;
+        }
+        return firstElement;
+    }
+
+    private Element getSecondElement(Architecture architecture, String logPath, RealizationRelationship realizationRelationship) {
+        Element secondElement = architecture.findElementByNameInPackageAndSubPackage(realizationRelationship.getClient().getName());
+        if (secondElement == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Realization " + realizationRelationship.getId() + ":");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + realizationRelationship.getClient().getId()
+                    + " - " + realizationRelationship.getClient().getName() + " not found");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + realizationRelationship.getSupplier().getId()
+                    + " - " + realizationRelationship.getSupplier().getName());
+            return null;
+        }
+        return secondElement;
+    }
+
+    private int getIdRelationship(Architecture architecture, int idRelationship, RealizationRelationship realizationRelationship) {
+        if (realizationRelationship.getId().length() == 0) {
+            boolean existID = true;
+            while (existID) {
+                existID = false;
+                for (Relationship secondRelationship : architecture.getRelationshipHolder().getAllRelationships()) {
+                    if (secondRelationship.getId().equals("REALIZATION#" + idRelationship)) {
+                        idRelationship++;
+                        existID = true;
+                        break;
+                    }
+                }
+            }
+            realizationRelationship.setId("REALIZATION#" + idRelationship);
+            idRelationship++;
+        }
+        return idRelationship;
+    }
 }

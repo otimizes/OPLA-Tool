@@ -292,7 +292,7 @@ public class GenerateArchitecture extends ArchitectureBase {
             try {
                 String rootVp = getRootVariationPoint(a, variant);
                 Variant v = Variant.createVariant().withName(variant.getVariantName()).andRootVp(rootVp)
-                        .wihtVariabilities(variant.getVariabilities())
+                        .withVariabilities(variant.getVariabilities())
                         .withVariantType(variant.getVariantType()).build();
                 if (v != null) {
                     op.forClass().addStereotype(_interface.getId(), v);
@@ -345,7 +345,7 @@ public class GenerateArchitecture extends ArchitectureBase {
             try {
                 String rootVp = getRootVariationPoint(a, variant);
                 Variant v = Variant.createVariant().withName(variant.getVariantName()).andRootVp(rootVp)
-                        .wihtVariabilities(variant.getVariabilities())
+                        .withVariabilities(variant.getVariabilities())
                         .withVariantType(variant.getVariantType()).build();
                 if (v != null) {
                     op.forClass().addStereotype(klass.getId(), v);
