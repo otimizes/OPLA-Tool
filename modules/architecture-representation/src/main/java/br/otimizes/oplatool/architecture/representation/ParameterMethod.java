@@ -12,17 +12,11 @@ public class ParameterMethod {
     private String type;
     private String direction;
 
-    /**
-     * @param name      - Name
-     * @param type      - Tipo (ex: String)
-     * @param direction - in ou out. In = entrada, out = saida
-     */
     public ParameterMethod(String name, String type, String direction) {
         this.name = name;
         this.type = type;
         this.direction = direction;
     }
-
 
     public String getName() {
         return name;
@@ -39,7 +33,6 @@ public class ParameterMethod {
     public void setType(String type) {
         this.type = type;
     }
-
 
     public String getDirection() {
         return direction;
@@ -70,6 +63,4 @@ public class ParameterMethod {
             return other.name == null;
         } else return name.equals(other.name);
     }
-
-
 }

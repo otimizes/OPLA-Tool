@@ -170,7 +170,7 @@ public class GenerateArchitecture extends ArchitectureBase {
             for (AssociationRelationship r : a.getRelationshipHolder().getAllCompositions())
                 generateComposition(op, r);
 
-            for (AssociationRelationship r : a.getRelationshipHolder().getAllAgragations())
+            for (AssociationRelationship r : a.getRelationshipHolder().getAllAggregations())
                 generateAggregation(op, r);
 
             for (GeneralizationRelationship g : a.getRelationshipHolder().getAllGeneralizations()) {

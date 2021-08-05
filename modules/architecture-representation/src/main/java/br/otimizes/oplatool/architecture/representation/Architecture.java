@@ -858,7 +858,7 @@ public class Architecture extends Variable {
                 .append(", qtdFreezedElements: ").append(freezedElements.size())
                 .append(", \nfreezedElements: ").append(freezedElements.stream().map(s -> s.getName() + ":" + s.getTypeElement())
                 .collect(Collectors.toList()))
-                .append(", \nqtdAggregation: ").append(getRelationshipHolder().getAllAgragations().size())
+                .append(", \nqtdAggregation: ").append(getRelationshipHolder().getAllAggregations().size())
                 .append(", \ngetAllCompositions: ").append(getRelationshipHolder().getAllCompositions().size())
                 .append(", \ngetAllDependencies: ")
                 .append(getRelationshipHolder().getAllDependencies().size())

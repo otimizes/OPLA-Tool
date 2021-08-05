@@ -6,6 +6,7 @@ package br.otimizes.oplatool.architecture.representation;
  * @author edipofederle
  */
 public enum Patterns {
+
     MEDIATOR("mediator"),
     STRATEGY("strategy"),
     FACADE("facade"),
@@ -21,5 +22,4 @@ public enum Patterns {
     public String getName() {
         return patternName;
     }
-
 }
