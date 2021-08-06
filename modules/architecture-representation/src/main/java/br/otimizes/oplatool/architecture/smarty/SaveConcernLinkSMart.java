@@ -1,6 +1,5 @@
 package br.otimizes.oplatool.architecture.smarty;
 
-import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Package;
 import br.otimizes.oplatool.architecture.representation.*;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 
 /**
  * This class save the relation with concern and element to file
- *
  */
 public class SaveConcernLinkSMart {
 
@@ -26,8 +24,9 @@ public class SaveConcernLinkSMart {
     /**
      * This class save the relation with concern and element of architecture
      * This function verify stereotypes of variability and normal stereotypes of element
+     *
      * @param architecture - architecture to be decoded
-     * @param printWriter - used to save a string in file
+     * @param printWriter  - used to save a string in file
      */
     public void Save(Architecture architecture, PrintWriter printWriter) {
         String halfTab = "  ";
@@ -48,94 +47,19 @@ public class SaveConcernLinkSMart {
             }
         }
         for (br.otimizes.oplatool.architecture.representation.Class clazz : architecture.getClasses()) {
-            String concernID = "";
-            if (!variantStereotype.contains(clazz.getId()) && !variantStereotype.contains(clazz.getId())) {
-                if (clazz.isMandatory())
-                    printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#1\"/>");
-                else
-                    printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#2\"/>");
-            }
-            for (Concern c : clazz.getOwnConcerns()) {
-                concernID = architecture.findConcernByName(c.getName()).getId();
-                printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"" + concernID + "\"/>");
-            }
-            for (Method m : clazz.getAllMethods()) {
-                for (Concern c : m.getOwnConcerns()) {
-                    concernID = architecture.findConcernByName(c.getName()).getId();
-                    printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                }
-            }
-            for (Attribute m : clazz.getAllAttributes()) {
-                for (Concern c : m.getOwnConcerns()) {
-                    concernID = architecture.findConcernByName(c.getName()).getId();
-                    printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                }
-            }
+            linkClass(printWriter, architecture, variantStereotype, tab, clazz);
         }
         for (Interface clazz : architecture.getInterfaces()) {
-            String concernID = "";
-            if (clazz.isMandatory())
-                printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#1\"/>");
-            else
-                printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#2\"/>");
-            for (Concern c : clazz.getOwnConcerns()) {
-                concernID = architecture.findConcernByName(c.getName()).getId();
-                printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"" + concernID + "\"/>");
-            }
-            for (Method m : clazz.getMethods()) {
-                for (Concern c : m.getOwnConcerns()) {
-                    concernID = architecture.findConcernByName(c.getName()).getId();
-                    printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                }
-            }
+            linkInterface(printWriter, architecture, tab, clazz);
         }
         for (br.otimizes.oplatool.architecture.representation.Package pkg : architecture.getAllPackages()) {
             for (Concern c : pkg.getConcernsOnlyFromElementWithoutMethodOrAttribute()) {
                 printWriter.write("\n" + tab + "<link element=\"" + pkg.getId() + "\" stereotype=\"" + c.getId() + "\"/>");
             }
-            String concernID = "";
             for (br.otimizes.oplatool.architecture.representation.Class clazz : pkg.getAllClasses()) {
-                if (!variantStereotype.contains(clazz.getId()) && !variantStereotype.contains(clazz.getId())) {
-                    if (clazz.isMandatory())
-                        printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#1\"/>");
-                    else
-                        printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#2\"/>");
-                }
-                for (Concern c : clazz.getOwnConcerns()) {
-                    concernID = architecture.findConcernByName(c.getName()).getId();
-                    printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                }
-                for (Method m : clazz.getAllMethods()) {
-                    for (Concern c : m.getOwnConcerns()) {
-                        concernID = architecture.findConcernByName(c.getName()).getId();
-                        printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                    }
-                }
-                for (Attribute m : clazz.getAllAttributes()) {
-                    for (Concern c : m.getOwnConcerns()) {
-                        concernID = architecture.findConcernByName(c.getName()).getId();
-                        printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                    }
-                }
+                linkClass(printWriter, architecture, variantStereotype, tab, clazz);
             }
-            for (Interface clazz : pkg.getAllInterfaces()) {
-                if (clazz.isMandatory())
-                    printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#1\"/>");
-                else
-                    printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#2\"/>");
-
-                for (Concern c : clazz.getOwnConcerns()) {
-                    concernID = architecture.findConcernByName(c.getName()).getId();
-                    printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                }
-                for (Method m : clazz.getMethods()) {
-                    for (Concern c : m.getOwnConcerns()) {
-                        concernID = architecture.findConcernByName(c.getName()).getId();
-                        printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                    }
-                }
-            }
-            saveSubPackageLink(pkg, printWriter, architecture, variantStereotype);
+            addInterfaces(printWriter, architecture, variantStereotype, tab, pkg);
         }
         ArrayList<String> variationPointStereotype = new ArrayList<>();
         variantStereotype = new ArrayList<>();
@@ -173,14 +97,7 @@ public class SaveConcernLinkSMart {
 
     }
 
-    /**
-     * this function get the list of discarded variability to not be used to save concern
-     * discarded variability will be ignored
-     *
-     * @param architecture
-     * @return discardedVariability - ArrayList that contain the id of discarded variability
-     */
-    public ArrayList<String> getDiscardedVariability(Architecture architecture){
+    public ArrayList<String> getDiscardedVariability(Architecture architecture) {
         ArrayList<String> discardedVariability = new ArrayList<>();
         for (Variability variability : architecture.getAllVariabilities()) {
             VariationPoint vp = variability.getVariationPoint();
@@ -204,13 +121,6 @@ public class SaveConcernLinkSMart {
         return discardedVariability;
     }
 
-    /**
-     * this method will save recursively all concern of elements in subpackages
-     * @param pkg
-     * @param printWriter
-     * @param architecture
-     * @param variantStereotype
-     */
     private void saveSubPackageLink(br.otimizes.oplatool.architecture.representation.Package pkg, PrintWriter printWriter, Architecture architecture, ArrayList<String> variantStereotype) {
         String tab = "    ";
         String concernID = "";
@@ -220,49 +130,61 @@ public class SaveConcernLinkSMart {
                 printWriter.write("\n" + tab + "t<link element=\"" + subPkg.getId() + "\" stereotype=\"" + concernID + "\"/>");
             }
             for (Class clazz : subPkg.getAllClasses()) {
-                if (!variantStereotype.contains(clazz.getId()) && !variantStereotype.contains(clazz.getId())) {
-                    if (clazz.isMandatory())
-                        printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#1\"/>");
-                    else
-                        printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#2\"/>");
-                }
-                for (Concern c : clazz.getOwnConcerns()) {
-                    concernID = architecture.findConcernByName(c.getName()).getId();
-                    printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                }
-                for (Method m : clazz.getAllMethods()) {
-                    for (Concern c : m.getOwnConcerns()) {
-                        concernID = architecture.findConcernByName(c.getName()).getId();
-                        printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                    }
-                }
-                for (Attribute m : clazz.getAllAttributes()) {
-                    for (Concern c : m.getOwnConcerns()) {
-                        concernID = architecture.findConcernByName(c.getName()).getId();
-                        printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                    }
-                }
+                linkClass(printWriter, architecture, variantStereotype, tab, clazz);
             }
-            for (Interface inter : subPkg.getAllInterfaces()) {
-                if (inter.isMandatory())
-                    printWriter.write("\n" + tab + "<link element=\"" + inter.getId() + "\" stereotype=\"STEREOTYPE#1\"/>");
-                else
-                    printWriter.write("\n" + tab + "<link element=\"" + inter.getId() + "\" stereotype=\"STEREOTYPE#2\"/>");
-
-                for (Concern c : inter.getOwnConcerns()) {
-                    concernID = architecture.findConcernByName(c.getName()).getId();
-                    printWriter.write("\n" + tab + "<link element=\"" + inter.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                }
-                for (Method m : inter.getMethods()) {
-                    for (Concern c : m.getOwnConcerns()) {
-                        concernID = architecture.findConcernByName(c.getName()).getId();
-                        printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
-                    }
-                }
-            }
-            saveSubPackageLink(subPkg, printWriter, architecture, variantStereotype);
+            addInterfaces(printWriter, architecture, variantStereotype, tab, subPkg);
         }
     }
 
+    private void linkClass(PrintWriter printWriter, Architecture architecture, ArrayList<String> variantStereotype, String tab, Class clazz) {
+        String concernID;
+        if (!variantStereotype.contains(clazz.getId()) && !variantStereotype.contains(clazz.getId())) {
+            if (clazz.isMandatory())
+                printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#1\"/>");
+            else
+                printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"STEREOTYPE#2\"/>");
+        }
+        for (Concern c : clazz.getOwnConcerns()) {
+            concernID = architecture.findConcernByName(c.getName()).getId();
+            printWriter.write("\n" + tab + "<link element=\"" + clazz.getId() + "\" stereotype=\"" + concernID + "\"/>");
+        }
+        for (Method m : clazz.getAllMethods()) {
+            for (Concern c : m.getOwnConcerns()) {
+                concernID = architecture.findConcernByName(c.getName()).getId();
+                printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
+            }
+        }
+        for (Attribute m : clazz.getAllAttributes()) {
+            for (Concern c : m.getOwnConcerns()) {
+                concernID = architecture.findConcernByName(c.getName()).getId();
+                printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
+            }
+        }
+    }
 
+    private void addInterfaces(PrintWriter printWriter, Architecture architecture, ArrayList<String> variantStereotype, String tab, Package subPkg) {
+        for (Interface inter : subPkg.getAllInterfaces()) {
+            linkInterface(printWriter, architecture, tab, inter);
+        }
+        saveSubPackageLink(subPkg, printWriter, architecture, variantStereotype);
+    }
+
+    private void linkInterface(PrintWriter printWriter, Architecture architecture, String tab, Interface inter) {
+        String concernID;
+        if (inter.isMandatory())
+            printWriter.write("\n" + tab + "<link element=\"" + inter.getId() + "\" stereotype=\"STEREOTYPE#1\"/>");
+        else
+            printWriter.write("\n" + tab + "<link element=\"" + inter.getId() + "\" stereotype=\"STEREOTYPE#2\"/>");
+
+        for (Concern c : inter.getOwnConcerns()) {
+            concernID = architecture.findConcernByName(c.getName()).getId();
+            printWriter.write("\n" + tab + "<link element=\"" + inter.getId() + "\" stereotype=\"" + concernID + "\"/>");
+        }
+        for (Method m : inter.getMethods()) {
+            for (Concern c : m.getOwnConcerns()) {
+                concernID = architecture.findConcernByName(c.getName()).getId();
+                printWriter.write("\n" + tab + "<link element=\"" + m.getId() + "\" stereotype=\"" + concernID + "\"/>");
+            }
+        }
+    }
 }

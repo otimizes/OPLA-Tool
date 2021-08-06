@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 
 /**
  * This class save all variability to file
- *
  */
 public class SaveVariabilitySMarty {
     public SaveVariabilitySMarty() {
@@ -26,8 +25,8 @@ public class SaveVariabilitySMarty {
      * This class save variability to file
      *
      * @param architecture - architecture to be decoded
-     * @param printWriter - used to save a string in file
-     * @param logPath - path to save log if has a error
+     * @param printWriter  - used to save a string in file
+     * @param logPath      - path to save log if has a error
      */
     public void Save(Architecture architecture, PrintWriter printWriter, String logPath) {
         String halfTab = "  ";
@@ -38,47 +37,31 @@ public class SaveVariabilitySMarty {
             VariationPoint vp = variability.getVariationPoint();
             if (vp == null) {
                 SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Variability " + variability.getId() + " - " + variability.getName() + ":");
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point is NULL");
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariability optional will be converted to concern optional");
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariability mandatory will be converted to concern mandatory");
-                continue;
-            }
-            if (vp.getVariationPointElement() == null) {
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Variability " + variability.getId() + " - " + variability.getName() + ":");
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point is NULL");
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariability optional will be converted to concern optional");
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariability mandatory will be converted to concern mandatory");
-                continue;
-            }
-            if (architecture.findElementById(vp.getVariationPointElement().getId()) == null) {
-
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Variability " + variability.getId() + " - " + variability.getName() + ":");
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point: " + vp.getVariationPointElement().getId() + " - " + vp.getVariationPointElement().getName());
-                for (Variant v : variability.getVariants()) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariant: " + v.getVariantElement().getId() + " - " + v.getVariantElement().getName());
-                }
-                SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point " + vp.getVariationPointElement().getId() + " - " + vp.getVariationPointElement().getName() + " not found");
-
-                continue;
-            }
-            boolean discart = false;
-            for (Variant v : variability.getVariants()) {
-                if (architecture.findElementById(v.getVariantElement().getId()) == null) {
-                    discart = true;
+                logType(logPath, variability);
+            } else {
+                if (vp.getVariationPointElement() == null) {
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Variability " + variability.getId() + " - " + variability.getName() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point: " + vp.getVariationPointElement().getId() + " - " + vp.getVariationPointElement().getName());
-                    for (Variant v2 : variability.getVariants()) {
-                        SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariant: " + v2.getVariantElement().getId() + " - " + v2.getVariantElement().getName());
-                    }
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariant " + v.getVariantElement().getId() + " - " + v.getVariantElement().getName() + " not found");
+                    logType(logPath, variability);
+                    continue;
                 }
-            }
-            if (discart) {
-                continue;
+                if (architecture.findElementById(vp.getVariationPointElement().getId()) == null) {
+
+                    logDiscarded(logPath, variability, vp);
+                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point " + vp.getVariationPointElement().getId() + " - " + vp.getVariationPointElement().getName() + " not found");
+
+                    continue;
+                }
+                boolean discart = false;
+                for (Variant v : variability.getVariants()) {
+                    if (architecture.findElementById(v.getVariantElement().getId()) == null) {
+                        discart = true;
+                        logDiscarded(logPath, variability, vp);
+                        SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariant " + v.getVariantElement().getId() + " - " + v.getVariantElement().getName() + " not found");
+                    }
+                }
+                if (discart) {
+                    continue;
+                }
             }
             if (variability.constraint == null) {
                 for (Variant variant : variability.getVariants()) {
@@ -109,11 +92,27 @@ public class SaveVariabilitySMarty {
         }
     }
 
+    private void logType(String logPath, Variability variability) {
+        SaveStringToFile.getInstance().appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
+        SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point is NULL");
+        SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariability optional will be converted to concern optional");
+        SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariability mandatory will be converted to concern mandatory");
+    }
+
+    private void logDiscarded(String logPath, Variability variability, VariationPoint vp) {
+        SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Variability " + variability.getId() + " - " + variability.getName() + ":");
+        SaveStringToFile.getInstance().appendStrToFile(logPath, "\nType: " + variability.getVariants().get(0).getVariantType() + ", Binding Time: " + variability.getBindingTime() + ", Allow Binding Var:" + variability.allowAddingVar());
+        SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariation Point: " + vp.getVariationPointElement().getId() + " - " + vp.getVariationPointElement().getName());
+        for (Variant v2 : variability.getVariants()) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nVariant: " + v2.getVariantElement().getId() + " - " + v2.getVariantElement().getName());
+        }
+    }
+
     /**
      * Verify if exist variability with the specific id
      *
      * @param architecture - architecture to be decoded
-     * @param id - new id to be compared
+     * @param id           - new id to be compared
      * @return boolean true if exist, else false
      */
     private boolean variabilityIDExist(Architecture architecture, String id) {
@@ -125,5 +124,4 @@ public class SaveVariabilitySMarty {
         }
         return false;
     }
-
 }

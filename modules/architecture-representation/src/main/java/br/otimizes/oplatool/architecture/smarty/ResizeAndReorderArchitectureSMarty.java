@@ -1,10 +1,8 @@
 package br.otimizes.oplatool.architecture.smarty;
 
-import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
-import br.otimizes.oplatool.architecture.representation.Interface;
-import br.otimizes.oplatool.architecture.representation.Method;
 import br.otimizes.oplatool.architecture.representation.Package;
+import br.otimizes.oplatool.architecture.representation.*;
 
 /**
  * Resize and reorder all elements of architecture
@@ -44,47 +42,35 @@ public class ResizeAndReorderArchitectureSMarty {
     private void resizeClassAndInterface(Architecture architecture) {
         for (Class clazz : architecture.getClasses()) {
             clazz.setHeight("" + ((clazz.getAllMethods().size() + clazz.getOwnConcerns().size() + clazz.getAllAttributes().size()) * 20 + 200));
-            int width = 400;
-            for (Method m1 : clazz.getAllMethods()) {
-                if (width < (400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size()))) {
-                    width = 400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size());
-                }
-            }
-            clazz.setWidth("" + width);
+            setWidthOnClass(clazz);
         }
         for (Interface clazz : architecture.getInterfaces()) {
             clazz.setHeight("" + ((clazz.getMethods().size() + clazz.getOwnConcerns().size()) * 20 + 200));
-            int width = 400;
-            for (Method m1 : clazz.getMethods()) {
-                if (width < (400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size()))) {
-                    width = 400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size());
-                }
-            }
-            clazz.setWidth("" + width);
+            setWidthOnInterface(clazz);
         }
         for (br.otimizes.oplatool.architecture.representation.Package pkg : architecture.getAllPackages()) {
-            for (Class clazz : pkg.getAllClasses()) {
-                clazz.setHeight("" + ((clazz.getAllMethods().size() + clazz.getOwnConcerns().size() + clazz.getAllAttributes().size()) * 20 + 100));
-                int width = 400;
-                for (Method m1 : clazz.getAllMethods()) {
-                    if (width < (400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size()))) {
-                        width = 400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size());
-                    }
-                }
-                clazz.setWidth("" + width);
-            }
-            for (Interface clazz : pkg.getAllInterfaces()) {
-                clazz.setHeight("" + ((clazz.getMethods().size() + clazz.getOwnConcerns().size()) * 20 + 100));
-                int width = 400;
-                for (Method m1 : clazz.getMethods()) {
-                    if (width < (400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size()))) {
-                        width = 400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size());
-                    }
-                }
-                clazz.setWidth("" + width);
-            }
-            reSizeClassAndInterfaceInSubPackage(pkg);
+            setClassesSize(pkg);
         }
+    }
+
+    private void setWidthOnInterface(Interface clazz) {
+        int width = 400;
+        for (Method method : clazz.getMethods()) {
+            if (width < (400 + (100 * method.getOwnConcerns().size()) + (100 * method.getParameters().size()))) {
+                width = 400 + (100 * method.getOwnConcerns().size()) + (100 * method.getParameters().size());
+            }
+        }
+        clazz.setWidth("" + width);
+    }
+
+    private void setWidthOnClass(Class clazz) {
+        int width = 400;
+        for (Method method : clazz.getAllMethods()) {
+            if (width < (400 + (100 * method.getOwnConcerns().size()) + (100 * method.getParameters().size()))) {
+                width = 400 + (100 * method.getOwnConcerns().size()) + (100 * method.getParameters().size());
+            }
+        }
+        clazz.setWidth("" + width);
     }
 
     /**
@@ -97,28 +83,20 @@ public class ResizeAndReorderArchitectureSMarty {
      */
     private void reSizeClassAndInterfaceInSubPackage(br.otimizes.oplatool.architecture.representation.Package pkg) {
         for (br.otimizes.oplatool.architecture.representation.Package subPkg : pkg.getNestedPackages()) {
-            for (Class clazz : subPkg.getAllClasses()) {
-                clazz.setHeight("" + ((clazz.getAllMethods().size() + clazz.getOwnConcerns().size() + clazz.getAllAttributes().size()) * 20 + 100));
-                int width = 400;
-                for (Method m1 : clazz.getAllMethods()) {
-                    if (width < (400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size()))) {
-                        width = 400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size());
-                    }
-                }
-                clazz.setWidth("" + width);
-            }
-            for (Interface inter : subPkg.getAllInterfaces()) {
-                inter.setHeight("" + ((inter.getMethods().size() + inter.getOwnConcerns().size()) * 20 + 100));
-                int width = 400;
-                for (Method m1 : inter.getMethods()) {
-                    if (width < (400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size()))) {
-                        width = 400 + (100 * m1.getOwnConcerns().size()) + (100 * m1.getParameters().size());
-                    }
-                }
-                inter.setWidth("" + width);
-            }
-            reSizeClassAndInterfaceInSubPackage(subPkg);
+            setClassesSize(subPkg);
         }
+    }
+
+    private void setClassesSize(Package subPkg) {
+        for (Class clazz : subPkg.getAllClasses()) {
+            clazz.setHeight("" + ((clazz.getAllMethods().size() + clazz.getOwnConcerns().size() + clazz.getAllAttributes().size()) * 20 + 100));
+            setWidthOnClass(clazz);
+        }
+        for (Interface inter : subPkg.getAllInterfaces()) {
+            inter.setHeight("" + ((inter.getMethods().size() + inter.getOwnConcerns().size()) * 20 + 100));
+            setWidthOnInterface(inter);
+        }
+        reSizeClassAndInterfaceInSubPackage(subPkg);
     }
 
     /**
@@ -128,109 +106,107 @@ public class ResizeAndReorderArchitectureSMarty {
      * @param architecture - input architecture
      */
     private void rePosElementsInsideOfPackages(Architecture architecture) {
-        int sizeC;
-        int sizeI;
-        int sizeP;
-        int size;
-        int div;
-        int x;
-        int y;
-        int nexty;
-        int posList;
         for (br.otimizes.oplatool.architecture.representation.Package pkg : architecture.getAllPackages()) {
-            x = 40;
-            y = 60;
-            nexty = 60;
-            posList = 0;
-            sizeP = pkg.getNestedPackages().size();
-            sizeC = pkg.getAllClasses().size();
-            sizeI = pkg.getAllInterfaces().size();
-            size = sizeP + sizeC + sizeI;
+            int x = 40;
+            int y = 60;
+            int nextY = 60;
+            int posList = 0;
+            int sizeP = pkg.getNestedPackages().size();
+            int sizeC = pkg.getAllClasses().size();
+            int sizeI = pkg.getAllInterfaces().size();
+            int size = sizeP + sizeC + sizeI;
             resizeSubPackage(pkg);
-            if (size == 1) {
-                for (br.otimizes.oplatool.architecture.representation.Package pkx : pkg.getNestedPackages()) {
-                    pkx.setPosX("40");
-                    pkx.setPosY("60");
-                }
-                for (Class clazz : pkg.getAllClasses()) {
-                    clazz.setPosX("40");
-                    clazz.setPosY("60");
-                }
-                for (Interface clazz : pkg.getAllInterfaces()) {
-                    clazz.setPosX("40");
-                    clazz.setPosY("60");
-                }
-            }
-            if (size == 2) {
-                for (br.otimizes.oplatool.architecture.representation.Package pkx : pkg.getNestedPackages()) {
-                    pkx.setPosX("" + x);
-                    pkx.setPosY("" + y);
-                    x = x + Integer.parseInt(pkx.getWidth()) + 40;
-                }
-                for (Class clazz : pkg.getAllClasses()) {
-                    clazz.setPosX("" + x);
-                    clazz.setPosY("" + y);
-                    x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                }
-                for (Interface clazz : pkg.getAllInterfaces()) {
-                    clazz.setPosX("" + x);
-                    clazz.setPosY("" + y);
-                    x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                }
-            }
+            x = getX(size, x, y, pkg);
             if (size > 2) {
-                div = (int) Math.ceil(Math.sqrt(size));
-
-                for (br.otimizes.oplatool.architecture.representation.Package subP : pkg.getNestedPackages()) {
-                    if (posList != 0) {
-                        if ((posList % div) == 0) {
-                            x = 40;
-                            y = nexty + 40;
-                        }
-                    }
-                    subP.setPosX("" + x);
-                    subP.setPosY("" + y);
-                    x = x + Integer.parseInt(subP.getWidth()) + 40;
-                    if (nexty < y + Integer.parseInt(subP.getHeight())) {
-                        nexty = y + Integer.parseInt(subP.getHeight());
-                    }
-                    posList++;
-                }
-
-                for (Class clazz : pkg.getAllClasses()) {
-                    if (posList != 0) {
-                        if ((posList % div) == 0) {
-                            x = 40;
-                            y = nexty + 40;
-                        }
-                    }
-                    clazz.setPosX("" + x);
-                    clazz.setPosY("" + y);
-                    x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                    if (nexty < y + Integer.parseInt(clazz.getHeight())) {
-                        nexty = y + Integer.parseInt(clazz.getHeight());
-                    }
-                    posList++;
-                }
-                for (Interface clazz : pkg.getAllInterfaces()) {
-                    if (posList != 0) {
-                        if ((posList % div) == 0) {
-                            x = 40;
-                            y = nexty + 40;
-                        }
-                    }
-                    clazz.setPosX("" + x);
-                    clazz.setPosY("" + y);
-                    x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                    if (nexty < y + Integer.parseInt(clazz.getHeight())) {
-                        nexty = y + Integer.parseInt(clazz.getHeight());
-                    }
-                    posList++;
-                }
+                int div = (int) Math.ceil(Math.sqrt(size));
+                setElementPositions(div, x, y, nextY, posList, pkg);
             }
         }
     }
 
+    private void setElementPositions(int div, int x, int y, int nexty, int posList, Package pkg) {
+        for (Package subP : pkg.getNestedPackages()) {
+            if (posList != 0) {
+                if ((posList % div) == 0) {
+                    x = 40;
+                    y = nexty + 40;
+                }
+            }
+            subP.setPosX("" + x);
+            subP.setPosY("" + y);
+            x = x + Integer.parseInt(subP.getWidth()) + 40;
+            if (nexty < y + Integer.parseInt(subP.getHeight())) {
+                nexty = y + Integer.parseInt(subP.getHeight());
+            }
+            posList++;
+        }
+
+        for (Class clazz : pkg.getAllClasses()) {
+            if (posList != 0) {
+                if ((posList % div) == 0) {
+                    x = 40;
+                    y = nexty + 40;
+                }
+            }
+            clazz.setPosX("" + x);
+            clazz.setPosY("" + y);
+            x = x + Integer.parseInt(clazz.getWidth()) + 40;
+            if (nexty < y + Integer.parseInt(clazz.getHeight())) {
+                nexty = y + Integer.parseInt(clazz.getHeight());
+            }
+            posList++;
+        }
+        for (Interface clazz : pkg.getAllInterfaces()) {
+            if (posList != 0) {
+                if ((posList % div) == 0) {
+                    x = 40;
+                    y = nexty + 40;
+                }
+            }
+            clazz.setPosX("" + x);
+            clazz.setPosY("" + y);
+            x = x + Integer.parseInt(clazz.getWidth()) + 40;
+            if (nexty < y + Integer.parseInt(clazz.getHeight())) {
+                nexty = y + Integer.parseInt(clazz.getHeight());
+            }
+            posList++;
+        }
+    }
+
+    private int getX(int size, int x, int y, Package pkg) {
+        if (size == 1) {
+            for (Package pkx : pkg.getNestedPackages()) {
+                pkx.setPosX("40");
+                pkx.setPosY("60");
+            }
+            for (Class clazz : pkg.getAllClasses()) {
+                clazz.setPosX("40");
+                clazz.setPosY("60");
+            }
+            for (Interface clazz : pkg.getAllInterfaces()) {
+                clazz.setPosX("40");
+                clazz.setPosY("60");
+            }
+        }
+        if (size == 2) {
+            for (Package pkx : pkg.getNestedPackages()) {
+                pkx.setPosX("" + x);
+                pkx.setPosY("" + y);
+                x = x + Integer.parseInt(pkx.getWidth()) + 40;
+            }
+            for (Class clazz : pkg.getAllClasses()) {
+                clazz.setPosX("" + x);
+                clazz.setPosY("" + y);
+                x = x + Integer.parseInt(clazz.getWidth()) + 40;
+            }
+            for (Interface clazz : pkg.getAllInterfaces()) {
+                clazz.setPosX("" + x);
+                clazz.setPosY("" + y);
+                x = x + Integer.parseInt(clazz.getWidth()) + 40;
+            }
+        }
+        return x;
+    }
 
 
     /**
@@ -256,24 +232,14 @@ public class ResizeAndReorderArchitectureSMarty {
             }
             pkg.setHeight("" + height);
             int width = 300;
-            for (Class clazz : pkg.getAllClasses()) {
-                if (width < (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20)) {
-                    width = (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20);
-                }
-            }
-            for (Interface clazz : pkg.getAllInterfaces()) {
-                if (width < (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20)) {
-                    width = (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20);
-                }
-            }
-            pkg.setWidth("" + width);
+            setWidthInElements(pkg, width);
         } else {
-            for (br.otimizes.oplatool.architecture.representation.Package pkg1 : pkg.getNestedPackages()) {
-                resizeSubPackage(pkg1);
+            for (br.otimizes.oplatool.architecture.representation.Package otherPackage : pkg.getNestedPackages()) {
+                resizeSubPackage(otherPackage);
             }
             int x = 40;
             int y = 60;
-            int nexty = 60;
+            int nextY = 60;
             int posList = 0;
 
             int sizeP = pkg.getNestedPackages().size();
@@ -281,86 +247,11 @@ public class ResizeAndReorderArchitectureSMarty {
             int sizeI = pkg.getAllInterfaces().size();
             int size = sizeP + sizeC + sizeI;
 
-            if (size == 1) {
-                for (br.otimizes.oplatool.architecture.representation.Package pkx : pkg.getNestedPackages()) {
-                    pkx.setPosX("40");
-                    pkx.setPosY("60");
-                }
-                for (Class clazz : pkg.getAllClasses()) {
-                    clazz.setPosX("40");
-                    clazz.setPosY("60");
-                }
-                for (Interface clazz : pkg.getAllInterfaces()) {
-                    clazz.setPosX("40");
-                    clazz.setPosY("60");
-                }
-            }
-            if (size == 2) {
-                for (br.otimizes.oplatool.architecture.representation.Package pkx : pkg.getNestedPackages()) {
-                    pkx.setPosX("" + x);
-                    pkx.setPosY("" + y);
-                    x = x + Integer.parseInt(pkx.getWidth()) + 40;
-                }
-                for (Class clazz : pkg.getAllClasses()) {
-                    clazz.setPosX("" + x);
-                    clazz.setPosY("" + y);
-                    x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                }
-                for (Interface clazz : pkg.getAllInterfaces()) {
-                    clazz.setPosX("" + x);
-                    clazz.setPosY("" + y);
-                    x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                }
-            }
+            x = getX(size, x, y, pkg);
             if (size > 2) {
                 int div = (int) Math.ceil(Math.sqrt(size));
 
-                for (br.otimizes.oplatool.architecture.representation.Package subP : pkg.getNestedPackages()) {
-                    if (posList != 0) {
-                        if ((posList % div) == 0) {
-                            x = 40;
-                            y = nexty + 40;
-                        }
-                    }
-                    subP.setPosX("" + x);
-                    subP.setPosY("" + y);
-                    x = x + Integer.parseInt(subP.getWidth()) + 40;
-                    if (nexty < y + Integer.parseInt(subP.getHeight())) {
-                        nexty = y + Integer.parseInt(subP.getHeight());
-                    }
-                    posList++;
-                }
-
-                for (Class clazz : pkg.getAllClasses()) {
-                    if (posList != 0) {
-                        if ((posList % div) == 0) {
-                            x = 40;
-                            y = nexty + 40;
-                        }
-                    }
-                    clazz.setPosX("" + x);
-                    clazz.setPosY("" + y);
-                    x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                    if (nexty < y + Integer.parseInt(clazz.getHeight())) {
-                        nexty = y + Integer.parseInt(clazz.getHeight());
-                    }
-                    posList++;
-                }
-                for (Interface clazz : pkg.getAllInterfaces()) {
-                    if (posList != 0) {
-                        if ((posList % div) == 0) {
-                            x = 40;
-                            y = nexty + 40;
-                        }
-                    }
-                    clazz.setPosX("" + x);
-                    clazz.setPosY("" + y);
-                    x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                    if (nexty < y + Integer.parseInt(clazz.getHeight())) {
-                        nexty = y + Integer.parseInt(clazz.getHeight());
-                    }
-                    posList++;
-                }
+                setElementPositions(div, x, y, nextY, posList, pkg);
             }
             int height = 300;
             for (br.otimizes.oplatool.architecture.representation.Package pkx : pkg.getNestedPackages()) {
@@ -368,35 +259,43 @@ public class ResizeAndReorderArchitectureSMarty {
                     height = (Integer.parseInt(pkx.getPosY()) + Integer.parseInt(pkx.getHeight()) + 20);
                 }
             }
-            for (Class clazz : pkg.getAllClasses()) {
-                if (height < (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20)) {
-                    height = (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20);
-                }
-            }
-            for (Interface clazz : pkg.getAllInterfaces()) {
-                if (height < (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20)) {
-                    height = (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20);
-                }
-            }
-            pkg.setHeight("" + height);
-            int width = 300;
-            for (br.otimizes.oplatool.architecture.representation.Package pkx : pkg.getNestedPackages()) {
-                if (width < (Integer.parseInt(pkx.getPosX()) + Integer.parseInt(pkx.getWidth()) + 20)) {
-                    width = (Integer.parseInt(pkx.getPosX()) + Integer.parseInt(pkx.getWidth()) + 20);
-                }
-            }
-            for (Class clazz : pkg.getAllClasses()) {
-                if (width < (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20)) {
-                    width = (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20);
-                }
-            }
-            for (Interface clazz : pkg.getAllInterfaces()) {
-                if (width < (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20)) {
-                    width = (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20);
-                }
-            }
-            pkg.setWidth("" + width);
+            setHeightInElementsOnPackage(pkg, height);
         }
+    }
+
+    private void setWidthInElements(Package pkg, int width) {
+        for (Class clazz : pkg.getAllClasses()) {
+            if (width < (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20)) {
+                width = (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20);
+            }
+        }
+        for (Interface clazz : pkg.getAllInterfaces()) {
+            if (width < (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20)) {
+                width = (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20);
+            }
+        }
+        pkg.setWidth("" + width);
+    }
+
+    private void setHeightInElementsOnPackage(Package pkg, int height) {
+        for (Class clazz : pkg.getAllClasses()) {
+            if (height < (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20)) {
+                height = (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20);
+            }
+        }
+        for (Interface clazz : pkg.getAllInterfaces()) {
+            if (height < (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20)) {
+                height = (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20);
+            }
+        }
+        pkg.setHeight("" + height);
+        int width = 300;
+        for (Package pkx : pkg.getNestedPackages()) {
+            if (width < (Integer.parseInt(pkx.getPosX()) + Integer.parseInt(pkx.getWidth()) + 20)) {
+                width = (Integer.parseInt(pkx.getPosX()) + Integer.parseInt(pkx.getWidth()) + 20);
+            }
+        }
+        setWidthInElements(pkg, width);
     }
 
 
@@ -413,34 +312,7 @@ public class ResizeAndReorderArchitectureSMarty {
                     height = (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20);
                 }
             }
-            for (Class clazz : pkg.getAllClasses()) {
-                if (height < (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20)) {
-                    height = (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20);
-                }
-            }
-            for (Interface clazz : pkg.getAllInterfaces()) {
-                if (height < (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20)) {
-                    height = (Integer.parseInt(clazz.getPosY()) + Integer.parseInt(clazz.getHeight()) + 20);
-                }
-            }
-            pkg.setHeight("" + height);
-            int width = 300;
-            for (br.otimizes.oplatool.architecture.representation.Package clazz : pkg.getNestedPackages()) {
-                if (width < (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20)) {
-                    width = (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20);
-                }
-            }
-            for (Class clazz : pkg.getAllClasses()) {
-                if (width < (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20)) {
-                    width = (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20);
-                }
-            }
-            for (Interface clazz : pkg.getAllInterfaces()) {
-                if (width < (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20)) {
-                    width = (Integer.parseInt(clazz.getPosX()) + Integer.parseInt(clazz.getWidth()) + 20);
-                }
-            }
-            pkg.setWidth("" + width);
+            setHeightInElementsOnPackage(pkg, height);
         }
     }
 
@@ -453,15 +325,15 @@ public class ResizeAndReorderArchitectureSMarty {
         int div;
         int x = 40;
         int y = 40;
-        int nexty = 40;
-        int posLista = 0;
+        int nextY = 40;
+        int positionOnList = 0;
         int size = architecture.getAllPackages().size();
         if (size == 1) {
             for (br.otimizes.oplatool.architecture.representation.Package clazz : architecture.getAllPackages()) {
                 clazz.setPosX("" + x);
                 clazz.setPosY("" + y);
-                if (nexty < y + Integer.parseInt(clazz.getHeight())) {
-                    nexty = y + Integer.parseInt(clazz.getHeight());
+                if (nextY < y + Integer.parseInt(clazz.getHeight())) {
+                    nextY = y + Integer.parseInt(clazz.getHeight());
                 }
             }
         }
@@ -470,41 +342,38 @@ public class ResizeAndReorderArchitectureSMarty {
                 clazz.setPosX("" + x);
                 clazz.setPosY("" + y);
                 x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                if (nexty < y + Integer.parseInt(clazz.getHeight())) {
-                    nexty = y + Integer.parseInt(clazz.getHeight());
+                if (nextY < y + Integer.parseInt(clazz.getHeight())) {
+                    nextY = y + Integer.parseInt(clazz.getHeight());
                 }
             }
         }
         if (size > 2) {
             div = (int) Math.ceil(Math.sqrt(size));
             for (br.otimizes.oplatool.architecture.representation.Package clazz : architecture.getAllPackages()) {
-                if (posLista != 0) {
-                    if ((posLista % div) == 0) {
+                if (positionOnList != 0) {
+                    if ((positionOnList % div) == 0) {
                         x = 40;
-                        y = nexty + 40;
+                        y = nextY + 40;
                     }
                 }
                 clazz.setPosX("" + x);
                 clazz.setPosY("" + y);
                 x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                if (nexty < y + Integer.parseInt(clazz.getHeight())) {
-                    nexty = y + Integer.parseInt(clazz.getHeight());
+                if (nextY < y + Integer.parseInt(clazz.getHeight())) {
+                    nextY = y + Integer.parseInt(clazz.getHeight());
                 }
-                posLista++;
+                positionOnList++;
             }
         }
-        nexty = setClassPositions(architecture, nexty);
-        setInterfacePositions(architecture, nexty);
+        nextY = setClassPositions(architecture, nextY);
+        setInterfacePositions(architecture, nextY);
     }
 
     private int setClassPositions(Architecture architecture, int nexty) {
-        int y;
-        int x;
         if (architecture.getClasses().size() > 0) {
-            y = nexty + 40;
-            x = 40;
+            int y = nexty + 40;
+            int x = 40;
             for (Class clazz : architecture.getClasses()) {
-
                 clazz.setPosX("" + x);
                 clazz.setPosY("" + y);
                 x = x + Integer.parseInt(clazz.getWidth()) + 40;
@@ -517,11 +386,9 @@ public class ResizeAndReorderArchitectureSMarty {
     }
 
     private void setInterfacePositions(Architecture architecture, int nexty) {
-        int y;
-        int x;
         if (architecture.getInterfaces().size() > 0) {
-            y = nexty + 40;
-            x = 40;
+            int y = nexty + 40;
+            int x = 40;
             for (Interface inter : architecture.getInterfaces()) {
                 inter.setPosX("" + x);
                 inter.setPosY("" + y);
@@ -547,13 +414,11 @@ public class ResizeAndReorderArchitectureSMarty {
             inter.setGlobalPosX(inter.getPosX());
             inter.setGlobalPosY(inter.getPosY());
         }
-        int pkgPosX = 0;
-        int pkgPosY = 0;
         for (br.otimizes.oplatool.architecture.representation.Package pkg : architecture.getAllPackages()) {
             pkg.setGlobalPosX(pkg.getPosX());
             pkg.setGlobalPosY(pkg.getPosY());
-            pkgPosX = Integer.parseInt(pkg.getPosX());
-            pkgPosY = Integer.parseInt(pkg.getPosY());
+            int pkgPosX = Integer.parseInt(pkg.getPosX());
+            int pkgPosY = Integer.parseInt(pkg.getPosY());
             setPositionsInPackage(pkgPosX, pkgPosY, pkg);
             getGlobalPosElementsSubPackage(pkg);
         }

@@ -50,33 +50,15 @@ public class VerifyMandatoryOptionalVariability {
             }
         }
         for (Package pkg : architecture.getAllPackages()) {
-            for (Class clazz : pkg.getAllClasses()) {
-                if (clazz.getVariant() != null) {
-                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
-                        clazz.setMandatory(true);
-                    }
-                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
-                        clazz.setMandatory(false);
-                    }
-                }
-            }
-            for (Interface clazz : pkg.getAllInterfaces()) {
-                if (clazz.getVariant() != null) {
-                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
-                        clazz.setMandatory(true);
-                    }
-                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
-                        clazz.setMandatory(false);
-                    }
-                }
-            }
-            for (Package p : pkg.getNestedPackages()) {
-                verifyMandatorySubPackage(p);
-            }
+            setVariantInElements(pkg);
         }
     }
 
     public void verifyMandatorySubPackage(Package pkg) {
+        setVariantInElements(pkg);
+    }
+
+    private void setVariantInElements(Package pkg) {
         for (Class clazz : pkg.getAllClasses()) {
             if (clazz.getVariant() != null) {
                 if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
@@ -101,5 +83,4 @@ public class VerifyMandatoryOptionalVariability {
             verifyMandatorySubPackage(p);
         }
     }
-
 }

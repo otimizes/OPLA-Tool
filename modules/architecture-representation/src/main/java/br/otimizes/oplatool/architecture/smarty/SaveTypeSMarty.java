@@ -37,40 +37,40 @@ public class SaveTypeSMarty {
         if (architecture.getTypes().size() == 0) {
             GenerateTypeSMarty.getInstance().generate(architecture);
         }
-        ArrayList<TypeSmarty> adicionedType = new ArrayList<>();
+        ArrayList<TypeSmarty> addedType = new ArrayList<>();
         for (TypeSmarty ts : architecture.getTypes()) {
             if (ts.isStandard()) {
                 printWriter.write("\n" + tab + "<type id=\"" + ts.getId() + "\" path=\"" + ts.getPath() + "\" name=\"" + ts.getName() + "\" value=\"" + ts.getValue() + "\" primitive=\"" + ts.isPrimitive() + "\" standard=\"" + ts.isStandard() + "\"/>");
-                adicionedType.add(ts);
+                addedType.add(ts);
             } else {
                 if (architecture.findElementById(ts.getId()) != null) {
                     printWriter.write("\n" + tab + "<type id=\"" + ts.getId() + "\" path=\"" + ts.getPath() + "\" name=\"" + ts.getName() + "\" value=\"" + ts.getValue() + "\" primitive=\"" + ts.isPrimitive() + "\" standard=\"" + ts.isStandard() + "\"/>");
-                    adicionedType.add(ts);
+                    addedType.add(ts);
                 }
             }
         }
         for (Class clazz : architecture.getClasses()) {
-            if (!typeSmartyExist(adicionedType, clazz.getId())) {
+            if (!typeSmartyExist(addedType, clazz.getId())) {
                 printWriter.write("\n" + tab + "<type id=\"" + clazz.getId() + "\" path=\"" + clazz.getName() + "\" name=\"" + clazz.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
             }
         }
         for (Interface clazz : architecture.getInterfaces()) {
-            if (!typeSmartyExist(adicionedType, clazz.getId())) {
+            if (!typeSmartyExist(addedType, clazz.getId())) {
                 printWriter.write("\n" + tab + "<type id=\"" + clazz.getId() + "\" path=\"" + clazz.getName() + "\" name=\"" + clazz.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
             }
         }
         for (br.otimizes.oplatool.architecture.representation.Package pkg : architecture.getAllPackages()) {
             for (Class clazz : pkg.getAllClasses()) {
-                if (!typeSmartyExist(adicionedType, clazz.getId())) {
+                if (!typeSmartyExist(addedType, clazz.getId())) {
                     printWriter.write("\n" + tab + "<type id=\"" + clazz.getId() + "\" path=\"" + clazz.getName() + "\" name=\"" + clazz.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
                 }
             }
             for (Interface clazz : pkg.getAllInterfaces()) {
-                if (!typeSmartyExist(adicionedType, clazz.getId())) {
+                if (!typeSmartyExist(addedType, clazz.getId())) {
                     printWriter.write("\n" + tab + "<type id=\"" + clazz.getId() + "\" path=\"" + clazz.getName() + "\" name=\"" + clazz.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
                 }
             }
-            saveTypeSubPackage(pkg, adicionedType, printWriter);
+            saveTypeSubPackage(pkg, addedType, printWriter);
         }
         printWriter.write("\n" + halfTab + "</types>");
     }
