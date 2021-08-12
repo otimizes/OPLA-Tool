@@ -1,12 +1,17 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
                       http://maven.apache.org/xsd/settings-1.0.0.xsd">
 	<servers>
 		<server>
 			<id>github-aczavads</id>
 			<username>aczavads</username>
 			<password>&#103;hp_UCNd6V79slT1jAkTuVjvFhzfwKbhcc33ptmY</password>
+		</server>
+		<server>
+			<id>otimizes-uem</id>
+			<username>otimizes-uem</username>
+			<password>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</password>
 		</server>
 	</servers>
 </settings>
