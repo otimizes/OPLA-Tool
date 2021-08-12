@@ -13,6 +13,7 @@ import br.otimizes.oplatool.architecture.representation.relationship.*;
 import br.otimizes.oplatool.common.Variable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rits.cloning.Cloner;
+import com.sun.org.apache.xpath.internal.operations.Variable;
 import org.apache.log4j.Logger;
 
 import java.util.*;
