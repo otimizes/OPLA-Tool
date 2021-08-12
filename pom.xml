@@ -333,6 +333,7 @@
                 <artifactId>javax.mail</artifactId>
                 <version>1.6.2</version>
             </dependency>
+
             <dependency>
                 <groupId>org.uma.jmetal</groupId>
                 <artifactId>jmetal-core</artifactId>
@@ -353,28 +354,6 @@
                 <artifactId>jmetal-problem</artifactId>
                 <version>5.10</version>
             </dependency>
-            <dependency>
-                <groupId>org.uma.jmetal</groupId>
-                <artifactId>jmetal-auto</artifactId>
-                <version>5.10</version>
-            </dependency>
-            <dependency>
-                <groupId>org.uma.jmetal</groupId>
-                <artifactId>jmetal-lab</artifactId>
-                <version>5.10</version>
-            </dependency>
-            <dependency>
-                <groupId>org.uma.jmetal</groupId>
-                <artifactId>jmetal-exec</artifactId>
-                <version>5.10</version>
-            </dependency>
-            <dependency>
-                <groupId>org.uma.jmetal</groupId>
-                <artifactId>jmetal-example</artifactId>
-                <version>5.10</version>
-            </dependency>
-
-
         </dependencies>
     </dependencyManagement>
 
@@ -404,17 +383,17 @@
             </releases>
         </repository>
 
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/otimizes/repo</url>
-            <name>Github-repository</name>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
+<!--        <repository>-->
+<!--            <id>github</id>-->
+<!--            <url>https://maven.pkg.github.com/otimizes/repo</url>-->
+<!--            <name>Github-repository</name>-->
+<!--            <snapshots>-->
+<!--                <enabled>false</enabled>-->
+<!--            </snapshots>-->
+<!--            <releases>-->
+<!--                <enabled>true</enabled>-->
+<!--            </releases>-->
+<!--        </repository>-->
 
         <repository>
             <id>jitpack.io</id>
