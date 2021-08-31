@@ -1,8 +1,8 @@
 package br.otimizes.oplatool.core.jmetal4.core;
 
-import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Package;
+import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.Configuration;
 import br.otimizes.oplatool.common.exceptions.JMException;
@@ -18,7 +18,6 @@ import br.ufpr.dinf.gres.loglog.LogLog;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
 
 import java.io.*;
 import java.util.*;
@@ -47,7 +46,7 @@ public class OPLASolutionSet {
     /**
      * Copies the objectives and Elements Number of the solution set to a matrix
      * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
-     * nrAbstractions, nrAgragations, nrAssociations, nrCompositions, nrDependencies, nrGeneralizations, nrRealizations, nrUsage
+     * nrAbstractions, nrAggregation, nrAssociations, nrCompositions, nrDependencies, nrGeneralizations, nrRealizations, nrUsage
      *
      * @return matrix containing the objectives
      */
@@ -56,7 +55,7 @@ public class OPLASolutionSet {
         for (int i = 0; i < doubles.length; i++) {
             int length = doubles[i].length;
             double[] doublesObj = new double[length + 4 + 3];
-            if (doubles[i].length >= 0) System.arraycopy(doubles[i], 0, doublesObj, 0, doubles[i].length);
+            System.arraycopy(doubles[i], 0, doublesObj, 0, doubles[i].length);
             doublesObj[length] = solutionSet.get(i).getAlternativeArchitecture().getAllClasses().size();
             doublesObj[length + 1] = solutionSet.get(i).getAlternativeArchitecture().getAllConcerns().size();
             doublesObj[length + 2] = solutionSet.get(i).getAlternativeArchitecture().getAllInterfaces().size();
@@ -78,9 +77,8 @@ public class OPLASolutionSet {
      * @return matrix containing the objectives
      */
     public double[][] writeObjectivesAndArchitecturalElementsNumberToMatrix() {
-        double[][] doubles = reduceThreeDimensionalArray(getSolutionsWithArchitecturalEvaluations().stream()
+        return reduceThreeDimensionalArray(getSolutionsWithArchitecturalEvaluations().stream()
                 .map(this::writeObjectiveWithAllElementsFromSolution).toArray(double[][][]::new));
-        return doubles;
     }
 
     /**
@@ -120,19 +118,22 @@ public class OPLASolutionSet {
             e.printStackTrace();
         }
         OPLA.getLOGGER().setLevel(org.apache.log4j.Level.OFF);
-        newSolution.getAlternativeArchitecture().getLOGGER().setLevel(org.apache.log4j.Level.OFF);
+        Architecture.getLOGGER().setLevel(org.apache.log4j.Level.OFF);
         Architecture architecture = new Architecture("agm");
         architecture.addElement(element);
-        newSolution.setDecisionVariables(new Architecture[]{architecture});
-        ((OPLA) newSolution.getProblem()).evaluate(newSolution);
-        try {
-            newSolution.getProblem().evaluateConstraints(newSolution);
-        } catch (JMException e) {
-            e.printStackTrace();
+        if (newSolution != null) {
+            newSolution.setDecisionVariables(new Architecture[]{architecture});
+            ((OPLA) newSolution.getProblem()).evaluate(newSolution);
+            try {
+                newSolution.getProblem().evaluateConstraints(newSolution);
+            } catch (JMException e) {
+                e.printStackTrace();
+            }
+            OPLA.getLOGGER().setLevel(org.apache.log4j.Level.ALL);
+            Architecture.getLOGGER().setLevel(org.apache.log4j.Level.ALL);
+            return newSolution.getObjectives();
         }
-        OPLA.getLOGGER().setLevel(org.apache.log4j.Level.ALL);
-        newSolution.getAlternativeArchitecture().getLOGGER().setLevel(org.apache.log4j.Level.ALL);
-        return newSolution.getObjectives();
+        return null;
     }
 
     /**
@@ -145,8 +146,7 @@ public class OPLASolutionSet {
     public double[] writeArchitecturalEvaluationsToMatrix() {
         double[][] doubles = getSolutionsWithArchitecturalEvaluations().stream().map(solution -> {
             List<Element> allElementsFromSolution = getAllElementsFromSolution(solution);
-            double[] objects = allElementsFromSolution.stream().mapToDouble(element -> element.isFreezeByDM() ? 1.0 : 0.0).toArray();
-            return objects;
+            return allElementsFromSolution.stream().mapToDouble(element -> element.isFreezeByDM() ? 1.0 : 0.0).toArray();
         }).toArray(double[][]::new);
         return reduceBiDimensionalArray(doubles);
     }

@@ -27,7 +27,7 @@ public class SavePackagesSMarty {
      * @param architecture - input architecture
      * @param printWriter  - used to save a string to file
      */
-    public void Save(Architecture architecture, PrintWriter printWriter) {
+    public void save(Architecture architecture, PrintWriter printWriter) {
         String halfTab = "  ";
         String tab = "    ";
         for (Package pkg : architecture.getAllPackages()) {
@@ -38,19 +38,22 @@ public class SavePackagesSMarty {
     /**
      * Recursively save all sub packages in the file
      *
-     * @param pkgOrigin   - parent of subpackage
+     * @param originPackage   - parent of subpackage
      * @param printWriter - used to save a string to file
      */
-    private void saveSubPackage(Package pkgOrigin, PrintWriter printWriter) {
+    private void saveSubPackage(Package originPackage, PrintWriter printWriter) {
         String halfTab = "  ";
         String tab = "    ";
-        for (Package subPackage : pkgOrigin.getNestedPackages()) {
+        for (Package subPackage : originPackage.getNestedPackages()) {
             addPackage(printWriter, halfTab, tab, subPackage);
         }
     }
 
     private void addPackage(PrintWriter printWriter, String halfTab, String tab, Package subPackage) {
-        printWriter.write("\n" + tab + "<package id=\"" + subPackage.getId() + "\" name=\"" + subPackage.getName() + "\" mandatory=\"" + subPackage.isMandatory() + "\" x=\"" + subPackage.getPosX() + "\" y=\"" + subPackage.getPosY() + "\" globalX=\"" + subPackage.getGlobalPosX() + "\" globalY=\"" + subPackage.getGlobalPosY() + "\" height=\"" + subPackage.getHeight() + "\" width=\"" + subPackage.getWidth() + "\">");
+        printWriter.write("\n" + tab + "<package id=\"" + subPackage.getId() + "\" name=\"" + subPackage.getName()
+                + "\" mandatory=\"" + subPackage.isMandatory() + "\" x=\"" + subPackage.getPosX() + "\" y=\""
+                + subPackage.getPosY() + "\" globalX=\"" + subPackage.getGlobalPosX() + "\" globalY=\"" + subPackage.getGlobalPosY()
+                + "\" height=\"" + subPackage.getHeight() + "\" width=\"" + subPackage.getWidth() + "\">");
         printWriter.write("\n" + tab + halfTab + "<description>" + subPackage.getStringComments() + "</description>");
         printWriter.write("\n" + tab + "</package>");
         saveSubPackage(subPackage, printWriter);

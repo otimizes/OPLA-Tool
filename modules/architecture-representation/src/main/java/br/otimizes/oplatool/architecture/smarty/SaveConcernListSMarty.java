@@ -27,14 +27,15 @@ public class SaveConcernListSMarty {
      * @param architecture - the architecture to be decoded
      * @param printWriter  - used to save the type to file
      */
-    public void Save(Architecture architecture, PrintWriter printWriter) {
+    public void save(Architecture architecture, PrintWriter printWriter) {
         String halfTab = "  ";
         printWriter.write("\n" + halfTab + "<stereotypes>");
         if (architecture.getConcerns().size() == 0) {
             GenerateConcernListSMarty.getInstance().Generate(architecture);
         }
-        for (Concern ts : architecture.getConcerns()) {
-            printWriter.write("\n\t<stereotype id=\"" + ts.getId() + "\" name=\"" + ts.getName() + "\" primitive=\"" + ts.getPrimitive() + "\"/>");
+        for (Concern concern : architecture.getConcerns()) {
+            printWriter.write("\n\t<stereotype id=\"" + concern.getId() + "\" name=\"" + concern.getName()
+                    + "\" primitive=\"" + concern.getPrimitive() + "\"/>");
         }
         printWriter.write("\n" + halfTab + "</stereotypes>");
     }

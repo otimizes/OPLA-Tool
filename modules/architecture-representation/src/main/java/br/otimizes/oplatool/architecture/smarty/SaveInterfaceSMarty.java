@@ -27,7 +27,7 @@ public class SaveInterfaceSMarty {
      * @param architecture - the architecture to be decoded
      * @param printWriter  - used to save the type to file
      */
-    public void Save(Architecture architecture, PrintWriter printWriter) {
+    public void save(Architecture architecture, PrintWriter printWriter) {
         String halfTab = "  ";
         String tab = "    ";
         for (Interface inter : architecture.getInterfaces()) {

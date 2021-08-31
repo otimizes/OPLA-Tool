@@ -143,12 +143,6 @@ public abstract class Variable implements Serializable {
     /**
      * Sets the type of the variable. The types are defined in class Problem.
      */
-  /*
-  public void setVariableType(VariableType_ variableType) {
-    type_ = variableType ;
-  } // setVariableType
-*/
-
     /**
      * Gets the type of the variable. The types are defined in class Problem.
      *

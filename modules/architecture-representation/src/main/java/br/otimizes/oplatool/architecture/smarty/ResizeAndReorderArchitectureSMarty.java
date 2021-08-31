@@ -31,7 +31,7 @@ public class ResizeAndReorderArchitectureSMarty {
      *
      * @param architecture - input architecture
      */
-    public void Execute(Architecture architecture) {
+    public void execute(Architecture architecture) {
         resizeClassAndInterface(architecture);
         rePosElementsInsideOfPackages(architecture);
         resizeExternalPackage(architecture);
@@ -156,6 +156,7 @@ public class ResizeAndReorderArchitectureSMarty {
             }
             posList++;
         }
+
         for (Interface clazz : pkg.getAllInterfaces()) {
             if (posList != 0) {
                 if ((posList % div) == 0) {
@@ -329,38 +330,38 @@ public class ResizeAndReorderArchitectureSMarty {
         int positionOnList = 0;
         int size = architecture.getAllPackages().size();
         if (size == 1) {
-            for (br.otimizes.oplatool.architecture.representation.Package clazz : architecture.getAllPackages()) {
-                clazz.setPosX("" + x);
-                clazz.setPosY("" + y);
-                if (nextY < y + Integer.parseInt(clazz.getHeight())) {
-                    nextY = y + Integer.parseInt(clazz.getHeight());
+            for (br.otimizes.oplatool.architecture.representation.Package packageToSetPos : architecture.getAllPackages()) {
+                packageToSetPos.setPosX("" + x);
+                packageToSetPos.setPosY("" + y);
+                if (nextY < y + Integer.parseInt(packageToSetPos.getHeight())) {
+                    nextY = y + Integer.parseInt(packageToSetPos.getHeight());
                 }
             }
         }
         if (size == 2) {
-            for (br.otimizes.oplatool.architecture.representation.Package clazz : architecture.getAllPackages()) {
-                clazz.setPosX("" + x);
-                clazz.setPosY("" + y);
-                x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                if (nextY < y + Integer.parseInt(clazz.getHeight())) {
-                    nextY = y + Integer.parseInt(clazz.getHeight());
+            for (br.otimizes.oplatool.architecture.representation.Package classToSetPos : architecture.getAllPackages()) {
+                classToSetPos.setPosX("" + x);
+                classToSetPos.setPosY("" + y);
+                x = x + Integer.parseInt(classToSetPos.getWidth()) + 40;
+                if (nextY < y + Integer.parseInt(classToSetPos.getHeight())) {
+                    nextY = y + Integer.parseInt(classToSetPos.getHeight());
                 }
             }
         }
         if (size > 2) {
             div = (int) Math.ceil(Math.sqrt(size));
-            for (br.otimizes.oplatool.architecture.representation.Package clazz : architecture.getAllPackages()) {
+            for (br.otimizes.oplatool.architecture.representation.Package packageToSetPos : architecture.getAllPackages()) {
                 if (positionOnList != 0) {
                     if ((positionOnList % div) == 0) {
                         x = 40;
                         y = nextY + 40;
                     }
                 }
-                clazz.setPosX("" + x);
-                clazz.setPosY("" + y);
-                x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                if (nextY < y + Integer.parseInt(clazz.getHeight())) {
-                    nextY = y + Integer.parseInt(clazz.getHeight());
+                packageToSetPos.setPosX("" + x);
+                packageToSetPos.setPosY("" + y);
+                x = x + Integer.parseInt(packageToSetPos.getWidth()) + 40;
+                if (nextY < y + Integer.parseInt(packageToSetPos.getHeight())) {
+                    nextY = y + Integer.parseInt(packageToSetPos.getHeight());
                 }
                 positionOnList++;
             }
@@ -369,32 +370,32 @@ public class ResizeAndReorderArchitectureSMarty {
         setInterfacePositions(architecture, nextY);
     }
 
-    private int setClassPositions(Architecture architecture, int nexty) {
+    private int setClassPositions(Architecture architecture, int nextY) {
         if (architecture.getClasses().size() > 0) {
-            int y = nexty + 40;
+            int y = nextY + 40;
             int x = 40;
             for (Class clazz : architecture.getClasses()) {
                 clazz.setPosX("" + x);
                 clazz.setPosY("" + y);
                 x = x + Integer.parseInt(clazz.getWidth()) + 40;
-                if (nexty < y + Integer.parseInt(clazz.getHeight())) {
-                    nexty = y + Integer.parseInt(clazz.getHeight());
+                if (nextY < y + Integer.parseInt(clazz.getHeight())) {
+                    nextY = y + Integer.parseInt(clazz.getHeight());
                 }
             }
         }
-        return nexty;
+        return nextY;
     }
 
-    private void setInterfacePositions(Architecture architecture, int nexty) {
+    private void setInterfacePositions(Architecture architecture, int nextY) {
         if (architecture.getInterfaces().size() > 0) {
-            int y = nexty + 40;
+            int y = nextY + 40;
             int x = 40;
             for (Interface inter : architecture.getInterfaces()) {
                 inter.setPosX("" + x);
                 inter.setPosY("" + y);
                 x = x + Integer.parseInt(inter.getWidth()) + 40;
-                if (nexty < y + Integer.parseInt(inter.getHeight())) {
-                    nexty = y + Integer.parseInt(inter.getHeight());
+                if (nextY < y + Integer.parseInt(inter.getHeight())) {
+                    nextY = y + Integer.parseInt(inter.getHeight());
                 }
             }
         }
@@ -406,21 +407,21 @@ public class ResizeAndReorderArchitectureSMarty {
      * @param architecture - input architecture
      */
     private void getGlobalPosElements(Architecture architecture) {
-        for (Class clazz : architecture.getClasses()) {
-            clazz.setGlobalPosX(clazz.getPosX());
-            clazz.setGlobalPosY(clazz.getPosY());
+        for (Class classToSetPos : architecture.getClasses()) {
+            classToSetPos.setGlobalPosX(classToSetPos.getPosX());
+            classToSetPos.setGlobalPosY(classToSetPos.getPosY());
         }
-        for (Interface inter : architecture.getInterfaces()) {
-            inter.setGlobalPosX(inter.getPosX());
-            inter.setGlobalPosY(inter.getPosY());
+        for (Interface interfaceToSetPos : architecture.getInterfaces()) {
+            interfaceToSetPos.setGlobalPosX(interfaceToSetPos.getPosX());
+            interfaceToSetPos.setGlobalPosY(interfaceToSetPos.getPosY());
         }
-        for (br.otimizes.oplatool.architecture.representation.Package pkg : architecture.getAllPackages()) {
-            pkg.setGlobalPosX(pkg.getPosX());
-            pkg.setGlobalPosY(pkg.getPosY());
-            int pkgPosX = Integer.parseInt(pkg.getPosX());
-            int pkgPosY = Integer.parseInt(pkg.getPosY());
-            setPositionsInPackage(pkgPosX, pkgPosY, pkg);
-            getGlobalPosElementsSubPackage(pkg);
+        for (br.otimizes.oplatool.architecture.representation.Package packageToSetPos : architecture.getAllPackages()) {
+            packageToSetPos.setGlobalPosX(packageToSetPos.getPosX());
+            packageToSetPos.setGlobalPosY(packageToSetPos.getPosY());
+            int pkgPosX = Integer.parseInt(packageToSetPos.getPosX());
+            int pkgPosY = Integer.parseInt(packageToSetPos.getPosY());
+            setPositionsInPackage(pkgPosX, pkgPosY, packageToSetPos);
+            getGlobalPosElementsSubPackage(packageToSetPos);
         }
     }
 
