@@ -209,10 +209,16 @@ public class NSGAII extends Algorithm {
                 int generation = evaluations / populationSize;
                 OPLAThreadScope.currentGeneration.set(generation);
                 OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
-                if (interactive)
+                if (interactive) {
                     currentInteraction = interactWithDM(generation, offspringPopulation, maxInteractions,
                             firstInteraction, intervalInteraction, interactive, interactiveFunction, currentInteraction,
                             bestOfUserEvaluation);
+                    for (int i = 0; i < population.getSolutionSet().size(); i++) {
+                        if (population.get(i).getEvaluation() == 1) {
+                            population.getSolutionSet().set(i, newRandomSolution(mutationOperator));
+                        }
+                    }
+                }
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
                     double HV = indicators.getHypervolume(population);
@@ -231,7 +237,6 @@ public class NSGAII extends Algorithm {
         SolutionSet populationOriginal = new Cloner().shallowClone(population);
         Ranking ranking = new Ranking(population);
         SolutionSet subfrontToReturn = ranking.getSubfront(0);
-        removeBadSolutions(subfrontToReturn, populationOriginal, interactive);
 
         subfrontToReturn.setCapacity(subfrontToReturn.getCapacity() + bestOfUserEvaluation.size());
         for (Solution solution : bestOfUserEvaluation) {
@@ -285,17 +290,8 @@ public class NSGAII extends Algorithm {
                 subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(offspringPopulation), true);
             }
         }
+        offspringPopulation.getSolutionSet().stream().forEach(p -> System.out.println(p.getEvaluation()));
         return currentInteraction;
-    }
-
-    private void removeBadSolutions(SolutionSet population, SolutionSet original, Boolean interactive) {
-        if (interactive) {
-            for (int i = 0; i < population.getSolutionSet().size(); i++) {
-                if (population.get(i).getEvaluation() == 1) {
-                    population.remove(i);
-                }
-            }
-        }
     }
 
     private Solution newRandomSolution(Operator mutationOperator) throws Exception {
