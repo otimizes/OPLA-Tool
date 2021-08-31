@@ -234,7 +234,6 @@ public class NSGAII extends Algorithm {
         }
 
         setOutputParameter("evaluations", requiredEvaluations);
-        SolutionSet populationOriginal = new Cloner().shallowClone(population);
         Ranking ranking = new Ranking(population);
         SolutionSet subfrontToReturn = ranking.getSubfront(0);
 
