@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.core.jmetal4.metrics.asp;
 
-import br.otimizes.oplatool.architecture.helpers.ASPHelper;
+import br.otimizes.oplatool.architecture.helpers.StatisticalMethodsHelper;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.core.jmetal4.metrics.ObjectiveFunctionImplementation;
@@ -23,10 +23,10 @@ public class EleganceNAC extends ObjectiveFunctionImplementation {
         }
 
         // calculo do desvio padrao
-        Double atribClass = ASPHelper.getStandardDeviation(lstAtrib);
+        Double atribClass = StatisticalMethodsHelper.getStandardDeviation(lstAtrib);
         System.out.println(("desvio padrão atributos de uma classe" + atribClass));
 
-        Double methodClas = ASPHelper.getStandardDeviation(lstMeth);
+        Double methodClas = StatisticalMethodsHelper.getStandardDeviation(lstMeth);
         System.out.println(("desvio padrão metodos de uma classe" + methodClas));
 
 

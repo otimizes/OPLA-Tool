@@ -1,9 +1,9 @@
 package br.otimizes.oplatool.architecture.flyweights;
 
-import br.otimizes.oplatool.architecture.representation.Variability;
 import br.otimizes.oplatool.architecture.helpers.ModelHelper;
 import br.otimizes.oplatool.architecture.helpers.ModelHelperFactory;
 import br.otimizes.oplatool.architecture.representation.Architecture;
+import br.otimizes.oplatool.architecture.representation.Variability;
 import br.otimizes.oplatool.architecture.representation.Variant;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Package;
@@ -20,10 +20,10 @@ public class VariabilityFlyweight {
 
     private static final VariabilityFlyweight INSTANCE = new VariabilityFlyweight();
     private Architecture architecture;
-    private HashMap<String, Variability> variabilities = new HashMap<String, Variability>();
-    private ModelHelper modelHelper;
+    private HashMap<String, Variability> variabilities = new HashMap<>();
+    private final ModelHelper modelHelper;
 
-    private Map<String, Map<String, String>> variabilityAttributes = new HashMap<String, Map<String, String>>();
+    private final Map<String, Map<String, String>> variabilityAttributes = new HashMap<>();
 
     private Package model;
 
@@ -68,11 +68,9 @@ public class VariabilityFlyweight {
      * Create variants
      */
     public void createVariants() {
-
         VariantFlyweight variantFlyweight = VariantFlyweight.getInstance();
-
         for (Variability v : this.getVariabilities()) {
-            List<Variant> variants = new ArrayList<Variant>();
+            List<Variant> variants = new ArrayList<>();
 
             String[] variantsElements = this.variabilityAttributes.get(v.getName()).get("variants").split(",");
 
@@ -94,7 +92,6 @@ public class VariabilityFlyweight {
                     variantTemp.getVariabilities().add(v);
             }
         }
-
     }
 
     /**
@@ -133,5 +130,4 @@ public class VariabilityFlyweight {
     public void addModel(Package model2) {
         this.model = model2;
     }
-
 }

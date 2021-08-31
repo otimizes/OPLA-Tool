@@ -3,7 +3,7 @@ package br.otimizes.oplatool.architecture.helpers;
 import br.otimizes.oplatool.architecture.exceptions.ConcernNotFoundException;
 import br.otimizes.oplatool.architecture.exceptions.ModelIncompleteException;
 import br.otimizes.oplatool.architecture.exceptions.ModelNotFoundException;
-import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.*;
@@ -14,17 +14,10 @@ import org.eclipse.uml2.uml.internal.impl.StereotypeImpl;
 import java.util.*;
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class StereotypeHelper {
 
-    /**
-     * Verifica se um dado elemento (elt) contém o estereótipo (stereotypeName ).
-     *
-     * @param elt
-     * @param stereotypeName
-     * @return boolean
-     */
     public static boolean hasStereotype(NamedElement elt, String stereotypeName) {
         boolean has = false;
 
@@ -41,34 +34,13 @@ public class StereotypeHelper {
         return has;
     }
 
-    /**
-     * Verifica se um elemento é um ponto de variação.
-     *
-     * @param element
-     * @return boolean
-     */
     public static boolean isVariationPoint(NamedElement element) {
         return element.getName().equalsIgnoreCase(StereotypesTypes.VARIATION_POINT);
     }
 
-    /**
-     * Verifica se um elemento é uma variabilidade.
-     * Caso Variability não for encontrada retorna null.
-     *
-     * @param element
-     * @return boolean
-     */
     public static List<Comment> getCommentVariability(NamedElement element) {
-        /**
-         * Como não é possível recuperar os elementos do tipo Comentário da UML2,
-         * é preciso recuperar todos os comentários que existem na br.otimizes.oplatool.arquitetura
-         * e por meio destes ver a qual classe o mesmo pertence.
-         */
-        List<Comment> belongsComments = new ArrayList<Comment>();
+        List<Comment> belongsComments = new ArrayList<>();
         EList<Comment> comments = ((Class) element).getPackage().getOwnedComments();
-        if (element.getName().equalsIgnoreCase("MovableSprites")) {
-            System.out.println("dsjdhfksdf");
-        }
         for (Comment comment : comments) {
             if (comment.getAnnotatedElements().contains(element)) {
                 for (Stereotype stereotype : comment.getAppliedStereotypes())
@@ -81,28 +53,11 @@ public class StereotypeHelper {
         return belongsComments;
     }
 
-    /**
-     * Verifica se um elemento é uma variabilidade.
-     *
-     * @param element
-     * @return boolean
-     */
     public static boolean isVariability(NamedElement element) {
-        //return getCommentVariability(element) != null ? true : false;
         int s = getCommentVariability(element).size();
         return s > 0;
     }
 
-    /**
-     * Verifica se elemento possui interesse. Os intereses são definidos em um profile separado do Smarty.
-     * Esse profile, contém um estereótipo chamado <b>concern</b>, que é abstrato e estende a metaclasse <b>Class</b>
-     * Sendo assim os interesses que o usuário desejar usar na br.otimizes.oplatool.arquitetura devem estender do estereótipo <b>Concern</b>.<br/><br/>
-     * <p>
-     * <a href="https://dl.dropboxusercontent.com/u/6730822/Screen%20Shot%202013-05-17%20at%209.51.41%20AM.png">Exemplo</a>
-     *
-     * @param element
-     * @return boolean
-     */
     public static boolean hasConcern(NamedElement element) {
         try {
             if (element instanceof ClassImpl) if (searchForConcernsStereotypes(element) != null) return true;
@@ -117,10 +72,6 @@ public class StereotypeHelper {
         return false;
     }
 
-    /**
-     * @param element
-     * @return
-     */
     public static List<String> getAllRelationshipStereotypes(org.eclipse.uml2.uml.Relationship element) {
         List<String> stereotypes = new ArrayList<String>();
         EList<Stereotype> stes = element.getAppliedStereotypes();
@@ -135,9 +86,9 @@ public class StereotypeHelper {
     }
 
     public static Set<String> getAllPatternsStereotypes(NamedElement element) {
-        Set<String> stereotypes = new HashSet<String>();
-        EList<Stereotype> stes = element.getAppliedStereotypes();
-        for (Stereotype stereotype : stes) {
+        Set<String> stereotypes = new HashSet<>();
+        EList<Stereotype> appliedStereotypes = element.getAppliedStereotypes();
+        for (Stereotype stereotype : appliedStereotypes) {
             if (isPatternStereotype(stereotype))
                 stereotypes.add(stereotype.getName());
         }
@@ -154,15 +105,6 @@ public class StereotypeHelper {
 
     }
 
-    /**
-     * Retorna o valor de um attributo de um dado estereótipo e EnumerationLiteral.
-     * * @param <T>
-     *
-     * @param element
-     * @param stereotype
-     * @param attrName   name
-     * @return
-     */
     public static String getValueOfAttribute(Element element, Stereotype variability, String attrName) {
         Object attr = element.getValue(variability, attrName);
         if (attr != null) {
@@ -179,13 +121,6 @@ public class StereotypeHelper {
 
     }
 
-    /**
-     * Retorna o nome do concern, caso existir. Se element não possuir concern retorna ConcernNotFoundExpection.
-     *
-     * @param c
-     * @return
-     * @throws ConcernNotFoundException se concern não for encontrado
-     */
     public static String getConcernName(NamedElement c) throws ConcernNotFoundException {
         if (hasConcern(c))
             if (searchForConcernsStereotypes(c) != null)
@@ -194,21 +129,10 @@ public class StereotypeHelper {
         throw new ConcernNotFoundException("There is not concern in element " + c);
     }
 
-    /**
-     * Retorna um {@link Map} contendo os atributos/valores para atributos de um variabilidade.
-     *
-     * @param klass
-     * @return {@link Map}
-     * @throws ModelNotFoundException
-     * @throws ModelIncompleteException
-     * @throws SMartyProfileNotAppliedToModelExcepetion
-     */
-    public static Map<String, String> getVariabilityAttributes(NamedElement klass, Comment comment) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
-
+    public static Map<String, String> getVariabilityAttributes(NamedElement klass, Comment comment) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException {
         if (comment != null) {
-
             Stereotype variability = getStereotypeByName(klass, "variability");
-            Map<String, String> variabilityProps = new HashMap<String, String>();
+            Map<String, String> variabilityProps = new HashMap<>();
 
             String name = getValueOfAttribute(comment, variability, "name");
             String bidingTime = getValueOfAttribute(comment, variability, "bindingTime");
@@ -223,7 +147,7 @@ public class StereotypeHelper {
             variabilityProps.put("minSelection", minSelection);
             variabilityProps.put("variants", variants);
             variabilityProps.put("allowAddingVar", allowAddingVar);
-            if (!comment.getNearestPackage().getName().equalsIgnoreCase("model")) // nao esta em nenhum pacote
+            if (!comment.getNearestPackage().getName().equalsIgnoreCase("model"))
                 variabilityProps.put("idOwnerPackage", XmiHelper.getXmiId(comment.getOwner()));
 
             return variabilityProps;
@@ -232,14 +156,6 @@ public class StereotypeHelper {
         return Collections.emptyMap();
     }
 
-    /**
-     * Dada um elemento e um nome de estereótipo retorna o estreótipo caso o mesmo exista no elemento.
-     * Retorna null caso o estereótipo não exista.
-     *
-     * @param element
-     * @param stereotypeName
-     * @return
-     */
     public static Stereotype getStereotypeByName(NamedElement element, String stereotypeName) {
         List<Stereotype> stereotypes = ModelElementHelper.getAllStereotypes(element);
         for (Stereotype stereotype : stereotypes) {
@@ -250,17 +166,9 @@ public class StereotypeHelper {
         return null;
     }
 
-
-    /**
-     * Busca por concern em todos os estereótipos aplicados em um elemento.
-     * Retorna null caso náo exista.
-     *
-     * @param element
-     * @return {@link Stereotype}
-     */
     private static Stereotype searchForConcernsStereotypes(NamedElement element) {
-        EList<Stereotype> stes = element.getAppliedStereotypes();
-        for (Stereotype stereotype : stes) {
+        EList<Stereotype> appliedStereotypes = element.getAppliedStereotypes();
+        for (Stereotype stereotype : appliedStereotypes) {
             if (stereotype instanceof StereotypeImpl)
                 if (!stereotype.getGeneralizations().isEmpty())
                     if (stereotype.getGeneralizations().get(0).getGeneral()
@@ -273,18 +181,15 @@ public class StereotypeHelper {
     }
 
     public static Stereotype getVariantType(Classifier klass) {
-        List<String> possibileVariants = Arrays.asList("mandatory", "optional", "alternative_OR", "alternative_XOR");
+        List<String> possibleVariants = Arrays.asList("mandatory", "optional", "alternative_OR", "alternative_XOR");
 
         List<Stereotype> stereotypes = ModelElementHelper.getAllStereotypes(klass);
 
         for (Stereotype stereotype : stereotypes) {
-            if (possibileVariants.contains(stereotype.getName())) {
+            if (possibleVariants.contains(stereotype.getName())) {
                 return stereotype;
             }
         }
-
         return null;
     }
-
-
 }

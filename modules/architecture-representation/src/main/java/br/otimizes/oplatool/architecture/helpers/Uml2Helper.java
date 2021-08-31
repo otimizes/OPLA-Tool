@@ -2,15 +2,15 @@ package br.otimizes.oplatool.architecture.helpers;
 
 import br.otimizes.oplatool.architecture.base.Base;
 import br.otimizes.oplatool.architecture.exceptions.*;
-import br.otimizes.oplatool.architecture.exceptions.*;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.uml2.uml.*;
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.*;
 import org.eclipse.uml2.uml.resource.UMLResource;
 
 import java.io.File;
@@ -25,9 +25,8 @@ import java.util.Collection;
 public class Uml2Helper extends Base {
 
     private static final boolean PRINT_LOGS = false;
-    private static ThreadLocal<Package> profile = new ThreadLocal<>();
-    public static ThreadLocal<Uml2Helper> instance = ThreadLocal.withInitial(() -> new Uml2Helper());
-
+    private static final ThreadLocal<Package> profile = new ThreadLocal<>();
+    public static ThreadLocal<Uml2Helper> instance = ThreadLocal.withInitial(Uml2Helper::new);
 
     private static boolean fileExists(File file) {
         return file.exists();
@@ -40,9 +39,7 @@ public class Uml2Helper extends Base {
     public Profile createProfile(String name) {
         Profile profile = UMLFactory.eINSTANCE.createProfile();
         profile.setName(name);
-
         printLog("Profile '" + profile.getQualifiedName() + "' created.");
-
         return profile;
     }
 
@@ -60,43 +57,29 @@ public class Uml2Helper extends Base {
         resource.save(null);
     }
 
-    public org.eclipse.uml2.uml.Generalization createGeneralization(Classifier child, Classifier parent) {
-        return child.createGeneralization(parent);
+    public void createGeneralization(Classifier child, Classifier parent) {
+        child.createGeneralization(parent);
     }
 
-    /**
-     * Cria uma Classe. Por padrão uma class não é abastrata.
-     *
-     * @param nestingPackage
-     * @param name
-     * @param isAbstract     Opcional.
-     * @return
-     */
     public org.eclipse.uml2.uml.Class createClass(org.eclipse.uml2.uml.Package nestingPackage, String name,
                                                   boolean... isAbstract) {
         boolean abstractClass = false;
         if (isAbstract.length > 0) {
             abstractClass = isAbstract[0];
         }
-        org.eclipse.uml2.uml.Class createdClass = nestingPackage.createOwnedClass(name, abstractClass);
-
-        return createdClass;
+        return nestingPackage.createOwnedClass(name, abstractClass);
     }
 
     public org.eclipse.uml2.uml.Package createPackage(org.eclipse.uml2.uml.Package nestingPackage, String name) {
         org.eclipse.uml2.uml.Package createdPackage = nestingPackage.createNestedPackage(name);
-
         printLog("Package '" + createdPackage.getQualifiedName() + "' created.");
-
         return createdPackage;
     }
 
     public Model createModel(String name) {
         Model model = UMLFactory.eINSTANCE.createModel();
         model.setName(name);
-
         printLog("Model '" + model.getQualifiedName() + "' created.");
-
         return model;
     }
 
@@ -106,22 +89,15 @@ public class Uml2Helper extends Base {
 
     public org.eclipse.uml2.uml.Class referenceMetaclass(Profile profile, String name) throws ModelNotFoundException {
         Model umlMetamodel = (Model) getInternalResources(URI.createURI(UMLResource.UML_METAMODEL_URI));
-
         org.eclipse.uml2.uml.Class metaclass = (org.eclipse.uml2.uml.Class) umlMetamodel.getOwnedType(name);
-
         profile.createMetaclassReference(metaclass);
-
         printLog("Metaclass '" + metaclass.getQualifiedName() + "' referenced.");
-
         return metaclass;
     }
 
-    public Extension createExtension(org.eclipse.uml2.uml.Class metaclass, Stereotype stereotype, boolean required) {
+    public void createExtension(Class metaclass, Stereotype stereotype, boolean required) {
         Extension extension = stereotype.createExtension(metaclass, required);
-
         printLog((required ? "Required extension '" : "Extension '") + extension.getQualifiedName() + "' created.");
-
-        return extension;
     }
 
     public Association createAssociation(Type type1, boolean end1IsNavigable, AggregationKind end1Aggregation,
@@ -185,8 +161,8 @@ public class Uml2Helper extends Base {
         return association;
     }
 
-    public Property createAttribute(org.eclipse.uml2.uml.Class class_, String name, Type type, int lowerBound,
-                                    int upperBound) {
+    public void createAttribute(Class class_, String name, Type type, int lowerBound,
+                                int upperBound) {
         Property attribute = class_.createOwnedAttribute(name, type, lowerBound, upperBound);
 
         StringBuffer sb = new StringBuffer();
@@ -208,8 +184,6 @@ public class Uml2Helper extends Base {
         sb.append(" created.");
 
         printLog(sb.toString());
-
-        return attribute;
     }
 
     public Enumeration createEnumeration(org.eclipse.uml2.uml.Package pkg, String name) {
@@ -218,16 +192,13 @@ public class Uml2Helper extends Base {
         return enumeration;
     }
 
-    public EnumerationLiteral createEnumerationLiteral(Enumeration enumeration, String name) {
+    public void createEnumerationLiteral(Enumeration enumeration, String name) {
         EnumerationLiteral enumerationLiteral = enumeration.createOwnedLiteral(name);
-
         printLog("Enumeration literal '" + enumerationLiteral.getQualifiedName() + "' created.");
-
-        return enumerationLiteral;
     }
 
     public org.eclipse.uml2.uml.Package load(String pathAbsolute)
-            throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
+            throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException {
 
         File file = new File(pathAbsolute);
         FilenameFilter filter = new OnlyCompleteResources();
@@ -269,8 +240,7 @@ public class Uml2Helper extends Base {
     }
 
     public Stereotype createStereotype(Profile prof, String name, boolean isAbstract) {
-        Stereotype stereotype = prof.createOwnedStereotype(name, isAbstract);
-        return stereotype;
+        return prof.createOwnedStereotype(name, isAbstract);
     }
 
     public PackageableElement getStereotypeByName(Profile prof, String name) throws StereotypeNotFoundException {
@@ -297,13 +267,6 @@ public class Uml2Helper extends Base {
             System.out.println(message);
     }
 
-    /**
-     * Carrega um recurso interno. Recurso interno pode ser entendido como por
-     * exemplo o meta modelo uml, tipos primitivos etc.
-     *
-     * @param createURI
-     * @return
-     */
     private Package getInternalResources(URI createURI) {
         Resource resource = getResources().getResource(createURI, true);
 
@@ -320,22 +283,10 @@ public class Uml2Helper extends Base {
         return package_;
     }
 
-    /**
-     * Retorno o Profile SMarty. O Path para esse arquivo deve ser configurado
-     * dentro do arquivo <b>application.yml</b>
-     *
-     * @return Profile
-     */
     public Profile loadSMartyProfile() {
         return (Profile) getExternalResources(ApplicationFileConfigThreadScope.getPathToProfile());
     }
 
-    /**
-     * Retorno o Profile Concern. O Path para esse arquivo deve ser configurado
-     * dentro do arquivo <b>application.yml</b>
-     *
-     * @return Profile
-     */
     public Profile loadConcernProfile() {
         return (Profile) getExternalResources(ApplicationFileConfigThreadScope.getPathToProfileConcern());
     }

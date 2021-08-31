@@ -13,24 +13,19 @@ import org.w3c.dom.Node;
  */
 public class NoteOperations extends XmiHelper {
 
-    private DocumentManager documentManager;
-    private ElementXmiGenerator elementXmiGenerator;
+    private final DocumentManager documentManager;
+    private final ElementXmiGenerator elementXmiGenerator;
     private String id;
 
     public NoteOperations(DocumentManager documentManager, Architecture a) {
         this.documentManager = documentManager;
         this.elementXmiGenerator = new ElementXmiGenerator(documentManager, a);
-
     }
 
     public NoteOperations createNote(VariationPoint variationPointForVariability) {
         final NoteNode noteNode = new NoteNode(documentManager);
-        this.id = UtilResources.getRandonUUID();
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                noteNode.createNote(id, variationPointForVariability);
-            }
-        });
+        this.id = UtilResources.getRandomUUID();
+        Document.executeTransformation(documentManager, () -> noteNode.createNote(id, variationPointForVariability));
 
         return this;
     }
@@ -40,27 +35,18 @@ public class NoteOperations extends XmiHelper {
     }
 
     public NoteOperations addVariability(final String idNote, final VariabilityStereotype variability) {
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                elementXmiGenerator.createStereotypeVariability(idNote, variability);
-            }
-        });
+        Document.executeTransformation(documentManager, () -> elementXmiGenerator.createStereotypeVariability(idNote, variability));
         if (variability.getIdPackageOwner() != null)
             moveToPakage(variability.getIdPackageOwner());
         return this;
     }
 
     private NoteOperations moveToPakage(final String idklass) {
-        Document.executeTransformation(documentManager, new Transformation() {
-            public void useTransformation() {
-                // Primeiramente é olhado para o arquivo .uml e movido a
-                // classe para o pacote.
-                final Node classToMove = findByID(documentManager.getDocUml(), idklass, "packagedElement");
-                final Node packageToAdd = findByID(documentManager.getDocUml(), id, "ownedComment");
-                classToMove.appendChild(packageToAdd);
-            }
+        Document.executeTransformation(documentManager, () -> {
+            final Node classToMove = findByID(documentManager.getDocUml(), idklass, "packagedElement");
+            final Node packageToAdd = findByID(documentManager.getDocUml(), id, "ownedComment");
+            if (classToMove != null) classToMove.appendChild(packageToAdd);
         });
         return this;
     }
-
 }

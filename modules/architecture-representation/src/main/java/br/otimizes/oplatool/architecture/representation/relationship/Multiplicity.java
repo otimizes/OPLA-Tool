@@ -9,17 +9,10 @@ import java.io.Serializable;
  */
 public class Multiplicity implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 2679645297119128578L;
     private String lowerValue;
     private String upperValue;
 
-    /**
-     * @param lowerValue
-     * @param upperValue
-     */
     public Multiplicity(String lowerValue, String upperValue) {
         this.lowerValue = lowerValue;
         this.upperValue = upperValue;
@@ -43,23 +36,19 @@ public class Multiplicity implements Serializable {
 
     @Override
     public String toString() {
-
         if (bothEqualsOne()) {
             return "1";
-        } else if (isCompleteMultiplicty()) {
+        } else if (isCompleteMultiplicity()) {
             return this.lowerValue + ".." + this.upperValue;
         }
-
         return "";
-
     }
 
     private boolean bothEqualsOne() {
         return ("1".equals(this.upperValue)) && ("1".equals(this.lowerValue));
     }
 
-    private boolean isCompleteMultiplicty() {
+    private boolean isCompleteMultiplicity() {
         return (this.lowerValue != null) && ((!"".equalsIgnoreCase(this.lowerValue)) || ((this.upperValue != null))) && (!"".equalsIgnoreCase(this.upperValue));
     }
-
 }

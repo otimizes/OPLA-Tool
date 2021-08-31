@@ -2,7 +2,6 @@ package br.otimizes.oplatool.architecture.helpers;
 
 import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.architecture.representation.relationship.*;
-import br.otimizes.oplatool.architecture.representation.relationship.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.UUID;
 
 
 /**
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle @ gmail.com>
  */
 public class UtilResources {
 
@@ -35,28 +34,18 @@ public class UtilResources {
         return result;
     }
 
-    /**
-     * Retorna somente o nome do elemento dado o namesapce
-     * <p>
-     * Ex: model::Package1, reotnra Package1
-     *
-     * @param klass
-     * @return
-     */
     public static String extractPackageName(String namespace) {
         if (namespace == null) return "";
         if (namespace.equalsIgnoreCase("model")) return namespace;
-        String name = namespace.substring(namespace.lastIndexOf("::") + 2);
-        return name != null ? name : "";
+        return namespace.substring(namespace.lastIndexOf("::") + 2);
     }
 
-    public static String getRandonUUID() {
+    public static String getRandomUUID() {
         return UUID.randomUUID().toString();
     }
 
     public static String createNamespace(String architectureName, String name) {
-        String nsp = architectureName + "::" + name;
-        return nsp != null ? nsp : "";
+        return architectureName + "::" + name;
     }
 
     public static void clearConsole() {
@@ -66,7 +55,7 @@ public class UtilResources {
                 Runtime.getRuntime().exec("cls");
             else
                 Runtime.getRuntime().exec("clear");
-        } catch (Exception exception) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -74,7 +63,7 @@ public class UtilResources {
         String strLog = "";
 
         if (r instanceof GeneralizationRelationship) {
-            strLog += "Superclasse:" + ((GeneralizationRelationship) r).getParent().getName() + " subclasses: " + childreenToStr(((GeneralizationRelationship) r).getAllChildrenForGeneralClass());
+            strLog += "Superclass:" + ((GeneralizationRelationship) r).getParent().getName() + " subclasses: " + childrenToStr(((GeneralizationRelationship) r).getAllChildrenForGeneralClass());
         }
         if (r instanceof AssociationRelationship) {
             String participantsStr = participantsToStr(((AssociationRelationship) r).getParticipants());
@@ -82,31 +71,31 @@ public class UtilResources {
         }
 
         if (r instanceof AssociationClassRelationship) {
-            strLog += "AssociationClass: " + ((AssociationClassRelationship) r).getAssociationClass().getName() + ". MemebersEnd: " + memebersEndToStr(((AssociationClassRelationship) r).getMemebersEnd());
+            strLog += "AssociationClass: " + ((AssociationClassRelationship) r).getAssociationClass().getName() + ". MembersEnd: " + membersEndToStr(((AssociationClassRelationship) r).getMembersEnd());
         }
 
         return strLog;
     }
 
-    private static String memebersEndToStr(List<MemberEnd> memebersEnd) {
-        String membersEnd = "";
-        for (MemberEnd member : memebersEnd)
-            membersEnd += member.getType().getName() + " ";
-        return membersEnd.trim();
+    private static String membersEndToStr(List<MemberEnd> membersEnd) {
+        StringBuilder membersEndStrBuilder = new StringBuilder();
+        for (MemberEnd member : membersEnd)
+            membersEndStrBuilder.append(member.getType().getName()).append(" ");
+        return membersEndStrBuilder.toString().trim();
     }
 
     private static String participantsToStr(List<AssociationEnd> participants) {
-        String participantsStr = "";
+        StringBuilder participantsStr = new StringBuilder();
         for (AssociationEnd element : participants)
-            participantsStr += element.getCLSClass().getName() + " ";
-        return participantsStr.trim();
+            participantsStr.append(element.getCLSClass().getName()).append(" ");
+        return participantsStr.toString().trim();
     }
 
-    private static String childreenToStr(Set<Element> allChildrenForGeneralClass) {
-        String childreen = "";
+    private static String childrenToStr(Set<Element> allChildrenForGeneralClass) {
+        StringBuilder children = new StringBuilder();
         for (Element element : allChildrenForGeneralClass)
-            childreen += element.getName() + " ";
-        return childreen.trim();
+            children.append(element.getName()).append(" ");
+        return children.toString().trim();
     }
 
 }

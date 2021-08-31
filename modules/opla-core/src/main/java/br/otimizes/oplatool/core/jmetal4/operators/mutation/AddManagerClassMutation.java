@@ -49,7 +49,7 @@ public class AddManagerClassMutation implements IOperator<Solution> {
                                 OPLA.countPackage++;
                                 Interface newInterface = newComp.createInterface("Interface" + OPLA.countInterface++);
 
-                                sourceInterface.moveOperationToInterface(op, newInterface);
+                                sourceInterface.moveMethodToInterface(op, newInterface);
 
                                 for (Element implementor : sourceInterface.getImplementors()) {
                                     if (implementor instanceof Package) {

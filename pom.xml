@@ -339,10 +339,23 @@
     </dependencyManagement>
 
     <repositories>
+
+<!--         <repository> -->
+<!--             <id>zapix</id> -->
+<!--             <url>https://nexus.zapix.com.br/repository/maven-releases/</url> -->
+<!--             <name>Zapix-Repository</name> -->
+<!--             <snapshots> -->
+<!--                 <enabled>false</enabled> -->
+<!--             </snapshots> -->
+<!--             <releases> -->
+<!--                 <enabled>true</enabled> -->
+<!--             </releases> -->
+<!--         </repository> -->
+
         <repository>
-            <id>zapix</id>
-            <url>https://nexus.zapix.com.br/repository/maven-releases/</url>
-            <name>Zapix-Repository</name>
+            <id>github-aczavads</id>
+            <url>https://maven.pkg.github.com/aczavads/mvn</url>
+            <name>github-aczavads</name>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>

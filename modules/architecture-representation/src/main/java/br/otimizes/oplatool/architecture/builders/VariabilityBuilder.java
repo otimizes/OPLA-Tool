@@ -2,7 +2,7 @@ package br.otimizes.oplatool.architecture.builders;
 
 import br.otimizes.oplatool.architecture.exceptions.ModelIncompleteException;
 import br.otimizes.oplatool.architecture.exceptions.ModelNotFoundException;
-import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelException;
 import br.otimizes.oplatool.architecture.exceptions.VariationPointElementTypeErrorException;
 import br.otimizes.oplatool.architecture.flyweights.VariabilityFlyweight;
 import br.otimizes.oplatool.architecture.flyweights.VariationPointFlyweight;
@@ -25,9 +25,9 @@ import java.util.Map;
  */
 public class VariabilityBuilder {
 
-    private Architecture architecture;
+    private final Architecture architecture;
 
-    public VariabilityBuilder(Architecture architecture) throws ModelNotFoundException, ModelIncompleteException {
+    public VariabilityBuilder(Architecture architecture) {
         this.architecture = architecture;
     }
 
@@ -36,34 +36,27 @@ public class VariabilityBuilder {
      *
      * @param klass class
      * @return variability
-     * @throws ModelNotFoundException                   not found model
-     * @throws ModelIncompleteException                 incomplete model
-     * @throws SMartyProfileNotAppliedToModelExcepetion not applied profile
-     * @throws VariationPointElementTypeErrorException  type error
+     * @throws ModelNotFoundException                  not found model
+     * @throws ModelIncompleteException                incomplete model
+     * @throws SMartyProfileNotAppliedToModelException not applied profile
+     * @throws VariationPointElementTypeErrorException type error
      */
-    public List<Variability> create(Classifier klass) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, VariationPointElementTypeErrorException {
-
+    public List<Variability> create(Classifier klass) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException, VariationPointElementTypeErrorException {
         VariabilityFlyweight variabilityFlyweight = VariabilityFlyweight.getInstance();
         variabilityFlyweight.setArchitecture(architecture);
-
-
-        Variability variability = null;
+        Variability variability;
         List<Comment> commentVariability = StereotypeHelper.getCommentVariability(klass);
 
         for (Comment comment : commentVariability) {
             Map<String, String> variabilityAttributes = StereotypeHelper.getVariabilityAttributes(klass, comment);
 
-            if (variabilityAttributes != null) {
-                variability = variabilityFlyweight.getOrCreateVariability(klass.getName(), variabilityAttributes);
-            }
+            variability = variabilityFlyweight.getOrCreateVariability(klass.getName(), variabilityAttributes);
 
-            VariationPointFlyweight variationPointFlyweight = VariationPointFlyweight.getInstance();
-            variationPointFlyweight.setArchitecture(architecture);
-            VariationPoint variationPoint = variationPointFlyweight.getOrCreateVariationPoint(klass);
+            VariationPoint variationPoint = getVariationPoint(klass);
 
             if ((variationPoint != null)) {
-                Stereotype varitionPointSte = StereotypeHelper.getStereotypeByName(klass, "variationPoint");
-                List<String> variabilitiesForVariationPoint = Arrays.asList(StereotypeHelper.getValueOfAttribute(klass, varitionPointSte, "variabilities").split(","));
+                Stereotype variationsPoints = StereotypeHelper.getStereotypeByName(klass, "variationPoint");
+                List<String> variabilitiesForVariationPoint = Arrays.asList(StereotypeHelper.getValueOfAttribute(klass, variationsPoints, "variabilities").split(","));
                 for (int i = 0; i < variabilitiesForVariationPoint.size(); i++) {
                     variabilitiesForVariationPoint.set(i, variabilitiesForVariationPoint.get(i).trim());
                 }
@@ -74,9 +67,12 @@ public class VariabilityBuilder {
                 }
             }
         }
-
         return variabilityFlyweight.getVariabilities();
     }
 
-
+    private VariationPoint getVariationPoint(Classifier klass) throws VariationPointElementTypeErrorException {
+        VariationPointFlyweight variationPointFlyweight = VariationPointFlyweight.getInstance();
+        variationPointFlyweight.setArchitecture(architecture);
+        return variationPointFlyweight.getOrCreateVariationPoint(klass);
+    }
 }

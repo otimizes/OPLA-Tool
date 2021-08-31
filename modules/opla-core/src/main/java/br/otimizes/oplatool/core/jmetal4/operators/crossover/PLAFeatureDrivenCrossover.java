@@ -161,7 +161,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 			archP1.clearArchitecture();
 			archP2.clearArchitecture();
 
-			ArrayList<String> semLig = child1.verifyClassWithoutRelationship();
+			ArrayList<String> semLig = child1.getClassesWithoutRelationship();
 
 			if(semLig.size() > 0){
 				for(String id : semLig) {
@@ -191,7 +191,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 
 
 
-			semLig = child1.verifyInterfaceWithoutRelationship();
+			semLig = child1.getInterfacesWithoutRelationship();
 
 
 			if(semLig.size() > 0){
@@ -219,7 +219,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 
 
 
-			semLig = child2.verifyClassWithoutRelationship();
+			semLig = child2.getClassesWithoutRelationship();
 
 			if(semLig.size() > 0){
 				for(String id : semLig) {
@@ -248,7 +248,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 			}
 
 
-			semLig = child2.verifyInterfaceWithoutRelationship();
+			semLig = child2.getInterfacesWithoutRelationship();
 
 			if(semLig.size() > 0){
 				for(String id : semLig) {
@@ -331,7 +331,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 			if(clazz_.getOwnConcerns().size()==1 && clazz_.getOwnConcerns().contains(feature)){
 				elementsAssociatedWithFeature.add(clazz_);
 			}else {
-				for (Method method : clazz_.getOperations()) {
+				for (Method method : clazz_.getMethods()) {
 					if (method.getOwnConcerns().size() == 1 && method.getOwnConcerns().contains(feature)) {
 						elementsAssociatedWithFeature.add(method);
 					}
@@ -389,7 +389,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 	public ArrayList<Method> getOperationAssociatedWithFeature(Architecture architecture, Concern feature){
 		ArrayList<Method> elementsAssociatedWithFeature = new ArrayList<>();
 		for(Interface clazz_ : architecture.getAllInterfaces()) {
-			for (Method method : clazz_.getOperations()) {
+			for (Method method : clazz_.getMethods()) {
 				if (method.getOwnConcerns().size() == 1 && method.getOwnConcerns().contains(feature)) {
 					elementsAssociatedWithFeature.add(method);
 				}
@@ -499,7 +499,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 						Interface parentClass = (Interface) elementParent;
 
 						Interface newInterface = new Interface(child.getRelationshipHolder(), parentClass.getName(), parentClass.getVariant(), parentClass.getNamespace(),parentClass.getId());
-						newInterface.addExternalOperation(method);
+						newInterface.addExternalMethod(method);
 
 						Package pkg_parent = parent.findPackageOfElementID(newInterface.getId());
 						if(pkg_parent == null){
@@ -517,7 +517,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 						((Class)elementChild).addExternalMethod(method);
 					}
 					if(elementChild instanceof Interface){
-						((Interface)elementChild).addExternalOperation(method);
+						((Interface)elementChild).addExternalMethod(method);
 					}
 				}
 
@@ -583,8 +583,8 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 	public void addInterfaceRealizingFeature(Architecture child, ArrayList<Interface> elements, Architecture parent) {
 		for (Interface interface_ : elements) {
 			for(Interface cx : child.getAllInterfaces()){
-				for(Method a : cx.getOperations()){
-					interface_.removeOperationByID(a.getId());
+				for(Method a : cx.getMethods()){
+					interface_.removeMethodByID(a.getId());
 				}
 			}
 
@@ -688,7 +688,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 			boolean exist = false;
 			for(Interface cx : child.getAllInterfaces()){
 
-				for(Method a : cx.getOperations()){
+				for(Method a : cx.getMethods()){
 					if(method.getId().equals(a.getId()))
 						exist = true;
 				}
@@ -701,7 +701,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 			if (elementChild == null) {
 
 				Interface newClass = new Interface(child.getRelationshipHolder(), parentClass.getName(), parentClass.getVariant(), parentClass.getNamespace(), parentClass.getId());
-				newClass.addExternalOperation(method);
+				newClass.addExternalMethod(method);
 				Package pkg_parent = parent.findPackageOfElementID(newClass.getId());
 				if (pkg_parent == null) {
 					child.addExternalInterface(newClass);
@@ -713,7 +713,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 					child.addClassOrInterface(newClass, pkg_child);
 				}
 			} else {
-				elementChild.addExternalOperation(method);
+				elementChild.addExternalMethod(method);
 			}
 		}
 	}
@@ -726,7 +726,7 @@ public class PLAFeatureDrivenCrossover implements IOperator<Solution[]> {
 		final List<Interface> allInterfaces = new ArrayList<Interface>(solution.getAllInterfaces());
 		if (!allInterfaces.isEmpty()) {
 			for (Interface itf : allInterfaces) {
-				if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())) {
+				if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getMethods().isEmpty())) {
 					return false;
 				}
 			}

@@ -24,10 +24,9 @@ public class AssociationEndBuilder {
         boolean isNavigable = property.isNavigable();
         String aggregation = property.getAggregation().getName();
 
-        //TODO refatorar duas linhas abaixo
+        //TODO Someone need to refactor these two lines
         String upperValue = property.getUpperValue() == null ? "" : property.getUpperValue().stringValue();
         Multiplicity multiplicity = new Multiplicity(property.getLowerValue().stringValue(), upperValue);
-        //System.out.println("parar");
         String nameAssociationEnd = property.getName();
         return new AssociationEnd(klass, isNavigable, aggregation, multiplicity, nameAssociationEnd);
     }

@@ -21,6 +21,7 @@
 
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII;
 
+import br.otimizes.oplatool.architecture.helpers.StatisticalMethodsHelper;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Interface;
@@ -143,7 +144,7 @@ public class NSGAIIASP extends Algorithm {
             LOGGER.info("threashold Link Overload original: " + linkOverloadThrz); //print do threashold
 
             for (Solution inic : population.getSolutionSet()) {
-                ((Architecture) inic.getDecisionVariables()[0]).linkOverloadExists(linkOverloadThrz);
+                ((Architecture) inic.getDecisionVariables()[0]).verifyIfLinkOverloadAnomalyExists(linkOverloadThrz);
                 opla.evaluateLinkOverload(inic);
             }
 
@@ -166,7 +167,7 @@ public class NSGAIIASP extends Algorithm {
                                 if (isValidSolution((Architecture) offSpring.getDecisionVariables()[0])) {
 
                                     // Verificar a quantidade de violações link overload
-                                    ((Architecture) offSpring.getDecisionVariables()[0]).linkOverloadExists(linkOverloadThrz);
+                                    ((Architecture) offSpring.getDecisionVariables()[0]).verifyIfLinkOverloadAnomalyExists(linkOverloadThrz);
 
                                     problem_.evaluateConstraints(offSpring);
 
@@ -194,7 +195,7 @@ public class NSGAIIASP extends Algorithm {
                                     problem_.evaluateConstraints(offSpring[0]);
 
                                     // Verificar a quantidade de violações link overload
-                                    ((Architecture) offSpring[0].getDecisionVariables()[0]).linkOverloadExists(linkOverloadThrz);
+                                    ((Architecture) offSpring[0].getDecisionVariables()[0]).verifyIfLinkOverloadAnomalyExists(linkOverloadThrz);
                                     opla.evaluateLinkOverload(offSpring[0]);
                                     //problem_.evaluate(offSpring[0]);
                                     offspringPopulation.add(offSpring[0]);
@@ -212,7 +213,7 @@ public class NSGAIIASP extends Algorithm {
                                 if (isValidSolution((Architecture) offSpring[1].getDecisionVariables()[0])) {
                                     problem_.evaluateConstraints(offSpring[1]);
                                     // Verificar a quantidade de violações link overload
-                                    ((Architecture) offSpring[1].getDecisionVariables()[0]).linkOverloadExists(linkOverloadThrz);
+                                    ((Architecture) offSpring[1].getDecisionVariables()[0]).verifyIfLinkOverloadAnomalyExists(linkOverloadThrz);
                                     opla.evaluateLinkOverload(offSpring[1]);
                                     ///problem_.evaluate(offSpring[1]);
                                     offspringPopulation.add(offSpring[1]);
@@ -307,7 +308,7 @@ public class NSGAIIASP extends Algorithm {
         final List<Interface> allInterfaces = new ArrayList<Interface>(solution.getAllInterfaces());
         if (!allInterfaces.isEmpty()) {
             for (Interface itf : allInterfaces) {
-                if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())) {
+                if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getMethods().isEmpty())) {
                     return false;
                 }
             }
@@ -365,7 +366,7 @@ public class NSGAIIASP extends Algorithm {
 
 
         // calculo do desvio padrao
-        Double stdDevOfBrickConcerns = getDesvioPadrao(lstConcernCount);
+        Double stdDevOfBrickConcerns = StatisticalMethodsHelper.getStandardDeviation(lstConcernCount);
         System.out.println(("desvio padrão" + stdDevOfBrickConcerns));
 
         // media + desvio padrão
@@ -399,7 +400,7 @@ public class NSGAIIASP extends Algorithm {
 
 
         // calculo do desvio padrao
-        Double stdDevOfBrickConcerns = getDesvioPadrao(lstAtribMeth);
+        Double stdDevOfBrickConcerns = StatisticalMethodsHelper.getStandardDeviation(lstAtribMeth);
         System.out.println(("desvio padrão" + stdDevOfBrickConcerns));
 
         // media + desvio padrão
@@ -425,17 +426,6 @@ public class NSGAIIASP extends Algorithm {
             soma += valor.get(i);
         }
         return soma;
-    }
-
-    public strictfp Double getDesvioPadrao(ArrayList<Integer> valor) {
-        Double media = getMedia(valor);
-        int tam = valor.size();
-        Double desvPadrao = 0D;
-        for (Integer vlr : valor) {
-            Double aux = vlr - media;
-            desvPadrao += aux * aux;
-        }
-        return Math.sqrt(desvPadrao / (tam - 1));
     }
 } // NSGA-II
 

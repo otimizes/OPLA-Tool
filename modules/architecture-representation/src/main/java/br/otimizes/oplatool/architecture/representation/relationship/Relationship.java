@@ -11,7 +11,7 @@ import java.util.List;
  * @author edipofederle<edipofederle @ gmail.com> <br /><br/>
  * <p>
  * <p>
- * OBS: Esterótipos somente foram implementamos para o relacionamento do {@link DependencyRelationship}.
+ * Implementad due to {@link DependencyRelationship}.
  */
 public abstract class Relationship {
 
@@ -19,51 +19,28 @@ public abstract class Relationship {
     private String type;
     private String name;
 
-    /**
-     * Estereótipos para os relacionamentos
-     * <p>
-     * São somente o nome do estereótipo, e devem estar presentes no arquivo de perfil (relationships.profile.uml).
-     */
-    private List<String> stereotypes = new ArrayList<String>();
+    private List<String> stereotypes = new ArrayList<>();
 
-    /**
-     * @return the id
-     */
     public String getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(String id) {
         this.id = id;
     }
 
-    /**
-     * @return the type
-     */
     public String getType() {
         return type;
     }
 
-    /**
-     * @param type the type to set
-     */
     public void setType(String type) {
         this.type = type;
     }
 
-    /**
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
@@ -84,9 +61,6 @@ public abstract class Relationship {
         this.stereotypes.add(name);
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -95,9 +69,6 @@ public abstract class Relationship {
         return result;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -111,5 +82,4 @@ public abstract class Relationship {
             return other.id == null;
         } else return id.equals(other.id);
     }
-
 }

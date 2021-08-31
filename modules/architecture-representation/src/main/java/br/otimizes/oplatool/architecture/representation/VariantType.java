@@ -12,7 +12,7 @@ public enum VariantType {
     OPTIONAL("optional"),
     ALTERNATIVE_OR("alternative_OR"),
     ALTERNATIVE_XOR("alternative_XOR"),
-    VARIATIONPOINT("variationPoint");
+    VARIATION_POINT("variationPoint");
 
     private final String variantName;
 
@@ -21,9 +21,9 @@ public enum VariantType {
     }
 
     public static VariantType getByName(String name) {
-        for (VariantType e : VariantType.values()) {
-            if (e.toString().equalsIgnoreCase(name))
-                return e;
+        for (VariantType variantType : VariantType.values()) {
+            if (variantType.toString().equalsIgnoreCase(name))
+                return variantType;
         }
         return null;
     }

@@ -203,9 +203,9 @@ public class PLAComplementaryCrossover implements IOperator<Solution[]> {
             father = null;
             mother = null;
             CrossoverUtils.getInstance().removeDuplicateElements((Architecture) offspring.getDecisionVariables()[0]);
-            ((Architecture) parent1.getDecisionVariables()[0]).verifyClassWithoutRelationship();
-            ((Architecture) parent2.getDecisionVariables()[0]).verifyClassWithoutRelationship();
-            ArrayList<String> semLig = child.verifyClassWithoutRelationship();
+            ((Architecture) parent1.getDecisionVariables()[0]).getClassesWithoutRelationship();
+            ((Architecture) parent2.getDecisionVariables()[0]).getClassesWithoutRelationship();
+            ArrayList<String> semLig = child.getClassesWithoutRelationship();
 
             if (semLig.size() > 0) {
                 for (String id : semLig) {
@@ -238,10 +238,10 @@ public class PLAComplementaryCrossover implements IOperator<Solution[]> {
                 }
             }
 
-            semLig = child.verifyClassWithoutRelationship();
-            ((Architecture) parent1.getDecisionVariables()[0]).verifyInterfaceWithoutRelationship();
-            ((Architecture) parent2.getDecisionVariables()[0]).verifyInterfaceWithoutRelationship();
-            semLig = child.verifyInterfaceWithoutRelationship();
+            semLig = child.getClassesWithoutRelationship();
+            ((Architecture) parent1.getDecisionVariables()[0]).getInterfacesWithoutRelationship();
+            ((Architecture) parent2.getDecisionVariables()[0]).getInterfacesWithoutRelationship();
+            semLig = child.getInterfacesWithoutRelationship();
 
             if (semLig.size() > 0) {
                 for (String id : semLig) {
@@ -264,7 +264,7 @@ public class PLAComplementaryCrossover implements IOperator<Solution[]> {
                     }
                 }
             }
-            semLig = child.verifyInterfaceWithoutRelationship();
+            semLig = child.getInterfacesWithoutRelationship();
 
         } catch (Exception e) {
             // TODO Auto-generated catch block

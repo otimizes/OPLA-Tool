@@ -6,7 +6,6 @@ import br.ufpr.dinf.gres.loglog.LogLog;
  * GUI logger
  */
 public class GuiLogs {
-
     private static LogLog logger;
 
     public static LogLog getLogger() {
@@ -16,5 +15,4 @@ public class GuiLogs {
     public static void setLogger(LogLog ll) {
         logger = ll;
     }
-
 }

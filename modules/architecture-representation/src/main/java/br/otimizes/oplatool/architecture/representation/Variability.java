@@ -16,16 +16,15 @@ public class Variability extends Comment {
     private String maxSelection;
     private String bindingTime;
     private boolean allowsAddingVar;
-    private String ownerClass; // Classe na qual a variabilidade esta ligada
-    private String idPackageOwner; //Pacote a qual a classe pertence
-
+    private String ownerClass;
+    private String idPackageOwner;
     private VariationPoint variationPoint;
-    private List<Variant> variants = new ArrayList<Variant>();
-
+    private final List<Variant> variants = new ArrayList<>();
     private String id;
     public String constraint;
 
-    public Variability(String name, String minSelection, String maxSelection, String bindingTime, boolean allowsAddingVar, String ownerClass, String idPackageOwner) {
+    public Variability(String name, String minSelection, String maxSelection, String bindingTime,
+                       boolean allowsAddingVar, String ownerClass, String idPackageOwner) {
         super(name, "variability");
         setName(name);
         setMinSelection(minSelection);
@@ -35,7 +34,6 @@ public class Variability extends Comment {
         setOwner(ownerClass);
         setIdPackageOwner(idPackageOwner);
     }
-
 
     public String getId() {
         return id;
@@ -57,9 +55,6 @@ public class Variability extends Comment {
         this.ownerClass = ownerClass;
     }
 
-    /**
-     * @return the idPackageOwner
-     */
     public String getIdPackageOwner() {
         return idPackageOwner;
     }
@@ -68,9 +63,6 @@ public class Variability extends Comment {
         this.idPackageOwner = idPackageOwner;
     }
 
-    /**
-     * @return the bindingTime
-     */
     public String getBindingTime() {
         return bindingTime;
     }
@@ -107,11 +99,6 @@ public class Variability extends Comment {
         this.allowsAddingVar = allowsAddingVar;
     }
 
-    /**
-     * Retorna o {@link VariationPoint} para a {@link Variability}.
-     *
-     * @return {@link VariationPoint}
-     */
     public VariationPoint getVariationPoint() {
         return variationPoint;
     }
@@ -120,9 +107,6 @@ public class Variability extends Comment {
         this.variationPoint = variationPoint;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return "Variability [name=" + getName() + ", minSelection=" + minSelection
@@ -132,7 +116,7 @@ public class Variability extends Comment {
     }
 
     public String generateNote(VariationPoint variationPoint) {
-        return String.format("%1s%2s", toString(), variationPoint.toString());
+        return String.format("%1s%2s", this, variationPoint.toString());
     }
 
 
@@ -140,9 +124,6 @@ public class Variability extends Comment {
         return variants;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -151,9 +132,6 @@ public class Variability extends Comment {
         return result;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -168,14 +146,7 @@ public class Variability extends Comment {
         } else return getName().equals(other.getName());
     }
 
-
-    /**
-     * Retorna a classe na qual a Variabilidade pertence.
-     *
-     * @return String - nome da classe
-     */
     public String getOwnerClass() {
         return ownerClass;
     }
-
 }

@@ -13,26 +13,10 @@ public enum ConcernHolder {
 
     INSTANCE;
 
-    private final HashMap<String, Concern> concerns = new HashMap<String, Concern>();
+    private final HashMap<String, Concern> concerns = new HashMap<>();
 
-    /**
-     * Esta lista é carregada a partir do arquivo de concerns indica no arquivo de configuração.<br/>
-     * <p>
-     * Ela serve para sabermos quais concern são passiveis de manipulação.<Br />
-     * <p>
-     * Ex: Ao adicionar um  concern em uma classe, o mesmo deve estar presente nesta lista.
-     */
-    private List<Concern> allowedConcerns = new ArrayList<Concern>();
+    private final List<Concern> allowedConcerns = new ArrayList<>();
 
-    /**
-     * Procura concern por nome.
-     * <p>
-     * Se o concern não estiver no arquivo de profile é lançada uma Exception.
-     *
-     * @param name
-     * @return
-     * @throws ConcernNotFoundException
-     */
     public synchronized Concern getOrCreateConcern(String name) throws ConcernNotFoundException {
         Concern concern = allowedConcernContains(name.toLowerCase());
         if (concerns.containsValue(concern)) return concern;

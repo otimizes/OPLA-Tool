@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class InterfaceBuilder extends ElementBuilder<Interface> {
 
-    private MethodBuilder methodBuilder;
+    private final MethodBuilder methodBuilder;
 
     public InterfaceBuilder(Architecture architecture) {
         super(architecture);
@@ -32,17 +32,13 @@ public class InterfaceBuilder extends ElementBuilder<Interface> {
      */
     @Override
     protected Interface buildElement(NamedElement modelElement) {
-
-        Interface interfacee = new Interface(architecture.getRelationshipHolder(), name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
-
+        Interface interfaces = new Interface(architecture.getRelationshipHolder(), name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
         List<Operation> elements = ((org.eclipse.uml2.uml.Class) modelElement).getOperations();
-
-        XmiHelper.setRecursiveOwnedComments(modelElement, interfacee);
+        XmiHelper.setRecursiveOwnedComments(modelElement, interfaces);
         for (Operation operation : elements)
-            interfacee.addExternalOperation(methodBuilder.create(operation));
-
-        interfacee.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));
-        return interfacee;
+            interfaces.addExternalMethod(methodBuilder.create(operation));
+        interfaces.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));
+        return interfaces;
     }
 
 }

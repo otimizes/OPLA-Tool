@@ -17,7 +17,6 @@ import java.io.PrintWriter;
  * 75 :    printWriter.write("\n" + tab + "<dependency id=\"" + dr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");                      to       printWriter.write("\n"+tab+"<abstraction id=\""+dr.getId()+"\" source=\""+e1.getId()+"\" target=\""+e2.getId()+"\">");
  * 76 :    printWriter.write("\n" + tab + "</dependency>");        to       printWriter.write("\n"+tab+"</abstraction>");
  * and remove lines 77-79
- *
  */
 public class SaveAbstractionSMarty {
 
@@ -30,52 +29,66 @@ public class SaveAbstractionSMarty {
         return INSTANCE;
     }
 
-    /**
-     * This class save Abstraction relationship to file (temporary save as Dependency)
-     *
-     * @param architecture - architecture to be decoded
-     * @param printWriter - used to save a string in file
-     * @param logPath - path to save log if has a error
-     */
     public void Save(Architecture architecture, PrintWriter printWriter, String logPath) {
         String tab = "    ";
-        int id_rel = 1;
-        for (Relationship r : architecture.getRelationshipHolder().getAllRelationships()) {
-            if (r instanceof AbstractionRelationship) {
-                AbstractionRelationship dr = (AbstractionRelationship) r;
-                Element e1 = architecture.findElementByNameInPackageAndSubPackage(dr.getClient().getName());
-                if (e1 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Abstraction " + dr.getId() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName());
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName() + " not found");
-                    continue;
-                }
-                Element e2 = architecture.findElementByNameInPackageAndSubPackage(dr.getSupplier().getName());
-                if (e2 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Abstraction " + dr.getId() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName() + " not found");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName());
-                    continue;
-                }
-                if (dr.getId().length() == 0) {
-                    boolean existID = true;
-                    while (existID) {
-                        existID = false;
-                        for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
-                            if(r2.getId().equals("ABSTRACTION#" + id_rel)){
-                                id_rel++;
-                                existID = true;
-                                break;
-                            }
-                        }
-                    }
-                    dr.setId("ABSTRACTION#" + id_rel);
-                    id_rel++;
-                }
-                printWriter.write("\n" + tab + "<abstraction id=\"" + dr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");
+        int idRelationship = 1;
+        for (Relationship relationship : architecture.getRelationshipHolder().getAllRelationships()) {
+            if (relationship instanceof AbstractionRelationship) {
+                AbstractionRelationship abstractionRelationship = (AbstractionRelationship) relationship;
+                Element firstElement = getFirstElement(architecture, logPath, abstractionRelationship);
+                if (firstElement == null) continue;
+                Element secondElement = getSecondElement(architecture, logPath, abstractionRelationship);
+                if (secondElement == null) continue;
+                idRelationship = getIdRelationship(architecture, idRelationship, abstractionRelationship);
+                printWriter.write("\n" + tab + "<abstraction id=\"" + abstractionRelationship.getId()
+                        + "\" source=\"" + firstElement.getId() + "\" target=\"" + secondElement.getId() + "\">");
                 printWriter.write("\n" + tab + "</abstraction>");
             }
         }
     }
 
+    private Element getFirstElement(Architecture architecture, String logPath, AbstractionRelationship abstractionRelationship) {
+        Element firstElement = architecture.findElementByNameInPackageAndSubPackage(abstractionRelationship.getClient().getName());
+        if (firstElement == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Abstraction " + abstractionRelationship.getId() + ":");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + abstractionRelationship.getSupplier().getId()
+                    + " - " + abstractionRelationship.getSupplier().getName());
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + abstractionRelationship.getClient().getId()
+                    + " - " + abstractionRelationship.getClient().getName() + " not found");
+            return null;
+        }
+        return firstElement;
+    }
+
+    private Element getSecondElement(Architecture architecture, String logPath, AbstractionRelationship abstractionRelationship) {
+        Element secondElement = architecture.findElementByNameInPackageAndSubPackage(abstractionRelationship.getSupplier().getName());
+        if (secondElement == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Abstraction " + abstractionRelationship.getId() + ":");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + abstractionRelationship.getSupplier().getId()
+                    + " - " + abstractionRelationship.getSupplier().getName() + " not found");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + abstractionRelationship.getClient().getId()
+                    + " - " + abstractionRelationship.getClient().getName());
+            return null;
+        }
+        return secondElement;
+    }
+
+    private int getIdRelationship(Architecture architecture, int idRelationship, AbstractionRelationship abstractionRelationship) {
+        if (abstractionRelationship.getId().length() == 0) {
+            boolean existId = true;
+            while (existId) {
+                existId = false;
+                for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
+                    if (r2.getId().equals("ABSTRACTION#" + idRelationship)) {
+                        idRelationship++;
+                        existId = true;
+                        break;
+                    }
+                }
+            }
+            abstractionRelationship.setId("ABSTRACTION#" + idRelationship);
+            idRelationship++;
+        }
+        return idRelationship;
+    }
 }

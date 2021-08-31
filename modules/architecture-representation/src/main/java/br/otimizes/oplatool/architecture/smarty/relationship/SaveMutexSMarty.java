@@ -22,52 +22,66 @@ public class SaveMutexSMarty {
         return INSTANCE;
     }
 
-    /**
-     * This class save mutex relationship to file
-     *
-     * @param architecture - architecture to be decoded
-     * @param printWriter - used to save a string in file
-     * @param logPath - path to save log if has a error
-     */
     public void Save(Architecture architecture, PrintWriter printWriter, String logPath) {
         String tab = "    ";
-        int id_rel = 1;
-        for (Relationship r : architecture.getRelationshipHolder().getAllRelationships()) {
-            if (r instanceof MutexRelationship) {
-                MutexRelationship dr = (MutexRelationship) r;
-                Element e1 = architecture.findElementByNameInPackageAndSubPackage(dr.getClient().getName());
-                if (e1 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Mutex " + dr.getId() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName());
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName() + " not found");
-                    continue;
-                }
-                Element e2 = architecture.findElementByNameInPackageAndSubPackage(dr.getSupplier().getName());
-                if (e2 == null) {
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscart Mutex " + dr.getId() + ":");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + dr.getSupplier().getId() + " - " + dr.getSupplier().getName() + " not found");
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + dr.getClient().getId() + " - " + dr.getClient().getName());
-                    continue;
-                }
-                if (dr.getId().length() == 0) {
-                    boolean existID = true;
-                    while (existID) {
-                        existID = false;
-                        for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
-                            if(r2.getId().equals("MUTEX#" + id_rel)){
-                                id_rel++;
-                                existID = true;
-                                break;
-                            }
-                        }
-                    }
-                    dr.setId("MUTEX#" + id_rel);
-                    id_rel++;
-                }
-                printWriter.write("\n" + tab + "<mutex id=\"" + dr.getId() + "\" source=\"" + e1.getId() + "\" target=\"" + e2.getId() + "\">");
+        int idRelationship = 1;
+        for (Relationship relationship : architecture.getRelationshipHolder().getAllRelationships()) {
+            if (relationship instanceof MutexRelationship) {
+                MutexRelationship mutexRelationship = (MutexRelationship) relationship;
+                Element firstElement = getFirstElement(architecture, logPath, mutexRelationship);
+                if (firstElement == null) continue;
+                Element second = getSecondElement(architecture, logPath, mutexRelationship);
+                if (second == null) continue;
+                idRelationship = getIdRelationship(architecture, idRelationship, mutexRelationship);
+                printWriter.write("\n" + tab + "<mutex id=\"" + mutexRelationship.getId() + "\" source=\""
+                        + firstElement.getId() + "\" target=\"" + second.getId() + "\">");
                 printWriter.write("\n" + tab + "</mutex>");
             }
         }
     }
 
+    private Element getFirstElement(Architecture architecture, String logPath, MutexRelationship mutexRelationship) {
+        Element firstElement = architecture.findElementByNameInPackageAndSubPackage(mutexRelationship.getClient().getName());
+        if (firstElement == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Mutex " + mutexRelationship.getId() + ":");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + mutexRelationship.getSupplier().getId()
+                    + " - " + mutexRelationship.getSupplier().getName());
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + mutexRelationship.getClient().getId()
+                    + " - " + mutexRelationship.getClient().getName() + " not found");
+            return null;
+        }
+        return firstElement;
+    }
+
+    private Element getSecondElement(Architecture architecture, String logPath, MutexRelationship mutexRelationship) {
+        Element second = architecture.findElementByNameInPackageAndSubPackage(mutexRelationship.getSupplier().getName());
+        if (second == null) {
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\n\nDiscard Mutex " + mutexRelationship.getId() + ":");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nSupplier: " + mutexRelationship.getSupplier().getId()
+                    + " - " + mutexRelationship.getSupplier().getName() + " not found");
+            SaveStringToFile.getInstance().appendStrToFile(logPath, "\nClient: " + mutexRelationship.getClient().getId()
+                    + " - " + mutexRelationship.getClient().getName());
+            return null;
+        }
+        return second;
+    }
+
+    private int getIdRelationship(Architecture architecture, int idRelationship, MutexRelationship mutexRelationship) {
+        if (mutexRelationship.getId().length() == 0) {
+            boolean existID = true;
+            while (existID) {
+                existID = false;
+                for (Relationship r2 : architecture.getRelationshipHolder().getAllRelationships()) {
+                    if (r2.getId().equals("MUTEX#" + idRelationship)) {
+                        idRelationship++;
+                        existID = true;
+                        break;
+                    }
+                }
+            }
+            mutexRelationship.setId("MUTEX#" + idRelationship);
+            idRelationship++;
+        }
+        return idRelationship;
+    }
 }

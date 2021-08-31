@@ -1,13 +1,8 @@
 package br.otimizes.oplatool.architecture.builders;
 
-import br.otimizes.oplatool.architecture.representation.*;
-import br.otimizes.oplatool.architecture.representation.Class;
-import br.otimizes.oplatool.architecture.representation.Interface;
-import br.otimizes.oplatool.architecture.representation.relationship.AssociationClassRelationship;
-import br.otimizes.oplatool.architecture.representation.relationship.Relationship;
 import br.otimizes.oplatool.architecture.exceptions.ModelIncompleteException;
 import br.otimizes.oplatool.architecture.exceptions.ModelNotFoundException;
-import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import br.otimizes.oplatool.architecture.exceptions.SMartyProfileNotAppliedToModelException;
 import br.otimizes.oplatool.architecture.exceptions.VariationPointElementTypeErrorException;
 import br.otimizes.oplatool.architecture.flyweights.VariabilityFlyweight;
 import br.otimizes.oplatool.architecture.flyweights.VariantFlyweight;
@@ -16,7 +11,10 @@ import br.otimizes.oplatool.architecture.helpers.ModelElementHelper;
 import br.otimizes.oplatool.architecture.helpers.ModelHelper;
 import br.otimizes.oplatool.architecture.helpers.ModelHelperFactory;
 import br.otimizes.oplatool.architecture.helpers.StereotypeHelper;
+import br.otimizes.oplatool.architecture.representation.Class;
+import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.representation.*;
+import br.otimizes.oplatool.architecture.representation.relationship.AssociationClassRelationship;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
@@ -29,7 +27,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Builder responsável por criar a br.otimizes.oplatool.arquitetura.
+ * Builder responsible to create the papyrus architecture
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
@@ -40,7 +38,7 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
     private Package model;
     private PackageBuilder packageBuilder;
     private ClassBuilder classBuilder;
-    private InterfaceBuilder intefaceBuilder;
+    private InterfaceBuilder interfaceBuilder;
     private VariabilityBuilder variabilityBuilder;
     private AssociationRelationshipBuilder associationRelationshipBuilder;
     private AssociationClassRelationshipBuilder associationClassRelationshipBuilder;
@@ -49,8 +47,7 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
     private RealizationRelationshipBuilder realizationRelationshipBuilder;
     private AbstractionRelationshipBuilder abstractionRelationshipBuilder;
     private UsageRelationshipBuilder usageRelationshipBuilder;
-
-    private ModelHelper modelHelper;
+    private final ModelHelper modelHelper;
 
     /**
      *
@@ -64,15 +61,15 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
     }
 
     /**
-     * Cria a br.otimizes.oplatool.arquitetura. Primeiramente é carregado o model (arquivo .uml),
-     * após isso é instanciado o objeto {@link Architecture}. <br/>
-     * Feito isso, é chamado método "initialize", neste método é crializada a
-     * criação dos Builders. <br/>
+     * Creates architecture First the model (.uml file) is loaded,
+     * after that the {@link Architecture} object is instantiated. <br/>
+     * Once this is done, it is called the "initialize" method, in this method the
+     * Builders creation. <br/>
      * <p>
-     * Em seguida, é carregado os pacotes e suas classes. Também é carregada as
-     * classes que não pertencem a pacotes. <br/>
-     * Após isso são carregadas as variabilidade. <br/>
-     * <br/>
+     * The packages and their classes are then loaded. It is also loaded at
+     * classes that do not belong to packages. <br/>
+     * After that, the variability is loaded. <br/>
+     *<br/>
      * <p>
      * InterClassRelationships </br>
      * <p>
@@ -81,16 +78,15 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      * <li>loadInterClassDependencies</li>
      * <li>loadRealizations</li> <br/>
      * <p>
-     * InterElementRelationships </br>
+     * InterElementRelationships</br>
      * <li>loadInterElementDependencies</li>
      * <li>loadAbstractions</li>
      * <p>
      * <br>
-     * <br/>
+     *<br/>
      *
-     * @param xmiFilePath - arquivo da br.otimizes.oplatool.arquitetura (.uml)
+     * @param xmiFilePath - file from br.optimizes.oplatool.arquitetura (.uml)
      * @return {@link Architecture}
-     * @throws Exception
      */
     public Architecture create(String xmiFilePath) {
         try {
@@ -104,35 +100,8 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
             LOGGER.info("Inicializando");
             initialize(architecture);
 
-            if (ApplicationFileConfigThreadScope.hasConcernsProfile()) {
-                LOGGER.info("Config Concerns");
-                Package concerns = modelHelper.loadConcernProfile();
-                EList<Stereotype> concernsAllowed = concerns.getOwnedStereotypes();
-                for (Stereotype stereotype : concernsAllowed)
-                    ConcernHolder.INSTANCE.allowedConcerns().add(new Concern(stereotype.getName()));
-            }
-
-            LOGGER.info("Loading Packages");
-            for (br.otimizes.oplatool.architecture.representation.Package p : loadPackages())
-                architecture.addPackage(p); // Classes que possuem pacotes são
-            // carregadas juntamente com seus
-            // pacotes
-
-            LOGGER.info("Classes");
-            for (Class klass : loadClasses())
-                architecture.addExternalClass(klass); // Classes que nao possuem
-            // pacotes
-            LOGGER.info("Load Interfaces");
-            for (Interface inter : loadInterfaces())
-                architecture.addExternalInterface(inter);
-            LOGGER.info("get Variabilities");
-            architecture.getAllVariabilities().addAll(loadVariability());
-            LOGGER.info("Load Inter Clases Relationship");
-            for (br.otimizes.oplatool.architecture.representation.relationship.Relationship r : loadInterClassRelationships())
-                architecture.addRelationship(r);
-            LOGGER.info("Load Associations");
-            for (br.otimizes.oplatool.architecture.representation.relationship.Relationship as : loadAssociationClassAssociation())
-                architecture.addRelationship(as);
+            initializeConcerns();
+            loadElements(architecture);
 
             Cloner cloner = new Cloner();
             architecture.setCloner(cloner);
@@ -147,6 +116,36 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         }
     }
 
+    private void initializeConcerns() {
+        if (ApplicationFileConfigThreadScope.hasConcernsProfile()) {
+            LOGGER.info("Config Concerns");
+            Package concerns = modelHelper.loadConcernProfile();
+            EList<Stereotype> concernsAllowed = concerns.getOwnedStereotypes();
+            for (Stereotype stereotype : concernsAllowed)
+                ConcernHolder.INSTANCE.allowedConcerns().add(new Concern(stereotype.getName()));
+        }
+    }
+
+    private void loadElements(Architecture architecture) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException, VariationPointElementTypeErrorException {
+        LOGGER.info("Loading Packages");
+        for (br.otimizes.oplatool.architecture.representation.Package p : loadPackages())
+            architecture.addPackage(p);
+        LOGGER.info("Classes");
+        for (Class klass : loadClasses())
+            architecture.addExternalClass(klass);
+        LOGGER.info("Load Interfaces");
+        for (Interface inter : loadInterfaces())
+            architecture.addExternalInterface(inter);
+        LOGGER.info("get Variabilities");
+        architecture.getAllVariabilities().addAll(loadVariability());
+        LOGGER.info("Load Inter Classes Relationship");
+        for (br.otimizes.oplatool.architecture.representation.relationship.Relationship r : loadInterClassRelationships())
+            architecture.addRelationship(r);
+        LOGGER.info("Load Associations");
+        for (br.otimizes.oplatool.architecture.representation.relationship.Relationship as : loadAssociationClassAssociation())
+            architecture.addRelationship(as);
+    }
+
     /**
      * Load abstractions
      *
@@ -154,10 +153,10 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      */
     private List<? extends br.otimizes.oplatool.architecture.representation.relationship.Relationship> loadAbstractions() {
         List<Abstraction> abstractions = modelHelper.getAllAbstractions(model);
-        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relations = new ArrayList<br.otimizes.oplatool.architecture.representation.relationship.Relationship>();
-        List<Package> pacakges = modelHelper.getAllPackages(model);
+        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relations = new ArrayList<>();
+        List<Package> packages = modelHelper.getAllPackages(model);
 
-        for (Package package1 : pacakges) {
+        for (Package package1 : packages) {
             List<Abstraction> abs = modelHelper.getAllAbstractions(package1);
             for (Abstraction abstraction : abs)
                 relations.add(abstractionRelationshipBuilder.create(abstraction));
@@ -177,13 +176,10 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      * @return relationships
      */
     private List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> loadInterClassRelationships() {
-        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relationships = new ArrayList<br.otimizes.oplatool.architecture.representation.relationship.Relationship>();
+        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relationships = new ArrayList<>();
         relationships.addAll(loadGeneralizations());
         relationships.addAll(loadAssociations());
-        relationships.addAll(loadDependencies()); // Todo renomear carrega todo
-        // tipo de depdenencias(
-        // pacote -> classe, class
-        // -> pacote)
+        relationships.addAll(loadDependencies());
         relationships.addAll(loadRealizations());
         relationships.addAll(loadUsageInterClass());
         relationships.addAll(loadAbstractions());
@@ -194,11 +190,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
     }
 
     private List<? extends br.otimizes.oplatool.architecture.representation.relationship.Relationship> loadUsageInterClass() {
-        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> usageClass = new ArrayList<br.otimizes.oplatool.architecture.representation.relationship.Relationship>();
+        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> usageClass = new ArrayList<>();
         List<Usage> usages = modelHelper.getAllUsage(model);
 
-        List<Package> pacotes = modelHelper.getAllPackages(model);
-        for (Package package1 : pacotes)
+        List<Package> packages = modelHelper.getAllPackages(model);
+        for (Package package1 : packages)
             for (Usage u : modelHelper.getAllUsage(package1))
                 usageClass.add(usageRelationshipBuilder.create(u));
 
@@ -216,7 +212,7 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      * @return associations
      */
     private List<AssociationClassRelationship> loadAssociationClassAssociation() {
-        List<AssociationClassRelationship> associationClasses = new ArrayList<AssociationClassRelationship>();
+        List<AssociationClassRelationship> associationClasses = new ArrayList<>();
         List<AssociationClass> associationsClass = modelHelper.getAllAssociationsClass(model);
 
         for (AssociationClass associationClass : associationsClass) {
@@ -234,16 +230,12 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      * @return realizations
      */
     private List<? extends br.otimizes.oplatool.architecture.representation.relationship.Relationship> loadRealizations() {
-        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relationships = new ArrayList<br.otimizes.oplatool.architecture.representation.relationship.Relationship>();
+        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relationships = new ArrayList<>();
         List<Realization> realizations = modelHelper.getAllRealizations(model);
 
-        // Se tivermos uma relação de realization entre um package e uma classe
-        // a mesma é carregada como uma dependencia, por isso verificamos aqui
-        // se existe algum caso
-        // destes dentro de dependencies.
-        List<Dependency> depdencies = modelHelper.getAllDependencies(model);
+        List<Dependency> dependencies = modelHelper.getAllDependencies(model);
 
-        for (Dependency dependency : depdencies)
+        for (Dependency dependency : dependencies)
             if (dependency instanceof Realization)
                 relationships.add(realizationRelationshipBuilder.create((Realization) dependency));
 
@@ -261,7 +253,7 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      * @return dependencies
      */
     private List<? extends br.otimizes.oplatool.architecture.representation.relationship.Relationship> loadDependencies() {
-        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relationships = new ArrayList<br.otimizes.oplatool.architecture.representation.relationship.Relationship>();
+        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relationships = new ArrayList<>();
         List<Dependency> dependencies = modelHelper.getAllDependencies(model);
 
         for (Dependency dependency : dependencies)
@@ -279,7 +271,7 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      * @return generations
      */
     private List<? extends br.otimizes.oplatool.architecture.representation.relationship.Relationship> loadGeneralizations() {
-        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relationships = new ArrayList<br.otimizes.oplatool.architecture.representation.relationship.Relationship>();
+        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relationships = new ArrayList<>();
         List<EList<Generalization>> generalizations = modelHelper.getAllGeneralizations(model);
 
         for (EList<Generalization> eList : generalizations)
@@ -297,7 +289,7 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      * @return relationships
      */
     private List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> loadAssociations() {
-        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relationships = new ArrayList<Relationship>();
+        List<br.otimizes.oplatool.architecture.representation.relationship.Relationship> relationships = new ArrayList<>();
         List<Association> associations = modelHelper.getAllAssociations(model);
 
         for (Association association : associations)
@@ -312,14 +304,13 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      * Load variabilities
      *
      * @return variabilities
-     * @throws ModelNotFoundException                   not found model
-     * @throws ModelIncompleteException                 incomplete model
-     * @throws SMartyProfileNotAppliedToModelExcepetion not applied profile
-     * @throws VariationPointElementTypeErrorException  element variation point type error
+     * @throws ModelNotFoundException                  not found model
+     * @throws ModelIncompleteException                incomplete model
+     * @throws SMartyProfileNotAppliedToModelException not applied profile
+     * @throws VariationPointElementTypeErrorException element variation point type error
      */
     private List<Variability> loadVariability() throws ModelNotFoundException, ModelIncompleteException,
-            SMartyProfileNotAppliedToModelExcepetion, VariationPointElementTypeErrorException {
-        List<Variability> variabilities = new ArrayList<Variability>();
+            SMartyProfileNotAppliedToModelException, VariationPointElementTypeErrorException {
         List<org.eclipse.uml2.uml.Class> allClasses = modelHelper.getAllClasses(model);
 
 
@@ -329,7 +320,7 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         }
 
         VariabilityFlyweight.getInstance().createVariants();
-        variabilities.addAll(VariabilityFlyweight.getInstance().getVariabilities());
+        List<Variability> variabilities = new ArrayList<>(VariabilityFlyweight.getInstance().getVariabilities());
 
         if (!variabilities.isEmpty())
             return variabilities;
@@ -342,15 +333,13 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      * @return classes
      */
     private List<Class> loadClasses() {
-        List<Class> listOfClasses = new ArrayList<Class>();
+        List<Class> listOfClasses = new ArrayList<>();
         List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 
         for (NamedElement element : classes)
             if (!ModelElementHelper.isInterface(element))
                 listOfClasses.add(classBuilder.create(element));
 
-        if (!listOfClasses.isEmpty())
-            return listOfClasses;
         return listOfClasses;
     }
 
@@ -360,12 +349,12 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      * @return interfaces
      */
     private List<Interface> loadInterfaces() {
-        List<Interface> listOfInterfaces = new ArrayList<Interface>();
+        List<Interface> listOfInterfaces = new ArrayList<>();
         List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 
         for (org.eclipse.uml2.uml.Class class1 : classes)
             if (ModelElementHelper.isInterface(class1))
-                listOfInterfaces.add(intefaceBuilder.create(class1));
+                listOfInterfaces.add(interfaceBuilder.create(class1));
 
         return listOfInterfaces;
     }
@@ -376,19 +365,15 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      * @return {@link Package}
      */
     private List<br.otimizes.oplatool.architecture.representation.Package> loadPackages() {
-        List<br.otimizes.oplatool.architecture.representation.Package> packages = new ArrayList<br.otimizes.oplatool.architecture.representation.Package>();
-        List<Package> packagess = modelHelper.getAllPackages(model);
-
-        for (NamedElement pkg : packagess)
+        List<br.otimizes.oplatool.architecture.representation.Package> packages = new ArrayList<>();
+        List<Package> allPackages = modelHelper.getAllPackages(model);
+        for (NamedElement pkg : allPackages)
             packages.add(packageBuilder.create(pkg));
-
-        if (!packages.isEmpty())
-            return packages;
         return packages;
     }
 
     /**
-     * Initializes the elements of br.otimizes.oplatool.arquitectura. Instantiating builder classes with their dependencies.
+     * Initializes the elements of architecture Instantiating builder classes with their dependencies.
      *
      * @param architecture architecture
      * @throws ModelIncompleteException incomplete model
@@ -396,8 +381,8 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      */
     private void initialize(Architecture architecture) throws ModelNotFoundException, ModelIncompleteException {
         classBuilder = new ClassBuilder(architecture);
-        intefaceBuilder = new InterfaceBuilder(architecture);
-        packageBuilder = new PackageBuilder(architecture, classBuilder, intefaceBuilder);
+        interfaceBuilder = new InterfaceBuilder(architecture);
+        packageBuilder = new PackageBuilder(architecture, classBuilder, interfaceBuilder);
         variabilityBuilder = new VariabilityBuilder(architecture);
 
         associationRelationshipBuilder = new AssociationRelationshipBuilder(architecture);
@@ -409,13 +394,11 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
         usageRelationshipBuilder = new UsageRelationshipBuilder(architecture);
 
         VariabilityFlyweight.getInstance().resetVariabilities();
-        VariationPointFlyweight.getInstance().resertVariationPoints();
+        VariationPointFlyweight.getInstance().resetVariationPoints();
         VariantFlyweight.getInstance().resetVariants();
-
     }
 
     public Package getModel() {
         return this.model;
     }
-
 }

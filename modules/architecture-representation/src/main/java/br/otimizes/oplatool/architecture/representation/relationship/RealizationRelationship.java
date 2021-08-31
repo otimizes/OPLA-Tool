@@ -6,6 +6,8 @@ import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.representation.Package;
 
+import java.util.Objects;
+
 /**
  * Realization relationship class
  *
@@ -15,7 +17,6 @@ public class RealizationRelationship extends Relationship {
 
     private Element client;
     private Element supplier;
-
 
     public RealizationRelationship(Element client, Element supplier, String name, String id) {
         setClient(client);
@@ -85,10 +86,9 @@ public class RealizationRelationship extends Relationship {
             return false;
         }
         final RealizationRelationship other = (RealizationRelationship) obj;
-        if (this.supplier != other.supplier && (this.supplier == null || !this.supplier.equals(other.supplier))) {
+        if (!Objects.equals(this.supplier, other.supplier)) {
             return false;
         }
-        return this.client == other.client || (this.client != null && this.client.equals(other.client));
+        return Objects.equals(this.client, other.client);
     }
-
 }

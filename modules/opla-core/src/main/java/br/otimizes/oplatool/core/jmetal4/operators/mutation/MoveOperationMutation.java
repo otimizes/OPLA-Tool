@@ -49,7 +49,7 @@ public class MoveOperationMutation implements IOperator<Solution> {
                                     List<Method> OpsInterface = new ArrayList<Method>();
                                     OpsInterface.addAll(sourceInterface.getMethods().stream().filter(c -> !c.isTotalyFreezed()).collect(Collectors.toList()));
                                     if (OpsInterface.size() >= 1) {
-                                        sourceInterface.moveOperationToInterface(MutationUtils.getRandomMethod(OpsInterface),
+                                        sourceInterface.moveMethodToInterface(MutationUtils.getRandomMethod(OpsInterface),
                                                 targetInterface);
                                         for (Element implementor : sourceInterface.getImplementors()) {
                                             if (implementor instanceof Package) {

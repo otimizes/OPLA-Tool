@@ -48,7 +48,7 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
             printWriter.write("\n" + halfTab + "<profile mandatory=\"STEREOTYPE#1\" optional=\"STEREOTYPE#2\" variationPoint=\"STEREOTYPE#3\" inclusive=\"STEREOTYPE#4\" exclusive=\"STEREOTYPE#5\" requires=\"STEREOTYPE#6\" mutex=\"STEREOTYPE#7\"/>");
             printWriter.write("\n" + halfTab + "<diagram id=\"" + architecture.getDiagramID() + "\" name=\"" + architecture.getDiagramName() + "\" type=\"Class\">");
             ResizeAndReorderArchitectureSMarty.getInstance().Execute(architecture);
-            ArrayList<Interface> duplicatedInterfaces = architecture.getDuplicateInterface();
+            ArrayList<Interface> duplicatedInterfaces = architecture.getDuplicatedInterface();
             if (duplicatedInterfaces.size() > 0) {
                 for (Interface inter : duplicatedInterfaces) {
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\nInterface Duplicated: " + inter.getId() + " - " + inter.getName());
@@ -57,7 +57,7 @@ public class GenerateArchitectureSMarty extends ArchitectureBase {
             SavePackagesSMarty.getInstance().Save(architecture, printWriter);
             SaveClassSMarty.getInstance().Save(architecture, printWriter);
             SaveInterfaceSMarty.getInstance().Save(architecture, printWriter);
-            SaveRelationshipSMarty.getInstance().Save(architecture, printWriter, logPath);
+            SaveRelationshipSMarty.getInstance().save(architecture, printWriter, logPath);
             for (Package pkg : architecture.getAllPackages())
                 saveReference(pkg, printWriter);
             SaveVariabilitySMarty.getInstance().Save(architecture, printWriter, logPath);

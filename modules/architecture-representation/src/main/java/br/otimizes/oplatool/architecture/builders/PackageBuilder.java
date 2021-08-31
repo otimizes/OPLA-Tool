@@ -20,14 +20,14 @@ import java.util.List;
  */
 public class PackageBuilder extends ElementBuilder<Package> {
 
-    private static ModelHelper modelHelper;
+    private static final ModelHelper modelHelper;
 
     static {
         modelHelper = ModelHelperFactory.getModelHelper();
     }
 
-    private ClassBuilder classBuilder;
-    private InterfaceBuilder interfaceBuilder;
+    private final ClassBuilder classBuilder;
+    private final InterfaceBuilder interfaceBuilder;
 
     public PackageBuilder(Architecture architecture, ClassBuilder classBuilder, InterfaceBuilder interfaceBuilder) {
         super(architecture);
@@ -37,20 +37,21 @@ public class PackageBuilder extends ElementBuilder<Package> {
 
     @Override
     public Package buildElement(NamedElement modelElement) {
-        Package pkg = new Package(architecture.getRelationshipHolder(), name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
+        Package pkg = new Package(architecture.getRelationshipHolder(), name, variantType,
+                modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
         pkg.getNestedPackages().addAll(getNestedPackages(modelElement));
         XmiHelper.setRecursiveOwnedComments(modelElement, pkg);
-        for (Class klass : getClasses(modelElement, pkg)) {
+        for (Class klass : getClasses(modelElement)) {
             pkg.addExternalClass(klass);
         }
-        for (Interface itf : getInterfaces(modelElement, pkg))
+        for (Interface itf : getInterfaces(modelElement))
             pkg.addExternalInterface(itf);
 
         return pkg;
     }
 
     private List<Package> getNestedPackages(NamedElement modelElement) {
-        List<Package> listOfPackes = new ArrayList<Package>();
+        List<Package> listOfPackes = new ArrayList<>();
         List<org.eclipse.uml2.uml.Package> paks = modelHelper.getAllPackages(modelElement);
 
         for (NamedElement element : paks)
@@ -59,8 +60,8 @@ public class PackageBuilder extends ElementBuilder<Package> {
         return listOfPackes;
     }
 
-    private List<Class> getClasses(NamedElement modelElement, Package pkg) {
-        List<Class> listOfClasses = new ArrayList<Class>();
+    private List<Class> getClasses(NamedElement modelElement) {
+        List<Class> listOfClasses = new ArrayList<>();
         List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(modelElement);
 
         for (NamedElement element : classes) {
@@ -69,12 +70,11 @@ public class PackageBuilder extends ElementBuilder<Package> {
                 listOfClasses.add(klass);
             }
         }
-
         return listOfClasses;
     }
 
-    private List<Interface> getInterfaces(NamedElement modelElement, Package pkg) {
-        List<Interface> allInterfaces = new ArrayList<Interface>();
+    private List<Interface> getInterfaces(NamedElement modelElement) {
+        List<Interface> allInterfaces = new ArrayList<>();
         List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(modelElement);
 
         for (NamedElement element : classes) {
@@ -83,7 +83,6 @@ public class PackageBuilder extends ElementBuilder<Package> {
                 allInterfaces.add(klass);
             }
         }
-
         return allInterfaces;
     }
 }

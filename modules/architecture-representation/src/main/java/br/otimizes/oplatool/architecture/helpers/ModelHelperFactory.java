@@ -10,13 +10,12 @@ import org.apache.log4j.Logger;
 public class ModelHelperFactory {
     private static final Logger LOGGER = Logger.getLogger(ModelHelperFactory.class);
 
-    private static ThreadLocal<ModelHelper> instance = new ThreadLocal<>();
+    private static final ThreadLocal<ModelHelper> instance = new ThreadLocal<>();
 
     public static ModelHelper getModelHelper() {
         if (instance.get() == null) {
             instance.set(new ModelHelper());
         }
-
         return instance.get();
     }
 }

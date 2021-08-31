@@ -247,7 +247,7 @@ public class PLAMutation extends AbstractMutationOperator {
                                 List<Method> OpsInterface = new ArrayList<Method>();
                                 OpsInterface.addAll(sourceInterface.getMethods());
                                 if (OpsInterface.size() >= 1) {
-                                    sourceInterface.moveOperationToInterface(randomObject(OpsInterface), targetInterface);
+                                    sourceInterface.moveMethodToInterface(randomObject(OpsInterface), targetInterface);
                                     for (Element implementor : sourceInterface.getImplementors()) {
                                         if (implementor instanceof Package) {
                                             arch.addImplementedInterface(targetInterface, (Package) implementor);
@@ -410,7 +410,7 @@ public class PLAMutation extends AbstractMutationOperator {
                             OPLA.countPackage++;
                             Interface newInterface = newComp.createInterface("Interface" + OPLA.countInterface++);
 
-                            sourceInterface.moveOperationToInterface(op, newInterface);
+                            sourceInterface.moveMethodToInterface(op, newInterface);
 
                             for (Element implementor : sourceInterface.getImplementors()) {
                                 if (implementor instanceof Package) {
@@ -683,10 +683,10 @@ public class PLAMutation extends AbstractMutationOperator {
 
         if (targetInterface == null) {
             targetInterface = targetComp.createInterface("Interface" + OPLA.countInterface++);
-            sourceInterface.moveOperationToInterface(operation, targetInterface);
+            sourceInterface.moveMethodToInterface(operation, targetInterface);
             targetInterface.addConcern(concern.getName());
         } else {
-            sourceInterface.moveOperationToInterface(operation, targetInterface);
+            sourceInterface.moveMethodToInterface(operation, targetInterface);
         }
 
         addRelationship(sourceInterface, targetComp, sourceComp, architecture, concern, targetInterface);

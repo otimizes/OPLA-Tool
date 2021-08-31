@@ -7,6 +7,7 @@ package br.otimizes.oplatool.architecture.representation;
  * @author edipofederle<edipofederle @ gmail.com>
  */
 public class Concern {
+
     private String id;
     private Boolean isPrimitive = false;
     private String name;
@@ -72,5 +73,4 @@ public class Concern {
             return other.name == null;
         } else return name.equals(other.name);
     }
-
 }

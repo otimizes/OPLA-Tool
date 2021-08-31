@@ -1,6 +1,5 @@
 package br.otimizes.oplatool.architecture.representation;
 
-import br.otimizes.oplatool.architecture.representation.relationship.*;
 import br.otimizes.oplatool.architecture.helpers.UtilResources;
 import br.otimizes.oplatool.architecture.representation.relationship.*;
 
@@ -25,91 +24,84 @@ import java.util.Set;
  */
 public class OperationsOverAssociation {
 
-    private AssociationEnd associationEnd1;
-    private AssociationRelationship association;
-    private RelationshipsHolder relationshipHolder;
+    private AssociationEnd associationEnd;
+    private final AssociationRelationship association;
+    private final RelationshipsHolder relationshipHolder;
 
     public OperationsOverAssociation(RelationshipsHolder relationshipHolder) {
         this.relationshipHolder = relationshipHolder;
-        String id = UtilResources.getRandonUUID();
+        String id = UtilResources.getRandomUUID();
         association = new AssociationRelationship(id);
     }
 
     public OperationsOverAssociation createAssociationEnd() {
-        associationEnd1 = new AssociationEnd();
+        associationEnd = new AssociationEnd();
         return this;
     }
 
     public OperationsOverAssociation withName(String name) {
-        this.associationEnd1.setName(name);
+        this.associationEnd.setName(name);
         return this;
     }
 
-    public OperationsOverAssociation withKlass(Element idclass1) {
-        associationEnd1.setCLSClass(idclass1);
+    public OperationsOverAssociation withKlass(Element classId) {
+        associationEnd.setCLSClass(classId);
         return this;
     }
 
     public OperationsOverAssociation withMultiplicity(String multiplicity) {
         if (!multiplicity.equals("1"))
-            this.associationEnd1.setMultiplicity(new Multiplicity(multiplicity.split("\\..")[0], multiplicity.split("\\..")[1]));
+            this.associationEnd.setMultiplicity(new Multiplicity(multiplicity.split("\\..")[0],
+                    multiplicity.split("\\..")[1]));
         else
-            this.associationEnd1.setMultiplicity(new Multiplicity(multiplicity, multiplicity));
+            this.associationEnd.setMultiplicity(new Multiplicity(multiplicity, multiplicity));
         return this;
     }
 
     public OperationsOverAssociation navigable(boolean navigable) {
-        this.associationEnd1.setNavigable(navigable);
+        this.associationEnd.setNavigable(navigable);
         return this;
     }
 
     public void build() {
-        this.association.getParticipants().add(associationEnd1);
+        this.association.getParticipants().add(associationEnd);
         this.relationshipHolder.addRelationship(this.association);
     }
 
     public OperationsOverAssociation and() {
-        this.association.getParticipants().add(associationEnd1);
+        this.association.getParticipants().add(associationEnd);
         this.relationshipHolder.removeRelationship(association);
         return this;
     }
 
     public OperationsOverAssociation asComposition() {
-        this.associationEnd1.setAggregation("composite");
+        this.associationEnd.setAggregation("composite");
         return this;
     }
 
     public OperationsOverAssociation asAggregation() {
-        this.associationEnd1.setAggregation("shared");
+        this.associationEnd.setAggregation("shared");
         return this;
     }
 
-    /**
-     * associationClass null se você deseja que seja criada a classe associativa.
-     *
-     * @param listAttrs
-     * @param listMethods
-     * @param owner
-     * @param klass
-     * @param associationClass
-     */
-    public void createAssociationClass(Set<Attribute> listAttrs, Set<Method> listMethods, Element owner, Element klass, String associationClassName) {
+    public void createAssociationClass(Set<Attribute> attributes, Set<Method> methods, Element owner,
+                                       Element element, String associationClassName) {
         String namespace = UtilResources.createNamespace(ArchitectureHolder.getName(), "AssociationClass");
-        Class asClass = new Class(relationshipHolder, associationClassName, null, false, namespace, UtilResources.getRandonUUID());
+        Class asClass = new Class(relationshipHolder, associationClassName, null, false,
+                namespace, UtilResources.getRandomUUID());
 
-        for (Attribute a : listAttrs)
-            asClass.addExternalAttribute(a);
+        for (Attribute attribute : attributes)
+            asClass.addExternalAttribute(attribute);
 
-        for (Method m : listMethods)
-            asClass.addExternalMethod(m);
+        for (Method method : methods)
+            asClass.addExternalMethod(method);
 
-        List<MemberEnd> ends = new ArrayList<MemberEnd>();
-        ends.add(new MemberEnd("none", null, "public", owner));
-        ends.add(new MemberEnd("none", null, "public", klass));
-
+        List<MemberEnd> memberEnds = new ArrayList<MemberEnd>();
+        memberEnds.add(new MemberEnd("none", null, "public", owner));
+        memberEnds.add(new MemberEnd("none", null, "public", element));
 
         AssociationClassRelationship asc = new AssociationClassRelationship("",
-                ends,
+                memberEnds,
                 owner,
                 asClass.getId(),
                 null,
@@ -117,30 +109,21 @@ public class OperationsOverAssociation {
         this.relationshipHolder.addRelationship(asc);
     }
 
-    /**
-     * Cria associação dado dois {@link AssociationEnd}
-     *
-     * @param associationEnd1
-     * @param associationEnd2
-     */
     public void create(AssociationEnd associationEnd1, AssociationEnd associationEnd2) {
-        AssociationEnd associatioEnd1 = new AssociationEnd();
-        associatioEnd1.setAggregation(associationEnd1.getAggregation());
-        associatioEnd1.setNavigable(associationEnd1.isNavigable());
-        associatioEnd1.setMultiplicity(associationEnd1.getMultiplicity());
-        associatioEnd1.setCLSClass(associationEnd1.getCLSClass());
+        AssociationEnd firstAssociationEnd = new AssociationEnd();
+        firstAssociationEnd.setAggregation(associationEnd1.getAggregation());
+        firstAssociationEnd.setNavigable(associationEnd1.isNavigable());
+        firstAssociationEnd.setMultiplicity(associationEnd1.getMultiplicity());
+        firstAssociationEnd.setCLSClass(associationEnd1.getCLSClass());
 
-        AssociationEnd associatioEnd2 = new AssociationEnd();
-        associatioEnd2.setAggregation(associationEnd2.getAggregation());
-        associatioEnd2.setNavigable(associationEnd2.isNavigable());
-        associatioEnd2.setMultiplicity(associationEnd2.getMultiplicity());
-        associatioEnd2.setCLSClass(associationEnd2.getCLSClass());
+        AssociationEnd secondAssociationEnd = new AssociationEnd();
+        secondAssociationEnd.setAggregation(associationEnd2.getAggregation());
+        secondAssociationEnd.setNavigable(associationEnd2.isNavigable());
+        secondAssociationEnd.setMultiplicity(associationEnd2.getMultiplicity());
+        secondAssociationEnd.setCLSClass(associationEnd2.getCLSClass());
 
-        this.association.getParticipants().add(associatioEnd1);
-        this.association.getParticipants().add(associatioEnd2);
-
+        this.association.getParticipants().add(firstAssociationEnd);
+        this.association.getParticipants().add(secondAssociationEnd);
         this.relationshipHolder.getRelationships().add(this.association);
     }
-
-
 }

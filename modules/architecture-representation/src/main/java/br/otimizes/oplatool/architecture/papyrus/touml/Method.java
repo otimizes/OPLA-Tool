@@ -17,17 +17,16 @@ public class Method {
     private Method method;
     private VisibilityKind visibility;
     private String name;
-    private List<Argument> arguments = new ArrayList<Argument>();
+    private final List<Argument> arguments = new ArrayList<>();
     private Types.Type typeReturn;
     private boolean isAbstract = false;
-    private Set<Concern> concerns = new HashSet<Concern>();
+    private Set<Concern> concerns = new HashSet<>();
 
     private Method() {
     }
 
     public static Method create() {
-        Method method = new Method();
-        return method;
+        return new Method();
     }
 
     public Method withArguments(List<Argument> arguments) {
@@ -98,7 +97,7 @@ public class Method {
 
     public Method build() {
         if (this.id == null)
-            setId(UtilResources.getRandonUUID());
+            setId(UtilResources.getRandomUUID());
         return this;
     }
 
@@ -116,8 +115,8 @@ public class Method {
         return this.id;
     }
 
-    private void setId(String randonUUID) {
-        this.id = randonUUID;
+    private void setId(String randomUUID) {
+        this.id = randomUUID;
     }
 
     public Method withConcerns(Set<Concern> ownConcerns) {
@@ -130,4 +129,7 @@ public class Method {
         return this;
     }
 
+    public void setMethod(Method method) {
+        this.method = method;
+    }
 }

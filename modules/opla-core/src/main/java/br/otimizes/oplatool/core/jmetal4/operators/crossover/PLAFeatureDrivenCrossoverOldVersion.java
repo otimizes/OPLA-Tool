@@ -177,7 +177,7 @@ public class PLAFeatureDrivenCrossoverOldVersion implements IOperator<Solution[]
             if (classComp.getOwnConcerns().size() == 1 && classComp.containsConcern(feature)) {
                 if (newComp == null)
                     newComp = offspring.createPackage(parentPackage.getName());
-                if (!classComp.belongsToGeneralization()) {
+                if (!classComp.doesBelongToGeneralization()) {
                     //addClassToOffspring(classComp, newComp, offspring, parent);
                     newComp.addExternalClass(classComp);
                     saveAllRelationshiopForElement(classComp, parent, offspring);
@@ -192,7 +192,7 @@ public class PLAFeatureDrivenCrossoverOldVersion implements IOperator<Solution[]
                     }
                 }
             } else {
-                if ((SCOPE_LEVEL.equals("allLevels")) && (!classComp.belongsToGeneralization())) {
+                if ((SCOPE_LEVEL.equals("allLevels")) && (!classComp.doesBelongToGeneralization())) {
                     addAttributesRealizingFeatureToOffspring(feature, classComp, parentPackage, offspring, parent);
                     addMethodsRealizingFeatureToOffspring(feature, classComp, parentPackage, offspring, parent);
                 }
@@ -313,7 +313,7 @@ public class PLAFeatureDrivenCrossoverOldVersion implements IOperator<Solution[]
                     saveAllRelationshiopForElement(interfaceComp, parent, offspring);
                 }
                 //interfaceComp.moveOperationToInterface(operation, targetInterface);
-                targetInterface.addExternalOperation(operation);
+                targetInterface.addExternalMethod(operation);
             }
         }
     }
@@ -330,7 +330,7 @@ public class PLAFeatureDrivenCrossoverOldVersion implements IOperator<Solution[]
         Iterator<Class> iteratorClasses = parentPackage.getAllClasses().iterator();
         while (iteratorClasses.hasNext()) {
             Class classComp = iteratorClasses.next();
-            if (!classComp.belongsToGeneralization()) {
+            if (!classComp.doesBelongToGeneralization()) {
                 addClassToOffspring(classComp, packageInOffspring, offspring, parent);
             } else {
                 if (this.isHierarchyInASameComponent(classComp, parent)) {

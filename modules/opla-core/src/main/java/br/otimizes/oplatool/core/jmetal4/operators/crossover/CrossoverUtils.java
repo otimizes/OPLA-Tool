@@ -3,7 +3,6 @@ package br.otimizes.oplatool.core.jmetal4.operators.crossover;
 import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Package;
-import br.otimizes.oplatool.architecture.representation.architectureControl.ArchitectureFindElementControl;
 import br.otimizes.oplatool.architecture.representation.relationship.GeneralizationRelationship;
 import br.otimizes.oplatool.architecture.representation.relationship.Relationship;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
@@ -176,7 +175,7 @@ public class CrossoverUtils {
             while (iteratorOperations.hasNext()) {
                 Method operation = iteratorOperations.next();
                 if (operation.containsConcern(feature) && operation.getOwnConcerns().size() == 1)
-                    interfaceComp.removeOperation(operation);
+                    interfaceComp.removeMethod(operation);
             }
         }
     }
@@ -373,12 +372,12 @@ public class CrossoverUtils {
             List<Interface> diffListInterface = new ArrayList<>();
             for(Interface selectedInterface: allInterfacesFather){
                 for(Interface selectedInterfaceChild: allInterfacesChild){
-                    for(Method method : selectedInterfaceChild.getOperations()) {
-                        selectedInterface.removeOperationByID(method.getId());
+                    for(Method method : selectedInterfaceChild.getMethods()) {
+                        selectedInterface.removeMethodByID(method.getId());
                     }
                 }
-                if(selectedInterface.getOperations() != null){
-                    if(selectedInterface.getOperations().size() > 0){
+                if(selectedInterface.getMethods() != null){
+                    if(selectedInterface.getMethods().size() > 0){
                         diffListInterface.add(selectedInterface);
                     }
                 }
@@ -410,8 +409,8 @@ public class CrossoverUtils {
                             }
                         }
                     }else{
-                        for(Method m : interfaceDiff.getOperations()){
-                            interfaceChild.addExternalOperation(m);
+                        for(Method m : interfaceDiff.getMethods()){
+                            interfaceChild.addExternalMethod(m);
                         }
                     }
                 }
@@ -427,7 +426,6 @@ public class CrossoverUtils {
         fatherClassPackage = null;
         fatherInterfacePackage = null;
         fatherDiff = null;
-
 
     }
 
@@ -666,7 +664,7 @@ public class CrossoverUtils {
             for(Interface interfaceChild : child.getAllInterfaces() ){
 
                 lstOperationRemove.clear();
-                for(Element interfaceOperation : interfaceChild.getOperations()){
+                for(Element interfaceOperation : interfaceChild.getMethods()){
                     ex = false;
                     for(String d : lstMethodAttributeOperationID){
                         if(d.equals(interfaceOperation.getId()))
@@ -685,7 +683,12 @@ public class CrossoverUtils {
                             lstOperationRemove.add(interfaceOperation.getId());
                         }else {
                             Interface existInterface = child.findInterfaceById(lstClassInterfaceID.get(posReplic));
-                            Method operation1 = existInterface.findOperationById(interfaceOperation.getId());
+                            Method operation1 = null;
+                            try {
+                                operation1 = existInterface.findMethodById(interfaceOperation.getId());
+                            } catch (Exception excp) {
+                                excp.printStackTrace();
+                            }
 
 
                             if (operation1 == null) {
@@ -698,7 +701,7 @@ public class CrossoverUtils {
                                     lstOperationRemove.add(interfaceOperation.getId());
                                 } else {
                                     if (countConcernEqualNew > countConcernEqualList) {
-                                        existInterface.removeOperationByID(interfaceOperation.getId());
+                                        existInterface.removeMethodByID(interfaceOperation.getId());
 
                                         lstClassInterfaceID.add(interfaceChild.getId());
                                         lstMethodAttributeOperationID.add(interfaceOperation.getId());
@@ -709,7 +712,7 @@ public class CrossoverUtils {
                                             lstOperationRemove.add(interfaceOperation.getId());
                                         } else {
                                             if (countDiffConcernsList > countDiffConcernsNew) {
-                                                existInterface.removeOperationByID(interfaceOperation.getId());
+                                                existInterface.removeMethodByID(interfaceOperation.getId());
 
                                                 lstClassInterfaceID.remove(posReplic);
                                                 lstMethodAttributeOperationID.remove(posReplic);
@@ -721,7 +724,7 @@ public class CrossoverUtils {
                                                 if (countNewElemRelatedWithConcern <= countCurrentElemRelatedWithConcern) {
                                                     lstOperationRemove.add(interfaceOperation.getId());
                                                 } else {
-                                                    existInterface.removeOperationByID(interfaceOperation.getId());
+                                                    existInterface.removeMethodByID(interfaceOperation.getId());
 
                                                     lstClassInterfaceID.remove(posReplic);
                                                     lstMethodAttributeOperationID.remove(posReplic);
@@ -740,16 +743,16 @@ public class CrossoverUtils {
                 }
 
                 for(String id_Element : lstOperationRemove){
-                    interfaceChild.removeOperationByID(id_Element);
+                    interfaceChild.removeMethodByID(id_Element);
                 }
             }
 
             for(Interface cr : child.getAllInterfaces()){
-                if(cr.getOperations() == null){
+                if(cr.getMethods() == null){
                     if(cr.getDependents().size() == 0 && cr.getImplementors().size() == 0)
                         lstInterfaceRemove.add(cr.getId());
                 }else{
-                    if(cr.getOperations().size() == 0){
+                    if(cr.getMethods().size() == 0){
                         if(cr.getDependents().size() == 0 && cr.getImplementors().size() == 0)
                             lstInterfaceRemove.add(cr.getId());
                     }
@@ -827,7 +830,7 @@ public class CrossoverUtils {
             return 0;
         }
         int count = 0;
-        for(Method elem : parentInterfaceConcern.getOperations()){
+        for(Method elem : parentInterfaceConcern.getMethods()){
             if(elem.getOwnConcerns().containsAll(elementConcern) && elem.getOwnConcerns().size() == elementConcern.size()){
                 count++;
             }
@@ -876,7 +879,7 @@ public class CrossoverUtils {
 
             List<Interface> allInterface = new ArrayList<>(arch.getAllInterfaces());
             for(Interface selectedInterface: allInterface){
-                tempOP = tempOP + selectedInterface.getOperations().size();
+                tempOP = tempOP + selectedInterface.getMethods().size();
             }
 
             countArchElements.set(0,tempAtr);

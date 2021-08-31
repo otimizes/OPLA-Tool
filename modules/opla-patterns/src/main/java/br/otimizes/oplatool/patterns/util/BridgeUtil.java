@@ -263,7 +263,7 @@ public class BridgeUtil {
             }
             List<Method> methodsFromSetOfElements = MethodUtil.createMethodsFromSetOfElementsByConcern(elements, concern);
             for (Method method : methodsFromSetOfElements) {
-                anInterface.addExternalOperation(method);
+                anInterface.addExternalMethod(method);
             }
             if (concern != null) {
                 try {

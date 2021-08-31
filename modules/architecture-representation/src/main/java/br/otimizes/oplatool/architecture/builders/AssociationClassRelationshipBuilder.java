@@ -1,11 +1,11 @@
 package br.otimizes.oplatool.architecture.builders;
 
-import br.otimizes.oplatool.architecture.representation.relationship.AssociationClassRelationship;
-import br.otimizes.oplatool.architecture.representation.relationship.MemberEnd;
 import br.otimizes.oplatool.architecture.base.ArchitectureHelper;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Element;
+import br.otimizes.oplatool.architecture.representation.relationship.AssociationClassRelationship;
+import br.otimizes.oplatool.architecture.representation.relationship.MemberEnd;
 import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.Type;
 
@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 
-    private Architecture architecture;
-    private ClassBuilder classBuilder;
+    private final Architecture architecture;
+    private final ClassBuilder classBuilder;
 
     public AssociationClassRelationshipBuilder(Architecture architecture) {
         this.architecture = architecture;
@@ -43,24 +43,17 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
         }
 
         Type ownedEnd = associationClass.getOwnedEnds().get(0).getType();
-
-        Element onewd = architecture.findElementById(getModelHelper().getXmiId(ownedEnd));
-
-
+        Element owned = architecture.findElementById(getModelHelper().getXmiId(ownedEnd));
         String idOwner = null;
         if (!associationClass.getPackage().getName().equalsIgnoreCase("model"))
             idOwner = getModelHelper().getXmiId(associationClass.getOwner());
 
         AssociationClassRelationship ascc = new AssociationClassRelationship(associationClass.getName(),
                 membersEnd,
-                onewd,
+                owned,
                 getModelHelper().getXmiId(associationClass),
                 idOwner,
                 classAssociation);
-//		for(MemberEnd member : ascc.getMemebersEnd()){
-//			member.getType().addRelationship(ascc);
-//		}
-
         return ascc;
     }
 
