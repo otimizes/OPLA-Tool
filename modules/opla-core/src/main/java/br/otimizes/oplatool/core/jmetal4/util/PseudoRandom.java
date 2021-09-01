@@ -36,10 +36,6 @@ public class PseudoRandom {
      */
     private static java.util.Random randomJava = null;
 
-    /**
-     * Constructor.
-     * Creates a new instance of PseudoRandom.
-     */
     private PseudoRandom() {
         if (random == null) {
             //this.random = new java.util.Random((long)seed);

@@ -52,11 +52,6 @@ public class Binary extends Variable {
     public Binary() {
     } //Binary
 
-    /**
-     * Constructor
-     *
-     * @param numberOfBits Length of the bit string
-     */
     public Binary(int numberOfBits) {
         numberOfBits_ = numberOfBits;
 

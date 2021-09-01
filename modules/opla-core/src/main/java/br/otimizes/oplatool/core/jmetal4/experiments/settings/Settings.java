@@ -19,7 +19,7 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package br.otimizes.oplatool.core.jmetal4.experiments;
+package br.otimizes.oplatool.core.jmetal4.experiments.settings;
 
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.Operator;
@@ -71,21 +71,21 @@ public abstract class Settings {
     public final Algorithm configure(HashMap settings) throws JMException, IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
         if (settings != null) {
             Field[] fields = this.getClass().getFields();
-            for (int i = 0; i < fields.length; i++) {
-                if (fields[i].getName().endsWith("_")) { // it is a configuration field
+            for (Field field : fields) {
+                if (field.getName().endsWith("_")) { // it is a configuration field
                     // The configuration field is an integer
-                    if (fields[i].getType().equals(int.class) ||
-                            fields[i].getType().equals(Integer.class)) {
-                        if (settings.containsKey(fields[i].getName())) {
-                            Integer value = (Integer) settings.get(fields[i].getName());
-                            fields[i].setInt(this, value.intValue());
+                    if (field.getType().equals(int.class) ||
+                            field.getType().equals(Integer.class)) {
+                        if (settings.containsKey(field.getName())) {
+                            Integer value = (Integer) settings.get(field.getName());
+                            field.setInt(this, value.intValue());
                         }
-                    } else if (fields[i].getType().equals(double.class) ||
-                            fields[i].getType().equals(Double.class)) {
-                        Double value = (Double) settings.get(fields[i].getName());
+                    } else if (field.getType().equals(double.class) ||
+                            field.getType().equals(Double.class)) {
+                        Double value = (Double) settings.get(field.getName());
 
-                        if (settings.containsKey(fields[i].getName())) {
-                            if (fields[i].getName().equals("mutationProbability_") &&
+                        if (settings.containsKey(field.getName())) {
+                            if (field.getName().equals("mutationProbability_") &&
                                     value == null) {
                                 if ((problem_.getSolutionType().getClass() == RealSolutionType.class) ||
                                         (problem_.getSolutionType().getClass() == ArrayRealSolutionType.class)) {
@@ -101,26 +101,26 @@ public abstract class Settings {
                                     }
                                     value = 1.0 / length;
                                 }
-                                fields[i].setDouble(this, value);
+                                field.setDouble(this, value);
                             } // if
                             else {
-                                fields[i].setDouble(this, value);
+                                field.setDouble(this, value);
                             }
                         }
                     } else {
-                        Object value = settings.get(fields[i].getName());
+                        Object value = settings.get(field.getName());
                         if (value != null) {
-                            if (fields[i].getType().equals(Crossover.class)) {
+                            if (field.getType().equals(Crossover.class)) {
                                 Object value2 = CrossoverFactory.getCrossoverOperator((String) value, settings);
                                 value = value2;
                             }
 
-                            if (fields[i].getType().equals(Mutation.class)) {
+                            if (field.getType().equals(Mutation.class)) {
                                 Object value2 = MutationFactory.getMutationOperator((String) value, settings);
                                 value = value2;
                             }
 
-                            fields[i].set(this, value);
+                            field.set(this, value);
                         }
                     }
                 }

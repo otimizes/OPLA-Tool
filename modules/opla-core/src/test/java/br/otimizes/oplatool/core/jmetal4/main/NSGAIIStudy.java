@@ -23,8 +23,8 @@ package br.otimizes.oplatool.core.jmetal4.main;
 
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.experiments.Experiment;
-import br.otimizes.oplatool.core.jmetal4.experiments.Settings;
+import br.otimizes.oplatool.core.jmetal4.experiments.util.Experiment;
+import br.otimizes.oplatool.core.jmetal4.experiments.settings.Settings;
 import br.otimizes.oplatool.core.jmetal4.experiments.settings.NSGAII_Settings;
 
 import java.io.IOException;

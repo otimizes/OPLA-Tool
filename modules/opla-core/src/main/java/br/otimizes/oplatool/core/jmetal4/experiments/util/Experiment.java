@@ -19,13 +19,10 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package br.otimizes.oplatool.core.jmetal4.experiments;
+package br.otimizes.oplatool.core.jmetal4.experiments.util;
 
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
-import br.otimizes.oplatool.core.jmetal4.experiments.util.RBoxplot;
-import br.otimizes.oplatool.core.jmetal4.experiments.util.RWilcoxon;
-import br.otimizes.oplatool.core.jmetal4.experiments.util.RunExperiment;
-import br.otimizes.oplatool.core.jmetal4.experiments.util.Statistics;
+import br.otimizes.oplatool.core.jmetal4.experiments.settings.Settings;
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.domain.config.FileConstants;
 

@@ -40,50 +40,11 @@ public class Permutation extends Variable {
      */
     public int size_;
 
-    /**
-     * Constructor
-     */
     public Permutation() {
         size_ = 0;
         vector_ = null;
 
     } //Permutation
-
-    /**
-     * Constructor
-     * @param size Length of the permutation
-     */
-  /*
-  public Permutation(int size) {
-	  setVariableType(VariableType_.Permutation) ;
-
-	  size_   = size;
-    vector_ = new int[size_];
-    
-    int [] randomSequence = new int[size_];
-    
-    for(int k = 0; k < size_; k++){
-      int num           = PseudoRandom.randInt();
-      randomSequence[k] = num;
-      vector_[k]        = k;
-    } 
-
-    // sort value and store index as fragment order
-    for(int i = 0; i < size_-1; i++){
-      for(int j = i+1; j < size_; j++) {
-        if(randomSequence[i] > randomSequence[j]){
-          int temp          = randomSequence[i];
-          randomSequence[i] = randomSequence[j];
-          randomSequence[j] = temp;
-
-          temp       = vector_[i];
-          vector_[i] = vector_[j];
-          vector_[j] = temp;
-        }
-      }
-    }
-  } //Permutation
-   * */
 
     /**
      * Constructor
@@ -96,7 +57,7 @@ public class Permutation extends Variable {
         vector_ = new int[size_];
 
         java.util.ArrayList<Integer> randomSequence = new
-                java.util.ArrayList<Integer>(size_);
+                java.util.ArrayList<>(size_);
 
         for (int i = 0; i < size_; i++)
             randomSequence.add(i);

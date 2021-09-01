@@ -39,10 +39,6 @@ public class Spread {
 
     public static MetricsUtil utils_;
 
-    /**
-     * Constructor.
-     * Creates a new instance of a Spread object
-     */
     public Spread() {
         utils_ = new MetricsUtil();
     } // Delta

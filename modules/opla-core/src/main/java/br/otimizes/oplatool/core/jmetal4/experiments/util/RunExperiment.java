@@ -21,13 +21,12 @@
 
 package br.otimizes.oplatool.core.jmetal4.experiments.util;
 
+import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
-import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.experiments.Experiment;
-import br.otimizes.oplatool.core.jmetal4.experiments.Settings;
+import br.otimizes.oplatool.core.jmetal4.experiments.settings.Settings;
 import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.otimizes.oplatool.domain.config.FileConstants;
 
@@ -112,7 +111,7 @@ public class RunExperiment extends Thread {
         System.out.println("Experiment: runs: " + independentRuns_);
         algorithm = new Algorithm[numberOfAlgorithms];
 
-        System.out.println("Nombre: " + experimentName);
+        System.out.println("Name: " + experimentName);
         System.out.println("experimentDirectory: " + experimentBaseDirectory_);
         System.out.println("numberOfThreads_: " + numberOfThreads_);
         System.out.println("numberOfProblems_: " + numberOfProblems_);
@@ -159,7 +158,8 @@ public class RunExperiment extends Thread {
                     File experimentDirectory;
                     String directory;
 
-                    directory = experimentBaseDirectory_ + FileConstants.FILE_SEPARATOR + "data" +FileConstants.FILE_SEPARATOR + algorithmNameList_[i] + FileConstants.FILE_SEPARATOR +
+                    directory = experimentBaseDirectory_ + FileConstants.FILE_SEPARATOR + "data" + FileConstants.FILE_SEPARATOR
+                            + algorithmNameList_[i] + FileConstants.FILE_SEPARATOR +
                             problemList_[problemId];
 
                     experimentDirectory = new File(directory);

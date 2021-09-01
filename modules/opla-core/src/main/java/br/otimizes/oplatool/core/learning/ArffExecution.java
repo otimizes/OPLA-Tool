@@ -12,10 +12,10 @@ import java.util.Arrays;
  */
 public class ArffExecution {
 
-    private ArrayList<Attribute> atts = new ArrayList<>();
-    private ArrayList<Attribute> attVals = new ArrayList<>();
+    private ArrayList<Attribute> listOfAttributes = new ArrayList<>();
+    private ArrayList<Attribute> listOfValues = new ArrayList<>();
     private Instances data;
-    private double[] vals;
+    private double[] values;
     private int attrIndices;
     private double[][] attributes;
     private boolean binary = false;
@@ -33,72 +33,76 @@ public class ArffExecution {
      * To use it, instantiate the class by passing a list of function values Objective and descriptions for the same
      *
      * @param attributes    Function Values Objective
-     * @param descOjectives Objectives Description
+     * @param objectivesDescriptions Objectives Description
      */
-    public ArffExecution(double[][] attributes, double[] classes, String[] descOjectives) {
-        newInstance(attributes, classes, descOjectives);
+    public ArffExecution(double[][] attributes, double[] classes, String[] objectivesDescriptions) {
+        newInstance(attributes, classes, objectivesDescriptions);
     }
 
     /**
      * To use it, instantiate the class by passing a list of function values Objective and descriptions for the same
      *
      * @param attributes    Function Values Objective
-     * @param descOjectives Objectives Description
+     * @param objectivesDescriptions Objectives Description
      */
-    public ArffExecution(double[][] attributes, double[] classes, String[] descOjectives, boolean binary) {
+    public ArffExecution(double[][] attributes, double[] classes, String[] objectivesDescriptions, boolean binary) {
         this.binary = binary;
-        newInstance(attributes, classes, descOjectives);
+        newInstance(attributes, classes, objectivesDescriptions);
     }
 
-    private void newInstance(double[][] attributes, double[] classes, String[] descAttributes) {
+    private void newInstance(double[][] attributes, double[] classes, String[] objectivesDescriptions) {
         if (attributes.length <= 0) return;
         attrIndices = attributes[0].length;
         this.attributes = attributes;
-        // - numeric
-        if (descAttributes != null) {
-            for (String descOjective : descAttributes) {
-                atts.add(new Attribute(descOjective));
-            }
-        } else {
-            for (int j = 0; j < attributes[0].length; j++) {
-                atts.add(new Attribute("obj" + (j + 1)));
-            }
-        }
-        // - string
-        if (binary) {
-            atts.add(new Attribute("class", Arrays.asList("0", "1")));
-        } else {
-            atts.add(new Attribute("class", Arrays.asList("0", "1", "2", "3", "4", "5")));
-        }
-        data = new Instances("MyRelation", atts, 0);
+        setNumericValues(attributes, objectivesDescriptions);
+        setStringValues();
+        data = new Instances("MyRelation", listOfAttributes, 0);
 
         for (int i = 0; i < attributes.length; i++) {
-            vals = new double[data.numAttributes()];
-            for (int j = 0; j < attributes[0].length; j++) {
-                vals[j] = attributes[i][j];
-            }
+            values = new double[data.numAttributes()];
+            System.arraycopy(attributes[i], 0, values, 0, attributes[0].length);
             if (classes != null)
-                vals[attributes[0].length] = classes[i];
+                values[attributes[0].length] = classes[i];
             else
-                vals[attributes[0].length] = 0;
-            data.add(new DenseInstance(1.0, vals));
+                values[attributes[0].length] = 0;
+            data.add(new DenseInstance(1.0, values));
         }
     }
 
-    public ArrayList<Attribute> getAtts() {
-        return atts;
+    private void setNumericValues(double[][] attributes, String[] objectivesDescriptions) {
+        if (objectivesDescriptions != null) {
+            for (String description : objectivesDescriptions) {
+                listOfAttributes.add(new Attribute(description));
+            }
+        } else {
+            for (int j = 0; j < attributes[0].length; j++) {
+                listOfAttributes.add(new Attribute("obj" + (j + 1)));
+            }
+        }
     }
 
-    public void setAtts(ArrayList<Attribute> atts) {
-        this.atts = atts;
+    private void setStringValues() {
+        if (binary) {
+            listOfAttributes.add(new Attribute("class", Arrays.asList("0", "1")));
+        } else {
+            listOfAttributes.add(new Attribute("class", Arrays.asList("0", "1", "2", "3", "4", "5")));
+        }
     }
 
-    public ArrayList<Attribute> getAttVals() {
-        return attVals;
+    public ArrayList<Attribute> getListOfAttributes() {
+        return listOfAttributes;
     }
 
-    public void setAttVals(ArrayList<Attribute> attVals) {
-        this.attVals = attVals;
+    public void setListOfAttributes(ArrayList<Attribute> listOfAttributes) {
+        this.listOfAttributes = listOfAttributes;
+    }
+
+    public ArrayList<Attribute> getListOfValues() {
+        return listOfValues;
+    }
+
+    public void setListOfValues(ArrayList<Attribute> listOfValues) {
+        this.listOfValues = listOfValues;
     }
 
     public Instances getData() {
@@ -109,22 +113,22 @@ public class ArffExecution {
         this.data = data;
     }
 
-    public double[] getVals() {
-        return vals;
+    public double[] getValues() {
+        return values;
     }
 
-    public void setVals(double[] vals) {
-        this.vals = vals;
+    public void setValues(double[] values) {
+        this.values = values;
     }
 
 
     @Override
     public String toString() {
         return "ArffExecution{" +
-                "atts=" + atts +
-                ", attVals=" + attVals +
+                "atts=" + listOfAttributes +
+                ", attVals=" + listOfValues +
                 ", data=" + data +
-                ", vals=" + Arrays.toString(vals) +
+                ", vals=" + Arrays.toString(values) +
                 '}';
     }
 

@@ -36,9 +36,6 @@ public class RandomGenerator {
     double[] oldrand = new double[55];
     int jrand;
 
-    /**
-     * Constructor
-     */
     public RandomGenerator() {
         this.seed = (new Random(System.nanoTime())).nextDouble();
         this.randomize();

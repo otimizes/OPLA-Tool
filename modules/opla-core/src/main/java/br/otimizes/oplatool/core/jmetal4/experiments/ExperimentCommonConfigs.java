@@ -136,7 +136,7 @@ public abstract class ExperimentCommonConfigs {
         this.patterns = patternsList;
 
         if (Collections.disjoint(Arrays.asList(this.patterns), Arrays.asList("Strategy", "Bridge", "Mediator"))) {
-            throw new IllegalArgumentException("Invalid(s) Design Pattern(s). Valids are: Stragety, Bridge and Mediator");
+            throw new IllegalArgumentException("Invalid(s) Design Pattern(s). Valid are: Strategy, Bridge and Mediator");
         }
     }
 
@@ -194,7 +194,7 @@ public abstract class ExperimentCommonConfigs {
         this.description = description;
     }
 
-    public List<String> getObjectiveFuncions() {
+    public List<String> getObjectiveFunctions() {
         return oplaConfigs.getSelectedObjectiveFunctions();
     }
 

@@ -62,11 +62,6 @@ public class NSGAII extends Algorithm {
     private static final Logger LOGGER = Logger.getLogger(NSGAII.class);
     SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
 
-    /**
-     * Constructor
-     *
-     * @param problem Problem to solve
-     */
     public NSGAII(Problem problem) {
         super(problem);
 

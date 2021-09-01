@@ -54,7 +54,7 @@ public class SolutionSet implements Serializable {
      * Constructor. Creates an unbounded solution set.
      */
     public SolutionSet() {
-        solutionsList_ = new ArrayList<Solution>();
+        solutionsList_ = new ArrayList<>();
     } // SolutionSet
 
     /**
@@ -63,7 +63,7 @@ public class SolutionSet implements Serializable {
      * @param maximumSize Maximum size.
      */
     public SolutionSet(int maximumSize) {
-        solutionsList_ = new ArrayList<Solution>();
+        solutionsList_ = new ArrayList<>();
         capacity_ = maximumSize;
     } // SolutionSet
 
@@ -322,7 +322,6 @@ public class SolutionSet implements Serializable {
      * @return A matrix containing the objectives
      */
     public double[][] writeObjectivesToMatrix() {
-//        LOGGER.info("writeObjectivesToMatrix()");
         if (this.size() == 0) {
             return null;
         }

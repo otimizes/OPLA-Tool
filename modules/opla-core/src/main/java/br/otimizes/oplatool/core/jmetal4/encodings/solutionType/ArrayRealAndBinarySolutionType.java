@@ -21,16 +21,15 @@
 
 package br.otimizes.oplatool.core.jmetal4.encodings.solutionType;
 
+import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionType;
-import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.core.jmetal4.encodings.variable.ArrayReal;
 import br.otimizes.oplatool.core.jmetal4.encodings.variable.Binary;
 
 /**
  * Class representing the solution type of solutions composed of array of reals
  * and a binary string.
- * ASSUMPTIONs:
  * - The numberOfVariables_ field in class Problem must contain the number
  * of real variables. This field is used to apply real operators (e.g.,
  * mutation probability)
@@ -53,11 +52,11 @@ public class ArrayRealAndBinarySolutionType extends SolutionType {
 
     /**
      * Create variables array
+     *
      * @return variables
      */
     public Variable[] createVariables() throws ClassNotFoundException {
         Variable[] variables = new Variable[2];
-
         variables[0] = new ArrayReal(numberOfRealVariables_, problem_);
         variables[1] = new Binary(binaryStringLength_);
         return variables;

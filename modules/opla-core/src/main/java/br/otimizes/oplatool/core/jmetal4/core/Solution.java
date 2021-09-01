@@ -135,9 +135,6 @@ public class Solution implements Serializable {
 
     public Boolean evaluatedByUser;
 
-    /**
-     * Constructor.
-     */
     public Solution() {
         problem_ = null;
         marked_ = false;
@@ -162,12 +159,6 @@ public class Solution implements Serializable {
         objective_ = new double[numberOfObjectives];
     }
 
-    /**
-     * Constructor.
-     *
-     * @param problem The problem to solve
-     * @throws ClassNotFoundException
-     */
     public Solution(Problem problem) throws ClassNotFoundException {
         problem_ = problem;
         type_ = problem.getSolutionType();
@@ -180,11 +171,6 @@ public class Solution implements Serializable {
         variable_ = type_.createVariables();
     } // Solution
 
-    /**
-     * Constructor
-     *
-     * @param problem The problem to solve
-     */
     public Solution(Problem problem, Variable[] variables) {
         problem_ = problem;
         type_ = problem.getSolutionType();

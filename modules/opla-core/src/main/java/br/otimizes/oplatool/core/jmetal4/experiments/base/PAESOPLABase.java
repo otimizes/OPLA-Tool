@@ -15,7 +15,7 @@ import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
 import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.paes.PAES;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
-import br.otimizes.oplatool.core.persistence.ExperimentConfs;
+import br.otimizes.oplatool.core.persistence.ExperimentConfigurations;
 import br.otimizes.oplatool.core.persistence.Persistence;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
@@ -33,12 +33,12 @@ import java.util.Map;
 @Service
 public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
 
-    private final Persistence mp;
-    private final EdCalculation c;
+    private final Persistence persistence;
+    private final EdCalculation edCalculation;
 
-    public PAESOPLABase(Persistence mp, EdCalculation c) {
-        this.mp = mp;
-        this.c = c;
+    public PAESOPLABase(Persistence persistence, EdCalculation edCalculation) {
+        this.persistence = persistence;
+        this.edCalculation = edCalculation;
     }
 
     private static String getPlaName(String pla) {
@@ -47,36 +47,36 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
         return pla.substring(beginIndex, endIndex);
     }
 
-    public void execute(PAESConfigs configs) throws Exception {
-        int runsNumber = configs.getNumberOfRuns();
-        int maxEvaluations = configs.getMaxEvaluation();
-        int archiveSize = configs.getArchiveSize();
+    public void execute(PAESConfigs experimentCommonConfigs) throws Exception {
+        int runsNumber = experimentCommonConfigs.getNumberOfRuns();
+        int maxEvaluations = experimentCommonConfigs.getMaxEvaluation();
+        int archiveSize = experimentCommonConfigs.getArchiveSize();
         int biSections = 5;
-        double crossoverProbability = configs.getCrossoverProbability();
-        double mutationProbability = configs.getMutationProbability();
-        int numberObjectives = configs.getOplaConfigs().getNumberOfObjectives();
+        double crossoverProbability = experimentCommonConfigs.getCrossoverProbability();
+        double mutationProbability = experimentCommonConfigs.getMutationProbability();
+        int numberObjectives = experimentCommonConfigs.getOplaConfigs().getNumberOfObjectives();
         String context = "OPLA";
 
         Experiment experiment;
-        String[] plas = configs.getPlas().split(",");
+        String[] plas = experimentCommonConfigs.getPlas().split(",");
         String xmiFilePath;
 
         for (String pla : plas) {
             xmiFilePath = pla;
-            OPLA problem = null;
+            OPLA problem;
             String plaName = getPlaName(pla);
             try {
-                problem = new OPLA(xmiFilePath, configs);
+                problem = new OPLA(xmiFilePath, experimentCommonConfigs);
             } catch (Exception e) {
                 e.printStackTrace();
-                configs.getLogger()
+                experimentCommonConfigs.getLogger()
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
             Result result = new Result();
-            experiment = mp.save(plaName, "PAES", configs.getDescription(), OPLAThreadScope.hash.get());
-            ExperimentConfs conf = new ExperimentConfs(experiment.getId(), "PAES", configs);
-            mp.save(conf);
+            experiment = persistence.save(plaName, "PAES", experimentCommonConfigs.getDescription(), OPLAThreadScope.hash.get());
+            ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "PAES", experimentCommonConfigs);
+            persistence.save(conf);
 
 
             Algorithm algorithm;
@@ -96,11 +96,11 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
 
             parameters = new HashMap<>();
             parameters.put("probability", crossoverProbability);
-            crossover = CrossoverFactory.getCrossoverOperator("PLACrossoverOperator", parameters, configs);
+            crossover = CrossoverFactory.getCrossoverOperator("PLACrossoverOperator", parameters, experimentCommonConfigs);
 
             parameters = new HashMap<>();
             parameters.put("probability", mutationProbability);
-            mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parameters, configs);
+            mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parameters, experimentCommonConfigs);
             parameters = null;
             selection = SelectionFactory.getSelectionOperator("BinaryTournament", parameters);
 
@@ -108,11 +108,11 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
             algorithm.addOperator("mutation", mutation);
             algorithm.addOperator("selection", selection);
 
-            if (configs.isLog())
-                logInformations(configs, context, pla);
+            if (experimentCommonConfigs.isLog())
+                logInformations(experimentCommonConfigs, context, pla);
 
-            List<String> selectedObjectiveFunctions = configs.getOplaConfigs().getSelectedObjectiveFunctions();
-            mp.saveObjectivesNames(configs.getOplaConfigs().getSelectedObjectiveFunctions(), experiment.getId());
+            List<String> selectedObjectiveFunctions = experimentCommonConfigs.getOplaConfigs().getSelectedObjectiveFunctions();
+            persistence.saveObjectivesNames(experimentCommonConfigs.getOplaConfigs().getSelectedObjectiveFunctions(), experiment.getId());
 
             result.setPlaName(plaName);
 
@@ -127,41 +127,41 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
                 long estimatedTime = System.currentTimeMillis() - initTime;
                 time[runs] = estimatedTime;
 
-                resultFront = problem.removeDominadas(resultFront);
-                resultFront = problem.removeRepetidas(resultFront);
+                resultFront = problem.removeDominated(resultFront);
+                resultFront = problem.removeRepeated(resultFront);
 
                 execution.setTime(estimatedTime);
 
                 List<Info> Info = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(Info, resultFront.getSolutionSet(), execution, experiment, selectedObjectiveFunctions);
 
-                new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_", Info, configs.getLogger(), true);
+                new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_", Info, experimentCommonConfigs.getLogger(), true);
 
                 execution.setInfos(Info);
                 execution.setAllMetrics(allMetrics);
 
-                mp.save(execution);
+                persistence.save(execution);
                 allRuns = allRuns.union(resultFront);
                 OPLABaseUtils.saveHypervolume(experiment.getId(), execution.getId(), resultFront, plaName);
             }
-            allRuns = problem.removeDominadas(allRuns);
-            allRuns = problem.removeRepetidas(allRuns);
+            allRuns = problem.removeDominated(allRuns);
+            allRuns = problem.removeRepeated(allRuns);
 
-            configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
+            experimentCommonConfigs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
             List<Info> funResults = result.getInfos(allRuns.getSolutionSet(), experiment);
 
-            if (configs.getNumberOfRuns() > 1) {
-                new OPLASolutionSet(allRuns).saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
+            if (experimentCommonConfigs.getNumberOfRuns() > 1) {
+                new OPLASolutionSet(allRuns).saveVariablesToFile("VAR_All_", funResults, experimentCommonConfigs.getLogger(), true);
             }
 
             List<Info> infos = result.getInfos(allRuns.getSolutionSet(), null, experiment);
-            mp.save(infos);
+            persistence.save(infos);
             Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);
-            mp.save(allMetrics);
+            persistence.save(allMetrics);
 
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
-            mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
+            persistence.saveEuclideanDistance(edCalculation.calculate(experiment.getId(), experimentCommonConfigs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             OPLABaseUtils.saveHypervolume(experiment.getId(), null, allRuns, plaName);
         }
     }

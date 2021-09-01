@@ -39,11 +39,6 @@ public class Bestof12 extends Algorithm {
 
     private static final long serialVersionUID = 5815971727148859507L;
 
-    /**
-     * Constructor
-     *
-     * @param problem Problem to solve
-     */
     public Bestof12(Problem problem) {
         super(problem);
 

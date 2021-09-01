@@ -127,7 +127,7 @@ public class Persistence {
      * @param conf configs
      * @return saved configs
      */
-    public ExperimentConfiguration save(ExperimentConfs conf) {
+    public ExperimentConfiguration save(ExperimentConfigurations conf) {
         ExperimentConfiguration experimentConfiguration = new ExperimentConfiguration();
         experimentConfiguration.setExperiment(experimentService.getOne(conf.getExperimentId()));
         experimentConfiguration.setNumberOfRuns((long) conf.getConfigs().getNumberOfRuns());
@@ -139,7 +139,7 @@ public class Persistence {
         experimentConfiguration.setMutationOperators(Arrays.toString(conf.getConfigs().getMutationOperators().toArray()));
         experimentConfiguration.setArchiveSize(conf.getArchiveSize());
         experimentConfiguration.setPopulationSize(conf.getPopulationSize());
-        experimentConfiguration.setObjectives(Arrays.toString(conf.getConfigs().getObjectiveFuncions().toArray()));
+        experimentConfiguration.setObjectives(Arrays.toString(conf.getConfigs().getObjectiveFunctions().toArray()));
         return experimentConfigurationService.save(experimentConfiguration);
     }
 

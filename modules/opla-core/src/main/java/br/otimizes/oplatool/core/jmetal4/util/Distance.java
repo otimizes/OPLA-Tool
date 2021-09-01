@@ -32,9 +32,6 @@ import br.otimizes.oplatool.core.jmetal4.util.comparators.ObjectiveComparator;
  */
 public class Distance {
 
-    /**
-     * Constructor.
-     */
     public Distance() {
         //do nothing.
     } // Distance

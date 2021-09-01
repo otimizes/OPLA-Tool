@@ -36,34 +36,18 @@ public class Int extends Variable {
     private int lowerBound_;  //Stores the lower limit of the variable
     private int upperBound_;  //Stores the upper limit of the variable
 
-    /**
-     * Constructor
-     */
     public Int() {
         lowerBound_ = java.lang.Integer.MIN_VALUE;
         upperBound_ = java.lang.Integer.MAX_VALUE;
         value_ = 0;
     } // Int
 
-    /**
-     * Constructor
-     *
-     * @param lowerBound Variable lower bound
-     * @param upperBound Variable upper bound
-     */
     public Int(int lowerBound, int upperBound) {
         lowerBound_ = lowerBound;
         upperBound_ = upperBound;
         value_ = PseudoRandom.randInt(lowerBound, upperBound);
     } // Int
 
-    /**
-     * Constructor
-     *
-     * @param value      Value of the variable
-     * @param lowerBound Variable lower bound
-     * @param upperBound Variable upper bound
-     */
     public Int(int value, int lowerBound, int upperBound) {
         super();
 

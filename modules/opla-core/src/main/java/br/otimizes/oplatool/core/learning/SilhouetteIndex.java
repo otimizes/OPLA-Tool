@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * It measures the quality of a clustering. Determines how well each object lies within its cluster. A high average silhouette width indicates a good clustering.
- * Computes the average silhouette of observations for different values f k. The Optimal number of clusters k is one that maximize the average silhouette over a range of possible values
+ * It measures the quality of a clustering. Determines how well each object lies within its cluster.
+ * A high average silhouette width indicates a good clustering.
+ * Computes the average silhouette of observations for different values f k. The Optimal number of clusters k is one
+ * that maximize the average silhouette over a range of possible values
  * Kaufman and Rousseauw in 1990
  * Compute clustering algorithm (e.g., k-means clustering) for different values of k. For instance, by varying k from 1 to 10 clusters.
  * For each k, calculate the average silhouette of observations (avg.sil).

@@ -1,6 +1,5 @@
 package br.otimizes.oplatool.core.jmetal4.experiments.base;
 
-import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
@@ -17,7 +16,7 @@ import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
 import br.otimizes.oplatool.core.learning.Moment;
-import br.otimizes.oplatool.core.persistence.ExperimentConfs;
+import br.otimizes.oplatool.core.persistence.ExperimentConfigurations;
 import br.otimizes.oplatool.core.persistence.Persistence;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.entity.Execution;
@@ -52,9 +51,9 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
         return pla.substring(beginIndex, endIndex);
     }
 
-    public void execute(NSGAIIConfigs configs) throws Exception {
+    public void execute(NSGAIIConfigs experimentCommonConfigs) throws Exception {
         Experiment experiment;
-        String[] plas = configs.getPlas().split(",");
+        String[] plas = experimentCommonConfigs.getPlas().split(",");
         String xmiFilePath;
 
         for (String pla : plas) {
@@ -62,54 +61,54 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
             OPLA problem = null;
             String plaName = getPlaName(pla);
             try {
-                problem = new OPLA(xmiFilePath, configs);
+                problem = new OPLA(xmiFilePath, experimentCommonConfigs);
             } catch (Exception e) {
                 e.printStackTrace();
-                configs.getLogger()
+                experimentCommonConfigs.getLogger()
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
             Result result = new Result();
-            experiment = mp.save(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
-            ExperimentConfs conf = new ExperimentConfs(experiment.getId(), "NSGAII", configs);
+            experiment = mp.save(plaName, "NSGAII", experimentCommonConfigs.getDescription(), OPLAThreadScope.hash.get());
+            ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "NSGAII", experimentCommonConfigs);
             mp.save(conf);
 
             SolutionSet allRuns = new SolutionSet();
             Algorithm algorithm = new NSGAIIASP(problem);
-            algorithm.setInputParameter("populationSize", configs.getPopulationSize());
-            algorithm.setInputParameter("maxEvaluations", configs.getMaxEvaluation());
-            algorithm.setInputParameter("interactiveFunction", configs.getInteractiveFunction());
-            algorithm.setInputParameter("maxInteractions", configs.getMaxInteractions());
-            algorithm.setInputParameter("firstInteraction", configs.getFirstInteraction());
-            algorithm.setInputParameter("intervalInteraction", configs.getIntervalInteraction());
-            algorithm.setInputParameter("interactive", configs.getInteractive());
-            algorithm.setInputParameter("clusteringMoment", configs.getClusteringMoment());
-            algorithm.setInputParameter("clusteringAlgorithm", configs.getClusteringAlgorithm());
+            algorithm.setInputParameter("populationSize", experimentCommonConfigs.getPopulationSize());
+            algorithm.setInputParameter("maxEvaluations", experimentCommonConfigs.getMaxEvaluation());
+            algorithm.setInputParameter("interactiveFunction", experimentCommonConfigs.getInteractiveFunction());
+            algorithm.setInputParameter("maxInteractions", experimentCommonConfigs.getMaxInteractions());
+            algorithm.setInputParameter("firstInteraction", experimentCommonConfigs.getFirstInteraction());
+            algorithm.setInputParameter("intervalInteraction", experimentCommonConfigs.getIntervalInteraction());
+            algorithm.setInputParameter("interactive", experimentCommonConfigs.getInteractive());
+            algorithm.setInputParameter("clusteringMoment", experimentCommonConfigs.getClusteringMoment());
+            algorithm.setInputParameter("clusteringAlgorithm", experimentCommonConfigs.getClusteringAlgorithm());
 
             HashMap<String, Object> parametersCrossover = new HashMap<>();
-            parametersCrossover.put("probability", configs.getCrossoverProbability());
-            parametersCrossover.put("numberOfObjectives", configs.getOplaConfigs().getNumberOfObjectives());
-            Crossover crossover = CrossoverFactory.getCrossoverOperator("PLACrossoverOperator", parametersCrossover, configs);
+            parametersCrossover.put("probability", experimentCommonConfigs.getCrossoverProbability());
+            parametersCrossover.put("numberOfObjectives", experimentCommonConfigs.getOplaConfigs().getNumberOfObjectives());
+            Crossover crossover = CrossoverFactory.getCrossoverOperator("PLACrossoverOperator", parametersCrossover, experimentCommonConfigs);
             algorithm.addOperator("crossover", crossover);
 
             HashMap<String, Object> parametersMutation = new HashMap<>();
-            parametersMutation.put("probability", configs.getMutationProbability());
-            Mutation mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parametersMutation, configs);
+            parametersMutation.put("probability", experimentCommonConfigs.getMutationProbability());
+            Mutation mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parametersMutation, experimentCommonConfigs);
             algorithm.addOperator("mutation", mutation);
 
             Selection selection = SelectionFactory.getSelectionOperator("BinaryTournament", null);
             algorithm.addOperator("selection", selection);
 
-            if (configs.isLog())
-                logInformations(pla, configs, configs.getPopulationSize(), configs.getMaxEvaluations(),
-                        configs.getCrossoverProbability(), configs.getMutationProbability());
+            if (experimentCommonConfigs.isLog())
+                logInformations(pla, experimentCommonConfigs, experimentCommonConfigs.getPopulationSize(), experimentCommonConfigs.getMaxEvaluations(),
+                        experimentCommonConfigs.getCrossoverProbability(), experimentCommonConfigs.getMutationProbability());
 
-            List<String> selectedObjectiveFunctions = configs.getOplaConfigs().getSelectedObjectiveFunctions();
+            List<String> selectedObjectiveFunctions = experimentCommonConfigs.getOplaConfigs().getSelectedObjectiveFunctions();
             mp.saveObjectivesNames(selectedObjectiveFunctions, experiment.getId());
             result.setPlaName(plaName);
-            long[] time = new long[configs.getNumberOfRuns()];
+            long[] time = new long[experimentCommonConfigs.getNumberOfRuns()];
 
-            for (int runs = 0; runs < configs.getNumberOfRuns(); runs++) {
+            for (int runs = 0; runs < experimentCommonConfigs.getNumberOfRuns(); runs++) {
                 Execution execution = new Execution(experiment);
                 execution.setRuns(runs);
                 CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), execution.getId());
@@ -120,8 +119,8 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                 long estimatedTime = System.currentTimeMillis() - initTime;
                 time[runs] = estimatedTime;
 
-                resultFront = problem.removeDominadas(resultFront);
-                resultFront = problem.removeRepetidas(resultFront);
+                resultFront = problem.removeDominated(resultFront);
+                resultFront = problem.removeRepeated(resultFront);
 
                 execution = mp.save(execution);
                 List<Info> infos = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
@@ -130,21 +129,21 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
                         experiment, selectedObjectiveFunctions);
                 execution.setTime(estimatedTime);
-                new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
+                new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_", infos, experimentCommonConfigs.getLogger(), true);
                 execution.setInfos(infos);
                 execution.setAllMetrics(allMetrics);
                 allRuns = allRuns.union(resultFront);
                 OPLABaseUtils.saveHypervolume(experiment.getId(), execution.getId(), resultFront, plaName);
             }
 
-            allRuns = problem.removeDominadas(allRuns);
-            allRuns = problem.removeRepetidas(allRuns);
+            allRuns = problem.removeDominated(allRuns);
+            allRuns = problem.removeRepeated(allRuns);
 
-            configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
+            experimentCommonConfigs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
             List<Info> funResults = result.getInfos(allRuns.getSolutionSet(), experiment);
 
-            if (configs.getNumberOfRuns() > 1) {
-                new OPLASolutionSet(allRuns).saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
+            if (experimentCommonConfigs.getNumberOfRuns() > 1) {
+                new OPLASolutionSet(allRuns).saveVariablesToFile("VAR_All_", funResults, experimentCommonConfigs.getLogger(), true);
             }
 
             List<Info> infos = result.getInfos(allRuns.getSolutionSet(), null, experiment);
@@ -154,11 +153,11 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
             mp.save(allMetrics);
 
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
-            mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
+            mp.saveEuclideanDistance(c.calculate(experiment.getId(), experimentCommonConfigs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             OPLABaseUtils.saveHypervolume(experiment.getId(), null, allRuns, plaName);
 
-            if (Moment.POSTERIORI.equals(configs.getClusteringMoment())) {
-                configs.getInteractiveFunction().run(allRuns);
+            if (Moment.POSTERIORI.equals(experimentCommonConfigs.getClusteringMoment())) {
+                experimentCommonConfigs.getInteractiveFunction().run(allRuns);
             }
         }
     }

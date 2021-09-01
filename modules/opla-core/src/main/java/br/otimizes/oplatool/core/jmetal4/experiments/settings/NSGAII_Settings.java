@@ -31,7 +31,6 @@ import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
 import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.experiments.Settings;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.otimizes.oplatool.core.jmetal4.problems.ProblemFactory;
 import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
@@ -47,11 +46,6 @@ public class NSGAII_Settings extends Settings {
     public double mutationDistributionIndex_;
     public double crossoverDistributionIndex_;
 
-    /**
-     * Constructor
-     *
-     * @throws JMException
-     */
     public NSGAII_Settings(String problem) throws JMException {
         super(problem);
 
@@ -75,7 +69,7 @@ public class NSGAII_Settings extends Settings {
      * Configure NSGAII with user-defined parameter settings
      *
      * @return A NSGAII algorithm object
-     * @throws JMException
+     * @throws JMException exception
      */
     public Algorithm configure() throws JMException {
         Algorithm algorithm;
@@ -83,20 +77,13 @@ public class NSGAII_Settings extends Settings {
         Crossover crossover;
         Mutation mutation;
 
-        HashMap parameters; // Operator parameters
+        HashMap parameters;
 
         QualityIndicator indicators;
-
-        // Creating the algorithm. There are two choices: NSGAII and its steady-
-        // state variant ssNSGAII
         algorithm = new NSGAII(problem_);
-        //algorithm = new ssNSGAII(problem_) ;
-
-        // Algorithm parameters
         algorithm.setInputParameter("populationSize", populationSize_);
         algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
 
-        // Mutation and Crossover for Real codification
         parameters = new HashMap();
         parameters.put("probability", crossoverProbability_);
         parameters.put("distributionIndex", crossoverDistributionIndex_);

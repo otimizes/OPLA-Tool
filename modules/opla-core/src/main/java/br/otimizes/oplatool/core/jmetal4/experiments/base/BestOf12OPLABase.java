@@ -9,13 +9,12 @@ import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
-import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.core.jmetal4.database.Result;
 import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
 import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic.Bestof12;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
-import br.otimizes.oplatool.core.persistence.ExperimentConfs;
+import br.otimizes.oplatool.core.persistence.ExperimentConfigurations;
 import br.otimizes.oplatool.core.persistence.Persistence;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.entity.Execution;
@@ -35,12 +34,12 @@ import java.util.Map;
 public class BestOf12OPLABase {
 
     private static final Logger LOGGER = Logger.getLogger(BestOf12OPLABase.class);
-    private final Persistence mp;
-    private final EdCalculation c;
+    private final Persistence persistence;
+    private final EdCalculation edCalculation;
 
-    public BestOf12OPLABase(Persistence mp, EdCalculation c) {
-        this.mp = mp;
-        this.c = c;
+    public BestOf12OPLABase(Persistence persistence, EdCalculation edCalculation) {
+        this.persistence = persistence;
+        this.edCalculation = edCalculation;
     }
 
     private static String getPlaName(String pla) {
@@ -54,51 +53,30 @@ public class BestOf12OPLABase {
         Experiment experiment;
         int maxEvaluations;
         double mutationProbability;
-        double mutationLocalProbability;
         double crossoverProbability;
-        String[] testePadroes;
-        List<String> testeOperadores;
-
-
-        String experiementId;
-        int numberObjectives;
-        int numeroFuncoesObjetivo;
-
-
         int runsNumber = configs.getNumberOfRuns();
         populationSize = configs.getPopulationSize();
         maxEvaluations = configs.getMaxEvaluation();
         crossoverProbability = configs.getCrossoverProbability();
         mutationProbability = configs.getMutationProbability();
-        mutationLocalProbability = 0.9;
-        numberObjectives = configs.getOplaConfigs().getNumberOfObjectives();
-
-        String context = "OPLA";
-
         String[] plas = configs.getPlas().split(",");
         String xmiFilePath;
-
         for (String pla : plas) {
             xmiFilePath = pla;
             OPLA problem = null;
             String plaName = getPlaName(pla);
-
             try {
                 problem = new OPLA(xmiFilePath, configs);
             } catch (Exception e) {
-                //System.out.println("erro na PLA - oplacore - classe nsgaii_opla_feat_mut");
                 e.printStackTrace();
                 configs.getLogger()
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
-
-            Experiment experiement = mp.save(plaName, "BestOf12", configs.getDescription(), OPLAThreadScope.hash.get());
-
             Algorithm algorithm;
             Result result = new Result();
-            experiment = mp.save(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
-            ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "BestOf2", configs);
-            mp.save(conf);
+            experiment = persistence.save(plaName, "BestOf12", configs.getDescription(), OPLAThreadScope.hash.get());
+            ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "BestOf2", configs);
+            persistence.save(conf);
             Crossover crossover;
             Mutation mutation;
             Mutation operatorLocal;
@@ -128,31 +106,23 @@ public class BestOf12OPLABase {
                         configs.getCrossoverProbability(), configs.getMutationProbability());
 
             List<String> selectedObjectiveFunctions = configs.getOplaConfigs().getSelectedObjectiveFunctions();
-            mp.saveObjectivesNames(selectedObjectiveFunctions, experiement.getId());
-
+            persistence.saveObjectivesNames(selectedObjectiveFunctions, experiment.getId());
             result.setPlaName(plaName);
-
             long[] time = new long[runsNumber];
-
             for (int runs = 0; runs < runsNumber; runs++) {
-                // jcn
-                // System.out.println("nova rodada - oplacore - classe
-                // nsgaii_opla_feat_mut");
-                // Cria uma execução. Cada execução está ligada a um
-                // experiemento.
-                Execution execution = new Execution(experiement);
-                CommonOPLAFeatMut.setDirToSaveOutput(experiement.getId(), execution.getId());
+                Execution execution = new Execution(experiment);
+                CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), execution.getId());
                 long initTime = System.currentTimeMillis();
                 SolutionSet resultFront = algorithm.execute();
                 long estimatedTime = System.currentTimeMillis() - initTime;
                 time[runs] = estimatedTime;
 
-                resultFront = problem.removeDominadas(resultFront);
-                resultFront = problem.removeRepetidas(resultFront);
+                resultFront = problem.removeDominated(resultFront);
+                resultFront = problem.removeRepeated(resultFront);
 
-                execution = mp.save(execution);
+                execution = persistence.save(execution);
                 List<Info> infos = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
-                infos = mp.save(infos);
+                infos = persistence.save(infos);
                 execution.setInfos(infos);
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
                         experiment, selectedObjectiveFunctions);
@@ -165,8 +135,8 @@ public class BestOf12OPLABase {
 
             }
 
-            todasRuns = problem.removeDominadas(todasRuns);
-            todasRuns = problem.removeRepetidas(todasRuns);
+            todasRuns = problem.removeDominated(todasRuns);
+            todasRuns = problem.removeRepeated(todasRuns);
 
 
             configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
@@ -177,13 +147,13 @@ public class BestOf12OPLABase {
             }
 
             List<Info> infos = result.getInfos(todasRuns.getSolutionSet(), null, experiment);
-            mp.save(infos);
+            persistence.save(infos);
             Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, todasRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);
-            mp.save(allMetrics);
+            persistence.save(allMetrics);
 
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
-            mp.saveEuclideanDistance(c.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
+            persistence.saveEuclideanDistance(edCalculation.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             OPLABaseUtils.saveHypervolume(experiment.getId(), null, todasRuns, plaName);
 
         }

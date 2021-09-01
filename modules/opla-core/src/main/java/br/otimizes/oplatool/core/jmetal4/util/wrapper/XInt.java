@@ -36,17 +36,9 @@ public class XInt {
     Solution solution_;
     SolutionType type_;
 
-    /**
-     * Constructor
-     */
     public XInt() {
     } // Constructor
 
-    /**
-     * Constructor
-     *
-     * @param solution
-     */
     public XInt(Solution solution) {
         this();
         type_ = solution.getType();

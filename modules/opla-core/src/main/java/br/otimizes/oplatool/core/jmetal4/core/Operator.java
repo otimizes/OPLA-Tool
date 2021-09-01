@@ -42,9 +42,6 @@ public abstract class Operator implements Serializable {
      */
     protected Map<String, Object> parameters_;
 
-    /**
-     * Constructor.
-     */
     public Operator(Map<String, Object> parameters) {
         parameters_ = parameters;
     } // Operator

@@ -47,11 +47,6 @@ public class NSGAIIASP extends Algorithm {
     private static final long serialVersionUID = 5815971727148859507L;
     private static final Logger LOGGER = Logger.getLogger(NSGAII.class);
 
-    /**
-     * Constructor
-     *
-     * @param problem Problem to solve
-     */
     public NSGAIIASP(Problem problem) {
         super(problem);
     } // NSGAII

@@ -32,11 +32,6 @@ public abstract class SolutionType {
 
     public Problem problem_; /** Problem to be solved */
 
-    /**
-     * Constructor
-     *
-     * @param problem The problem to solve
-     */
     public SolutionType(Problem problem) {
         problem_ = problem;
     } // Constructor
@@ -44,14 +39,13 @@ public abstract class SolutionType {
     /**
      * Abstract method to create the variables of the solution
      *
-     * @param decisionVariables
      */
     public abstract Variable[] createVariables() throws ClassNotFoundException;
 
     /**
      * Copies the decision variables
      *
-     * @param decisionVariables
+     * @param vars variables
      * @return An array of variables
      */
     public Variable[] copyVariables(Variable[] vars) {

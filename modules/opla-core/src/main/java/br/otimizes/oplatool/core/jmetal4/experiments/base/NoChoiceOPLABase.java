@@ -9,13 +9,12 @@ import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
-import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.core.jmetal4.database.Result;
 import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
 import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic.NoChoice;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
-import br.otimizes.oplatool.core.persistence.ExperimentConfs;
+import br.otimizes.oplatool.core.persistence.ExperimentConfigurations;
 import br.otimizes.oplatool.core.persistence.Persistence;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.entity.Execution;
@@ -96,7 +95,7 @@ public class NoChoiceOPLABase {
             Algorithm algorithm;
             Result result = new Result();
             experiment = mp.save(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
-            ExperimentConfs conf = new ExperimentConfs(experiement.getId(), "NoChoice", configs);
+            ExperimentConfigurations conf = new ExperimentConfigurations(experiement.getId(), "NoChoice", configs);
             mp.save(conf);
             Crossover crossover;
             Mutation mutation;
@@ -146,8 +145,8 @@ public class NoChoiceOPLABase {
                 long estimatedTime = System.currentTimeMillis() - initTime;
                 time[runs] = estimatedTime;
 
-                resultFront = problem.removeDominadas(resultFront);
-                resultFront = problem.removeRepetidas(resultFront);
+                resultFront = problem.removeDominated(resultFront);
+                resultFront = problem.removeRepeated(resultFront);
 
                 execution = mp.save(execution);
                 List<Info> infos = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
@@ -164,8 +163,8 @@ public class NoChoiceOPLABase {
 
             }
 
-            todasRuns = problem.removeDominadas(todasRuns);
-            todasRuns = problem.removeRepetidas(todasRuns);
+            todasRuns = problem.removeDominated(todasRuns);
+            todasRuns = problem.removeRepeated(todasRuns);
 
 
             configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);

@@ -62,11 +62,6 @@ public abstract class Algorithm implements Serializable {
      */
     protected Map<String, Object> outPutParameters_ = null;
 
-    /**
-     * Constructor
-     *
-     * @param problem
-     */
     public Algorithm(Problem problem) {
         problem_ = problem;
     }
