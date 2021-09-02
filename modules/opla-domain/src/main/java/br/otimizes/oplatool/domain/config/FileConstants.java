@@ -18,6 +18,7 @@ public class FileConstants {
     public static final String PATH_EMPTY_DB = "emptyDB";
     public static final String EMPTY_DB_NAME = "oplatool.db";
     public static final String TEMPLATES_DIR = "templates";
+    public static final String PROFILES_DIR = "profiles";
     public static final String TEMP_DIR = "temp";
     public static final String OUTPUT_DIR = "output";
     public static final String BINS_DIR = "bins";
@@ -27,9 +28,9 @@ public class FileConstants {
     public static final String SIMPLES_UML_NAME = "simples.uml";
     public static final String SIMPLES_DI_NAME = "simples.di";
     public static final String SIMPLES_NOTATION_NAME = "simples.notation";
+    public static final String BASE_DIR = "oplatool";
 
     public static String getEscapedFileSeparator() {
         return FileConstants.FILE_SEPARATOR.replace("\\", "\\\\");
     }
-
 }

@@ -8,6 +8,6 @@ import br.otimizes.oplatool.domain.entity.objectivefunctions.ObjectiveFunctionDo
 public interface ObjectiveFunctionsLink {
     Double evaluate(Architecture architecture);
 
-    ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiement,
+    ObjectiveFunctionDomain build(String idSolution, Execution Execution, Experiment experiment,
                                   Architecture arch);
 }

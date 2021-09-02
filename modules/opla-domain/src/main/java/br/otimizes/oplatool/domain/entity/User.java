@@ -18,14 +18,11 @@ public class User implements Serializable {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-
     @Column(name = "login", unique = true, nullable = false)
     private String login;
-
     @Column(name = "password", nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-
     @Column(name = "token", nullable = false)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String token;

@@ -3,7 +3,7 @@ package br.otimizes.oplatool.domain.config;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Representação do arquivo de configuração "application.yaml"
+ * Representation of "application.yaml" file
  *
  * @author Fernando-Godoy
  */

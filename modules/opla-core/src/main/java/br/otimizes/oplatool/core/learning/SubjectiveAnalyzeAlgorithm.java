@@ -89,7 +89,6 @@ public class SubjectiveAnalyzeAlgorithm {
      * Execution Method
      *
      * @return Solution Set - Best performing cluster with another solutions (filteredSolutions)
-     * @throws Exception Default Exception
      */
     public SolutionSet run(OPLASolutionSet solutionSet, boolean middle) {
         try {
@@ -111,9 +110,8 @@ public class SubjectiveAnalyzeAlgorithm {
      * Algorithm Execution Method
      *
      * @return Solution Set
-     * @throws Exception Default Exception
      */
-    public SolutionSet getAlgorithm(OPLASolutionSet solutionSet, boolean inOnmiddle) {
+    public SolutionSet getAlgorithm(OPLASolutionSet solutionSet, boolean inOnMiddle) {
         currentEvaluation++;
         LOGGER.info("getAlgorithm()");
         long startsIn = new Date().getTime();
@@ -124,11 +122,11 @@ public class SubjectiveAnalyzeAlgorithm {
         }
 
         if (solutionSet != null) {
-            joinSolutionSet(solutionSet, inOnmiddle);
+            joinSolutionSet(solutionSet, inOnMiddle);
         }
         setArffExecutionClassIndex(scoreArffExecution);
         setArffExecutionClassIndex(architecturalArffExecution);
-        startAlgorithms(inOnmiddle);
+        startAlgorithms(inOnMiddle);
 
         LOGGER.info("::: Time: " + ((new Date().getTime() - startsIn) / 1000));
         return resultFront.getSolutionSet();
@@ -153,20 +151,21 @@ public class SubjectiveAnalyzeAlgorithm {
         return architecturalAlgorithm;
     }
 
-    private void joinSolutionSet(OPLASolutionSet solutionSet, boolean inOnmiddle) {
+    private void joinSolutionSet(OPLASolutionSet solutionSet, boolean inOnMiddle) {
         if (!solutionSet.hasUserEvaluation()) {
-            LOGGER.info("donthasUserEvaluation");
+            LOGGER.info("hasNoUserEvaluation");
             evaluateSolutionSetScoreAlgorithm(solutionSet);
         } else {
             LOGGER.info("hasUserEvaluation");
             distributeUserEvaluations(solutionSet);
         }
-        if (!inOnmiddle) {
+        if (!inOnMiddle) {
             ArffExecution newArffArchitectureAlgorithm = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(),
                     resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
             if (newArffArchitectureAlgorithm.getData() != null) {
                 newArffArchitectureAlgorithm.getData().setClassIndex(newArffArchitectureAlgorithm.getAttrIndices());
-                if (architecturalArffExecution.getData() == null) architecturalArffExecution = newArffArchitectureAlgorithm;
+                if (architecturalArffExecution.getData() == null)
+                    architecturalArffExecution = newArffArchitectureAlgorithm;
                 else architecturalArffExecution.getData().addAll(newArffArchitectureAlgorithm.getData());
             }
         }
@@ -212,10 +211,11 @@ public class SubjectiveAnalyzeAlgorithm {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
-        PrintWriter printWriter = new PrintWriter(fileWriter);
-        printWriter.print(architecturalArffExecution.getData().toString());
-        printWriter.close();
+        if (fileWriter != null) {
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(architecturalArffExecution.getData().toString());
+            printWriter.close();
+        }
     }
 
     public void evaluateSolutionSetScoreAlgorithm(OPLASolutionSet solutionSet) {
@@ -255,7 +255,8 @@ public class SubjectiveAnalyzeAlgorithm {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    LOGGER.info(element.getName() + ":" + element.getTypeElement() + " was " + (element.isFreezeByDM() ? " FREEZED" : " NOT FREEZED"));
+                    LOGGER.info(element.getName() + ":" + element.getTypeElement() + " was "
+                            + (element.isFreezeByDM() ? " FREEZED" : " NOT FREEZED"));
                     if (element.isFreezeByDM()) {
                         LOGGER.info("::: Freezed " + element.getName());
                         this.freezedElements.add(element);
@@ -327,14 +328,13 @@ public class SubjectiveAnalyzeAlgorithm {
             ex.printStackTrace();
         }
 
-        PrintWriter printWriter = new PrintWriter(fileWriter);
-        printWriter.print(stringBuilder);
-        printWriter.close();
+        if (fileWriter != null) {
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(stringBuilder);
+            printWriter.close();
+        }
     }
 
-    /**
-     * Build the algorithm
-     */
     private void buildScoreAlgorithm() {
         if (scoreArffExecution.getData() == null) return;
         LOGGER.info("buildScoreAlgorithm()");
@@ -351,7 +351,6 @@ public class SubjectiveAnalyzeAlgorithm {
                     break;
             }
             logSubjectiveModelEvaluation();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

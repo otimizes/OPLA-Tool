@@ -16,8 +16,8 @@ public class RCCObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "cbcs")
     private Double cbcs;
 
-    public RCCObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public RCCObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public Double getCbcs() {
@@ -27,6 +27,4 @@ public class RCCObjectiveFunction extends ObjectiveFunctionDomain {
     public void setCbcs(Double cbcs) {
         this.cbcs = cbcs;
     }
-
-
 }

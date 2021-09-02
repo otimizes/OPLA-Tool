@@ -32,10 +32,14 @@ public class Persistence {
     private final DistanceEuclideanService distanceEuclideanService;
     private final ApplicationContext applicationContext;
 
-    public Persistence(ObjectiveService objectiveService, InfoService infoService, ExperimentService experimentService,
+    public Persistence(ObjectiveService objectiveService,
+                       InfoService infoService,
+                       ExperimentService experimentService,
                        DistanceEuclideanService distanceEuclideanService,
                        ExecutionService executionService,
-                       ExperimentConfigurationService experimentConfigurationService, MapObjectiveNameService mapObjectiveNameService, ApplicationContext applicationContext) {
+                       ExperimentConfigurationService experimentConfigurationService,
+                       MapObjectiveNameService mapObjectiveNameService,
+                       ApplicationContext applicationContext) {
         this.experimentService = experimentService;
         this.experimentConfigurationService = experimentConfigurationService;
         this.mapObjectiveNameService = mapObjectiveNameService;
@@ -58,7 +62,8 @@ public class Persistence {
             objective.setExecution(info.getExecution());
             objective.setExperiment(info.getExperiment());
             objective.setIsAll(info.getIsAll());
-            objective.setObjectives(info.getObjectives().replace("[", "").replace("]", "").replace(",", "|"));
+            objective.setObjectives(info.getObjectives().replace("[", "")
+                    .replace("]", "").replace(",", "|"));
             objective.setSolutionName(info.getName());
             objectiveService.save(objective);
         }
@@ -187,9 +192,8 @@ public class Persistence {
             String[] line = objective.getObjectives().split("\\|");
             Solution solution = new Solution(line.length);
             solution.setSolutionName(objective.getSolutionName());
-
-            for (int i = 0; i < line.length; i++) {
-                solution.setObjective(count, Double.parseDouble(line[i]));
+            for (String word : line) {
+                solution.setObjective(count, Double.parseDouble(word));
                 count++;
             }
             solutionSet.add(solution);

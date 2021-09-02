@@ -7,11 +7,5 @@ import br.otimizes.oplatool.patterns.designpatterns.DesignPattern;
  */
 public interface DesignPatternSelectionStrategy {
 
-    /**
-     * Select design pattern.
-     *
-     * @return the design pattern
-     */
     DesignPattern selectDesignPattern();
-
 }

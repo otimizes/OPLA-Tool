@@ -3,16 +3,16 @@ package br.otimizes.oplatool.core.jmetal4.experiments.base;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
+import br.otimizes.oplatool.core.jmetal4.database.Result;
+import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
+import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
+import br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic.NoChoice;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
-import br.otimizes.oplatool.core.jmetal4.database.Result;
-import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
-import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
-import br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic.NoChoice;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
 import br.otimizes.oplatool.core.persistence.ExperimentConfigurations;
 import br.otimizes.oplatool.core.persistence.Persistence;
@@ -59,7 +59,7 @@ public class NoChoiceOPLABase {
         List<String> testeOperadores;
 
 
-        String experiementId;
+        String experimentId;
         int numberObjectives;
         int numeroFuncoesObjetivo;
 
@@ -90,12 +90,11 @@ public class NoChoiceOPLABase {
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
 
-            Experiment experiement = mp.save(plaName, "NoChoice", configs.getDescription(), OPLAThreadScope.hash.get());
 
             Algorithm algorithm;
             Result result = new Result();
-            experiment = mp.save(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
-            ExperimentConfigurations conf = new ExperimentConfigurations(experiement.getId(), "NoChoice", configs);
+            experiment = mp.save(plaName, "NoChoice", configs.getDescription(), OPLAThreadScope.hash.get());
+            ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "NoChoice", configs);
             mp.save(conf);
             Crossover crossover;
             Mutation mutation;
@@ -126,7 +125,7 @@ public class NoChoiceOPLABase {
                         configs.getCrossoverProbability(), configs.getMutationProbability());
 
             List<String> selectedObjectiveFunctions = configs.getOplaConfigs().getSelectedObjectiveFunctions();
-            mp.saveObjectivesNames(selectedObjectiveFunctions, experiement.getId());
+            mp.saveObjectivesNames(selectedObjectiveFunctions, experiment.getId());
 
             result.setPlaName(plaName);
 
@@ -137,9 +136,9 @@ public class NoChoiceOPLABase {
                 // System.out.println("nova rodada - oplacore - classe
                 // nsgaii_opla_feat_mut");
                 // Cria uma execução. Cada execução está ligada a um
-                // experiemento.
-                Execution execution = new Execution(experiement);
-                CommonOPLAFeatMut.setDirToSaveOutput(experiement.getId(), execution.getId());
+                // experimento.
+                Execution execution = new Execution(experiment);
+                CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), execution.getId());
                 long initTime = System.currentTimeMillis();
                 SolutionSet resultFront = algorithm.execute();
                 long estimatedTime = System.currentTimeMillis() - initTime;

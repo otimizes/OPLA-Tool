@@ -21,19 +21,9 @@ import br.otimizes.oplatool.architecture.representation.Method;
  */
 public class InterfaceUtil {
 
-    /**
-     * Instantiates a new interface util.
-     */
     private InterfaceUtil() {
     }
 
-    /**
-     * Creates the interface for set of elements.
-     *
-     * @param interfaceName the interface name
-     * @param participants the participants
-     * @return the interface
-     */
     public static Interface createInterfaceForSetOfElements(String interfaceName, List<Element> participants) {
         Interface anInterface = null;
         if (participants != null && !participants.isEmpty()) {
@@ -42,18 +32,15 @@ public class InterfaceUtil {
             List<Element> tempElements;
             String namespace = ElementUtil.getNameSpace(participants);
             String packageName = UtilResources.extractPackageName(namespace);
-            boolean naArquitetura = packageName.equalsIgnoreCase("model");
-            if (naArquitetura) {
+            boolean inArchitecture = packageName.equalsIgnoreCase("model");
+            if (inArchitecture) {
                 anInterface = architecture.createInterface(interfaceName);
                 architecture.removeInterface(anInterface);
-
                 tempElements = Collections.unmodifiableList(new ArrayList<>(architecture.getElements()));
             } else {
                 aPackage = architecture.findPackageByName(UtilResources.extractPackageName(namespace));
-
                 anInterface = aPackage.createInterface(interfaceName);
                 aPackage.removeInterface(anInterface);
-
                 tempElements = Collections.unmodifiableList(new ArrayList<>(aPackage.getElements()));
             }
             List<Method> methodsFromSetOfElements = MethodUtil.createMethodsFromSetOfElements(participants);
@@ -76,9 +63,9 @@ public class InterfaceUtil {
                 count++;
                 anInterface.setName(name + count);
             }
-            if (naArquitetura) {
+            if (inArchitecture) {
                 architecture.addExternalInterface(anInterface);
-            } else if (aPackage != null) {
+            } else {
                 aPackage.addExternalInterface(anInterface);
             }
         }

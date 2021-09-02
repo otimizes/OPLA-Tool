@@ -16,8 +16,8 @@ public class WOCSCLASSObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "wocsclass")
     private Double wocsclass;
 
-    public WOCSCLASSObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public WOCSCLASSObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -31,6 +31,4 @@ public class WOCSCLASSObjectiveFunction extends ObjectiveFunctionDomain {
     public void setWocsclass(Double wocsclass) {
         this.wocsclass = wocsclass;
     }
-
-
 }

@@ -16,8 +16,8 @@ public class COEObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "h")
     private Double h;
 
-    public COEObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public COEObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public Double getH() {

@@ -14,8 +14,8 @@ public class LCCObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "lcc")
     private Double lcc;
 
-    public LCCObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public LCCObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public Double getLcc() {

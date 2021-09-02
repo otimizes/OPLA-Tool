@@ -18,8 +18,8 @@ public class TAMObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "tam")
     private Double tam;
 
-    public TAMObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public TAMObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {

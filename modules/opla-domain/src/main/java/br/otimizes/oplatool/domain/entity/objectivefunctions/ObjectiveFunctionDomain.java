@@ -10,23 +10,20 @@ import java.util.Objects;
 
 @MappedSuperclass
 public class ObjectiveFunctionDomain implements GenericMetric {
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "execution_id")
     private Execution execution;
-
     @ManyToOne
-    @JoinColumn(name = "experiement_id", nullable = false)
+    @JoinColumn(name = "experiment_id", nullable = false)
     private Experiment experiment;
-
     @Column(name = "is_all")
     private Integer isAll;
-
     @Column(name = "id_solution")
     private String idSolution;
 
@@ -71,10 +68,10 @@ public class ObjectiveFunctionDomain implements GenericMetric {
         this.idSolution = idSolution;
     }
 
-    public ObjectiveFunctionDomain(String idSolution, Execution execution, Experiment experiement) {
+    public ObjectiveFunctionDomain(String idSolution, Execution execution, Experiment experiment) {
         this.idSolution = idSolution;
         this.execution = execution;
-        this.experiment = experiement;
+        this.experiment = experiment;
     }
 
     @Override

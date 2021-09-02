@@ -16,8 +16,8 @@ public class CSObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "wocsinterface")
     private Double wocsinterface;
 
-    public CSObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public CSObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -31,6 +31,4 @@ public class CSObjectiveFunction extends ObjectiveFunctionDomain {
     public void setWocsinterface(Double wocsinterface) {
         this.wocsinterface = wocsinterface;
     }
-
-
 }

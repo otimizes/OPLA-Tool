@@ -16,8 +16,8 @@ public class LFCCObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "lfcc")
     private Double lfcc;
 
-    public LFCCObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public LFCCObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -31,6 +31,4 @@ public class LFCCObjectiveFunction extends ObjectiveFunctionDomain {
     public void setLfcc(Double lfcc) {
         this.lfcc = lfcc;
     }
-
-
 }

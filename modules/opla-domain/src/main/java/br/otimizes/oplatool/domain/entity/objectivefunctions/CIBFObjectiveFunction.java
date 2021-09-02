@@ -16,8 +16,8 @@ public class CIBFObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "cibf")
     private Double cibf;
 
-    public CIBFObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public CIBFObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -31,6 +31,4 @@ public class CIBFObjectiveFunction extends ObjectiveFunctionDomain {
     public void setCibf(Double cibf) {
         this.cibf = cibf;
     }
-
-
 }

@@ -75,12 +75,11 @@ public class BestOf2OPLABase {
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
 
-            Experiment experiement = persistence.save(plaName, "Bestof2", configs.getDescription(), OPLAThreadScope.hash.get());
 
             Algorithm algorithm;
             Result result = new Result();
-            experiment = persistence.save(plaName, "NSGAII", configs.getDescription(), OPLAThreadScope.hash.get());
-            ExperimentConfigurations conf = new ExperimentConfigurations(experiement.getId(), "BestOf2", configs);
+            experiment = persistence.save(plaName, "Bestof2", configs.getDescription(), OPLAThreadScope.hash.get());
+            ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "BestOf2", configs);
             persistence.save(conf);
             Crossover crossover;
             Mutation mutation;
@@ -111,15 +110,15 @@ public class BestOf2OPLABase {
                         configs.getCrossoverProbability(), configs.getMutationProbability());
 
             List<String> selectedObjectiveFunctions = configs.getOplaConfigs().getSelectedObjectiveFunctions();
-            persistence.saveObjectivesNames(selectedObjectiveFunctions, experiement.getId());
+            persistence.saveObjectivesNames(selectedObjectiveFunctions, experiment.getId());
 
             result.setPlaName(plaName);
 
             long[] time = new long[runsNumber];
 
             for (int runs = 0; runs < runsNumber; runs++) {
-                Execution execution = new Execution(experiement);
-                CommonOPLAFeatMut.setDirToSaveOutput(experiement.getId(), execution.getId());
+                Execution execution = new Execution(experiment);
+                CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), execution.getId());
                 long initTime = System.currentTimeMillis();
                 SolutionSet resultFront = algorithm.execute();
                 long estimatedTime = System.currentTimeMillis() - initTime;

@@ -1,44 +1,25 @@
 package br.otimizes.oplatool.patterns.util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import br.otimizes.oplatool.patterns.designpatterns.Adapter;
-import org.apache.commons.collections4.CollectionUtils;
-
 import br.otimizes.oplatool.architecture.representation.Class;
-import br.otimizes.oplatool.architecture.representation.Concern;
-import br.otimizes.oplatool.architecture.representation.Element;
-import br.otimizes.oplatool.architecture.representation.Interface;
-import br.otimizes.oplatool.architecture.representation.Method;
+import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.representation.relationship.AssociationEnd;
 import br.otimizes.oplatool.architecture.representation.relationship.AssociationRelationship;
 import br.otimizes.oplatool.architecture.representation.relationship.Relationship;
 import br.otimizes.oplatool.patterns.comparators.SubElementsComparator;
+import br.otimizes.oplatool.patterns.designpatterns.Adapter;
 import br.otimizes.oplatool.patterns.list.MethodArrayList;
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.*;
 
 /**
  * The Class ElementUtil.
  */
 public class ElementUtil {
 
-    /**
-     * Instantiates a new element util.
-     */
     private ElementUtil() {
     }
 
-    /**
-     * Gets the relationships.
-     *
-     * @param element the element
-     * @return the relationships
-     */
     public static List<Relationship> getRelationships(Element element) {
         ArrayList<Relationship> relationships = new ArrayList<>();
         if (element instanceof Class) {
@@ -49,12 +30,6 @@ public class ElementUtil {
         return relationships;
     }
 
-    /**
-     * Gets the relationships.
-     *
-     * @param elements the elements
-     * @return the relationships
-     */
     public static List<Relationship> getRelationships(List<? extends Element> elements) {
         ArrayList<Relationship> relationships = new ArrayList<>();
         for (Element element : elements) {
@@ -73,13 +48,6 @@ public class ElementUtil {
         return relationships;
     }
 
-    /**
-     * Checks if is type of.
-     *
-     * @param child the child
-     * @param parent the parent
-     * @return true, if is type of
-     */
     public static boolean isTypeOf(Element child, Element parent) {
         boolean isType = false;
         for (Relationship relationship : ElementUtil.getRelationships(child)) {
@@ -101,12 +69,6 @@ public class ElementUtil {
         return isType;
     }
 
-    /**
-     * Gets the all super interfaces.
-     *
-     * @param child the child
-     * @return the list of all super interfaces
-     */
     public static List<Interface> getAllSuperInterfaces(Element child) {
         List<Interface> implementedInterfaces = new ArrayList<>();
         for (Relationship relationship : ElementUtil.getRelationships(child)) {
@@ -144,12 +106,6 @@ public class ElementUtil {
         return implementedInterfaces;
     }
 
-    /**
-     * Gets the all super interfaces.
-     *
-     * @param elements the elements
-     * @return the list of all super interfaces
-     */
     public static List<Interface> getAllSuperInterfaces(List<Element> elements) {
         List<Interface> interfaces = new ArrayList<>();
         for (Element element : elements) {
@@ -162,12 +118,6 @@ public class ElementUtil {
         return interfaces;
     }
 
-    /**
-     * Gets the all common interfaces.
-     *
-     * @param participants the participants
-     * @return the list of all common interfaces
-     */
     public static List<Interface> getAllCommonInterfaces(List<Element> participants) {
         List<Interface> interfaces = new ArrayList<>();
         boolean first = true;
@@ -190,12 +140,6 @@ public class ElementUtil {
         return interfaces;
     }
 
-    /**
-     * Gets the all common super interfaces.
-     *
-     * @param participants the participants
-     * @return the list of all common super interfaces
-     */
     public static List<Interface> getAllCommonSuperInterfaces(List<Element> participants) {
         List<Interface> interfaces = new ArrayList<>();
         for (Element participant : participants) {
@@ -209,12 +153,6 @@ public class ElementUtil {
         return interfaces;
     }
 
-    /**
-     * Gets the all extended elements.
-     *
-     * @param child the child
-     * @return the list of all extended elements
-     */
     public static List<Element> getAllExtendedElements(Element child) {
         List<Element> extendedElements = new ArrayList<>();
         for (Relationship relationship : ElementUtil.getRelationships(child)) {
@@ -232,12 +170,6 @@ public class ElementUtil {
         return extendedElements;
     }
 
-    /**
-     * Gets the all sub elements.
-     *
-     * @param parent the parent
-     * @return the list of all sub elements
-     */
     public static List<Element> getAllSubElements(Element parent) {
         List<Element> subElements = new ArrayList<>();
         for (Relationship relationship : ElementUtil.getRelationships(parent)) {
@@ -255,37 +187,18 @@ public class ElementUtil {
         return subElements;
     }
 
-    /**
-     * Checks if is class or interface.
-     *
-     * @param element the element
-     * @return true, if is class or interface
-     */
     public static boolean isClassOrInterface(Element element) {
         return (element instanceof Class || element instanceof Interface);
     }
 
-    /**
-     * Gets the own and methods common concerns.
-     *
-     * @param elements the elements
-     * @return the set of own and methods common concerns
-     */
     public static Set<Concern> getOwnAndMethodsCommonConcerns(List<Element> elements) {
-        Set<Concern> commonConcerns = new HashSet<>();
-        commonConcerns.addAll(getOwnAndMethodsConcerns(elements.get(0)));
+        Set<Concern> commonConcerns = new HashSet<>(getOwnAndMethodsConcerns(elements.get(0)));
         for (Element participant : elements) {
             commonConcerns = new HashSet<>(CollectionUtils.intersection(commonConcerns, getOwnAndMethodsConcerns(participant)));
         }
         return commonConcerns;
     }
 
-    /**
-     * Gets the own and methods common concerns of at least two elements.
-     *
-     * @param elements the elements
-     * @return the set of own and methods common concerns of at least two elements
-     */
     public static Set<Concern> getOwnAndMethodsCommonConcernsOfAtLeastTwoElements(List<Element> elements) {
         Set<Concern> commonConcerns = new HashSet<>();
         for (Element iElement : elements) {
@@ -306,12 +219,6 @@ public class ElementUtil {
         return commonConcerns;
     }
 
-    /**
-     * Gets the own and methods concerns.
-     *
-     * @param elements the elements
-     * @return the set of own and methods concerns
-     */
     public static Set<Concern> getOwnAndMethodsConcerns(List<Element> elements) {
         Set<Concern> commonConcerns = new HashSet<>();
         for (Element participant : elements) {
@@ -320,27 +227,14 @@ public class ElementUtil {
         return commonConcerns;
     }
 
-    /**
-     * Gets the own and methods concerns.
-     *
-     * @param element the element
-     * @return the set of own and methods concerns
-     */
     public static Set<Concern> getOwnAndMethodsConcerns(Element element) {
-        Set<Concern> commonConcerns = new HashSet<>();
-        commonConcerns.addAll(element.getOwnConcerns());
+        Set<Concern> commonConcerns = new HashSet<>(element.getOwnConcerns());
         for (Method method : MethodUtil.getAllMethodsFromElement(element)) {
             commonConcerns.addAll(method.getOwnConcerns());
         }
         return commonConcerns;
     }
 
-    /**
-     * Gets the all aggregated elements.
-     *
-     * @param element the element
-     * @return the set of all aggregated elements
-     */
     public static Set<Element> getAllAggregatedElements(Element element) {
         Set<Element> aggregatedElements = new HashSet<>();
         for (Relationship relationship : ElementUtil.getRelationships(element)) {
@@ -356,12 +250,6 @@ public class ElementUtil {
         return aggregatedElements;
     }
 
-    /**
-     * Group elements by concern.
-     *
-     * @param elements the elements
-     * @return the elements by concern hash map
-     */
     public static HashMap<Concern, List<Element>> groupElementsByConcern(List<Element> elements) {
         HashMap<Concern, List<Element>> groupedElements = new HashMap<>();
         Set<Concern> ownAndMethodsCommonConcerns = getOwnAndMethodsConcerns(elements);
@@ -382,12 +270,6 @@ public class ElementUtil {
         return groupedElements;
     }
 
-    /**
-     * Gets the elements with no own concerns and with at least one method with no concerns.
-     *
-     * @param elements the elements
-     * @return the elements with no own concerns and with at least one method with no concerns
-     */
     public static ArrayList<Element> getElementsWithNoOwnConcernsAndWithAtLeastOneMethodWithNoConcerns(Iterable<Element> elements) {
         ArrayList<Element> nullArrayList = new ArrayList<>();
         elementLoop:
@@ -404,19 +286,12 @@ public class ElementUtil {
         return nullArrayList;
     }
 
-    /**
-     * Gets the name space.
-     *
-     * @param elements the elements
-     * @return the name space
-     */
     public static String getNameSpace(List<Element> elements) {
         HashMap<String, Integer> namespaceList = new HashMap<>();
         for (Element element : elements) {
             Integer namespaceCount = namespaceList.get(element.getNamespace());
             namespaceList.put(element.getNamespace(), namespaceCount == null ? 1 : namespaceCount + 1);
         }
-
         Integer max = -1;
         String namespace = "";
         for (Map.Entry<String, Integer> entry : namespaceList.entrySet()) {
@@ -430,16 +305,8 @@ public class ElementUtil {
         return namespace;
     }
 
-    /**
-     * Implement interface.
-     *
-     * @param elements the elements
-     * @param anInterface the an interface
-     * @param adapterList the adapter list
-     * @param adapteeList the adaptee list
-     */
     public static void implementInterface(List<Element> elements, Interface anInterface, List<Element> adapterList, List<Element> adapteeList) {
-        Collections.sort(elements, SubElementsComparator.getDescendingOrderer());
+        elements.sort(SubElementsComparator.getDescendingOrderer());
         for (Element participant : elements) {
             Class adapterClass = implementInterface(participant, anInterface);
             if (adapterClass != null) {
@@ -453,13 +320,6 @@ public class ElementUtil {
         }
     }
 
-    /**
-     * Implement interface.
-     *
-     * @param child the child
-     * @param anInterface the an interface
-     * @return representation class
-     */
     public static Class implementInterface(Element child, Interface anInterface) {
         if (!ElementUtil.isTypeOf(child, anInterface) && !AdapterUtil.getAllTargetInterfaces(child).contains(anInterface)) {
             if (child instanceof Class) {
@@ -485,20 +345,12 @@ public class ElementUtil {
         return null;
     }
 
-    /**
-     * Extend class.
-     *
-     * @param child the child
-     * @param aClass the a class
-     * @return representation class
-     */
     public static Class extendClass(Element child, Class aClass) {
         if (!ElementUtil.isTypeOf(child, aClass)) {
             if (child instanceof Class) {
                 RelationshipUtil.createNewGeneralizationRelationship(child, aClass);
             } else if (child instanceof Interface) {
-                Class adapterClass = Adapter.getInstance().applyAdapter(aClass, child);
-                return adapterClass;
+                return Adapter.getInstance().applyAdapter(aClass, child);
             }
         }
         if (child instanceof Class) {
@@ -517,12 +369,6 @@ public class ElementUtil {
         return null;
     }
 
-    /**
-     * Verify and remove required interface.
-     *
-     * @param client the client
-     * @param supplier the supplier
-     */
     public static void verifyAndRemoveRequiredInterface(Element client, Element supplier) {
         if (client instanceof Class && supplier instanceof Interface) {
             for (Relationship relationship : ElementUtil.getRelationships(client)) {
@@ -535,12 +381,6 @@ public class ElementUtil {
         }
     }
 
-    /**
-     * Verify and remove implemented interface.
-     *
-     * @param client the client
-     * @param supplier the supplier
-     */
     public static void verifyAndRemoveImplementedInterface(Element client, Element supplier) {
         if (client instanceof Class && supplier instanceof Interface) {
             if (!getAllSuperInterfaces(client).contains(supplier)) {
@@ -549,54 +389,29 @@ public class ElementUtil {
         }
     }
 
-    /**
-     * Adds the required interface.
-     *
-     * @param client the client
-     * @param supplier the supplier
-     */
     public static void addRequiredInterface(Element client, Element supplier) {
         if (client instanceof Class && supplier instanceof Interface) {
             ((Class) client).addRequiredInterface((Interface) supplier);
         }
     }
 
-    /**
-     * Adds the implemented interface.
-     *
-     * @param client the client
-     * @param supplier the supplier
-     */
     public static void addImplementedInterface(Element client, Element supplier) {
         if (client instanceof Class && supplier instanceof Interface) {
             ((Class) client).addImplementedInterface((Interface) supplier);
         }
     }
 
-    /**
-     * Gets the all super elements.
-     *
-     * @param element the element
-     * @return the list with all super elements
-     */
     public static List<Element> getAllSuperElements(Element element) {
         return new ArrayList<>(CollectionUtils.union(getAllExtendedElements(element), getAllSuperInterfaces(element)));
     }
 
-    /**
-     * Gets the chain of related elements with same concern.
-     *
-     * @param mainElements the main elements
-     * @param concern the concern
-     * @return the chain of related elements with same concern
-     */
     public static List<Element> getChainOfRelatedElementsWithSameConcern(List<Element> mainElements, Concern concern) {
         List<Element> elements = new ArrayList<>();
         for (Element element : mainElements) {
             if ((element instanceof Class || element instanceof Interface)
                     && !elements.contains(element)) {
                 List<Element> tempElements = new ArrayList<>();
-                if (!tempElements.contains(element) && element.getAllConcerns().contains(concern)) {
+                if (element.getAllConcerns().contains(concern)) {
                     tempElements.add(element);
                     getChainOfRelatedElementsWithSameConcern(element, concern, tempElements, mainElements);
                 }
@@ -609,15 +424,6 @@ public class ElementUtil {
         return elements;
     }
 
-    /**
-     * Gets the chain of related elements with same concern.
-     *
-     * @param element the element
-     * @param concern the concern
-     * @param elements the elements
-     * @param mainElements the main elements
-     * @return the chain of related elements with same concern
-     */
     private static void getChainOfRelatedElementsWithSameConcern(Element element, Concern concern, List<Element> elements, List<Element> mainElements) {
         List<Relationship> relationships = getRelationships(element);
         for (Relationship relationship : relationships) {
@@ -633,8 +439,7 @@ public class ElementUtil {
                     }
                 }
             }
-            if (chainedElement != null
-                    && (chainedElement instanceof Class || chainedElement instanceof Interface)
+            if ((chainedElement instanceof Class || chainedElement instanceof Interface)
                     && !chainedElement.equals(element)
                     && chainedElement.getAllConcerns().contains(concern)
                     && !elements.contains(chainedElement)
@@ -642,16 +447,9 @@ public class ElementUtil {
                 elements.add(chainedElement);
                 getChainOfRelatedElementsWithSameConcern(chainedElement, concern, elements, mainElements);
             }
-
         }
     }
 
-    /**
-     * Gets the applied design patterns.
-     *
-     * @param element the element
-     * @return the set of applied design patterns
-     */
     public static Set<String> getAppliedDesignPatterns(Element element) {
         if (element instanceof Class) {
             Class elementClass = (Class) element;
@@ -663,5 +461,4 @@ public class ElementUtil {
             return new HashSet<>();
         }
     }
-
 }

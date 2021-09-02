@@ -20,8 +20,8 @@ public class ECObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "oobc")
     private Double oobc;
 
-    public ECObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public ECObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -51,5 +51,4 @@ public class ECObjectiveFunction extends ObjectiveFunctionDomain {
     public void setOobc(Double oobc) {
         this.oobc = oobc;
     }
-
 }

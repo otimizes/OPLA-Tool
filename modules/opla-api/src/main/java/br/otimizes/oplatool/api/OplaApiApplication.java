@@ -59,8 +59,8 @@ public class OplaApiApplication {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Utils.createPathsOplaTool();
-        UserHome.createDefaultOplaPathIfDontExists();
+        Utils.createPathsOPLATool();
+        UserHome.createDefaultOPLAPathIfDontExists();
         Utils.createDataBaseIfNotExists();
         UserHome.copyTemplates();
         ManagerApplicationFileConfig instance = ApplicationFileConfig.getApplicationFileConfig();

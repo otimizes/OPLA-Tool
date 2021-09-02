@@ -15,33 +15,25 @@ public class CMObjectiveFunction extends ObjectiveFunctionDomain {
 
     @Column(name = "sum_cohesion")
     private Double sumCohesion;
-
     @Column(name = "macAggregation")
     private Double macAggregation;
-
     @Column(name = "cohesion")
     private Double cohesion;
-
     @Column(name = "meanDepComps")
     private Double meanDepComps;
-
     @Column(name = "meanNumOps")
     private Double meanNumOps;
-
     @Column(name = "sumClassesDepIn")
     private Double sumClassesDepIn;
-
     @Column(name = "sumClassesDepOut")
     private Double sumClassesDepOut;
-
     @Column(name = "sumDepIn")
     private Double sumDepIn;
-
     @Column(name = "sumDepOut")
     private Double sumDepOut;
 
-    public CMObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public CMObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -119,5 +111,4 @@ public class CMObjectiveFunction extends ObjectiveFunctionDomain {
     public void setSumDepOut(Double sumDepOut) {
         this.sumDepOut = sumDepOut;
     }
-
 }

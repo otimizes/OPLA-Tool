@@ -15,18 +15,15 @@ public class ELEGObjectiveFunction extends ObjectiveFunctionDomain {
 
     @Column(name = "nac")
     private Double nac;
-
     @Column(name = "atmr")
     private Double atmr;
-
     @Column(name = "ec")
     private Double ec;
-
     @Column(name = "elegance")
     private Double elegance;
 
-    public ELEGObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public ELEGObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {

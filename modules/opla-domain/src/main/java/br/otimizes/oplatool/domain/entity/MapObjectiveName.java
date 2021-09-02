@@ -18,19 +18,15 @@ public class MapObjectiveName implements Serializable {
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
-
 	@Column(name = "names")
 	private String names;
-
 	@ManyToOne
 	@JoinColumn(name = "experiment_id", nullable = false)
 	private Experiment experiment;
-
 	@Transient
 	private BigDecimal value;
 
 	public MapObjectiveName() {
-		// Empty
 	}
 
 	public MapObjectiveName(BigDecimal value, String name) {
@@ -96,5 +92,4 @@ public class MapObjectiveName implements Serializable {
 		return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("id", id).append("names", names)
 				.append("experiment", experiment).toString();
 	}
-
 }

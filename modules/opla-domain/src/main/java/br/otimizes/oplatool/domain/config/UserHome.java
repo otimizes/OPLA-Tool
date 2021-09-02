@@ -18,27 +18,27 @@ public class UserHome {
     /**
      * User Home directory Ex: C:/User/oplatool/ or /home/user/oplatool/
      *
-     * @return
+     * @return OPLA User Home
      */
-    public static String getOplaUserHome() {
-        return FileConstants.USER_HOME + FileConstants.FILE_SEPARATOR + "oplatool" + FileConstants.FILE_SEPARATOR;
+    public static String getOPLAUserHome() {
+        return FileConstants.USER_HOME + FileConstants.FILE_SEPARATOR + FileConstants.BASE_DIR + FileConstants.FILE_SEPARATOR;
     }
 
-    public static String getOplaHv() {
-        return FileConstants.USER_HOME + FileConstants.FILE_SEPARATOR + "oplatool" + FileConstants.FILE_SEPARATOR + "bins" +
-                FileConstants.FILE_SEPARATOR + "hv" + FileConstants.FILE_SEPARATOR + "hv";
+    public static String getOPLAHV() {
+        return FileConstants.USER_HOME + FileConstants.FILE_SEPARATOR + FileConstants.BASE_DIR + FileConstants.FILE_SEPARATOR + FileConstants.BINS_DIR +
+                FileConstants.FILE_SEPARATOR + FileConstants.HV_DIR + FileConstants.FILE_SEPARATOR + FileConstants.HV_DIR;
     }
 
     public static Path getApplicationYamlConfig() {
-        return Paths.get(getOplaUserHome()).resolve("application.yaml");
+        return Paths.get(getOPLAUserHome()).resolve(FileConstants.APPLICATION_YAML_NAME);
     }
 
     public static String getGuiSettingsFilePath() {
-        return getOplaUserHome() + "guisettings.yml";
+        return getOPLAUserHome() + FileConstants.GUI_SETTINGS;
     }
 
-    public static void createDefaultOplaPathIfDontExists() {
-        FileUtils.createDirectory(Paths.get(getOplaUserHome()));
+    public static void createDefaultOPLAPathIfDontExists() {
+        FileUtils.createDirectory(Paths.get(getOPLAUserHome()));
     }
 
     public static void copyTemplates() {
@@ -56,22 +56,24 @@ public class UserHome {
         Path externalPathSimplesDi = Paths.get(UserHome.getPathToTemplates() + simplesDiPath);
         Path externalPathSimplesNotation = Paths.get(UserHome.getPathToTemplates() + simplesNotationPath);
 
-        FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesUmlPath), externalPathSimplesUml);
-        FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesDiPath), externalPathSimplesDi);
-        FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesNotationPath), externalPathSimplesNotation);
+        if (uriTemplatesDir != null) {
+            FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesUmlPath), externalPathSimplesUml);
+            FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesDiPath), externalPathSimplesDi);
+            FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesNotationPath), externalPathSimplesNotation);
+        }
     }
 
     public static void createProfilesPath() {
-        Utils.createPath(getOplaUserHome() + "profiles" + FileConstants.FILE_SEPARATOR);
+        Utils.createPath(getOPLAUserHome() + FileConstants.PROFILES_DIR + FileConstants.FILE_SEPARATOR);
     }
 
     public static void createBinsHVPath() {
-        Utils.createPath(getOplaUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR);
+        Utils.createPath(getOPLAUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR);
         URL systemResource = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.HV_FILE);
-        Path path = Paths.get(getOplaUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR + FileConstants.HV_FILE);
+        Path path = Paths.get(getOPLAUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR + FileConstants.HV_FILE);
         if (!path.toFile().exists()) {
             FileUtils.copy(Paths.get(systemResource.getPath()), path);
-            File hvDir = new File(getOplaUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR + FileConstants.HV_DIR);
+            File hvDir = new File(getOPLAUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR + FileConstants.HV_DIR);
             boolean mkdirs = hvDir.mkdirs();
 
             if (mkdirs) {
@@ -87,26 +89,26 @@ public class UserHome {
     }
 
     public static void createTemplatePath() {
-        Utils.createPath(getOplaUserHome() + "templates" + FileConstants.FILE_SEPARATOR);
+        Utils.createPath(getOPLAUserHome() + FileConstants.TEMPLATES_DIR + FileConstants.FILE_SEPARATOR);
     }
 
     public static void createOutputPath() {
-        Utils.createPath(getOplaUserHome() + "output" + FileConstants.FILE_SEPARATOR);
+        Utils.createPath(getOPLAUserHome() + FileConstants.OUTPUT_DIR + FileConstants.FILE_SEPARATOR);
     }
 
     public static void createTempPath() {
-        Utils.createPath(getOplaUserHome() + "temp" + FileConstants.FILE_SEPARATOR);
+        Utils.createPath(getOPLAUserHome() + FileConstants.TEMP_DIR + FileConstants.FILE_SEPARATOR);
     }
 
     public static String getPathToDb() {
-        return getOplaUserHome() + "db" + FileConstants.FILE_SEPARATOR + "oplatool.db";
+        return getOPLAUserHome() + FileConstants.DB_DIR + FileConstants.FILE_SEPARATOR + FileConstants.EMPTY_DB_NAME;
     }
 
     public static String getPathToTemplates() {
-        return getOplaUserHome() + "templates" + FileConstants.FILE_SEPARATOR;
+        return getOPLAUserHome() + FileConstants.TEMPLATES_DIR + FileConstants.FILE_SEPARATOR;
     }
 
     public static String getPathToConfigFile() {
-        return getOplaUserHome() + "application.yaml";
+        return getOPLAUserHome() + FileConstants.APPLICATION_YAML_NAME;
     }
 }

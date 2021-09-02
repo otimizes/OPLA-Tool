@@ -16,8 +16,8 @@ public class EXTObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "pla_extensibility")
     private Double plaExtensibility;
 
-    public EXTObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public EXTObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
