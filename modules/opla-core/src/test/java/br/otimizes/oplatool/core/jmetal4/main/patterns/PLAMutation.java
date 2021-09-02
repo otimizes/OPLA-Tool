@@ -45,8 +45,8 @@ public class PLAMutation extends AbstractMutationOperator {
     }
 
     public boolean doMutation(double probability, Solution solution) throws Exception {
-        String scope = "sameComponent"; //"allComponents" usar "sameComponent" para que a troca seja realizada dentro do mesmo componente da br.otimizes.oplatool.arquitetura
-        String scopeLevels = "allLevels"; //usar "oneLevel" para não verificar a presença de interesses nos atributos e métodos
+        String scope = "sameComponent";
+        String scopeLevels = "allLevels";
 
         int r = PseudoRandom.randInt(0, 5);
         switch (r) {

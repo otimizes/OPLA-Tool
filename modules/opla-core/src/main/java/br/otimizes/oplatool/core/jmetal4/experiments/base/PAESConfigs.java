@@ -13,6 +13,4 @@ public class PAESConfigs extends ExperimentCommonConfigs {
     public void setArchiveSize(int archiveSize) {
         this.archiveSize = archiveSize;
     }
-
-
 }

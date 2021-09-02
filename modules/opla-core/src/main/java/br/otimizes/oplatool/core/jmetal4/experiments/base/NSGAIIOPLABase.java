@@ -1,19 +1,19 @@
 package br.otimizes.oplatool.core.jmetal4.experiments.base;
 
+import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
+import br.otimizes.oplatool.core.jmetal4.database.Result;
+import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
+import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
+import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
-import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.database.Result;
-import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
-import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
-import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
 import br.otimizes.oplatool.core.learning.Moment;
 import br.otimizes.oplatool.core.persistence.ExperimentConfigurations;
@@ -37,12 +37,12 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
 
     private static final Logger LOGGER = Logger.getLogger(NSGAIIOPLABase.class);
 
-    private final Persistence mp;
-    private final EdCalculation c;
+    private final Persistence persistence;
+    private final EdCalculation edCalculation;
 
-    public NSGAIIOPLABase(Persistence mp, EdCalculation c) {
-        this.mp = mp;
-        this.c = c;
+    public NSGAIIOPLABase(Persistence persistence, EdCalculation edCalculation) {
+        this.persistence = persistence;
+        this.edCalculation = edCalculation;
     }
 
     private static String getPlaName(String pla) {
@@ -69,9 +69,9 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
             Result result = new Result();
-            experiment = mp.save(plaName, "NSGAII", experimentCommonConfigs.getDescription(), OPLAThreadScope.hashOnPosteriori.get());
+            experiment = persistence.save(plaName, "NSGAII", experimentCommonConfigs.getDescription(), OPLAThreadScope.hashOnPosteriori.get());
             ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "NSGAII", experimentCommonConfigs);
-            mp.save(conf);
+            persistence.save(conf);
 
             SolutionSet allRuns = new SolutionSet();
             Algorithm algorithm = new NSGAII(problem);
@@ -104,7 +104,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                         experimentCommonConfigs.getCrossoverProbability(), experimentCommonConfigs.getMutationProbability());
 
             List<String> selectedObjectiveFunctions = experimentCommonConfigs.getOplaConfigs().getSelectedObjectiveFunctions();
-            mp.saveObjectivesNames(selectedObjectiveFunctions, experiment.getId());
+            persistence.saveObjectivesNames(selectedObjectiveFunctions, experiment.getId());
             result.setPlaName(plaName);
             long[] time = new long[experimentCommonConfigs.getNumberOfRuns()];
 
@@ -122,9 +122,9 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                 resultFront = problem.removeDominated(resultFront);
                 resultFront = problem.removeRepeated(resultFront);
 
-                execution = mp.save(execution);
+                execution = persistence.save(execution);
                 List<Info> infos = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
-                infos = mp.save(infos);
+                infos = persistence.save(infos);
                 execution.setInfos(infos);
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
                         experiment, selectedObjectiveFunctions);
@@ -147,13 +147,13 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
             }
 
             List<Info> infos = result.getInfos(allRuns.getSolutionSet(), null, experiment);
-            mp.save(infos);
+            persistence.save(infos);
             Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);
-            mp.save(allMetrics);
+            persistence.save(allMetrics);
 
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
-            mp.saveEuclideanDistance(c.calculate(experiment.getId(), experimentCommonConfigs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
+            persistence.saveEuclideanDistance(edCalculation.calculate(experiment.getId(), experimentCommonConfigs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             OPLABaseUtils.saveHypervolume(experiment.getId(), null, allRuns, plaName);
 
             if (Moment.POSTERIORI.equals(experimentCommonConfigs.getClusteringMoment())) {
@@ -192,5 +192,4 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
         LOGGER.info("tMuta -> " + mutationProbability);
         LOGGER.info("================ NSGAII ================");
     }
-
 }

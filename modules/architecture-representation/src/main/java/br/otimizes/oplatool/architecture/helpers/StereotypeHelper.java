@@ -20,7 +20,6 @@ public class StereotypeHelper {
 
     public static boolean hasStereotype(NamedElement elt, String stereotypeName) {
         boolean has = false;
-
         if (elt != null) {
             Iterator<Stereotype> i = elt.getAppliedStereotypes().iterator();
             Stereotype currentStereotype;
@@ -30,7 +29,6 @@ public class StereotypeHelper {
                     has = true;
             }
         }
-
         return has;
     }
 
@@ -61,19 +59,17 @@ public class StereotypeHelper {
     public static boolean hasConcern(NamedElement element) {
         try {
             if (element instanceof ClassImpl) if (searchForConcernsStereotypes(element) != null) return true;
-
             if (element instanceof StereotypeImpl)
                 if (((Classifier) element).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
                     return true;
         } catch (Exception e) {
             return hasStereotype(element, StereotypesTypes.CONCERN);
         }
-
         return false;
     }
 
     public static List<String> getAllRelationshipStereotypes(org.eclipse.uml2.uml.Relationship element) {
-        List<String> stereotypes = new ArrayList<String>();
+        List<String> stereotypes = new ArrayList<>();
         EList<Stereotype> stes = element.getAppliedStereotypes();
         for (Stereotype stereotype : stes) {
             if (stereotype instanceof StereotypeImpl)
@@ -121,17 +117,18 @@ public class StereotypeHelper {
 
     }
 
-    public static String getConcernName(NamedElement c) throws ConcernNotFoundException {
-        if (hasConcern(c))
-            if (searchForConcernsStereotypes(c) != null)
-                return searchForConcernsStereotypes(c).getName();
+    public static String getConcernName(NamedElement namedElement) throws ConcernNotFoundException {
+        if (hasConcern(namedElement))
+            if (searchForConcernsStereotypes(namedElement) != null)
+                return Objects.requireNonNull(searchForConcernsStereotypes(namedElement)).getName();
 
-        throw new ConcernNotFoundException("There is not concern in element " + c);
+        throw new ConcernNotFoundException("There is not concern in element " + namedElement);
     }
 
-    public static Map<String, String> getVariabilityAttributes(NamedElement klass, Comment comment) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException {
+    public static Map<String, String> getVariabilityAttributes(NamedElement namedElement, Comment comment)
+            throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException {
         if (comment != null) {
-            Stereotype variability = getStereotypeByName(klass, "variability");
+            Stereotype variability = getStereotypeByName(namedElement, "variability");
             Map<String, String> variabilityProps = new HashMap<>();
 
             String name = getValueOfAttribute(comment, variability, "name");
@@ -149,10 +146,8 @@ public class StereotypeHelper {
             variabilityProps.put("allowAddingVar", allowAddingVar);
             if (!comment.getNearestPackage().getName().equalsIgnoreCase("model"))
                 variabilityProps.put("idOwnerPackage", XmiHelper.getXmiId(comment.getOwner()));
-
             return variabilityProps;
         }
-
         return Collections.emptyMap();
     }
 
@@ -162,7 +157,6 @@ public class StereotypeHelper {
             if (stereotypeName.equalsIgnoreCase(stereotype.getName()))
                 return stereotype;
         }
-
         return null;
     }
 
@@ -176,15 +170,12 @@ public class StereotypeHelper {
                         return stereotype;
 
         }
-
         return null;
     }
 
     public static Stereotype getVariantType(Classifier klass) {
         List<String> possibleVariants = Arrays.asList("mandatory", "optional", "alternative_OR", "alternative_XOR");
-
         List<Stereotype> stereotypes = ModelElementHelper.getAllStereotypes(klass);
-
         for (Stereotype stereotype : stereotypes) {
             if (possibleVariants.contains(stereotype.getName())) {
                 return stereotype;

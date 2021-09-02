@@ -17,7 +17,7 @@ public class Strings {
     }
 
     public static String splitVariabilities(List<Variability> list) {
-        List<String> names = new ArrayList<String>();
+        List<String> names = new ArrayList<>();
         for (Variability variability : list)
             names.add(variability.getName());
         return Joiner.on(", ").skipNulls().join(names);

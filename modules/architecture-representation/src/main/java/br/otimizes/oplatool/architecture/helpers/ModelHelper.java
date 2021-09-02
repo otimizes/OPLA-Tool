@@ -60,10 +60,10 @@ public class ModelHelper extends ElementHelper {
     }
 
     public List<Association> getAllAssociations(NamedElement model) {
-        List<Association> associations = new ArrayList<Association>();
+        List<Association> associations;
         associations = getAllElementsByType(model, ASSOCIATION);
 
-        List<Association> r = new ArrayList<Association>();
+        List<Association> r = new ArrayList<>();
 
         List<Package> packages = getAllPackages(model);
         for (Package pack : packages) {
@@ -229,5 +229,4 @@ public class ModelHelper extends ElementHelper {
     public Profile loadSmarty() {
         return uml2Helper.get().loadSMartyProfile();
     }
-
 }

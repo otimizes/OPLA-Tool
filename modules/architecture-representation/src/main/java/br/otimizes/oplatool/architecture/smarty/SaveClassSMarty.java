@@ -29,17 +29,17 @@ public class SaveClassSMarty {
     public void save(Architecture architecture, PrintWriter printWriter) {
         String halfTab = "  ";
         String tab = "    ";
-        for (Class classFromArchitecture : architecture.getClasses()) {
-            printWriter.write("\n" + tab + "<class id=\"" + classFromArchitecture.getId() + "\" name=\""
-                    + classFromArchitecture.getName() + "\" mandatory=\"" + classFromArchitecture.isMandatory()
-                    + "\" x=\"" + classFromArchitecture.getPosX() + "\" y=\"" + classFromArchitecture.getPosY()
-                    + "\" globalX=\"" + classFromArchitecture.getGlobalPosX() + "\" globalY=\""
-                    + classFromArchitecture.getGlobalPosY() + "\"  abstract=\"" + classFromArchitecture.isAbstract()
-                    + "\" final=\"" + classFromArchitecture.isAbstract() + "\" height=\"" + classFromArchitecture.getHeight()
-                    + "\" width=\"" + classFromArchitecture.getWidth() + "\" parent=\"\">");
-            printWriter.write("\n" + tab + halfTab + "<description>" + classFromArchitecture.getStringComments() + "</description>");
+        for (Class aClass : architecture.getClasses()) {
+            printWriter.write("\n" + tab + "<class id=\"" + aClass.getId() + "\" name=\""
+                    + aClass.getName() + "\" mandatory=\"" + aClass.isMandatory()
+                    + "\" x=\"" + aClass.getPosX() + "\" y=\"" + aClass.getPosY()
+                    + "\" globalX=\"" + aClass.getGlobalPosX() + "\" globalY=\""
+                    + aClass.getGlobalPosY() + "\"  abstract=\"" + aClass.isAbstract()
+                    + "\" final=\"" + aClass.isAbstract() + "\" height=\"" + aClass.getHeight()
+                    + "\" width=\"" + aClass.getWidth() + "\" parent=\"\">");
+            printWriter.write("\n" + tab + halfTab + "<description>" + aClass.getStringComments() + "</description>");
 
-            addAttributes(architecture, printWriter, halfTab, tab, classFromArchitecture);
+            addAttributes(architecture, printWriter, halfTab, tab, aClass);
         }
         for (br.otimizes.oplatool.architecture.representation.Package pkg : architecture.getAllPackages()) {
             for (Class clazz : pkg.getAllClasses()) {

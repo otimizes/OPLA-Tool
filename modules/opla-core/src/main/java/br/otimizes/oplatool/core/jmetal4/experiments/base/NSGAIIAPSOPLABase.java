@@ -37,12 +37,12 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
 
     private static final Logger LOGGER = Logger.getLogger(NSGAIIAPSOPLABase.class);
 
-    private final Persistence mp;
-    private final EdCalculation c;
+    private final Persistence persistence;
+    private final EdCalculation edCalculation;
 
-    public NSGAIIAPSOPLABase(Persistence mp, EdCalculation c) {
-        this.mp = mp;
-        this.c = c;
+    public NSGAIIAPSOPLABase(Persistence persistence, EdCalculation edCalculation) {
+        this.persistence = persistence;
+        this.edCalculation = edCalculation;
     }
 
     private static String getPlaName(String pla) {
@@ -69,9 +69,9 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                 throw new JMException("Ocorreu um erro durante geração de PLAs");
             }
             Result result = new Result();
-            experiment = mp.save(plaName, "NSGAII", experimentCommonConfigs.getDescription(), OPLAThreadScope.hash.get());
+            experiment = persistence.save(plaName, "NSGAII", experimentCommonConfigs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "NSGAII", experimentCommonConfigs);
-            mp.save(conf);
+            persistence.save(conf);
 
             SolutionSet allRuns = new SolutionSet();
             Algorithm algorithm = new NSGAIIASP(problem);
@@ -104,7 +104,7 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                         experimentCommonConfigs.getCrossoverProbability(), experimentCommonConfigs.getMutationProbability());
 
             List<String> selectedObjectiveFunctions = experimentCommonConfigs.getOplaConfigs().getSelectedObjectiveFunctions();
-            mp.saveObjectivesNames(selectedObjectiveFunctions, experiment.getId());
+            persistence.saveObjectivesNames(selectedObjectiveFunctions, experiment.getId());
             result.setPlaName(plaName);
             long[] time = new long[experimentCommonConfigs.getNumberOfRuns()];
 
@@ -122,9 +122,9 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
                 resultFront = problem.removeDominated(resultFront);
                 resultFront = problem.removeRepeated(resultFront);
 
-                execution = mp.save(execution);
+                execution = persistence.save(execution);
                 List<Info> infos = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
-                infos = mp.save(infos);
+                infos = persistence.save(infos);
                 execution.setInfos(infos);
                 Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
                         experiment, selectedObjectiveFunctions);
@@ -147,13 +147,13 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
             }
 
             List<Info> infos = result.getInfos(allRuns.getSolutionSet(), null, experiment);
-            mp.save(infos);
+            persistence.save(infos);
             Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
                     selectedObjectiveFunctions);
-            mp.save(allMetrics);
+            persistence.save(allMetrics);
 
             CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
-            mp.saveEuclideanDistance(c.calculate(experiment.getId(), experimentCommonConfigs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
+            persistence.saveEuclideanDistance(edCalculation.calculate(experiment.getId(), experimentCommonConfigs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             OPLABaseUtils.saveHypervolume(experiment.getId(), null, allRuns, plaName);
 
             if (Moment.POSTERIORI.equals(experimentCommonConfigs.getClusteringMoment())) {
@@ -192,5 +192,4 @@ public class NSGAIIAPSOPLABase implements AlgorithmBase<NSGAIIConfigs> {
         LOGGER.info("tMuta -> " + mutationProbability);
         LOGGER.info("================ NSGAII ================");
     }
-
 }

@@ -142,8 +142,8 @@ public class SaveConcernLinkSMart {
                 concernID = architecture.findConcernByName(concern.getName()).getId();
                 printWriter.write("\n" + tab + "t<link element=\"" + subPkg.getId() + "\" stereotype=\"" + concernID + "\"/>");
             }
-            for (Class classFromSubPackage : subPkg.getAllClasses()) {
-                linkClass(printWriter, architecture, variantStereotype, tab, classFromSubPackage);
+            for (Class aClass : subPkg.getAllClasses()) {
+                linkClass(printWriter, architecture, variantStereotype, tab, aClass);
             }
             addInterfaces(printWriter, architecture, variantStereotype, tab, subPkg);
         }

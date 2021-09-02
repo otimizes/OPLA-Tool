@@ -79,7 +79,7 @@ public class ArchitectureRepository {
         File directory = new File(path);
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
-                System.out.println("Não foi possível criar o diretório " + path);
+                System.out.println("Cannot create directory " + path);
                 System.exit(0);
             }
         }

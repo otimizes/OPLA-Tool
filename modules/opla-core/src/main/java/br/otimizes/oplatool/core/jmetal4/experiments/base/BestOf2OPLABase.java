@@ -75,7 +75,6 @@ public class BestOf2OPLABase {
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
 
-
             Algorithm algorithm;
             Result result = new Result();
             experiment = persistence.save(plaName, "Bestof2", configs.getDescription(), OPLAThreadScope.hash.get());
@@ -139,7 +138,6 @@ public class BestOf2OPLABase {
                 execution.setAllMetrics(allMetrics);
                 allRuns = allRuns.union(resultFront);
                 OPLABaseUtils.saveHypervolume(experiment.getId(), execution.getId(), resultFront, plaName);
-
             }
 
             allRuns = problem.removeDominated(allRuns);

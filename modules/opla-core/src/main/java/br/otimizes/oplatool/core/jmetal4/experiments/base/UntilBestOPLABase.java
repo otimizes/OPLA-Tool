@@ -3,16 +3,16 @@ package br.otimizes.oplatool.core.jmetal4.experiments.base;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
+import br.otimizes.oplatool.core.jmetal4.database.Result;
+import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
+import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
+import br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic.UntilBest;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
-import br.otimizes.oplatool.core.jmetal4.database.Result;
-import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
-import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
-import br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic.UntilBest;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
 import br.otimizes.oplatool.core.persistence.ExperimentConfigurations;
 import br.otimizes.oplatool.core.persistence.Persistence;
@@ -77,7 +77,6 @@ public class UntilBestOPLABase {
                         .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
             }
 
-
             Algorithm algorithm;
             Result result = new Result();
             experiment = persistence.save(plaName, "UntilBest", configs.getDescription(), OPLAThreadScope.hash.get());
@@ -141,12 +140,9 @@ public class UntilBestOPLABase {
                 execution.setAllMetrics(allMetrics);
                 allRuns = allRuns.union(resultFront);
                 OPLABaseUtils.saveHypervolume(experiment.getId(), execution.getId(), resultFront, plaName);
-
             }
-
             allRuns = problem.removeDominated(allRuns);
             allRuns = problem.removeRepeated(allRuns);
-
 
             configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
             List<Info> funResults = result.getInfos(allRuns.getSolutionSet(), experiment);
@@ -165,7 +161,6 @@ public class UntilBestOPLABase {
             persistence.saveEuclideanDistance(edCalculation.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
             OPLABaseUtils.saveHypervolume(experiment.getId(), null, allRuns, plaName);
         }
-
     }
 
     private void logInformations(String pla, NSGAIIConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {

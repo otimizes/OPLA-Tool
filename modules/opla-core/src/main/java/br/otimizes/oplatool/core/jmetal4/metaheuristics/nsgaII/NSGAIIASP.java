@@ -89,20 +89,20 @@ public class NSGAIIASP extends Algorithm {
 
         try {
 
-            LOGGER.info("Calculando threashold CO");
+            LOGGER.info("Calculating threshold CO");
             Solution newSolution1 = new Solution(problem_);
             mutationOperator.setThreshold(detectThreshold(newSolution1));
-            LOGGER.info("threashold original CO: " + mutationOperator.getThreshold()); //print do threashold
+            LOGGER.info("Original threshold CO: " + mutationOperator.getThreshold()); //print do threashold
 
 
-            LOGGER.info("Calculando threashold Large Class");
+            LOGGER.info("Calculating threshold Large Class");
             mutationOperator.setThresholdLc(detectThreshold_lc(newSolution1));
-            LOGGER.info("threashold original large class: " + mutationOperator.getThresholdLc()); //print do threashold
+            LOGGER.info("Original threshold large class: " + mutationOperator.getThresholdLc()); //print do threashold
 
             LOGGER.info("Elegance NAC original: " + Metrics.EleganceNAC.evaluate((Architecture) newSolution1.getDecisionVariables()[0]));
             LOGGER.info("Elegance EX original: " + Metrics.EleganceEX.evaluate((Architecture) newSolution1.getDecisionVariables()[0]));
 
-            LOGGER.info("Criando População");
+            LOGGER.info("Creating population");
             // Create the initial solutionSet
             Solution newSolution;
             for (int i = 0; i < populationSize; i++) {
@@ -126,17 +126,17 @@ public class NSGAIIASP extends Algorithm {
             throw new JMException(e.getMessage());
         }
         try {
-            LOGGER.info("Iniciando evoluções");
+            LOGGER.info("Initializing evolutions");
 
             Solution newSolution1 = new Solution(problem_);
 
             OPLA opla = (OPLA) problem_;
 
             //calculo thrz linkoverload
-            LOGGER.info("Calculando threashold LinkOverload");
+            LOGGER.info("Calculating threshold LinkOverload");
 
             ArrayList<Integer> linkOverloadThrz = ((Architecture) newSolution1.getDecisionVariables()[0]).getTHZLinkOverload(); // calcule o threashold
-            LOGGER.info("threashold Link Overload original: " + linkOverloadThrz); //print do threashold
+            LOGGER.info("Threshold Link Overload original: " + linkOverloadThrz); //print do threashold
 
             for (Solution inic : population.getSolutionSet()) {
                 ((Architecture) inic.getDecisionVariables()[0]).verifyIfLinkOverloadAnomalyExists(linkOverloadThrz);
@@ -144,13 +144,13 @@ public class NSGAIIASP extends Algorithm {
             }
 
             while (evaluations < maxEvaluations) {
-                System.out.println("Numero de avaliação Fitness: " + evaluations);
+                System.out.println("Number of fitness evaluations: " + evaluations);
                 // Create the offSpring solutionSet
                 offspringPopulation = new SolutionSet(populationSize);
                 Solution[] parents = new Solution[2];
                 for (int i = 0; i < (populationSize / 2); i++) {
                     if (evaluations < maxEvaluations) {
-                        LOGGER.info("Origin INDIVIDUO: " + i + " evolucao: " + evaluations);
+                        LOGGER.info("Origin Individual: " + i + " evolution: " + evaluations);
                         parents[0] = (Solution) selectionOperator.execute(population);
                         parents[1] = (Solution) selectionOperator.execute(population);
                         Object execute = crossoverOperator.execute(parents);

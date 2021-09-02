@@ -1,19 +1,19 @@
 package br.otimizes.oplatool.core.jmetal4.experiments.base;
 
+import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
+import br.otimizes.oplatool.core.jmetal4.database.Result;
+import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
+import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
+import br.otimizes.oplatool.core.jmetal4.metaheuristics.paes.PAES;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
-import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.database.Result;
-import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
-import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
-import br.otimizes.oplatool.core.jmetal4.metaheuristics.paes.PAES;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
 import br.otimizes.oplatool.core.persistence.ExperimentConfigurations;
 import br.otimizes.oplatool.core.persistence.Persistence;
@@ -77,17 +77,12 @@ public class PAESOPLABase implements AlgorithmBase<PAESConfigs> {
             experiment = persistence.save(plaName, "PAES", experimentCommonConfigs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "PAES", experimentCommonConfigs);
             persistence.save(conf);
-
-
             Algorithm algorithm;
             SolutionSet allRuns = new SolutionSet();
-
             Crossover crossover;
             Mutation mutation;
             Selection selection;
-
             HashMap<String, Object> parameters;
-
             algorithm = new PAES(problem);
 
             algorithm.setInputParameter("maxEvaluations", maxEvaluations);

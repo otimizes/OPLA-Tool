@@ -55,7 +55,7 @@ public class SmartyProfile {
     private void createConcernStereotype() throws ModelNotFoundException {
         Stereotype concern = helper.createStereotype(this.profile, "concern", false);
 
-        Class klassMetaClass = helper.referenceMetaclass(this.profile,
+        Class klassMetaClass = helper.referenceMetaClass(this.profile,
                 UMLPackage.Literals.STEREOTYPE.getName());
         helper.createExtension(klassMetaClass, concern, false);
     }
@@ -63,7 +63,7 @@ public class SmartyProfile {
 
     private void createInterfaceStereotype() throws ModelNotFoundException {
         Stereotype _interface = helper.createStereotype(this.profile, "interface", false);
-        Class classMetaClass = helper.referenceMetaclass(this.profile,
+        Class classMetaClass = helper.referenceMetaClass(this.profile,
                 UMLPackage.Literals.CLASS.getName());
         helper.createExtension(classMetaClass, _interface, false);
 
@@ -73,7 +73,7 @@ public class SmartyProfile {
     private void createVariabilityStereotype() throws ModelNotFoundException {
         Stereotype variability = helper.createStereotype(this.profile, "variability", false);
 
-        Class commentMetaClass = helper.referenceMetaclass(this.profile,
+        Class commentMetaClass = helper.referenceMetaClass(this.profile,
                 UMLPackage.Literals.COMMENT.getName());
         helper.createExtension(commentMetaClass, variability, false);
 
@@ -112,7 +112,7 @@ public class SmartyProfile {
     private void createVariationPointStereotype() throws ModelNotFoundException {
         Stereotype variantPoint = helper.createStereotype(this.profile, "variationPoint", false);
 
-        Class classMetaClass = helper.referenceMetaclass(this.profile, UMLPackage.Literals.CLASS.getName());
+        Class classMetaClass = helper.referenceMetaClass(this.profile, UMLPackage.Literals.CLASS.getName());
         helper.createExtension(classMetaClass, variantPoint, false);
 
         helper.createAttribute(variantPoint, "numberOfVariants", helper.getPrimitiveType("Integer"), 1, 1);
@@ -132,7 +132,7 @@ public class SmartyProfile {
     private void createVariantStereotype() throws ModelNotFoundException {
         Stereotype variant = helper.createStereotype(this.profile, "variant", true);
 
-        Class classMetaClass = helper.referenceMetaclass(this.profile, UMLPackage.Literals.CLASS.getName());
+        Class classMetaClass = helper.referenceMetaClass(this.profile, UMLPackage.Literals.CLASS.getName());
         helper.createExtension(classMetaClass, variant, false);
 
         helper.createAttribute(variant, "rootVP", helper.getPrimitiveType("String"), 1, 1);

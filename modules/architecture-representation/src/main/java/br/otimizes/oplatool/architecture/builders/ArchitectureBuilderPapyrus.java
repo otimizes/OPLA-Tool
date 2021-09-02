@@ -90,14 +90,14 @@ public class ArchitectureBuilderPapyrus implements IArchitectureBuilder {
      */
     public Architecture create(String xmiFilePath) {
         try {
-            LOGGER.info("Criando Architecture");
+            LOGGER.info("Creating architecture");
             model = modelHelper.getModel(xmiFilePath);
             VariationPointFlyweight.getInstance().addModel(model);
             VariabilityFlyweight.getInstance().addModel(model);
 
             Architecture architecture = new Architecture(modelHelper.getName(xmiFilePath));
 
-            LOGGER.info("Inicializando");
+            LOGGER.info("Initializing");
             initialize(architecture);
 
             initializeConcerns();

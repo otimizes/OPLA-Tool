@@ -45,7 +45,7 @@ public class NSGAIICrossover {
         File directory = new File("experiment/OPLA/NSGA-II/FeatureCrossover" + FileConstants.FILE_SEPARATOR);
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
-                System.out.println("Não foi possível criar o diretório do resultado");
+                System.out.println("Cannot create results directory");
                 System.exit(0);
             }
         }
