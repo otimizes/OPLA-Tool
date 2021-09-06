@@ -15,14 +15,15 @@ import java.util.Optional;
 public class Interactions {
     public static Map<String, Interaction> interactions = new HashMap<>();
 
-    public static void update(String id, SolutionSet solutionSet) {
-        Interaction interaction = Interactions.interactions.get(id);
-        interaction.updated = true;
-        for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
-            Solution original = interaction.solutionSet.get(i);
-            Solution update = solutionSet.get(i);
-            original.setEvaluation(update.getEvaluation());
-        }
+    public static synchronized void update(String id, SolutionSet solutionSet) {
+//        Interaction interaction = Interactions.interactions.get(id);
+//        interaction.updated = true;
+//        for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
+//            Solution original = interaction.solutionSet.get(i);
+//            Solution update = solutionSet.get(i);
+//            original.setEvaluation(update.getEvaluation());
+//        }
+        Interactions.interactions.put(id, new Interaction(true, solutionSet));
     }
 
     public static void update(String token, String hash, SolutionSet solutionSet) {
@@ -33,7 +34,7 @@ public class Interactions {
     }
 
     public static Interaction get(String id) {
-        return Optional.ofNullable(Interactions.interactions.get(id)).orElse(new Interaction());
+        return Interactions.interactions.get(id);
     }
 
     public static Interaction get(String token, String hash) {
@@ -42,5 +43,15 @@ public class Interactions {
 
     public static Interaction set(String id, Interaction interaction) {
         return Interactions.interactions.put(id, interaction);
+    }
+
+
+    public static void remove(String id) {
+        Interactions.interactions.remove(id);
+//        Interactions.interactions = new Interaction();
+    }
+
+    public static Boolean isEmpty() {
+        return Interactions.interactions != null;
     }
 }

@@ -254,28 +254,39 @@ public class NSGAII extends Algorithm {
         return subfrontToReturn;
     }
 
-    private int interactWithDM(int generation, SolutionSet offspringPopulation, int maxInteractions, int firstInteraction, int intervalInteraction, Boolean interactive, InteractiveFunction interactiveFunction, int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
-        for (Solution solution : offspringPopulation.getSolutionSet()) {
-            solution.setEvaluation(0);
-        }
+    private synchronized int interactWithDM(int generation, SolutionSet solutionSet, int maxInteractions, int firstInteraction, int intervalInteraction, Boolean interactive, InteractiveFunction interactiveFunction, int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
+//        for (Solution solution : solutionSet.getSolutionSet()) {
+//            solution.setEvaluation(0);
+//        }
         boolean isOnInteraction = (generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction;
         boolean inTrainingDuring = currentInteraction < maxInteractions && isOnInteraction;
         if (inTrainingDuring) {
-            offspringPopulation = interactiveFunction.run(offspringPopulation);
+            SolutionSet run = interactiveFunction.run(solutionSet);
+            for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
+                solutionSet.get(i).setEvaluation(run.get(i).getEvaluation());
+                if (run.get(i).getEvaluation() != 0) {
+                    System.out.println("Score Changed " + solutionSet.get(i).getEvaluation());
+                }
+            }
+            List<Solution> collectRun = run.getSolutionSet().stream().filter(s -> s.getEvaluation() == 4).collect(Collectors.toList());
+            List<Solution> collect = solutionSet.getSolutionSet().stream().filter(s -> s.getEvaluation() == 4).collect(Collectors.toList());
+//          CLAUDIA  solutionSet.getSolutionSet().stream().filter(s -> s.getEvaluation() == 4).collect(Collectors.toList())
+//        }
             if (subjectiveAnalyzeAlgorithm == null) {
-                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(offspringPopulation), ClassifierAlgorithm.CLUSTERING_MLP);
+                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet), ClassifierAlgorithm.CLUSTERING_MLP);
                 subjectiveAnalyzeAlgorithm.run(null, false);
             } else {
-                subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(offspringPopulation), false);
+                subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), false);
             }
-            bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5 && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
+            bestOfUserEvaluation.addAll(solutionSet.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5
+                    && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
             currentInteraction++;
         }
 
         boolean inTrainingAPosteriori = interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction
                 * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction;
         if (inTrainingAPosteriori) {
-            subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(offspringPopulation), true);
+            subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), true);
         }
 
         if (subjectiveAnalyzeAlgorithm != null) {
@@ -286,10 +297,10 @@ public class NSGAII extends Algorithm {
             boolean isTrainFinished = interactive && subjectiveAnalyzeAlgorithm.isTrained() &&
                     currentInteraction >= maxInteractions && isOnInteraction;
             if (isTrainFinished) {
-                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(offspringPopulation), true);
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(solutionSet), true);
             }
         }
-        offspringPopulation.getSolutionSet().stream().forEach(p -> System.out.println(p.getEvaluation()));
+        solutionSet.getSolutionSet().stream().forEach(p -> System.out.println(p.getEvaluation()));
         return currentInteraction;
     }
 

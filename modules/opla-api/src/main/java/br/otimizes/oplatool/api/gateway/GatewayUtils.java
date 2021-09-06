@@ -19,7 +19,7 @@ public class GatewayUtils {
 
     public static void log(String error) {
         OPLALogs.lastLogs.get(OPLAThreadScope.hash.get()).clear();
-        Interactions.interactions.remove(OPLAThreadScope.hash.get());
+        Interactions.remove(OPLAThreadScope.hash.get());
         OPLALogs.add(new OptimizationInfo(OPLAThreadScope.hashOnPosteriori.get(), OPLAThreadScope.mainThreadId.get(), error, OptimizationInfoStatus.COMPLETE));
         SaveStringToFile.getInstance().deleteTempFolder();
         SaveStringToFile.getInstance().moveProjectFinishPosteriori();

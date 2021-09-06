@@ -335,4 +335,17 @@ public class SolutionSet implements Serializable {
         }
         return objectives;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SolutionSet that = (SolutionSet) o;
+        return capacity_ == that.capacity_ && Objects.equals(solutionsList_, that.solutionsList_);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(solutionsList_, capacity_);
+    }
 }
