@@ -18,6 +18,7 @@ import br.otimizes.oplatool.domain.config.FileConstants;
 import br.otimizes.oplatool.persistence.service.OPLACommand;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import br.ufpr.dinf.gres.loglog.Logger;
+import com.rits.cloning.Cloner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -88,8 +89,10 @@ public class OptimizationService {
     public Architecture setInteraction(String token, String hash, Integer solutionId, File file) throws SAXException, IOException, ParserConfigurationException, XPathExpressionException {
         Architecture architecture = new ArchitectureBuilderSMarty().create(file);
         Interaction interaction = Interactions.get(token, hash);
-        Solution solution = interaction.solutionSet.get(solutionId);
+        Cloner cloner = new Cloner();
+        Solution solution = cloner.shallowClone(interaction.solutionSet.get(solutionId));
         solution.setDecisionVariables(new Architecture[]{architecture});
+        interaction.solutionSet.getSolutions().set(solutionId, solution);
         return architecture;
     }
 

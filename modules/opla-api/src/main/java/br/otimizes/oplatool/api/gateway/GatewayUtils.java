@@ -76,6 +76,4 @@ public class GatewayUtils {
         configs.setClusteringMoment(optimizationDto.getClusteringMoment());
         configs.setClusteringAlgorithm(optimizationDto.getClusteringAlgorithm());
     }
-
-
 }

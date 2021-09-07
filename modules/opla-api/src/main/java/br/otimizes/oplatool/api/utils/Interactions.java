@@ -11,19 +11,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Interactions {
     public static Map<String, Interaction> interactions = new HashMap<>();
 
     public static synchronized void update(String id, SolutionSet solutionSet) {
-//        Interaction interaction = Interactions.interactions.get(id);
-//        interaction.updated = true;
-//        for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
-//            Solution original = interaction.solutionSet.get(i);
-//            Solution update = solutionSet.get(i);
-//            original.setEvaluation(update.getEvaluation());
-//        }
-        Interactions.interactions.put(id, new Interaction(true, solutionSet));
+        Interaction interaction = Interactions.interactions.get(id);
+        for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
+            Solution original = interaction.solutionSet.getSolutions().get(i);
+            Solution update = solutionSet.get(i);
+            original.setEvaluation(update.getEvaluation());
+        }
+        interaction.updated = true;
+//        Interactions.interactions.put(id, new Interaction(true, solutionSet));
     }
 
     public static void update(String token, String hash, SolutionSet solutionSet) {

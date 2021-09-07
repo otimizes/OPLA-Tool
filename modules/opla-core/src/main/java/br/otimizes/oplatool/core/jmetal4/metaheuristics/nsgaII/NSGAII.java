@@ -15,7 +15,7 @@
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -26,6 +26,7 @@ import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
+import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.exceptions.JMException;
@@ -255,21 +256,21 @@ public class NSGAII extends Algorithm {
     }
 
     private synchronized int interactWithDM(int generation, SolutionSet solutionSet, int maxInteractions, int firstInteraction, int intervalInteraction, Boolean interactive, InteractiveFunction interactiveFunction, int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
-//        for (Solution solution : solutionSet.getSolutionSet()) {
-//            solution.setEvaluation(0);
-//        }
+//        COMMENT TO INHERIT SCORES
+        for (Solution solution : solutionSet.getSolutionSet()) {
+            solution.setEvaluation(0);
+        }
         boolean isOnInteraction = (generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction;
         boolean inTrainingDuring = currentInteraction < maxInteractions && isOnInteraction;
         if (inTrainingDuring) {
-            SolutionSet run = interactiveFunction.run(solutionSet);
-            for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
-                solutionSet.get(i).setEvaluation(run.get(i).getEvaluation());
-                if (run.get(i).getEvaluation() != 0) {
-                    System.out.println("Score Changed " + solutionSet.get(i).getEvaluation());
-                }
-            }
-            List<Solution> collectRun = run.getSolutionSet().stream().filter(s -> s.getEvaluation() == 4).collect(Collectors.toList());
+            Cloner cloner = new Cloner();
+            List<Solution> solutions = cloner.shallowClone(solutionSet.getSolutionSet());
+            SolutionSet newS = new SolutionSet(solutions.size());
+            newS.setSolutionSet(solutions);
+            solutionSet = interactiveFunction.run(newS);
             List<Solution> collect = solutionSet.getSolutionSet().stream().filter(s -> s.getEvaluation() == 4).collect(Collectors.toList());
+            List<Element> freezedElements = ((Architecture) solutionSet.get(0).getDecisionVariables()[0]).getFreezedElements();
+            System.out.println(2);
 //          CLAUDIA  solutionSet.getSolutionSet().stream().filter(s -> s.getEvaluation() == 4).collect(Collectors.toList())
 //        }
             if (subjectiveAnalyzeAlgorithm == null) {
