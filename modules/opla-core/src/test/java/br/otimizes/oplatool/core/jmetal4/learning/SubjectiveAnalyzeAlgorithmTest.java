@@ -1,17 +1,14 @@
-package br.otimizes.oplatool.core.jmetal4.main.learning;
+package br.otimizes.oplatool.core.jmetal4.learning;
 
 import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Element;
-import br.otimizes.oplatool.common.Variable;
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.experiments.OPLAConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIConfigs;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII;
-import br.otimizes.oplatool.core.jmetal4.metrics.ObjectiveFunctions;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
@@ -23,18 +20,20 @@ import br.otimizes.oplatool.core.learning.ClusteringAlgorithm;
 import br.otimizes.oplatool.core.learning.Moment;
 import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
 import br.otimizes.oplatool.domain.config.FileConstants;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import weka.classifiers.Evaluation;
 
-import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@Category(MachineLearningTests.class)
 public class SubjectiveAnalyzeAlgorithmTest {
-    //    @Test
-    public void testMMWithoutMLP() throws Exception {
+
+    @Test
+    public void testMMWithMLP() throws Exception {
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "MMAtual.smty";
         NSGAIIConfigs configs = getNsgaiiConfigs();
@@ -42,7 +41,7 @@ public class SubjectiveAnalyzeAlgorithmTest {
         configs.setInteractiveFunction(solutionSet -> {
             int i = 0;
             for (Solution solution : solutionSet.getSolutionSet()) {
-                System.out.println("Print na solução " + i);
+                System.out.println("Print " + i);
                 Architecture architecture = (Architecture) solution.getDecisionVariables()[0];
                 Set<Class> allClasses = architecture.getAllClasses();
                 Class userClass = allClasses.stream().filter(clazz -> "User".equals(clazz.getName())).min(Comparator.comparing(Element::getName)).orElse(null);
@@ -82,6 +81,8 @@ public class SubjectiveAnalyzeAlgorithmTest {
                 })
                 .collect(Collectors.toList());
 
+        System.out.println("::True Positive:: " + truePositive.size() + " items.");
+        System.out.println(":::: " + truePositive.stream().map(Element::getName).collect(Collectors.joining(",")));
 
         List<Element> falsePositive = subjectiveAnalyzeAlgorithm.getNotFreezedElements().stream()
                 .filter(element -> {
@@ -92,17 +93,14 @@ public class SubjectiveAnalyzeAlgorithmTest {
                 })
                 .collect(Collectors.toList());
 
-        System.out.println("::False Positive:: " + falsePositive.size() + " itens.");
+        System.out.println("::False Positive:: " + falsePositive.size() + " items.");
         System.out.println(":::: " + falsePositive.stream().map(Element::getName).collect(Collectors.joining(",")));
 
         Evaluation architectureEval = subjectiveAnalyzeAlgorithm.getArchitectureEvaluation();
-        System.out.println(architectureEval.toSummaryString());
-
-        assertEquals(0, truePositive.size());
-        assertTrue(architectureEval.meanAbsoluteError() < 1);
-        assertTrue(architectureEval.rootMeanSquaredError() < 1);
-        assertTrue(architectureEval.relativeAbsoluteError() < 10);
-        assertTrue(architectureEval.rootRelativeSquaredError() < 20);
+        if (architectureEval != null) {
+            System.out.println(architectureEval.toClassDetailsString("Test::testMMWithoutMLP()->getArchitectureEvaluation()"));
+            assertTrue(architectureEval.pctCorrect() > 90);
+        }
     }
 
     private NSGAII getAlgorithm(String xmiFilePath, NSGAIIConfigs configs) throws Exception {
