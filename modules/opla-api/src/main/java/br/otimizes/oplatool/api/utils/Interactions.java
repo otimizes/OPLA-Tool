@@ -7,20 +7,19 @@ import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.domain.config.FileConstants;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class Interactions {
     public static Map<String, Interaction> interactions = new HashMap<>();
 
     public static synchronized void update(String id, SolutionSet solutionSet) {
         Interaction interaction = Interactions.interactions.get(id);
-        for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
-            Solution original = interaction.solutionSet.getSolutions().get(i);
-            Solution update = solutionSet.get(i);
+        for (Solution solution : solutionSet.getSolutionSet()) {
+            Solution original = interaction.solutionSet.getSolutions().get(solution.getId());
+            Solution update = solutionSet.get(solution.getId());
             original.setEvaluation(update.getEvaluation());
         }
         interaction.updated = true;

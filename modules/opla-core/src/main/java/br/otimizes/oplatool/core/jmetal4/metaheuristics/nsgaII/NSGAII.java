@@ -48,10 +48,7 @@ import org.apache.log4j.Logger;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -268,11 +265,12 @@ public class NSGAII extends Algorithm {
             SolutionSet newS = new SolutionSet(solutions.size());
             newS.setSolutionSet(solutions);
             solutionSet = interactiveFunction.run(newS);
-            List<Solution> collect = solutionSet.getSolutionSet().stream().filter(s -> s.getEvaluation() == 4).collect(Collectors.toList());
-            List<Element> freezedElements = ((Architecture) solutionSet.get(0).getDecisionVariables()[0]).getFreezedElements();
-            System.out.println(2);
+            System.out.println("--------------- on nsga claudia");
+            for (Solution solution : solutionSet.getSolutionSet()) {
+                System.out.println("Id:" + solution.getId() + ", Cluster: " + solution.getClusterId() + ", Evaluation: " + solution.getEvaluation() + ", objs: " + Arrays.toString(solution.getObjectives()));
+            }
+            System.out.println("--------------- on nsga claudia");
 //          CLAUDIA  solutionSet.getSolutionSet().stream().filter(s -> s.getEvaluation() == 4).collect(Collectors.toList())
-//        }
             if (subjectiveAnalyzeAlgorithm == null) {
                 subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet), ClassifierAlgorithm.CLUSTERING_MLP);
                 subjectiveAnalyzeAlgorithm.run(null, false);

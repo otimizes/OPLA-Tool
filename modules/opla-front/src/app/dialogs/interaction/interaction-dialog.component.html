@@ -11,7 +11,7 @@
     <opla-grid-tile *ngFor="let solution of filter(cluster); index as j">
       <mat-card style="max-width: 90%;">
         <mat-card-header>
-          <b>Solution {{j}} - {{solution.alternativeArchitecture.name}}</b>
+          <b>Solution {{solution.id}} - {{solution.alternativeArchitecture.name}}</b>
         </mat-card-header>
         <hr>
         <mat-card-content>
