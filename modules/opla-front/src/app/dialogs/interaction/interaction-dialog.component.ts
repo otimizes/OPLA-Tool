@@ -35,6 +35,8 @@ export class InteractionDialogComponent implements OnInit {
     for (let obj of Object.keys(this.solutionSet.clusterIds)) {
       this.clusters.push(Math.round(Number(obj)));
     }
+    this.clusters = this.clusters.sort();
+    console.log("clusters", this.clusters)
   }
 
   filter(clusterId) {

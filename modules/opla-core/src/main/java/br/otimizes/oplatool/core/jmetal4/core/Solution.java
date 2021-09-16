@@ -131,6 +131,8 @@ public class Solution implements Serializable {
 
     private String experimentId_;
 
+    private int id;
+
     private Boolean clusterNoise_;
 
     public Boolean evaluatedByUser;
@@ -676,5 +678,13 @@ public class Solution implements Serializable {
 
     public void setExperimentId(String experimentId_) {
         this.experimentId_ = experimentId_;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 } // Solution

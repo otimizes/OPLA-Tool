@@ -15,7 +15,7 @@
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -26,6 +26,7 @@ import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
+import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.exceptions.JMException;
@@ -47,10 +48,7 @@ import org.apache.log4j.Logger;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -204,10 +202,16 @@ public class NSGAII extends Algorithm {
                 int generation = evaluations / populationSize;
                 OPLAThreadScope.currentGeneration.set(generation);
                 OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
-                if (interactive)
+                if (interactive) {
                     currentInteraction = interactWithDM(generation, offspringPopulation, maxInteractions,
                             firstInteraction, intervalInteraction, interactive, interactiveFunction, currentInteraction,
                             bestOfUserEvaluation);
+                    for (int i = 0; i < population.getSolutionSet().size(); i++) {
+                        if (population.get(i).getEvaluation() == 1) {
+                            population.getSolutionSet().set(i, newRandomSolution(mutationOperator));
+                        }
+                    }
+                }
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
                     double HV = indicators.getHypervolume(population);
@@ -223,10 +227,8 @@ public class NSGAII extends Algorithm {
         }
 
         setOutputParameter("evaluations", requiredEvaluations);
-        SolutionSet populationOriginal = new Cloner().shallowClone(population);
         Ranking ranking = new Ranking(population);
         SolutionSet subfrontToReturn = ranking.getSubfront(0);
-        removeBadSolutions(subfrontToReturn, populationOriginal, interactive);
 
         subfrontToReturn.setCapacity(subfrontToReturn.getCapacity() + bestOfUserEvaluation.size());
         for (Solution solution : bestOfUserEvaluation) {
@@ -245,28 +247,40 @@ public class NSGAII extends Algorithm {
         return subfrontToReturn;
     }
 
-    private int interactWithDM(int generation, SolutionSet offspringPopulation, int maxInteractions, int firstInteraction, int intervalInteraction, Boolean interactive, InteractiveFunction interactiveFunction, int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
-        for (Solution solution : offspringPopulation.getSolutionSet()) {
+    private synchronized int interactWithDM(int generation, SolutionSet solutionSet, int maxInteractions, int firstInteraction, int intervalInteraction, Boolean interactive, InteractiveFunction interactiveFunction, int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
+//        COMMENT TO INHERIT SCORES
+        for (Solution solution : solutionSet.getSolutionSet()) {
             solution.setEvaluation(0);
         }
         boolean isOnInteraction = (generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction;
         boolean inTrainingDuring = currentInteraction < maxInteractions && isOnInteraction;
         if (inTrainingDuring) {
-            offspringPopulation = interactiveFunction.run(offspringPopulation);
+            Cloner cloner = new Cloner();
+            List<Solution> solutions = cloner.shallowClone(solutionSet.getSolutionSet());
+            SolutionSet newS = new SolutionSet(solutions.size());
+            newS.setSolutionSet(solutions);
+            solutionSet = interactiveFunction.run(newS);
+            System.out.println("--------------- on nsga claudia");
+            for (Solution solution : solutionSet.getSolutionSet()) {
+                System.out.println("Id:" + solution.getId() + ", Cluster: " + solution.getClusterId() + ", Evaluation: " + solution.getEvaluation() + ", objs: " + Arrays.toString(solution.getObjectives()));
+            }
+            System.out.println("--------------- on nsga claudia");
+//          CLAUDIA  solutionSet.getSolutionSet().stream().filter(s -> s.getEvaluation() == 4).collect(Collectors.toList())
             if (subjectiveAnalyzeAlgorithm == null) {
-                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(offspringPopulation), ClassifierAlgorithm.CLUSTERING_MLP);
+                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet), ClassifierAlgorithm.CLUSTERING_MLP);
                 subjectiveAnalyzeAlgorithm.run(null, false);
             } else {
-                subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(offspringPopulation), false);
+                subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), false);
             }
-            bestOfUserEvaluation.addAll(offspringPopulation.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5 && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
+            bestOfUserEvaluation.addAll(solutionSet.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5
+                    && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
             currentInteraction++;
         }
 
         boolean inTrainingAPosteriori = interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction
                 * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction;
         if (inTrainingAPosteriori) {
-            subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(offspringPopulation), true);
+            subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), true);
         }
 
         if (subjectiveAnalyzeAlgorithm != null) {
@@ -277,20 +291,11 @@ public class NSGAII extends Algorithm {
             boolean isTrainFinished = interactive && subjectiveAnalyzeAlgorithm.isTrained() &&
                     currentInteraction >= maxInteractions && isOnInteraction;
             if (isTrainFinished) {
-                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(offspringPopulation), true);
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(solutionSet), true);
             }
         }
+        solutionSet.getSolutionSet().stream().forEach(p -> System.out.println(p.getEvaluation()));
         return currentInteraction;
-    }
-
-    private void removeBadSolutions(SolutionSet population, SolutionSet original, Boolean interactive) {
-        if (interactive) {
-            for (int i = 0; i < population.getSolutionSet().size(); i++) {
-                if (population.get(i).getEvaluation() == 1) {
-                    population.remove(i);
-                }
-            }
-        }
     }
 
     private Solution newRandomSolution(Operator mutationOperator) throws Exception {

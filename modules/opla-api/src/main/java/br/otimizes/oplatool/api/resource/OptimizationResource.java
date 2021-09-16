@@ -35,7 +35,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -121,7 +124,7 @@ public class OptimizationResource {
         }
         List<Map.Entry<String, List<OptimizationInfo>>> collect = OPLALogs.lastLogs.entrySet().stream()
                 .filter(optimizationInfos -> optimizationInfos.getKey().startsWith(OPLAThreadScope.hash.get().split(FileConstants.getEscapedFileSeparator())[0])).collect(Collectors.toList());
-        return Mono.just(new Infos(collect)).subscribeOn(Schedulers.elastic());
+        return Mono.just(new Infos(collect)).publishOn(Schedulers.elastic());
     }
 
     @PostMapping(value = "/kill-optimization-process/{token}/{hash}")
@@ -149,8 +152,9 @@ public class OptimizationResource {
                         }
                         return optimizationInfo1;
                     }
-                    return new OptimizationInfo(token + FileConstants.FILE_SEPARATOR + hash, "", Interactions.interactions.size() > 0 &&
-                            !(Optional.of(Interactions.get(token, hash)).orElse(new Interaction(true)).updated)
+                    Interaction interaction = Interactions.get(token, hash);
+                    return new OptimizationInfo(token + FileConstants.FILE_SEPARATOR + hash, "", !Interactions.isEmpty() &&
+                            !(interaction.updated)
                             ? OptimizationInfoStatus.INTERACT : OptimizationInfoStatus.RUNNING);
                 });
     }
@@ -162,12 +166,12 @@ public class OptimizationResource {
 
     @GetMapping("/config")
     public Mono<ApplicationYamlConfig> config() {
-        return Mono.just(ApplicationFileConfig.getInstance()).subscribeOn(Schedulers.elastic());
+        return Mono.just(ApplicationFileConfig.getInstance()).publishOn(Schedulers.elastic());
     }
 
     @GetMapping("/interaction/{token}/{hash}")
     public Mono<Interaction> getInteraction(@PathVariable String token, @PathVariable String hash) {
-        return Mono.just(Interactions.get(token, hash)).subscribeOn(Schedulers.elastic());
+        return Mono.just(Interactions.get(token, hash)).publishOn(Schedulers.elastic());
     }
 
     @PostMapping("/interaction/{token}/{hash}")
@@ -175,7 +179,7 @@ public class OptimizationResource {
         SolutionSet solutionSet = new SolutionSet(solutions.size());
         solutionSet.setSolutionSet(solutions);
         Interactions.update(token, hash, solutionSet);
-        return Mono.empty().subscribeOn(Schedulers.elastic());
+        return Mono.empty().publishOn(Schedulers.elastic());
     }
 
     @PostMapping(value = "/architectural-interaction/{token}/{hash}/{solutionId}")
@@ -218,7 +222,7 @@ public class OptimizationResource {
 
     @GetMapping("/dto")
     public Mono<OptimizationDto> dto() {
-        return Mono.just(new OptimizationDto()).subscribeOn(Schedulers.elastic());
+        return Mono.just(new OptimizationDto()).publishOn(Schedulers.elastic());
     }
 
     @PostMapping("/optimize")
