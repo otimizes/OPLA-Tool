@@ -9,9 +9,9 @@ import br.otimizes.oplatool.core.jmetal4.core.Solution;
  */
 public class LocalSearch implements Runnable {
 
-    Solution[] offSpringForLocal = null;
-    Problem problemLocal = null;
-    Operator operadorLocal = null;
+    Solution[] offSpringForLocal;
+    Problem problemLocal;
+    Operator operadorLocal;
 
     Solution[] solutionsLocal = null;
 
@@ -29,10 +29,6 @@ public class LocalSearch implements Runnable {
         this.solutionsLocal = solutionsLocalOk;
     }
 
-    public void setLocal_Search(Solution[] offSpringForLocal, Problem problem_, Operator operadorLocal) {
-
-    }
-
     @Override
     public synchronized void run() {
         boolean a = true;
@@ -47,11 +43,10 @@ public class LocalSearch implements Runnable {
                 a = false;
             }
         } catch (Exception e) {
-            System.out.println("erro da thread \n");
+            System.out.println("error on thread \n");
             e.printStackTrace();
         } catch (Throwable e) {
             e.printStackTrace();
         }
-
     }
 }

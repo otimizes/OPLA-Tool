@@ -258,7 +258,6 @@ public class OPLA extends Problem {
             }
         }
         allComponents.clear();
-
     }
 
     private void setLastInterfaces(Solution solution, Package aPackage, Iterator<Interface> iteratorInterfaces) {

@@ -20,23 +20,17 @@ public class LocalSearchUntil implements Runnable {
             }
             if (vConventional < vPatterns) {
                 return false;
-            } else if (vPatterns < vConventional) {
-                return true;
-            } else {
-                return false;
-            }
-
+            } else return vPatterns < vConventional;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-
     }
 
-    Solution offSpringForLocal_local = null;
-    Solution offSpring_local = null;
-    Problem problem_local_ = null;
-    Operator operadorLocal_local = null;
+    Solution offSpringForLocal_local;
+    Solution offSpring_local;
+    Problem problem_local_;
+    Operator operadorLocal_local;
     Solution[] solutionsLocal = null;
 
     public LocalSearchUntil(Solution offSpring, Solution offSpringForLocal, Problem problem_,
@@ -64,10 +58,8 @@ public class LocalSearchUntil implements Runnable {
         try {
             int contador0 = 0;
             boolean resultComparation0 = false;
-
             while (resultComparation0 == false) {
                 SolutionSet solutions0 = new SolutionSet(2);
-
                 this.operadorLocal_local.execute(offSpringForLocal_local);
                 this.problem_local_.evaluateConstraints(offSpringForLocal_local);
                 this.problem_local_.evaluate(offSpringForLocal_local);
@@ -88,7 +80,5 @@ public class LocalSearchUntil implements Runnable {
         } catch (Throwable e) {
             e.printStackTrace();
         }
-
     }
-
 }
