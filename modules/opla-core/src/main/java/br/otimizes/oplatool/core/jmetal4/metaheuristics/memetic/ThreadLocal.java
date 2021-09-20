@@ -9,10 +9,9 @@ import br.otimizes.oplatool.core.jmetal4.core.Solution;
  */
 public class ThreadLocal extends Thread {
 
-    Solution[] offSpringForLocal = null;
-    Problem problemLocal = null;
-    Operator localOperator = null;
-
+    Solution[] offSpringForLocal;
+    Problem problemLocal;
+    Operator localOperator;
     Solution[] solutionsLocal = null;
 
     public ThreadLocal(Solution[] offSpringForLocal, Problem problem_, Operator localOperator) {
@@ -36,7 +35,6 @@ public class ThreadLocal extends Thread {
 
     @Override
     public synchronized void run() {
-        //System.out.println("entrou");
         try {
             this.localOperator.execute(this.offSpringForLocal[0]);
             this.localOperator.execute(this.offSpringForLocal[1]);
@@ -48,11 +46,6 @@ public class ThreadLocal extends Thread {
             this.setSolutionsLocal(this.offSpringForLocal);
         } catch (Exception e) {
             this.setSolutionsLocal(this.offSpringForLocal);
-
-            //System.out.println("erro da thread \n"+e);
         }
-
-
     }
-
 }
