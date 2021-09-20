@@ -15,6 +15,7 @@ import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.Fitness;
 import br.otimizes.oplatool.core.jmetal4.metrics.ObjectiveFunctions;
+import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -168,15 +169,7 @@ public class OPLA extends Problem {
     }
 
     private boolean searchForGeneralizations(Class aClass) {
-        Collection<Relationship> relationships = aClass.getRelationships();
-        for (Relationship relationship : relationships) {
-            if (relationship instanceof GeneralizationRelationship) {
-                GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-                if (generalization.getChild().equals(aClass) || generalization.getParent().equals(aClass))
-                    return true;
-            }
-        }
-        return false;
+        return CrossoverUtils.searchForGeneralizations(aClass);
     }
 
     private void removeComponentRelationships(Package aPackage, Architecture architecture) {

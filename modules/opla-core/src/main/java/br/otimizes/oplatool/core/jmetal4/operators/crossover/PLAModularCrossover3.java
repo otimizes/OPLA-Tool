@@ -282,8 +282,8 @@ public class PLAModularCrossover3 extends PLAModularCrossover implements IOperat
 			lst2 = null;
 			lst3 = null;
 
-			CrossoverUtils.getInstance().restoreMissingElements2((Architecture) parent1.getDecisionVariables()[0], offspring);
-			CrossoverUtils.getInstance().restoreMissingElements2((Architecture) parent2.getDecisionVariables()[0], offspring);
+			CrossoverUtils.getInstance().restoreMissingElements((Architecture) parent1.getDecisionVariables()[0], offspring);
+			CrossoverUtils.getInstance().restoreMissingElements((Architecture) parent2.getDecisionVariables()[0], offspring);
 
 			for(Relationship r : copyOriginalP1.getRelationshipHolder().getAllRelationships()){
 				((Architecture) offspring.getDecisionVariables()[0]).getRelationshipHolder().verifyAndAddRelationshipsChild2(r,((Architecture) offspring.getDecisionVariables()[0]));

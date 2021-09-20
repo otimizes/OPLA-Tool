@@ -165,8 +165,8 @@ public class PLAComplementaryCrossover implements IOperator<Solution[]> {
                 }
             }
 
-            CrossoverUtils.getInstance().restoreMissingElements2(copyMother, offspring);
-            CrossoverUtils.getInstance().restoreMissingElements2(copyFather, offspring);
+            CrossoverUtils.getInstance().restoreMissingElements(copyMother, offspring);
+            CrossoverUtils.getInstance().restoreMissingElements(copyFather, offspring);
             Architecture archP1 = ((Architecture) parent1.getDecisionVariables()[0]).deepClone();
             Architecture archP2 = ((Architecture) parent2.getDecisionVariables()[0]).deepClone();
 
