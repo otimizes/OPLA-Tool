@@ -1,10 +1,9 @@
 package br.otimizes.oplatool.core.jmetal4.experiments.base;
 
+import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.database.Result;
-import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
 import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic.UntilBest;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
@@ -19,8 +18,6 @@ import br.otimizes.oplatool.core.persistence.Persistence;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.entity.Execution;
 import br.otimizes.oplatool.domain.entity.Experiment;
-import br.otimizes.oplatool.domain.entity.Info;
-import br.otimizes.oplatool.domain.entity.objectivefunctions.ObjectiveFunctionDomain;
 import br.ufpr.dinf.gres.loglog.Level;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -28,7 +25,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UntilBestOPLABase {
@@ -49,65 +45,21 @@ public class UntilBestOPLABase {
     }
 
     public void execute(NSGAIIConfigs configs) throws Exception {
-        int populationSize;
-        Experiment experiment;
-        int maxEvaluations;
-        double mutationProbability;
-        double crossoverProbability;
-
         int runsNumber = configs.getNumberOfRuns();
-        populationSize = configs.getPopulationSize();
-        maxEvaluations = configs.getMaxEvaluation();
-        crossoverProbability = configs.getCrossoverProbability();
-        mutationProbability = configs.getMutationProbability();
-
         String[] plas = configs.getPlas().split(",");
-        String xmiFilePath;
+        for (String xmiFilePath : plas) {
+            String plaName = getPlaName(xmiFilePath);
+            OPLA problem = AlgorithmBaseUtils.getOPLAProblem(configs, xmiFilePath);
 
-        for (String pla : plas) {
-            xmiFilePath = pla;
-            OPLA problem = null;
-            String plaName = getPlaName(pla);
-
-            try {
-                problem = new OPLA(xmiFilePath, configs);
-            } catch (Exception e) {
-                e.printStackTrace();
-                configs.getLogger()
-                        .putLog(String.format("Error when try read architecture %s. %s", xmiFilePath, e.getMessage()));
-            }
-
-            Algorithm algorithm;
             Result result = new Result();
-            experiment = persistence.save(plaName, "UntilBest", configs.getDescription(), OPLAThreadScope.hash.get());
+            Experiment experiment = persistence.save(plaName, "UntilBest", configs.getDescription(), OPLAThreadScope.hash.get());
             ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "UntilBest", configs);
             persistence.save(conf);
-            Crossover crossover;
-            Mutation mutation;
-            Mutation operatorLocal;
-            Selection selection;
-            HashMap<String, Object> parameters;
-            algorithm = new UntilBest(problem);
             SolutionSet allRuns = new SolutionSet();
-            algorithm.setInputParameter("populationSize", populationSize);
-            algorithm.setInputParameter("maxEvaluations", maxEvaluations);
-            parameters = new HashMap<>();
-            parameters.put("probability", crossoverProbability);
-            crossover = CrossoverFactory.getCrossoverOperator("PLACrossoverOperator", parameters);
-            parameters = new HashMap<>();
-            parameters.put("probability", mutationProbability);
-            mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parameters, configs);
-            operatorLocal = MutationFactory.getMutationOperatorPatterns("PLAPatternsMutation", parameters,
-                    configs);
-            parameters = null;
-            selection = SelectionFactory.getSelectionOperator("BinaryTournament", parameters);
-            algorithm.addOperator("crossover", crossover);
-            algorithm.addOperator("mutation", mutation);
-            algorithm.addOperator("operatorLocal", operatorLocal);
-            algorithm.addOperator("selection", selection);
+            Algorithm algorithm = getAlgorithm(problem, configs, experiment);
 
             if (configs.isLog())
-                logInformations(pla, configs, configs.getPopulationSize(), configs.getMaxEvaluations(),
+                logInformation(xmiFilePath, configs, configs.getPopulationSize(), configs.getMaxEvaluations(),
                         configs.getCrossoverProbability(), configs.getMutationProbability());
 
             List<String> selectedObjectiveFunctions = configs.getOplaConfigs().getSelectedObjectiveFunctions();
@@ -118,8 +70,6 @@ public class UntilBestOPLABase {
             long[] time = new long[runsNumber];
 
             for (int runs = 0; runs < runsNumber; runs++) {
-                Execution execution = new Execution(experiment);
-                CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), execution.getId());
                 long initTime = System.currentTimeMillis();
                 SolutionSet resultFront = algorithm.execute();
                 long estimatedTime = System.currentTimeMillis() - initTime;
@@ -128,70 +78,46 @@ public class UntilBestOPLABase {
                 resultFront = problem.removeDominated(resultFront);
                 resultFront = problem.removeRepeated(resultFront);
 
-                execution = persistence.save(execution);
-                List<Info> infos = result.getInfos(resultFront.getSolutionSet(), execution, experiment);
-                infos = persistence.save(infos);
-                execution.setInfos(infos);
-                Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
-                        experiment, selectedObjectiveFunctions);
-                execution.setTime(estimatedTime);
-                new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
-                execution.setInfos(infos);
-                execution.setAllMetrics(allMetrics);
+                Execution execution = AlgorithmBaseUtils.getExecution(configs, result, experiment, selectedObjectiveFunctions, runs, resultFront, estimatedTime, persistence);
                 allRuns = allRuns.union(resultFront);
-                OPLABaseUtils.saveHypervolume(experiment.getId(), execution.getId(), resultFront, plaName);
+                AlgorithmBaseUtils.saveHypervolume(experiment.getId(), execution.getId(), resultFront, plaName);
             }
             allRuns = problem.removeDominated(allRuns);
             allRuns = problem.removeRepeated(allRuns);
-
-            configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
-            List<Info> funResults = result.getInfos(allRuns.getSolutionSet(), experiment);
-
-            if (configs.getNumberOfRuns() > 1) {
-                new OPLASolutionSet(allRuns).saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
-            }
-
-            List<Info> infos = result.getInfos(allRuns.getSolutionSet(), null, experiment);
-            persistence.save(infos);
-            Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(funResults, allRuns.getSolutionSet(), null, experiment,
-                    selectedObjectiveFunctions);
-            persistence.save(allMetrics);
-
-            CommonOPLAFeatMut.setDirToSaveOutput(experiment.getId(), null);
-            persistence.saveEuclideanDistance(edCalculation.calculate(experiment.getId(), configs.getOplaConfigs().getNumberOfObjectives()), experiment.getId());
-            OPLABaseUtils.saveHypervolume(experiment.getId(), null, allRuns, plaName);
+            AlgorithmBaseUtils.logAndSave(configs, plaName, result, experiment, allRuns, selectedObjectiveFunctions, persistence, edCalculation);
         }
     }
 
-    private void logInformations(String pla, NSGAIIConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
+    private Algorithm getAlgorithm(OPLA problem, NSGAIIConfigs configs, Experiment experiment) throws JMException {
+        ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "BestOf2", configs);
+        persistence.save(conf);
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("probability", configs.getCrossoverProbability());
+        Crossover crossover = CrossoverFactory.getCrossoverOperator("PLACrossoverOperator", parameters, configs);
+        parameters = new HashMap<>();
+        parameters.put("probability", configs.getMutationProbability());
+        Mutation mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parameters, configs);
+        Mutation operatorLocal = MutationFactory.getMutationOperatorPatterns("PLAPatternsMutation", parameters,
+                configs);
+        Selection selection = SelectionFactory.getSelectionOperator("BinaryTournament", null);
+        Algorithm algorithm = new UntilBest(problem);
+        return AlgorithmBaseUtils.getAlgorithm(configs, crossover, mutation, operatorLocal, selection, algorithm);
+    }
+
+    private void logInformation(String pla, NSGAIIConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
         logPanel(pla, configs, populationSize, maxEvaluations, crossoverProbability, mutationProbability);
         logConsole(pla, populationSize, maxEvaluations, crossoverProbability, mutationProbability);
     }
 
     private void logPanel(String pla, NSGAIIConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
-        configs.getLogger().putLog("\n================ NSGAII ================", Level.INFO);
-        configs.getLogger().putLog("Context: OPLA", Level.INFO);
-        configs.getLogger().putLog("PLA: " + pla, Level.INFO);
-        configs.getLogger().putLog("Params:", Level.INFO);
-        configs.getLogger().putLog("\tPop -> " + populationSize, Level.INFO);
-        configs.getLogger().putLog("\tMaxEva -> " + maxEvaluations, Level.INFO);
-        configs.getLogger().putLog("\tCross -> " + crossoverProbability, Level.INFO);
-        configs.getLogger().putLog("\tMuta -> " + mutationProbability, Level.INFO);
-        long heapSize = Runtime.getRuntime().totalMemory();
-        heapSize = (heapSize / 1024) / 1024;
-        configs.getLogger().putLog("Heap Size: " + heapSize + "Mb\n");
+        configs.getLogger().putLog("\n================ UntilBest ================", Level.INFO);
+        AlgorithmBaseUtils.putLogContext(pla, configs, populationSize, maxEvaluations, crossoverProbability, mutationProbability);
     }
 
     private void logConsole(String pla, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
-        LOGGER.info("================ NSGAII ================");
-        LOGGER.info("Context: OPLA");
-        LOGGER.info("PLA: " + pla);
-        LOGGER.info("Params:");
-        LOGGER.info("tPop -> " + populationSize);
-        LOGGER.info("tMaxEva -> " + maxEvaluations);
-        LOGGER.info("tCross -> " + crossoverProbability);
-        LOGGER.info("tMuta -> " + mutationProbability);
-        LOGGER.info("================ NSGAII ================");
+        LOGGER.info("================ UntilBest ================");
+        AlgorithmBaseUtils.logContext(pla, populationSize, maxEvaluations, crossoverProbability, mutationProbability, LOGGER);
+        LOGGER.info("================ UntilBest ================");
     }
 }
 
