@@ -9,14 +9,8 @@ import br.otimizes.oplatool.patterns.strategies.designpatternselection.DesignPat
  */
 public class MediatorDesignPatternSelection implements DesignPatternSelectionStrategy {
 
-    /**
-     * Select design pattern.
-     *
-     * @return the design pattern
-     */
     @Override
     public DesignPattern selectDesignPattern() {
         return Mediator.getInstance();
     }
-
 }

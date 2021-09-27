@@ -16,8 +16,8 @@ public class FDACObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "fdac")
     private Double fdac;
 
-    public FDACObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public FDACObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -31,6 +31,4 @@ public class FDACObjectiveFunction extends ObjectiveFunctionDomain {
     public void setFdac(Double fdac) {
         this.fdac = fdac;
     }
-
-
 }

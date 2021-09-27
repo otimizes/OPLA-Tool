@@ -18,8 +18,8 @@ public class ACOMPObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "sumdepout")
     private Double sumDepOut;
 
-    public ACOMPObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public ACOMPObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -41,5 +41,4 @@ public class ACOMPObjectiveFunction extends ObjectiveFunctionDomain {
     public void setSumDepOut(Double sumDepOut) {
         this.sumDepOut = sumDepOut;
     }
-
 }

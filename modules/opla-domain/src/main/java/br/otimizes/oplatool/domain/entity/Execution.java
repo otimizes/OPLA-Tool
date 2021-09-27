@@ -28,7 +28,7 @@ public class Execution implements Serializable {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "experiement_id", nullable = false)
+    @JoinColumn(name = "experiment_id", nullable = false)
     private Experiment experiment;
 
     @Column(name = "time", nullable = true)

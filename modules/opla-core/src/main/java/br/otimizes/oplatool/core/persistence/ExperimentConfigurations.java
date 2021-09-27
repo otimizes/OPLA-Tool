@@ -1,9 +1,9 @@
 package br.otimizes.oplatool.core.persistence;
 
+import br.otimizes.oplatool.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.PAESConfigs;
 import br.otimizes.oplatool.core.jmetal4.operators.MutationOperators;
-import br.otimizes.oplatool.core.jmetal4.experiments.ExperimentCommonConfigs;
 
 /**
  * Class responsible for retrieving information related of which configuration the experiment use.
@@ -12,13 +12,13 @@ import br.otimizes.oplatool.core.jmetal4.experiments.ExperimentCommonConfigs;
  *
  * @author elf
  */
-public class ExperimentConfs {
+public class ExperimentConfigurations {
 
     private String experimentId;
     private ExperimentCommonConfigs configs;
     private String algorithm;
 
-    public ExperimentConfs(String experimentId, String algorithm, ExperimentCommonConfigs configs) {
+    public ExperimentConfigurations(String experimentId, String algorithm, ExperimentCommonConfigs configs) {
         this.experimentId = experimentId;
         this.configs = configs;
         this.algorithm = algorithm;
@@ -36,7 +36,7 @@ public class ExperimentConfs {
     }
 
     public static String getProbability(String probability) {
-        return Double.valueOf(probability) == 0 ? "-" : probability;
+        return Double.parseDouble(probability) == 0 ? "-" : probability;
     }
 
     /**
@@ -77,7 +77,7 @@ public class ExperimentConfs {
     }
 
     public static String getInt(String archiveSize) {
-        return Integer.valueOf(archiveSize) == 0 ? "-" : archiveSize;
+        return Integer.parseInt(archiveSize) == 0 ? "-" : archiveSize;
     }
 
 
@@ -94,7 +94,7 @@ public class ExperimentConfs {
     }
 
     public String getObjectives() {
-        return "'" + this.configs.getObjectiveFuncions() + "'";
+        return "'" + this.configs.getObjectiveFunctions() + "'";
     }
 
     /**

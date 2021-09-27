@@ -15,39 +15,29 @@ public class FMObjectiveFunction extends ObjectiveFunctionDomain {
 
     @Column(name = "msi_aggregation")
     private Double msiAggregation;
-
     @Column(name = "cdac")
     private Double cdac;
-
     @Column(name = "cdai")
     private Double cdai;
-
     @Column(name = "cdao")
     private Double cdao;
-
     @Column(name = "cibc")
     private Double cibc;
-
     @Column(name = "iibc")
     private Double iibc;
-
     @Column(name = "oobc")
     private Double oobc;
-
     @Column(name = "lcc")
     private Double lcc;
-
     @Column(name = "lcc_class")
     private Double lccClass;
-
     @Column(name = "cda_class")
     private Double cdaClass;
-
     @Column(name = "cib_class")
     private Double cibClass;
 
-    public FMObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public FMObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -141,5 +131,4 @@ public class FMObjectiveFunction extends ObjectiveFunctionDomain {
     public void setCibClass(Double cibClass) {
         this.cibClass = cibClass;
     }
-
 }

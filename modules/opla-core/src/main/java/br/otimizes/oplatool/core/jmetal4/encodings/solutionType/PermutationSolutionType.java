@@ -21,9 +21,9 @@
 
 package br.otimizes.oplatool.core.jmetal4.encodings.solutionType;
 
+import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionType;
-import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.core.jmetal4.encodings.variable.Permutation;
 
 /**
@@ -38,14 +38,13 @@ public class PermutationSolutionType extends SolutionType {
 
     /**
      * Create variables array
+     *
      * @return variables
      */
     public Variable[] createVariables() {
         Variable[] variables = new Variable[problem_.getNumberOfVariables()];
-
-        for (int var = 0; var < problem_.getNumberOfVariables(); var++)
-            variables[var] = new Permutation(problem_.getLength(var));
-
+        for (int variableIndex = 0; variableIndex < problem_.getNumberOfVariables(); variableIndex++)
+            variables[variableIndex] = new Permutation(problem_.getLength(variableIndex));
         return variables;
     } // createVariables
 } // PermutationSolution

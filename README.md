@@ -86,8 +86,8 @@ public class MYOBJObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "value2")
     private Double value2;
 
-    public MyObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public MyObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
     // GETTERS AND SETTERS
 }
@@ -126,9 +126,9 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public ACLASSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement,
+        public ACLASSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment,
                                              Architecture arch) {
-            MYOBJObjectiveFunction myobj = new MYOBJObjectiveFunction(idSolution, Execution, experiement);
+            MYOBJObjectiveFunction myobj = new MYOBJObjectiveFunction(idSolution, Execution, experiment);
             myobj.setSumClassesDepIn(Metrics.SumClassDepIn.evaluate(arch));
             myobj.setSumClassesDepOut(Metrics.SumClassDepOut.evaluate(arch));
             return aclass;

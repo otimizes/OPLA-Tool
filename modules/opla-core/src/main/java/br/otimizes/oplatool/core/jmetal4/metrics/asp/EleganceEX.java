@@ -13,29 +13,20 @@ public class EleganceEX extends ObjectiveFunctionImplementation {
     public EleganceEX(Architecture architecture) {
         super(architecture);
         ArrayList<Integer> externalcouples = new ArrayList<>();
-        ArrayList<Integer> listAux = new ArrayList<>();
+        ArrayList<Integer> listAux;
         int countExternal;
-
-        for (Class clazz : architecture.getAllClasses()) { // para cada lasse existente
-
-            listAux = architecture.getLinkOverload(clazz); //calculando o link overload da classe
-
-            countExternal = (listAux.get(0) + listAux.get(1) + listAux.get(2)); //somando entrada + saida + ambos
+        for (Class clazz : architecture.getAllClasses()) {
+            listAux = architecture.getLinkOverload(clazz);
+            countExternal = (listAux.get(0) + listAux.get(1) + listAux.get(2));
             externalcouples.add(countExternal);
         }
-
         for (Interface interface_ : architecture.getAllInterfaces()) {
-
-            listAux = architecture.getLinkOverload(interface_); //calculando o link overload da interface
-
-            countExternal = (listAux.get(0) + listAux.get(1) + listAux.get(2)); //somando entrada + saida + ambos
+            listAux = architecture.getLinkOverload(interface_);
+            countExternal = (listAux.get(0) + listAux.get(1) + listAux.get(2));
             externalcouples.add(countExternal);
-
         }
-        // calculo do desvio padrao
         Double thzEX = StatisticalMethodsHelper.getStandardDeviation(externalcouples);
-        System.out.println(("THZ de ExternalCouples" + thzEX));
-
+        System.out.println(("THZ of ExternalCouples" + thzEX));
         this.setResults(thzEX);
     }
 

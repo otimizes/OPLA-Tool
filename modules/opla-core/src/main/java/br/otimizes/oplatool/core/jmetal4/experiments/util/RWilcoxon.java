@@ -21,7 +21,6 @@
 
 package br.otimizes.oplatool.core.jmetal4.experiments.util;
 
-import br.otimizes.oplatool.core.jmetal4.experiments.Experiment;
 import br.otimizes.oplatool.domain.config.FileConstants;
 
 import java.io.File;

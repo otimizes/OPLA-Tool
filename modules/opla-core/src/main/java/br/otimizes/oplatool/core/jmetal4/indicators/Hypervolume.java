@@ -37,7 +37,7 @@ public class Hypervolume {
      * @param append       append or replace the file
      * @throws IOException default exception
      */
-    public static void printFormatedHypervolumeFile(SolutionSet allSolutions, String path, boolean append) throws IOException {
+    public static void printFormattedHyperVolumeFile(SolutionSet allSolutions, String path, boolean append) throws IOException {
         File file = new File(path);
         file.getParentFile().mkdirs();
         try (FileWriter fileWriter = new FileWriter(file, append)) {

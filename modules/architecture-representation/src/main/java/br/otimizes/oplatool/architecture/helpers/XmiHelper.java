@@ -46,8 +46,8 @@ public class XmiHelper {
     static Logger LOGGER = LogManager.getLogger(XmiHelper.class.getName());
     private static Document originalNotation;
 
-    public static Node findByIDInNotationFile(Document docNotaion, String id) {
-        NodeList node = docNotaion.getElementsByTagName("children");
+    public static Node findByIDInNotationFile(Document docNotation, String id) {
+        NodeList node = docNotation.getElementsByTagName("children");
         Node nodeFound = null;
         for (int i = 0; i < node.getLength(); i++) {
             NodeList nodes = node.item(i).getChildNodes();
@@ -62,7 +62,6 @@ public class XmiHelper {
                 }
             }
         }
-
         if (nodeFound == null) {
             LOGGER.warn("\nNode with id " + id + " cannot be found. Retuns null");
             return null;
@@ -87,7 +86,6 @@ public class XmiHelper {
                 if (id.equalsIgnoreCase(attributes.item(j).getNodeValue()))
                     return node.item(i);
         }
-
         return null;
     }
 
@@ -115,13 +113,6 @@ public class XmiHelper {
         }
     }
 
-    /**
-     * Retorna o atributo xmi:id como uma <b>String</b> para um dado eObject.
-     * Retrona <b>null</b>caso xmiResources for null.
-     *
-     * @param eObject
-     * @return <b>String</b>
-     */
     public static String getXmiId(EObject eObject) {
         Resource xmiResource = eObject.eResource();
         return ((XMLResource) xmiResource).getID(eObject);
@@ -167,7 +158,6 @@ public class XmiHelper {
 
     public static void setNotationOriginalFile(String xmiFilePath) {
         String pathToNotation = xmiFilePath.substring(0, xmiFilePath.length() - 4) + ".notation";
-
         DocumentBuilderFactory docBuilderFactoryNotation = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilderNotation = null;
         try {
@@ -207,7 +197,6 @@ public class XmiHelper {
 
     public String findTypeById(String id, Document umlDocument) {
         Node element = umlDocument.getElementsByTagName("uml:Model").item(0);
-
         for (int i = 0; i < element.getChildNodes().getLength(); i++) {
             String elementName = element.getChildNodes().item(i).getNodeName();
             String elementId = "";
@@ -292,19 +281,18 @@ public class XmiHelper {
             if (matcher.find()) {
                 finded = matcher.group(0).replace("xmi:id=", "");
             }
-            String finalFinded = finded;
-            String findedStr = collect.stream().filter(txt -> txt.contains("smarty:variability") && txt.contains(finalFinded))
+            String finalFound = finded;
+            String foundStr = collect.stream().filter(txt -> txt.contains("smarty:variability") && txt.contains(finalFound))
                     .findFirst().orElse(null);
 
 
             Pattern compile1 = Pattern.compile("xmi\\:id\\=\\\".*");
-            Matcher matcher1 = compile1.matcher(findedStr);
+            Matcher matcher1 = compile1.matcher(foundStr);
             matcher1.find();
             return matcher1.group(0).replace("/>", "");
         }
         return null;
     }
-
 
     public String splitVariants(List<Variant> list) {
         return Joiner.on(", ").join(list);

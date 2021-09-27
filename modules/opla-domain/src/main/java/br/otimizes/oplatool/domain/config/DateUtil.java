@@ -13,5 +13,4 @@ public class DateUtil {
     public static String toMinutesAndSeconds(Date date) {
         return new SimpleDateFormat(PATTERN_MM_SS).format(date);
     }
-
 }

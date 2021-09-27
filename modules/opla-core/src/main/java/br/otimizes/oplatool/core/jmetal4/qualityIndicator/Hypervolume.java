@@ -38,10 +38,6 @@ public class Hypervolume {
 
     public MetricsUtil utils_;
 
-    /**
-     * Constructor
-     * Creates a new instance of MultiDelta
-     */
     public Hypervolume() {
         utils_ = new MetricsUtil();
     } // Hypervolume

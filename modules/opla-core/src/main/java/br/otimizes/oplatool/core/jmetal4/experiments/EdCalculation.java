@@ -12,16 +12,16 @@ import java.util.HashMap;
 @Service
 public class EdCalculation {
 
-    private MetricsUtil mu;
-    private NumberFormat format = NumberFormat.getInstance();
+    private MetricsUtil metricsUtil;
+    private NumberFormat numberFormat = NumberFormat.getInstance();
     private final Persistence persistence;
 
     public EdCalculation(Persistence persistence) {
-        mu = new MetricsUtil();
-        format.setMaximumFractionDigits(2);
-        format.setMinimumFractionDigits(2);
-        format.setMaximumIntegerDigits(2);
-        format.setRoundingMode(RoundingMode.HALF_UP);
+        metricsUtil = new MetricsUtil();
+        numberFormat.setMaximumFractionDigits(2);
+        numberFormat.setMinimumFractionDigits(2);
+        numberFormat.setMaximumIntegerDigits(2);
+        numberFormat.setRoundingMode(RoundingMode.HALF_UP);
         this.persistence = persistence;
     }
 
@@ -46,15 +46,13 @@ public class EdCalculation {
             names[i] = ss.get(i).getSolutionName();
 
         double[][] front = ss.writeObjectivesToMatrix();
-        double[] min = mu.getMinimumValues(front, numberObjectives);
-        for (int i = 0; i < min.length; i++) {
-            System.out.println("->" + min[i] + ", ");
+        double[] min = metricsUtil.getMinimumValues(front, numberObjectives);
+        for (double v : min) {
+            System.out.println("->" + v + ", ");
         }
         for (int i = 0; i < front.length; i++)
-            results.put(names[i], round(mu.distance(min, front[i]), 4, 0));
+            results.put(names[i], round(metricsUtil.distance(min, front[i]), 4, 0));
 
         return results;
     }
-
-
 }

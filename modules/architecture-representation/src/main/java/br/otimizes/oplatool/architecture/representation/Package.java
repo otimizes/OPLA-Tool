@@ -240,11 +240,11 @@ public class Package extends Element {
 
     public void removeInterfaceByID(String id) {
         Set<Interface> newHash = new HashSet<>();
-        for (Interface interfaceFromPackage : this.interfaces) {
-            if (!interfaceFromPackage.getId().equals(id)) {
-                newHash.add(interfaceFromPackage);
+        for (Interface anInterface : this.interfaces) {
+            if (!anInterface.getId().equals(id)) {
+                newHash.add(anInterface);
             } else {
-                relationshipHolder.removeRelatedRelationships(interfaceFromPackage);
+                relationshipHolder.removeRelatedRelationships(anInterface);
             }
         }
         this.interfaces.clear();

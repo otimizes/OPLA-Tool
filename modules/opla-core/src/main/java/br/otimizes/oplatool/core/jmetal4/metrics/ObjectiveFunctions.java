@@ -40,9 +40,9 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public ACLASSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement,
+        public ACLASSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment,
                                              Architecture arch) {
-            ACLASSObjectiveFunction aclass = new ACLASSObjectiveFunction(idSolution, Execution, experiement);
+            ACLASSObjectiveFunction aclass = new ACLASSObjectiveFunction(idSolution, Execution, experiment);
             aclass.setSumClassesDepIn(Metrics.SumClassDepIn.evaluate(arch));
             aclass.setSumClassesDepOut(Metrics.SumClassDepOut.evaluate(arch));
             return aclass;
@@ -55,8 +55,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public ACOMPObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            ACOMPObjectiveFunction acomp = new ACOMPObjectiveFunction(idSolution, Execution, experiement);
+        public ACOMPObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            ACOMPObjectiveFunction acomp = new ACOMPObjectiveFunction(idSolution, Execution, experiment);
             acomp.setSumDepIn(Metrics.SumDepIn.evaluate(arch));
             acomp.setSumDepOut(Metrics.SumDepOut.evaluate(arch));
             return acomp;
@@ -69,8 +69,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public TVObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            TVObjectiveFunction aV = new TVObjectiveFunction(idSolution, Execution, experiement);
+        public TVObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            TVObjectiveFunction aV = new TVObjectiveFunction(idSolution, Execution, experiment);
             aV.setAv(ObjectiveFunctions.TV.evaluate(arch));
             return aV;
         }
@@ -82,8 +82,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public RCCObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            RCCObjectiveFunction cBcs = new RCCObjectiveFunction(idSolution, Execution, experiement);
+        public RCCObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            RCCObjectiveFunction cBcs = new RCCObjectiveFunction(idSolution, Execution, experiment);
             cBcs.setCbcs(ObjectiveFunctions.RCC.evaluate(arch));
             return cBcs;
         }
@@ -95,8 +95,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public COEObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            COEObjectiveFunction coe = new COEObjectiveFunction(idSolution, Execution, experiement);
+        public COEObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            COEObjectiveFunction coe = new COEObjectiveFunction(idSolution, Execution, experiment);
             coe.setH(ObjectiveFunctions.COE.evaluate(arch));
             return coe;
         }
@@ -109,8 +109,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public CMObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            CMObjectiveFunction conventional = new CMObjectiveFunction(idSolution, Execution, experiement);
+        public CMObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            CMObjectiveFunction conventional = new CMObjectiveFunction(idSolution, Execution, experiment);
             RelationalCohesion relationalCohesion = new RelationalCohesion(arch);
             conventional.setSumCohesion(relationalCohesion.getResults());
             conventional.setCohesion(relationalCohesion.evaluateICohesion());
@@ -130,8 +130,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public DCObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            DCObjectiveFunction dc = new DCObjectiveFunction(idSolution, Execution, experiement);
+        public DCObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            DCObjectiveFunction dc = new DCObjectiveFunction(idSolution, Execution, experiment);
             dc.setCdai(Metrics.CDAI.evaluate(arch));
             dc.setCdao(Metrics.CDAO.evaluate(arch));
             dc.setCdac(Metrics.CDAC.evaluate(arch));
@@ -145,8 +145,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public ECObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            ECObjectiveFunction ec = new ECObjectiveFunction(idSolution, Execution, experiement);
+        public ECObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            ECObjectiveFunction ec = new ECObjectiveFunction(idSolution, Execution, experiment);
             ec.setCibc(Metrics.CIBC.evaluate(arch));
             ec.setIibc(Metrics.IIBC.evaluate(arch));
             ec.setOobc(Metrics.OOBC.evaluate(arch));
@@ -160,8 +160,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public ELEGObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            ELEGObjectiveFunction elegance = new ELEGObjectiveFunction(idSolution, Execution, experiement);
+        public ELEGObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            ELEGObjectiveFunction elegance = new ELEGObjectiveFunction(idSolution, Execution, experiment);
             elegance.setNac(Metrics.NACElegance.evaluate(arch));
             elegance.setAtmr(Metrics.ATMRElegance.evaluate(arch));
             elegance.setEc(Metrics.ECElegance.evaluate(arch));
@@ -175,8 +175,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public FMObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            FMObjectiveFunction fd = new FMObjectiveFunction(idSolution, Execution, experiement);
+        public FMObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            FMObjectiveFunction fd = new FMObjectiveFunction(idSolution, Execution, experiment);
             fd.setCdac(Metrics.CDAC.evaluate(arch));
             fd.setCdai(Metrics.CDAI.evaluate(arch));
             fd.setCdao(Metrics.CDAO.evaluate(arch));
@@ -196,8 +196,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public LCCObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            LCCObjectiveFunction lcc = new LCCObjectiveFunction(idSolution, Execution, experiement);
+        public LCCObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            LCCObjectiveFunction lcc = new LCCObjectiveFunction(idSolution, Execution, experiment);
             lcc.setLcc(ObjectiveFunctions.LCC.evaluate(arch));
             return lcc;
         }
@@ -209,8 +209,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public EXTObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            EXTObjectiveFunction plaExtensibility = new EXTObjectiveFunction(idSolution, Execution, experiement);
+        public EXTObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            EXTObjectiveFunction plaExtensibility = new EXTObjectiveFunction(idSolution, Execution, experiment);
             plaExtensibility.setPlaExtensibility(ObjectiveFunctions.EXT.evaluate(arch));
             return plaExtensibility;
         }
@@ -222,8 +222,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public SDObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            SDObjectiveFunction sSc = new SDObjectiveFunction(idSolution, Execution, experiement);
+        public SDObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            SDObjectiveFunction sSc = new SDObjectiveFunction(idSolution, Execution, experiment);
             sSc.setSsc(ObjectiveFunctions.SD.evaluate(arch));
             return sSc;
         }
@@ -235,8 +235,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public SVObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            SVObjectiveFunction sVc = new SVObjectiveFunction(idSolution, Execution, experiement);
+        public SVObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            SVObjectiveFunction sVc = new SVObjectiveFunction(idSolution, Execution, experiment);
             sVc.setSvc(ObjectiveFunctions.SV.evaluate(arch));
             return sVc;
         }
@@ -248,8 +248,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public TAMObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            TAMObjectiveFunction tam = new TAMObjectiveFunction(idSolution, Execution, experiement);
+        public TAMObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            TAMObjectiveFunction tam = new TAMObjectiveFunction(idSolution, Execution, experiment);
             tam.setMeanNumOps(Metrics.MeanNumOps.evaluate(arch));
             tam.setTam(ObjectiveFunctions.TAM.evaluate(arch));
             return tam;
@@ -262,8 +262,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public WOCSCLASSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            WOCSCLASSObjectiveFunction wocsClass = new WOCSCLASSObjectiveFunction(idSolution, Execution, experiement);
+        public WOCSCLASSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            WOCSCLASSObjectiveFunction wocsClass = new WOCSCLASSObjectiveFunction(idSolution, Execution, experiment);
             wocsClass.setWocsclass(ObjectiveFunctions.WOCSCLASS.evaluate(arch));
             return wocsClass;
         }
@@ -275,8 +275,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public CSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            CSObjectiveFunction wocsInterface = new CSObjectiveFunction(idSolution, Execution, experiement);
+        public CSObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            CSObjectiveFunction wocsInterface = new CSObjectiveFunction(idSolution, Execution, experiment);
             wocsInterface.setWocsinterface(ObjectiveFunctions.CS.evaluate(arch));
             return wocsInterface;
         }
@@ -288,8 +288,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public LFCCObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            LFCCObjectiveFunction value = new LFCCObjectiveFunction(idSolution, Execution, experiement);
+        public LFCCObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            LFCCObjectiveFunction value = new LFCCObjectiveFunction(idSolution, Execution, experiment);
             value.setLfcc(ObjectiveFunctions.LFCC.evaluate(arch));
             return value;
         }
@@ -301,8 +301,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public FDACObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            FDACObjectiveFunction value = new FDACObjectiveFunction(idSolution, Execution, experiement);
+        public FDACObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            FDACObjectiveFunction value = new FDACObjectiveFunction(idSolution, Execution, experiment);
             value.setFdac(ObjectiveFunctions.FDAC.evaluate(arch));
             return value;
         }
@@ -314,8 +314,8 @@ public enum ObjectiveFunctions implements ObjectiveFunctionsLink {
         }
 
         @Override
-        public CIBFObjectiveFunction build(String idSolution, Execution Execution, Experiment experiement, Architecture arch) {
-            CIBFObjectiveFunction value = new CIBFObjectiveFunction(idSolution, Execution, experiement);
+        public CIBFObjectiveFunction build(String idSolution, Execution Execution, Experiment experiment, Architecture arch) {
+            CIBFObjectiveFunction value = new CIBFObjectiveFunction(idSolution, Execution, experiment);
             value.setCibf(ObjectiveFunctions.CIBF.evaluate(arch));
             return value;
         }

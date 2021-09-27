@@ -37,17 +37,9 @@ public class XReal {
     Solution solution_;
     SolutionType type_;
 
-    /**
-     * Constructor
-     */
     public XReal() {
     } // Constructor
 
-    /**
-     * Constructor
-     *
-     * @param solution
-     */
     public XReal(Solution solution) {
         this();
         type_ = solution.getType();

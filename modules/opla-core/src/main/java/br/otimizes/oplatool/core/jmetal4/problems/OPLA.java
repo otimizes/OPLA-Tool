@@ -15,6 +15,7 @@ import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.Fitness;
 import br.otimizes.oplatool.core.jmetal4.metrics.ObjectiveFunctions;
+import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ public class OPLA extends Problem {
     }
 
     public OPLA(String xmiFilePath) throws Exception {
-
         numberOfVariables_ = 1;
         numberOfObjectives_ = 2;
         numberOfConstraints_ = 0;
@@ -76,82 +76,75 @@ public class OPLA extends Problem {
 
     @Override
     public void evaluate(Solution solution) {
-        List<Fitness> fitnesses = new ArrayList<>();
-
+        List<Fitness> fitness = new ArrayList<>();
         for (String selectedMetric : selectedMetrics) {
             ObjectiveFunctions metric = ObjectiveFunctions.valueOf(selectedMetric);
-            fitnesses.add(new Fitness(metric.evaluate((Architecture) solution.getDecisionVariables()[0])));
+            fitness.add(new Fitness(metric.evaluate((Architecture) solution.getDecisionVariables()[0])));
         }
-        for (int i = 0; i < fitnesses.size(); i++) {
-            solution.setObjective(i, fitnesses.get(i).getValue());
+        for (int i = 0; i < fitness.size(); i++) {
+            solution.setObjective(i, fitness.get(i).getValue());
         }
     }
 
     public void evaluateLinkOverload(Solution solution) {
-        List<Fitness> fitnesses = new ArrayList<>();
-
+        List<Fitness> fitness = new ArrayList<>();
         for (String selectedMetric : selectedMetrics) {
             ObjectiveFunctions metric = ObjectiveFunctions.valueOf(selectedMetric);
-            fitnesses.add(new Fitness(metric.evaluate((Architecture) solution.getDecisionVariables()[0])));
+            fitness.add(new Fitness(metric.evaluate((Architecture) solution.getDecisionVariables()[0])));
         }
-
-
-        for (int i = 0; i < fitnesses.size(); i++) {
-            double peso = fitnesses.get(i).getValue()*100;
-            solution.setObjective(i, fitnesses.get(i).getValue() + (peso * ((Architecture)solution.getDecisionVariables()[0]).getExceedLink()));
+        for (int i = 0; i < fitness.size(); i++) {
+            double weight = fitness.get(i).getValue()*100;
+            solution.setObjective(i, fitness.get(i).getValue() + (weight * ((Architecture)solution.getDecisionVariables()[0]).getExceedLink()));
         }
     }
 
-    public SolutionSet removeDominadas(SolutionSet result) {
+    public SolutionSet removeDominated(SolutionSet result) {
         List<Solution> collect = result.getSolutionSet().stream().filter(r -> (r.getEvaluation() >= 5)).collect(Collectors.toList());
-        boolean dominador, dominado;
-        double valor1 = 0;
-        double valor2 = 0;
+        boolean domineering, dominated;
+        double firstValue;
+        double secondValue;
 
         for (int i = 0; i < (result.size() - 1); i++) {
             for (int j = (i + 1); j < result.size(); j++) {
-                dominador = true;
-                dominado = true;
+                domineering = true;
+                dominated = true;
 
                 for (int k = 0; k < result.get(i).numberOfObjectives(); k++) {
-                    valor1 = result.get(i).getObjective(k);
-                    valor2 = result.get(j).getObjective(k);
+                    firstValue = result.get(i).getObjective(k);
+                    secondValue = result.get(j).getObjective(k);
 
-                    if (valor1 > valor2 || dominador == false) {
-                        dominador = false;
-                    } else if (valor1 <= valor2) {
-                        dominador = true;
+                    if (firstValue > secondValue || !domineering) {
+                        domineering = false;
+                    } else if (firstValue <= secondValue) {
+                        domineering = true;
                     }
 
-                    if (valor2 > valor1 || dominado == false) {
-                        dominado = false;
-                    } else if (valor2 < valor1) {
-                        dominado = true;
+                    if (secondValue > firstValue || !dominated) {
+                        dominated = false;
+                    } else if (secondValue < firstValue) {
+                        dominated = true;
                     }
                 }
-
-                if (dominador) {
+                if (domineering) {
                     result.remove(j);
                     j = j - 1;
-                } else if (dominado) {
+                } else if (dominated) {
                     result.remove(i);
                     j = i;
                 }
             }
         }
 
-        if (collect != null) {
-            result.setCapacity(result.getCapacity() + collect.size());
-            collect.forEach(c -> {
-                if (!result.getSolutionSet().contains(c)) {
-                    result.add(c);
-                }
-            });
-        }
+        result.setCapacity(result.getCapacity() + collect.size());
+        collect.forEach(c -> {
+            if (!result.getSolutionSet().contains(c)) {
+                result.add(c);
+            }
+        });
         return result;
     }
 
-    public SolutionSet removeRepetidas(SolutionSet result) {
+    public SolutionSet removeRepeated(SolutionSet result) {
         List<Solution> collect = result.getSolutionSet().stream().filter(r -> (r.getEvaluation() >= 5)).collect(Collectors.toList());
         String solucao;
 
@@ -160,84 +153,68 @@ public class OPLA extends Problem {
             for (int j = i + 1; j < result.size(); j++) {
                 if (solucao.equals(result.get(j).getDecisionVariables()[0].toString())) {
                     result.remove(j);
-                    this.configs.getLogger().putLog("removido Repedita");
+                    this.configs.getLogger().putLog("Repeated removed");
                 }
             }
         }
 
-        if (collect != null) {
-            result.setCapacity(result.getCapacity() + collect.size());
-            collect.forEach(c -> {
-                if (!result.getSolutionSet().contains(c)) {
-                    result.add(c);
-                }
-            });
-        }
+        result.setCapacity(result.getCapacity() + collect.size());
+        collect.forEach(c -> {
+            if (!result.getSolutionSet().contains(c)) {
+                result.add(c);
+            }
+        });
 
         return result;
     }
 
-    private boolean searchForGeneralizations(Class cls) { // ok
-        Collection<Relationship> Relationships = cls.getRelationships();
-        for (Relationship relationship : Relationships) {
-            if (relationship instanceof GeneralizationRelationship) {
-                GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-                if (generalization.getChild().equals(cls) || generalization.getParent().equals(cls))
-                    return true;
-            }
-        }
-        return false;
+    private boolean searchForGeneralizations(Class aClass) {
+        return CrossoverUtils.searchForGeneralizations(aClass);
     }
 
-    private void removeComponentRelationships(Package comp, Architecture architecture) {
-        if (comp.isTotalyFreezed()) return;
+    private void removeComponentRelationships(Package aPackage, Architecture architecture) {
+        if (aPackage.isTotalyFreezed()) return;
         Relationship[] allInterElementRelationships = architecture.getRelationshipHolder().getAllRelationships()
                 .toArray(new Relationship[0]);
         for (Relationship relationship : allInterElementRelationships) {
             if (relationship instanceof AbstractionRelationship) {
                 AbstractionRelationship abstraction = (AbstractionRelationship) relationship;
-                if (abstraction.getClient().equals(comp)) {
+                if (abstraction.getClient().equals(aPackage)) {
                     architecture.removeRelationship(relationship);
                 }
             }
             if (relationship instanceof DependencyRelationship) {
                 DependencyRelationship dependency = (DependencyRelationship) relationship;
-                if (dependency.getClient().equals(comp)) {
+                if (dependency.getClient().equals(aPackage)) {
                     architecture.removeRelationship(relationship);
                 }
             }
         }
     }
 
-    private void removeClassRelationships(Class cls, Architecture architecture) {
-        if (cls.isTotalyFreezed()) return;
-        List<Relationship> relationshipsCls = new ArrayList<Relationship>(cls.getRelationships());
+    private void removeClassRelationships(Class aClass, Architecture architecture) {
+        if (aClass.isTotalyFreezed()) return;
+        List<Relationship> relationshipsCls = new ArrayList<>(aClass.getRelationships());
         if (!relationshipsCls.isEmpty()) {
-            Iterator<Relationship> iteratorRelationships = relationshipsCls.iterator();
-            while (iteratorRelationships.hasNext()) {
-                Relationship relationship = iteratorRelationships.next();
-
+            for (Relationship relationship : relationshipsCls) {
                 if (relationship instanceof DependencyRelationship) {
                     DependencyRelationship dependency = (DependencyRelationship) relationship;
-                    if (dependency.getClient().equals(cls) || dependency.getSupplier().equals(cls))
+                    if (dependency.getClient().equals(aClass) || dependency.getSupplier().equals(aClass))
                         architecture.removeRelationship(dependency);
                 }
-
                 if (relationship instanceof AssociationRelationship) {
                     AssociationRelationship association = (AssociationRelationship) relationship;
                     for (AssociationEnd associationEnd : association.getParticipants()) {
-                        if (associationEnd.getCLSClass().equals(cls)) {
+                        if (associationEnd.getCLSClass().equals(aClass)) {
                             architecture.removeRelationship(association);
                             break;
                         }
                     }
                 }
-
                 if (relationship instanceof GeneralizationRelationship) {
                     GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-                    if ((generalization.getChild().equals(cls)) || (generalization.getParent().equals(cls))) {
+                    if ((generalization.getChild().equals(aClass)) || (generalization.getParent().equals(aClass))) {
                         architecture.removeRelationship(generalization);
-
                     }
                 }
             }
@@ -245,14 +222,11 @@ public class OPLA extends Problem {
     }
 
     public void evaluateConstraints(Solution solution) throws JMException {
-        List<Package> allComponents = new ArrayList<Package>(((Architecture) solution.getDecisionVariables()[0]).getAllPackages());
+        List<Package> allComponents = new ArrayList<>(((Architecture) solution.getDecisionVariables()[0]).getAllPackages());
         for (Package comp : allComponents) {
-            List<Class> allClasses = new ArrayList<Class>(comp.getAllClasses());
+            List<Class> allClasses = new ArrayList<>(comp.getAllClasses());
             if (!(allClasses.isEmpty())) {
-                Iterator<Class> iteratorClasses = allClasses.iterator();
-
-                while (iteratorClasses.hasNext()) {
-                    Class cls = iteratorClasses.next();
+                for (Class cls : allClasses) {
                     if ((cls.getAllAttributes().isEmpty()) && (cls.getAllMethods().isEmpty())
                             && (cls.getImplementedInterfaces().isEmpty()) && !(searchForGeneralizations(cls))
                             && (cls.getVariantType() == null)) {
@@ -261,38 +235,15 @@ public class OPLA extends Problem {
                     }
                 }
             }
-
-            List<Interface> allItfsComp = new ArrayList<Interface>(comp.getImplementedInterfaces());
+            List<Interface> allItfsComp = new ArrayList<>(comp.getImplementedInterfaces());
             if (!(allItfsComp.isEmpty())) {
                 Iterator<Interface> iteratorInterfaces = allItfsComp.iterator();
-                while (iteratorInterfaces.hasNext()) {
-                    Interface itf = iteratorInterfaces.next();
-                    boolean ultimaInterface = false;
-                    if (comp.getImplementedInterfaces().size() == 1)
-                        ultimaInterface = true;
-                    if (itf.getMethods().isEmpty() && !ultimaInterface) {
-                        ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
-                    }
-                    if (itf.getMethods().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
-                        ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
-                    }
-                }
+                setLastInterfaces(solution, comp, iteratorInterfaces);
             }
             allItfsComp.clear();
 
             Iterator<Interface> iteratorInterfaces = ((Architecture) solution.getDecisionVariables()[0]).getAllInterfaces().iterator();
-            while (iteratorInterfaces.hasNext()) {
-                Interface itf = iteratorInterfaces.next();
-                boolean ultimaInterface = false;
-                if (comp.getImplementedInterfaces().size() == 1)
-                    ultimaInterface = true;
-                if (itf.getMethods().isEmpty() && !ultimaInterface) {
-                    ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
-                }
-                if (itf.getMethods().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
-                    ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
-                }
-            }
+            setLastInterfaces(solution, comp, iteratorInterfaces);
 
             if (comp.getAllClasses().isEmpty() && comp.getImplementedInterfaces().isEmpty() && comp.getAllInterfaces().isEmpty()) {
                 this.removeComponentRelationships(comp, (Architecture) solution.getDecisionVariables()[0]);
@@ -300,7 +251,19 @@ public class OPLA extends Problem {
             }
         }
         allComponents.clear();
+    }
 
+    private void setLastInterfaces(Solution solution, Package aPackage, Iterator<Interface> iteratorInterfaces) {
+        while (iteratorInterfaces.hasNext()) {
+            Interface itf = iteratorInterfaces.next();
+            boolean ultimaInterface = aPackage.getImplementedInterfaces().size() == 1;
+            if (itf.getMethods().isEmpty() && !ultimaInterface) {
+                ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
+            }
+            if (itf.getMethods().isEmpty() && ultimaInterface && aPackage.getAllClasses().size() < 1) {
+                ((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
+            }
+        }
     }
 
     public boolean isPatterns(Solution solution) {

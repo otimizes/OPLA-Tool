@@ -17,14 +17,6 @@ import java.util.List;
  */
 public class ModelElementHelper {
 
-    /**
-     * Returns all stereotypes of a given Element. <br />
-     * <p>
-     * If no stereotype is found returns an empty list.
-     *
-     * @param element element
-     * @return List<{ @ Stereotype link }>
-     */
     public static <T> List<Stereotype> getAllStereotypes(NamedElement element) {
         List<Stereotype> stereotypes = new ArrayList<>(element.getAppliedStereotypes());
         if (element instanceof Class) {
@@ -36,12 +28,6 @@ public class ModelElementHelper {
         return stereotypes;
     }
 
-    /**
-     * Checks if a class is an interface.
-     *
-     * @param element element
-     * @return boolean
-     */
     public static boolean isInterface(NamedElement element) {
         return StereotypeHelper.hasStereotype(element, StereotypesTypes.INTERFACE);
     }

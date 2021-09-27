@@ -33,11 +33,6 @@ import br.otimizes.oplatool.core.jmetal4.util.NonDominatedSolutionList;
  */
 public class RandomSearch extends Algorithm {
 
-    /**
-     * Constructor
-     *
-     * @param problem Problem to solve
-     */
     public RandomSearch(Problem problem) {
         super(problem);
     } // RandomSearch

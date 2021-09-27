@@ -37,10 +37,6 @@ public class InvertedGenerationalDistance {
     static final double pow_ = 2.0;
     public MetricsUtil utils_;
 
-    /**
-     * Constructor.
-     * Creates a new instance of the generational distance metric.
-     */
     public InvertedGenerationalDistance() {
         utils_ = new MetricsUtil();
     } // GenerationalDistance

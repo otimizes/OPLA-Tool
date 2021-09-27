@@ -21,8 +21,8 @@
 
 package br.otimizes.oplatool.core.jmetal4.encodings.variable;
 
-import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.common.Configuration;
+import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.common.exceptions.JMException;
 
 /**
@@ -35,7 +35,7 @@ public class VariableFactory {
      *
      * @param name The name of the class from which we want to obtain an instance
      *             object
-     * @throws JMException
+     * @throws JMException exception
      */
     public static Variable getVariable(String name) throws JMException {
         Variable variable = null;

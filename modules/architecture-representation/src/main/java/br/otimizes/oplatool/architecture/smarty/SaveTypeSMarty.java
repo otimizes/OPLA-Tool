@@ -1,13 +1,12 @@
 package br.otimizes.oplatool.architecture.smarty;
 
-import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
-import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.representation.Package;
-import br.otimizes.oplatool.architecture.representation.TypeSmarty;
+import br.otimizes.oplatool.architecture.representation.*;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Save the list of types in the file
@@ -28,74 +27,84 @@ public class SaveTypeSMarty {
      * Save the list of types in the file
      *
      * @param architecture - the architecture to be decoded
-     * @param printWriter - used to save the type to file
+     * @param printWriter  - used to save the type to file
      */
-    public void Save(Architecture architecture, PrintWriter printWriter) {
+    public void save(Architecture architecture, PrintWriter printWriter) {
         String halfTab = "  ";
         String tab = "    ";
         printWriter.write("\n" + halfTab + "<types>");
         if (architecture.getTypes().size() == 0) {
             GenerateTypeSMarty.getInstance().generate(architecture);
         }
-        ArrayList<TypeSmarty> adicionedType = new ArrayList<>();
-        for (TypeSmarty ts : architecture.getTypes()) {
-            if (ts.isStandard()) {
-                printWriter.write("\n" + tab + "<type id=\"" + ts.getId() + "\" path=\"" + ts.getPath() + "\" name=\"" + ts.getName() + "\" value=\"" + ts.getValue() + "\" primitive=\"" + ts.isPrimitive() + "\" standard=\"" + ts.isStandard() + "\"/>");
-                adicionedType.add(ts);
+        ArrayList<TypeSmarty> addedType = new ArrayList<>();
+        for (TypeSmarty typeSmarty : architecture.getTypes()) {
+            if (typeSmarty.isStandard()) {
+                addTypeSmarty(printWriter, tab, addedType, typeSmarty);
             } else {
-                if (architecture.findElementById(ts.getId()) != null) {
-                    printWriter.write("\n" + tab + "<type id=\"" + ts.getId() + "\" path=\"" + ts.getPath() + "\" name=\"" + ts.getName() + "\" value=\"" + ts.getValue() + "\" primitive=\"" + ts.isPrimitive() + "\" standard=\"" + ts.isStandard() + "\"/>");
-                    adicionedType.add(ts);
+                if (architecture.findElementById(typeSmarty.getId()) != null) {
+                    addTypeSmarty(printWriter, tab, addedType, typeSmarty);
                 }
             }
         }
-        for (Class clazz : architecture.getClasses()) {
-            if (!typeSmartyExist(adicionedType, clazz.getId())) {
-                printWriter.write("\n" + tab + "<type id=\"" + clazz.getId() + "\" path=\"" + clazz.getName() + "\" name=\"" + clazz.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
-            }
-        }
-        for (Interface clazz : architecture.getInterfaces()) {
-            if (!typeSmartyExist(adicionedType, clazz.getId())) {
-                printWriter.write("\n" + tab + "<type id=\"" + clazz.getId() + "\" path=\"" + clazz.getName() + "\" name=\"" + clazz.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
-            }
-        }
-        for (br.otimizes.oplatool.architecture.representation.Package pkg : architecture.getAllPackages()) {
-            for (Class clazz : pkg.getAllClasses()) {
-                if (!typeSmartyExist(adicionedType, clazz.getId())) {
-                    printWriter.write("\n" + tab + "<type id=\"" + clazz.getId() + "\" path=\"" + clazz.getName() + "\" name=\"" + clazz.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
-                }
-            }
-            for (Interface clazz : pkg.getAllInterfaces()) {
-                if (!typeSmartyExist(adicionedType, clazz.getId())) {
-                    printWriter.write("\n" + tab + "<type id=\"" + clazz.getId() + "\" path=\"" + clazz.getName() + "\" name=\"" + clazz.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
-                }
-            }
-            saveTypeSubPackage(pkg, adicionedType, printWriter);
+        addClass(printWriter, tab, addedType, architecture.getClasses());
+        addInterface(printWriter, tab, addedType, architecture.getInterfaces());
+        for (br.otimizes.oplatool.architecture.representation.Package aPackage : architecture.getAllPackages()) {
+            addClass(printWriter, tab, addedType, aPackage.getAllClasses());
+            addInterface(printWriter, tab, addedType, aPackage.getAllInterfaces());
+            saveTypeSubPackage(aPackage, addedType, printWriter);
         }
         printWriter.write("\n" + halfTab + "</types>");
+    }
+
+    private void addTypeSmarty(PrintWriter printWriter, String tab, ArrayList<TypeSmarty> addedType, TypeSmarty typeSmarty) {
+        printWriter.write("\n" + tab + "<type id=\"" + typeSmarty.getId() + "\" path=\"" + typeSmarty.getPath()
+                + "\" name=\"" + typeSmarty.getName() + "\" value=\"" + typeSmarty.getValue() + "\" primitive=\"" + typeSmarty.isPrimitive()
+                + "\" standard=\"" + typeSmarty.isStandard() + "\"/>");
+        addedType.add(typeSmarty);
+    }
+
+    private void addClass(PrintWriter printWriter, String tab, ArrayList<TypeSmarty> addedType, Set<Class> classes) {
+        for (Class aClass : classes) {
+            if (!doesTypeSmartyExist(addedType, aClass.getId())) {
+                printWriter.write("\n" + tab + "<type id=\"" + aClass.getId() + "\" path=\"" + aClass.getName()
+                        + "\" name=\"" + aClass.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
+            }
+        }
+    }
+
+    private void addInterface(PrintWriter printWriter, String tab, ArrayList<TypeSmarty> addedType, Set<Interface> interfaces) {
+        for (Interface anInterface : interfaces) {
+            if (!doesTypeSmartyExist(addedType, anInterface.getId())) {
+                printWriter.write("\n" + tab + "<type id=\"" + anInterface.getId() + "\" path=\"" + anInterface.getName()
+                        + "\" name=\"" + anInterface.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
+            }
+        }
     }
 
     /**
      * Save list type from sub package to file
      *
-     * @param pkg1 - package that has subpackage
-     * @param addedType - type that has added to file
+     * @param pkg         - package that has subpackage
+     * @param addedType   - type that has added to file
      * @param printWriter - used to save file
      */
-    private void saveTypeSubPackage(br.otimizes.oplatool.architecture.representation.Package pkg1, ArrayList<TypeSmarty> addedType, PrintWriter printWriter) {
+    private void saveTypeSubPackage(br.otimizes.oplatool.architecture.representation.Package pkg,
+                                    ArrayList<TypeSmarty> addedType, PrintWriter printWriter) {
         String tab = "    ";
-        for (Package pkg : pkg1.getNestedPackages()) {
-            for (Class clazz : pkg.getAllClasses()) {
-                if (!typeSmartyExist(addedType, clazz.getId())) {
-                    printWriter.write("\n" + tab + "<type id=\"" + clazz.getId() + "\" path=\"\" name=\"" + clazz.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
+        for (Package aPackage : pkg.getNestedPackages()) {
+            for (Class aClass : aPackage.getAllClasses()) {
+                if (!doesTypeSmartyExist(addedType, aClass.getId())) {
+                    printWriter.write("\n" + tab + "<type id=\"" + aClass.getId() + "\" path=\"\" name=\"" + aClass.getName()
+                            + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
                 }
             }
-            for (Interface clazz : pkg.getAllInterfaces()) {
-                if (!typeSmartyExist(addedType, clazz.getId())) {
-                    printWriter.write("\n" + tab + "<type id=\"" + clazz.getId() + "\" path=\"\" name=\"" + clazz.getName() + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
+            for (Interface anInterface : aPackage.getAllInterfaces()) {
+                if (!doesTypeSmartyExist(addedType, anInterface.getId())) {
+                    printWriter.write("\n" + tab + "<type id=\"" + anInterface.getId() + "\" path=\"\" name=\"" + anInterface.getName()
+                            + "\" value=\"null\" primitive=\"false\" standard=\"false\"/>");
                 }
             }
-            saveTypeSubPackage(pkg, addedType, printWriter);
+            saveTypeSubPackage(aPackage, addedType, printWriter);
         }
     }
 
@@ -103,12 +112,12 @@ public class SaveTypeSMarty {
      * Verify if the type has already added to file
      *
      * @param addedType - type that has already added to file
-     * @param id - id of the new type to be compared
+     * @param id        - id of the new type to be compared
      * @return -boolean. true if find the type, else false
      */
-    private boolean typeSmartyExist(ArrayList<TypeSmarty> addedType, String id) {
-        for (TypeSmarty ts : addedType) {
-            if (ts.getId().equals(id))
+    private boolean doesTypeSmartyExist(ArrayList<TypeSmarty> addedType, String id) {
+        for (TypeSmarty typeSmarty : addedType) {
+            if (typeSmarty.getId().equals(id))
                 return true;
         }
         return false;

@@ -52,7 +52,7 @@ public class Statistics {
     } // calculatemedian
 
     /**
-     * Calculates the interquartile range (IQR) of a vector of Doubles
+     * Calculates the inter quartile range (IQR) of a vector of Doubles
      *
      * @param vector
      * @return The IQR

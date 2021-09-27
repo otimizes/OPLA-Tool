@@ -1,46 +1,30 @@
 package br.otimizes.oplatool.patterns.strategies.scopeselection.impl;
 
-import java.util.Set;
-
-import br.otimizes.oplatool.patterns.models.Scope;
-import br.otimizes.oplatool.patterns.strategies.scopeselection.ScopeSelectionStrategy;
-import br.otimizes.oplatool.patterns.util.ElementUtil;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.architecture.representation.Patterns;
+import br.otimizes.oplatool.patterns.models.Scope;
+import br.otimizes.oplatool.patterns.strategies.scopeselection.ScopeSelectionStrategy;
 import br.otimizes.oplatool.patterns.strategies.scopeselection.defaultstrategy.RandomScopeSelection;
+import br.otimizes.oplatool.patterns.util.ElementUtil;
+
+import java.util.Set;
 
 /**
  * The Class ElementsWithSameDesignPatternSelection.
  */
 public class ElementsWithSameDesignPatternSelection implements ScopeSelectionStrategy {
 
-    /** The selection strategy. */
     private final ScopeSelectionStrategy selectionStrategy;
 
-    /**
-     * Instantiates a new elements with same design pattern selection.
-     */
     public ElementsWithSameDesignPatternSelection() {
         selectionStrategy = new RandomScopeSelection();
     }
 
-    /**
-     * Instantiates a new elements with same design pattern selection.
-     *
-     * @param strategy the strategy
-     */
     public ElementsWithSameDesignPatternSelection(ScopeSelectionStrategy strategy) {
         selectionStrategy = strategy;
     }
 
-    /**
-     * Select scope.
-     *
-     * @param architecture the architecture
-     * @param designPattern the design pattern
-     * @return the scope
-     */
     @Override
     public Scope selectScope(Architecture architecture, Patterns designPattern) {
         Scope scope = selectionStrategy.selectScope(architecture, designPattern);
@@ -56,5 +40,4 @@ public class ElementsWithSameDesignPatternSelection implements ScopeSelectionStr
         }
         return scope;
     }
-
 }

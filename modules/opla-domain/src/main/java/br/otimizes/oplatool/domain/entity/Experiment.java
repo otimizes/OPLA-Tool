@@ -19,20 +19,14 @@ public class Experiment implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-
     @Column(name = "name", nullable = false)
     private String name;
-
     @Column(name = "algorithm", nullable = false)
     private String algorithm;
-
-
     @Column(name = "created_at")
     private String createdAt;
-
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
-
     @Column(name = "hash")
     private String hash;
 

@@ -43,16 +43,16 @@ public class BinaryRealSolutionType extends SolutionType {
     public Variable[] createVariables() {
         Variable[] variables = new Variable[problem_.getNumberOfVariables()];
 
-        for (int var = 0; var < problem_.getNumberOfVariables(); var++) {
+        for (int variableIndex = 0; variableIndex < problem_.getNumberOfVariables(); variableIndex++) {
             if (problem_.getPrecision() == null) {
                 int[] precision = new int[problem_.getNumberOfVariables()];
                 for (int i = 0; i < problem_.getNumberOfVariables(); i++)
                     precision[i] = BinaryReal.DEFAULT_PRECISION;
                 problem_.setPrecision(precision);
             } // if
-            variables[var] = new BinaryReal(problem_.getPrecision(var),
-                    problem_.getLowerLimit(var),
-                    problem_.getUpperLimit(var));
+            variables[variableIndex] = new BinaryReal(problem_.getPrecision(variableIndex),
+                    problem_.getLowerLimit(variableIndex),
+                    problem_.getUpperLimit(variableIndex));
         } // for
         return variables;
     } // createVariables

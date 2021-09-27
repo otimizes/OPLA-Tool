@@ -21,7 +21,6 @@
 
 package br.otimizes.oplatool.core.jmetal4.experiments.util;
 
-import br.otimizes.oplatool.core.jmetal4.experiments.Experiment;
 import br.otimizes.oplatool.domain.config.FileConstants;
 
 import java.io.File;
@@ -29,12 +28,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Class for generating br.otimizes.oplatool.core.jmetal4.results in form of boxplots
+ * Class for generating JMetal4 results in form of boxplots
  */
 public class RBoxplot {
     /**
      * This method produces R scripts for generating eps files containing boxplots
-     * of the br.otimizes.oplatool.core.jmetal4.results previosly obtained. The boxplots will be arranged in a grid
+     * of the JMetal4 results previously obtained. The boxplots will be arranged in a grid
      * of rows x cols. As the number of problems in the experiment can be too high,
      * the @param problems includes a list of the problems to be plotted.
      *
@@ -50,8 +49,6 @@ public class RBoxplot {
                                        boolean notch,
                                        Experiment experiment)
             throws IOException {
-        // STEP 1. Creating R output directory
-
         String rDirectory = "R";
         rDirectory = experiment.experimentBaseDirectory_ + FileConstants.FILE_SEPARATOR + rDirectory;
         System.out.println("R    : " + rDirectory);
@@ -61,7 +58,6 @@ public class RBoxplot {
             new File(rDirectory).mkdirs();
             System.out.println("Creating " + rDirectory + " directory");
         }
-
         for (int indicator = 0; indicator < experiment.indicatorList_.length; indicator++) {
             System.out.println("Indicator: " + experiment.indicatorList_[indicator]);
             String rFile = rDirectory + FileConstants.FILE_SEPARATOR + prefix + "." + experiment.indicatorList_[indicator] + ".Boxplot.R";
@@ -71,7 +67,6 @@ public class RBoxplot {
                     experiment.indicatorList_[indicator] +
                     ".Boxplot.eps\", horizontal=FALSE, onefile=FALSE, height=8, width=12, pointsize=10)" +
                     "\n");
-            //os.write("resultDirectory<-\"../data/" + experimentName_ +"\"" + "\n");
             os.write("resultDirectory<-\"../data/" + "\"" + "\n");
             os.write("qIndicator <- function(indicator, problem)" + "\n");
             os.write("{" + "\n");

@@ -16,7 +16,6 @@ import java.util.List;
  * @author elf
  */
 public class LogConfiguration {
-
     public static void setLogLevel(Level level) {
         @SuppressWarnings("unchecked")
         Enumeration<Logger> currentLoggers = LogManager.getCurrentLoggers();
@@ -26,5 +25,4 @@ public class LogConfiguration {
             logger.setLevel(level);
         }
     }
-
 }

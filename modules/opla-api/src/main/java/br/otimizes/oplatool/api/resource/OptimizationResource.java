@@ -171,7 +171,9 @@ public class OptimizationResource {
 
     @GetMapping("/interaction/{token}/{hash}")
     public Mono<Interaction> getInteraction(@PathVariable String token, @PathVariable String hash) {
-        return Mono.just(Interactions.get(token, hash)).publishOn(Schedulers.elastic());
+        Interaction interaction = Interactions.get(token, hash);
+        if (interaction == null) return Mono.empty();
+        return Mono.just(interaction).publishOn(Schedulers.elastic());
     }
 
     @PostMapping("/interaction/{token}/{hash}")

@@ -5,10 +5,10 @@
  */
 package br.otimizes.oplatool.patterns.strategies.designpatternselection.impl;
 
-import java.util.Random;
-
 import br.otimizes.oplatool.patterns.designpatterns.DesignPattern;
 import br.otimizes.oplatool.patterns.strategies.designpatternselection.DesignPatternSelectionStrategy;
+
+import java.util.Random;
 
 /**
  * The Class CustomDesignPatternSelection.
@@ -17,23 +17,12 @@ import br.otimizes.oplatool.patterns.strategies.designpatternselection.DesignPat
  */
 public class CustomDesignPatternSelection implements DesignPatternSelectionStrategy {
 
-    /** The available patterns. */
     private String[] availablePatterns = null;
 
-    /**
-     * Instantiates a new custom design pattern selection.
-     *
-     * @param selectedPatterns Design br.otimizes.oplatool.patterns selecionados na GUI.
-     */
     public CustomDesignPatternSelection(String... selectedPatterns) {
         availablePatterns = selectedPatterns;
     }
 
-    /**
-     * Select design pattern.
-     *
-     * @return the design pattern
-     */
     @Override
     public DesignPattern selectDesignPattern() {
         int index = new Random().nextInt(availablePatterns.length);
@@ -46,5 +35,4 @@ public class CustomDesignPatternSelection implements DesignPatternSelectionStrat
         }
         return designPattern;
     }
-
 }

@@ -17,60 +17,43 @@ public class Info implements Serializable {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-
     @ManyToOne
     @JoinColumn(name = "execution_id")
     private Execution execution;
-
     @Column(name = "list_of_concerns", columnDefinition = "TEXT")
     private String listOfConcerns;
-
     @Column(name = "number_of_packages")
     private Integer numberOfPackages;
-
     @Column(name = "number_of_classes")
     private Integer numberOfClasses;
-
     @Column(name = "number_of_variabilities")
     private Integer numberOfVariabilities;
-
     @Column(name = "number_of_interfaces")
     private Integer numberOfInterfaces;
-
     @Column(name = "number_of_dependencies")
     private Integer numberOfDependencies;
-
     @Column(name = "number_of_abstractions")
     private Integer numberOfAbstractions;
-
     @Column(name = "number_of_generalizations")
     private Integer numberOfGeneralizations;
-
     @Column(name = "number_of_associations")
     private Integer numberOfAssociations;
-
     @Column(name = "number_of_associations_class")
     private Integer numberOfAssociationsClass;
-
     @Column(name = "name")
     private String name;
-
     @Column(name = "is_all")
     private Integer isAll;
-
     @ManyToOne
-    @JoinColumn(name = "experiement_id", nullable = false)
+    @JoinColumn(name = "experiment_id", nullable = false)
     private Experiment experiment;
-
     @Column(name = "user_evaluation")
     private Integer userEvaluation;
-
     @Column(name = "freezed_elements")
     private String freezedElements;
-
     @Column(name = "objectives")
     private String objectives;
-    
+
     public String getId() {
         return id;
     }
@@ -234,7 +217,7 @@ public class Info implements Serializable {
                 .append("numberOfGeneralizations", numberOfGeneralizations)
                 .append("numberOfAssociations", numberOfAssociations)
                 .append("numberOfAssociationsClass", numberOfAssociationsClass).append("name", name)
-                .append("isAll", isAll).append("experiement", experiment).toString();
+                .append("isAll", isAll).append("experiment", experiment).toString();
     }
 
     public static long getSerialVersionUID() {

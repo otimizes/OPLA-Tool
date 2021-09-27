@@ -177,7 +177,8 @@ public class Clustering implements Serializable {
         for (int i = 0; i < assignments.length; i++) {
             resultFront.get(i).setClusterId(assignments[i]);
             allSolutions.add(resultFront.get(i));
-            LOGGER.info("Cluster " + assignments[i] + " : " + resultFront.get(i).getSolutionName() + "   ->   " + arffExecution.getData().instance(i) + (assignments[i] == -1 ? " (RUIDO)" : ""));
+            LOGGER.info("Cluster " + assignments[i] + " : " + resultFront.get(i).getSolutionName() + "   ->   "
+                    + arffExecution.getData().instance(i) + (assignments[i] == -1 ? " (RUIDO)" : ""));
             if (assignments[i] < getIndexToFilter() && assignments[i] >= 0) {
                 selected.add(resultFront.get(i));
             }
@@ -238,7 +239,8 @@ public class Clustering implements Serializable {
 
     public SilhouetteIndex getSilhouetteIndex() throws Exception {
         SilhouetteIndex silhouetteIndex = new SilhouetteIndex();
-        silhouetteIndex.evaluate(this.getClusterer(), ((SimpleKMeans) this.getClusterer()).getClusterCentroids(), this.getArffExecution().getDataWithoutClass(), this.distanceFunction);
+        silhouetteIndex.evaluate(this.getClusterer(), ((SimpleKMeans) this.getClusterer()).getClusterCentroids(),
+                this.getArffExecution().getDataWithoutClass(), this.distanceFunction);
         return silhouetteIndex;
     }
 

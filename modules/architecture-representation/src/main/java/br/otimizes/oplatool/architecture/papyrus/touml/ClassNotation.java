@@ -329,11 +329,11 @@ public class ClassNotation extends XmiHelper {
     }
 
     private Element createChildrenDecorationnode(String type) {
-        Element childrenDecorationnode = documentManager.getDocNotation().createElement("children");
-        childrenDecorationnode.setAttribute("xmi:type", "notation:DecorationNode");
-        childrenDecorationnode.setAttribute("xmi:id", UtilResources.getRandomUUID());
-        childrenDecorationnode.setAttribute("type", type);
-        return childrenDecorationnode;
+        Element children = documentManager.getDocNotation().createElement("children");
+        children.setAttribute("xmi:type", "notation:DecorationNode");
+        children.setAttribute("xmi:id", UtilResources.getRandomUUID());
+        children.setAttribute("type", type);
+        return children;
     }
 
     public void createXmiForStereotype(String name, String idClass, String perfilType) {

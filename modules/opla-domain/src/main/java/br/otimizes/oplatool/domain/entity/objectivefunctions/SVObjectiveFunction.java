@@ -16,8 +16,8 @@ public class SVObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "svc")
     private Double svc;
 
-    public SVObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public SVObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -31,6 +31,4 @@ public class SVObjectiveFunction extends ObjectiveFunctionDomain {
     public void setSvc(Double svc) {
         this.svc = svc;
     }
-
-
 }

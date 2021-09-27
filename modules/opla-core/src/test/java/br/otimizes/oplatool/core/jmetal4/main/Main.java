@@ -27,7 +27,7 @@ import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.common.Configuration;
 import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.experiments.Settings;
+import br.otimizes.oplatool.core.jmetal4.experiments.settings.Settings;
 import br.otimizes.oplatool.core.jmetal4.experiments.SettingsFactory;
 import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
 

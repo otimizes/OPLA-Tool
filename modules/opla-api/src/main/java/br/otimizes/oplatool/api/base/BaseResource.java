@@ -82,6 +82,4 @@ public class BaseResource<T> {
         List<T> byExperiment = service.findByExperiment(id);
         return asyncMono(ResponseEntity.ok(new ResultList<>(byExperiment)));
     }
-
-
 }

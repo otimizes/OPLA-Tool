@@ -25,13 +25,13 @@ public class CompositionOperations {
         return new CompositionOperations(doc);
     }
 
-    public CompositionOperations between(AssociationEnd idElement) {
-        this.client = idElement;
+    public CompositionOperations between(AssociationEnd associationEnd) {
+        this.client = associationEnd;
         return this;
     }
 
-    public CompositionOperations and(AssociationEnd idElement) {
-        this.target = idElement;
+    public CompositionOperations and(AssociationEnd associationEnd) {
+        this.target = associationEnd;
         return this;
     }
 
@@ -41,7 +41,7 @@ public class CompositionOperations {
     }
 
     public void build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplicityForAssociationException {
-        final AssociationNode cn = new AssociationNode(doc, null);
-        Document.executeTransformation(doc, () -> cn.createAssociation(client, target, name, "composite"));
+        final AssociationNode associationNode = new AssociationNode(doc, null);
+        Document.executeTransformation(doc, () -> associationNode.createAssociation(client, target, name, "composite"));
     }
 }

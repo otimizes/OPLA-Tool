@@ -17,44 +17,31 @@ public class ExperimentConfiguration implements Serializable {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-
     @Column(name = "number_of_runs")
     private Long numberOfRuns;
-
     @Column(name = "max_evaluations")
     private Integer maxEvaluations;
-
     @Column(name = "crossover_prob")
     private Double crossoverProb;
-
     @Column(name = "mutation_prob")
     private Double mutationProb;
-
     @Column(name = "patterns")
     private String patterns;
-
     @Column(name = "pattern_strategy")
     private String patternStrategy;
-
     @Column(name = "algorithm")
     private String algorithm;
-
     @Column(name = "mutation_operators")
     private String mutationOperators;
-
     @Column(name = "archive_size")
     private Integer archiveSize;
-
     @Column(name = "population_size")
     private Integer populationSize;
-
     @Column(name = "profiles_used")
     private String profilesUsed;
-
     @ManyToOne
     @JoinColumn(name = "experiment_id")
     private Experiment experiment;
-
     @Column(name = "objectives")
     private String objectives;
 

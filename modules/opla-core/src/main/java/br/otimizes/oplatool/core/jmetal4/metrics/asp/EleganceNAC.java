@@ -11,29 +11,16 @@ public class EleganceNAC extends ObjectiveFunctionImplementation {
 
     public EleganceNAC(Architecture architecture) {
         super(architecture);
-        // quantidade de atributos + metodos de cada classe da solução
         ArrayList<Integer> lstAtrib = new ArrayList<>();
         ArrayList<Integer> lstMeth = new ArrayList<>();
-
-
-        // para cada classe contAtribMeth da arquitetura, contar a quantidade de metodos e atributos e adicionar a soma na lista lstAtriMeth
         for (Class contClass : architecture.getAllClasses()) {
             lstAtrib.add(contClass.getAllAttributes().size());
             lstMeth.add(contClass.getAllMethods().size());
         }
-
-        // calculo do desvio padrao
         Double atribClass = StatisticalMethodsHelper.getStandardDeviation(lstAtrib);
-        System.out.println(("desvio padrão atributos de uma classe" + atribClass));
-
         Double methodClas = StatisticalMethodsHelper.getStandardDeviation(lstMeth);
-        System.out.println(("desvio padrão metodos de uma classe" + methodClas));
-
-
-        // media de dois desnvios
         Double THzNAC = (atribClass + methodClas) / 2;
-
-        System.out.println("THZ para NAC: " + THzNAC);
+        System.out.println("THZ for NAC: " + THzNAC);
         this.setResults(THzNAC);
     }
 

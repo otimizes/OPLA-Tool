@@ -45,7 +45,7 @@ public class NSGAIICrossover {
         File directory = new File("experiment/OPLA/NSGA-II/FeatureCrossover" + FileConstants.FILE_SEPARATOR);
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
-                System.out.println("Não foi possível criar o diretório do resultado");
+                System.out.println("Cannot create results directory");
                 System.exit(0);
             }
         }
@@ -128,8 +128,8 @@ public class NSGAIICrossover {
                 //System.out.println("Iruns: " + runs + "\tTotal time: " + estimatedTime);
                 time[runs] = estimatedTime;
 
-                resultFront = problem.removeDominadas(resultFront);
-                resultFront = problem.removeRepetidas(resultFront);
+                resultFront = problem.removeDominated(resultFront);
+                resultFront = problem.removeRepeated(resultFront);
 
                 new OPLASolutionSet(resultFront).printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
                 //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
@@ -150,8 +150,8 @@ public class NSGAIICrossover {
             new OPLASolutionSet(allSolutions).printObjectivesToFile(directory + "/Hypervolume/" + NameOfPLA + FileConstants.FILE_SEPARATOR + NameOfPLA + "_HV_" + moea + ".txt");
 
             MainTestUtil.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
-            todasRuns = problem.removeDominadas(todasRuns);
-            todasRuns = problem.removeRepetidas(todasRuns);
+            todasRuns = problem.removeDominated(todasRuns);
+            todasRuns = problem.removeRepeated(todasRuns);
 
 
             System.out.println("------    All Runs - Non-dominated solutions --------");

@@ -99,7 +99,7 @@ public class ManagerApplicationFileConfig {
     }
 
     public String configureDefaultLocaleToExportModels() throws IOException {
-        String path = UserHome.getOplaUserHome() + FileConstants.OUTPUT_DIR + FileConstants.FILE_SEPARATOR;
+        String path = UserHome.getOPLAUserHome() + FileConstants.OUTPUT_DIR + FileConstants.FILE_SEPARATOR;
         this.updatePathToExportModels(path);
         return path;
     }
@@ -129,7 +129,7 @@ public class ManagerApplicationFileConfig {
     }
 
     public String updateDefaultPathToSaveModels() throws IOException {
-        String pathTempDir = UserHome.getOplaUserHome() + FileConstants.TEMP_DIR + FileConstants.FILE_SEPARATOR;
+        String pathTempDir = UserHome.getOPLAUserHome() + FileConstants.TEMP_DIR + FileConstants.FILE_SEPARATOR;
         this.updatePathToSaveModels(pathTempDir);
         return pathTempDir;
     }

@@ -171,8 +171,8 @@ public class NSGAIIOPLAPLAThenDPM {
             long initTime = System.currentTimeMillis();
             SolutionSet resultFront = algorithm.execute();
 
-            resultFront = problem.removeDominadas(resultFront);
-            resultFront = problem.removeRepetidas(resultFront);
+            resultFront = problem.removeDominated(resultFront);
+            resultFront = problem.removeRepeated(resultFront);
 
             //Parte do algoritmo que executa o operador de mutação de padrões de projeto
             algorithm.addOperator("mutation", designPatternMutation);
@@ -188,8 +188,8 @@ public class NSGAIIOPLAPLAThenDPM {
             resultFront = algorithm.execute();
             long estimatedTime = System.currentTimeMillis() - initTime;
 
-            resultFront = problem.removeDominadas(resultFront);
-            resultFront = problem.removeRepetidas(resultFront);
+            resultFront = problem.removeDominated(resultFront);
+            resultFront = problem.removeRepeated(resultFront);
 
             //System.out.println("Iruns: " + runs + "\tTotal time: " + estimatedTime);
             time[runs] = estimatedTime;
@@ -202,7 +202,7 @@ public class NSGAIIOPLAPLAThenDPM {
                 new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_");
             }
 
-            Hypervolume.printFormatedHypervolumeFile(resultFront, directory + "/fitness.txt", true);
+            Hypervolume.printFormattedHyperVolumeFile(resultFront, directory + "/fitness.txt", true);
 
             //armazena as solucoes de todas runs
             todasRuns = todasRuns.union(resultFront);
@@ -215,8 +215,8 @@ public class NSGAIIOPLAPLAThenDPM {
 
         MainTestUtil.printTimeToFile(directory + "/TIME_" + plaName, runsNumber, time, pla);
 
-        todasRuns = problem.removeDominadas(todasRuns);
-        todasRuns = problem.removeRepetidas(todasRuns);
+        todasRuns = problem.removeDominated(todasRuns);
+        todasRuns = problem.removeRepeated(todasRuns);
 
         System.out.println("------    All Runs - Non-dominated solutions --------");
         new OPLASolutionSet(todasRuns).printObjectivesToFile(directory + "/FUN_All_" + plaName + ".txt");

@@ -3,7 +3,9 @@ package br.otimizes.oplatool.domain.entity.objectivefunctions;
 import br.otimizes.oplatool.domain.entity.Execution;
 import br.otimizes.oplatool.domain.entity.Experiment;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "tv_obj")
@@ -14,8 +16,8 @@ public class TVObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "av")
     private Double av;
 
-    public TVObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public TVObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -29,5 +31,4 @@ public class TVObjectiveFunction extends ObjectiveFunctionDomain {
     public void setAv(Double av) {
         this.av = av;
     }
-
 }

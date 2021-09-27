@@ -30,7 +30,7 @@ public class Objective implements Serializable {
     private Integer isAll;
 
     @ManyToOne
-    @JoinColumn(name = "experiement_id", nullable = false)
+    @JoinColumn(name = "experiment_id", nullable = false)
     private Experiment experiment;
 
     @Column(name = "solution_name")

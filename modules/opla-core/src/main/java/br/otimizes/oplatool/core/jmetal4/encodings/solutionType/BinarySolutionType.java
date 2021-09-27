@@ -42,10 +42,8 @@ public class BinarySolutionType extends SolutionType {
      */
     public Variable[] createVariables() {
         Variable[] variables = new Variable[problem_.getNumberOfVariables()];
-
-        for (int var = 0; var < problem_.getNumberOfVariables(); var++)
-            variables[var] = new Binary(problem_.getLength(var));
-
+        for (int variableIndex = 0; variableIndex < problem_.getNumberOfVariables(); variableIndex++)
+            variables[variableIndex] = new Binary(problem_.getLength(variableIndex));
         return variables;
     } // createVariables
 } // BinarySolutionType

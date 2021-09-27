@@ -60,8 +60,10 @@ public class SubjectiveAnalyzeAlgorithm {
         this.resultFront = resultFront;
         this.algorithm = algorithm;
         distributeUserEvaluations(resultFront);
-        this.scoreArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
-        this.architecturalArffExecution = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
+        this.scoreArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(),
+                resultFront.writeUserEvaluationsToMatrix(), null);
+        this.architecturalArffExecution = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(),
+                resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
     }
 
@@ -69,8 +71,10 @@ public class SubjectiveAnalyzeAlgorithm {
         this.resultFront = resultFront;
         this.algorithm = algorithm;
         distributeUserEvaluations(resultFront);
-        this.scoreArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(), resultFront.writeUserEvaluationsToMatrix(), null);
-        this.architecturalArffExecution = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
+        this.scoreArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(),
+                resultFront.writeUserEvaluationsToMatrix(), null);
+        this.architecturalArffExecution = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(),
+                resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
     }
 
@@ -85,7 +89,6 @@ public class SubjectiveAnalyzeAlgorithm {
      * Execution Method
      *
      * @return Solution Set - Best performing cluster with another solutions (filteredSolutions)
-     * @throws Exception Default Exception
      */
     public SolutionSet run(OPLASolutionSet solutionSet, boolean middle) {
         try {
@@ -107,9 +110,8 @@ public class SubjectiveAnalyzeAlgorithm {
      * Algorithm Execution Method
      *
      * @return Solution Set
-     * @throws Exception Default Exception
      */
-    public SolutionSet getAlgorithm(OPLASolutionSet solutionSet, boolean inOnmiddle) {
+    public SolutionSet getAlgorithm(OPLASolutionSet solutionSet, boolean inOnMiddle) {
         currentEvaluation++;
         LOGGER.info("getAlgorithm()");
         long startsIn = new Date().getTime();
@@ -120,11 +122,11 @@ public class SubjectiveAnalyzeAlgorithm {
         }
 
         if (solutionSet != null) {
-            joinSolutionSet(solutionSet, inOnmiddle);
+            joinSolutionSet(solutionSet, inOnMiddle);
         }
         setArffExecutionClassIndex(scoreArffExecution);
         setArffExecutionClassIndex(architecturalArffExecution);
-        startAlgorithms(inOnmiddle);
+        startAlgorithms(inOnMiddle);
 
         LOGGER.info("::: Time: " + ((new Date().getTime() - startsIn) / 1000));
         return resultFront.getSolutionSet();
@@ -149,23 +151,26 @@ public class SubjectiveAnalyzeAlgorithm {
         return architecturalAlgorithm;
     }
 
-    private void joinSolutionSet(OPLASolutionSet solutionSet, boolean inOnmiddle) {
+    private void joinSolutionSet(OPLASolutionSet solutionSet, boolean inOnMiddle) {
         if (!solutionSet.hasUserEvaluation()) {
-            LOGGER.info("donthasUserEvaluation");
+            LOGGER.info("hasNoUserEvaluation");
             evaluateSolutionSetScoreAlgorithm(solutionSet);
         } else {
             LOGGER.info("hasUserEvaluation");
             distributeUserEvaluations(solutionSet);
         }
-        if (!inOnmiddle) {
-            ArffExecution newArffArchitectureAlgorithm = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(), resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
+        if (!inOnMiddle) {
+            ArffExecution newArffArchitectureAlgorithm = new ArffExecution(resultFront.writeObjectivesAndArchitecturalElementsNumberToMatrix(),
+                    resultFront.writeArchitecturalEvaluationsToMatrix(), null, true);
             if (newArffArchitectureAlgorithm.getData() != null) {
                 newArffArchitectureAlgorithm.getData().setClassIndex(newArffArchitectureAlgorithm.getAttrIndices());
-                if (architecturalArffExecution.getData() == null) architecturalArffExecution = newArffArchitectureAlgorithm;
+                if (architecturalArffExecution.getData() == null)
+                    architecturalArffExecution = newArffArchitectureAlgorithm;
                 else architecturalArffExecution.getData().addAll(newArffArchitectureAlgorithm.getData());
             }
         }
-        ArffExecution newArffScoreAlgorithm = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(), solutionSet.writeUserEvaluationsToMatrix(), null);
+        ArffExecution newArffScoreAlgorithm = new ArffExecution(solutionSet.writeObjectivesAndElementsNumberToMatrix(),
+                solutionSet.writeUserEvaluationsToMatrix(), null);
         newArffScoreAlgorithm.getData().setClassIndex(newArffScoreAlgorithm.getAttrIndices());
         resultFront.getSolutionSet().getSolutionSet().addAll(solutionSet.getSolutionSet().getSolutionSet());
         scoreArffExecution.getData().addAll(newArffScoreAlgorithm.getData());
@@ -201,20 +206,23 @@ public class SubjectiveAnalyzeAlgorithm {
         if (architecturalArffExecution.getData() == null) return;
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "LogMachineLearningModel_" + currentEvaluation + ".arff");
+            fileWriter = new FileWriter(ApplicationFileConfigThreadScope.getDirectoryToExportModels()
+                    + FileConstants.FILE_SEPARATOR + "LogMachineLearningModel_" + currentEvaluation + ".arff");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
-        PrintWriter printWriter = new PrintWriter(fileWriter);
-        printWriter.print(architecturalArffExecution.getData().toString());
-        printWriter.close();
+        if (fileWriter != null) {
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(architecturalArffExecution.getData().toString());
+            printWriter.close();
+        }
     }
 
     public void evaluateSolutionSetScoreAlgorithm(OPLASolutionSet solutionSet) {
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
             try {
-                solutionSet.getSolutionSet().get(i).setEvaluation((int) scoreAlgorithm.classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
+                solutionSet.getSolutionSet().get(i).setEvaluation((int) scoreAlgorithm
+                        .classifyInstance(new DenseInstance(1.0, solutionSet.writeObjectivesAndElementsNumberEvaluationToMatrix()[i])));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -247,7 +255,8 @@ public class SubjectiveAnalyzeAlgorithm {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    LOGGER.info(element.getName() + ":" + element.getTypeElement() + " was " + (element.isFreezeByDM() ? " FREEZED" : " NOT FREEZED"));
+                    LOGGER.info(element.getName() + ":" + element.getTypeElement() + " was "
+                            + (element.isFreezeByDM() ? " FREEZED" : " NOT FREEZED"));
                     if (element.isFreezeByDM()) {
                         LOGGER.info("::: Freezed " + element.getName());
                         this.freezedElements.add(element);
@@ -313,19 +322,19 @@ public class SubjectiveAnalyzeAlgorithm {
 
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "LogMachineLearningModelEvaluation_" + currentEvaluation + ".arff");
+            fileWriter = new FileWriter(ApplicationFileConfigThreadScope.getDirectoryToExportModels()
+                    + FileConstants.FILE_SEPARATOR + "LogMachineLearningModelEvaluation_" + currentEvaluation + ".arff");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
 
-        PrintWriter printWriter = new PrintWriter(fileWriter);
-        printWriter.print(stringBuilder);
-        printWriter.close();
+        if (fileWriter != null) {
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(stringBuilder);
+            printWriter.close();
+        }
     }
 
-    /**
-     * Build the algorithm
-     */
     private void buildScoreAlgorithm() {
         if (scoreArffExecution.getData() == null) return;
         LOGGER.info("buildScoreAlgorithm()");
@@ -342,7 +351,6 @@ public class SubjectiveAnalyzeAlgorithm {
                     break;
             }
             logSubjectiveModelEvaluation();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

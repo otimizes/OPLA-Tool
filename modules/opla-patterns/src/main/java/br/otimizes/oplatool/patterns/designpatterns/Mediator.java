@@ -24,21 +24,12 @@ import br.otimizes.oplatool.patterns.util.RelationshipUtil;
  */
 public class Mediator extends DesignPattern {
 
-    /** The instance. */
     private static volatile Mediator INSTANCE;
 
-    /**
-     * Instantiates a new mediator.
-     */
     private Mediator() {
         super("Mediator", "Behavioral");
     }
 
-    /**
-     * Gets the single instance of Mediator.
-     *
-     * @return single instance of Mediator
-     */
     public static synchronized Mediator getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Mediator();
@@ -46,16 +37,9 @@ public class Mediator extends DesignPattern {
         return INSTANCE;
     }
 
-    /**
-     * Verify PS.
-     *
-     * @param scope the scope
-     * @return true, if PS
-     */
     @Override
     public boolean verifyPS(Scope scope) {
         boolean isPs = false;
-
         List<Element> elements = scope.getElements();
         HashMap<Concern, List<Element>> groupedElements = ElementUtil.groupElementsByConcern(elements);
         for (Map.Entry<Concern, List<Element>> entry : groupedElements.entrySet()) {
@@ -84,39 +68,32 @@ public class Mediator extends DesignPattern {
                         }
                     }
                 }
-                if (count > 2) {
-                    PSMediator psMediator = new PSMediator(chainOfElements, concern);
-                    if (!scope.getPSs().contains(psMediator)) {
-                        scope.addPS(psMediator);
-                    } else {
-                        psMediator = (PSMediator) scope.getPSs().get(scope.getPSs().indexOf(psMediator));
-                        psMediator.setParticipants(new ArrayList<>(CollectionUtils.union(chainOfElements, psMediator.getParticipants())));
-                    }
-                    isPs = true;
-                }
+                isPs = isCounterIsGreaterThenTwo(scope, isPs, concern, chainOfElements, count);
             }
         }
 
         return isPs;
     }
 
-    /**
-     * Verify PSPLA.
-     *
-     * @param scope the scope
-     * @return true, if PSPLA
-     */
+    private boolean isCounterIsGreaterThenTwo(Scope scope, boolean isPs, Concern concern, List<Element> chainOfElements, int count) {
+        if (count > 2) {
+            PSMediator psMediator = new PSMediator(chainOfElements, concern);
+            if (!scope.getPSs().contains(psMediator)) {
+                scope.addPS(psMediator);
+            } else {
+                psMediator = (PSMediator) scope.getPSs().get(scope.getPSs().indexOf(psMediator));
+                psMediator.setParticipants(new ArrayList<>(CollectionUtils.union(chainOfElements, psMediator.getParticipants())));
+            }
+            isPs = true;
+        }
+        return isPs;
+    }
+
     @Override
     public boolean verifyPSPLA(Scope scope) {
         return verifyPS(scope);
     }
 
-    /**
-     * Apply.
-     *
-     * @param scope the scope
-     * @return true, if successful
-     */
     @Override
     public boolean apply(Scope scope) {
         boolean applied = false;
@@ -125,45 +102,27 @@ public class Mediator extends DesignPattern {
                 PSMediator psMediator = (PSMediator) scope.getPSs(this).get(0);
                 List<Element> participants = psMediator.getParticipants();
                 final Concern concern = psMediator.getConcern();
-
-                // Identify or create EventOfInterest class
                 Class eventOfInterest = MediatorUtil.getOrCreateEventOfInterestClass();
                 participants.remove(eventOfInterest);
-
-                // "" Mediator interface 
                 Interface mediatorInterface = MediatorUtil.getOrCreateMediatorInterface(participants, concern, eventOfInterest);
                 participants.remove(mediatorInterface);
-
-                // "" Mediator class
                 Class mediatorClass = MediatorUtil.getOrCreateMediatorClass(participants, concern, mediatorInterface);
                 participants.remove(mediatorClass);
-
-                // "" colleague interface 
                 Interface colleagueInterface = MediatorUtil.getOrCreateColleagueInterface(participants, concern, mediatorInterface, eventOfInterest);
                 participants.remove(colleagueInterface);
-
-                // Removing relationships
                 MediatorUtil.removeRelationships(participants, concern);
-
-                // Implementing Colleague interfaces 
                 List<Element> adapterList = new ArrayList<>();
                 List<Element> adapteeList = new ArrayList<>();
-
                 ElementUtil.implementInterface(participants, colleagueInterface, adapterList, adapteeList);
-
                 participants.removeAll(adapteeList);
                 for (Element adapterClass : adapterList) {
                     if (!participants.contains(adapterClass)) {
                         participants.add(adapterClass);
                     }
                 }
-
-                // Using colleagues
                 for (Element element : participants) {
                     RelationshipUtil.createNewUsageRelationship("usesColleague", mediatorClass, element);
                 }
-
-                // Applying stereotypes
                 addStereotype(eventOfInterest);
                 addStereotype(mediatorInterface);
                 addStereotype(mediatorClass);
@@ -177,5 +136,4 @@ public class Mediator extends DesignPattern {
         }
         return applied;
     }
-
 }

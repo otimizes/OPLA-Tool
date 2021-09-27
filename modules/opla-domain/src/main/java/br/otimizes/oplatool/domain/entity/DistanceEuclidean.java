@@ -17,14 +17,11 @@ public class DistanceEuclidean implements Serializable {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-
     @Column(name = "solution_name")
     private String solutionName;
-
     @ManyToOne
     @JoinColumn(name = "experiment_id", nullable = false)
     private Experiment expediment;
-
     @Column(name = "ed")
     private Double ed;
 
@@ -86,5 +83,4 @@ public class DistanceEuclidean implements Serializable {
         return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("id", id)
                 .append("solutionName", solutionName).append("expedimentId", expediment).append("ed", ed).toString();
     }
-
 }

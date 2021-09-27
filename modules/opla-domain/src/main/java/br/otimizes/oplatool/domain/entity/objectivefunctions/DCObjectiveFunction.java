@@ -20,8 +20,8 @@ public class DCObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "cdao")
     private Double cdao;
 
-    public DCObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public DCObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
 
     public static long getSerialVersionUID() {
@@ -51,5 +51,4 @@ public class DCObjectiveFunction extends ObjectiveFunctionDomain {
     public void setCdao(Double cdao) {
         this.cdao = cdao;
     }
-
 }

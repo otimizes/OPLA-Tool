@@ -24,14 +24,14 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
     public static void createDirectory(Path path) {
         try {
             if (!Files.exists(path)) {
-                LOGGER.info("Criando diretório..." + path);
+                LOGGER.info("Creating directory..." + path);
                 Files.createDirectory(path);
-                LOGGER.info("Diretório " + path + " criado " + path);
+                LOGGER.info("Directory " + path + " created " + path);
             } else {
-                LOGGER.info("Diretório " + path + " já existente");
+                LOGGER.info("Directory " + path + " already exists");
             }
         } catch (IOException e) {
-            LOGGER.info("Não foi possível criar o diretório home" + path);
+            LOGGER.info("Directory home not found " + path);
         }
     }
 
@@ -51,7 +51,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
             } else Files.copy(source, target);
             LOGGER.info("Copia de " + source + " concluída com sucesso");
         } catch (IOException e) {
-            LOGGER.info("Não foi possível copiar o arquivo: " + source);
+            LOGGER.info("Cannot copy file: " + source);
         }
     }
 
@@ -63,7 +63,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
             Files.copy(source, target);
             LOGGER.info("Copia concluída com sucesso");
         } catch (IOException e) {
-            LOGGER.info("Não foi possível copiar o arquivo");
+            LOGGER.info("Cannot copy the file");
         }
     }
 

@@ -21,10 +21,10 @@
 
 package br.otimizes.oplatool.core.jmetal4.encodings.variable;
 
-import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.common.Configuration;
 import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.common.exceptions.JMException;
+import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.util.PseudoRandom;
 
 
@@ -48,20 +48,12 @@ public class ArrayReal extends Variable {
      */
     Problem problem_;
 
-    /**
-     * Constructor
-     */
     public ArrayReal() {
         problem_ = null;
         size_ = 0;
         array_ = null;
     } // Constructor
 
-    /**
-     * Constructor
-     *
-     * @param size Size of the array
-     */
     public ArrayReal(int size, Problem problem) {
         problem_ = problem;
         size_ = size;

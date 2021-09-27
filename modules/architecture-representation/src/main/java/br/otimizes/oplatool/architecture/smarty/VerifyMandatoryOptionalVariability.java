@@ -28,78 +28,59 @@ public class VerifyMandatoryOptionalVariability {
      *
      * @param architecture - the architecture to be decoded
      */
-    public void Verify(Architecture architecture) {
-        for (Class clazz : architecture.getClasses()) {
-            if (clazz.getVariant() != null) {
-                if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
-                    clazz.setMandatory(true);
+    public void verify(Architecture architecture) {
+        for (Class aClass : architecture.getClasses()) {
+            if (aClass.getVariant() != null) {
+                if (aClass.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
+                    aClass.setMandatory(true);
                 }
-                if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
-                    clazz.setMandatory(false);
-                }
-            }
-        }
-        for (Interface clazz : architecture.getInterfaces()) {
-            if (clazz.getVariant() != null) {
-                if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
-                    clazz.setMandatory(true);
-                }
-                if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
-                    clazz.setMandatory(false);
+                if (aClass.getVariant().getVariantType().equalsIgnoreCase("optional")) {
+                    aClass.setMandatory(false);
                 }
             }
         }
-        for (Package pkg : architecture.getAllPackages()) {
-            for (Class clazz : pkg.getAllClasses()) {
-                if (clazz.getVariant() != null) {
-                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
-                        clazz.setMandatory(true);
-                    }
-                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
-                        clazz.setMandatory(false);
-                    }
+        for (Interface anInterface : architecture.getInterfaces()) {
+            if (anInterface.getVariant() != null) {
+                if (anInterface.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
+                    anInterface.setMandatory(true);
+                }
+                if (anInterface.getVariant().getVariantType().equalsIgnoreCase("optional")) {
+                    anInterface.setMandatory(false);
                 }
             }
-            for (Interface clazz : pkg.getAllInterfaces()) {
-                if (clazz.getVariant() != null) {
-                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
-                        clazz.setMandatory(true);
-                    }
-                    if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
-                        clazz.setMandatory(false);
-                    }
-                }
-            }
-            for (Package p : pkg.getNestedPackages()) {
-                verifyMandatorySubPackage(p);
-            }
+        }
+        for (Package aPackage : architecture.getAllPackages()) {
+            setVariantInElements(aPackage);
         }
     }
 
     public void verifyMandatorySubPackage(Package pkg) {
-        for (Class clazz : pkg.getAllClasses()) {
-            if (clazz.getVariant() != null) {
-                if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
-                    clazz.setMandatory(true);
-                }
-                if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
-                    clazz.setMandatory(false);
-                }
-            }
-        }
-        for (Interface clazz : pkg.getAllInterfaces()) {
-            if (clazz.getVariant() != null) {
-                if (clazz.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
-                    clazz.setMandatory(true);
-                }
-                if (clazz.getVariant().getVariantType().equalsIgnoreCase("optional")) {
-                    clazz.setMandatory(false);
-                }
-            }
-        }
-        for (Package p : pkg.getNestedPackages()) {
-            verifyMandatorySubPackage(p);
-        }
+        setVariantInElements(pkg);
     }
 
+    private void setVariantInElements(Package pkg) {
+        for (Class aClass : pkg.getAllClasses()) {
+            if (aClass.getVariant() != null) {
+                if (aClass.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
+                    aClass.setMandatory(true);
+                }
+                if (aClass.getVariant().getVariantType().equalsIgnoreCase("optional")) {
+                    aClass.setMandatory(false);
+                }
+            }
+        }
+        for (Interface anInterface : pkg.getAllInterfaces()) {
+            if (anInterface.getVariant() != null) {
+                if (anInterface.getVariant().getVariantType().equalsIgnoreCase("mandatory")) {
+                    anInterface.setMandatory(true);
+                }
+                if (anInterface.getVariant().getVariantType().equalsIgnoreCase("optional")) {
+                    anInterface.setMandatory(false);
+                }
+            }
+        }
+        for (Package aPackage : pkg.getNestedPackages()) {
+            verifyMandatorySubPackage(aPackage);
+        }
+    }
 }

@@ -49,9 +49,6 @@ public class Real extends Variable {
      */
     private double upperBound_;
 
-    /**
-     * Constructor
-     */
     public Real() {
     } // Real
 
@@ -73,7 +70,7 @@ public class Real extends Variable {
      * Copy constructor.
      *
      * @param variable The variable to copy.
-     * @throws JMException
+     * @throws JMException exception
      */
     public Real(Variable variable) throws JMException {
         lowerBound_ = variable.getLowerBound();

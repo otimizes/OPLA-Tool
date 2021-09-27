@@ -63,7 +63,8 @@ public class UtilResources {
         String strLog = "";
 
         if (r instanceof GeneralizationRelationship) {
-            strLog += "Superclass:" + ((GeneralizationRelationship) r).getParent().getName() + " subclasses: " + childrenToStr(((GeneralizationRelationship) r).getAllChildrenForGeneralClass());
+            strLog += "Superclass:" + ((GeneralizationRelationship) r).getParent().getName() + " subclasses: "
+                    + childrenToStr(((GeneralizationRelationship) r).getAllChildrenForGeneralClass());
         }
         if (r instanceof AssociationRelationship) {
             String participantsStr = participantsToStr(((AssociationRelationship) r).getParticipants());
@@ -71,7 +72,8 @@ public class UtilResources {
         }
 
         if (r instanceof AssociationClassRelationship) {
-            strLog += "AssociationClass: " + ((AssociationClassRelationship) r).getAssociationClass().getName() + ". MembersEnd: " + membersEndToStr(((AssociationClassRelationship) r).getMembersEnd());
+            strLog += "AssociationClass: " + ((AssociationClassRelationship) r).getAssociationClass().getName()
+                    + ". MembersEnd: " + membersEndToStr(((AssociationClassRelationship) r).getMembersEnd());
         }
 
         return strLog;
@@ -97,5 +99,4 @@ public class UtilResources {
             children.append(element.getName()).append(" ");
         return children.toString().trim();
     }
-
 }

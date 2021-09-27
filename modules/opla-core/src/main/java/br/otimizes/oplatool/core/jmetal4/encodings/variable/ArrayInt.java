@@ -21,10 +21,10 @@
 
 package br.otimizes.oplatool.core.jmetal4.encodings.variable;
 
-import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.common.Configuration;
 import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.common.exceptions.JMException;
+import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.util.PseudoRandom;
 
 
@@ -54,9 +54,6 @@ public class ArrayInt extends Variable {
     private int[] lowerBounds_;
     private int[] upperBounds_;
 
-    /**
-     * Constructor
-     */
     public ArrayInt() {
         lowerBounds_ = null;
         upperBounds_ = null;
@@ -65,11 +62,6 @@ public class ArrayInt extends Variable {
         problem_ = null;
     } // Constructor
 
-    /**
-     * Constructor
-     *
-     * @param size Size of the array
-     */
     public ArrayInt(int size) {
         size_ = size;
         array_ = new int[size_];

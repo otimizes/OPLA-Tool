@@ -3,7 +3,9 @@ package br.otimizes.oplatool.domain.entity.objectivefunctions;
 import br.otimizes.oplatool.domain.entity.Execution;
 import br.otimizes.oplatool.domain.entity.Experiment;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
@@ -17,10 +19,9 @@ public class ACLASSObjectiveFunction extends ObjectiveFunctionDomain {
     @Column(name = "sumclassdepout")
     private Double sumClassesDepOut;
 
-    public ACLASSObjectiveFunction(String idSolution, Execution execution, Experiment experiement) {
-        super(idSolution, execution, experiement);
+    public ACLASSObjectiveFunction(String idSolution, Execution execution, Experiment experiment) {
+        super(idSolution, execution, experiment);
     }
-
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -65,6 +66,4 @@ public class ACLASSObjectiveFunction extends ObjectiveFunctionDomain {
     public int hashCode() {
         return Objects.hash(getId(), getExecution(), getExperiment(), getIsAll(), getIdSolution(), sumClassesDepIn, sumClassesDepOut);
     }
-
-
 }

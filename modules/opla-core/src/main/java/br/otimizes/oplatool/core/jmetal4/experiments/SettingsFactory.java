@@ -23,6 +23,7 @@ package br.otimizes.oplatool.core.jmetal4.experiments;
 
 import br.otimizes.oplatool.common.Configuration;
 import br.otimizes.oplatool.common.exceptions.JMException;
+import br.otimizes.oplatool.core.jmetal4.experiments.settings.Settings;
 
 import java.lang.reflect.Constructor;
 
@@ -36,7 +37,7 @@ public class SettingsFactory {
      * @param algorithmName Name of the algorithm
      * @param params        Parameters
      * @return The settings object
-     * @throws JMException
+     * @throws JMException exception
      */
     public Settings getSettingsObject(String algorithmName, Object[] params)
             throws JMException {
@@ -49,8 +50,7 @@ public class SettingsFactory {
                     (constructors[i].getParameterTypes().length != params.length)) {
                 i++;
             }
-            Settings algorithmSettings = (Settings) constructors[i].newInstance(params);
-            return algorithmSettings;
+            return (Settings) constructors[i].newInstance(params);
         }// try
         catch (Exception e) {
             e.printStackTrace();
@@ -59,6 +59,6 @@ public class SettingsFactory {
                     "Please, check the algorithm name in br.otimizes.oplatool.core.jmetal4/metaheuristics");
             throw new JMException("Exception in " + base + ".getSettingsObject()");
         } // catch
-    } // getSttingsObject
+    } // getSettingsObject
 
 } // SettingsFactory

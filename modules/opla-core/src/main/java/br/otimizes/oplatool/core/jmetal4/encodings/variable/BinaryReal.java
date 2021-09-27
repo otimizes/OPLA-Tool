@@ -52,9 +52,6 @@ public class BinaryReal extends Binary {
      */
     private double upperBound_;
 
-    /**
-     * Constructor.
-     */
     public BinaryReal() {
         super();
     } //BinaryReal

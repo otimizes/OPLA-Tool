@@ -44,8 +44,8 @@ public class ObjectiveFunctionsTest {
 
         opla.setSelectedMetrics(new ArrayList<>());
         solution.setNumberOfObjectives(values.length);
-        for (int i = 0; i < values.length; i++) {
-            opla.getSelectedMetrics().add(values[i].toString());
+        for (ObjectiveFunctions value : values) {
+            opla.getSelectedMetrics().add(value.toString());
         }
 
         opla.evaluate(solution);
@@ -383,8 +383,8 @@ public class ObjectiveFunctionsTest {
 
         opla.setSelectedMetrics(new ArrayList<>());
         solution.setNumberOfObjectives(values.length);
-        for (int i = 0; i < values.length; i++) {
-            opla.getSelectedMetrics().add(values[i].toString());
+        for (ObjectiveFunctions value : values) {
+            opla.getSelectedMetrics().add(value.toString());
         }
 
         opla.evaluate(solution);

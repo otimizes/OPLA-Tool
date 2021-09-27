@@ -1,26 +1,19 @@
 package br.otimizes.oplatool.patterns.strategies.scopeselection.defaultstrategy;
 
+import br.otimizes.oplatool.architecture.representation.Architecture;
+import br.otimizes.oplatool.architecture.representation.Patterns;
+import br.otimizes.oplatool.patterns.models.Scope;
+import br.otimizes.oplatool.patterns.strategies.scopeselection.ScopeSelectionStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import br.otimizes.oplatool.patterns.models.Scope;
-import br.otimizes.oplatool.patterns.strategies.scopeselection.ScopeSelectionStrategy;
-import br.otimizes.oplatool.architecture.representation.Architecture;
-import br.otimizes.oplatool.architecture.representation.Patterns;
 
 /**
  * The Class RandomScopeSelection.
  */
 public class RandomScopeSelection implements ScopeSelectionStrategy {
 
-    /**
-     * Select scope.
-     *
-     * @param architecture the architecture
-     * @param pattern the pattern
-     * @return the scope
-     */
     @Override
     public Scope selectScope(Architecture architecture, Patterns pattern) {
         Scope scope = new Scope();
@@ -40,5 +33,4 @@ public class RandomScopeSelection implements ScopeSelectionStrategy {
         }
         return scope;
     }
-
 }

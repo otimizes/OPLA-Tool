@@ -44,7 +44,7 @@ public class Uml2Helper extends Base {
     }
 
     public void saveResources(org.eclipse.uml2.uml.Package package_, URI uri) throws IOException {
-        ArrayList<EObject> contents = new ArrayList<EObject>();
+        ArrayList<EObject> contents = new ArrayList<>();
         contents.add(package_);
         save(contents, uri);
     }
@@ -53,7 +53,6 @@ public class Uml2Helper extends Base {
         URI finalUri = uri.appendFileExtension(UMLResource.FILE_EXTENSION);
         Resource resource = getResources().createResource(finalUri);
         resource.getContents().addAll(contents);
-
         resource.save(null);
     }
 
@@ -87,16 +86,16 @@ public class Uml2Helper extends Base {
         System.out.println(error);
     }
 
-    public org.eclipse.uml2.uml.Class referenceMetaclass(Profile profile, String name) throws ModelNotFoundException {
+    public org.eclipse.uml2.uml.Class referenceMetaClass(Profile profile, String name) {
         Model umlMetamodel = (Model) getInternalResources(URI.createURI(UMLResource.UML_METAMODEL_URI));
-        org.eclipse.uml2.uml.Class metaclass = (org.eclipse.uml2.uml.Class) umlMetamodel.getOwnedType(name);
-        profile.createMetaclassReference(metaclass);
-        printLog("Metaclass '" + metaclass.getQualifiedName() + "' referenced.");
-        return metaclass;
+        org.eclipse.uml2.uml.Class metaClass = (org.eclipse.uml2.uml.Class) umlMetamodel.getOwnedType(name);
+        profile.createMetaclassReference(metaClass);
+        printLog("MetaClass '" + metaClass.getQualifiedName() + "' referenced.");
+        return metaClass;
     }
 
-    public void createExtension(Class metaclass, Stereotype stereotype, boolean required) {
-        Extension extension = stereotype.createExtension(metaclass, required);
+    public void createExtension(Class metaClass, Stereotype stereotype, boolean required) {
+        Extension extension = stereotype.createExtension(metaClass, required);
         printLog((required ? "Required extension '" : "Extension '") + extension.getQualifiedName() + "' created.");
     }
 
@@ -106,84 +105,55 @@ public class Uml2Helper extends Base {
 
         Association association = type1.createAssociation(end1IsNavigable, end1Aggregation, end1Name, end1LowerBound,
                 end1UpperBound, type2, end2IsNavigable, end2Aggregation, end2Name, end2LowerBound, end2UpperBound);
-
         if (PRINT_LOGS) {
             StringBuffer sb = new StringBuffer();
-
             sb.append("Association ");
-
-            if (null == end1Name || 0 == end1Name.length()) {
-                sb.append('{');
-                sb.append(type1.getQualifiedName());
-                sb.append('}');
-            } else {
-                sb.append("'");
-                sb.append(type1.getQualifiedName());
-                sb.append(NamedElement.SEPARATOR);
-                sb.append(end1Name);
-                sb.append("'");
-            }
-
-            sb.append(" [");
-            sb.append(end1LowerBound);
-            sb.append("..");
-            sb.append(LiteralUnlimitedNatural.UNLIMITED == end1UpperBound ? "*" : String.valueOf(end1UpperBound));
+            appendEnd(type1, end1Name, end1LowerBound, end1UpperBound, sb);
             sb.append("] ");
-
             sb.append(end2IsNavigable ? '<' : '-');
             sb.append('-');
             sb.append(end1IsNavigable ? '>' : '-');
             sb.append(' ');
-
-            if (null == end2Name || 0 == end2Name.length()) {
-                sb.append('{');
-                sb.append(type2.getQualifiedName());
-                sb.append('}');
-            } else {
-                sb.append("'");
-                sb.append(type2.getQualifiedName());
-                sb.append(NamedElement.SEPARATOR);
-                sb.append(end2Name);
-                sb.append("'");
-            }
-
-            sb.append(" [");
-            sb.append(end2LowerBound);
-            sb.append("..");
-            sb.append(LiteralUnlimitedNatural.UNLIMITED == end2UpperBound ? "*" : String.valueOf(end2UpperBound));
+            appendEnd(type2, end2Name, end2LowerBound, end2UpperBound, sb);
             sb.append("]");
-
             sb.append(" created.");
-
             printLog(sb.toString());
         }
-
         return association;
+    }
+
+    private void appendEnd(Type type2, String end2Name, int end2LowerBound, int end2UpperBound, StringBuffer sb) {
+        if (null == end2Name || 0 == end2Name.length()) {
+            sb.append('{');
+            sb.append(type2.getQualifiedName());
+            sb.append('}');
+        } else {
+            sb.append("'");
+            sb.append(type2.getQualifiedName());
+            sb.append(NamedElement.SEPARATOR);
+            sb.append(end2Name);
+            sb.append("'");
+        }
+        sb.append(" [");
+        sb.append(end2LowerBound);
+        sb.append("..");
+        sb.append(LiteralUnlimitedNatural.UNLIMITED == end2UpperBound ? "*" : String.valueOf(end2UpperBound));
     }
 
     public void createAttribute(Class class_, String name, Type type, int lowerBound,
                                 int upperBound) {
         Property attribute = class_.createOwnedAttribute(name, type, lowerBound, upperBound);
-
-        StringBuffer sb = new StringBuffer();
-
-        sb.append("Attribute '");
-
-        sb.append(attribute.getQualifiedName());
-
-        sb.append("' : ");
-
-        sb.append(type.getQualifiedName());
-
-        sb.append(" [");
-        sb.append(lowerBound);
-        sb.append("..");
-        sb.append(LiteralUnlimitedNatural.UNLIMITED == upperBound ? "*" : String.valueOf(upperBound));
-        sb.append("]");
-
-        sb.append(" created.");
-
-        printLog(sb.toString());
+        String sb = "Attribute '" +
+                attribute.getQualifiedName() +
+                "' : " +
+                type.getQualifiedName() +
+                " [" +
+                lowerBound +
+                ".." +
+                (LiteralUnlimitedNatural.UNLIMITED == upperBound ? "*" : String.valueOf(upperBound)) +
+                "]" +
+                " created.";
+        printLog(sb);
     }
 
     public Enumeration createEnumeration(org.eclipse.uml2.uml.Package pkg, String name) {
@@ -199,28 +169,23 @@ public class Uml2Helper extends Base {
 
     public org.eclipse.uml2.uml.Package load(String pathAbsolute)
             throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelException {
-
         File file = new File(pathAbsolute);
         FilenameFilter filter = new OnlyCompleteResources();
         if (fileExists(file)) {
             File dir = file.getParentFile();
             String resourcesName = file.getName().substring(0, file.getName().lastIndexOf("."));
-
             if (isCompleteResources(filter, dir, resourcesName))
-                throw new ModelIncompleteException("Modelo Incompleto");
-
+                throw new ModelIncompleteException("Incomplete model");
             Package model = getExternalResources(pathAbsolute);
             if (model.eClass().equals(UMLPackage.Literals.PROFILE)) {
                 if (((Profile) model).isDefined())
                     ((Profile) model).define();
                 return model;
             }
-
             return model;
-
         }
 
-        throw new ModelNotFoundException("Model " + pathAbsolute + " não encontrado.");
+        throw new ModelNotFoundException("Model " + pathAbsolute + " not found.");
     }
 
     public PackageableElement getEnumerationByName(Profile profile, String name) throws EnumerationNotFoundException {

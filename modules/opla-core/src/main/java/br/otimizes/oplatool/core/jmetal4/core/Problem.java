@@ -81,16 +81,10 @@ public abstract class Problem implements Serializable {
      */
     protected int[] length_;
 
-    /**
-     * Constructor.
-     */
     public Problem() {
         solutionType_ = null;
     } // Problem
 
-    /**
-     * Constructor.
-     */
     public Problem(SolutionType solutionType) {
         solutionType_ = solutionType;
     } // Problem

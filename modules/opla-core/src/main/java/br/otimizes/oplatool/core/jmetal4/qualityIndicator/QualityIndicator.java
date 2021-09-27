@@ -38,11 +38,6 @@ public class QualityIndicator {
     Problem problem_;
     MetricsUtil utilities_;
 
-    /**
-     * Constructor
-     *
-     * @param paretoFrontFile
-     */
     public QualityIndicator(Problem problem, String paretoFrontFile) {
         problem_ = problem;
         utilities_ = new MetricsUtil();

@@ -202,9 +202,9 @@ public class ArchitectureFindElementControl {
             if (interfaceName.equalsIgnoreCase(interfaceFromArchitecture.getName()))
                 return interfaceFromArchitecture;
         for (Package p : architecture.getAllPackages())
-            for (Interface interfaceFromPackage : p.getAllInterfaces())
-                if (interfaceName.equalsIgnoreCase(interfaceFromPackage.getName()))
-                    return interfaceFromPackage;
+            for (Interface anInterface : p.getAllInterfaces())
+                if (interfaceName.equalsIgnoreCase(anInterface.getName()))
+                    return anInterface;
 
         return null;
     }

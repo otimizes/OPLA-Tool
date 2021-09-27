@@ -35,10 +35,6 @@ public class ValueComparator implements Comparator {
      */
     private int index_;
 
-    /**
-     * Constructor.
-     * Creates a new instance of ValueComparator
-     */
     public ValueComparator(int index) {
         index_ = index;
     }
