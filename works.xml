@@ -2,7 +2,7 @@
    <work>
     <year>2021</year>
     <title>On the configuration of multi-objective evolutionary algorithms for PLA design optimization</title>
-    <author>Willian M. Freire</author>
+    <author>Willian Marques Freire</author>
     <abstract>Search-based algorithms have been successfully applied in the
 Product Line Architecture (PLA) optimization using the seminal
 approach called Multi-Objective Approach for Product-Line Architecture Design (MOA4PLA). This approach produces a set of
@@ -26,7 +26,7 @@ combination of crossover operators and the most suitable values to
 configure MOA4PLA.</abstract>
     <paperlink>https://drive.google.com/file/d/1QGWK_khQQGYTgYNGaaSOaKTAFmqBhH2H/view?usp=sharing</paperlink>
     <experimentalpackagelink>https://doi.org/10.6084/m9.figshare.14903286</experimentalpackagelink>
-  </work>
+   </work>
    <work>
     <year>2021</year>
     <title>Are we speaking the industry language? The practice and literature of modernizing legacy systems with microservices</title>
