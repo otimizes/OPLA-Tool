@@ -1,6 +1,34 @@
 <works>
    <work>
     <year>2021</year>
+    <title>On the configuration of multi-objective evolutionary algorithms for PLA design optimization</title>
+    <author>Willian M. Freire</author>
+    <abstract>Search-based algorithms have been successfully applied in the
+Product Line Architecture (PLA) optimization using the seminal
+approach called Multi-Objective Approach for Product-Line Architecture Design (MOA4PLA). This approach produces a set of
+alternative PLA designs intending to improve the different factors
+being optimized. Currently, the MOA4PLA uses the NSGA-II algorithm , a multi-objective evolutionary algorithm (MOEA) that can
+optimize several architectural properties simultaneously. Despite
+the promising results, studying the best values for the algorithm
+parameters is essential to obtain even better results. This is also crucial to ease the adoption of MOA4PLA by newcomers or non-expert
+companies willing to start using search-based software engineering to PLA design. Three crossover operators for the PLA design
+optimization were proposed recently. However, reference values
+for parameters have not been defined for PLA design optimization
+using crossover operators. In this context, the objective of this work
+is conducting an experimental study to discover which are the most
+effective crossover operators and the best values to configure the
+MOEA parameters, such as population size, number of generations,
+and mutation and crossover rates. A quantitative analysis based
+on quality indicators and statistical tests was performed using four
+PLA designs to determine the most suitable parameter values to
+the search-based algorithm. Empirical results pointed out the best
+combination of crossover operators and the most suitable values to
+configure MOA4PLA.</abstract>
+    <paperlink>https://drive.google.com/file/d/1QGWK_khQQGYTgYNGaaSOaKTAFmqBhH2H/view?usp=sharing</paperlink>
+    <experimentalpackagelink>https://doi.org/10.6084/m9.figshare.14903286</experimentalpackagelink>
+  </work>
+   <work>
+    <year>2021</year>
     <title>Are we speaking the industry language? The practice and literature of modernizing legacy systems with microservices</title>
     <author>Thelma E. Colanzi</author>
     <abstract>Microservice architecture has gained much attention in the last few years in both industry 
