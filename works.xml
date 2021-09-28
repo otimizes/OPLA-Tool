@@ -1,5 +1,27 @@
 <works>
    <work>
+    <year>2021</year>
+    <title>Are we speaking the industry language? The practice and literature of modernizing legacy systems with microservices</title>
+    <author>Thelma E. Colanzi</author>
+    <abstract>Microservice architecture has gained much attention in the last few years in both industry 
+       and academia. Microservice is an architectural style that enables developing systems as a suite of
+       small loosely coupled, and autonomous (micro)services that encapsulate business capabilities and
+       communicate with each other using language-agnostic APIs. Despite the microservice adoption for
+       modernizing legacy systems, few studies investigate how microservices are used in practice. 
+       Furthermore, the literature still scarce on presenting studies on why and how the modernization 
+       is conducted in practice in comparison to existing literature on the subject. Thus, our goal is 
+       to investigate if industry and academy are speaking the same language concerning the modernization
+       of legacy systems with microservices, by means of a rigorous study on the use of microservices in 
+       the industry. For doing so, we design a survey to understand the state of practice from the
+       perspective of a modernization process roadmap derived from the literature. In this paper, we 
+       report the results of a survey with 56 software companies, from which 35 (63.6%) adopt the microservice 
+       architecture in their legacy systems. Results pointed out the most expected benefits that drive
+       the migration to microservices are easier software maintenance, better scalability, ease of deployment, 
+       and technology flexibility. Besides, we verified, based on a set of activities defined in the modernization
+       process, that the practitioners are performing their migration process according to the best literature practices.</abstract>
+    <paperlink>https://drive.google.com/file/d/1MPUQ5SNGI4Dpsw23uUyXbquZgRBUzCCf/view?usp=sharing</paperlink>
+  </work>
+   <work>
     <year>2019</year>
     <title>Prevention of Architectural Anomalies in Product Line Design Optimization</title>
     <author>Tiago Tadeu Madrigar</author>
