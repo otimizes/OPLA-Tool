@@ -88,18 +88,26 @@ public class Ranking {
         for (int i = 0; i < front.length; i++)
             front[i] = new LinkedList<Integer>();
 
+        for (int r=0; r < solutionSet_.size();r++) {
+            solutionSet.get(r).checkMajorObjective(solutionSet);
+        }
+ //       System.out.println("==== (101) Ranking MaximoObjetivos " + solutionSet.get(0).getObjectiveMax(0) + " " + + solutionSet.get(0).getObjectiveMax(1) + " " + + solutionSet.get(0).getObjectiveMax(2));
+
         //-> Fast non dominated sorting algorithm
         for (int p = 0; p < solutionSet_.size(); p++) {
             // Initialice the list of individuals that i dominate and the number
             // of individuals that dominate me
             iDominate[p] = new LinkedList<Integer>();
             dominateMe[p] = 0;
+
             // For all q individuals , calculate if p dominates q or vice versa
             for (int q = 0; q < solutionSet_.size(); q++) {
+
                 flagDominate = constraint_.compare(solutionSet.get(p), solutionSet.get(q));
                 if (flagDominate == 0) {
                     flagDominate = dominance_.compare(solutionSet.get(p), solutionSet.get(q));
                 }
+// verif.domin. System.out.println("Ranking p " + p + "-" + solutionSet.get(p) + " q " + q + "-" + solutionSet.get(q) + " " + flagDominate);
 
                 if (flagDominate == -1) {
                     iDominate[p].add(new Integer(q));

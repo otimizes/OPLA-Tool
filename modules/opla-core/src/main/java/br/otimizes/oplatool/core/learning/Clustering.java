@@ -53,10 +53,13 @@ public class Clustering implements Serializable {
 
     public Clustering(SolutionSet resultFront, ClusteringAlgorithm algorithm) {
         this.resultFront = new SolutionSet(resultFront.getSolutionSet().size());
+        // add the solutions offSpringPopulation in the resultFront
         for (Solution solution : resultFront.getSolutionSet()) {
             this.resultFront.add(solution);
         }
+
         this.algorithm = algorithm;
+
         this.arffExecution = new ArffExecution(resultFront.writeObjectivesToMatrix());
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
         min = new double[this.numObjectives];
@@ -65,6 +68,11 @@ public class Clustering implements Serializable {
             min[i] = Double.MAX_VALUE;
             max[i] = Double.MIN_VALUE;
         }
+        /// AQUI - verificar se coloca os valores objetivos ponderados
+        for (int i=0; i < resultFront.size();i++) {
+            resultFront.get(i).checkMajorObjective(resultFront);
+        }
+
         resultFront.getSolutionSet().forEach(r -> {
             for (int i = 0; i < this.numObjectives; i++) {
                 if (r.getObjective(i) < min[i]) min[i] = r.getObjective(i);

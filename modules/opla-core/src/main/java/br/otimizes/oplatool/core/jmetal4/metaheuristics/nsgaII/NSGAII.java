@@ -37,6 +37,7 @@ import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLACrossoverOperato
 import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.otimizes.oplatool.core.jmetal4.util.Distance;
 import br.otimizes.oplatool.core.jmetal4.util.Ranking;
+import br.otimizes.oplatool.core.jmetal4.util.Ranking_ant;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
 import br.otimizes.oplatool.core.learning.ClassifierAlgorithm;
 import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
@@ -78,6 +79,9 @@ public class NSGAII extends Algorithm {
      * @throws JMException default exception
      * @throws Exception   default exception
      */
+
+    int currentInteraction = 0;
+
     public SolutionSet execute() throws JMException {
         LOGGER.info("Iniciando Execução");
         int populationSize;
@@ -105,7 +109,7 @@ public class NSGAII extends Algorithm {
         Boolean interactive = (Boolean) getInputParameter("interactive");
         InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
 
-        int currentInteraction = 0;
+// aqui int currentInteraction = 0;
         indicators = (QualityIndicator) getInputParameter("indicators");
         HashSet<Solution> bestOfUserEvaluation = new HashSet<>();
 
@@ -144,18 +148,36 @@ public class NSGAII extends Algorithm {
             e.printStackTrace();
             throw new JMException(e.getMessage());
         }
+        // setar o IDOrigem da solução
+        for (int i = 0; i < population.getSolutionSet().size(); i++) {
+            population.getSolutionSet().get(i).setIdOrigem(i+1);
+        }
+
+        System.out.println("=====(148)PopulationInicial-" + evaluations);
+        population.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " Id:" + p.getId() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2]));
 
         try {
             while (evaluations < maxEvaluations) {
+                System.out.println("=====(153) Iniciando Processo após  " + evaluations + " Início generation - " + (evaluations / populationSize + 1));
+
                 offspringPopulation = new SolutionSet(populationSize);
                 Solution[] parents = new Solution[2];
 
+                System.out.println("==== (163) Population");
+                population.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " Id:" + p.getId() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                        " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+
+                for (int i=0; i < population.size();i++) {
+                    population.get(i).checkMajorObjective(population);
+                }
+                System.out.println("==== (170)NSGA MaximoObjetivos " + population.get(0).getObjectiveMax(0) + " " + +population.get(0).getObjectiveMax(1) + " " + +population.get(0).getObjectiveMax(2));
+
                 for (int i = 0; i < (populationSize / 2); i++) {
                     if (evaluations < maxEvaluations) {
-
                         if (((PLACrossoverOperator) crossoverOperator).getOperators().contains(CrossoverOperators.PLA_COMPLEMENTARY_CROSSOVER.name())) {
                             parents = selectionComplementary(population);
                         } else {
+                            //System.out.println("====(177) Parents");
                             parents[0] = (Solution) selectionOperator.execute(population);
                             parents[1] = (Solution) selectionOperator.execute(population);
                         }
@@ -172,12 +194,42 @@ public class NSGAII extends Algorithm {
                                 offspringPopulation.add(child);
                             }
                             evaluations += 1;
+                            System.out.println("==== (194) child " + evaluations + " IdOrigem:" + child.getIdOrigem() + " Id:" + child.getId() + " " + child.getObjective(0) + " " + child.getObjective(1) + " " + child.getObjective(2) +
+                                    " - Evaluation: " + child.getEvaluation() + " Eval4: " + child.getEvaluatedByUser() + " Eval3: " + child.getEvaluatedByUser3() + " SolucaoAval:" + child.getRatedSolution());
                         }
                     }
                 }
+//================== on Claudia
+                System.out.println("=====(200)Population - geração " + evaluations / populationSize);
+                population.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " Id:" + p.getId() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                        " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+
+                System.out.println("=====(204)offSpringPopulation ==> de qual solução evoului- geração " + evaluations / populationSize);
+                offspringPopulation.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " Id:" + p.getId() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                        " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
 
                 union = population.union(offspringPopulation);
+
+                System.out.println("=====(227)Union - geração - " + evaluations / populationSize);
+                union.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " Id:" + p.getId() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                        " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+
+                Ranking_ant ranking_ant = new Ranking_ant(union);
+
+                System.out.println("=====(233)Ranking Anterior(otimiz)-Fronts-" + ranking_ant.getNumberOfSubfronts() + " - geração - " + evaluations / populationSize);
+                for(int i=0; i<ranking_ant.getNumberOfSubfronts();i++) {
+                    System.out.println("Front " + i );
+                    ranking_ant.getSubfront(i).getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " Id:" + p.getId() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2]+ " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3()));
+                }
+
                 Ranking ranking = new Ranking(union);
+
+                System.out.println("=====(241)Ranking(otimiz)-Fronts-" + ranking.getNumberOfSubfronts() + " - geração - " + evaluations / populationSize);
+                for(int i=0; i<ranking.getNumberOfSubfronts();i++) {
+                    System.out.println("Front " + i);
+                    ranking.getSubfront(i).getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " Id:" + p.getId() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2]+
+                            " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+                }
 
                 int remain = populationSize;
                 int index = 0;
@@ -205,16 +257,55 @@ public class NSGAII extends Algorithm {
                     remain = 0;
                 }
                 int generation = evaluations / populationSize;
+
+                System.out.println("=====generation-" + generation);
+                System.out.println("===== (276) Population-rankeada - antes da Interação - geração - " + generation);
+                population.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " Id:" + p.getId() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                        " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+
                 OPLAThreadScope.currentGeneration.set(generation);
                 OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
                 if (interactive) {
-                    currentInteraction = interactWithDM(generation, offspringPopulation, maxInteractions,
+/** teste                    currentInteraction = interactWithDM(generation, offspringPopulation, maxInteractions,
                             firstInteraction, intervalInteraction, interactive, interactiveFunction, currentInteraction,
-                            bestOfUserEvaluation);
+                            bestOfUserEvaluation, mutationOperator);
+*/
+                     offspringPopulation = interactWithDM(generation, offspringPopulation, maxInteractions, firstInteraction, intervalInteraction,
+                           interactive, interactiveFunction, bestOfUserEvaluation, mutationOperator);
+
+                    System.out.println("=====(286)OffSpring-voltou da avaliação - geração - " + generation);
+                    offspringPopulation.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " Id:" + p.getId() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                            " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+
+                    // atribuir as notas do offSpring para as soluções do population que tenham a mesma solução origem
+                    for (Solution solution : offspringPopulation.getSolutionSet()) {
+
+                        for (int i = 0; i < population.getSolutionSet().size(); i++) {
+                            if (population.get(i).getEvaluation() == 0 && solution.getIdOrigem() !=0 && solution.getIdOrigem() == population.get(i).getIdOrigem()) {
+                                    population.get(i).setEvaluation(solution.getEvaluation());
+                                    population.get(i).setEvaluatedByUser(solution.getEvaluatedByUser());
+                                    population.get(i).setEvaluatedByUser3(solution.getEvaluatedByUser3());
+                                  //  population.get(i).setRatedSolution(solution.getRatedSolution());
+                            }
+                        }
+                    }
+
+                    System.out.println("=====(290)Population-Após a avaliação - geração - " + generation);
+                    population.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " Id:" + p.getId() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                            " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+
                     for (int i = 0; i < population.getSolutionSet().size(); i++) {
                         if (population.get(i).getEvaluation() == 1) {
                             population.getSolutionSet().set(i, newRandomSolution(mutationOperator));
+                            population.get(i).setId(i);
+                            population.get(i).setIdOrigem(i+1);
+
                         }
+                    }
+
+                    System.out.println("=====(293)Population-depoisSubstitAval_1 - geração - " + generation);
+                    for (int i = 0; i < population.getSolutionSet().size(); i++) {
+                        System.out.println("Evaluation: " + population.get(i).getEvaluation() + " - " + population.get(i).getObjective(0) + " " + population.get(i).getObjective(1) + " " + population.get(i).getObjective(2));
                     }
                 }
 
@@ -232,8 +323,34 @@ public class NSGAII extends Algorithm {
         }
 
         setOutputParameter("evaluations", requiredEvaluations);
+
+        Ranking_ant rankingAnt = new Ranking_ant(population);
+        SolutionSet subfrontToReturnAnt = rankingAnt.getSubfront(0);
+
+        System.out.println("=====(317)RankingAnterior-Fronts " + rankingAnt.getNumberOfSubfronts() + " - geração - " + evaluations / populationSize);
+        for(int i=0; i<rankingAnt.getNumberOfSubfronts();i++) {
+            System.out.println("===Front:" + i);
+            rankingAnt.getSubfront(i).getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                    " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+        }
+
+        System.out.println("===== (324)subfrontToReturn - geração - " + evaluations / populationSize);
+        subfrontToReturnAnt.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+
         Ranking ranking = new Ranking(population);
         SolutionSet subfrontToReturn = ranking.getSubfront(0);
+
+        System.out.println("=====(331)Ranking-Fronts " + ranking.getNumberOfSubfronts() + " - geração - " + evaluations / populationSize);
+        for(int i=0; i<ranking.getNumberOfSubfronts();i++) {
+            System.out.println("===Front:" + i);
+            ranking.getSubfront(i).getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() +  " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                    " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+        }
+
+        System.out.println("===== (338)subfrontToReturn  - geração - " + evaluations / populationSize);
+        subfrontToReturn.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
 
         subfrontToReturn.setCapacity(subfrontToReturn.getCapacity() + bestOfUserEvaluation.size());
         for (Solution solution : bestOfUserEvaluation) {
@@ -245,43 +362,76 @@ public class NSGAII extends Algorithm {
         if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
             try {
                 subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(subfrontToReturn), false);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        System.out.println("=====(357)subfrontToReturn - Final");
+        subfrontToReturn.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() +  " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2]+
+                " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+
         return subfrontToReturn;
     }
 
-    private synchronized int interactWithDM(int generation, SolutionSet solutionSet, int maxInteractions, int firstInteraction, int intervalInteraction, Boolean interactive, InteractiveFunction interactiveFunction, int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
-//        COMMENT TO INHERIT SCORES
+    private synchronized SolutionSet interactWithDM(int generation, SolutionSet solutionSet, int maxInteractions, int firstInteraction, int intervalInteraction, Boolean interactive, InteractiveFunction interactiveFunction, HashSet<Solution> bestOfUserEvaluation, Operator mutationOperator) throws Exception {
+//    private synchronized int interactWithDM(int generation, SolutionSet solutionSet, int maxInteractions, int firstInteraction, int intervalInteraction, Boolean interactive, InteractiveFunction interactiveFunction, int currentInteraction, HashSet<Solution> bestOfUserEvaluation, Operator mutationOperator) throws Exception {
+//       COMMENT TO INHERIT SCORES
+        System.out.println("==(382) Dentro do interactWithDM");
         for (Solution solution : solutionSet.getSolutionSet()) {
-            solution.setEvaluation(0);
+            System.out.println("IdOrigem:" + solution.getIdOrigem() + " Id:" + solution.getId() + " - Cluster: " +  solution.getClusterId() + " - " +  solution.getEvaluation() + " - " + solution.getObjective(0) + " " + solution.getObjective(1) + " " + solution.getObjective(2) +
+                    " - Evaluation: " + solution.getEvaluation() + " Eval4: " + solution.getEvaluatedByUser() + " Eval3: " + solution.getEvaluatedByUser3() + " SolucaoAval:" + solution.getRatedSolution());
+        //zerar colocar antes da interação com o DM
+          // solution.setEvaluation(0);
         }
+
         boolean isOnInteraction = (generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction;
         boolean inTrainingDuring = currentInteraction < maxInteractions && isOnInteraction;
         if (inTrainingDuring) {
+            System.out.println("====(376) Zerar as avaliações - Antes da avaliação do DM - interação " + currentInteraction);
+            for (Solution solution : solutionSet.getSolutionSet()) {
+                solution.setEvaluation(0);
+                solution.setEvaluatedByUser(false);
+                solution.setEvaluatedByUser3(false);
+                solution.setRatedSolution(false);
+                System.out.println("IdOrigem:" + solution.getIdOrigem() + "Id:" + solution.getId() + " - "  + solution.getEvaluation() + " - " + solution.getObjective(0) + " " + solution.getObjective(1) + " " + solution.getObjective(2) +
+                        " - Evaluation: " + solution.getEvaluation() + " Eval4: " + solution.getEvaluatedByUser() + " Eval3: " + solution.getEvaluatedByUser3() + " SolucaoAval:" + solution.getRatedSolution());
+            }
+
             Cloner cloner = new Cloner();
             List<Solution> solutions = cloner.shallowClone(solutionSet.getSolutionSet());
             SolutionSet newS = new SolutionSet(solutions.size());
             newS.setSolutionSet(solutions);
             solutionSet = interactiveFunction.run(newS);
-            System.out.println("--------------- on nsga claudia");
-            for (Solution solution : solutionSet.getSolutionSet()) {
-                System.out.println("Id:" + solution.getId() + ", Cluster: " + solution.getClusterId() + ", Evaluation: " + solution.getEvaluation() + ", objs: " + Arrays.toString(solution.getObjectives()));
+            //solutionSet = interactiveFunction.run(solutionSet);
+
+            for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
+                if (solutionSet.get(i).getEvaluation() == 4 || solutionSet.get(i).getEvaluation() == 3) {
+                    solutionSet.get(i).setRatedSolution(true);
+                }
             }
-            System.out.println("--------------- on nsga claudia");
-//          CLAUDIA  solutionSet.getSolutionSet().stream().filter(s -> s.getEvaluation() == 4).collect(Collectors.toList())
+
+            System.out.println("--------------- (405) APÓS RETORNOR DA AVLAIAÇÃO");
+            for (Solution solution : solutionSet.getSolutionSet()) {
+                System.out.println("IdOrigem:" + solution.getIdOrigem() + " Id:" + solution.getId() + ", Cluster: " + solution.getClusterId() + ", Evaluation: " + solution.getEvaluation() + ", objs: " + Arrays.toString(solution.getObjectives()) +
+                        " - Evaluation: " + solution.getEvaluation() + " Eval4: " + solution.getEvaluatedByUser() + " Eval3: " + solution.getEvaluatedByUser3() + " SolucaoAval:" + solution.getRatedSolution());
+            }
+            // distribuição das notas nas soluções do mesmo cluster
             if (subjectiveAnalyzeAlgorithm == null) {
                 subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet), ClassifierAlgorithm.CLUSTERING_MLP);
                 subjectiveAnalyzeAlgorithm.run(null, false);
             } else {
                 subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), false);
             }
+            System.out.println("===414");
+            solutionSet.getSolutionSet().stream().forEach(p -> System.out.println("IdOrigem:" + p.getIdOrigem() + " Id:" + p.getId() + " " + p.getObjectives()[0] + " " + p.getObjectives()[1] + " " + p.getObjectives()[2] +
+                    " - Evaluation: " + p.getEvaluation() + " Eval4: " + p.getEvaluatedByUser() + " Eval3: " + p.getEvaluatedByUser3() + " SolucaoAval:" + p.getRatedSolution()));
+
             bestOfUserEvaluation.addAll(solutionSet.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5
                     && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
+
             currentInteraction++;
         }
-
         boolean inTrainingAPosteriori = interactive && currentInteraction < maxInteractions && Math.abs((currentInteraction
                 * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction;
         if (inTrainingAPosteriori) {
@@ -292,15 +442,38 @@ public class NSGAII extends Algorithm {
             subjectiveAnalyzeAlgorithm.setTrained(interactive && !subjectiveAnalyzeAlgorithm.isTrained()
                     && currentInteraction >= maxInteractions);
 
-
             boolean isTrainFinished = interactive && subjectiveAnalyzeAlgorithm.isTrained() &&
                     currentInteraction >= maxInteractions && isOnInteraction;
             if (isTrainFinished) {
                 subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(solutionSet), true);
             }
         }
-        solutionSet.getSolutionSet().stream().forEach(p -> System.out.println(p.getEvaluation()));
-        return currentInteraction;
+//           System.out.println("--------------- on nsga claudia");
+//          CLAUDIA  solutionSet.getSolutionSet().stream().filter(s -> s.getEvaluation() == 4).collect(Collectors.toList())
+
+
+        for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
+            if (solutionSet.get(i).getEvaluation() == 1) {
+                solutionSet.getSolutionSet().set(i, newRandomSolution(mutationOperator));
+                solutionSet.get(i).setId(i);
+                solutionSet.get(i).setIdOrigem(i+1);
+            }
+        }
+
+        System.out.println("==== (460) DepoisDistribCluster E subst.Aval.nota1(offSpring gerac Anterior - setar TRUE");
+        for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
+            if (solutionSet.get(i).getEvaluation() == 4) {
+                solutionSet.get(i).setEvaluatedByUser(true);
+            }
+            if (solutionSet.get(i).getEvaluation() == 3) {
+                solutionSet.get(i).setEvaluatedByUser3(true);
+            }
+        System.out.println("IdOrigem:" + solutionSet.get(i).getIdOrigem() + " Id:" + solutionSet.get(i).getId() + ", Cluster: " + solutionSet.get(i).getClusterId() + ", Evaluation: " + solutionSet.get(i).getEvaluation() + ", objs: " + Arrays.toString(solutionSet.get(i).getObjectives()) +
+                " Eval4: " + solutionSet.get(i).getEvaluatedByUser() + " Eval3: " + solutionSet.get(i).getEvaluatedByUser3() + " SolucaoAval:" + solutionSet.get(i).getRatedSolution());
+        }
+
+        return solutionSet;
+// teste        return currentInteraction;
     }
 
     private Solution newRandomSolution(Operator mutationOperator) throws Exception {
