@@ -136,6 +136,10 @@ public class Solution implements Serializable {
     private Boolean clusterNoise_;
 
     public Boolean evaluatedByUser;
+    private double[] normalizedObjective_;
+
+    private int clusterIDForMetaHeuristics;
+    private double vDistance_;
 
     public Solution() {
         problem_ = null;
@@ -159,6 +163,8 @@ public class Solution implements Serializable {
     public Solution(int numberOfObjectives) {
         numberOfObjectives_ = numberOfObjectives;
         objective_ = new double[numberOfObjectives];
+
+        normalizedObjective_ = new double[numberOfObjectives_];
     }
 
     public Solution(Problem problem) throws ClassNotFoundException {
@@ -170,6 +176,7 @@ public class Solution implements Serializable {
         kDistance_ = 0.0;
         crowdingDistance_ = 0.0;
         distanceToSolutionSet_ = Double.POSITIVE_INFINITY;
+        normalizedObjective_ = new double[numberOfObjectives_];
         variable_ = type_.createVariables();
     } // Solution
 
@@ -182,6 +189,7 @@ public class Solution implements Serializable {
         kDistance_ = 0.0;
         crowdingDistance_ = 0.0;
         distanceToSolutionSet_ = Double.POSITIVE_INFINITY;
+        normalizedObjective_ = new double[numberOfObjectives_];
         variable_ = variables;
     } // Constructor
 
@@ -195,6 +203,13 @@ public class Solution implements Serializable {
         type_ = solution.type_;
         numberOfObjectives_ = solution.numberOfObjectives();
         objective_ = new double[numberOfObjectives_];
+        normalizedObjective_ = new double[numberOfObjectives_];
+        for (int i = 0; i < objective_.length; i++)
+        {
+            objective_[i] = solution.getObjective(i);
+            normalizedObjective_[i] = solution.getNormalizedObjective(i);
+        } // for
+        // <-
         for (int i = 0; i < objective_.length; i++) {
             objective_[i] = solution.getObjective(i);
         }
@@ -687,4 +702,35 @@ public class Solution implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+    public void setNormalizedObjective(int i, double value)
+    {
+        normalizedObjective_[i] = value;
+    }
+
+    public double getNormalizedObjective(int i)
+    {
+        return normalizedObjective_[i];
+    }
+
+    public void setClusterIDForMetaHeuristics(int id)
+    {
+        this.clusterIDForMetaHeuristics = id;
+    }
+
+    public int getClusterIDForMetaHeuristics()
+    {
+        return this.clusterIDForMetaHeuristics;
+    }
+
+    public void setVDistance(double val)
+    {
+        this.vDistance_ = val;
+    }
+
+    public double getVDistance()
+    {
+        return this.vDistance_;
+    }
+
 } // Solution
