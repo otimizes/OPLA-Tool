@@ -21,6 +21,10 @@
 
 package br.otimizes.oplatool.core.jmetal4.experiments.settings;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+
+import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.Operator;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
@@ -32,10 +36,6 @@ import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
-import br.otimizes.oplatool.common.exceptions.JMException;
-
-import java.lang.reflect.Field;
-import java.util.HashMap;
 
 /**
  * Class representing Settings objects.
@@ -68,7 +68,8 @@ public abstract class Settings {
      * @throws JMException            default exception 1
      * @throws ClassNotFoundException default exception 2
      */
-    public final Algorithm configure(HashMap settings) throws JMException, IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
+    public final Algorithm configure(HashMap settings)
+            throws JMException, IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
         if (settings != null) {
             Field[] fields = this.getClass().getFields();
             for (Field field : fields) {
@@ -138,8 +139,7 @@ public abstract class Settings {
                             if (fields[j].getName().startsWith(aux)) {
                                 tmp = fields[j].getName().substring(aux.length(), fields[j].getName().length() - 1);
 
-                                if (
-                                        (fields[j].get(this) != null)) {
+                                if ((fields[j].get(this) != null)) {
                                     if (fields[j].getType().equals(int.class) ||
                                             fields[j].getType().equals(Integer.class)) {
                                         operator.setParameter(tmp, (double) fields[j].getInt(this));

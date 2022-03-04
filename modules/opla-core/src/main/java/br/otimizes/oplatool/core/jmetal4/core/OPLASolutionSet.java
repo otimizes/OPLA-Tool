@@ -1,8 +1,29 @@
 package br.otimizes.oplatool.core.jmetal4.core;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.RandomStringUtils;
+
+import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
+import br.otimizes.oplatool.architecture.representation.Element;
+import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.representation.Package;
-import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.Configuration;
 import br.otimizes.oplatool.common.exceptions.JMException;
@@ -15,13 +36,6 @@ import br.otimizes.oplatool.domain.config.FileConstants;
 import br.otimizes.oplatool.domain.entity.Info;
 import br.ufpr.dinf.gres.loglog.Level;
 import br.ufpr.dinf.gres.loglog.LogLog;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.RandomStringUtils;
-
-import java.io.*;
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * OPLA extension of solution set, implement all new methods here
@@ -45,8 +59,10 @@ public class OPLASolutionSet {
 
     /**
      * Copies the objectives and Elements Number of the solution set to a matrix
-     * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
-     * nrAbstractions, nrAggregation, nrAssociations, nrCompositions, nrDependencies, nrGeneralizations, nrRealizations, nrUsage
+     * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages,
+     * nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
+     * nrAbstractions, nrAggregation, nrAssociations, nrCompositions,
+     * nrDependencies, nrGeneralizations, nrRealizations, nrUsage
      *
      * @return matrix containing the objectives
      */
@@ -70,8 +86,10 @@ public class OPLASolutionSet {
 
     /**
      * Copies the objectives and Elements Number of the solution set to a matrix
-     * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
-     * nrAbstractions, nrAggregations, nrAssociations, nrCompositions, nrDependencies, nrGeneralizations, nrRealizations, nrUsage
+     * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages,
+     * nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
+     * nrAbstractions, nrAggregations, nrAssociations, nrCompositions,
+     * nrDependencies, nrGeneralizations, nrRealizations, nrUsage
      *
      * @return matrix containing the objectives
      */
@@ -120,7 +138,7 @@ public class OPLASolutionSet {
         Architecture architecture = new Architecture("pla");
         architecture.addElement(element);
         if (newSolution != null) {
-            newSolution.setDecisionVariables(new Architecture[]{architecture});
+            newSolution.setDecisionVariables(new Architecture[] { architecture });
             ((OPLA) newSolution.getProblem()).evaluate(newSolution);
             try {
                 newSolution.getProblem().evaluateConstraints(newSolution);
@@ -136,15 +154,18 @@ public class OPLASolutionSet {
 
     /**
      * Copies the objectives and Elements Number of the solution set to a matrix
-     * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
-     * nrAbstractions, nrAggregations, nrAssociations, nrCompositions, nrDependencies, nrGeneralizations, nrRealizations, nrUsage
+     * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages,
+     * nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
+     * nrAbstractions, nrAggregations, nrAssociations, nrCompositions,
+     * nrDependencies, nrGeneralizations, nrRealizations, nrUsage
      *
      * @return A matrix containing the objectives
      */
     public double[] writeArchitecturalEvaluationsToMatrix() {
         double[][] doubles = getSolutionsWithArchitecturalEvaluations().stream().map(solution -> {
             List<Element> allElementsFromSolution = getAllElementsFromSolution(solution);
-            return allElementsFromSolution.stream().mapToDouble(element -> element.isFreezeByDM() ? 1.0 : 0.0).toArray();
+            return allElementsFromSolution.stream().mapToDouble(element -> element.isFreezeByDM() ? 1.0 : 0.0)
+                    .toArray();
         }).toArray(double[][]::new);
         return reduceBiDimensionalArray(doubles);
     }
@@ -156,7 +177,8 @@ public class OPLASolutionSet {
      * @return bi-dimensional array of objectives
      */
     public double[][] reduceThreeDimensionalArray(double[][][] treeDimensionalArray) {
-        if (treeDimensionalArray.length <= 0) return new double[][]{};
+        if (treeDimensionalArray.length <= 0)
+            return new double[][] {};
         double[][] twoDimensionalArray = treeDimensionalArray[0];
         for (int i = 1; i < treeDimensionalArray.length; i++) {
             twoDimensionalArray = (double[][]) ArrayUtils.addAll(twoDimensionalArray, treeDimensionalArray[i]);
@@ -171,7 +193,8 @@ public class OPLASolutionSet {
      * @return one-dimensional array of objectives
      */
     public double[] reduceBiDimensionalArray(double[][] biDimensionalArray) {
-        if (biDimensionalArray.length <= 0) return new double[]{};
+        if (biDimensionalArray.length <= 0)
+            return new double[] {};
         double[] oneDimensionalArray = biDimensionalArray[0];
         for (int i = 1; i < biDimensionalArray.length; i++) {
             oneDimensionalArray = ArrayUtils.addAll(oneDimensionalArray, biDimensionalArray[i]);
@@ -187,11 +210,13 @@ public class OPLASolutionSet {
      */
     public double[][] writeAllElementsFromSolution(Solution solution) {
         List<Element> allElementsFromSolution = getAllElementsFromSolution(solution);
-        return allElementsFromSolution.stream().map(s -> this.writeCharacteristicsFromElement(s, solution)).toArray(double[][]::new);
+        return allElementsFromSolution.stream().map(s -> this.writeCharacteristicsFromElement(s, solution))
+                .toArray(double[][]::new);
     }
 
     /**
-     * Get characteristics from element in a solution (number id, element type, nr of classes, interfaces, attrs and methods, objectives, user evaluation)
+     * Get characteristics from element in a solution (number id, element type, nr
+     * of classes, interfaces, attrs and methods, objectives, user evaluation)
      *
      * @param element  specific in a solution
      * @param solution specific solution
@@ -204,11 +229,11 @@ public class OPLASolutionSet {
         elementProperties[2] = element instanceof Package ? (double) ((Package) element).getAllClasses().size() : 0;
         elementProperties[3] = element instanceof Package ? (double) ((Package) element).getAllInterfaces().size() : 0;
         elementProperties[4] = element instanceof Class ? (double) ((Class) element).getAllAttributes().size() : 0;
-        elementProperties[5] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() :
-                element instanceof Interface ? (double) ((Interface) element).getMethods().size() : 0;
+        elementProperties[5] = element instanceof Class ? (double) ((Class) element).getAllMethods().size()
+                : element instanceof Interface ? (double) ((Interface) element).getMethods().size() : 0;
         double[] doubles = writeObjectiveFromElementsAndObjectives(element, solution);
         elementProperties = ArrayUtils.addAll(elementProperties, doubles);
-        elementProperties = ArrayUtils.addAll(elementProperties, new double[]{
+        elementProperties = ArrayUtils.addAll(elementProperties, new double[] {
                 solution.containsArchitecturalEvaluation() ? 1 : 0
         });
         return elementProperties;
@@ -229,10 +254,12 @@ public class OPLASolutionSet {
     }
 
     /**
-     * Method to get a string of objectives and elements number. Used to create CSV files
+     * Method to get a string of objectives and elements number. Used to create CSV
+     * files
      *
      * @param startFrom Number of objectives
-     * @return List of elements. If startFrom > 0, then specify the objectives number
+     * @return List of elements. If startFrom > 0, then specify the objectives
+     *         number
      */
     public String toStringObjectivesAndElementsNumber(int startFrom) {
         return Arrays.stream(writeObjectivesAndElementsNumberToMatrix()).map(p -> Arrays
@@ -289,7 +316,8 @@ public class OPLASolutionSet {
     public boolean hasUserEvaluation() {
         double[] doubles = writeUserEvaluationsToMatrix();
         for (double aDouble : doubles) {
-            if (aDouble > 0) return true;
+            if (aDouble > 0)
+                return true;
         }
         return false;
     }
@@ -318,10 +346,13 @@ public class OPLASolutionSet {
      * @return average of values
      */
     public int getMedia(Set<Integer> values) {
-        if (values == null) return 0;
+        if (values == null)
+            return 0;
         values = values.stream().filter(v -> v > 0).collect(Collectors.toSet());
-        if (values.size() == 0) return 0;
-        if (values.size() == 1) return values.stream().findFirst().get();
+        if (values.size() == 0)
+            return 0;
+        if (values.size() == 1)
+            return values.stream().findFirst().get();
         int soma = 0;
         for (Integer value : values) {
             soma += value;
@@ -335,7 +366,8 @@ public class OPLASolutionSet {
      * @return solutions with architectural evaluations
      */
     public List<Solution> getSolutionsWithArchitecturalEvaluations() {
-        return solutionSet.getSolutionSet().stream().filter(Solution::containsArchitecturalEvaluation).collect(Collectors.toList());
+        return solutionSet.getSolutionSet().stream().filter(Solution::containsArchitecturalEvaluation)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -349,7 +381,8 @@ public class OPLASolutionSet {
         List<List<Element>> collect = getSolutionsWithArchitecturalEvaluations().stream()
                 .filter(solution -> clusterId.equals(solution.getClusterId()))
                 .map(solution -> solution.getAlternativeArchitecture().getElementsWithPackages()
-                        .stream().filter(Element::isFreezeByDM).collect(Collectors.toList())).collect(Collectors.toList());
+                        .stream().filter(Element::isFreezeByDM).collect(Collectors.toList()))
+                .collect(Collectors.toList());
         for (List<Element> elementList : collect) {
             elements.addAll(elementList);
         }
@@ -373,7 +406,8 @@ public class OPLASolutionSet {
      * @param distributeUserEvaluation Approach
      */
     public void distributeUserEvaluation(DistributeUserEvaluation distributeUserEvaluation) {
-        if (DistributeUserEvaluation.NONE.equals(distributeUserEvaluation)) return;
+        if (DistributeUserEvaluation.NONE.equals(distributeUserEvaluation))
+            return;
         Map<Double, Set<Integer>> clusterIds = getClusterIds();
         if (hasUserEvaluation() && clusterIds.size() > 0) {
             List<Solution> solutionsList_ = solutionSet.solutionsList_;
@@ -394,10 +428,10 @@ public class OPLASolutionSet {
      * @param solution specific solution
      * @return solution with elements
      */
-    private Solution freezeArchitecturalElementsAccordingCluster(Solution solution) {
+    public Solution freezeArchitecturalElementsAccordingCluster(Solution solution) {
         if (!solution.containsArchitecturalEvaluation()) {
-            List<Solution> solutionWithArchitecturalElementsEvaluatedByClusterId
-                    = getSolutionWithArchitecturalElementsEvaluatedByClusterId(solution.getClusterId());
+            List<Solution> solutionWithArchitecturalElementsEvaluatedByClusterId = getSolutionWithArchitecturalElementsEvaluatedByClusterId(
+                    solution.getClusterId());
             if (solutionWithArchitecturalElementsEvaluatedByClusterId.size() > 0) {
                 solution = solutionWithArchitecturalElementsEvaluatedByClusterId.get(0);
             }
@@ -410,12 +444,13 @@ public class OPLASolutionSet {
      *
      * @param solution solution with elements
      */
-    private void freezeArchitecturalElementsAccordingSolution(Solution solution) {
+    public void freezeArchitecturalElementsAccordingSolution(Solution solution) {
         List<Element> evaluatedElements = solution.getAlternativeArchitecture().getFreezedElements();
         if (evaluatedElements.size() > 0) {
             for (Solution aSolution : solutionSet.getSolutionSet()) {
                 List<Element> collect = aSolution.getAlternativeArchitecture().getElementsWithPackages().stream()
-                        .filter(e -> evaluatedElements.stream().anyMatch(ee -> ee.totalyEquals(e))).collect(Collectors.toList());
+                        .filter(e -> evaluatedElements.stream().anyMatch(ee -> ee.totalyEquals(e)))
+                        .collect(Collectors.toList());
                 if (collect.size() > 0) {
                     for (Element element : collect) {
                         element.setFreezedByCluster();
@@ -456,7 +491,6 @@ public class OPLASolutionSet {
             arch.save(arch, path, "");
         }
     }
-
 
     /**
      * Writes the objective function values of the <code>Solution</code> objects
@@ -504,9 +538,9 @@ public class OPLASolutionSet {
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
-            String executionId = solutionSet.get(0).getExecutionId();
             for (int i = 0; i < solutionSet.solutionsList_.size(); i++) {
-                bw.write(Arrays.toString(getNormalizedSolution(i)).trim().replaceAll("]", "").replaceAll("\\[", "").replaceAll(", ", "\t")); // returns something
+                bw.write(Arrays.toString(getNormalizedSolution(i)).trim().replaceAll("]", "").replaceAll("\\[", "")
+                        .replaceAll(", ", "\t")); // returns something
                 bw.newLine();
             }
             bw.close();
@@ -524,7 +558,8 @@ public class OPLASolutionSet {
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
-            QualityIndicator qualityIndicator = new QualityIndicator(solutionSet.get(0).getProblem(), pathInd.replace("txt", "normalized"));
+            QualityIndicator qualityIndicator = new QualityIndicator(solutionSet.get(0).getProblem(),
+                    pathInd.replace("txt", "normalized"));
             bw.write("HV:" + qualityIndicator.getHypervolume(solutionSet));
             bw.newLine();
             bw.write("EPSILON:" + qualityIndicator.getEpsilon(solutionSet));
@@ -552,7 +587,8 @@ public class OPLASolutionSet {
             BufferedWriter bw = new BufferedWriter(osw);
 
             for (int i = 0; i < solutionSet.solutionsList_.size(); i++) {
-                bw.write(solutionSet.solutionsList_.get(i).toString().trim().replaceAll(" ", ", ")); // returns something
+                bw.write(solutionSet.solutionsList_.get(i).toString().trim().replaceAll(" ", ", ")); // returns
+                                                                                                     // something
                 bw.newLine();
             }
             bw.close();
@@ -608,11 +644,13 @@ public class OPLASolutionSet {
             for (int j = 0; j < numberOfVariables; j++) {
                 Architecture arch = (Architecture) solutionSet.solutionsList_.get(i).getDecisionVariables()[j];
                 String pathToSave = path;
-                String originalName = ((OPLA) solutionSet.solutionsList_.get(i).getProblem()).getArchitecture_().getName();
+                String originalName = ((OPLA) solutionSet.solutionsList_.get(i).getProblem()).getArchitecture_()
+                        .getName();
                 funResults.get(i).setName(pathToSave + originalName);
                 if (generate) {
-                    if (funResults.get(i).getId() == null) funResults.get(i).setId(funResults.get(i).getObjectives()
-                            .replace("|", "-") + "-" + RandomStringUtils.randomNumeric(3));
+                    if (funResults.get(i).getId() == null)
+                        funResults.get(i).setId(funResults.get(i).getObjectives()
+                                .replace("|", "-") + "-" + RandomStringUtils.randomNumeric(3));
                     arch.save(arch, pathToSave, "-" + funResults.get(i).getId());
                     SaveStringToFile.getInstance().appendStrToFile(logPath, "\n" + pathToSave + arch.getName()
                             + funResults.get(i).getId() + "\t" + solutionSet.solutionsList_.get(i).toString());
@@ -638,11 +676,13 @@ public class OPLASolutionSet {
         Solution max = getMax();
         Solution min = getMin();
         double[] doubles = new double[solution.getObjectives().length];
-        if (solutionSet.size() == 1) return doubles;
+        if (solutionSet.size() == 1)
+            return doubles;
         for (int j = 0; j < solution.getObjectives().length; j++) {
-            doubles[j] = (max.getObjective(j) - min.getObjective(j)) == 0 ? 0 :
-                    (solution.getObjective(j) - min.getObjective(j)) / (max.getObjective(j) - min.getObjective(j));
-            if (doubles[j] == -0.0) doubles[j] = 0.0;
+            doubles[j] = (max.getObjective(j) - min.getObjective(j)) == 0 ? 0
+                    : (solution.getObjective(j) - min.getObjective(j)) / (max.getObjective(j) - min.getObjective(j));
+            if (doubles[j] == -0.0)
+                doubles[j] = 0.0;
         }
         return doubles;
     }

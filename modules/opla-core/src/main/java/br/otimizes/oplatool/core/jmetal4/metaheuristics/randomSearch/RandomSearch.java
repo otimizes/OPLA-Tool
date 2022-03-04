@@ -21,11 +21,11 @@
 
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.randomSearch;
 
+import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
-import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.util.NonDominatedSolutionList;
 
 /**
@@ -41,17 +41,12 @@ public class RandomSearch extends Algorithm {
      * Runs the RandomSearch algorithm.
      *
      * @return a <code>SolutionSet</code> that is a set of solutions
-     * as a result of the algorithm execution
+     *         as a result of the algorithm execution
      * @throws JMException
      */
     public SolutionSet execute() throws JMException, ClassNotFoundException {
         int maxEvaluations;
-        int evaluations;
-
         maxEvaluations = ((Integer) getInputParameter("maxEvaluations")).intValue();
-
-        //Initialize the variables
-        evaluations = 0;
 
         NonDominatedSolutionList ndl = new NonDominatedSolutionList();
 
@@ -61,9 +56,8 @@ public class RandomSearch extends Algorithm {
             newSolution = new Solution(problem_);
             problem_.evaluate(newSolution);
             problem_.evaluateConstraints(newSolution);
-            evaluations++;
             ndl.add(newSolution);
-        } //for
+        } // for
 
         return ndl;
     } // execute

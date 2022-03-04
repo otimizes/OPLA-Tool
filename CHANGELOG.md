@@ -1,9 +1,12 @@
 # Changelog
 
-**Add your changes here
+* Add your changes here
+
+## [2.2.0] - 2020-03-04
 - Removed front Logs in portuguese
 - Position of the logout button changed
 - Added new mvn repo, on github
+- The classes Base in core module were removed, in this sense you only need to put the configurations in gateway classes.
 
 ## [2.1.0] - 2020-09-15
 - Added ASP implementation from https://github.com/tmadrigar/OPLA-Tool/

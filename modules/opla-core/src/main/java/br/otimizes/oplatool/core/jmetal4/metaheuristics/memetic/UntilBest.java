@@ -21,16 +21,20 @@
 
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic;
 
-import br.otimizes.oplatool.core.jmetal4.core.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.core.*;
+import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
+import br.otimizes.oplatool.core.jmetal4.core.OPLASolution;
+import br.otimizes.oplatool.core.jmetal4.core.Operator;
+import br.otimizes.oplatool.core.jmetal4.core.Problem;
+import br.otimizes.oplatool.core.jmetal4.core.Solution;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.otimizes.oplatool.core.jmetal4.util.Distance;
 import br.otimizes.oplatool.core.jmetal4.util.Ranking;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * This class implements the UntilBest algorithm.
@@ -47,10 +51,9 @@ public class UntilBest extends Algorithm {
      * Runs the NSGA-II algorithm.
      *
      * @return a <code>SolutionSet</code> that is a set of non dominated
-     * solutions as a result of the algorithm execution
+     *         solutions as a result of the algorithm execution
      * @throws JMException
      */
-    @SuppressWarnings({"deprecation", "static-access"})
     public synchronized SolutionSet execute() throws JMException, ClassNotFoundException {
         SolutionSet offspringPopulation;
         SolutionSet union;
@@ -108,8 +111,10 @@ public class UntilBest extends Algorithm {
                         offSpringForLocal[0] = a0.getSolution();
                         offSpringForLocal[1] = b1.getSolution();
 
-                        LocalSearchUntil local0 = new LocalSearchUntil(offSpring[0], offSpringForLocal[0], problem_, operatorLocal);
-                        LocalSearchUntil local1 = new LocalSearchUntil(offSpring[1], offSpringForLocal[1], problem_, operatorLocal);
+                        LocalSearchUntil local0 = new LocalSearchUntil(offSpring[0], offSpringForLocal[0], problem_,
+                                operatorLocal);
+                        LocalSearchUntil local1 = new LocalSearchUntil(offSpring[1], offSpringForLocal[1], problem_,
+                                operatorLocal);
 
                         try {
                             executor.execute(local0);
@@ -126,7 +131,6 @@ public class UntilBest extends Algorithm {
                         offspringPopulation.add(offSpringForLocal[0]);
                         offspringPopulation.add(offSpringForLocal[1]);
                         evaluations += 2;
-
 
                     }
 

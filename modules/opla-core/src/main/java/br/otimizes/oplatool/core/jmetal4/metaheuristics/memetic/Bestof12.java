@@ -21,16 +21,20 @@
 
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic;
 
-import br.otimizes.oplatool.core.jmetal4.core.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.core.*;
+import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
+import br.otimizes.oplatool.core.jmetal4.core.OPLASolution;
+import br.otimizes.oplatool.core.jmetal4.core.Operator;
+import br.otimizes.oplatool.core.jmetal4.core.Problem;
+import br.otimizes.oplatool.core.jmetal4.core.Solution;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.otimizes.oplatool.core.jmetal4.util.Distance;
 import br.otimizes.oplatool.core.jmetal4.util.Ranking;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * This class implements the BestOf12 algorithm.
@@ -48,10 +52,9 @@ public class Bestof12 extends Algorithm {
      * Runs the NSGA-II algorithm.
      *
      * @return a <code>SolutionSet</code> that is a set of non dominated
-     * solutions as a result of the algorithm execution
+     *         solutions as a result of the algorithm execution
      * @throws JMException
      */
-    @SuppressWarnings({"deprecation", "static-access"})
     public synchronized SolutionSet execute() throws JMException, ClassNotFoundException {
         SolutionSet population;
         SolutionSet offspringPopulation;

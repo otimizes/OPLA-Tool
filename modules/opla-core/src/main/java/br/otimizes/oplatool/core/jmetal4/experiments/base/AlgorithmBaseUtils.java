@@ -111,7 +111,7 @@ public class AlgorithmBaseUtils {
         configs.getLogger().putLog("Heap Size: " + heapSize + "Mb\n");
     }
 
-    static void logAndSave(ExperimentCommonConfigs configs, String plaName, Result result, Experiment experiment, SolutionSet allRuns, List<String> selectedObjectiveFunctions, Persistence persistence, EdCalculation edCalculation) throws Exception {
+    public static void logAndSave(ExperimentCommonConfigs configs, String plaName, Result result, Experiment experiment, SolutionSet allRuns, List<String> selectedObjectiveFunctions, Persistence persistence, EdCalculation edCalculation) throws Exception {
         configs.getLogger().putLog("------ All Runs - Non-dominated solutions --------", Level.INFO);
         List<Info> funResults = result.getInfos(allRuns.getSolutionSet(), experiment);
 

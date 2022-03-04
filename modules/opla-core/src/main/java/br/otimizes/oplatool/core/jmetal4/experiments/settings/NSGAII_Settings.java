@@ -22,6 +22,7 @@
 package br.otimizes.oplatool.core.jmetal4.experiments.settings;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
@@ -49,7 +50,7 @@ public class NSGAII_Settings extends Settings {
     public NSGAII_Settings(String problem) throws JMException {
         super(problem);
 
-        Object[] problemParams = {"Real"};
+        Object[] problemParams = { "Real" };
         try {
             problem_ = (new ProblemFactory()).getProblem(problemName_, problemParams);
         } catch (JMException e) {
@@ -64,7 +65,6 @@ public class NSGAII_Settings extends Settings {
         crossoverDistributionIndex_ = 20.0;
     } // NSGAII_Settings
 
-
     /**
      * Configure NSGAII with user-defined parameter settings
      *
@@ -77,19 +77,19 @@ public class NSGAII_Settings extends Settings {
         Crossover crossover;
         Mutation mutation;
 
-        HashMap parameters;
+        Map<String, Object> parameters;
 
         QualityIndicator indicators;
         algorithm = new NSGAII(problem_);
         algorithm.setInputParameter("populationSize", populationSize_);
         algorithm.setInputParameter("maxEvaluations", maxEvaluations_);
 
-        parameters = new HashMap();
+        parameters = new HashMap<>();
         parameters.put("probability", crossoverProbability_);
         parameters.put("distributionIndex", crossoverDistributionIndex_);
         crossover = CrossoverFactory.getCrossoverOperator("SBXCrossover", parameters);
 
-        parameters = new HashMap();
+        parameters = new HashMap<>();
         parameters.put("probability", mutationProbability_);
         parameters.put("distributionIndex", mutationDistributionIndex_);
         mutation = MutationFactory.getMutationOperator("PolynomialMutation", parameters);

@@ -21,15 +21,18 @@
 
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic;
 
+import java.util.concurrent.Executors;
+
 import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.core.*;
+import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
+import br.otimizes.oplatool.core.jmetal4.core.Operator;
+import br.otimizes.oplatool.core.jmetal4.core.Problem;
+import br.otimizes.oplatool.core.jmetal4.core.Solution;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.otimizes.oplatool.core.jmetal4.util.Distance;
 import br.otimizes.oplatool.core.jmetal4.util.Ranking;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * This class implements the NoChoice algorithm.
@@ -47,10 +50,9 @@ public class NoChoice extends Algorithm {
      * Runs the NSGA-II algorithm.
      *
      * @return a <code>SolutionSet</code> that is a set of non dominated
-     * solutions as a result of the algorithm execution
+     *         solutions as a result of the algorithm execution
      * @throws JMException
      */
-    @SuppressWarnings({"deprecation", "static-access"})
     public synchronized SolutionSet execute() throws JMException, ClassNotFoundException {
         int requiredEvaluations;
         SolutionSet offspringPopulation;
@@ -85,7 +87,7 @@ public class NoChoice extends Algorithm {
                 Solution[] parents = new Solution[2];
                 for (int i = 0; i < (populationSize / 2); i++) {
                     if (evaluations < maxEvaluations) {
-                        ExecutorService executor = Executors.newFixedThreadPool(12);
+                        Executors.newFixedThreadPool(12);
 
                         parents[0] = (Solution) selectionOperator.execute(population);
                         parents[1] = (Solution) selectionOperator.execute(population);

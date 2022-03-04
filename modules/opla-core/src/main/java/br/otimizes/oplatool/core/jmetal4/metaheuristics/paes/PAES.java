@@ -21,13 +21,16 @@
 
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.paes;
 
-import br.otimizes.oplatool.core.jmetal4.core.*;
-import br.otimizes.oplatool.core.jmetal4.util.archive.AdaptiveGridArchive;
-import br.otimizes.oplatool.core.jmetal4.core.*;
-import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.util.comparators.DominanceComparator;
-
 import java.util.Comparator;
+
+import br.otimizes.oplatool.common.exceptions.JMException;
+import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
+import br.otimizes.oplatool.core.jmetal4.core.Operator;
+import br.otimizes.oplatool.core.jmetal4.core.Problem;
+import br.otimizes.oplatool.core.jmetal4.core.Solution;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
+import br.otimizes.oplatool.core.jmetal4.util.archive.AdaptiveGridArchive;
+import br.otimizes.oplatool.core.jmetal4.util.comparators.DominanceComparator;
 
 /**
  * This class implements the PAES algorithm.
@@ -51,8 +54,8 @@ public class PAES extends Algorithm {
      * @param mutatedSolution A candidate guide
      */
     public Solution test(Solution solution,
-                         Solution mutatedSolution,
-                         AdaptiveGridArchive archive) {
+            Solution mutatedSolution,
+            AdaptiveGridArchive archive) {
 
         int originalLocation = archive.getGrid().location(solution);
         int mutatedLocation = archive.getGrid().location(mutatedSolution);
@@ -65,8 +68,8 @@ public class PAES extends Algorithm {
             return new Solution(solution);
         }
 
-        if (archive.getGrid().getLocationDensity(mutatedLocation) <
-                archive.getGrid().getLocationDensity(originalLocation)) {
+        if (archive.getGrid().getLocationDensity(mutatedLocation) < archive.getGrid()
+                .getLocationDensity(originalLocation)) {
             return new Solution(mutatedSolution);
         }
 
@@ -77,29 +80,29 @@ public class PAES extends Algorithm {
      * Runs of the Paes algorithm.
      *
      * @return a <code>SolutionSet</code> that is a set of non dominated solutions
-     * as a result of the algorithm execution
+     *         as a result of the algorithm execution
      * @throws JMException
      */
     public SolutionSet execute() throws JMException, ClassNotFoundException {
         int bisections, archiveSize, maxEvaluations, evaluations;
         AdaptiveGridArchive archive;
         Operator mutationOperator;
-        Comparator dominance;
+        Comparator<Solution> dominance;
 
-        //Read the params
+        // Read the params
         bisections = ((Integer) this.getInputParameter("biSections")).intValue();
         archiveSize = ((Integer) this.getInputParameter("archiveSize")).intValue();
         maxEvaluations = ((Integer) this.getInputParameter("maxEvaluations")).intValue();
 
-        //Read the operators
+        // Read the operators
         mutationOperator = this.operators_.get("mutation");
 
-        //Initialize the variables
+        // Initialize the variables
         evaluations = 0;
         archive = new AdaptiveGridArchive(archiveSize, bisections, problem_.getNumberOfObjectives());
         dominance = new DominanceComparator();
 
-        //-> Create the initial solution and evaluate it and his constraints
+        // -> Create the initial solution and evaluate it and his constraints
         Solution solution = new Solution(problem_);
         problem_.evaluateConstraints(solution);
         problem_.evaluate(solution);
@@ -109,7 +112,7 @@ public class PAES extends Algorithm {
         // Add it to the archive
         archive.add(new Solution(solution));
 
-        //Iterations....
+        // Iterations....
         do {
             // Create the mutate one
             Solution mutatedIndividual = new Solution(solution);
@@ -126,17 +129,17 @@ public class PAES extends Algorithm {
             // Check dominance
             int flag = dominance.compare(solution, mutatedIndividual);
 
-            if (flag == 1) { //If mutate solution dominate
+            if (flag == 1) { // If mutate solution dominate
                 solution = new Solution(mutatedIndividual);
                 archive.add(mutatedIndividual);
-            } else if (flag == 0) { //If none dominate the other
+            } else if (flag == 0) { // If none dominate the other
                 if (archive.add(mutatedIndividual)) {
                     solution = test(solution, mutatedIndividual, archive);
                 }
             }
         } while (evaluations < maxEvaluations);
 
-        //Return the  population of non-dominated solution
+        // Return the population of non-dominated solution
         return archive;
-    }  // execute
+    } // execute
 } // PAES
