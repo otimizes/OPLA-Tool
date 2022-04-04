@@ -796,8 +796,6 @@ public class Solution implements Serializable {
         if (evaluation == 3) {
             value = (objective - objective * weightsEvaluate3);
         }
- //      System.out.println("evaluation " + evaluation + " antes " + objective + " depois " + value);
-
         return value;
     }
 
@@ -833,7 +831,6 @@ public class Solution implements Serializable {
                 if (maxObjective < solutionSet.get(j).getObjective(i)) {
                     maxObjective =  solutionSet.get(j).getObjective(i);
                 }
-              //  System.out.println("Objetivo: " + i + "-" + j + " " +  solutionSet.get(j).getObjective(i) + " " + maxObjective);
             }
             setObjectiveMax(i,maxObjective);
         }

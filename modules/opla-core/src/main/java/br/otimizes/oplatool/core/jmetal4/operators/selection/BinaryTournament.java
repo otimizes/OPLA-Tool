@@ -71,7 +71,6 @@ public class BinaryTournament extends Selection {
         SolutionSet solutionSet = (SolutionSet) object;
         Solution solution1, solution2;
         int flag;
-
         solution1 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
         solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
 
@@ -80,42 +79,17 @@ public class BinaryTournament extends Selection {
                 solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
             }
         }
-/***
-/// Teste com versão anterior
-        flag = comparatorAnt_.compare(solution1, solution2);
-        System.out.print("====BinaryTournament(85) - Versão anterior - flag " + flag );
-
+       flag = comparator_.compare(solution1, solution2);
         if (flag == -1) {
-           System.out.println("- solution1");
-        }
-        else if (flag == 1) {
-            System.out.println("- solution2");
-        }
-        else if (PseudoRandom.randDouble() < 0.5) {
-            System.out.println("- solution1 - PseudoRandom");
-        }
-        else {
-            System.out.println("- solution2 - notPseudoRandom");
-        }
- // até aqui
-***/
-       flag = comparatorAnt_.compare(solution1, solution2);
-       System.out.print("====BinaryTournament(101) - Versão atual - flag " + flag );
-
-        if (flag == -1) {
-            System.out.println("- solution1");
             return solution1;
         }
         else if (flag == 1) {
-            System.out.println("- solution2");
             return solution2;
         }
         else if (PseudoRandom.randDouble() < 0.5) {
-            System.out.println("- solution1 - PseudoRandom");
             return solution1;
         }
         else {
-            System.out.println("- solution2 - notPseudoRandom");
             return solution2;
         }
     }

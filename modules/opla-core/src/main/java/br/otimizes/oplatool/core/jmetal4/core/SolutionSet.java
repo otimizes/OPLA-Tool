@@ -353,5 +353,4 @@ public class SolutionSet implements Serializable {
     public int hashCode() {
         return Objects.hash(solutionsList_, capacity_);
     }
-
 }

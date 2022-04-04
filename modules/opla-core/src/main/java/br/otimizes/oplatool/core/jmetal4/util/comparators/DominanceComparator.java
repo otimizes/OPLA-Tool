@@ -75,43 +75,18 @@ public class DominanceComparator implements Comparator {
 
         // Equal number of violated constraints. Applying a dominance Test then
         double value1, value2;
-/**
-// aqui
-        if (solution1.getEvaluation() == 4 || solution1.getEvaluatedByUser() || solution1.getEvaluation() == 3 || solution1.getEvaluatedByUser3() || +
-                solution2.getEvaluation() == 4 || solution2.getEvaluatedByUser() || solution2.getEvaluation() == 3 || solution2.getEvaluatedByUser3()) {
-
-            System.out.println("==== (79) Dominance MaximoObjetivos " + solution1.getObjectiveMax(0) + " " + +solution1.getObjectiveMax(1) + " " + +solution1.getObjectiveMax(2));
-            System.out.println("   = Solution1 " + solution1.getObjective(0) + " " + +solution1.getObjective(1) + " " + +solution1.getObjective(2) + " - Evaluation: " + solution1.getEvaluation() + " Eval4: " + solution1.getEvaluatedByUser() + " Eval3: " + solution1.getEvaluatedByUser3());
-            System.out.println("   = Solution2 " + solution2.getObjective(0) + " " + +solution2.getObjective(1) + " " + +solution2.getObjective(2) + " - Evaluation: " + solution2.getEvaluation() + " Eval4: " + solution2.getEvaluatedByUser() + " Eval3: " + solution2.getEvaluatedByUser3());
-        }
-//
- **/
-        String solution1N="", solution2N = "", solution1P="", solution2P = "";
-
         for (int i = 0; i < solution1.numberOfObjectives(); i++) {
-
-            // não pegar os valores objetivos mas sim os valores normalizados
-            //value1 = solution1.getObjective(i);
-            //value2 = solution2.getObjective(i);
-
-            //valor normalizado - double (0 - 5)
+            //normalized value - double (0 - 5)
             value1 = solution1.getObjective(i) / solution1.getObjectiveMax(i) * 5;
             value2 = solution2.getObjective(i) / solution1.getObjectiveMax(i) * 5;
-//montar mensagem
-            solution1N = solution1N + value1 + " ";
-            solution2N = solution2N + value2 + " ";
 
-            // Poderação para avaliações com notas 4 e 3
+            // Power for assessments with grades 4 and 3
             if (solution1.getEvaluation() == 4 || solution1.getEvaluation() == 3 ) {
                     value1 = solution1.getObjectiveWithWeight(value1,solution1.getEvaluation());
             }
             if (solution2.getEvaluation() == 4 || solution2.getEvaluation() == 3) {
                     value2 = solution2.getObjectiveWithWeight(value2, solution2.getEvaluation());
             }
-
-            //montar mensagem
-            solution1P = solution1P + value1 + " ";
-            solution2P = solution2P + value2 + " ";
 
             if (value1 < value2) {
                 flag = -1;
@@ -128,27 +103,13 @@ public class DominanceComparator implements Comparator {
                 dominate2 = 1;
             }
         }
-/***
-        if (solution1.getEvaluation() == 4 || solution1.getEvaluatedByUser() || solution1.getEvaluation() == 3 || solution1.getEvaluatedByUser3() || +
-                solution2.getEvaluation() == 4 || solution2.getEvaluatedByUser() || solution2.getEvaluation() == 3 || solution2.getEvaluatedByUser3()) {
-             System.out.println("   === (130) DominanceCompar - Normalization " +
-                     "\n  solution1: " + solution1N +
-                     "\n  solution2: " + solution2N );
-            System.out.println("   === (133) DominanceCompar - Ponderation " +
-                    "\n  solution1: " + solution1P +
-                    "\n  solution2: " + solution2P );
-        }
-**/
 
          if (dominate1 == dominate2) {
-//            System.out.println("Dominancia: iguais ");
             return 0; //No one dominate the other
         }
         if (dominate1 == 1) {
-//            System.out.println("Dominancia: obj1 -1");
             return -1; // solution1 dominate
         }
-//        System.out.println("Dominancia: obj2 1");
         return 1;    // solution2 dominate
     } // compare
 } // DominanceComparator

@@ -374,16 +374,12 @@ public class OPLASolutionSet {
             List<Solution> solutionsList_ = solutionSet.solutionsList_;
             if (DistributeUserEvaluation.MIDDLE.equals(distributeUserEvaluation))
                 solutionsList_ = solutionsList_.subList(0, Math.abs(solutionsList_.size() / 2));
-
-            System.out.println("==(383) OPLASolutinSet.Distr.Cluster");
             for (int i = 0; i < solutionsList_.size(); i++) {
                 Solution solution = solutionsList_.get(i);
                 if (solution.getEvaluation() == 0) {
                     int media = Math.abs(getMedia(clusterIds.get(solution.getClusterId())));
                     solution.setEvaluation(media);
                 }
-                System.out.println("===(385)OPLASolutionSet Id:" + solution.getId() + " " + solution.getObjectives()[0] + " " + solution.getObjectives()[1] + " " + solution.getObjectives()[2] +
-                        " - Evaluation: " + solution.getEvaluation() + " Eval4: " + solution.getEvaluatedByUser() + " Eval3: " + solution.getEvaluatedByUser3() + " SolucaoAval:" + solution.getRatedSolution());
             }
         }
     }

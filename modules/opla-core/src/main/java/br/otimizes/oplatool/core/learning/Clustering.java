@@ -68,10 +68,6 @@ public class Clustering implements Serializable {
             min[i] = Double.MAX_VALUE;
             max[i] = Double.MIN_VALUE;
         }
-        /// AQUI - verificar se coloca os valores objetivos ponderados
-        for (int i=0; i < resultFront.size();i++) {
-            resultFront.get(i).checkMajorObjective(resultFront);
-        }
 
         resultFront.getSolutionSet().forEach(r -> {
             for (int i = 0; i < this.numObjectives; i++) {
