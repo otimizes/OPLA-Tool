@@ -15,14 +15,18 @@
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+//  Adapted by Cláudia Tupan Rosa - 2021
+//  Including the InteractiveDominanceComparator
+
 
 package br.otimizes.oplatool.core.jmetal4.util;
 
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
-import br.otimizes.oplatool.core.jmetal4.util.comparators.DominanceComparator;
+import br.otimizes.oplatool.core.jmetal4.util.comparators.InteractiveDominanceComparator;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.OverallConstraintViolationComparator;
 
 import java.util.Comparator;
@@ -41,14 +45,15 @@ import org.apache.log4j.Logger;
  * solutions, subset 1 contains the non-dominated solutions after removing those
  * belonging to subset 0, and so on.
  */
-public class Ranking {
-	
-	private static final Logger LOGGER = Logger.getLogger(Ranking.class);
+public class InteractiveRanking {
+
+    private static final Logger LOGGER = Logger.getLogger(InteractiveRanking.class);
 
     /**
      * stores a <code>Comparator</code> for dominance checking
      */
-    private static final Comparator dominance_ = new DominanceComparator();
+    private static final Comparator dominance_ = new InteractiveDominanceComparator();
+
     /**
      * stores a <code>Comparator</code> for Overal Constraint Violation Comparator
      * checking
@@ -68,7 +73,8 @@ public class Ranking {
      *
      * @param solutionSet The <code>SolutionSet</code> to be ranked.
      */
-    public Ranking(SolutionSet solutionSet) {
+    public InteractiveRanking(SolutionSet solutionSet) {
+
         solutionSet_ = solutionSet;
 
         // dominateMe[i] contains the number of solutions dominating i
@@ -98,8 +104,10 @@ public class Ranking {
             // of individuals that dominate me
             iDominate[p] = new LinkedList<Integer>();
             dominateMe[p] = 0;
-           // For all q individuals , calculate if p dominates q or vice versa
+
+            // For all q individuals , calculate if p dominates q or vice versa
             for (int q = 0; q < solutionSet_.size(); q++) {
+
                 flagDominate = constraint_.compare(solutionSet.get(p), solutionSet.get(q));
                 if (flagDominate == 0) {
                     flagDominate = dominance_.compare(solutionSet.get(p), solutionSet.get(q));
@@ -148,7 +156,7 @@ public class Ranking {
             }
         }
 
-    } // Ranking
+    } // InteractiveRanking
 
     /**
      * Returns a <code>SolutionSet</code> containing the solutions of a given rank.
@@ -173,4 +181,4 @@ public class Ranking {
             solutionSet_.clear();
         }
     }
-} // Ranking
+} // InteractiveRanking

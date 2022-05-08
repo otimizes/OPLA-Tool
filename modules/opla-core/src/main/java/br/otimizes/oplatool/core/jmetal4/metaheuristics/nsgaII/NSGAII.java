@@ -36,6 +36,7 @@ import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLACrossoverOperator;
 import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.otimizes.oplatool.core.jmetal4.util.Distance;
+import br.otimizes.oplatool.core.jmetal4.util.InteractiveRanking;
 import br.otimizes.oplatool.core.jmetal4.util.Ranking;
 import br.otimizes.oplatool.core.jmetal4.util.Ranking_ant;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
@@ -108,6 +109,8 @@ public class NSGAII extends Algorithm {
         int intervalInteraction = (Integer) getInputParameter("intervalInteraction");
         Boolean interactive = (Boolean) getInputParameter("interactive");
         InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
+
+        Boolean interactiveOperator = (Boolean) getInputParameter("interactiveOperator");
 
         indicators = (QualityIndicator) getInputParameter("indicators");
         HashSet<Solution> bestOfUserEvaluation = new HashSet<>();
@@ -187,23 +190,42 @@ public class NSGAII extends Algorithm {
                 }
 
                 union = population.union(offspringPopulation);
-                Ranking ranking = new Ranking(union);
+                //included conditional with interactive operator and interactive ranking - mai/2022
 
                 int remain = populationSize;
                 int index = 0;
                 SolutionSet front = null;
                 population.clear();
-                front = ranking.getSubfront(index);
 
-                while ((remain > 0) && (remain >= front.size())) {
-                    distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
-                    for (int k = 0; k < front.size(); k++) {
-                        population.add(front.get(k));
-                    }
-                    remain = remain - front.size();
-                    index++;
-                    if (remain > 0) {
-                        front = ranking.getSubfront(index);
+                if (interactiveOperator) {
+                   InteractiveRanking interactiveRanking = new InteractiveRanking(union);
+                   front = interactiveRanking.getSubfront(index);
+
+                   while ((remain > 0) && (remain >= front.size())) {
+                        distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
+                        for (int k = 0; k < front.size(); k++) {
+                            population.add(front.get(k));
+                        }
+                        remain = remain - front.size();
+                        index++;
+                        if (remain > 0) {
+                            front = interactiveRanking.getSubfront(index);
+                        }
+                   }
+                } else {
+                    Ranking ranking = new Ranking(union);
+                    front = ranking.getSubfront(index);
+
+                    while ((remain > 0) && (remain >= front.size())) {
+                        distance.crowdingDistanceAssignment(front, problem_.getNumberOfObjectives());
+                        for (int k = 0; k < front.size(); k++) {
+                            population.add(front.get(k));
+                        }
+                        remain = remain - front.size();
+                        index++;
+                        if (remain > 0) {
+                            front = ranking.getSubfront(index);
+                        }
                     }
                 }
                 if (remain > 0) {

@@ -15,9 +15,12 @@
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+//  Adapted by Cláudia Tupan Rosa - 2021
+//  Including the weighting and normalization of the value of the objective functions
 
 package br.otimizes.oplatool.core.jmetal4.util.comparators;
 
@@ -32,7 +35,7 @@ import java.util.Comparator;
  * <code>Solution</code> objects) based on a constraint violation test +
  * dominance checking, as in NSGA-II.
  */
-public class DominanceComparator implements Comparator {
+public class InteractiveDominanceComparator implements Comparator {
 
     /**
      * stores a comparator for check the OverallConstraintComparator
@@ -75,11 +78,18 @@ public class DominanceComparator implements Comparator {
 
         // Equal number of violated constraints. Applying a dominance Test then
         double value1, value2;
-
         for (int i = 0; i < solution1.numberOfObjectives(); i++) {
+            //normalized value - double (0 - 5)
+            value1 = solution1.getObjective(i) / solution1.getObjectiveMax(i) * 5;
+            value2 = solution2.getObjective(i) / solution1.getObjectiveMax(i) * 5;
 
-            value1 = solution1.getObjective(i);
-            value2 = solution2.getObjective(i);
+            // Weighting for assessments with grades 4 and 3
+            if (solution1.getEvaluation() == 4 || solution1.getEvaluation() == 3 ) {
+                value1 = solution1.getObjectiveWithWeight(value1,solution1.getEvaluation());
+            }
+            if (solution2.getEvaluation() == 4 || solution2.getEvaluation() == 3) {
+                value2 = solution2.getObjectiveWithWeight(value2, solution2.getEvaluation());
+            }
 
             if (value1 < value2) {
                 flag = -1;
@@ -92,7 +102,6 @@ public class DominanceComparator implements Comparator {
             if (flag == -1) {
                 dominate1 = 1;
             }
-
             if (flag == 1) {
                 dominate2 = 1;
             }
