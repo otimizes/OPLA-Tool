@@ -41,11 +41,13 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.directive";
+import {MlconfigComponent} from './mlconfig/mlconfig.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExecutionComponent,
+    MlconfigComponent,
     PatternComponent,
     ResultsComponent,
     ExperimentsComponent,

@@ -4,6 +4,13 @@
   <mat-icon>exit_to_app</mat-icon>
 </button>
 <mat-horizontal-stepper labelPosition="bottom" #stepper>
+
+  <mat-step state="mlconfig" [optional]="true">
+    <ng-template matStepLabel><span class="hide-on-mobile">ML Configuration</span></ng-template>
+    <!--    <app-pattern [formGroup]="mlconfigFormGroup" [optimizationDto]="optimizationDto"></app-pattern>-->
+    <app-mlconfig [formGroup]="mlconfigFormGroup" [optimizationOptions]="optimizationOptions" [optimizationDto]="optimizationDto"></app-mlconfig>
+  </mat-step>
+
   <mat-step state="execution">
     <ng-template matStepLabel><span class="hide-on-mobile">Execution Configuration</span></ng-template>
     <app-execution [optimizationOptions]="optimizationOptions"
@@ -11,6 +18,9 @@
                    [papyrusFormGroup]="papyrusFormGroup"
                    [(optimizationDto)]="optimizationDto"></app-execution>
   </mat-step>
+
+
+
   <mat-step state="patterns">
     <ng-template matStepLabel><span class="hide-on-mobile">Design Patterns</span></ng-template>
     <app-pattern [formGroup]="patternFormGroup" [optimizationDto]="optimizationDto"></app-pattern>
@@ -41,6 +51,9 @@
   <!-- Icon overrides. -->
   <ng-template matStepperIcon="execution">
     <mat-icon>settings</mat-icon>
+  </ng-template>
+  <ng-template matStepperIcon="mlconfig">
+    <mat-icon>school</mat-icon>
   </ng-template>
   <ng-template matStepperIcon="patterns">
     <mat-icon>view_comfy</mat-icon>

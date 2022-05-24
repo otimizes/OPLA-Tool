@@ -1,0 +1,100 @@
+<opla-grid-list>
+  <opla-grid-tile>
+    <div class="example-container" *ngIf="optimizationDto">
+      <opla-grid-list>
+        <!--Configuration-->
+        <opla-grid-tile>
+          <mat-card>
+            <p class="card-title">Configuration</p>
+            <!--File Preset-->
+            <div class="wrapper">
+              <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-label>Preset file</mat-label>
+                <input matInput placeholder="Upload file..." [(ngModel)]="optimizationDto.inputArchitecture"
+                       formControlName="inputArchitecture">
+                <input hidden (change)="onFileSelected()" #fileInput type="file" accept=".mlconfig" id="mlconfig">
+                <button matTooltip="Filename" mat-button matSuffix mat-icon-button
+                        aria-label="Clear" (click)="selectMlConfig()">
+                  <mat-icon>attach_file</mat-icon>
+                </button>
+              </mat-form-field>
+              <button mat-mini-fab color="accent" aria-label="Edit" class="mini-fab-btn">
+                <mat-icon>save</mat-icon>
+              </button>
+            </div>
+
+            <!--Config combo box-->
+            <div class="wrapper">
+              <mat-form-field>
+                <mat-label>Select the ML Algorithm</mat-label>
+                <mat-select [(value)]="optimizationDto.algorithm">
+                  <mat-option *ngFor="let alg of optimizationOptions?.algorithms" [value]="alg">
+                    {{alg | replaceall:'_':' '}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button mat-mini-fab color="accent" aria-label="Edit" class="mini-fab-btn">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </mat-card>
+        </opla-grid-tile>
+
+        <!--Ensembles-->
+        <opla-grid-tile>
+          <mat-card>
+            <mat-checkbox class="example-margin"><span class="card-title">Ensemble Approach</span></mat-checkbox>
+
+            <!--Ensemble config file-->
+            <div class="wrapper">
+              <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-label>Model file</mat-label>
+                <input matInput placeholder="Upload file..." [(ngModel)]="optimizationDto.inputArchitecture"
+                       formControlName="inputArchitecture">
+                <input hidden (change)="onFileSelected()" #fileInput type="file" accept=".mlconfig" id="ensembleconfig">
+                <button matTooltip="Filename" mat-button matSuffix mat-icon-button
+                        aria-label="Clear" (click)="selectMlConfig()">
+                  <mat-icon>attach_file</mat-icon>
+                </button>
+              </mat-form-field>
+              <button mat-mini-fab color="accent" aria-label="Edit" class="mini-fab-btn">
+                <mat-icon>save</mat-icon>
+              </button>
+            </div>
+
+            <div class="list-wrapper">
+              <mat-list *ngFor="let model of models">
+
+                <div class="list-item">
+                  <div class="list-item__filename">{{model}}</div>
+                  <div class="list-item__buttons-group">
+                    <button mat-mini-fab color="primary" aria-label="Edit" class="list-item__btn">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="primary" aria-label="Edit" class="list-item__btn">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </mat-list>
+            </div>
+
+
+            <!--Combination rule-->
+            <div class="wrapper">
+              <mat-form-field>
+                <mat-label>Combination Rule</mat-label>
+                <mat-select [(value)]="optimizationDto.algorithm">
+                  <mat-option *ngFor="let alg of optimizationOptions?.algorithms" [value]="alg">
+                    {{alg | replaceall:'_':' '}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+          </mat-card>
+        </opla-grid-tile>
+      </opla-grid-list>
+    </div>
+  </opla-grid-tile>
+</opla-grid-list>

@@ -38,6 +38,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
   optimizationInfo: OptimizationInfo = OptimizationService.getOptimizationInfo();
   optimizationOptions: any;
   experiments: any;
+  mlconfigFormGroup: FormGroup;
 
   constructor(private _formBuilder: FormBuilder,
               public optimizationService: OptimizationService,
@@ -74,6 +75,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
       relationships: new FormControl()
     });
     this.patternFormGroup = fb.group({});
+    this.mlconfigFormGroup = fb.group( {});
     optimizationService.getDto().subscribe(dto => {
       this.optimizationDto = dto
     });

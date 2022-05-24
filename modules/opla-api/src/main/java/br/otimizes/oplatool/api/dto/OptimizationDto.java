@@ -4,6 +4,7 @@ import br.otimizes.oplatool.api.gateway.OptimizationAlgorithms;
 import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
 import br.otimizes.oplatool.core.learning.ClusteringAlgorithm;
+import br.otimizes.oplatool.core.learning.MachineLearningAlgorithm;
 import br.otimizes.oplatool.core.learning.Moment;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfig;
 import br.otimizes.oplatool.domain.config.ApplicationYamlConfig;
@@ -12,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class OptimizationDto {
@@ -42,7 +42,15 @@ public class OptimizationDto {
     private ScopeSelection scopeSelection = ScopeSelection.RANDOM;
     private List<String> objectiveFunctions = new ArrayList<>();
     public ApplicationYamlConfig config = ApplicationFileConfig.getInstance();
+    private MachineLearningAlgorithm machineLearningAlgorithm = MachineLearningAlgorithm.MLP;
 
+    public MachineLearningAlgorithm getMachineLearningAlgorithm() {
+        return machineLearningAlgorithm;
+    }
+
+    public void setMachineLearningAlgorithm(MachineLearningAlgorithm machineLearningAlgorithm) {
+        this.machineLearningAlgorithm = machineLearningAlgorithm;
+    }
 
     public OptimizationDto() {
     }

@@ -1,0 +1,55 @@
+.card-title{
+  font-weight: bold;
+  font-size: 0.83em;
+}
+
+.mini-fab-btn{
+  align-self: center;
+}
+
+.wrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 2px 6px;
+  padding: 2px;
+}
+
+.list-wrapper{
+  width: auto;
+  height:124px;
+  overflow: auto;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+.list-item{
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+  margin: 0px 6px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+.list-item__filename{
+  flex: 1 1 auto;
+  align-self: center;
+  margin-left: 8px;
+  width: 24ch;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-item__buttons-group{
+  margin: 0px 4px;
+  display: flex;
+  flex-direction: row;
+}
+
+.list-item__btn{
+  transform: scale(0.75)
+}
+
