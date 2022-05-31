@@ -1,0 +1,42 @@
+.info-box{
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+}
+
+.alg-name{
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.about{
+  height: 3.5em;
+  resize: none;
+  text-align: justify;
+}
+
+.button-wrapper{
+  align-self: center;
+}
+
+.btn{
+  display: flex;
+  flex-direction: row;
+}
+
+.box-wrapper{
+  padding: 8px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 8px;
+}
+
+.box-options-wrapper{
+  padding: 8px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+

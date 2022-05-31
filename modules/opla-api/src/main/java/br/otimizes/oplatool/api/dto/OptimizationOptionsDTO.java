@@ -7,6 +7,7 @@ import br.otimizes.oplatool.core.jmetal4.metrics.ObjectiveFunctions;
 import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
 import br.otimizes.oplatool.core.jmetal4.operators.MutationOperators;
 import br.otimizes.oplatool.core.learning.MachineLearningAlgorithm;
+import br.otimizes.oplatool.core.learning.VoteCombinationRule;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,4 +20,5 @@ public class OptimizationOptionsDTO {
     public List<Patterns> designPatterns = Arrays.asList(Patterns.values());
     public List<ArchitectureBuilders> architectureBuilders = Arrays.asList(ArchitectureBuilders.values());
     public List<MachineLearningAlgorithm> machineLearningAlgorithms = Arrays.asList(MachineLearningAlgorithm.values());
+    public List<VoteCombinationRule> combinationRules = Arrays.asList(VoteCombinationRule.values());
 }

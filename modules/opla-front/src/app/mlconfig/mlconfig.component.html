@@ -27,13 +27,13 @@
             <div class="wrapper">
               <mat-form-field>
                 <mat-label>Select the ML Algorithm</mat-label>
-                <mat-select [(value)]="optimizationDto.algorithm">
-                  <mat-option *ngFor="let alg of optimizationOptions?.algorithms" [value]="alg">
-                    {{alg | replaceall:'_':' '}}
+                <mat-select [(value)]="mlAlgorithm" (selectionChange)="disabledEdit = false">
+                  <mat-option *ngFor="let alg of optimizationOptions?.machineLearningAlgorithms" [value]="alg">
+                    {{formatMLName(alg)}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <button mat-mini-fab color="accent" aria-label="Edit" class="mini-fab-btn">
+              <button mat-mini-fab color="accent" aria-label="Edit" class="mini-fab-btn" (click)="editAlgConfigs(mlAlgorithm)" [disabled]="disabledEdit">
                 <mat-icon>edit</mat-icon>
               </button>
             </div>
@@ -85,8 +85,8 @@
               <mat-form-field>
                 <mat-label>Combination Rule</mat-label>
                 <mat-select [(value)]="optimizationDto.algorithm">
-                  <mat-option *ngFor="let alg of optimizationOptions?.algorithms" [value]="alg">
-                    {{alg | replaceall:'_':' '}}
+                  <mat-option *ngFor="let combinationRule of optimizationOptions?.combinationRules" [value]="combinationRule">
+                    {{formatCombinationRules(combinationRule)}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -98,3 +98,4 @@
     </div>
   </opla-grid-tile>
 </opla-grid-list>
+

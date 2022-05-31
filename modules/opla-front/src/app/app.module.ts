@@ -42,6 +42,8 @@ import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.directive";
 import {MlconfigComponent} from './mlconfig/mlconfig.component';
+import { MlpconfigComponent } from './mlconfig/dialogs/mlpconfig/mlpconfig.component';
+import { SvmconfigComponent } from './mlconfig/dialogs/svmconfig/svmconfig.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import {MlconfigComponent} from './mlconfig/mlconfig.component';
     OplaComponent,
     DialogTooltipInfo,
     InteractionDialogComponent,
-    PapyrusSettingsDialog
+    PapyrusSettingsDialog,
+    MlpconfigComponent,
+    SvmconfigComponent
   ],
   exports: [OplaI18nDirective],
   imports: [
@@ -99,7 +103,9 @@ import {MlconfigComponent} from './mlconfig/mlconfig.component';
   entryComponents: [
     InteractionDialogComponent,
     DialogTooltipInfo,
-    PapyrusSettingsDialog
+    PapyrusSettingsDialog,
+    MlpconfigComponent,
+    SvmconfigComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
