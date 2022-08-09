@@ -3,10 +3,10 @@ import {OptimizationDto} from "../dto/optimization-dto";
 import {FormControl, FormGroup} from "@angular/forms";
 import {OptimizationService} from "../services/optimization.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {MachineLearningModelConfig} from "../dto/MachineLearningModelConfig";
 import {MlpconfigComponent} from "./dialogs/mlpconfig/mlpconfig.component";
 import {MatDialog} from "@angular/material/dialog";
 import {SvmconfigComponent} from "./dialogs/svmconfig/svmconfig.component";
+import {MachineLearningModel} from "../mlmodels/machineLearningModel";
 
 
 @Component({
@@ -22,7 +22,7 @@ export class MlconfigComponent implements OnInit {
   @ViewChild('fileInput', {static: false}) fileInput;
   models: string[] = ["mlp500.model", "lms.model", "svm.model", "kstar.model", "mlp2500.model", "myensemble.model", "reallybignameforafile_model.model"];
   mlAlgorithm: any;
-  mlConfigs: MachineLearningModelConfig[] = [];
+  machineLearningModels: MachineLearningModel[] = [];
   disabledEdit: boolean = true;
 
   floatLabelControl = new FormControl('auto');
@@ -93,8 +93,7 @@ export class MlconfigComponent implements OnInit {
       case "MLP":
         dialogRef = this.configDialog.open(MlpconfigComponent, {minWidth: dialogWidth, data: {}});
         dialogRef.afterClosed().subscribe(result => {
-          console.log(result);
-          this.mlConfigs.push(result);
+          this.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.MLP))
           }
         )
         break;
@@ -102,10 +101,10 @@ export class MlconfigComponent implements OnInit {
         dialogRef = this.configDialog.open(SvmconfigComponent, {data: {}});
         break;
     }
-    this.send(this.mlConfigs);
+    this.send();
   }
 
-  send(mlConfigs: MachineLearningModelConfig[]) {
-    console.log(mlConfigs);
+  send() {
+    console.log(this.machineLearningModels);
   }
 }

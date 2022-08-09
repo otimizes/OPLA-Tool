@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MachineLearningModelConfig} from "../../../dto/MachineLearningModelConfig";
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -9,7 +8,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
   templateUrl: './mlpconfig.component.html',
   styleUrls: ['./mlpconfig.component.css']
 })
-export class MlpconfigComponent extends MachineLearningModelConfig implements OnInit {
+export class MlpconfigComponent implements OnInit {
 
   decay: boolean = true;
   hiddenLayers: string = "a";
@@ -19,7 +18,6 @@ export class MlpconfigComponent extends MachineLearningModelConfig implements On
   formGroup: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    super();
   }
 
   ngOnInit() {
