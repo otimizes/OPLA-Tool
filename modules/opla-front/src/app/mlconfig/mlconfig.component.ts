@@ -22,10 +22,11 @@ export class MlconfigComponent implements OnInit {
   @ViewChild('fileInput', {static: false}) fileInput;
   models: string[] = ["mlp500.model", "lms.model", "svm.model", "kstar.model", "mlp2500.model", "myensemble.model", "reallybignameforafile_model.model"];
   mlAlgorithm: any;
+  mlConfigs: MachineLearningModelConfig[] = [];
   disabledEdit: boolean = true;
 
   floatLabelControl = new FormControl('auto');
-  private mlconfig: MachineLearningModelConfig;
+  // private mlconfig: MachineLearningModelConfig;
 
   constructor(protected service: OptimizationService,private snackBar: MatSnackBar, public configDialog: MatDialog) { }
 
@@ -91,12 +92,20 @@ export class MlconfigComponent implements OnInit {
     switch(alg){
       case "MLP":
         dialogRef = this.configDialog.open(MlpconfigComponent, {minWidth: dialogWidth, data: {}});
+        dialogRef.afterClosed().subscribe(result => {
+          console.log(result);
+          this.mlConfigs.push(result);
+          }
+        )
         break;
       case "SVM":
         dialogRef = this.configDialog.open(SvmconfigComponent, {data: {}});
         break;
     }
-
+    this.send(this.mlConfigs);
   }
 
+  send(mlConfigs: MachineLearningModelConfig[]) {
+    console.log(mlConfigs);
+  }
 }

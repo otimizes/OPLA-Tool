@@ -82,15 +82,6 @@
           </mat-form-field>
         </mat-grid-tile>
       </mat-grid-list>
-
-
-
-
-
-
-
-
-
     </form>
   </div>
 
@@ -99,9 +90,9 @@
   <div class="box-options-wrapper">
     <div class="button-wrapper">
       <button mat-raised-button color="accent" class="btn">
-        <span>Upload</span>
-        <mat-icon style="justify-self: end" matSuffix>help</mat-icon>
-      </button>
+<!--        <span>Upload</span>
+        <mat-icon style="justify-self: end" matSuffix>help</mat-icon>-->
+      Upload</button>
     </div>
     <div class="button-wrapper">
       <button mat-raised-button color="accent" class="btn">Download</button>
@@ -110,10 +101,9 @@
       <button mat-raised-button color="accent" class="btn">Cancel</button>
     </div>
     <div class="button-wrapper">
-      <button mat-raised-button color="accent" class="btn">Confirm</button>
+  <button mat-raised-button color="accent" class="btn"  [mat-dialog-close]="[decay, hiddenLayers, learningRate, momentum, trainingTime]">
+    Confirm
+  </button>
     </div>
   </div>
-
-
-
 </div>

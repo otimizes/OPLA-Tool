@@ -36,5 +36,4 @@ export class MlpconfigComponent extends MachineLearningModelConfig implements On
 
   closeDialog() {
   }
-
 }
