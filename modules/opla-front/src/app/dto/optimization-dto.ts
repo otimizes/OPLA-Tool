@@ -1,5 +1,5 @@
 import {Config} from "./config";
-import {MachineLearningModel} from "../mlmodels/machineLearningModel";
+import {MachineLearningModel} from "../mlmodels/MachineLearningModel";
 
 export class OptimizationDto {
   algorithm: string = "NSGAII";

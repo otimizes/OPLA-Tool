@@ -6,7 +6,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MlpconfigComponent} from "./dialogs/mlpconfig/mlpconfig.component";
 import {MatDialog} from "@angular/material/dialog";
 import {SvmconfigComponent} from "./dialogs/svmconfig/svmconfig.component";
-import {MachineLearningModel} from "../mlmodels/machineLearningModel";
+import {MachineLearningModel} from "../mlmodels/MachineLearningModel";
+import {MachineLearningAlgorithm} from "../mlmodels/MachineLearningAlgorithm";
 
 
 @Component({
@@ -92,8 +93,9 @@ export class MlconfigComponent implements OnInit {
     switch(alg){
       case "MLP":
         dialogRef = this.configDialog.open(MlpconfigComponent, {minWidth: dialogWidth, data: {}});
-        dialogRef.afterClosed().subscribe(result => {
-          this.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.MLP))
+        dialogRef.afterClosed().subscribe(config => {
+          this.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.MLP, config))
+          this.optimizationDto.machineLearningModels = this.machineLearningModels;
           }
         )
         break;
@@ -101,10 +103,12 @@ export class MlconfigComponent implements OnInit {
         dialogRef = this.configDialog.open(SvmconfigComponent, {data: {}});
         break;
     }
+
+
     this.send();
   }
 
   send() {
-    console.log(this.machineLearningModels);
+    // console.log(this.machineLearningModels);
   }
 }

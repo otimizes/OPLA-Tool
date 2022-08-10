@@ -3,10 +3,7 @@ package br.otimizes.oplatool.api.dto;
 import br.otimizes.oplatool.api.gateway.OptimizationAlgorithms;
 import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
-import br.otimizes.oplatool.core.learning.ClusteringAlgorithm;
-import br.otimizes.oplatool.core.learning.MachineLearningAlgorithm;
-import br.otimizes.oplatool.core.learning.Moment;
-import br.otimizes.oplatool.core.learning.VoteCombinationRule;
+import br.otimizes.oplatool.core.learning.*;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfig;
 import br.otimizes.oplatool.domain.config.ApplicationYamlConfig;
 import br.otimizes.oplatool.patterns.strategies.ScopeSelection;
@@ -44,6 +41,17 @@ public class OptimizationDto {
     private List<String> objectiveFunctions = new ArrayList<>();
     public ApplicationYamlConfig config = ApplicationFileConfig.getInstance();
     private MachineLearningAlgorithm machineLearningAlgorithm = MachineLearningAlgorithm.MLP;
+
+    private List<MachineLearningModel> machineLearningModels = new ArrayList<>();
+
+    public List<MachineLearningModel> getMachineLearningModels() {
+        return machineLearningModels;
+    }
+
+    public void setMachineLearningModels(List<MachineLearningModel> machineLearningModels) {
+        this.machineLearningModels = machineLearningModels;
+    }
+
     private VoteCombinationRule voteCombinationRule = VoteCombinationRule.PRODUCT_OF_PROB;
 //    private MachineLearningOptions machineLearningOptions;
 
