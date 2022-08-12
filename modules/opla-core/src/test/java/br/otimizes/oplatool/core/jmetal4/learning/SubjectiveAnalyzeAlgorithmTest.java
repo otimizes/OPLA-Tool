@@ -19,6 +19,8 @@ import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
 import br.otimizes.oplatool.core.learning.ClusteringAlgorithm;
 import br.otimizes.oplatool.core.learning.Moment;
 import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
+import br.otimizes.oplatool.domain.OPLAThreadScope;
+import br.otimizes.oplatool.domain.config.ApplicationYamlConfig;
 import br.otimizes.oplatool.domain.config.FileConstants;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -70,6 +72,12 @@ public class SubjectiveAnalyzeAlgorithmTest {
                 }
             }
         }
+
+        ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
+        applicationYamlConfig.setDirectoryToExportModels("");
+        applicationYamlConfig.setDirectoryToSaveModels("");
+        applicationYamlConfig.setPathToTemplateModelsDirectory("");
+        OPLAThreadScope.setConfig(applicationYamlConfig);
 
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = algorithm.getSubjectiveAnalyzeAlgorithm();
         List<Element> truePositive = subjectiveAnalyzeAlgorithm.getNotFreezedElements().stream()
