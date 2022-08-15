@@ -4,7 +4,7 @@ import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
 import br.otimizes.oplatool.core.jmetal4.operators.MutationOperators;
 import br.otimizes.oplatool.core.learning.ClusteringAlgorithm;
-import br.otimizes.oplatool.core.learning.MachineLearningAlgorithm;
+import br.otimizes.oplatool.core.learning.mlmodels.MachineLearningModel;
 import br.otimizes.oplatool.core.learning.Moment;
 import br.otimizes.oplatool.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
 import br.ufpr.dinf.gres.loglog.LogLog;
@@ -39,7 +39,17 @@ public abstract class ExperimentCommonConfigs {
     private List<String> mutationOperators = new ArrayList<>();
     private List<String> crossoverOperators = new ArrayList<>();
     private ElementsWithSameDesignPatternSelection applyStrategy;
-    private MachineLearningAlgorithm machineLearningAlgorithm;
+
+    private List<MachineLearningModel> machineLearningModels = new ArrayList<>();
+
+    public List<MachineLearningModel> getMachineLearningModels() {
+        return machineLearningModels;
+    }
+
+    public void setMachineLearningModels(List<MachineLearningModel> machineLearningModels) {
+
+        this.machineLearningModels = machineLearningModels;
+    }
 
     public void activeLogs() {
         log = true;
@@ -232,13 +242,6 @@ public abstract class ExperimentCommonConfigs {
         this.maxInteractions = maxInteractions;
     }
 
-    public MachineLearningAlgorithm getMachineLearningAlgorithm() {
-        return machineLearningAlgorithm;
-    }
-
-    public void setMachineLearningAlgorithm(MachineLearningAlgorithm machineLearningAlgorithm) {
-        this.machineLearningAlgorithm = machineLearningAlgorithm;
-    }
 
     public int getFirstInteraction() {
         return firstInteraction;

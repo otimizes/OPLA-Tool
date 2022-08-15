@@ -67,15 +67,16 @@ public class GatewayUtils {
         OPLAConfigs oplaConfig = new OPLAConfigs();
         oplaConfig.setSelectedObjectiveFunctions(optimizationDto.getObjectiveFunctions());
         configs.setOplaConfigs(oplaConfig);
-        configs.setMachineLearningAlgorithm(optimizationDto.getMachineLearningAlgorithm());
-//        configs.setMachineLearningOptions(optimizationDto.getMachineLearningOptions());
 
-        configs.setInteractive(optimizationDto.getInteractive());
+        configs.setMachineLearningModels(optimizationDto.getMachineLearningModels());
+
         configs.setInteractiveFunction(optimizationDto.getInteractiveFunction());
+        configs.setInteractive(optimizationDto.getInteractive());
         configs.setMaxInteractions(optimizationDto.getMaxInteractions());
         configs.setFirstInteraction(optimizationDto.getFirstInteraction());
         configs.setIntervalInteraction(optimizationDto.getIntervalInteraction());
         configs.setClusteringMoment(optimizationDto.getClusteringMoment());
         configs.setClusteringAlgorithm(optimizationDto.getClusteringAlgorithm());
+
     }
 }

@@ -4,6 +4,7 @@ import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
+import br.otimizes.oplatool.core.learning.mlmodels.MachineLearningModel;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
 import org.apache.commons.lang.ArrayUtils;
@@ -52,11 +53,22 @@ public class SubjectiveAnalyzeAlgorithm {
     List<Element> freezedElements = new ArrayList<>();
     List<Element> notFreezedElements = new ArrayList<>();
 
+    List<MachineLearningModel> machineLearningModels = new ArrayList<>();
+
+    public List<MachineLearningModel> getMachineLearningModels() {
+        return machineLearningModels;
+    }
+
+    public void setMachineLearningModels(List<MachineLearningModel> machineLearningModels) {
+        this.machineLearningModels = machineLearningModels;
+    }
+
+    private boolean ensemble = false;
+
     public SubjectiveAnalyzeAlgorithm() {
     }
 
-    public SubjectiveAnalyzeAlgorithm(OPLASolutionSet resultFront, ClassifierAlgorithm algorithm, DistributeUserEvaluation distributeUserEvaluation) {
-        this.distributeUserEvaluation = distributeUserEvaluation;
+    public SubjectiveAnalyzeAlgorithm(OPLASolutionSet resultFront, ClassifierAlgorithm algorithm) {
         this.resultFront = resultFront;
         this.algorithm = algorithm;
         distributeUserEvaluations(resultFront);
@@ -67,9 +79,11 @@ public class SubjectiveAnalyzeAlgorithm {
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
     }
 
-    public SubjectiveAnalyzeAlgorithm(OPLASolutionSet resultFront, ClassifierAlgorithm algorithm) {
+    public SubjectiveAnalyzeAlgorithm(OPLASolutionSet resultFront, List<MachineLearningModel> machineLearningModels) {
         this.resultFront = resultFront;
-        this.algorithm = algorithm;
+
+        this.machineLearningModels = machineLearningModels;
+
         distributeUserEvaluations(resultFront);
         this.scoreArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(),
                 resultFront.writeUserEvaluationsToMatrix(), null);

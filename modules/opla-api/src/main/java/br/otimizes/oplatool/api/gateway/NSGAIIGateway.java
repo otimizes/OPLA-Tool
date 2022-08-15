@@ -19,7 +19,6 @@ public class NSGAIIGateway implements IGateway {
         GatewayUtils.setConfigs(optimizationDto, configs);
         configs.setPopulationSize(optimizationDto.getPopulationSize());
         try {
-//            GatewayUtils.log("OIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
             base.execute(configs);
         } catch (Exception e) {
             e.printStackTrace();

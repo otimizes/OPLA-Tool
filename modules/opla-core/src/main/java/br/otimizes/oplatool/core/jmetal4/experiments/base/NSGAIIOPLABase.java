@@ -2,11 +2,10 @@ package br.otimizes.oplatool.core.jmetal4.experiments.base;
 
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.database.Result;
-import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
 import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
+import br.otimizes.oplatool.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverFactory;
@@ -15,14 +14,13 @@ import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
+import br.otimizes.oplatool.core.learning.mlmodels.MachineLearningModel;
 import br.otimizes.oplatool.core.learning.Moment;
 import br.otimizes.oplatool.core.persistence.ExperimentConfigurations;
 import br.otimizes.oplatool.core.persistence.Persistence;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.entity.Execution;
 import br.otimizes.oplatool.domain.entity.Experiment;
-import br.otimizes.oplatool.domain.entity.Info;
-import br.otimizes.oplatool.domain.entity.objectivefunctions.ObjectiveFunctionDomain;
 import br.ufpr.dinf.gres.loglog.Level;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -30,7 +28,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
@@ -54,6 +51,8 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
     public void execute(NSGAIIConfigs experimentCommonConfigs) throws Exception {
         String[] plas = experimentCommonConfigs.getPlas().split(",");
 
+        this.logMachineLearningModel(experimentCommonConfigs);
+
         for (String xmiFilePath : plas) {
             String plaName = getPlaName(xmiFilePath);
             OPLA problem = AlgorithmBaseUtils.getOPLAProblem(experimentCommonConfigs, xmiFilePath);
@@ -64,6 +63,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
 
             SolutionSet allRuns = new SolutionSet();
             Algorithm algorithm = getAlgorithm(problem, experimentCommonConfigs);
+
             if (experimentCommonConfigs.isLog())
                 logInformation(xmiFilePath, experimentCommonConfigs, experimentCommonConfigs.getPopulationSize(), experimentCommonConfigs.getMaxEvaluations(),
                         experimentCommonConfigs.getCrossoverProbability(), experimentCommonConfigs.getMutationProbability());
@@ -101,7 +101,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
     }
 
     private Algorithm getAlgorithm(OPLA problem, NSGAIIConfigs experimentCommonConfigs) throws JMException {
-        Algorithm algorithm = new NSGAII(problem);
+        Algorithm algorithm = new NSGAII(problem, experimentCommonConfigs.getMachineLearningModels());
         algorithm.setInputParameter("populationSize", experimentCommonConfigs.getPopulationSize());
         algorithm.setInputParameter("maxEvaluations", experimentCommonConfigs.getMaxEvaluation());
         algorithm.setInputParameter("interactiveFunction", experimentCommonConfigs.getInteractiveFunction());
@@ -125,6 +125,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
 
         Selection selection = SelectionFactory.getSelectionOperator("BinaryTournament", null);
         algorithm.addOperator("selection", selection);
+
         return algorithm;
     }
 
@@ -142,5 +143,13 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
         LOGGER.info("================ NSGAII ================");
         AlgorithmBaseUtils.logContext(pla, populationSize, maxEvaluations, crossoverProbability, mutationProbability, LOGGER);
         LOGGER.info("================ NSGAII ================");
+    }
+
+    private void logMachineLearningModel(ExperimentCommonConfigs experimentCommonConfigs){
+        LOGGER.info("======== MACHINE LEARNING MODELS ========");
+        for (MachineLearningModel mlm: experimentCommonConfigs.getMachineLearningModels()) {
+              LOGGER.info(mlm.toString());
+        }
+        LOGGER.info("======== MACHINE LEARNING MODELS ========");
     }
 }

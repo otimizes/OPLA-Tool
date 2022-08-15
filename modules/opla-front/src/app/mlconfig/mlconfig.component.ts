@@ -104,11 +104,14 @@ export class MlconfigComponent implements OnInit {
         break;
     }
 
-
-    this.send();
+    console.log("oba");
+    this.testModels();
   }
 
-  send() {
-    // console.log(this.machineLearningModels);
+  testModels() {
+    this.optimizationDto.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.MLP, [30, true, "0.1", "100", "50", "0.1"]))
+    this.optimizationDto.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.RANDOM_TREE, [35, true, "10", "30", "40", "50"]))
+
+    console.log(this.optimizationDto.machineLearningModels);
   }
 }

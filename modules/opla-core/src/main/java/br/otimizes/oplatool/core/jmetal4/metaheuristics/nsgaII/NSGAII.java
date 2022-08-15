@@ -37,6 +37,7 @@ import br.otimizes.oplatool.core.jmetal4.util.Ranking;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
 import br.otimizes.oplatool.core.learning.ClassifierAlgorithm;
 import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
+import br.otimizes.oplatool.core.learning.mlmodels.MachineLearningModel;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
@@ -58,10 +59,15 @@ public class NSGAII extends Algorithm {
     private static final long serialVersionUID = 5815971727148859507L;
     private static final Logger LOGGER = Logger.getLogger(NSGAII.class);
     SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
+    List<MachineLearningModel> machineLearningModels = new ArrayList<>();
 
     public NSGAII(Problem problem) {
         super(problem);
+    }
 
+    public NSGAII(Problem problem, List<MachineLearningModel> machineLearningModels){
+        super(problem);
+        this.machineLearningModels = machineLearningModels;
     }
 
     /**
@@ -237,7 +243,7 @@ public class NSGAII extends Algorithm {
             newS.setSolutionSet(solutions);
             solutionSet = interactiveFunction.run(newS);
             if (subjectiveAnalyzeAlgorithm == null) {
-                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet), ClassifierAlgorithm.CLUSTERING_MLP);
+                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet), this.machineLearningModels);
                 subjectiveAnalyzeAlgorithm.run(null, false);
             } else {
                 subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), false);
