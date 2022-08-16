@@ -28,7 +28,7 @@ export class OptimizationDto {
   config: Config = new Config();
   scopeSelection: string;
   machineLearningModels: MachineLearningModel[] = [];
-  ensembleModel: boolean = false;
+  ensembleModel: boolean = true;
 
   constructor() {
   }

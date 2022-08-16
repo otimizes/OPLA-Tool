@@ -6,6 +6,8 @@
         <opla-grid-tile>
           <mat-card>
             <p class="card-title">Configuration</p>
+            <mat-checkbox class="example-margin" [(ngModel)]="optimizationDto.ensembleModel"><span class="card-title">Ensemble Approach</span></mat-checkbox>
+
             <!--File Preset-->
             <div class="wrapper">
               <mat-form-field [floatLabel]="floatLabelControl.value">
@@ -42,8 +44,8 @@
 
         <!--Ensembles-->
         <opla-grid-tile>
-          <mat-card>
-            <mat-checkbox class="example-margin" [checked]="optimizationDto.ensembleModel"><span class="card-title">Ensemble Approach</span></mat-checkbox>
+          <mat-card  *ngIf="optimizationDto.ensembleModel == true">
+          <p class="card-title">Ensemble Overview</p>
 
             <!--Ensemble config file-->
             <div class="wrapper">

@@ -25,7 +25,6 @@ export class MlconfigComponent implements OnInit {
   @Input() optimizationDto: OptimizationDto;
   @Input() formGroup: FormGroup;
   @ViewChild('fileInput', {static: false}) fileInput;
-  models: string[] = ["mlp500.model", "lms.model", "svm.model", "kstar.model", "mlp2500.model", "myensemble.model", "reallybignameforafile_model.model"];
   mlAlgorithm: any;
   disabledEdit: boolean = true;
 

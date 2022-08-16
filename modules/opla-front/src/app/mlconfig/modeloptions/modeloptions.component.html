@@ -12,11 +12,11 @@
     <button mat-raised-button color="accent" class="btn" (click)="reset()">Reset</button>
   </div>
 
-  <div class="button-wrapper">
-    <button mat-raised-button color="accent" class="btn" mat-dialog-close="true" [disabled]="optimizationDto.ensembleModel" (click)="addToEnsemble()">+ Ensemble</button>
+  <div class="button-wrapper" *ngIf="optimizationDto.ensembleModel">
+    <button mat-raised-button color="accent" class="btn" mat-dialog-close="true" [disabled]="!optimizationDto.ensembleModel" (click)="addToEnsemble()">+ Ensemble</button>
   </div>
 
-  <div class="button-wrapper">
+  <div class="button-wrapper" *ngIf="!optimizationDto.ensembleModel">
     <button mat-raised-button color="accent" class="btn" mat-dialog-close="true" (click)="confirm()">Confirm</button>
   </div>
 </div>

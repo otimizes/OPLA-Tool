@@ -30,7 +30,7 @@ export class ModeloptionsComponent implements OnInit {
 
   }
 
-  addToEnsemble() {    this.optimizationDto.machineLearningModels.push(new MachineLearningModel(this.algorithm, this.modelParameters))
-
+  addToEnsemble() {
+    this.optimizationDto.machineLearningModels.push(new MachineLearningModel(this.algorithm, this.modelParameters))
   }
 }
