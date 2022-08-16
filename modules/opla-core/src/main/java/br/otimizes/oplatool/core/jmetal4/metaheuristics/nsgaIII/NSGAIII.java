@@ -1,9 +1,27 @@
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.rits.cloning.Cloner;
+
 import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.core.*;
+import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
+import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.Operator;
+import br.otimizes.oplatool.core.jmetal4.core.Problem;
+import br.otimizes.oplatool.core.jmetal4.core.Solution;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
+import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
+import br.otimizes.oplatool.core.learning.ClassifierAlgorithm;
+import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
+
+import org.apache.log4j.Logger;
 
 public class NSGAIII extends Algorithm {
+
+    private static final Logger LOGGER = Logger.getLogger(NSGAIII.class);
 
     private int populationSize_;
 
@@ -24,18 +42,23 @@ public class NSGAIII extends Algorithm {
 
     boolean normalize_; // do normalization or not
 
+    private SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
 
     public NSGAIII(Problem problem) {
         super(problem);
     } // NSGAII
 
-    public SolutionSet execute() {
-        int maxGenerations_;
-
+    public SolutionSet execute() throws JMException {
         generations_ = 0;
 
-        maxGenerations_ = ((Integer) this.getInputParameter("maxGenerations"))
-                .intValue();
+        int maxGenerations_ = (Integer) this.getInputParameter("maxGenerations");
+        int maxInteractions = (Integer) getInputParameter("maxInteractions");
+        int firstInteraction = (Integer) getInputParameter("firstInteraction");
+        int intervalInteraction = (Integer) getInputParameter("intervalInteraction");
+        boolean interactive = (Boolean) getInputParameter("interactive");
+        InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
+        int currentInteraction = 0;
+        HashSet<Solution> bestOfUserEvaluation = new HashSet<>();
 
         div1_ = ((Integer) this.getInputParameter("div1")).intValue();
 
@@ -128,10 +151,50 @@ public class NSGAIII extends Algorithm {
 
             generations_++;
 
+            // verify if we need to interact after this generation
+            if (interactive) {
+                try {
+                    // assign scores to population
+                    currentInteraction = interactWithDM(
+                        generations_, offspringPopulation_, maxInteractions,
+                        firstInteraction, intervalInteraction, interactiveFunction,
+                        currentInteraction, bestOfUserEvaluation
+                    );
+                    // solutions ranked 1 are replaced (erased) by random solutions
+                    for (int i = 0; i < population_.getSolutionSet().size(); i++) {
+                        if (population_.get(i).getEvaluation() == 1) {
+                            population_.getSolutionSet().set(i, newRandomSolution(mutation_));
+                        }
+                    }
+                } catch (Exception e) {
+                    LOGGER.error(e);
+                    e.printStackTrace();
+                    throw new JMException(e.getMessage());
+                }
+            }
+
         }
 
         Ranking ranking = new NondominatedRanking(population_);
-        return ranking.getSubfront(0);
+        SolutionSet winningFront = ranking.getSubfront(0);
+
+        // add back solutions rated 5 by the user
+        for (Solution s: bestOfUserEvaluation) {
+            if (!winningFront.getSolutionSet().contains(s)) {
+                winningFront.add(s);
+            }
+        }
+
+        // rate the final solutions if our model is trained
+        if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
+            try {
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(winningFront), false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return winningFront;
 
     }
 
@@ -153,6 +216,67 @@ public class NSGAIII extends Algorithm {
             population_.add(newSolution);
         } // for
     } // initPopulation
+
+    private Solution newRandomSolution(Operator mutationOperator) throws Exception {
+        Solution newSolution;
+        newSolution = new Solution(problem_);
+        mutationOperator.execute(newSolution);
+        problem_.evaluate(newSolution);
+        problem_.evaluateConstraints(newSolution);
+        return newSolution;
+    }
+
+    private synchronized int interactWithDM(int generation, SolutionSet solutionSet, int maxInteractions, int firstInteraction,
+                                            int intervalInteraction, InteractiveFunction interactiveFunction,
+                                            int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
+        // TODO: Descobrir modo de tornar isto mais enxuto e evitar repetição de código com o NSGA-II @Lucas
+        for (Solution solution : solutionSet.getSolutionSet()) {
+            solution.setEvaluation(0);
+        }
+        boolean isOnInteraction = (generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction;
+        boolean inTrainingDuring = currentInteraction < maxInteractions && isOnInteraction;
+        if (inTrainingDuring) {
+            Cloner cloner = new Cloner();
+            List<Solution> solutions = cloner.shallowClone(solutionSet.getSolutionSet());
+            SolutionSet newS = new SolutionSet(solutions.size());
+            newS.setSolutionSet(solutions);
+            solutionSet = interactiveFunction.run(newS);
+            if (subjectiveAnalyzeAlgorithm == null) {
+                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet), ClassifierAlgorithm.CLUSTERING_MLP);
+                subjectiveAnalyzeAlgorithm.run(null, false);
+            } else {
+                subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), false);
+            }
+            bestOfUserEvaluation.addAll(solutionSet.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5
+                    && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
+            currentInteraction++;
+        }
+
+        boolean inTrainingAPosteriori = currentInteraction < maxInteractions && Math.abs((currentInteraction
+                * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction;
+        if (inTrainingAPosteriori) {
+            subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), true);
+        }
+
+        if (subjectiveAnalyzeAlgorithm != null) {
+            subjectiveAnalyzeAlgorithm.setTrained(!subjectiveAnalyzeAlgorithm.isTrained()
+                    && currentInteraction >= maxInteractions);
+            boolean isTrainFinished = subjectiveAnalyzeAlgorithm.isTrained() &&
+                    currentInteraction >= maxInteractions && isOnInteraction;
+            if (isTrainFinished) {
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(solutionSet), true);
+            }
+        }
+        return currentInteraction;
+    }
+
+    public SubjectiveAnalyzeAlgorithm getSubjectiveAnalyzeAlgorithm() {
+        return subjectiveAnalyzeAlgorithm;
+    }
+
+    public void setSubjectiveAnalyzeAlgorithm(SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm) {
+        this.subjectiveAnalyzeAlgorithm = subjectiveAnalyzeAlgorithm;
+    }
 
 
 } // NSGA-III

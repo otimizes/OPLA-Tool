@@ -98,14 +98,21 @@ public class NSGAIIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
 
     private Algorithm getAlgorithm(OPLA problem, NSGAIIConfigs experimentCommonConfigs) throws JMException {
         Algorithm algorithm = new NSGAIII(problem);
-        //        TODO WILLIAM TEM QUE MUDAR
+
+        // TODO: se maxEvaluations não é múltiplo de populationSize, devemos fazer uma geração a mais? @Lucas
+        int populationSize = experimentCommonConfigs.getPopulationSize();
+        int maxEvaluations = experimentCommonConfigs.getMaxEvaluations();
+        int maxGenerations = maxEvaluations / populationSize;
+
+        algorithm.setInputParameter("populationSize", populationSize);
+        algorithm.setInputParameter("maxEvaluations", maxEvaluations);
+        algorithm.setInputParameter("maxGenerations", maxGenerations);
+
+        // TODO: verificar se estes parâmetros devem ser mudados @Lucas
         algorithm.setInputParameter("div1", 12);
         algorithm.setInputParameter("div2", 0);
         algorithm.setInputParameter("normalize", true);
-        algorithm.setInputParameter("maxGenerations", 600);
 
-        algorithm.setInputParameter("populationSize", experimentCommonConfigs.getPopulationSize());
-        algorithm.setInputParameter("maxEvaluations", experimentCommonConfigs.getMaxEvaluation());
         algorithm.setInputParameter("interactiveFunction", experimentCommonConfigs.getInteractiveFunction());
         algorithm.setInputParameter("maxInteractions", experimentCommonConfigs.getMaxInteractions());
         algorithm.setInputParameter("firstInteraction", experimentCommonConfigs.getFirstInteraction());
