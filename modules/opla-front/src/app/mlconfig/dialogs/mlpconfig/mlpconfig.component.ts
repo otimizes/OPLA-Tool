@@ -1,15 +1,17 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MachineLearningAlgorithm} from "../../mlmodels/MachineLearningAlgorithm";
 
 
 @Component({
   selector: 'app-mlpconfig',
   templateUrl: './mlpconfig.component.html',
-  styleUrls: ['./mlpconfig.component.css']
+  styleUrls: ['../mlconfig-dialogs.css']
 })
 export class MlpconfigComponent implements OnInit {
 
+  algorithm: MachineLearningAlgorithm = MachineLearningAlgorithm.MLP;
   decay: boolean = true;
   hiddenLayers: string = "a";
   learningRate: string = "0.3";
@@ -27,11 +29,5 @@ export class MlpconfigComponent implements OnInit {
       momentum: new FormControl('', [Validators.required, Validators.min(0)]),
       trainingTime: new FormControl('', [Validators.required, Validators.min(0)]),
     })
-  }
-
-  open() {
-  }
-
-  closeDialog() {
   }
 }

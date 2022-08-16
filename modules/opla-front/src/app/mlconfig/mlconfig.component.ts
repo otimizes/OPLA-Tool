@@ -6,8 +6,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MlpconfigComponent} from "./dialogs/mlpconfig/mlpconfig.component";
 import {MatDialog} from "@angular/material/dialog";
 import {SvmconfigComponent} from "./dialogs/svmconfig/svmconfig.component";
-import {MachineLearningModel} from "../mlmodels/MachineLearningModel";
-import {MachineLearningAlgorithm} from "../mlmodels/MachineLearningAlgorithm";
+import {MachineLearningModel} from "./mlmodels/MachineLearningModel";
+import {MachineLearningAlgorithm} from "./mlmodels/MachineLearningAlgorithm";
+import {LmsconfigComponent} from "./dialogs/lmsconfig/lmsconfig.component";
+import {KstarconfigComponent} from "./dialogs/kstarconfig/kstarconfig.component";
+import {RandomforestconfigComponent} from "./dialogs/randomforestconfig/randomforestconfig.component";
+import {RandomtreeconfigComponent} from "./dialogs/randomtreeconfig/randomtreeconfig.component";
 
 
 @Component({
@@ -23,13 +27,12 @@ export class MlconfigComponent implements OnInit {
   @ViewChild('fileInput', {static: false}) fileInput;
   models: string[] = ["mlp500.model", "lms.model", "svm.model", "kstar.model", "mlp2500.model", "myensemble.model", "reallybignameforafile_model.model"];
   mlAlgorithm: any;
-  machineLearningModels: MachineLearningModel[] = [];
   disabledEdit: boolean = true;
 
   floatLabelControl = new FormControl('auto');
   // private mlconfig: MachineLearningModelConfig;
 
-  constructor(protected service: OptimizationService,private snackBar: MatSnackBar, public configDialog: MatDialog) { }
+  constructor(protected service: OptimizationService, private snackBar: MatSnackBar, public configDialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -54,7 +57,7 @@ export class MlconfigComponent implements OnInit {
       case "MLP":
         return "Multilayer Perceptron"
       case "LMS":
-        return "Least Mean Square"
+        return "Least Median Square"
       case "SVM":
         return "Support-Vector Machine"
       case "KSTAR":
@@ -69,6 +72,28 @@ export class MlconfigComponent implements OnInit {
         return alg;
     }
   }
+
+  formatMLNameNum(alg: number) {
+    switch (alg){
+      case 0:
+        return "Multilayer Perceptron"
+      case 1:
+        return "Least Median Square"
+      case 2:
+        return "Support-Vector Machine"
+      case 3:
+        return "K*"
+      case 4:
+        return  "Random Forest"
+      case 5:
+        return "Random Tree"
+      case 6:
+        return "Ensemble"
+      default:
+        return alg;
+    }
+  }
+
 
   formatCombinationRules(combinationRule: string) {
     switch (combinationRule){
@@ -90,28 +115,35 @@ export class MlconfigComponent implements OnInit {
   editAlgConfigs(alg: any) {
     let dialogRef;
     const dialogWidth: number = 720;
+
     switch(alg){
       case "MLP":
-        dialogRef = this.configDialog.open(MlpconfigComponent, {minWidth: dialogWidth, data: {}});
-        dialogRef.afterClosed().subscribe(config => {
-          this.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.MLP, config))
-          this.optimizationDto.machineLearningModels = this.machineLearningModels;
-          }
-        )
+        dialogRef = this.configDialog.open(MlpconfigComponent, {minWidth: dialogWidth, data: {optimizationDto: this.optimizationDto}});
+        break;
+      case "KSTAR":
+        dialogRef = this.configDialog.open(KstarconfigComponent, {minWidth: dialogWidth, data: {optimizationDto: this.optimizationDto}});
         break;
       case "SVM":
-        dialogRef = this.configDialog.open(SvmconfigComponent, {data: {}});
+        dialogRef = this.configDialog.open(SvmconfigComponent, {minWidth: dialogWidth, data: {optimizationDto: this.optimizationDto}});
+        break;
+      case "LMS":
+        dialogRef = this.configDialog.open(LmsconfigComponent, {minWidth: dialogWidth, data: {optimizationDto: this.optimizationDto}});
+        break;
+      case "RANDOM_FOREST":
+        dialogRef = this.configDialog.open(RandomforestconfigComponent, {minWidth: dialogWidth, data: {optimizationDto: this.optimizationDto}});
+        break;
+      case "RANDOM_TREE":
+        dialogRef = this.configDialog.open(RandomtreeconfigComponent, {minWidth: dialogWidth, data: {optimizationDto: this.optimizationDto}});
+        break;
+      case "ENSEMBLE":
         break;
     }
-
-    console.log("oba");
-    this.testModels();
+    // this.testModels();
   }
 
   testModels() {
     this.optimizationDto.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.MLP, [30, true, "0.1", "100", "50", "0.1"]))
     this.optimizationDto.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.RANDOM_TREE, [35, true, "10", "30", "40", "50"]))
-
     console.log(this.optimizationDto.machineLearningModels);
   }
 }

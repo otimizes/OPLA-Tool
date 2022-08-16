@@ -43,7 +43,12 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.directive";
 import {MlconfigComponent} from './mlconfig/mlconfig.component';
 import { MlpconfigComponent } from './mlconfig/dialogs/mlpconfig/mlpconfig.component';
+import {LmsconfigComponent} from "./mlconfig/dialogs/lmsconfig/lmsconfig.component";
 import { SvmconfigComponent } from './mlconfig/dialogs/svmconfig/svmconfig.component';
+import { RandomtreeconfigComponent } from './mlconfig/dialogs/randomtreeconfig/randomtreeconfig.component';
+import { RandomforestconfigComponent } from './mlconfig/dialogs/randomforestconfig/randomforestconfig.component';
+import { KstarconfigComponent } from './mlconfig/dialogs/kstarconfig/kstarconfig.component';
+import { ModeloptionsComponent } from './mlconfig/modeloptions/modeloptions.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +69,12 @@ import { SvmconfigComponent } from './mlconfig/dialogs/svmconfig/svmconfig.compo
     InteractionDialogComponent,
     PapyrusSettingsDialog,
     MlpconfigComponent,
-    SvmconfigComponent
+    SvmconfigComponent,
+    RandomtreeconfigComponent,
+    RandomforestconfigComponent,
+    KstarconfigComponent,
+    LmsconfigComponent,
+    ModeloptionsComponent
   ],
   exports: [OplaI18nDirective],
   imports: [
@@ -105,7 +115,11 @@ import { SvmconfigComponent } from './mlconfig/dialogs/svmconfig/svmconfig.compo
     DialogTooltipInfo,
     PapyrusSettingsDialog,
     MlpconfigComponent,
-    SvmconfigComponent
+    SvmconfigComponent,
+    LmsconfigComponent,
+    KstarconfigComponent,
+    RandomtreeconfigComponent,
+    RandomforestconfigComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

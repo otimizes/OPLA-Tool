@@ -1,5 +1,5 @@
 import {Config} from "./config";
-import {MachineLearningModel} from "../mlmodels/MachineLearningModel";
+import {MachineLearningModel} from "../mlconfig/mlmodels/MachineLearningModel";
 
 export class OptimizationDto {
   algorithm: string = "NSGAII";
@@ -28,6 +28,7 @@ export class OptimizationDto {
   config: Config = new Config();
   scopeSelection: string;
   machineLearningModels: MachineLearningModel[] = [];
+  ensembleModel: boolean = false;
 
   constructor() {
   }

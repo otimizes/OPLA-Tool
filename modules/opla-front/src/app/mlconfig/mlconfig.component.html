@@ -43,7 +43,7 @@
         <!--Ensembles-->
         <opla-grid-tile>
           <mat-card>
-            <mat-checkbox class="example-margin"><span class="card-title">Ensemble Approach</span></mat-checkbox>
+            <mat-checkbox class="example-margin" [checked]="optimizationDto.ensembleModel"><span class="card-title">Ensemble Approach</span></mat-checkbox>
 
             <!--Ensemble config file-->
             <div class="wrapper">
@@ -63,10 +63,10 @@
             </div>
 
             <div class="list-wrapper">
-              <mat-list *ngFor="let model of models">
+              <mat-list *ngFor="let model of optimizationDto.machineLearningModels">
 
                 <div class="list-item">
-                  <div class="list-item__filename">{{model}}</div>
+                  <div class="list-item__filename">{{formatMLNameNum(model.algorithm)}}</div>
                   <div class="list-item__buttons-group">
                     <button mat-mini-fab color="primary" aria-label="Edit" class="list-item__btn">
                       <mat-icon>edit</mat-icon>
@@ -96,10 +96,5 @@
         </opla-grid-tile>
       </opla-grid-list>
     </div>
-
-    <button mat-mini-fab color="accent" aria-label="Edit" class="mini-fab-btn" (click)="testModels()">
-      <mat-icon>build</mat-icon>
-    </button>
   </opla-grid-tile>
 </opla-grid-list>
-

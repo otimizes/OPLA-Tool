@@ -85,25 +85,9 @@
     </form>
   </div>
 
-  <!--Model Actions-->
-  <h5>Model Options</h5>
-  <div class="box-options-wrapper">
-    <div class="button-wrapper">
-      <button mat-raised-button color="accent" class="btn">
-<!--        <span>Upload</span>
-        <mat-icon style="justify-self: end" matSuffix>help</mat-icon>-->
-      Upload</button>
-    </div>
-    <div class="button-wrapper">
-      <button mat-raised-button color="accent" class="btn">Download</button>
-    </div>
-    <div class="button-wrapper">
-      <button mat-raised-button color="accent" class="btn">Cancel</button>
-    </div>
-    <div class="button-wrapper">
-  <button mat-raised-button color="accent" class="btn"  [mat-dialog-close]="[decay, hiddenLayers, learningRate, momentum, trainingTime]">
-    Confirm
-  </button>
-    </div>
-  </div>
+  <!--Model Options-->
+  <app-modeloptions
+    [algorithm]="algorithm"
+    [optimizationDto]="data.optimizationDto"
+    [modelParameters]="[decay, hiddenLayers, learningRate, momentum, trainingTime]"></app-modeloptions>
 </div>

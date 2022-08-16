@@ -1,0 +1,22 @@
+<h5>Model Options</h5>
+<div class="box-options-wrapper">
+
+  <div class="button-wrapper">
+    <button mat-raised-button color="accent" class="btn" mat-dialog-close="false">
+      <!--        <span>Upload</span>
+              <mat-icon style="justify-self: end" matSuffix>help</mat-icon>-->
+      Cancel</button>
+  </div>
+
+  <div class="button-wrapper">
+    <button mat-raised-button color="accent" class="btn" (click)="reset()">Reset</button>
+  </div>
+
+  <div class="button-wrapper">
+    <button mat-raised-button color="accent" class="btn" mat-dialog-close="true" [disabled]="optimizationDto.ensembleModel" (click)="addToEnsemble()">+ Ensemble</button>
+  </div>
+
+  <div class="button-wrapper">
+    <button mat-raised-button color="accent" class="btn" mat-dialog-close="true" (click)="confirm()">Confirm</button>
+  </div>
+</div>
