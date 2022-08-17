@@ -12,6 +12,7 @@ import {LmsconfigComponent} from "./dialogs/lmsconfig/lmsconfig.component";
 import {KstarconfigComponent} from "./dialogs/kstarconfig/kstarconfig.component";
 import {RandomforestconfigComponent} from "./dialogs/randomforestconfig/randomforestconfig.component";
 import {RandomtreeconfigComponent} from "./dialogs/randomtreeconfig/randomtreeconfig.component";
+import {VoteLearningModel} from "./mlmodels/VoteLearningModel";
 
 
 @Component({
@@ -137,12 +138,30 @@ export class MlconfigComponent implements OnInit {
       case "ENSEMBLE":
         break;
     }
-    // this.testModels();
+    this.testModels();
   }
 
   testModels() {
-    this.optimizationDto.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.MLP, [30, true, "0.1", "100", "50", "0.1"]))
-    this.optimizationDto.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.RANDOM_TREE, [35, true, "10", "30", "40", "50"]))
-    console.log(this.optimizationDto.machineLearningModels);
+    // this.optimizationDto.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.MLP, [30, true, "0.1", "100", "50", "0.1"]))
+    // this.optimizationDto.machineLearningModels.push(new MachineLearningModel(MachineLearningAlgorithm.RANDOM_TREE, [35, true, "10", "30", "40", "50"]))
+    // console.log(this.optimizationDto.machineLearningModels);
+  }
+
+  getEnsembleModels() {
+    let alg: MachineLearningModel = this.optimizationDto.machineLearningModel;
+    if (alg instanceof VoteLearningModel){
+      return alg.classifiers
+    }
+  }
+
+  removeEnsembleModel(model: MachineLearningModel) {
+    let alg: MachineLearningModel = this.optimizationDto.machineLearningModel;
+    if (alg instanceof VoteLearningModel){
+      const index = alg.classifiers.indexOf(model, 0);
+      if (index > -1){
+        alg.classifiers.splice(index, 1);
+      }
+    }
+    console.log(alg);
   }
 }

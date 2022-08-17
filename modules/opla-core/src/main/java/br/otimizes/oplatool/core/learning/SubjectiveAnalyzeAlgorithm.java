@@ -4,6 +4,7 @@ import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
+import br.otimizes.oplatool.core.learning.mlmodels.MachineLearningAlgorithms;
 import br.otimizes.oplatool.core.learning.mlmodels.MachineLearningModel;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
@@ -53,17 +54,7 @@ public class SubjectiveAnalyzeAlgorithm {
     List<Element> freezedElements = new ArrayList<>();
     List<Element> notFreezedElements = new ArrayList<>();
 
-    List<MachineLearningModel> machineLearningModels = new ArrayList<>();
-
-    public List<MachineLearningModel> getMachineLearningModels() {
-        return machineLearningModels;
-    }
-
-    public void setMachineLearningModels(List<MachineLearningModel> machineLearningModels) {
-        this.machineLearningModels = machineLearningModels;
-    }
-
-    private boolean ensemble = false;
+    MachineLearningModel machineLearningModel;
 
     public SubjectiveAnalyzeAlgorithm() {
     }
@@ -79,11 +70,9 @@ public class SubjectiveAnalyzeAlgorithm {
         this.numObjectives = this.resultFront.getSolutionSet().get(0).numberOfObjectives();
     }
 
-    public SubjectiveAnalyzeAlgorithm(OPLASolutionSet resultFront, List<MachineLearningModel> machineLearningModels) {
+    public SubjectiveAnalyzeAlgorithm(OPLASolutionSet resultFront, MachineLearningModel machineLearningModel) {
         this.resultFront = resultFront;
-
-        this.machineLearningModels = machineLearningModels;
-
+        this.machineLearningModel = machineLearningModel;
         distributeUserEvaluations(resultFront);
         this.scoreArffExecution = new ArffExecution(resultFront.writeObjectivesAndElementsNumberToMatrix(),
                 resultFront.writeUserEvaluationsToMatrix(), null);
@@ -156,13 +145,9 @@ public class SubjectiveAnalyzeAlgorithm {
         return scoreAlgorithm;
     }
 
-    private MultilayerPerceptron newArchitecturalAlgorithm() {
-        MultilayerPerceptron architecturalAlgorithm = new MultilayerPerceptron();
-        architecturalAlgorithm.setHiddenLayers(getArchitecturalAlgorithmHiddenLayers());
-        architecturalAlgorithm.setTrainingTime(getTrainingTime());
-        architecturalAlgorithm.setLearningRate(getLearningRate());
-        architecturalAlgorithm.setMomentum(getMomentum());
-        return architecturalAlgorithm;
+    private AbstractClassifier newArchitecturalAlgorithm() {
+        MachineLearningModel machineLearningModel = this.machineLearningModel;
+        return machineLearningModel.algorithm.getAlgorithm(machineLearningModel);
     }
 
     private void joinSolutionSet(OPLASolutionSet solutionSet, boolean inOnMiddle) {
@@ -374,6 +359,14 @@ public class SubjectiveAnalyzeAlgorithm {
         LOGGER.info("::: Subjective Evaluation :::");
         LOGGER.info("Subjective Error: " + scoreEvaluation.errorRate());
         LOGGER.info("Subjective Summary: " + scoreEvaluation.toSummaryString());
+    }
+
+    public MachineLearningModel getMachineLearningModel() {
+        return machineLearningModel;
+    }
+
+    public void setMachineLearningModel(MachineLearningModel machineLearningModel) {
+        this.machineLearningModel = machineLearningModel;
     }
 
     public static long getSerialVersionUID() {

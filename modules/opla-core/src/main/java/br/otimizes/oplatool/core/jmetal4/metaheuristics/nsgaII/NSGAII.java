@@ -59,15 +59,11 @@ public class NSGAII extends Algorithm {
     private static final long serialVersionUID = 5815971727148859507L;
     private static final Logger LOGGER = Logger.getLogger(NSGAII.class);
     SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
-    List<MachineLearningModel> machineLearningModels = new ArrayList<>();
+
+    MachineLearningModel machineLearningModel;
 
     public NSGAII(Problem problem) {
         super(problem);
-    }
-
-    public NSGAII(Problem problem, List<MachineLearningModel> machineLearningModels){
-        super(problem);
-        this.machineLearningModels = machineLearningModels;
     }
 
     /**
@@ -243,7 +239,7 @@ public class NSGAII extends Algorithm {
             newS.setSolutionSet(solutions);
             solutionSet = interactiveFunction.run(newS);
             if (subjectiveAnalyzeAlgorithm == null) {
-                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet), this.machineLearningModels);
+                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet), this.machineLearningModel);
                 subjectiveAnalyzeAlgorithm.run(null, false);
             } else {
                 subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), false);

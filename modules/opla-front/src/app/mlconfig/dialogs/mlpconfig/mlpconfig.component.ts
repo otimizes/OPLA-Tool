@@ -12,7 +12,7 @@ import {MachineLearningAlgorithm} from "../../mlmodels/MachineLearningAlgorithm"
 export class MlpconfigComponent implements OnInit {
 
   algorithm: MachineLearningAlgorithm = MachineLearningAlgorithm.MLP;
-  decay: boolean = true;
+  decay: string = "true";
   hiddenLayers: string = "a";
   learningRate: string = "0.3";
   momentum: string = "0.2";

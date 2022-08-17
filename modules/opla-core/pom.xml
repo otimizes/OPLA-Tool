@@ -64,5 +64,9 @@
 			<artifactId>opla-persistence</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>LibSVM</artifactId>
+		</dependency>
 	</dependencies>
 </project>

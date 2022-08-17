@@ -4,6 +4,7 @@ import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
 import br.otimizes.oplatool.core.jmetal4.operators.MutationOperators;
 import br.otimizes.oplatool.core.learning.ClusteringAlgorithm;
+import br.otimizes.oplatool.core.learning.mlmodels.MLPLearningModel;
 import br.otimizes.oplatool.core.learning.mlmodels.MachineLearningModel;
 import br.otimizes.oplatool.core.learning.Moment;
 import br.otimizes.oplatool.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
@@ -40,15 +41,23 @@ public abstract class ExperimentCommonConfigs {
     private List<String> crossoverOperators = new ArrayList<>();
     private ElementsWithSameDesignPatternSelection applyStrategy;
 
-    private List<MachineLearningModel> machineLearningModels = new ArrayList<>();
+    private MachineLearningModel machineLearningModel;
 
-    public List<MachineLearningModel> getMachineLearningModels() {
-        return machineLearningModels;
+    public MachineLearningModel getMachineLearningModel() {
+        return machineLearningModel;
     }
 
-    public void setMachineLearningModels(List<MachineLearningModel> machineLearningModels) {
+    public void setMachineLearningModel(MachineLearningModel machineLearningModel) {
+        this.machineLearningModel = machineLearningModel;
+        this.machineLearningModel = switchModel(machineLearningModel);
+    }
 
-        this.machineLearningModels = machineLearningModels;
+    private MachineLearningModel switchModel (MachineLearningModel machineLearningModel){
+        switch(machineLearningModel.algorithm){
+            case MLP:
+                return null;
+        }
+        return null;
     }
 
     public void activeLogs() {

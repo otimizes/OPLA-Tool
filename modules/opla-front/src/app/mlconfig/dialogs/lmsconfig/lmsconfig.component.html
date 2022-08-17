@@ -27,11 +27,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>sampleSize</mat-label>
-            <input matInput [(ngModel)]="lms_sampleSize" formControlName="lms_sampleSize">
-            <mat-error *ngIf="formGroup.get('lms_sampleSize').hasError('required')">
+            <input matInput [(ngModel)]="sampleSize" formControlName="sampleSize">
+            <mat-error *ngIf="formGroup.get('sampleSize').hasError('required')">
               Parameter <i>sampleSize</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('lms_sampleSize').hasError('min')">
+            <mat-error *ngIf="formGroup.get('sampleSize').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -45,5 +45,5 @@
   <app-modeloptions
     [algorithm]="algorithm"
     [optimizationDto]="data.optimizationDto"
-    [modelParameters]="[lms_sampleSize]"></app-modeloptions>
+    [parameters]="{sampleSize: sampleSize}"></app-modeloptions>
 </div>

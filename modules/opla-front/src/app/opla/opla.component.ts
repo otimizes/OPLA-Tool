@@ -133,7 +133,7 @@ export class OplaComponent implements OnInit, AfterViewInit {
   }
 
   run(optimizationDto: OptimizationDto) {
-    console.log(this.optimizationDto.machineLearningModels)
+    console.log(this.optimizationDto.machineLearningModel)
     this.optimizationService.optimize(optimizationDto).subscribe(info => {
       this.snackBar.open("Optimization started", "View logs", {
         duration: 10000

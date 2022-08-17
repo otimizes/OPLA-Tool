@@ -12,14 +12,14 @@ import {MachineLearningAlgorithm} from "../../mlmodels/MachineLearningAlgorithm"
 export class LmsconfigComponent implements OnInit {
 
   algorithm: MachineLearningAlgorithm = MachineLearningAlgorithm.LMS;
-  lms_sampleSize: string = "4";
+  sampleSize: string = "4";
   formGroup: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
-      lms_sampleSize: new FormControl('', [Validators.required, Validators.min(0)]),
+      sampleSize: new FormControl('', [Validators.required, Validators.min(0)]),
     })
   }
 

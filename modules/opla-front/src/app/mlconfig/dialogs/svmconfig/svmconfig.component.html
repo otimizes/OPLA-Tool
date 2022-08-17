@@ -25,11 +25,11 @@
       <mat-grid-list cols="3" rowHeight="4em" gutterSize="12px">
         <mat-grid-tile>
           <mat-form-field>
-            <mat-label>decay</mat-label>
-            <mat-select [(value)]="svm_SVMType">
-              <mat-option value="c_svc">C-SVC</mat-option>
-              <mat-option value="nu_svc">nu-SVC</mat-option>
-              <mat-option value="one_class_svm">one-class SVM</mat-option>
+            <mat-label>SVMtype</mat-label>
+            <mat-select [(value)]="SVMtype">
+              <mat-option value="C_SVC">C-SVC</mat-option>
+              <mat-option value="NU_SVC">nu-SVC</mat-option>
+              <mat-option value="ONE_CLASS_SVM">one-class SVM</mat-option>
             </mat-select>
           </mat-form-field>
         </mat-grid-tile>
@@ -37,8 +37,8 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>coef0</mat-label>
-            <input matInput [(ngModel)]="svm_coef0" formControlName="svm_coef0">
-            <mat-error *ngIf="formGroup.get('svm_coef0').hasError('required')">
+            <input matInput [(ngModel)]="coef0" formControlName="coef0">
+            <mat-error *ngIf="formGroup.get('coef0').hasError('required')">
               Parameter <i>coef0</i> is required
             </mat-error>
           </mat-form-field>
@@ -47,11 +47,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>cost</mat-label>
-            <input matInput [(ngModel)]="svm_cost" formControlName="svm_cost">
-            <mat-error *ngIf="formGroup.get('svm_cost').hasError('required')">
+            <input matInput [(ngModel)]="cost" formControlName="cost">
+            <mat-error *ngIf="formGroup.get('cost').hasError('required')">
               Parameter <i>cost</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('svm_cost').hasError('min')">
+            <mat-error *ngIf="formGroup.get('cost').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -60,11 +60,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>degree</mat-label>
-            <input matInput [(ngModel)]="svm_degree" formControlName="svm_degree">
-            <mat-error *ngIf="formGroup.get('svm_degree').hasError('required')">
+            <input matInput [(ngModel)]="degree" formControlName="degree">
+            <mat-error *ngIf="formGroup.get('degree').hasError('required')">
               Parameter <i>degree</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('svm_degree').hasError('min')">
+            <mat-error *ngIf="formGroup.get('degree').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -73,11 +73,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>eps</mat-label>
-            <input matInput [(ngModel)]="svm_eps" formControlName="svm_eps">
-            <mat-error *ngIf="formGroup.get('svm_eps').hasError('required')">
+            <input matInput [(ngModel)]="eps" formControlName="eps">
+            <mat-error *ngIf="formGroup.get('eps').hasError('required')">
               Parameter <i>eps</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('svm_eps').hasError('min')">
+            <mat-error *ngIf="formGroup.get('eps').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -86,11 +86,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>gamma</mat-label>
-            <input matInput [(ngModel)]="svm_gamma" formControlName="svm_gamma">
-            <mat-error *ngIf="formGroup.get('svm_gamma').hasError('required')">
+            <input matInput [(ngModel)]="gamma" formControlName="gamma">
+            <mat-error *ngIf="formGroup.get('gamma').hasError('required')">
               Parameter <i>gamma</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('svm_gamma').hasError('min')">
+            <mat-error *ngIf="formGroup.get('gamma').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -99,11 +99,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>kernelType</mat-label>
-            <mat-select [(value)]="svm_kernelType">
-              <mat-option value="linear">linear</mat-option>
-              <mat-option value="polynomial">polynomial</mat-option>
-              <mat-option value="radial_basis_function">radial basis function</mat-option>
-              <mat-option value="sigmoid">sigmoid</mat-option>
+            <mat-select [(value)]="kernelType">
+              <mat-option value="LINEAR">linear</mat-option>
+              <mat-option value="POLYNOMIAL">polynomial</mat-option>
+              <mat-option value="RADIAL_BASIS_FUNCTION">radial basis function</mat-option>
+              <mat-option value="SIGMOID">sigmoid</mat-option>
             </mat-select>
           </mat-form-field>
         </mat-grid-tile>
@@ -111,11 +111,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>loss</mat-label>
-            <input matInput [(ngModel)]="svm_loss" formControlName="svm_loss">
-            <mat-error *ngIf="formGroup.get('svm_loss').hasError('required')">
+            <input matInput [(ngModel)]="loss" formControlName="loss">
+            <mat-error *ngIf="formGroup.get('loss').hasError('required')">
               Parameter <i>loss</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('svm_loss').hasError('min')">
+            <mat-error *ngIf="formGroup.get('loss').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -124,7 +124,7 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>normalize</mat-label>
-            <mat-select [(value)]="svm_normalize">
+            <mat-select [(value)]="normalize">
               <mat-option value="false">false</mat-option>
               <mat-option value="true">true</mat-option>
             </mat-select>
@@ -134,11 +134,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>nu</mat-label>
-            <input matInput [(ngModel)]="svm_nu" formControlName="svm_nu">
-            <mat-error *ngIf="formGroup.get('svm_nu').hasError('required')">
+            <input matInput [(ngModel)]="nu" formControlName="nu">
+            <mat-error *ngIf="formGroup.get('nu').hasError('required')">
               Parameter <i>nu</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('svm_nu').hasError('min')">
+            <mat-error *ngIf="formGroup.get('nu').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -147,7 +147,7 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>shrinking</mat-label>
-            <mat-select [(value)]="svm_shrinking">
+            <mat-select [(value)]="shrinking">
               <mat-option value="false">false</mat-option>
               <mat-option value="true">true</mat-option>
             </mat-select>
@@ -161,6 +161,6 @@
   <app-modeloptions
     [algorithm]="algorithm"
     [optimizationDto]="data.optimizationDto"
-    [modelParameters]="[svm_SVMType, svm_coef0, svm_cost, svm_degree, svm_eps,
-    svm_gamma, svm_kernelType, svm_loss, svm_normalize, svm_nu, svm_shrinking]"></app-modeloptions>
+    [parameters]="{SVMtype: SVMtype, coef0: coef0, cost: cost, degree: degree, eps: eps, gamma: gamma, kernelType: kernelType,
+    loss: loss, normalize: normalize, nu: nu, shrinking: shrinking}"></app-modeloptions>
 </div>

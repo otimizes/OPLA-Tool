@@ -30,7 +30,7 @@
               <mat-form-field>
                 <mat-label>Select the ML Algorithm</mat-label>
                 <mat-select [(value)]="mlAlgorithm" (selectionChange)="disabledEdit = false">
-                  <mat-option *ngFor="let alg of optimizationOptions?.machineLearningAlgorithms" [value]="alg">
+                  <mat-option *ngFor="let alg of optimizationOptions?.machineLearningAlgorithms | slice: 0 : 6" [value]="alg">
                     {{formatMLName(alg)}}
                   </mat-option>
                 </mat-select>
@@ -65,15 +65,12 @@
             </div>
 
             <div class="list-wrapper">
-              <mat-list *ngFor="let model of optimizationDto.machineLearningModels">
+              <mat-list *ngFor="let model of getEnsembleModels()">
 
                 <div class="list-item">
                   <div class="list-item__filename">{{formatMLNameNum(model.algorithm)}}</div>
                   <div class="list-item__buttons-group">
-                    <button mat-mini-fab color="primary" aria-label="Edit" class="list-item__btn">
-                      <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-mini-fab color="primary" aria-label="Edit" class="list-item__btn">
+                    <button mat-mini-fab color="primary" aria-label="Remove" class="list-item__btn" (click)="removeEnsembleModel(model)">
                       <mat-icon>remove</mat-icon>
                     </button>
                   </div>
@@ -93,7 +90,6 @@
                 </mat-select>
               </mat-form-field>
             </div>
-
           </mat-card>
         </opla-grid-tile>
       </opla-grid-list>

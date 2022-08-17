@@ -27,11 +27,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>bagSizePercent</mat-label>
-            <input matInput [(ngModel)]="randomforest_bagSizePercent" formControlName="randomforest_bagSizePercent">
-            <mat-error *ngIf="formGroup.get('randomforest_bagSizePercent').hasError('required')">
+            <input matInput [(ngModel)]="bagSizePercent" formControlName="bagSizePercent">
+            <mat-error *ngIf="formGroup.get('bagSizePercent').hasError('required')">
               Parameter <i>bagSizePercent</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('randomforest_bagSizePercent').hasError('min')">
+            <mat-error *ngIf="formGroup.get('bagSizePercent').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -40,7 +40,7 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>breakTiesRandomly</mat-label>
-            <mat-select [(value)]="randomforest_breakTiesRandomly">
+            <mat-select [(value)]="breakTiesRandomly">
               <mat-option value="true">True</mat-option>
               <mat-option value="false">False</mat-option>
             </mat-select>
@@ -50,7 +50,7 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>computeAttributeImportance</mat-label>
-            <mat-select [(value)]="randomforest_computeAttributeImportance">
+            <mat-select [(value)]="computeAttributeImportance">
               <mat-option value="true">True</mat-option>
               <mat-option value="false">False</mat-option>
             </mat-select>
@@ -60,11 +60,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>maxDepth</mat-label>
-            <input matInput [(ngModel)]="randomforest_maxDepth" formControlName="randomforest_maxDepth">
-            <mat-error *ngIf="formGroup.get('randomforest_maxDepth').hasError('required')">
+            <input matInput [(ngModel)]="maxDepth" formControlName="maxDepth">
+            <mat-error *ngIf="formGroup.get('maxDepth').hasError('required')">
               Parameter <i>maxDepth</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('randomforest_maxDepth').hasError('min')">
+            <mat-error *ngIf="formGroup.get('maxDepth').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -73,11 +73,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>numFeatures</mat-label>
-            <input matInput [(ngModel)]="randomforest_numFeatures" formControlName="randomforest_numFeatures">
-            <mat-error *ngIf="formGroup.get('randomforest_numFeatures').hasError('required')">
+            <input matInput [(ngModel)]="numFeatures" formControlName="numFeatures">
+            <mat-error *ngIf="formGroup.get('numFeatures').hasError('required')">
               Parameter <i>numFeatures</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('randomforest_numFeatures').hasError('min')">
+            <mat-error *ngIf="formGroup.get('numFeatures').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -86,11 +86,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>numIterations</mat-label>
-            <input matInput [(ngModel)]="randomforest_numIterations" formControlName="randomforest_numIterations">
-            <mat-error *ngIf="formGroup.get('randomforest_numIterations').hasError('required')">
+            <input matInput [(ngModel)]="numIterations" formControlName="numIterations">
+            <mat-error *ngIf="formGroup.get('numIterations').hasError('required')">
               Parameter <i>numIterations</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('randomforest_numIterations').hasError('min')">
+            <mat-error *ngIf="formGroup.get('numIterations').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -103,6 +103,6 @@
   <app-modeloptions
     [algorithm]="algorithm"
     [optimizationDto]="data.optimizationDto"
-    [modelParameters]="[randomforest_bagSizePercent, randomforest_breakTiesRandomly, randomforest_computeAttributeImportance,
-    randomforest_maxDepth, randomforest_numFeatures, randomforest_numIterations]"></app-modeloptions>
+    [parameters]="{bagSizePercent: bagSizePercent, breakTiesRandomly: breakTiesRandomly, computeAttributeImportance: computeAttributeImportance,
+    maxDepth: maxDepth, numFeatures: numFeatures, numIterations: numIterations}"></app-modeloptions>
 </div>

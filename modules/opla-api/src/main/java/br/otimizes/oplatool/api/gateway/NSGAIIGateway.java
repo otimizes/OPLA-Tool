@@ -3,6 +3,7 @@ package br.otimizes.oplatool.api.gateway;
 import br.otimizes.oplatool.api.dto.OptimizationDto;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIOPLABase;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
 @Component

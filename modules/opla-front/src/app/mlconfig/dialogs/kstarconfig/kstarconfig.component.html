@@ -27,7 +27,7 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>entropicAutoBlend</mat-label>
-            <mat-select [(value)]="kstar_entropicAutoBlend">
+            <mat-select [(value)]="entropicAutoBlend">
               <mat-option value="false">false</mat-option>
               <mat-option value="true">true</mat-option>
             </mat-select>
@@ -37,11 +37,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>globalBlend</mat-label>
-            <input matInput [(ngModel)]="kstar_globalBlend" formControlName="kstar_globalBlend">
-            <mat-error *ngIf="formGroup.get('kstar_globalBlend').hasError('required')">
+            <input matInput [(ngModel)]="globalBlend" formControlName="globalBlend">
+            <mat-error *ngIf="formGroup.get('globalBlend').hasError('required')">
               Parameter <i>globalBlend</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('kstar_globalBlend').hasError('min')">
+            <mat-error *ngIf="formGroup.get('globalBlend').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -50,7 +50,7 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>missingMode</mat-label>
-            <mat-select [(value)]="kstar_missingMode">
+            <mat-select [(value)]="missingMode">
               <mat-option value="ignore">Ignore the instances with missing values</mat-option>
               <mat-option value="treat_as_max">Treat the missing values as maximally different</mat-option>
               <mat-option value="normalize">Normalize over the attributes</mat-option>
@@ -67,5 +67,5 @@
   <app-modeloptions
     [algorithm]="algorithm"
     [optimizationDto]="data.optimizationDto"
-    [modelParameters]="[kstar_entropicAutoBlend, kstar_globalBlend, kstar_missingMode]"></app-modeloptions>
+    [parameters]="{entropicAutoBlend: entropicAutoBlend, globalBlend: globalBlend, missingMode: missingMode}"></app-modeloptions>
 </div>

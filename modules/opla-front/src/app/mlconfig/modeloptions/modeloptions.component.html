@@ -13,7 +13,7 @@
   </div>
 
   <div class="button-wrapper" *ngIf="optimizationDto.ensembleModel">
-    <button mat-raised-button color="accent" class="btn" mat-dialog-close="true" [disabled]="!optimizationDto.ensembleModel" (click)="addToEnsemble()">+ Ensemble</button>
+    <button mat-raised-button color="accent" class="btn" mat-dialog-close="true"  (click)="addToEnsemble()">Add to ensemble</button>
   </div>
 
   <div class="button-wrapper" *ngIf="!optimizationDto.ensembleModel">

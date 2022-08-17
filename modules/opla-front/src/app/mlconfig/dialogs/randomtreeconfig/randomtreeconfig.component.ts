@@ -12,24 +12,24 @@ import {MachineLearningAlgorithm} from "../../mlmodels/MachineLearningAlgorithm"
 export class RandomtreeconfigComponent implements OnInit {
 
   algorithm: MachineLearningAlgorithm = MachineLearningAlgorithm.RANDOM_TREE;
-  randomtree_kValue: string = "0";
-  randomtree_breakTiesRandomly: boolean = false;
-  randomtree_maxDepth: string = "0";
-  randomtree_minNum: string = "1.0";
-  randomtree_minVariancePop: string = "0.001";
-  randomtree_numFolds: string = "0";
+  kValue: string = "0";
+  breakTiesRandomly: string = "false";
+  maxDepth: string = "0";
+  minNum: string = "1.0";
+  minVariancePop: string = "0.001";
+  numFolds: string = "0";
   formGroup: FormGroup
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
-      randomtree_kValue: new FormControl('', [Validators.required, Validators.min(0)]),
-      randomtree_breakTiesRandomly: new FormControl('', [Validators.required]),
-      randomtree_maxDepth: new FormControl('', [Validators.required, Validators.min(0)]),
-      randomtree_minNum: new FormControl('', [Validators.required, Validators.min(0)]),
-      randomtree_minVariancePop: new FormControl('', [Validators.required, Validators.min(0)]),
-      randomtree_numFolds: new FormControl('', [Validators.required, Validators.min(0)])
+      kValue: new FormControl('', [Validators.required, Validators.min(0)]),
+      breakTiesRandomly: new FormControl('', [Validators.required]),
+      maxDepth: new FormControl('', [Validators.required, Validators.min(0)]),
+      minNum: new FormControl('', [Validators.required, Validators.min(0)]),
+      minVariancePop: new FormControl('', [Validators.required, Validators.min(0)]),
+      numFolds: new FormControl('', [Validators.required, Validators.min(0)])
     })
   }
 

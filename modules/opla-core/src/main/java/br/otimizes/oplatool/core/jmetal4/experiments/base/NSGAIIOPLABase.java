@@ -51,7 +51,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
     public void execute(NSGAIIConfigs experimentCommonConfigs) throws Exception {
         String[] plas = experimentCommonConfigs.getPlas().split(",");
 
-        this.logMachineLearningModel(experimentCommonConfigs);
+//        this.logMachineLearningModel(experimentCommonConfigs);
 
         for (String xmiFilePath : plas) {
             String plaName = getPlaName(xmiFilePath);
@@ -101,7 +101,8 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
     }
 
     private Algorithm getAlgorithm(OPLA problem, NSGAIIConfigs experimentCommonConfigs) throws JMException {
-        Algorithm algorithm = new NSGAII(problem, experimentCommonConfigs.getMachineLearningModels());
+//        Algorithm algorithm = new NSGAII(problem, experimentCommonConfigs.getMachineLearningModels());
+        Algorithm algorithm = new NSGAII(problem);
         algorithm.setInputParameter("populationSize", experimentCommonConfigs.getPopulationSize());
         algorithm.setInputParameter("maxEvaluations", experimentCommonConfigs.getMaxEvaluation());
         algorithm.setInputParameter("interactiveFunction", experimentCommonConfigs.getInteractiveFunction());
@@ -111,6 +112,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
         algorithm.setInputParameter("interactive", experimentCommonConfigs.getInteractive());
         algorithm.setInputParameter("clusteringMoment", experimentCommonConfigs.getClusteringMoment());
         algorithm.setInputParameter("clusteringAlgorithm", experimentCommonConfigs.getClusteringAlgorithm());
+        algorithm.setInputParameter("machineLearningModel", experimentCommonConfigs.getMachineLearningModel());
 
         HashMap<String, Object> parametersCrossover = new HashMap<>();
         parametersCrossover.put("probability", experimentCommonConfigs.getCrossoverProbability());
@@ -147,9 +149,7 @@ public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
 
     private void logMachineLearningModel(ExperimentCommonConfigs experimentCommonConfigs){
         LOGGER.info("======== MACHINE LEARNING MODELS ========");
-        for (MachineLearningModel mlm: experimentCommonConfigs.getMachineLearningModels()) {
-              LOGGER.info(mlm.toString());
-        }
+        LOGGER.info(experimentCommonConfigs.getMachineLearningModel().toString());
         LOGGER.info("======== MACHINE LEARNING MODELS ========");
     }
 }

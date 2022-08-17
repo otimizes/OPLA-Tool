@@ -12,24 +12,24 @@ import {MachineLearningAlgorithm} from "../../mlmodels/MachineLearningAlgorithm"
 export class RandomforestconfigComponent implements OnInit {
 
   algorithm: MachineLearningAlgorithm = MachineLearningAlgorithm.RANDOM_FOREST
-  randomforest_bagSizePercent: string = "100";
-  randomforest_breakTiesRandomly: boolean = false;
-  randomforest_computeAttributeImportance: boolean = false;
-  randomforest_maxDepth: string = "0";
-  randomforest_numFeatures: string = "0";
-  randomforest_numIterations: string = "100";
+  bagSizePercent: string = "100";
+  breakTiesRandomly: string = "false";
+  computeAttributeImportance: string = "false";
+  maxDepth: string = "0";
+  numFeatures: string = "0";
+  numIterations: string = "100";
   formGroup: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
-      randomforest_bagSizePercent: new FormControl('', [Validators.required, Validators.min(0)]),
-      randomforest_breakTiesRandomly: new FormControl('', [Validators.required]),
-      randomforest_computeAttributeImportance: new FormControl('', [Validators.required]),
-      randomforest_maxDepth: new FormControl('', [Validators.required, Validators.min(0)]),
-      randomforest_numFeatures: new FormControl('', [Validators.required, Validators.min(0)]),
-      randomforest_numIterations: new FormControl('', [Validators.required, Validators.min(0)])
+      bagSizePercent: new FormControl('', [Validators.required, Validators.min(0)]),
+      breakTiesRandomly: new FormControl('', [Validators.required]),
+      computeAttributeImportance: new FormControl('', [Validators.required]),
+      maxDepth: new FormControl('', [Validators.required, Validators.min(0)]),
+      numFeatures: new FormControl('', [Validators.required, Validators.min(0)]),
+      numIterations: new FormControl('', [Validators.required, Validators.min(0)])
     })
   }
 

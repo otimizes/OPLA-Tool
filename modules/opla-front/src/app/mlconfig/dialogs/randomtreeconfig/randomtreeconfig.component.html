@@ -27,11 +27,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>kValue</mat-label>
-            <input matInput [(ngModel)]="randomtree_kValue" formControlName="randomtree_kValue">
-            <mat-error *ngIf="formGroup.get('randomtree_kValue').hasError('required')">
+            <input matInput [(ngModel)]="kValue" formControlName="kValue">
+            <mat-error *ngIf="formGroup.get('kValue').hasError('required')">
               Parameter <i>kValue</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('randomtree_kValue').hasError('min')">
+            <mat-error *ngIf="formGroup.get('kValue').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -40,7 +40,7 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>breakTiesRandomly</mat-label>
-            <mat-select [(value)]="randomtree_breakTiesRandomly">
+            <mat-select [(value)]="breakTiesRandomly">
               <mat-option value="true">True</mat-option>
               <mat-option value="false">False</mat-option>
             </mat-select>
@@ -50,11 +50,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>maxDepth</mat-label>
-            <input matInput [(ngModel)]="randomtree_maxDepth" formControlName="randomtree_maxDepth">
-            <mat-error *ngIf="formGroup.get('randomtree_maxDepth').hasError('required')">
+            <input matInput [(ngModel)]="maxDepth" formControlName="maxDepth">
+            <mat-error *ngIf="formGroup.get('maxDepth').hasError('required')">
               Parameter <i>maxDepth</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('randomtree_maxDepth').hasError('min')">
+            <mat-error *ngIf="formGroup.get('maxDepth').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -63,11 +63,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>minNum</mat-label>
-            <input matInput [(ngModel)]="randomtree_minNum" formControlName="randomtree_minNum">
-            <mat-error *ngIf="formGroup.get('randomtree_minNum').hasError('required')">
+            <input matInput [(ngModel)]="minNum" formControlName="minNum">
+            <mat-error *ngIf="formGroup.get('minNum').hasError('required')">
               Parameter <i>minNum</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('randomtree_minNum').hasError('min')">
+            <mat-error *ngIf="formGroup.get('minNum').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -76,11 +76,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>minVariancePop</mat-label>
-            <input matInput [(ngModel)]="randomtree_minVariancePop" formControlName="randomtree_minVariancePop">
-            <mat-error *ngIf="formGroup.get('randomtree_minVariancePop').hasError('required')">
+            <input matInput [(ngModel)]="minVariancePop" formControlName="minVariancePop">
+            <mat-error *ngIf="formGroup.get('minVariancePop').hasError('required')">
               Parameter <i>minVariancePop</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('randomtree_minVariancePop').hasError('min')">
+            <mat-error *ngIf="formGroup.get('minVariancePop').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -89,11 +89,11 @@
         <mat-grid-tile>
           <mat-form-field>
             <mat-label>numFolds</mat-label>
-            <input matInput [(ngModel)]="randomtree_numFolds" formControlName="randomtree_numFolds">
-            <mat-error *ngIf="formGroup.get('randomtree_numFolds').hasError('required')">
+            <input matInput [(ngModel)]="numFolds" formControlName="numFolds">
+            <mat-error *ngIf="formGroup.get('numFolds').hasError('required')">
               Parameter <i>numFolds</i> is required
             </mat-error>
-            <mat-error *ngIf="formGroup.get('randomtree_numFolds').hasError('min')">
+            <mat-error *ngIf="formGroup.get('numFolds').hasError('min')">
               Value must be greater than 0
             </mat-error>
           </mat-form-field>
@@ -108,7 +108,7 @@
   <app-modeloptions
     [algorithm]="algorithm"
     [optimizationDto]="data.optimizationDto"
-    [modelParameters]="[randomtree_kValue, randomtree_breakTiesRandomly, randomtree_maxDepth,
-    randomtree_minNum, randomtree_minVariancePop, randomtree_numFolds]"></app-modeloptions>
+    [parameters]="{kValue: kValue, breakTiesRandomly: breakTiesRandomly, maxDepth: maxDepth,
+    minNum: minNum, minVariancePop: minVariancePop, numFolds: numFolds}"></app-modeloptions>
 
 </div>

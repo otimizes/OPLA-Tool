@@ -41,19 +41,16 @@ public class OptimizationDto {
     private ScopeSelection scopeSelection = ScopeSelection.RANDOM;
     private List<String> objectiveFunctions = new ArrayList<>();
     public ApplicationYamlConfig config = ApplicationFileConfig.getInstance();
-    private List<MachineLearningModel> machineLearningModels = new ArrayList<>();
 
-    public OptimizationDto() {
+    private MachineLearningModel machineLearningModel;
+
+    public MachineLearningModel getMachineLearningModel() {
+        return machineLearningModel;
     }
 
-    public void setMachineLearningModels(List<MachineLearningModel> machineLearningModels) {
-        this.machineLearningModels = machineLearningModels;
+    public void setMachineLearningModel(MachineLearningModel machineLearningModel) {
+        this.machineLearningModel = machineLearningModel;
     }
-
-    public List<MachineLearningModel> getMachineLearningModels() {
-        return machineLearningModels;
-    }
-
 
     public String getDescription() {
         return description;

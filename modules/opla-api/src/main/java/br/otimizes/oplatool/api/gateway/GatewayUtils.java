@@ -68,7 +68,7 @@ public class GatewayUtils {
         oplaConfig.setSelectedObjectiveFunctions(optimizationDto.getObjectiveFunctions());
         configs.setOplaConfigs(oplaConfig);
 
-        configs.setMachineLearningModels(optimizationDto.getMachineLearningModels());
+        configs.setMachineLearningModel(optimizationDto.getMachineLearningModel());
 
         configs.setInteractiveFunction(optimizationDto.getInteractiveFunction());
         configs.setInteractive(optimizationDto.getInteractive());

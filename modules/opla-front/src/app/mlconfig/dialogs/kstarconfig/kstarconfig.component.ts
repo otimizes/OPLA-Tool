@@ -12,18 +12,18 @@ import {MachineLearningAlgorithm} from "../../mlmodels/MachineLearningAlgorithm"
 export class KstarconfigComponent implements OnInit {
 
   algorithm: MachineLearningAlgorithm = MachineLearningAlgorithm.KSTAR;
-  kstar_entropicAutoBlend: boolean = false;
-  kstar_globalBlend: string = "20";
-  kstar_missingMode: string = "average_column_entropy_curves";
+  entropicAutoBlend: string = "false";
+  globalBlend: string = "20";
+  missingMode: string = "average_column_entropy_curves";
   formGroup: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
-      kstar_entropicAutoBlend: new FormControl('', [Validators.required]),
-      kstar_globalBlend: new FormControl('', [Validators.required, Validators.min(0)]),
-      kstar_missingMode: new FormControl('', [Validators.required])
+      entropicAutoBlend: new FormControl('', [Validators.required]),
+      globalBlend: new FormControl('', [Validators.required, Validators.min(0)]),
+      missingMode: new FormControl('', [Validators.required])
     })
   }
 
