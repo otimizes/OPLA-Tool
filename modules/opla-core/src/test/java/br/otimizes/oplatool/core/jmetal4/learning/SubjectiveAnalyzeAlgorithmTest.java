@@ -36,6 +36,12 @@ public class SubjectiveAnalyzeAlgorithmTest {
 
     @Test
     public void testMMWithMLP() throws Exception {
+        ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
+        applicationYamlConfig.setDirectoryToExportModels("");
+        applicationYamlConfig.setDirectoryToSaveModels("");
+        applicationYamlConfig.setPathToTemplateModelsDirectory("");
+        OPLAThreadScope.setConfig(applicationYamlConfig);
+        
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "MMAtual.smty";
         NSGAIIConfigs configs = getNsgaiiConfigs();
@@ -73,11 +79,6 @@ public class SubjectiveAnalyzeAlgorithmTest {
             }
         }
 
-        ApplicationYamlConfig applicationYamlConfig = new ApplicationYamlConfig();
-        applicationYamlConfig.setDirectoryToExportModels("");
-        applicationYamlConfig.setDirectoryToSaveModels("");
-        applicationYamlConfig.setPathToTemplateModelsDirectory("");
-        OPLAThreadScope.setConfig(applicationYamlConfig);
 
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = algorithm.getSubjectiveAnalyzeAlgorithm();
         List<Element> truePositive = subjectiveAnalyzeAlgorithm.getNotFreezedElements().stream()
