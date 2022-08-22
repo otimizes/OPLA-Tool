@@ -36,6 +36,17 @@ export class ModeloptionsComponent implements OnInit {
 
   }
 
+  addToEnsemble() {
+    let vote : MachineLearningModel = new VoteLearningModel();
+    if (!(this.optimizationDto.machineLearningModel instanceof VoteLearningModel)){
+       this.optimizationDto.machineLearningModel = vote;
+    } else {
+      vote = this.optimizationDto.machineLearningModel;
+    }
+    vote.classifiers.push(this.switchModel());
+    console.log(this.optimizationDto.machineLearningModel);
+  }
+
   switchModel(): MachineLearningModel{
     let alg;
     switch (this.algorithm){
@@ -70,16 +81,5 @@ export class ModeloptionsComponent implements OnInit {
         break;
     }
     return alg;
-  }
-
-  addToEnsemble() {
-    let vote : MachineLearningModel = new VoteLearningModel();
-    if (!(this.optimizationDto.machineLearningModel instanceof VoteLearningModel)){
-       this.optimizationDto.machineLearningModel = vote;
-    } else {
-      vote = this.optimizationDto.machineLearningModel;
-    }
-    vote.classifiers.push(this.switchModel());
-    console.log(this.optimizationDto.machineLearningModel);
   }
 }

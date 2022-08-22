@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.core.learning.mlmodels;
 
-public class RandomForestLearningModel {
+public class RandomForestLearningModel extends MachineLearningModel {
     private int bagSizePercent;
     private boolean breakTiesRandomly;
     private boolean computeAttributeImportance;
@@ -15,6 +15,9 @@ public class RandomForestLearningModel {
         this.maxDepth = maxDepth;
         this.numFeatures = numFeatures;
         this.numIterations = numIterations;
+    }
+
+    public RandomForestLearningModel() {
     }
 
     public int getBagSizePercent() {

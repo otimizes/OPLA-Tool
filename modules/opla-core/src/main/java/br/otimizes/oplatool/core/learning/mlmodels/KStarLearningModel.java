@@ -2,7 +2,7 @@ package br.otimizes.oplatool.core.learning.mlmodels;
 
 import weka.core.SelectedTag;
 
-public class KStarLearningModel {
+public class KStarLearningModel extends MachineLearningModel {
     private boolean entropicAutoBlend;
     private int globalBlend;
     private SelectedTag missingMode;
@@ -11,6 +11,9 @@ public class KStarLearningModel {
         this.entropicAutoBlend = entropicAutoBlend;
         this.globalBlend = globalBlend;
         this.missingMode = missingMode;
+    }
+
+    public KStarLearningModel() {
     }
 
     public boolean isEntropicAutoBlend() {

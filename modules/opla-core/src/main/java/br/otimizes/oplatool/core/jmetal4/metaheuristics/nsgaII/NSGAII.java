@@ -84,6 +84,7 @@ public class NSGAII extends Algorithm {
         int firstInteraction = (Integer) getInputParameter("firstInteraction");
         int intervalInteraction = (Integer) getInputParameter("intervalInteraction");
         Boolean interactive = (Boolean) getInputParameter("interactive");
+        this.machineLearningModel = (MachineLearningModel) getInputParameter("machineLearningModel");
         InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
         int currentInteraction = 0;
         QualityIndicator indicators = (QualityIndicator) getInputParameter("indicators");

@@ -49,15 +49,6 @@ public abstract class ExperimentCommonConfigs {
 
     public void setMachineLearningModel(MachineLearningModel machineLearningModel) {
         this.machineLearningModel = machineLearningModel;
-        this.machineLearningModel = switchModel(machineLearningModel);
-    }
-
-    private MachineLearningModel switchModel (MachineLearningModel machineLearningModel){
-        switch(machineLearningModel.algorithm){
-            case MLP:
-                return null;
-        }
-        return null;
     }
 
     public void activeLogs() {

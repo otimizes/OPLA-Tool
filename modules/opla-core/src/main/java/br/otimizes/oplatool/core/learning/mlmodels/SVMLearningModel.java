@@ -2,7 +2,7 @@ package br.otimizes.oplatool.core.learning.mlmodels;
 
 import weka.core.SelectedTag;
 
-public class SVMLearningModel {
+public class SVMLearningModel extends MachineLearningModel {
     private SelectedTag SVMType;
     private double coef0;
     private double cost;
@@ -27,6 +27,9 @@ public class SVMLearningModel {
         this.normalize = normalize;
         this.nu = nu;
         this.shrinking = shrinking;
+    }
+
+    public SVMLearningModel() {
     }
 
     public SelectedTag getSVMType() {

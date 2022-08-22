@@ -3,13 +3,16 @@ package br.otimizes.oplatool.core.learning.mlmodels;
 import weka.classifiers.Classifier;
 import weka.core.SelectedTag;
 
-public class VoteLearningModel {
+public class VoteLearningModel extends MachineLearningModel {
     private SelectedTag combinationRule;
     private Classifier[] classifers;
 
     public VoteLearningModel(SelectedTag combinationRule, Classifier[] classifers) {
         this.combinationRule = combinationRule;
         this.classifers = classifers;
+    }
+
+    public VoteLearningModel() {
     }
 
     public SelectedTag getCombinationRule() {

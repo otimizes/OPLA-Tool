@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.core.learning.mlmodels;
 
-public class RandomTreeLearningModel {
+public class RandomTreeLearningModel extends MachineLearningModel {
     private int kValue;
     private boolean breakTiesRandomly;
     private int maxDepth;
@@ -15,6 +15,9 @@ public class RandomTreeLearningModel {
         this.minNum = minNum;
         this.minVariancePop = minVariancePop;
         this.numFolds = numFolds;
+    }
+
+    public RandomTreeLearningModel() {
     }
 
     public int getkValue() {

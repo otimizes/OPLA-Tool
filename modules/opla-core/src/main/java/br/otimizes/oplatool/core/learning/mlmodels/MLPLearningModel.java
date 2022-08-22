@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.core.learning.mlmodels;
 
-public class MLPLearningModel {
+public class MLPLearningModel extends MachineLearningModel {
     private boolean decay;
     private String hiddenLayers;
     private double learningRate;
@@ -13,6 +13,9 @@ public class MLPLearningModel {
         this.learningRate = learningRate;
         this.momentum = momentum;
         this.trainingTime = trainingTime;
+    }
+
+    public MLPLearningModel() {
     }
 
     public boolean isDecay() {
