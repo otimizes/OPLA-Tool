@@ -27,6 +27,7 @@ import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.*;
+import br.otimizes.oplatool.core.jmetal4.interactive.InteractWithDM;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
 import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverUtils;
@@ -35,20 +36,16 @@ import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.otimizes.oplatool.core.jmetal4.util.Distance;
 import br.otimizes.oplatool.core.jmetal4.util.Ranking;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
-import br.otimizes.oplatool.core.learning.ClassifierAlgorithm;
 import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
-import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This class implements the NSGA-II algorithm.
@@ -57,11 +54,11 @@ public class NSGAII extends Algorithm {
 
     private static final long serialVersionUID = 5815971727148859507L;
     private static final Logger LOGGER = Logger.getLogger(NSGAII.class);
-    SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
+    private InteractWithDM interaction;
 
     public NSGAII(Problem problem) {
         super(problem);
-
+        interaction = new InteractWithDM();
     }
 
     /**
@@ -177,7 +174,7 @@ public class NSGAII extends Algorithm {
                 OPLAThreadScope.currentGeneration.set(generation);
                 OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
                 if (interactive) {
-                    currentInteraction = interactWithDM(generation, offspringPopulation, maxInteractions,
+                    currentInteraction = interaction.interactWithDM(generation, offspringPopulation, maxInteractions,
                             firstInteraction, intervalInteraction, interactiveFunction, currentInteraction,
                             bestOfUserEvaluation);
                     for (int i = 0; i < population.getSolutionSet().size(); i++) {
@@ -211,6 +208,7 @@ public class NSGAII extends Algorithm {
             }
         }
 
+        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = interaction.getSubjectiveAnalyzeAlgorithm();
         if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
             try {
                 subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(subfrontToReturn), false);
@@ -219,50 +217,6 @@ public class NSGAII extends Algorithm {
             }
         }
         return subfrontToReturn;
-    }
-
-    private synchronized int interactWithDM(int generation, SolutionSet solutionSet, int maxInteractions, int firstInteraction,
-                                            int intervalInteraction, InteractiveFunction interactiveFunction,
-                                            int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
-//        COMMENT TO INHERIT SCORES
-        for (Solution solution : solutionSet.getSolutionSet()) {
-            solution.setEvaluation(0);
-        }
-        boolean isOnInteraction = (generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction;
-        boolean inTrainingDuring = currentInteraction < maxInteractions && isOnInteraction;
-        if (inTrainingDuring) {
-            Cloner cloner = new Cloner();
-            List<Solution> solutions = cloner.shallowClone(solutionSet.getSolutionSet());
-            SolutionSet newS = new SolutionSet(solutions.size());
-            newS.setSolutionSet(solutions);
-            solutionSet = interactiveFunction.run(newS);
-            if (subjectiveAnalyzeAlgorithm == null) {
-                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet), ClassifierAlgorithm.CLUSTERING_MLP);
-                subjectiveAnalyzeAlgorithm.run(null, false);
-            } else {
-                subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), false);
-            }
-            bestOfUserEvaluation.addAll(solutionSet.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5
-                    && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
-            currentInteraction++;
-        }
-
-        boolean inTrainingAPosteriori = currentInteraction < maxInteractions && Math.abs((currentInteraction
-                * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction;
-        if (inTrainingAPosteriori) {
-            subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), true);
-        }
-
-        if (subjectiveAnalyzeAlgorithm != null) {
-            subjectiveAnalyzeAlgorithm.setTrained(!subjectiveAnalyzeAlgorithm.isTrained()
-                    && currentInteraction >= maxInteractions);
-            boolean isTrainFinished = subjectiveAnalyzeAlgorithm.isTrained() &&
-                    currentInteraction >= maxInteractions && isOnInteraction;
-            if (isTrainFinished) {
-                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(solutionSet), true);
-            }
-        }
-        return currentInteraction;
     }
 
     private Solution newRandomSolution(Operator mutationOperator) throws Exception {
@@ -302,11 +256,8 @@ public class NSGAII extends Algorithm {
         return ("" + lst1.get(2)).equals("" + lst2.get(2));
     }
 
+    // NB: this only exists so SubjectiveAnalyzeAlgorithmTest can be executed
     public SubjectiveAnalyzeAlgorithm getSubjectiveAnalyzeAlgorithm() {
-        return subjectiveAnalyzeAlgorithm;
-    }
-
-    public void setSubjectiveAnalyzeAlgorithm(SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm) {
-        this.subjectiveAnalyzeAlgorithm = subjectiveAnalyzeAlgorithm;
+        return interaction.getSubjectiveAnalyzeAlgorithm();
     }
 }

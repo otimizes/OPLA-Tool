@@ -143,8 +143,8 @@ public abstract class Element implements Serializable {
     public float getNumberId() {
         int minValue = Integer.MIN_VALUE;
         int maxValue = Integer.MAX_VALUE;
-        int numberId = HashCodeBuilder.reflectionHashCode(this.getNamespace() + ":" + this.getTypeElement() +
-                ":" + this.getName(), true);
+        int numberId = (this.getNamespace() + ":" + this.getTypeElement() +
+                ":" + this.getName()).hashCode();
 //        return (numberId - minValue) / (maxValue - minValue);
         return numberId * 0.0000001f;
     }
