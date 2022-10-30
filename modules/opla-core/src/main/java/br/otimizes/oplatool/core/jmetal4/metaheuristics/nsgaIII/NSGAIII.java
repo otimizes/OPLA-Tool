@@ -166,7 +166,7 @@ public class NSGAIII extends Algorithm {
                 } catch (Exception e) {
                     LOGGER.error(e);
                     e.printStackTrace();
-                    throw new JMException(e.getMessage());
+                    throw new JMException(e);
                 }
             }
 
@@ -222,5 +222,10 @@ public class NSGAIII extends Algorithm {
         problem_.evaluate(newSolution);
         problem_.evaluateConstraints(newSolution);
         return newSolution;
+    }
+
+    // NB: this only exists so SubjectiveAnalyzeAlgorithmTest can be executed
+    public SubjectiveAnalyzeAlgorithm getSubjectiveAnalyzeAlgorithm() {
+        return interaction.getSubjectiveAnalyzeAlgorithm();
     }
 } // NSGA-III
