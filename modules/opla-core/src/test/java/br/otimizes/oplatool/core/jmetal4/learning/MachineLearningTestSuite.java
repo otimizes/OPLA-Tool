@@ -6,6 +6,6 @@ import org.junit.runners.Suite;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory({MachineLearningTests.class})
-@Suite.SuiteClasses({SubjectiveAnalyzeAlgorithmTest.class})
+@Suite.SuiteClasses({SubjectiveAnalyzeAlgorithmTest.class, SubjectiveAnalyzeAlgorithmTestIII.class})
 public class MachineLearningTestSuite {
 }
