@@ -87,7 +87,8 @@ public class NSGAIII extends Algorithm {
                     // obtain parents
 
                     try {
-                        parents = (Solution[]) selection_.execute(population_);
+                        parents[0] = (Solution) selection_.execute(population_);
+                        parents[1] = (Solution) selection_.execute(population_);
 
                         Solution[] offSpring = (Solution[]) crossover_
                                 .execute(parents);

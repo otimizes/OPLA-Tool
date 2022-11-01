@@ -132,7 +132,7 @@ public class NSGAIIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
         Mutation mutation = MutationFactory.getMutationOperator("PLAMutationOperator", parametersMutation, experimentCommonConfigs);
         algorithm.addOperator("mutation", mutation);
 
-        Selection selection = SelectionFactory.getSelectionOperator("RandomSelection", null);
+        Selection selection = SelectionFactory.getSelectionOperator("BinaryTournament", null);
         algorithm.addOperator("selection", selection);
         return algorithm;
     }
