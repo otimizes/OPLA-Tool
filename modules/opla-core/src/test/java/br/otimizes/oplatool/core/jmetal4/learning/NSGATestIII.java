@@ -1,6 +1,7 @@
 package br.otimizes.oplatool.core.jmetal4.learning;
 
 import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
+import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.experiments.OPLAConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIConfigs;
@@ -40,6 +41,9 @@ public class NSGATestIII {
         NSGAIIConfigs configs = getNsgaiiConfigs();
         NSGAIII algorithm = getAlgorithm(xmiFilePath, configs);
         SolutionSet solutionSet = algorithm.execute();
+        for (Solution solution : solutionSet.getSolutionSet()) {
+            System.out.println(Arrays.toString(solution.getObjectives()));
+        }
         System.out.println(solutionSet);
     }
 

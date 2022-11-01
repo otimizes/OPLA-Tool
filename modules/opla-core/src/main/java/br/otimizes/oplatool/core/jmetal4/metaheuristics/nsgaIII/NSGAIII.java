@@ -1,5 +1,6 @@
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import br.otimizes.oplatool.common.exceptions.JMException;
@@ -11,6 +12,9 @@ import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractWithDM;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
+import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
+import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverUtils;
+import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLACrossoverOperator;
 import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
 
 import org.apache.log4j.Logger;
@@ -57,6 +61,19 @@ public class NSGAIII extends Algorithm {
         int currentInteraction = 0;
         HashSet<Solution> bestOfUserEvaluation = new HashSet<>();
 
+        ArrayList<Integer> originalArchElementCount;
+        ArrayList<Integer> newArchElementCount;
+
+        try {
+            Solution solution_base = new Solution(problem_);
+            problem_.evaluateConstraints(solution_base);
+            problem_.evaluate(solution_base);
+            originalArchElementCount = CrossoverUtils.getElementAmount(solution_base);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new JMException(e.getMessage());
+        }
+
         div1_ = ((Integer) this.getInputParameter("div1")).intValue();
 
         div2_ = ((Integer) this.getInputParameter("div2")).intValue();
@@ -82,27 +99,29 @@ public class NSGAIII extends Algorithm {
         while (generations_ < maxGenerations_) {
             offspringPopulation_ = new SolutionSet(populationSize_);
             Solution[] parents = new Solution[2];
-            for (int i = 0; i < (populationSize_); i++) { //MAN
+            for (int i = 0; i < (populationSize_/2); i++) { //MAN
                 if (generations_ < maxGenerations_) {
                     // obtain parents
 
                     try {
-                        parents[0] = (Solution) selection_.execute(population_);
-                        parents[1] = (Solution) selection_.execute(population_);
+                        if (((PLACrossoverOperator) crossover_).getOperators().contains(CrossoverOperators.PLA_COMPLEMENTARY_CROSSOVER.name())) {
+                            parents = CrossoverUtils.selectionComplementary(population_);
+                        } else {
+                            parents[0] = (Solution) selection_.execute(population_);
+                            parents[1] = (Solution) selection_.execute(population_);
+                        }
 
-                        Solution[] offSpring = (Solution[]) crossover_
-                                .execute(parents);
-
-                        mutation_.execute(offSpring[0]);
-                        //mutation_.execute(offSpring[1]); //MAN
-
-                        problem_.evaluate(offSpring[0]);
-                        problem_.evaluateConstraints(offSpring[0]);
-                        //problem_.evaluate(offSpring[1]); //MAN
-                        //problem_.evaluateConstraints(offSpring[1]); //MAN
-
-                        offspringPopulation_.add(offSpring[0]);
-                        //offspringPopulation_.add(offSpring[1]); //MAN
+                        Solution[] offSpring = (Solution[]) crossover_.execute(parents);
+                        for (Solution child : offSpring) {
+                            problem_.evaluateConstraints(child);
+                            mutation_.execute(child);
+                            problem_.evaluateConstraints(child);
+                            problem_.evaluate(child);
+                            newArchElementCount = CrossoverUtils.getElementAmount(child);
+                            if (IsValidArchElements(originalArchElementCount, newArchElementCount)) {
+                                offspringPopulation_.add(child);
+                            }
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -228,5 +247,15 @@ public class NSGAIII extends Algorithm {
     // NB: this only exists so SubjectiveAnalyzeAlgorithmTest can be executed
     public SubjectiveAnalyzeAlgorithm getSubjectiveAnalyzeAlgorithm() {
         return interaction.getSubjectiveAnalyzeAlgorithm();
+    }
+
+    public boolean IsValidArchElements(ArrayList<Integer> lst1, ArrayList<Integer> lst2) {
+        if (!("" + lst1.get(0)).equals("" + lst2.get(0))) {
+            return false;
+        }
+        if (!("" + lst1.get(1)).equals("" + lst2.get(1))) {
+            return false;
+        }
+        return ("" + lst1.get(2)).equals("" + lst2.get(2));
     }
 } // NSGA-III

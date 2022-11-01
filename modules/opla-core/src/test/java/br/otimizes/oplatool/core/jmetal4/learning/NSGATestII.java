@@ -48,7 +48,10 @@ public class NSGATestII {
         NSGAII algorithm = getAlgorithm(xmiFilePath, configs);
         SolutionSet solutionSet = algorithm.execute();
 
-        System.out.println(solutionSet);
+        for (Solution solution : solutionSet.getSolutionSet()) {
+            System.out.println(Arrays.toString(solution.getObjectives()));
+        }
+
     }
 
     private NSGAII getAlgorithm(String xmiFilePath, NSGAIIConfigs configs) throws Exception {
