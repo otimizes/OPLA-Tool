@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class NSGAIIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
+public class NSGAIIIOPLABase implements AlgorithmBase<NSGAIIIConfigs> {
 
     private static final Logger LOGGER = Logger.getLogger(NSGAIIIOPLABase.class);
 
@@ -47,7 +47,7 @@ public class NSGAIIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
         return pla.substring(beginIndex, endIndex);
     }
 
-    public void execute(NSGAIIConfigs experimentCommonConfigs) throws Exception {
+    public void execute(NSGAIIIConfigs experimentCommonConfigs) throws Exception {
         String[] plas = experimentCommonConfigs.getPlas().split(",");
 
         for (String xmiFilePath : plas) {
@@ -96,7 +96,7 @@ public class NSGAIIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
         }
     }
 
-    private Algorithm getAlgorithm(OPLA problem, NSGAIIConfigs experimentCommonConfigs) throws JMException {
+    private Algorithm getAlgorithm(OPLA problem, NSGAIIIConfigs experimentCommonConfigs) throws JMException {
         Algorithm algorithm = new NSGAIII(problem);
 
         // TODO: se maxEvaluations não é múltiplo de populationSize, devemos fazer uma geração a mais? @Lucas
@@ -137,19 +137,19 @@ public class NSGAIIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {
         return algorithm;
     }
 
-    private void logInformation(String pla, NSGAIIConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
+    private void logInformation(String pla, NSGAIIIConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
         logPanel(pla, configs, populationSize, maxEvaluations, crossoverProbability, mutationProbability);
         logConsole(pla, populationSize, maxEvaluations, crossoverProbability, mutationProbability);
     }
 
-    private void logPanel(String pla, NSGAIIConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
-        configs.getLogger().putLog("\n================ NSGAII ================", Level.INFO);
+    private void logPanel(String pla, NSGAIIIConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
+        configs.getLogger().putLog("\n================ NSGAIII ================", Level.INFO);
         AlgorithmBaseUtils.putLogContext(pla, configs, populationSize, maxEvaluations, crossoverProbability, mutationProbability);
     }
 
     private void logConsole(String pla, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
-        LOGGER.info("================ NSGAII ================");
+        LOGGER.info("================ NSGAIII ================");
         AlgorithmBaseUtils.logContext(pla, populationSize, maxEvaluations, crossoverProbability, mutationProbability, LOGGER);
-        LOGGER.info("================ NSGAII ================");
+        LOGGER.info("================ NSGAIII ================");
     }
 }

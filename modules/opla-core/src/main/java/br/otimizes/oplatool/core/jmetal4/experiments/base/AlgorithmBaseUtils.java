@@ -68,7 +68,7 @@ public class AlgorithmBaseUtils {
     }
 
 
-    public static void putLogContext(String pla, NSGAIIConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
+    public static void putLogContext(String pla, ExperimentCommonConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
         configs.getLogger().putLog("Context: OPLA", Level.INFO);
         configs.getLogger().putLog("PLA: " + pla, Level.INFO);
         configs.getLogger().putLog("Params:", Level.INFO);
