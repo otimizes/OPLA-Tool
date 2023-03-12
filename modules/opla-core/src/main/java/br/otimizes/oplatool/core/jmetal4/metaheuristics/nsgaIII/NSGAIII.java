@@ -3,6 +3,9 @@ package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import br.otimizes.oplatool.architecture.io.OPLALogs;
+import br.otimizes.oplatool.architecture.io.OptimizationInfo;
+import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
@@ -47,12 +50,12 @@ public class NSGAIII extends Algorithm {
     public NSGAIII(Problem problem) {
         super(problem);
         interaction = new InteractWithDM();
-    } // NSGAII
+    } // NSGAIII
 
     public SolutionSet execute() throws JMException {
         generations_ = 0;
 
-        int maxGenerations_ = (Integer) this.getInputParameter("maxGenerations");
+        int maxGenerations_ = (Integer) getInputParameter("maxGenerations");
         int maxInteractions = (Integer) getInputParameter("maxInteractions");
         int firstInteraction = (Integer) getInputParameter("firstInteraction");
         int intervalInteraction = (Integer) getInputParameter("intervalInteraction");
@@ -166,6 +169,7 @@ public class NSGAIII extends Algorithm {
                 remain = 0;
             }
 
+            OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generations_, OptimizationInfoStatus.RUNNING));
             generations_++;
 
             // verify if we need to interact after this generation
@@ -224,10 +228,10 @@ public class NSGAIII extends Algorithm {
             Solution newSolution = null;
             try {
                 newSolution = new Solution(problem_);
-
+                mutation_.execute(newSolution); // será que é isso?
                 problem_.evaluate(newSolution);
                 problem_.evaluateConstraints(newSolution);
-            } catch (ClassNotFoundException | JMException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
