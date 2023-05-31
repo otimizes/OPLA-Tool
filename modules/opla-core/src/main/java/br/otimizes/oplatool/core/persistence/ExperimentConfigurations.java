@@ -3,7 +3,6 @@ package br.otimizes.oplatool.core.persistence;
 import br.otimizes.oplatool.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIIConfigs;
-import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIIjMetalConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.PAESConfigs;
 import br.otimizes.oplatool.core.jmetal4.operators.MutationOperators;
 
@@ -93,8 +92,6 @@ public class ExperimentConfigurations {
             return ((NSGAIIConfigs) this.configs).getPopulationSize();
         else if (this.algorithm.equalsIgnoreCase("NSGAIII"))
             return ((NSGAIIIConfigs) this.configs).getPopulationSize();
-        else if (this.algorithm.equalsIgnoreCase("NSGAIIIjMetal"))
-            return ((NSGAIIIjMetalConfigs) this.configs).getPopulationSize();
 
         return 0;
     }

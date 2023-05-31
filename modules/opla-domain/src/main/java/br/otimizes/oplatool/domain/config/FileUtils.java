@@ -42,6 +42,14 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         return s;
     }
 
+    public static void copy(URL source, Path target) {
+        try {
+            org.apache.commons.io.FileUtils.copyURLToFile(source, target.toFile());
+        } catch (IOException e) {
+            LOGGER.info("Cannot copy file: " + source);
+        }
+    }
+
     public static void copy(Path source, Path target) {
         try {
             URL url = null;
