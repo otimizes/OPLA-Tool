@@ -29,7 +29,6 @@ public class PLACrossoverOperator extends Crossover {
 
     private List<String> operators;
 
-
     public PLACrossoverOperator(Map<String, Object> parameters, List<String> operators) {
         super(parameters);
         this.operators = operators;
@@ -53,10 +52,15 @@ public class PLACrossoverOperator extends Crossover {
 
         int r = PseudoRandom.randInt(0, this.operators.size() - 1);
         if (r != 0 && this.operators.size() == 1) r = 0;
-        else if (this.operators.size() <= 0) return object;
+        else if (this.operators.size() <= 0) {
+            Solution[] parentsCopy = new Solution[parents.length];
+            for (int i = 0; i < parents.length; i++) {
+                parentsCopy[i] = new Solution(parents[i]);
+            }
+            return parentsCopy;
+        }
         CrossoverOperators selectedOperator = CrossoverOperators.valueOf(this.operators.get(r));
         return selectedOperator.getOperator().execute(parameters_, parents, "allLevels");
     }
-
 
 }

@@ -12,7 +12,10 @@ import br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic.UntilBest;
  * {@link NSGAIIGateway NSGAII Gateway,}
  * {@link NSGAIIOPLABase NSGAII OPLABase,}
  * {@link NSGAIIIOPLABase NSGAIII OPLABase,}
+ * {@link NSGAIII_jm6Gateway NSGAIII Gateway,}
+ * {@link NSGAIII_jm6OPLABase NSGAIII_jm6 OPLABase,}
  * {@link br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII NSGAII,}
+ * {@link br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII_jm6.NSGAIIIAlgorithmAdapter NSGAIII,}
  * {@link PAESGateway PAES Gateway,}
  * {@link PAESOPLABase PAES OPLABase,}
  * {@link br.otimizes.oplatool.core.jmetal4.metaheuristics.paes.PAES PAES,}
@@ -43,6 +46,12 @@ public enum OptimizationAlgorithms implements IOptimizationAlgorithm {
         @Override
         public Class<? extends IGateway> getType() {
             return NSGAIIIGateway.class;
+        }
+    },
+    NSGAIII_jm6 {
+        @Override
+        public Class<? extends IGateway> getType() {
+            return NSGAIII_jm6Gateway.class;
         }
     },
     PAES {
