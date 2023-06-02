@@ -281,11 +281,13 @@ public class NSGAIII {
         }
 
         // evaluate final solution set
-        try {
-            interactive.subjectiveAnalyzeSolutionSet(new OPLASolutionSet(toSet(result())));
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new JMException(e);
+        if (interactive != null) {
+            try {
+                interactive.subjectiveAnalyzeSolutionSet(new OPLASolutionSet(toSet(result())));
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new JMException(e);
+            }
         }
     }
 
