@@ -79,10 +79,13 @@ public class InteractiveHandler {
     private InteractionData data;
     private InteractWithDM interaction;
 
-    public InteractiveHandler(InteractiveConfig config) {
-        this.config = config;
+    public InteractiveHandler() {
         this.data = new InteractionData();
         this.interaction = new InteractWithDM();
+    }
+
+    public void setInteractiveConfig(InteractiveConfig config) {
+        this.config = config;
     }
 
     public boolean checkAndInteract(int generation, SolutionSet offspringPopulation) throws Exception {
@@ -107,5 +110,9 @@ public class InteractiveHandler {
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = interaction.getSubjectiveAnalyzeAlgorithm();
         if (subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained())
             subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(population, false);
+    }
+
+    public void resetInteractionData() {
+        data = new InteractionData();
     }
 }

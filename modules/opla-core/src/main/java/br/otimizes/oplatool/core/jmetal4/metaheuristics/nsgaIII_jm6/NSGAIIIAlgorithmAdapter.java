@@ -12,15 +12,18 @@ import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveHandler;
+import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
 
 /*
  * @author Lucas Wolschick
  */
 public class NSGAIIIAlgorithmAdapter extends Algorithm {
     private static final Logger LOGGER = Logger.getLogger(NSGAIIIAlgorithmAdapter.class);
+    private InteractiveHandler handler;
 
     public NSGAIIIAlgorithmAdapter(Problem problem) {
         super(problem);
+        handler = new InteractiveHandler();
     }
 
     @Override
@@ -32,14 +35,14 @@ public class NSGAIIIAlgorithmAdapter extends Algorithm {
 
         // interatividade
         boolean interactive = (Boolean) getInputParameter("interactive");
-        InteractiveHandler interactiveData = null;
         if (interactive) {
             InteractiveHandler.InteractiveConfig options = new InteractiveHandler.InteractiveConfig();
             options.setMaxInteractions((Integer) getInputParameter("maxInteractions"));
             options.setFirstInteraction((Integer) getInputParameter("firstInteraction"));
             options.setIntervalInteraction((Integer) getInputParameter("intervalInteraction"));
             options.setInteractiveFunction((InteractiveFunction) getInputParameter("interactiveFunction"));
-            interactiveData = new InteractiveHandler(options);
+            handler.setInteractiveConfig(options);
+            handler.resetInteractionData();
         }
 
         Operator mutationOperator = operators_.get("mutation");
@@ -52,7 +55,7 @@ public class NSGAIIIAlgorithmAdapter extends Algorithm {
                 .setSelectionOperator(selectionOperator)
                 .setMaxEvaluations(maxEvaluations)
                 .setPopulationSize(populationSize)
-                .setInteractive(interactiveData)
+                .setInteractive(handler)
                 .build();
 
         try {
