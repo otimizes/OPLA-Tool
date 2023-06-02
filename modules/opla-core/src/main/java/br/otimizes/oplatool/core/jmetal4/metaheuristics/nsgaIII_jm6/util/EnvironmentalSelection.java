@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.TreeMap;
 
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
+import br.otimizes.oplatool.core.jmetal4.util.PseudoRandom;
 
 public class EnvironmentalSelection {
 
@@ -278,13 +278,12 @@ public class EnvironmentalSelection {
             this.addToTree(rp);
         }
 
-        Random rand = new Random();
         List<Solution> result = new ArrayList<>();
 
         // ---------- Step 17 / Algorithm 4 ----------
         while (result.size() < this.solutionsToSelect) {
             final ArrayList<ReferencePoint> first = this.referencePointsTree.firstEntry().getValue();
-            final int min_rp_index = 1 == first.size() ? 0 : rand.nextInt(first.size());
+            final int min_rp_index = 1 == first.size() ? 0 : PseudoRandom.randInt(0, first.size() - 1);
             final ReferencePoint min_rp = first.remove(min_rp_index);
             if (first.isEmpty())
                 this.referencePointsTree.pollFirstEntry();

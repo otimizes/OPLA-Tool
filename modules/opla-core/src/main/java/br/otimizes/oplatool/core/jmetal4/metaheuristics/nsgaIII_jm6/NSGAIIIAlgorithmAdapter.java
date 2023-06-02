@@ -10,13 +10,15 @@ import br.otimizes.oplatool.core.jmetal4.core.Operator;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
+import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
+import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveHandler;
 
 /*
  * @author Lucas Wolschick
  */
 public class NSGAIIIAlgorithmAdapter extends Algorithm {
     private static final Logger LOGGER = Logger.getLogger(NSGAIIIAlgorithmAdapter.class);
-    
+
     public NSGAIIIAlgorithmAdapter(Problem problem) {
         super(problem);
     }
@@ -24,24 +26,35 @@ public class NSGAIIIAlgorithmAdapter extends Algorithm {
     @Override
     public SolutionSet execute() throws JMException, ClassNotFoundException {
         LOGGER.info("Initializing execution");
-        
+
         int populationSize = (Integer) getInputParameter("populationSize");
         int maxEvaluations = (Integer) getInputParameter("maxEvaluations");
-        //int maxDivisions =  (Integer) this.getInputParameter("div1");
+
+        // interatividade
+        boolean interactive = (Boolean) getInputParameter("interactive");
+        InteractiveHandler interactiveData = null;
+        if (interactive) {
+            InteractiveHandler.InteractiveConfig options = new InteractiveHandler.InteractiveConfig();
+            options.setMaxInteractions((Integer) getInputParameter("maxInteractions"));
+            options.setFirstInteraction((Integer) getInputParameter("firstInteraction"));
+            options.setIntervalInteraction((Integer) getInputParameter("intervalInteraction"));
+            options.setInteractiveFunction((InteractiveFunction) getInputParameter("interactiveFunction"));
+            interactiveData = new InteractiveHandler(options);
+        }
 
         Operator mutationOperator = operators_.get("mutation");
         Operator crossoverOperator = operators_.get("crossover");
         Operator selectionOperator = operators_.get("selection");
 
-        NSGAIIIBuilder builder = new NSGAIIIBuilder(problem_);
-        builder.setCrossoverOperator(crossoverOperator);
-        builder.setMutationOperator(mutationOperator);
-        builder.setSelectionOperator(selectionOperator);
-        builder.setMaxEvaluations(maxEvaluations);
-        builder.setPopulationSize(populationSize);
-        //builder.setNumberOfDivisions(maxDivisions);
+        NSGAIII algorithm = new NSGAIIIBuilder(problem_)
+                .setCrossoverOperator(crossoverOperator)
+                .setMutationOperator(mutationOperator)
+                .setSelectionOperator(selectionOperator)
+                .setMaxEvaluations(maxEvaluations)
+                .setPopulationSize(populationSize)
+                .setInteractive(interactiveData)
+                .build();
 
-        NSGAIII algorithm = builder.build();
         try {
             algorithm.run();
         } catch (JMException | ClassNotFoundException e) {
@@ -58,5 +71,5 @@ public class NSGAIIIAlgorithmAdapter extends Algorithm {
         }
         return set;
     }
-    
+
 }

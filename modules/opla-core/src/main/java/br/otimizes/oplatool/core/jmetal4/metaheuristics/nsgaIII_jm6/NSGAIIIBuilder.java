@@ -1,93 +1,105 @@
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII_jm6;
 
-import java.util.List;
-
 import br.otimizes.oplatool.core.jmetal4.core.Operator;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
+import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveHandler;
 
 /** Builder class */
 public class NSGAIIIBuilder {
-  // no access modifier means access from classes within the same package
-  private Problem problem ;
-  private int maxIterations ;
-  private int populationSize ;
-  private int numberOfDivisions;
-  private Operator crossoverOperator ;
-  private Operator mutationOperator ;
-  private Operator selectionOperator ;
+    // no access modifier means access from classes within the same package
+    private Problem problem;
+    private int maxIterations;
+    private int populationSize;
+    private int numberOfDivisions;
+    private Operator crossoverOperator;
+    private Operator mutationOperator;
+    private Operator selectionOperator;
+    private InteractiveHandler interactive;
 
-  
-  /** Builder constructor */
-  public NSGAIIIBuilder(Problem problem) {
-    this.problem = problem ;
-    maxIterations = 250 ;
-    populationSize = 100 ;
-    numberOfDivisions = 12;
-  }
+    /** Builder constructor */
+    public NSGAIIIBuilder(Problem problem) {
+        this.problem = problem;
+        maxIterations = 250;
+        populationSize = 100;
+        numberOfDivisions = 12;
+        interactive = null;
+    }
 
-  public NSGAIIIBuilder setMaxEvaluations(int maxEvaluations) {
-    this.maxIterations = maxEvaluations ;
+    public NSGAIIIBuilder setMaxEvaluations(int maxEvaluations) {
+        this.maxIterations = maxEvaluations;
 
-    return this ;
-  }
+        return this;
+    }
 
-  public NSGAIIIBuilder setPopulationSize(int populationSize) {
-    this.populationSize = populationSize ;
+    public NSGAIIIBuilder setPopulationSize(int populationSize) {
+        this.populationSize = populationSize;
 
-    return this ;
-  }
+        return this;
+    }
 
-  public NSGAIIIBuilder setNumberOfDivisions(int numberOfDivisions){
-    this.numberOfDivisions = numberOfDivisions ;
+    public NSGAIIIBuilder setNumberOfDivisions(int numberOfDivisions) {
+        this.numberOfDivisions = numberOfDivisions;
 
-    return this ;
-  }
+        return this;
+    }
 
-  public NSGAIIIBuilder setCrossoverOperator(Operator crossoverOperator) {
-    this.crossoverOperator = crossoverOperator ;
+    public NSGAIIIBuilder setCrossoverOperator(Operator crossoverOperator) {
+        this.crossoverOperator = crossoverOperator;
 
-    return this ;
-  }
+        return this;
+    }
 
-  public NSGAIIIBuilder setMutationOperator(Operator mutationOperator) {
-    this.mutationOperator = mutationOperator ;
+    public NSGAIIIBuilder setMutationOperator(Operator mutationOperator) {
+        this.mutationOperator = mutationOperator;
 
-    return this ;
-  }
+        return this;
+    }
 
-  public NSGAIIIBuilder setSelectionOperator(Operator selectionOperator) {
-    this.selectionOperator = selectionOperator ;
+    public NSGAIIIBuilder setSelectionOperator(Operator selectionOperator) {
+        this.selectionOperator = selectionOperator;
 
-    return this ;
-  }
+        return this;
+    }
 
-  public Problem getProblem() {
-    return problem;
-  }
+    public NSGAIIIBuilder setInteractive(InteractiveHandler interactive) {
+        this.interactive = interactive;
 
-  public int getMaxEvaluations() {
-    return maxIterations;
-  }
+        return this;
+    }
 
-  public int getPopulationSize() {
-    return populationSize;
-  }
+    public Problem getProblem() {
+        return problem;
+    }
 
-  public int getNumberOfDivisions() { return numberOfDivisions; }
+    public int getMaxEvaluations() {
+        return maxIterations;
+    }
 
-  public Operator getCrossoverOperator() {
-    return crossoverOperator;
-  }
+    public int getPopulationSize() {
+        return populationSize;
+    }
 
-  public Operator getMutationOperator() {
-    return mutationOperator;
-  }
+    public int getNumberOfDivisions() {
+        return numberOfDivisions;
+    }
 
-  public Operator getSelectionOperator() {
-    return selectionOperator;
-  }
+    public Operator getCrossoverOperator() {
+        return crossoverOperator;
+    }
 
-  public NSGAIII build() {
-    return new NSGAIII(this) ;
-  }
+    public Operator getMutationOperator() {
+        return mutationOperator;
+    }
+
+    public Operator getSelectionOperator() {
+        return selectionOperator;
+    }
+
+    public InteractiveHandler getInteractive() {
+        return interactive;
+    }
+
+    public NSGAIII build() {
+        return new NSGAIII(this);
+    }
 }

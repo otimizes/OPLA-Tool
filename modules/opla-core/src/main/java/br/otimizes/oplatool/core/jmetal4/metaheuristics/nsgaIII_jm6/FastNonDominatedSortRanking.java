@@ -25,7 +25,7 @@ import br.otimizes.oplatool.core.jmetal4.util.comparators.DominanceComparator;
  *
  * @author Antonio J. Nebro <antonio@lcc.uma.es>
  */
-public class FastNonDominatedSortRanking implements Ranking {
+public class FastNonDominatedSortRanking {
 
     private String attributeId = getClass().getName();
     private Map<Solution, Integer> attributes;
@@ -51,8 +51,7 @@ public class FastNonDominatedSortRanking implements Ranking {
         this(new DominanceComparator());
     }
 
-    @Override
-    public Ranking compute(List<Solution> solutionList) {
+    public FastNonDominatedSortRanking compute(List<Solution> solutionList) {
         List<Solution> population = solutionList;
 
         // dominateMe[i] contains the number of population dominating i
@@ -133,23 +132,18 @@ public class FastNonDominatedSortRanking implements Ranking {
         return this;
     }
 
-    @Override
     public List<Solution> getSubFront(int rank) {
-        // TODO Verificação de erro não importada
-        // Check.that(
-        // rank < rankedSubPopulations.size(),
-        // "Invalid rank: " + rank + ". Max rank = " + (rankedSubPopulations.size() -
-        // 1));
+        if (rank >= rankedSubPopulations.size()) {
+            throw new RuntimeException("Invalid rank: " + rank + ". Max rank = " + (rankedSubPopulations.size() - 1));
+        }
 
         return rankedSubPopulations.get(rank);
     }
 
-    @Override
     public int getNumberOfSubFronts() {
         return rankedSubPopulations.size();
     }
 
-    @Override
     public Integer getRank(Solution solution) {
         if (null == solution) {
             throw new RuntimeException("The parameter is null");
@@ -162,7 +156,6 @@ public class FastNonDominatedSortRanking implements Ranking {
         return result;
     }
 
-    @Override
     public Object getAttributedId() {
         return attributeId;
     }

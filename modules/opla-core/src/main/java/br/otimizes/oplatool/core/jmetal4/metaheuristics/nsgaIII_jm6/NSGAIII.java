@@ -8,10 +8,12 @@ import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
 import br.otimizes.oplatool.common.exceptions.JMException;
+import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Operator;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
+import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveHandler;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII_jm6.util.EnvironmentalSelection;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII_jm6.util.ReferencePoint;
 import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
@@ -19,7 +21,7 @@ import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverUtils;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLACrossoverOperator;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 
-// Código baseado em/obtido de: https://github.com/jMetal/jMetal
+// Código baseado em/obtido de: https://github.com/jMetal/jMetal (versão 6)
 // Acessado em 2023-05-31 22:54 BRT
 // ~ Lucas Wolschick
 
@@ -36,6 +38,8 @@ public class NSGAIII {
 
     protected int numberOfDivisions;
     protected List<ReferencePoint> referencePoints = new Vector<>();
+
+    protected InteractiveHandler interactive;
 
     /** Constructor */
     public NSGAIII(NSGAIIIBuilder builder) { // can be created from the NSGAIIIBuilder within the same package
@@ -60,6 +64,9 @@ public class NSGAIII {
         }
 
         setMaxPopulationSize(populationSize);
+
+        /// Interactivity
+        interactive = builder.getInteractive(); // can be null
     }
 
     protected void initProgress() {
@@ -74,7 +81,8 @@ public class NSGAIII {
         return evaluations >= maxEvaluations;
     }
 
-    protected List<Solution> evaluatePopulation(List<Solution> population, ArrayList<Integer> originalArchElementCount) throws JMException {
+    protected List<Solution> evaluatePopulation(List<Solution> population, ArrayList<Integer> originalArchElementCount)
+            throws JMException {
         List<Solution> newPopulation = new ArrayList<>();
 
         for (Solution s : population) {
@@ -95,7 +103,8 @@ public class NSGAIII {
         for (int i = 0; i < getMaxPopulationSize(); i += 2) {
             if (!isStoppingConditionReached()) {
                 Solution[] parents = new Solution[2];
-                if (((PLACrossoverOperator) crossoverOperator).getOperators().contains(CrossoverOperators.PLA_COMPLEMENTARY_CROSSOVER.name())) {
+                if (((PLACrossoverOperator) crossoverOperator).getOperators()
+                        .contains(CrossoverOperators.PLA_COMPLEMENTARY_CROSSOVER.name())) {
                     parents = CrossoverUtils.selectionComplementary(populationSet);
                 } else {
                     parents[0] = (Solution) selectionOperator.execute(populationSet);
@@ -122,13 +131,14 @@ public class NSGAIII {
         return copy;
     }
 
-    protected List<Solution> replacement(List<Solution> population, List<Solution> offspringPopulation) throws JMException {
+    protected List<Solution> replacement(List<Solution> population, List<Solution> offspringPopulation)
+            throws JMException {
 
         List<Solution> jointPopulation = new ArrayList<>();
         jointPopulation.addAll(population);
         jointPopulation.addAll(offspringPopulation);
 
-        Ranking ranking = computeRanking(jointPopulation);
+        FastNonDominatedSortRanking ranking = computeRanking(jointPopulation);
 
         // List<Solution> pop = crowdingDistanceSelection(ranking);
         List<Solution> last = new ArrayList<>();
@@ -165,8 +175,8 @@ public class NSGAIII {
         return getNonDominatedSolutions(getPopulation());
     }
 
-    protected Ranking computeRanking(List<Solution> solutionList) {
-        Ranking ranking = new FastNonDominatedSortRanking();
+    protected FastNonDominatedSortRanking computeRanking(List<Solution> solutionList) {
+        FastNonDominatedSortRanking ranking = new FastNonDominatedSortRanking();
         ranking.compute(solutionList);
 
         return ranking;
@@ -174,14 +184,6 @@ public class NSGAIII {
 
     protected List<Solution> getNonDominatedSolutions(List<Solution> solutionList) {
         return SolutionListUtils.getNonDominatedSolutions(solutionList);
-    }
-
-    public String name() {
-        return "NSGAIII";
-    }
-
-    public String description() {
-        return "Nondominated Sorting Genetic Algorithm version III";
     }
 
     /// AbstractGeneticAlgorithm.java
@@ -224,24 +226,8 @@ public class NSGAIII {
             population.add(newRandomSolution(mutationOperator));
             updateProgress();
         }
-        
-        return population;
-    }
 
-    /**
-     * A crossover operator is applied to a number of parents, and it assumed that
-     * the population contains
-     * a valid number of solutions. This method checks that.
-     * 
-     * @param population
-     * @param numberOfParentsForCrossover
-     */
-    protected void checkNumberOfParents(List<Solution> population, int numberOfParentsForCrossover) throws JMException {
-        if ((population.size() % numberOfParentsForCrossover) != 0) {
-            throw new JMException("Wrong number of parents: the remainder if the " +
-                    "population size (" + population.size() + ") is not divisible by " +
-                    numberOfParentsForCrossover);
-        }
+        return population;
     }
 
     // AbstractEvolutionaryAlgorithm.java
@@ -279,12 +265,33 @@ public class NSGAIII {
 
             int generation = evaluations / getMaxPopulationSize();
             OPLAThreadScope.currentGeneration.set(generation);
-            OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
+            OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation,
+                    OptimizationInfoStatus.RUNNING));
+
+            if (interactive != null) {
+                interactive.checkAndInteract(generation, toSet(offspringPopulation));
+
+                // eliminate badly-ranked solutions
+                for (int i = 0; i < population.size(); i++) {
+                    if (population.get(i).getEvaluation() == 1) {
+                        population.set(i, newRandomSolution(mutationOperator));
+                    }
+                }
+            }
+        }
+
+        // evaluate final solution set
+        try {
+            interactive.subjectiveAnalyzeSolutionSet(new OPLASolutionSet(toSet(result())));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new JMException(e);
         }
     }
 
     // NSGAII.java
-    private Solution newRandomSolution(Operator mutationOperator) throws ClassNotFoundException, JMException, Exception {
+    private Solution newRandomSolution(Operator mutationOperator)
+            throws ClassNotFoundException, JMException, Exception {
         Solution newSolution = new Solution(problem);
         mutationOperator.execute(newSolution);
         problem.evaluate(newSolution);
