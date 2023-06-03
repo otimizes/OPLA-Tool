@@ -55,7 +55,7 @@ public class NSGAIIIAlgorithmAdapter extends Algorithm {
                 .setSelectionOperator(selectionOperator)
                 .setMaxEvaluations(maxEvaluations)
                 .setPopulationSize(populationSize)
-                .setInteractive(handler)
+                .setInteractive(interactive ? handler : null)
                 .build();
 
         try {
