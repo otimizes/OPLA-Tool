@@ -1,4 +1,4 @@
-package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII_jm6;
+package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII;
 
 import java.util.ArrayList;
 import java.util.Comparator;

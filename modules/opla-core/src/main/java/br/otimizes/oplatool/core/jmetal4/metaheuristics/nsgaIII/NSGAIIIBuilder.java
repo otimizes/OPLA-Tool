@@ -1,4 +1,4 @@
-package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII_jm6;
+package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII;
 
 import br.otimizes.oplatool.core.jmetal4.core.Operator;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;

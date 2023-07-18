@@ -5,7 +5,7 @@ import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.database.Result;
 import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
-import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII_jm6.NSGAIIIAlgorithmAdapter;
+import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII.NSGAIIIAlgorithmAdapter;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
@@ -28,14 +28,14 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class NSGAIII_jm6OPLABase implements AlgorithmBase<NSGAIII_jm6Configs> {
+public class NSGAIIIOPLABase implements AlgorithmBase<NSGAIIIConfigs> {
 
-    private static final Logger LOGGER = Logger.getLogger(NSGAIII_jm6OPLABase.class);
+    private static final Logger LOGGER = Logger.getLogger(NSGAIIIOPLABase.class);
 
     private final Persistence persistence;
     private final EdCalculation edCalculation;
 
-    public NSGAIII_jm6OPLABase(Persistence persistence, EdCalculation edCalculation) {
+    public NSGAIIIOPLABase(Persistence persistence, EdCalculation edCalculation) {
         this.persistence = persistence;
         this.edCalculation = edCalculation;
     }
@@ -46,15 +46,15 @@ public class NSGAIII_jm6OPLABase implements AlgorithmBase<NSGAIII_jm6Configs> {
         return pla.substring(beginIndex, endIndex);
     }
 
-    public void execute(NSGAIII_jm6Configs experimentCommonConfigs) throws Exception {
+    public void execute(NSGAIIIConfigs experimentCommonConfigs) throws Exception {
         String[] plas = experimentCommonConfigs.getPlas().split(",");
 
         for (String xmiFilePath : plas) {
             String plaName = getPlaName(xmiFilePath);
             OPLA problem = AlgorithmBaseUtils.getOPLAProblem(experimentCommonConfigs, xmiFilePath);
             Result result = new Result();
-            Experiment experiment = persistence.save(plaName, "NSGAIII_jm6", experimentCommonConfigs.getDescription(), OPLAThreadScope.hashOnPosteriori.get());
-            ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "NSGAIII_jm6", experimentCommonConfigs);
+            Experiment experiment = persistence.save(plaName, "NSGAIII", experimentCommonConfigs.getDescription(), OPLAThreadScope.hashOnPosteriori.get());
+            ExperimentConfigurations conf = new ExperimentConfigurations(experiment.getId(), "NSGAIII", experimentCommonConfigs);
             persistence.save(conf);
 
             SolutionSet allRuns = new SolutionSet();
@@ -95,7 +95,7 @@ public class NSGAIII_jm6OPLABase implements AlgorithmBase<NSGAIII_jm6Configs> {
         }
     }
 
-    private Algorithm getAlgorithm(OPLA problem, NSGAIII_jm6Configs experimentCommonConfigs) throws JMException {
+    private Algorithm getAlgorithm(OPLA problem, NSGAIIIConfigs experimentCommonConfigs) throws JMException {
         Algorithm algorithm = new NSGAIIIAlgorithmAdapter(problem);
 
         algorithm.setInputParameter("populationSize", experimentCommonConfigs.getPopulationSize());
@@ -125,19 +125,19 @@ public class NSGAIII_jm6OPLABase implements AlgorithmBase<NSGAIII_jm6Configs> {
         return algorithm;
     }
 
-    private void logInformation(String pla, NSGAIII_jm6Configs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
+    private void logInformation(String pla, NSGAIIIConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
         logPanel(pla, configs, populationSize, maxEvaluations, crossoverProbability, mutationProbability);
         logConsole(pla, populationSize, maxEvaluations, crossoverProbability, mutationProbability);
     }
 
-    private void logPanel(String pla, NSGAIII_jm6Configs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
-        configs.getLogger().putLog("\n================ NSGAIII_jm6 ================", Level.INFO);
+    private void logPanel(String pla, NSGAIIIConfigs configs, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
+        configs.getLogger().putLog("\n================ NSGAIII ================", Level.INFO);
         AlgorithmBaseUtils.putLogContext(pla, configs, populationSize, maxEvaluations, crossoverProbability, mutationProbability);
     }
 
     private void logConsole(String pla, int populationSize, int maxEvaluations, double crossoverProbability, double mutationProbability) {
-        LOGGER.info("================ NSGAIII_jm6 ================");
+        LOGGER.info("================ NSGAIII ================");
         AlgorithmBaseUtils.logContext(pla, populationSize, maxEvaluations, crossoverProbability, mutationProbability, LOGGER);
-        LOGGER.info("================ NSGAIII_jm6 ================");
+        LOGGER.info("================ NSGAIII ================");
     }
 }

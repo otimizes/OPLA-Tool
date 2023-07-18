@@ -2,7 +2,7 @@ package br.otimizes.oplatool.core.jmetal4.experiments.base;
 
 import br.otimizes.oplatool.core.jmetal4.experiments.ExperimentCommonConfigs;
 
-public class NSGAIII_jm6Configs extends ExperimentCommonConfigs {
+public class NSGAIIIConfigs extends ExperimentCommonConfigs {
 
     private int populationSize;
 
