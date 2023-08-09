@@ -1,14 +1,12 @@
 package br.otimizes.oplatool.domain.config;
 
-import org.codehaus.plexus.archiver.tar.TarGZipUnArchiver;
-import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
-
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import org.codehaus.plexus.archiver.tar.TarGZipUnArchiver;
+import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
 
 /**
  * @author elf
@@ -42,25 +40,32 @@ public class UserHome {
     }
 
     public static void copyTemplates() {
-        URI uriTemplatesDir = null;
-        try {
-            uriTemplatesDir = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.TEMPLATES_DIR).toURI();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        URL urlTemplatesDir = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.TEMPLATES_DIR);
+
+        if (urlTemplatesDir == null)
+            return;
+
         String simplesUmlPath = FileConstants.SIMPLES_UML_NAME;
         String simplesDiPath = FileConstants.SIMPLES_DI_NAME;
         String simplesNotationPath = FileConstants.SIMPLES_NOTATION_NAME;
+
+        URL simplesUmlUrl = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.TEMPLATES_DIR + FileConstants.FILE_SEPARATOR + simplesUmlPath);
+        URL simplesDiUrl = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.TEMPLATES_DIR + FileConstants.FILE_SEPARATOR + simplesDiPath);
+        URL simplesNotationUrl = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.TEMPLATES_DIR + FileConstants.FILE_SEPARATOR + simplesNotationPath);
 
         Path externalPathSimplesUml = Paths.get(UserHome.getPathToTemplates() + simplesUmlPath);
         Path externalPathSimplesDi = Paths.get(UserHome.getPathToTemplates() + simplesDiPath);
         Path externalPathSimplesNotation = Paths.get(UserHome.getPathToTemplates() + simplesNotationPath);
 
-        if (uriTemplatesDir != null) {
-            FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesUmlPath), externalPathSimplesUml);
-            FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesDiPath), externalPathSimplesDi);
-            FileUtils.copy(Paths.get(FileUtils.getURL(uriTemplatesDir)).resolve(simplesNotationPath), externalPathSimplesNotation);
-        }
+        if (simplesUmlUrl != null)
+            FileUtils.copy(simplesUmlUrl, externalPathSimplesUml);
+        
+        if (simplesDiUrl != null)
+            FileUtils.copy(simplesDiUrl, externalPathSimplesDi);
+        
+        if (simplesNotationUrl != null)
+            FileUtils.copy(simplesNotationUrl, externalPathSimplesNotation);
+        
     }
 
     public static void createProfilesPath() {
@@ -72,7 +77,7 @@ public class UserHome {
         URL systemResource = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.HV_FILE);
         Path path = Paths.get(getOPLAUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR + FileConstants.HV_FILE);
         if (!path.toFile().exists()) {
-            FileUtils.copy(Paths.get(systemResource.getPath()), path);
+            FileUtils.copy(systemResource, path);
             File hvDir = new File(getOPLAUserHome() + FileConstants.BINS_DIR + FileConstants.FILE_SEPARATOR + FileConstants.HV_DIR);
             boolean mkdirs = hvDir.mkdirs();
 

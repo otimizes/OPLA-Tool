@@ -30,7 +30,7 @@ import java.util.*;
 /**
  * Class representing a SolutionSet (a set of solutions)
  */
-public class SolutionSet implements Serializable {
+public class SolutionSet implements Serializable, Iterable<Solution> {
 
     private static final Logger LOGGER = Logger.getLogger(SolutionSet.class);
 

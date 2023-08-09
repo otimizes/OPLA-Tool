@@ -11,8 +11,10 @@ import br.otimizes.oplatool.core.jmetal4.metaheuristics.memetic.UntilBest;
  * <p>
  * {@link NSGAIIGateway NSGAII Gateway,}
  * {@link NSGAIIOPLABase NSGAII OPLABase,}
+ * {@link NSGAIIIGateway NSGAIII Gateway,}
  * {@link NSGAIIIOPLABase NSGAIII OPLABase,}
  * {@link br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII NSGAII,}
+ * {@link br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII.NSGAIIIAlgorithmAdapter NSGAIII,}
  * {@link PAESGateway PAES Gateway,}
  * {@link PAESOPLABase PAES OPLABase,}
  * {@link br.otimizes.oplatool.core.jmetal4.metaheuristics.paes.PAES PAES,}

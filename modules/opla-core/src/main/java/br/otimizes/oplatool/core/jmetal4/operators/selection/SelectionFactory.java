@@ -23,7 +23,6 @@ package br.otimizes.oplatool.core.jmetal4.operators.selection;
 
 import br.otimizes.oplatool.common.Configuration;
 import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII.RandomSelection;
 
 import java.util.Map;
 
@@ -44,8 +43,6 @@ public class SelectionFactory {
             return new BinaryTournament2(parameters);
         else if (name.equalsIgnoreCase("BinaryTournament"))
             return new BinaryTournament(parameters);
-        else if (name.equalsIgnoreCase("RandomSelection"))
-            return new RandomSelection(parameters);
         else {
             Configuration.logger_.severe("Operator '" + name + "' not found ");
             throw new JMException("Exception in " + name + ".getSelectionOperator()");
