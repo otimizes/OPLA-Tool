@@ -1,18 +1,12 @@
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
 import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
-import br.otimizes.oplatool.core.jmetal4.core.Operator;
-import br.otimizes.oplatool.core.jmetal4.core.Problem;
-import br.otimizes.oplatool.core.jmetal4.core.Solution;
-import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.*;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveHandler;
-import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
+import org.apache.log4j.Logger;
+
+import java.util.List;
 
 /*
  * @author Lucas Wolschick
@@ -75,4 +69,11 @@ public class NSGAIIIAlgorithmAdapter extends Algorithm {
         return set;
     }
 
+    public InteractiveHandler getHandler() {
+        return handler;
+    }
+
+    public void setHandler(InteractiveHandler handler) {
+        this.handler = handler;
+    }
 }

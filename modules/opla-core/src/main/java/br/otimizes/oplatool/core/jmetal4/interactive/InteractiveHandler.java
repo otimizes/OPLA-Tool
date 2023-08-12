@@ -1,15 +1,15 @@
 package br.otimizes.oplatool.core.jmetal4.interactive;
 
-import java.util.HashSet;
-
 import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
 
+import java.util.HashSet;
+
 /*
  * Helper class which holds options related to interactivity.
- * @author Lucas 
+ * @author Lucas
  */
 public class InteractiveHandler {
     public static class InteractiveConfig {
@@ -25,32 +25,36 @@ public class InteractiveHandler {
             return maxInteractions;
         }
 
-        public void setMaxInteractions(int maxInteractions) {
+        public InteractiveConfig setMaxInteractions(int maxInteractions) {
             this.maxInteractions = maxInteractions;
+            return this;
         }
 
         public int getFirstInteraction() {
             return firstInteraction;
         }
 
-        public void setFirstInteraction(int firstInteraction) {
+        public InteractiveConfig setFirstInteraction(int firstInteraction) {
             this.firstInteraction = firstInteraction;
+            return this;
         }
 
         public int getIntervalInteraction() {
             return intervalInteraction;
         }
 
-        public void setIntervalInteraction(int intervalInteraction) {
+        public InteractiveConfig setIntervalInteraction(int intervalInteraction) {
             this.intervalInteraction = intervalInteraction;
+            return this;
         }
 
         public InteractiveFunction getInteractiveFunction() {
             return interactiveFunction;
         }
 
-        public void setInteractiveFunction(InteractiveFunction interactiveFunction) {
+        public InteractiveConfig setInteractiveFunction(InteractiveFunction interactiveFunction) {
             this.interactiveFunction = interactiveFunction;
+            return this;
         }
     }
 
@@ -62,30 +66,37 @@ public class InteractiveHandler {
             return currentInteraction;
         }
 
-        public void setCurrentInteraction(int currentInteraction) {
+        public InteractionData setCurrentInteraction(int currentInteraction) {
             this.currentInteraction = currentInteraction;
+            return this;
         }
 
         public HashSet<Solution> getBestOfUserEvaluation() {
             return bestOfUserEvaluation;
         }
 
-        public void setBestOfUserEvaluation(HashSet<Solution> bestOfUserEvaluation) {
+        public InteractionData setBestOfUserEvaluation(HashSet<Solution> bestOfUserEvaluation) {
             this.bestOfUserEvaluation = bestOfUserEvaluation;
+            return this;
         }
-    };
+    }
+
+    ;
 
     private InteractiveConfig config;
     private InteractionData data;
     private InteractWithDM interaction;
+
+    private SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm;
 
     public InteractiveHandler() {
         this.data = new InteractionData();
         this.interaction = new InteractWithDM();
     }
 
-    public void setInteractiveConfig(InteractiveConfig config) {
+    public InteractiveHandler setInteractiveConfig(InteractiveConfig config) {
         this.config = config;
+        return this;
     }
 
     public boolean checkAndInteract(int generation, SolutionSet offspringPopulation) throws Exception {
@@ -107,12 +118,20 @@ public class InteractiveHandler {
     }
 
     public void subjectiveAnalyzeSolutionSet(OPLASolutionSet population) throws Exception {
-        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = interaction.getSubjectiveAnalyzeAlgorithm();
+        subjectiveAnalyzeAlgorithm = interaction.getSubjectiveAnalyzeAlgorithm();
         if (subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained())
             subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(population, false);
     }
 
     public void resetInteractionData() {
         data = new InteractionData();
+    }
+
+    public SubjectiveAnalyzeAlgorithm getSubjectiveAnalyzeAlgorithm() {
+        return subjectiveAnalyzeAlgorithm;
+    }
+
+    public void setSubjectiveAnalyzeAlgorithm(SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm) {
+        this.subjectiveAnalyzeAlgorithm = subjectiveAnalyzeAlgorithm;
     }
 }
