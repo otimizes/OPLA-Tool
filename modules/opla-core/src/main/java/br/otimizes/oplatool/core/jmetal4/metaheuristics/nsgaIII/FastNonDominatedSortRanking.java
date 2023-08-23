@@ -1,15 +1,11 @@
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
+import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveHandler;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.DominanceComparator;
+import br.otimizes.oplatool.core.jmetal4.util.comparators.InteractiveDominanceComparator;
+
+import java.util.*;
 
 /**
  * This class implements a solution list ranking based on dominance ranking.
@@ -49,6 +45,10 @@ public class FastNonDominatedSortRanking {
         // this(new DominanceWithConstraintsComparator<>(
         // new OverallConstraintViolationDegreeComparator<>()));
         this(new DominanceComparator());
+    }
+
+    public FastNonDominatedSortRanking(InteractiveHandler interactive) {
+        this(interactive != null ? new InteractiveDominanceComparator() : new DominanceComparator());
     }
 
     public FastNonDominatedSortRanking compute(List<Solution> solutionList) {

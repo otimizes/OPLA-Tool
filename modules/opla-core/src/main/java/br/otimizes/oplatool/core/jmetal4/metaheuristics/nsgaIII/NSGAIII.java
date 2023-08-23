@@ -176,7 +176,7 @@ public class NSGAIII {
     }
 
     protected FastNonDominatedSortRanking computeRanking(List<Solution> solutionList) {
-        FastNonDominatedSortRanking ranking = new FastNonDominatedSortRanking();
+        FastNonDominatedSortRanking ranking = new FastNonDominatedSortRanking(this.interactive);
         ranking.compute(solutionList);
 
         return ranking;
