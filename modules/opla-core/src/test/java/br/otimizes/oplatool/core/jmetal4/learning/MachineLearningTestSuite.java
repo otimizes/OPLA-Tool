@@ -6,6 +6,6 @@ import org.junit.runners.Suite;
 
 @RunWith(Categories.class)
 @Categories.IncludeCategory({MachineLearningTests.class})
-@Suite.SuiteClasses({SubjectiveAnalyzeAlgorithmTest.class})
+@Suite.SuiteClasses({br.otimizes.oplatool.core.jmetal4.main.learning.SubjectiveAnalyzeAlgorithmTest.class})
 public class MachineLearningTestSuite {
 }

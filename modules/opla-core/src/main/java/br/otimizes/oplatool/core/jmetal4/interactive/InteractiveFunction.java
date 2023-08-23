@@ -7,5 +7,5 @@ import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
  */
 public interface InteractiveFunction {
 
-    SolutionSet run(SolutionSet solutionSet);
+    SolutionSet run(SolutionSet solutionSet) throws Exception;
 }

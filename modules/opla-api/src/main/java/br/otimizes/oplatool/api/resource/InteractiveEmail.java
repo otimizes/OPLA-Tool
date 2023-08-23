@@ -30,6 +30,7 @@ public class InteractiveEmail {
         for (int i = 0; i < solutionSet.getSolutionSet().size(); i++) {
             solutionSet.get(i).setId(i);
         }
+        // when "debugging" gives an error HERE
         OPLALogs.add(new OptimizationInfo(OPLAThreadScope.mainThreadId.get(), "Your optimization is waiting for evaluation.", OptimizationInfoStatus.INTERACT));
         try {
             User userByEmail = userService.findUserByToken(OPLAThreadScope.token.get());

@@ -1,14 +1,17 @@
-package br.otimizes.oplatool.core.jmetal4.learning;
+package br.otimizes.oplatool.core.jmetal4.main.learning;
 
 import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Element;
+import br.otimizes.oplatool.common.Variable;
+import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.experiments.OPLAConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIConfigs;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII;
+import br.otimizes.oplatool.core.jmetal4.metrics.ObjectiveFunctions;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.mutation.Mutation;
@@ -23,15 +26,15 @@ import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationYamlConfig;
 import br.otimizes.oplatool.domain.config.FileConstants;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import weka.classifiers.Evaluation;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@Category(MachineLearningTests.class)
 public class SubjectiveAnalyzeAlgorithmTest {
 
     @Test
@@ -41,7 +44,7 @@ public class SubjectiveAnalyzeAlgorithmTest {
         applicationYamlConfig.setDirectoryToSaveModels("");
         applicationYamlConfig.setPathToTemplateModelsDirectory("");
         OPLAThreadScope.setConfig(applicationYamlConfig);
-        
+
         String agm = Thread.currentThread().getContextClassLoader().getResource("PLASMarty").getFile();
         String xmiFilePath = agm + FileConstants.FILE_SEPARATOR + "MMAtual.smty";
         NSGAIIConfigs configs = getNsgaiiConfigs();

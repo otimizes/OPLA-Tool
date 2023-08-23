@@ -66,6 +66,11 @@ public class Solution implements Serializable {
     private double[] objective_temp_;
 
     /**
+     * Stores a list of maximum values for each objective.
+     */
+    public double [] objectiveMax;
+
+    /**
      * Stores the number of objective values of the solution
      */
     private int numberOfObjectives_;
@@ -133,11 +138,20 @@ public class Solution implements Serializable {
 
     private int id;
 
+    private int idOrigem;
+
     private Boolean clusterNoise_;
 
     public Boolean evaluatedByUser;
     private double[] normalizedObjective_;
 
+    public Boolean evaluatedByUser3;
+
+    public Boolean ratedSolution;
+
+    /**
+     * Constructor.
+     */
     private int clusterIDForMetaHeuristics;
     private double vDistance_;
 
@@ -149,6 +163,8 @@ public class Solution implements Serializable {
         type_ = null;
         variable_ = null;
         objective_ = null;
+
+        objectiveMax = null;
     } // Solution
 
     /**
@@ -165,6 +181,8 @@ public class Solution implements Serializable {
         objective_ = new double[numberOfObjectives];
 
         normalizedObjective_ = new double[numberOfObjectives_];
+
+        objectiveMax = new double[numberOfObjectives];
     }
 
     public Solution(Problem problem) throws ClassNotFoundException {
@@ -178,6 +196,8 @@ public class Solution implements Serializable {
         distanceToSolutionSet_ = Double.POSITIVE_INFINITY;
         normalizedObjective_ = new double[numberOfObjectives_];
         variable_ = type_.createVariables();
+
+        objectiveMax = new double[numberOfObjectives_];
     } // Solution
 
     public Solution(Problem problem, Variable[] variables) {
@@ -191,6 +211,9 @@ public class Solution implements Serializable {
         distanceToSolutionSet_ = Double.POSITIVE_INFINITY;
         normalizedObjective_ = new double[numberOfObjectives_];
         variable_ = variables;
+
+        objectiveMax = new double[numberOfObjectives_];
+
     } // Constructor
 
     /**
@@ -210,6 +233,9 @@ public class Solution implements Serializable {
             normalizedObjective_[i] = solution.getNormalizedObjective(i);
         } // for
         // <-
+
+        objectiveMax = new double[numberOfObjectives_];
+
         for (int i = 0; i < objective_.length; i++) {
             objective_[i] = solution.getObjective(i);
         }
@@ -356,6 +382,12 @@ public class Solution implements Serializable {
     public void createObjectiveTemp(int numberOfObjectives) {
         objective_temp_ = new double[numberOfObjectives];
     }
+
+   /* public void createObjectiveMax(int numberOfObjectives) {
+        objectiveMax = new double[numberOfObjectives];
+    }
+
+    */
 
     public void createObjective(int numberOfObjectives) {
         objective_ = new double[numberOfObjectives];
@@ -687,6 +719,22 @@ public class Solution implements Serializable {
         this.evaluatedByUser = evaluatedByUser;
     }
 
+    public Boolean getEvaluatedByUser3() {
+        return evaluatedByUser3 != null && evaluatedByUser3;
+    }
+
+    public void setEvaluatedByUser3(Boolean evaluatedByUser) {
+        this.evaluatedByUser3 = evaluatedByUser;
+    }
+
+    public Boolean getRatedSolution() {
+        return ratedSolution != null && ratedSolution;
+    }
+
+    public void setRatedSolution(Boolean ratedSolution) {
+        this.ratedSolution = ratedSolution;
+    }
+
     public String getExperimentId() {
         return experimentId_;
     }
@@ -731,6 +779,74 @@ public class Solution implements Serializable {
     public double getVDistance()
     {
         return this.vDistance_;
+    }
+
+
+    public int getIdOrigem() {
+        return idOrigem;
+    }
+
+    public void setIdOrigem(int idOrigem) {
+        this.idOrigem = idOrigem;
+    }
+
+    /**
+     * Weigh the objective according to the assessments
+     *
+     * @param objective     The objective value that will be weighted.
+     * @param evaluation    The value of evaluation (3 or 4).
+     */
+    public double getObjectiveWithWeight (double objective, int evaluation) {
+        double weightsEvaluate4 = 0.14;
+        double weightsEvaluate3 = 0.06;
+
+        double value = objective;
+
+        if (evaluation == 4) {
+            value = (objective - objective * weightsEvaluate4);
+        }
+
+        if (evaluation == 3) {
+            value = (objective - objective * weightsEvaluate3);
+        }
+        return value;
+    }
+
+    /**
+     * Sets the value of the i-th objective.
+     *
+     * @param i     The number identifying the objective.
+     * @param value The value to be stored.
+     */
+    public void setObjectiveMax(int i, double value) {
+        objectiveMax[i] = value;
+    } // setObjective
+
+    /**
+     * Returns the maximum value of the i-th objective.
+     *
+     * @param i The value of the objective.
+     */
+    public double getObjectiveMax(int i) {
+        return objectiveMax[i];
+    } // getObjective
+
+    /**
+     * run through all objectives to check the biggest
+     *
+     * @return returns a solution with the highest objective values
+     */
+
+    public void checkMajorObjective(SolutionSet solutionSet) {
+        for (int i = 0; i < solutionSet.get(0).numberOfObjectives(); i++) {
+            double maxObjective = 0;
+            for (int j = 0; j < solutionSet.size(); j++ ) {
+                if (maxObjective < solutionSet.get(j).getObjective(i)) {
+                    maxObjective =  solutionSet.get(j).getObjective(i);
+                }
+            }
+            setObjectiveMax(i,maxObjective);
+        }
     }
 
 } // Solution

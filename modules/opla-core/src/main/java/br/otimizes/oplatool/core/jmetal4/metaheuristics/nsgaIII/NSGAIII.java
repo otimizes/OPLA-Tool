@@ -271,12 +271,30 @@ public class NSGAIII {
             if (interactive != null) {
                 interactive.checkAndInteract(generation, toSet(offspringPopulation));
 
-                // eliminate badly-ranked solutions
+                for (Solution solution : offspringPopulation) {
+
+                    for (int i = 0; i < population.size(); i++) {
+                        if (population.get(i).getEvaluation() == 0 && solution.getIdOrigem() !=0 && solution.getIdOrigem() == population.get(i).getIdOrigem()) {
+                            population.get(i).setEvaluation(solution.getEvaluation());
+                            population.get(i).setEvaluatedByUser(solution.getEvaluatedByUser());
+                            population.get(i).setEvaluatedByUser3(solution.getEvaluatedByUser3());
+                        }
+                    }
+                }
+
                 for (int i = 0; i < population.size(); i++) {
                     if (population.get(i).getEvaluation() == 1) {
                         population.set(i, newRandomSolution(mutationOperator));
+                        population.get(i).setId(i);
+                        population.get(i).setIdOrigem(i+1);
                     }
                 }
+//                // eliminate badly-ranked solutions
+//                for (int i = 0; i < population.size(); i++) {
+//                    if (population.get(i).getEvaluation() == 1) {
+//                        population.set(i, newRandomSolution(mutationOperator));
+//                    }
+//                }
             }
         }
 

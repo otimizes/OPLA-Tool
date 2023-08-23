@@ -44,11 +44,15 @@ public class SolutionSet implements Serializable, Iterable<Solution> {
      */
     protected List<Solution> solutionsList_;
 
-
     /**
      * Maximum size of the solution set
      */
     private int capacity_ = 0;
+
+    /**
+     * Stores a Solution with the maximum values for each objective.
+     */
+    private double [] objectiveMax;
 
     /**
      * Constructor. Creates an unbounded solution set.
@@ -83,6 +87,7 @@ public class SolutionSet implements Serializable, Iterable<Solution> {
         } // if
 
         solutionsList_.add(solution);
+
         return true;
     } // add
 

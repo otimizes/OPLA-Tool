@@ -23,6 +23,8 @@ package br.otimizes.oplatool.core.jmetal4.util.comparators;
 
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 
+import java.sql.SQLOutput;
+import java.util.Arrays;
 import java.util.Comparator;
 
 /**
@@ -73,9 +75,12 @@ public class DominanceComparator implements Comparator {
 
         // Equal number of violated constraints. Applying a dominance Test then
         double value1, value2;
+
         for (int i = 0; i < solution1.numberOfObjectives(); i++) {
+
             value1 = solution1.getObjective(i);
             value2 = solution2.getObjective(i);
+
             if (value1 < value2) {
                 flag = -1;
             } else if (value1 > value2) {
