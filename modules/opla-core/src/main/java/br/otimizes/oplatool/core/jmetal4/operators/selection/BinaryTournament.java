@@ -25,6 +25,7 @@ import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.util.PseudoRandom;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.DominanceComparator;
+import br.otimizes.oplatool.core.jmetal4.util.comparators.DominanceComparator_ant;
 import org.apache.log4j.Logger;
 
 import java.util.Comparator;
@@ -44,6 +45,8 @@ public class BinaryTournament extends Selection {
      */
     private Comparator comparator_;
 
+    private Comparator comparatorAnt_;
+
     /**
      * Constructor
      * Creates a new Binary tournament operator using a BinaryTournamentComparator
@@ -53,7 +56,8 @@ public class BinaryTournament extends Selection {
         if ((parameters != null) && (parameters.get("comparator") != null))
             comparator_ = (Comparator) parameters.get("comparator");
         else
-            comparator_ = new DominanceComparator();
+            comparator_    = new DominanceComparator();
+            comparatorAnt_ = new DominanceComparator_ant();
     }
 
     /**
@@ -66,6 +70,7 @@ public class BinaryTournament extends Selection {
         LOGGER.info("execute()");
         SolutionSet solutionSet = (SolutionSet) object;
         Solution solution1, solution2;
+        int flag;
         solution1 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
         solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
 
@@ -74,15 +79,19 @@ public class BinaryTournament extends Selection {
                 solution2 = solutionSet.get(PseudoRandom.randInt(0, solutionSet.size() - 1));
             }
         }
-        int flag = comparator_.compare(solution1, solution2);
-        if (flag == -1)
+       flag = comparator_.compare(solution1, solution2);
+        if (flag == -1) {
             return solution1;
-        else if (flag == 1)
+        }
+        else if (flag == 1) {
             return solution2;
-        else if (PseudoRandom.randDouble() < 0.5)
+        }
+        else if (PseudoRandom.randDouble() < 0.5) {
             return solution1;
-        else
+        }
+        else {
             return solution2;
+        }
     }
 
     private boolean isAllEquals(List<Solution> list) {

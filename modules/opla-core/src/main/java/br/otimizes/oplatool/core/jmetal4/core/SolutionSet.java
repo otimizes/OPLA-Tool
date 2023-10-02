@@ -30,7 +30,7 @@ import java.util.*;
 /**
  * Class representing a SolutionSet (a set of solutions)
  */
-public class SolutionSet implements Serializable {
+public class SolutionSet implements Serializable, Iterable<Solution> {
 
     private static final Logger LOGGER = Logger.getLogger(SolutionSet.class);
 
@@ -44,11 +44,15 @@ public class SolutionSet implements Serializable {
      */
     protected List<Solution> solutionsList_;
 
-
     /**
      * Maximum size of the solution set
      */
     private int capacity_ = 0;
+
+    /**
+     * Stores a Solution with the maximum values for each objective.
+     */
+    private double [] objectiveMax;
 
     /**
      * Constructor. Creates an unbounded solution set.
@@ -83,6 +87,7 @@ public class SolutionSet implements Serializable {
         } // if
 
         solutionsList_.add(solution);
+
         return true;
     } // add
 

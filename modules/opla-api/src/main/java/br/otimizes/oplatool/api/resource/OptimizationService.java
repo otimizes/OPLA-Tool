@@ -63,16 +63,19 @@ public class OptimizationService {
     File downloadAlternative(String token, String hash, Integer id) {
         SolutionSet solutionSet = Interactions.get(token, hash).solutionSet.getSolutionSet();
         Solution solution = solutionSet.get(id);
+
         OptimizationInfo first = OPLALogs.getFirst(token, hash);
-        String dirOnAnalysis = OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + hash + FileConstants.FILE_SEPARATOR + "interaction";
-        deleteDirectory(new File(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + dirOnAnalysis));
-        File fileOnAnalysis = new File(ApplicationFileConfigThreadScope.getDirectoryToExportModels() + dirOnAnalysis);
-        fileOnAnalysis.mkdir();
         SolutionSet solutionSet1 = new SolutionSet();
         solutionSet1.setCapacity(1);
         solutionSet1.add(solution);
-        new OPLASolutionSet(solutionSet1).saveVariablesToFile(dirOnAnalysis + FileConstants.FILE_SEPARATOR + "interaction-" + first.currentGeneration + ".solution-" + id + ".smty");
-        return fileOnAnalysis;
+
+        String dirOnAnalysis = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + hash + FileConstants.FILE_SEPARATOR + "interaction/";
+        deleteDirectory(new File(dirOnAnalysis));
+        new File(dirOnAnalysis).mkdirs();
+
+        String plaName = "interaction-" + first.currentGeneration + ".solution-" + id + ".smty";
+        new OPLASolutionSet(solutionSet1).saveVariablesToFile(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + hash + FileConstants.FILE_SEPARATOR + "interaction/" + plaName);
+        return new File(dirOnAnalysis);
     }
 
     void openAlternative(String token, String hash, Integer id) throws InterruptedException, SAXException,

@@ -24,9 +24,14 @@ package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII;
 import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
+import br.otimizes.oplatool.architecture.representation.Architecture;
+import br.otimizes.oplatool.architecture.representation.Class;
+import br.otimizes.oplatool.architecture.representation.Element;
+import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.*;
+import br.otimizes.oplatool.core.jmetal4.interactive.InteractWithDM;
 import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
 import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverUtils;
@@ -45,9 +50,7 @@ import org.apache.log4j.Logger;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -57,11 +60,11 @@ public class NSGAII extends Algorithm {
 
     private static final long serialVersionUID = 5815971727148859507L;
     private static final Logger LOGGER = Logger.getLogger(NSGAII.class);
-    SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = null;
+    private InteractWithDM interaction;
 
     public NSGAII(Problem problem) {
         super(problem);
-
+        interaction = new InteractWithDM();
     }
 
     /**
@@ -70,6 +73,7 @@ public class NSGAII extends Algorithm {
      * @return a <code>SolutionSet</code> that is a set of non dominated
      * solutions as a result of the algorithm execution
      * @throws JMException default exception
+     * @throws Exception   default exception
      */
     public SolutionSet execute() throws JMException {
         LOGGER.info("Initializing execution");
@@ -95,7 +99,10 @@ public class NSGAII extends Algorithm {
         Operator selectionOperator = operators_.get("selection");
 
         ArrayList<Integer> originalArchElementCount;
+        originalArchElementCount = new ArrayList<>();
         ArrayList<Integer> newArchElementCount;
+        newArchElementCount = new ArrayList<>();
+
         try {
             Solution solution_base = new Solution(problem_);
             problem_.evaluateConstraints(solution_base);
@@ -122,14 +129,17 @@ public class NSGAII extends Algorithm {
             while (evaluations < maxEvaluations) {
                 offspringPopulation = new SolutionSet(populationSize);
                 Solution[] parents = new Solution[2];
+
                 for (int i = 0; i < (populationSize / 2); i++) {
                     if (evaluations < maxEvaluations) {
+
                         if (((PLACrossoverOperator) crossoverOperator).getOperators().contains(CrossoverOperators.PLA_COMPLEMENTARY_CROSSOVER.name())) {
                             parents = CrossoverUtils.selectionComplementary(population);
                         } else {
                             parents[0] = (Solution) selectionOperator.execute(population);
                             parents[1] = (Solution) selectionOperator.execute(population);
                         }
+
                         Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
                         for (Solution child : offSpring) {
                             problem_.evaluateConstraints(child);
@@ -177,12 +187,26 @@ public class NSGAII extends Algorithm {
                 OPLAThreadScope.currentGeneration.set(generation);
                 OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
                 if (interactive) {
-                    currentInteraction = interactWithDM(generation, offspringPopulation, maxInteractions,
+                    currentInteraction = interaction.interactWithDM(generation, offspringPopulation, maxInteractions,
                             firstInteraction, intervalInteraction, interactiveFunction, currentInteraction,
                             bestOfUserEvaluation);
+                    //assign offSpring grades to solutions in the population that have the same source solution
+                    for (Solution solution : offspringPopulation.getSolutionSet()) {
+
+                        for (int i = 0; i < population.getSolutionSet().size(); i++) {
+                            if (population.get(i).getEvaluation() == 0 && solution.getIdOrigem() !=0 && solution.getIdOrigem() == population.get(i).getIdOrigem()) {
+                                population.get(i).setEvaluation(solution.getEvaluation());
+                                population.get(i).setEvaluatedByUser(solution.getEvaluatedByUser());
+                                population.get(i).setEvaluatedByUser3(solution.getEvaluatedByUser3());
+                            }
+                        }
+                    }
+
                     for (int i = 0; i < population.getSolutionSet().size(); i++) {
                         if (population.get(i).getEvaluation() == 1) {
                             population.getSolutionSet().set(i, newRandomSolution(mutationOperator));
+                            population.get(i).setId(i);
+                            population.get(i).setIdOrigem(i+1);
                         }
                     }
                 }
@@ -211,6 +235,7 @@ public class NSGAII extends Algorithm {
             }
         }
 
+        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = interaction.getSubjectiveAnalyzeAlgorithm();
         if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
             try {
                 subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(subfrontToReturn), false);
@@ -219,50 +244,6 @@ public class NSGAII extends Algorithm {
             }
         }
         return subfrontToReturn;
-    }
-
-    private synchronized int interactWithDM(int generation, SolutionSet solutionSet, int maxInteractions, int firstInteraction,
-                                            int intervalInteraction, InteractiveFunction interactiveFunction,
-                                            int currentInteraction, HashSet<Solution> bestOfUserEvaluation) throws Exception {
-//        COMMENT TO INHERIT SCORES
-        for (Solution solution : solutionSet.getSolutionSet()) {
-            solution.setEvaluation(0);
-        }
-        boolean isOnInteraction = (generation % intervalInteraction == 0 && generation >= firstInteraction) || generation == firstInteraction;
-        boolean inTrainingDuring = currentInteraction < maxInteractions && isOnInteraction;
-        if (inTrainingDuring) {
-            Cloner cloner = new Cloner();
-            List<Solution> solutions = cloner.shallowClone(solutionSet.getSolutionSet());
-            SolutionSet newS = new SolutionSet(solutions.size());
-            newS.setSolutionSet(solutions);
-            solutionSet = interactiveFunction.run(newS);
-            if (subjectiveAnalyzeAlgorithm == null) {
-                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet), ClassifierAlgorithm.CLUSTERING_MLP);
-                subjectiveAnalyzeAlgorithm.run(null, false);
-            } else {
-                subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), false);
-            }
-            bestOfUserEvaluation.addAll(solutionSet.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5
-                    && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser())).collect(Collectors.toList()));
-            currentInteraction++;
-        }
-
-        boolean inTrainingAPosteriori = currentInteraction < maxInteractions && Math.abs((currentInteraction
-                * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction;
-        if (inTrainingAPosteriori) {
-            subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), true);
-        }
-
-        if (subjectiveAnalyzeAlgorithm != null) {
-            subjectiveAnalyzeAlgorithm.setTrained(!subjectiveAnalyzeAlgorithm.isTrained()
-                    && currentInteraction >= maxInteractions);
-            boolean isTrainFinished = subjectiveAnalyzeAlgorithm.isTrained() &&
-                    currentInteraction >= maxInteractions && isOnInteraction;
-            if (isTrainFinished) {
-                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(solutionSet), true);
-            }
-        }
-        return currentInteraction;
     }
 
     private Solution newRandomSolution(Operator mutationOperator) throws Exception {
@@ -288,8 +269,158 @@ public class NSGAII extends Algorithm {
             printWriter.close();
             fileWriter.close();
         } catch (Exception ex) {
+            System.out.println(ex);
             ex.printStackTrace();
         }
+    }
+
+    public Solution[] selectionComplementary(SolutionSet pop) {
+
+        ArrayList<ArrayList<Solution>> lstFitness = new ArrayList<>();
+
+        int num_obj = pop.get(0).numberOfObjectives();
+        for (int i = 0; i < num_obj; i++) {
+            ArrayList<Solution> arrayList = new ArrayList<>();
+            lstFitness.add(arrayList);
+        }
+        for (Solution s : pop.getSolutionSet()) {
+            for (int i = 0; i < num_obj; i++) {
+                lstFitness.get(i).add(s);
+            }
+        }
+
+        for (int i = 0; i < num_obj; i++) {
+            sortFitnessSoluction(lstFitness.get(i), i);
+        }
+
+        Random generator = new Random();
+        Solution[] parent = new Solution[2];
+
+        int lstFitness1Selected = 0;
+        int lstFitness2Selected = 0;
+        if (num_obj == 2) {
+            lstFitness2Selected = 1;
+        }
+        if (num_obj > 2) {
+            lstFitness1Selected = generator.nextInt(num_obj);
+            lstFitness2Selected = generator.nextInt(num_obj);
+            while (lstFitness1Selected == lstFitness2Selected) {
+                lstFitness1Selected = generator.nextInt(num_obj);
+            }
+        }
+
+        ArrayList<Integer> weightsList = new ArrayList<>();
+        int qtd_solution = pop.getSolutionSet().size();
+        int weight = qtd_solution * 2;
+        weightsList.add(weight);
+
+        for (int i = 1; i < qtd_solution; i++) {
+            weight = (qtd_solution - i) + weightsList.get(i - 1);
+            weightsList.add(weight);
+        }
+        int max_weight = weightsList.get(weightsList.size() - 1);
+        int pos_fitness1 = 0;
+        int pos_fitness2 = 0;
+
+        if (num_obj == 1) {
+            int rnd = generator.nextInt(max_weight) + 1;
+            for (int pos = 0; pos < qtd_solution; pos++) {
+                if (weightsList.get(pos) >= rnd) {
+                    pos_fitness1 = pos;
+                    break;
+                }
+            }
+            rnd = generator.nextInt(max_weight) + 1;
+            for (int pos = 0; pos < qtd_solution; pos++) {
+                if (weightsList.get(pos) >= rnd) {
+                    pos_fitness2 = pos;
+                    break;
+                }
+            }
+            while (pos_fitness1 == pos_fitness2) {
+                rnd = generator.nextInt(max_weight) + 1;
+                for (int pos = 0; pos < qtd_solution; pos++) {
+                    if (weightsList.get(pos) >= rnd) {
+                        pos_fitness2 = pos;
+                        break;
+                    }
+                }
+            }
+        } else {
+            int rnd = generator.nextInt(max_weight) + 1;
+            for (int pos = 0; pos < qtd_solution; pos++) {
+                if (weightsList.get(pos) >= rnd) {
+                    pos_fitness1 = pos;
+                    break;
+                }
+            }
+            rnd = generator.nextInt(max_weight) + 1;
+            for (int pos = 0; pos < qtd_solution; pos++) {
+                if (weightsList.get(pos) >= rnd) {
+                    pos_fitness2 = pos;
+                    break;
+                }
+            }
+        }
+
+        parent[0] = lstFitness.get(lstFitness1Selected).get(pos_fitness1);
+        parent[1] = lstFitness.get(lstFitness2Selected).get(pos_fitness2);
+
+        for (int i = 1; i < num_obj; i++) {
+            lstFitness.get(i).clear();
+        }
+        lstFitness.clear();
+
+        return parent;
+    }
+
+    public void sortFitnessSoluction(ArrayList<Solution> listFitness, int objective) {
+        for (int i = 0; i < listFitness.size() - 1; i++) {
+            for (int j = i + 1; j < listFitness.size(); j++) {
+                if (listFitness.get(i).getObjective(objective) > listFitness.get(j).getObjective(objective)) {
+                    Solution aux = listFitness.get(i);
+                    listFitness.set(i, listFitness.get(j));
+                    listFitness.set(j, aux);
+                }
+            }
+        }
+    }
+
+    public ArrayList<Integer> CountArchElements(Solution solution) {
+
+        ArrayList<Integer> countArchElements;
+        countArchElements = new ArrayList<>();
+        countArchElements.add(0);
+        countArchElements.add(0);
+        countArchElements.add(0);
+
+        try {
+
+            int tempAtr = 0;
+            int tempMet = 0;
+            int tempOP = 0;
+
+            Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
+
+            List<Class> allClasses = new ArrayList<>(arch.getAllClasses());
+            for (Class selectedClass : allClasses) {
+                tempAtr = tempAtr + selectedClass.getAllAttributes().size();
+                tempMet = tempMet + selectedClass.getAllMethods().size();
+            }
+
+            List<Interface> allInterface = new ArrayList<>(arch.getAllInterfaces());
+            for (Interface selectedInterface : allInterface) {
+                tempOP = tempOP + selectedInterface.getMethods().size();
+            }
+
+            countArchElements.set(0, tempAtr);
+            countArchElements.set(1, tempMet);
+            countArchElements.set(2, tempOP);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return countArchElements;
     }
 
     public boolean IsValidArchElements(ArrayList<Integer> lst1, ArrayList<Integer> lst2) {
@@ -302,11 +433,8 @@ public class NSGAII extends Algorithm {
         return ("" + lst1.get(2)).equals("" + lst2.get(2));
     }
 
+    // NB: this only exists so SubjectiveAnalyzeAlgorithmTest can be executed
     public SubjectiveAnalyzeAlgorithm getSubjectiveAnalyzeAlgorithm() {
-        return subjectiveAnalyzeAlgorithm;
-    }
-
-    public void setSubjectiveAnalyzeAlgorithm(SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm) {
-        this.subjectiveAnalyzeAlgorithm = subjectiveAnalyzeAlgorithm;
+        return interaction.getSubjectiveAnalyzeAlgorithm();
     }
 }

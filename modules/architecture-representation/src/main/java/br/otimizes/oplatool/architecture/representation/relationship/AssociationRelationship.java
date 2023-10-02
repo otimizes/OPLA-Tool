@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class AssociationRelationship extends Relationship {
 
-    private final List<AssociationEnd> participants = new ArrayList<>();
+    private List<AssociationEnd> participants = new ArrayList<>();
 
     public AssociationRelationship(String id) {
         setId(id);
@@ -45,6 +45,9 @@ public class AssociationRelationship extends Relationship {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
+        if (participants == null) {
+            participants = new ArrayList<>();
+        }
         result = prime * result
                 + participants.hashCode();
         return result;

@@ -37,4 +37,8 @@ public class JMException extends Exception implements Serializable {
     public JMException(String message) {
         super(message);
     } // JmetalException
+
+    public JMException(Exception e) {
+        super(e);
+    }
 }

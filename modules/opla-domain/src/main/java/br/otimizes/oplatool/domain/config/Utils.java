@@ -1,15 +1,10 @@
 package br.otimizes.oplatool.domain.config;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
-import org.apache.commons.lang.WordUtils;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.logging.Logger;
+
+import org.apache.commons.lang.WordUtils;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 
 /**
  * @author elf
@@ -122,10 +122,7 @@ public class Utils {
 
     public static void createPathsOPLATool() {
         UserHome.createDefaultOPLAPathIfDontExists();
-        Path pathApplicationYaml = Paths.get(UserHome.getOPLAUserHome()).resolve(FileConstants.APPLICATION_YAML_NAME);
-        if (!Files.exists(pathApplicationYaml)) {
-            FileUtils.copy(FileConstants.LOCAL_YAML_PATH, pathApplicationYaml);
-        }
+        Utils.copyFileApplicationYaml();
         Utils.copyFileGuiSettings();
         UserHome.createProfilesPath();
         UserHome.createTemplatePath();
@@ -135,15 +132,19 @@ public class Utils {
 
     }
 
+    public static void copyFileApplicationYaml() {
+        Path target = Paths.get(UserHome.getOPLAUserHome()).resolve(FileConstants.APPLICATION_YAML_NAME);
+        if (!Files.exists(target)) {
+            URL url = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.LOCAL_YAML_PATH);
+            FileUtils.copy(url, target);
+        }
+    }
+
     public static void copyFileGuiSettings() {
         Path target = Paths.get(UserHome.getOPLAUserHome()).resolve(FileConstants.GUI_SETTINGS);
         if (!Files.exists(target)) {
-            try {
-                URI uri = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.LOCAL_GUI_PATH).toURI();
-                FileUtils.copy(Paths.get(FileUtils.getURL(uri)), target);
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            URL url = ClassLoader.getSystemResource(FileConstants.BASE_RESOURCES + FileConstants.LOCAL_GUI_PATH);
+            FileUtils.copy(url, target);
         }
     }
 

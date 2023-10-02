@@ -12,9 +12,9 @@ public class FileConstants {
     public static final String FILE_SEPARATOR = FileSystems.getDefault().getSeparator();
     public static final String APPLICATION_YAML_NAME = "application.yaml";
     public static final String GUI_SETTINGS = "guisettings.yml";
-    public static final String LOCAL_GUI_PATH = FileConstants.CONFIG_PATH + FileConstants.FILE_SEPARATOR + FileConstants.GUI_SETTINGS;
+    public static final String LOCAL_GUI_PATH = FileConstants.CONFIG_PATH + "/" + FileConstants.GUI_SETTINGS; // Este caminho é relativo ao JAR e portanto deve usar o separador Unix
     public static final String CONFIG_PATH = "config";
-    public static final String LOCAL_YAML_PATH = FileConstants.CONFIG_PATH + FileConstants.FILE_SEPARATOR + FileConstants.APPLICATION_YAML_NAME;
+    public static final String LOCAL_YAML_PATH = FileConstants.CONFIG_PATH + "/" + FileConstants.APPLICATION_YAML_NAME; // Idem
     public static final String PATH_EMPTY_DB = "emptyDB";
     public static final String EMPTY_DB_NAME = "oplatool.db";
     public static final String TEMPLATES_DIR = "templates";

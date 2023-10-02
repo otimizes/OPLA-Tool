@@ -1,0 +1,19 @@
+ System.out.println("================= (288) - offspringPopulation.getSolutionSet().stream().forEach(p -> System.out.println(p));");
+        offspringPopulation.getSolutionSet().stream().forEach(p -> System.out.println(p.getEvaluation()));
+
+System.out.println("================== (151) ==== evaluation - maxEvaluations " + evaluations + "-" + maxEvaluations);
+
+System.out.println("================== (181) + offspringPopulation.getSolutionSet() "+ offspringPopulation.getSolutionSet());
+
+System.out.println("\"========= (217) ===== population.getSolutionSet().size() " + population.getSolutionSet().size());
+
+System.out.println("========= (218) ===== population.get(i).getEvaluation() " + i + "-" + population.get(i).getEvaluation());
+
+System.out.println("================= (296) - offspringPopulation.getSolutionSet().stream().forEach(p -> System.out.println(p));");
+        offspringPopulation.getSolutionSet().stream().forEach(p -> System.out.println(p.getEvaluation() + " " + p.getObjective(0) + " " + p.getObjective(1) +  " " +  p.getObjective(2)));
+        for (Solution solution : offspringPopulation.getSolutionSet()) {
+            System.out.println(solution.getObjectives());
+            System.out.println(solution.getObjective(0) + " - " + solution.getEvaluation());
+            System.out.println(solution.getObjective(1) + " - " + solution.getEvaluation());
+            System.out.println(solution.getObjective(2) + " - " + solution.getEvaluation());
+        }

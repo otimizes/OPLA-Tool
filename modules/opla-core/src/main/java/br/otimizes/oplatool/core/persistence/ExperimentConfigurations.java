@@ -2,6 +2,7 @@ package br.otimizes.oplatool.core.persistence;
 
 import br.otimizes.oplatool.core.jmetal4.experiments.ExperimentCommonConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIConfigs;
+import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIIConfigs;
 import br.otimizes.oplatool.core.jmetal4.experiments.base.PAESConfigs;
 import br.otimizes.oplatool.core.jmetal4.operators.MutationOperators;
 
@@ -82,13 +83,15 @@ public class ExperimentConfigurations {
 
 
     /**
-     * For NSGA-II
+     * For NSGA-II and NSGA-III
      *
      * @return population size
      */
     public int getPopulationSize() {
         if (this.algorithm.equalsIgnoreCase("NSGAII"))
             return ((NSGAIIConfigs) this.configs).getPopulationSize();
+        else if (this.algorithm.equalsIgnoreCase("NSGAIII"))
+            return ((NSGAIIIConfigs) this.configs).getPopulationSize();
 
         return 0;
     }
