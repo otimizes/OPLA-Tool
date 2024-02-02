@@ -25,6 +25,9 @@ public class Method extends Element {
     public Method(String name, Variant variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod,
                   String namespace, String id) {
         super(name, variantType, "method", namespace, id);
+        if (isAbstract) {
+            System.out.println("");
+        }
         setReturnType(returnType);
         setAbstract(isAbstract);
         setParams(paramsMethod);

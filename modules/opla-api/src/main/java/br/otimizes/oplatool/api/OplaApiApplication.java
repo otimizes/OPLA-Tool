@@ -13,7 +13,11 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.JarURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
 
 @SpringBootApplication
 //@EnableTransactionManagement(proxyTargetClass = true)
@@ -51,7 +55,7 @@ public class OplaApiApplication {
         };
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException, URISyntaxException {
         try {
             if (OplaApiApplication.class.getResource("").openConnection() instanceof JarURLConnection) {
                 FileConstants.BASE_RESOURCES = "BOOT-INF/classes/";

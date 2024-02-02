@@ -85,6 +85,10 @@
             <groupId>br.ufpr.dinf.gres</groupId>
             <artifactId>loglog</artifactId>
         </dependency>
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-client-api</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <resources>
