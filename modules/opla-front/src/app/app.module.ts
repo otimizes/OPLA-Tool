@@ -41,6 +41,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.directive";
+import {SuggestionDialogComponent} from "./dialogs/suggestion/suggestion-dialog.component";
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.direc
     OplaComponent,
     DialogTooltipInfo,
     InteractionDialogComponent,
+    SuggestionDialogComponent,
     PapyrusSettingsDialog
   ],
   exports: [OplaI18nDirective],
@@ -96,6 +98,7 @@ import {DialogTooltipInfo, OplaI18nDirective} from "./directives/opla-i18n.direc
   ],
   entryComponents: [
     InteractionDialogComponent,
+    SuggestionDialogComponent,
     DialogTooltipInfo,
     PapyrusSettingsDialog
   ],

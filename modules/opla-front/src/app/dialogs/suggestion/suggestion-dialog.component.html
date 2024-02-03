@@ -1,0 +1,29 @@
+<div>
+  <mat-form-field style="min-width: 300px" appearance="outline">
+    <mat-label>What are you looking for?</mat-label>
+    <textarea [disabled]="analyzing" [(ngModel)]="question" rows="7" matInput placeholder="Ex. I'd like to have less attributes in classes..."></textarea>
+  </mat-form-field>
+</div>
+<br><br>
+<div *ngIf="suggestion">
+  <div>I recommend the objective functions: <b> {{suggestion?.fns}}</b><br><br></div>
+  <div style="display: flex; align-items: center">
+    <div  style="margin: 17px; text-align: center">
+      <mat-icon>help</mat-icon>
+      <b>Why</b>
+    </div>
+    <div> {{suggestion?.suggestion}}</div>
+  </div>
+</div>
+<br><br>
+<div style="width: 100%;">
+  <button mat-flat-button color="primary" (click)="close()" style="float: right; margin: 10px;" *ngIf="suggestion">
+    <mat-icon>done</mat-icon>
+    That's it
+  </button>
+  <button [disabled]="analyzing" mat-flat-button [color]="suggestion ? null : 'primary'" (click)="getSuggestion(question)" style="float: right; margin: 10px">
+    <mat-icon>lightbulb</mat-icon>
+    <span *ngIf="!analyzing">Get {{suggestion ? 'New' : ''}} suggestion</span>
+    <span *ngIf="analyzing">Analysing, Hold on...</span>
+  </button>
+</div>

@@ -30,7 +30,7 @@ public class LLMResource {
         });
 
         HashMap<Object, Object> msg = new HashMap<>();
-        msg.put("content", q);
+        msg.put("content", q + " Please respond in the format {'fns': ['...'], 'suggestion': '....'}, where 'fns' contains a list of the objective functions and 'suggestion' contains the complete text you provided.");
         msg.put("from", "CLIENT");
         clientEndPoint.sendMessage(msg);
 

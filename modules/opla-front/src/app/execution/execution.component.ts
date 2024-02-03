@@ -4,6 +4,8 @@ import {OptimizationDto} from "../dto/optimization-dto";
 import {OptimizationService} from "../services/optimization.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
+import {InteractionDialogComponent} from "../dialogs/interaction/interaction-dialog.component";
+import {SuggestionDialogComponent} from "../dialogs/suggestion/suggestion-dialog.component";
 
 @Component({
   selector: 'app-execution',
@@ -134,6 +136,16 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
         formGroup: this.papyrusFormGroup
       }
     })
+  }
+
+  getSuggestion() {
+    const dialogRef = this.dialog.open(SuggestionDialogComponent, {
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
   }
 }
 
