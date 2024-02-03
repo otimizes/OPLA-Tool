@@ -1,14 +1,18 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": false
+    "analytics": "3b4318af-870f-49dd-ad58-4430a8c8cbda"
   },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "static": {
+    "test": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -16,69 +20,170 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "raf",
+              "@babel/runtime-corejs3/core-js-stable/parse-float",
+              "@babel/runtime-corejs3/core-js-stable/promise",
+              "@babel/runtime-corejs3/core-js-stable/instance/starts-with",
+              "@babel/runtime-corejs3/core-js-stable/instance/map",
+              "@babel/runtime-corejs3/core-js-stable/instance/for-each",
+              "@babel/runtime-corejs3/core-js-stable/instance/filter",
+              "@babel/runtime-corejs3/core-js-stable/instance/concat",
+              "@babel/runtime-corejs3/core-js-stable/instance/reduce",
+              "@babel/runtime-corejs3/core-js-stable/instance/every",
+              "@babel/runtime-corejs3/core-js-stable/instance/bind",
+              "@babel/runtime-corejs3/core-js-stable/instance/trim",
+              "@babel/runtime-corejs3/core-js-stable/instance/some",
+              "@babel/runtime-corejs3/core-js-stable/instance/includes",
+              "@babel/runtime-corejs3/core-js-stable/instance/reverse",
+              "@babel/runtime-corejs3/helpers/slicedToArray",
+              "@babel/runtime-corejs3/helpers/asyncToGenerator",
+              "@babel/runtime-corejs3/helpers/defineProperty",
+              "@babel/runtime-corejs3/helpers/createClass",
+              "@babel/runtime-corejs3/helpers/inherits",
+              "@babel/runtime-corejs3/helpers/possibleConstructorReturn",
+              "@babel/runtime-corejs3/helpers/getPrototypeOf",
+              "@babel/runtime-corejs3/helpers/toConsumableArray",
+              "@babel/runtime-corejs3/core-js-stable/object/define-property",
+              "@babel/runtime-corejs3/core-js-stable/object/define-properties",
+              "@babel/runtime-corejs3/core-js-stable/object/get-own-property-descriptors",
+              "@babel/runtime-corejs3/core-js-stable/object/get-own-property-descriptor",
+              "@babel/runtime-corejs3/core-js-stable/object/get-own-property-symbols",
+              "@babel/runtime-corejs3/core-js-stable/object/keys",
+              "@babel/runtime-corejs3/core-js-stable/date/now",
+              "@babel/runtime-corejs3/core-js-stable/reflect/construct",
+              "@babel/runtime-corejs3/core-js-stable/array/from",
+              "@babel/runtime-corejs3/regenerator",
+              "@babel/runtime-corejs3/core-js-stable/reflect/get-prototype-of",
+              "@babel/runtime-corejs3/core-js-stable/reflect/apply",
+              "@babel/runtime-corejs3/core-js-stable/map",
+              "@babel/runtime-corejs3/core-js-stable/instance/slice",
+              "@babel/runtime-corejs3/core-js-stable/symbol",
+              "@babel/runtime-corejs3/core-js/get-iterator-method",
+              "@babel/runtime-corejs3/core-js-stable/array/is-array",
+              "@babel/runtime-corejs3/core-js/get-iterator",
+              "@babel/runtime-corejs3/core-js-stable/parse-int",
+              "@babel/runtime-corejs3/core-js-stable/instance/values",
+              "@babel/runtime-corejs3/core-js-stable/reflect/delete-property",
+              "@babel/runtime-corejs3/core-js-stable/instance/fill",
+              "@babel/runtime-corejs3/helpers/get",
+              "@babel/runtime-corejs3/core-js-stable/instance/index-of",
+              "core-js/modules/es.regexp.exec",
+              "core-js/modules/es.string.match",
+              "core-js/modules/es.string.replace",
+              "core-js/modules/es.string.starts-with",
+              "core-js/modules/es.array.join",
+              "core-js/modules/es.symbol",
+              "core-js/modules/es.array.for-each",
+              "core-js/modules/es.object.get-own-property-descriptor",
+              "core-js/modules/es.object.get-own-property-descriptors",
+              "core-js/modules/es.object.keys",
+              "core-js/modules/web.dom-collections.for-each",
+              "core-js/modules/es.array.every",
+              "core-js/modules/es.array.concat",
+              "core-js/modules/es.array.filter",
+              "core-js/modules/es.object.to-string",
+              "core-js/modules/es.promise",
+              "core-js/modules/es.string.split",
+              "core-js/modules/es.reflect.construct",
+              "core-js/modules/es.regexp.to-string",
+              "core-js/modules/es.array.map",
+              "core-js/modules/es.function.name",
+              "core-js/modules/es.array.reduce",
+              "@babel/runtime/helpers/slicedToArray",
+              "@babel/runtime/helpers/possibleConstructorReturn",
+              "@babel/runtime/regenerator cause",
+              "core-js/modules/es.reflect.get-prototype-of",
+              "core-js/modules/es.reflect.apply",
+              "core-js/modules/es.map",
+              "core-js/modules/es.array.slice",
+              "core-js/modules/es.symbol.iterator",
+              "core-js/modules/es.symbol.description",
+              "core-js/modules/web.dom-collections.iterator",
+              "core-js/modules/es.array.iterator",
+              "core-js/modules/es.reflect.delete-property",
+              "core-js/modules/es.array.fill",
+              "core-js/modules/es.number.constructor",
+              "@babel/runtime/helpers/get",
+              "core-js/modules/es.array.reverse",
+              "core-js/modules/es.array.index-of",
+              "@babel/runtime/helpers/toConsumableArray",
+              "core-js/modules/es.string.trim",
+              "core-js/modules/es.string.iterator",
+              "core-js/modules/es.string.includes",
+              "core-js/modules/es.array.some",
+              "core-js/modules/es.array.includes",
+              "core-js/modules/es.array.from",
+              "@babel/runtime/helpers/inherits"
+            ],
             "outputPath": "../opla-api/src/main/resources/static",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/custom-theme.scss",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+            ],
+            "serviceWorker": false,
+            "ngswConfigPath": "src/ngsw-config.json"
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "static:build"
-          },
           "configurations": {
             "production": {
-              "browserTarget": "static:build:production"
+              "browserTarget": "test:build:production"
+            },
+            "development": {
+              "browserTarget": "test:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "static:build"
+            "browserTarget": "test:build"
           }
         },
         "test": {
@@ -90,37 +195,13 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.css"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "static:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "static:serve:production"
-            }
           }
         }
       }
@@ -128,3 +209,5 @@
   },
   "defaultProject": "project"
 }
+
+
