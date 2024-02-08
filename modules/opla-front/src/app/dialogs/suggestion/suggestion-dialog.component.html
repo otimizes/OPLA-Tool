@@ -17,7 +17,7 @@
 </div>
 <br><br>
 <div style="width: 100%;">
-  <button mat-flat-button color="primary" (click)="close()" style="float: right; margin: 10px;" *ngIf="suggestion">
+  <button mat-flat-button color="primary" (click)="close(suggestion?.fns)" style="float: right; margin: 10px;" *ngIf="suggestion">
     <mat-icon>done</mat-icon>
     That's it
   </button>
