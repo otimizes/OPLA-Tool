@@ -51,7 +51,7 @@
             <mat-card>
               <h5>
                 Objective Functions
-                <mat-error style="font-weight: 400;" *ngIf="optimizationDto.objectiveFunctions.length <= 0">
+                <mat-error style="font-weight: 400;" *ngIf="optimizationDto?.objectiveFunctions?.length <= 0">
                   At least one objective function is <strong>required</strong>
                 </mat-error>
               </h5>

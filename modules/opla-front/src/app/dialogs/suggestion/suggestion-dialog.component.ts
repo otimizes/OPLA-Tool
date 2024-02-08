@@ -16,7 +16,7 @@ import {LLMService} from "../../services/llm.service";
 export class SuggestionDialogComponent implements OnInit {
 
   selff: any;
-  // suggestion = JSON.parse(`{"fns": ["LCC", "FM", "ELEG"],  "suggestion": "LCC (Lack of Feature-based Cohesion) evaluates how closely related the functionalities or features are within a component, aiming to improve modularity by ensuring features are well-grouped. FM (Feature Modularization) focuses on optimizing the distribution of features across the architecture, enhancing the system's scalability and maintainability. ELEG (Elegance) assesses the overall design quality, promoting simplicity, clarity, and minimalism in the architecture to facilitate understanding and modifications."}`);
+  // suggestion = JSON.parse(`{"fns": ["EC", "EXT", "WOCSCLASS", "DC"],  "suggestion": "LCC (Lack of Feature-based Cohesion) evaluates how closely related the functionalities or features are within a component, aiming to improve modularity by ensuring features are well-grouped. FM (Feature Modularization) focuses on optimizing the distribution of features across the architecture, enhancing the system's scalability and maintainability. ELEG (Elegance) assesses the overall design quality, promoting simplicity, clarity, and minimalism in the architecture to facilitate understanding and modifications."}`);
   suggestion;
   question: any;
   analyzing;
