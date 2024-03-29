@@ -58,7 +58,7 @@ public class NSGAIII {
         (new ReferencePoint()).generateReferencePoints(referencePoints, getProblem().getNumberOfObjectives(),
                 numberOfDivisions);
 
-        int populationSize = referencePoints.size();
+        int populationSize = builder.getPopulationSize();
         while (populationSize % 4 > 0) {
             populationSize++;
         }
@@ -274,7 +274,8 @@ public class NSGAIII {
                 for (Solution solution : offspringPopulation) {
 
                     for (int i = 0; i < population.size(); i++) {
-                        if (population.get(i).getEvaluation() == 0 && solution.getIdOrigem() !=0 && solution.getIdOrigem() == population.get(i).getIdOrigem()) {
+                        if (population.get(i).getEvaluation() == 0 && solution.getIdOrigem() != 0
+                                && solution.getIdOrigem() == population.get(i).getIdOrigem()) {
                             population.get(i).setEvaluation(solution.getEvaluation());
                             population.get(i).setEvaluatedByUser(solution.getEvaluatedByUser());
                             population.get(i).setEvaluatedByUser3(solution.getEvaluatedByUser3());
@@ -286,15 +287,15 @@ public class NSGAIII {
                     if (population.get(i).getEvaluation() == 1) {
                         population.set(i, newRandomSolution(mutationOperator));
                         population.get(i).setId(i);
-                        population.get(i).setIdOrigem(i+1);
+                        population.get(i).setIdOrigem(i + 1);
                     }
                 }
-//                // eliminate badly-ranked solutions
-//                for (int i = 0; i < population.size(); i++) {
-//                    if (population.get(i).getEvaluation() == 1) {
-//                        population.set(i, newRandomSolution(mutationOperator));
-//                    }
-//                }
+                // // eliminate badly-ranked solutions
+                // for (int i = 0; i < population.size(); i++) {
+                // if (population.get(i).getEvaluation() == 1) {
+                // population.set(i, newRandomSolution(mutationOperator));
+                // }
+                // }
             }
         }
 
