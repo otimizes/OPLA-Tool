@@ -15,12 +15,13 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/api/llm")
 public class LLMResource {
 
-
-    @GetMapping(value = "/obj", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/obj", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public CompletableFuture<Object> sigin(@RequestParam("q") String q) throws URISyntaxException {
+    public CompletableFuture<Object> sigin(@RequestParam("q") String q)
+            throws URISyntaxException {
         final CompletableFuture<Object> responseFuture = new CompletableFuture<>();
-        final ChatClientEndpoint clientEndPoint = new ChatClientEndpoint(new URI("ws://localhost:3000"));
+        final ChatClientEndpoint clientEndPoint =
+                new ChatClientEndpoint(new URI("ws://localhost:3000"));
         clientEndPoint.addMessageHandler(message -> {
             System.out.println("message " + message);
             if (message.contains("\"CHAT_GPT\"")) {
@@ -30,7 +31,10 @@ public class LLMResource {
         });
 
         HashMap<Object, Object> msg = new HashMap<>();
-        msg.put("content", q + " Please respond in the format {'fns': ['...'], 'suggestion': '....'}, where 'fns' contains a list of the objective functions and 'suggestion' contains the complete text you provided.");
+        msg.put("content", q + " Always answer in the JSON format" +
+                " {'fns': ['...'], 'suggestion': '....'}, where 'fns' contains" +
+                " a list of the objective functions (uppercase acronyms) " +
+                "and 'suggestion' contains the complete text you provided.");
         msg.put("from", "CLIENT");
         clientEndPoint.sendMessage(msg);
 

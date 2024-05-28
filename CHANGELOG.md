@@ -1,3 +1,16 @@
+no meu ponto de vista:
+
+o treinamento do gpt atual está equiparado a um arquiteto de software recentemente treinado para utilizar a ferramenta pensando ele está utilziando a ferramenta nas primeiras 2 ou 3 tentativas
+
+
+O chat conseguiu compreender a diferença entre a correlação de funcoes objetivos e a correlaçào de features.
+
+Logo se eu o questiono sobre maximizar uma funcao objetivo tendo como colateral o prejuizo de uma segunda funcao, o chat consegue interpretar a necessidade de conquistar um trade-off entre as duas funcoes, exemplo, eu pedi para o chat sugerir algo para minizar a coesao de features fazendo a uniao de fuatures correlacionadas. Logo ele indicou a necessidade de utilziar LCC mas tbm indicou a necessidade de utilizar FM, uma vez que, o fato de correlacionar features iria prejudizar o nivel de coesao das features dentro dos componentes
+
+
+com essa resposta eu considero que o chat conquistou uma visao melhor do que um arquitetura previamente treinado mas sem experiencia com projetos já otimizados pela OPLA.
+
+
 # Changelog
 
 **Add your changes here
@@ -120,4 +133,3 @@ root path of this project. The packages were renamed to br.otimizes.oplatool.
     
     
      java -jar opla-desktop-view-1.0.0-SNAPSHOT-jar-with-dependencies.jar algorithm=NSGAII objectiveFunctions=featureDriven,aclass,coe mutationOperators=featureMutation,moveMethodMutation,addClassMutation,addManagerClassMutation,moveOperationMutation description=teste mutation=true mutationProbability=0.9 inputArchitecture=/home/wmfsystem/workspace/PLA/files/agm/agm.uml numberRuns=2 maxEvaluations=5 populationSize=2 crossover=false crossoverProbability=0.0 clusteringMoment=NONE clusteringAlgorithm=KMEANS
-     

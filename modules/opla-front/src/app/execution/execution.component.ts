@@ -120,7 +120,7 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
   }
 
   isObjFunctionChecked(obj: any) {
-    return this.optimizationDto.objectiveFunctions.includes(obj);
+    return this.optimizationDto?.objectiveFunctions?.includes(obj);
   }
 
   setInteractionParams(checked: boolean, optimizationDto: OptimizationDto) {
