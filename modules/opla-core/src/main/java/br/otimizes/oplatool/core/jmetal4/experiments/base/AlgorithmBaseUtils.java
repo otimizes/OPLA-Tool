@@ -2,7 +2,7 @@ package br.otimizes.oplatool.core.jmetal4.experiments.base;
 
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.database.Result;
@@ -92,7 +92,7 @@ public class AlgorithmBaseUtils {
         Map<String, List<ObjectiveFunctionDomain>> allMetrics = result.getMetrics(infos, resultFront.getSolutionSet(), execution,
                 experiment, selectedObjectiveFunctions);
         execution.setTime(estimatedTime);
-        new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
+        new SolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_", infos, configs.getLogger(), true);
         execution.setInfos(infos);
         execution.setAllMetrics(allMetrics);
         return execution;
@@ -116,7 +116,7 @@ public class AlgorithmBaseUtils {
         List<Info> funResults = result.getInfos(allRuns.getSolutionSet(), experiment);
 
         if (configs.getNumberOfRuns() > 1) {
-            new OPLASolutionSet(allRuns).saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
+            new SolutionSet(allRuns).saveVariablesToFile("VAR_All_", funResults, configs.getLogger(), true);
         }
 
         List<Info> infos = result.getInfos(allRuns.getSolutionSet(), null, experiment);
@@ -148,7 +148,7 @@ public class AlgorithmBaseUtils {
                 solution.setExperimentId(experimentID);
             }
         }
-        new OPLASolutionSet(allSolutions).printObjectivesToFile(dir + FileConstants.FILE_SEPARATOR + "fitness.txt");
+        new SolutionSet(allSolutions).printObjectivesToFile(dir + FileConstants.FILE_SEPARATOR + "fitness.txt");
         if (executionID == null) {
             String referencePoint = Arrays.stream(allSolutions.get(0).getObjectives()).mapToObj(s -> "1.01").collect(Collectors.joining(" "));
             try {

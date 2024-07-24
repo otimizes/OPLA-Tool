@@ -21,12 +21,12 @@
 
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII;
 
+import br.otimizes.isearchai.learning.SubjectiveAnalyzeAlgorithm;
 import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
-import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.exceptions.JMException;
@@ -40,18 +40,17 @@ import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
 import br.otimizes.oplatool.core.jmetal4.util.Distance;
 import br.otimizes.oplatool.core.jmetal4.util.Ranking;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
-import br.otimizes.oplatool.core.learning.ClassifierAlgorithm;
-import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
-import com.rits.cloning.Cloner;
 import org.apache.log4j.Logger;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 
 /**
  * This class implements the NSGA-II algorithm.
@@ -194,7 +193,7 @@ public class NSGAII extends Algorithm {
                     for (Solution solution : offspringPopulation.getSolutionSet()) {
 
                         for (int i = 0; i < population.getSolutionSet().size(); i++) {
-                            if (population.get(i).getEvaluation() == 0 && solution.getIdOrigem() !=0 && solution.getIdOrigem() == population.get(i).getIdOrigem()) {
+                            if (population.get(i).getEvaluation() == 0 && solution.getIdOrigem() != 0 && solution.getIdOrigem() == population.get(i).getIdOrigem()) {
                                 population.get(i).setEvaluation(solution.getEvaluation());
                                 population.get(i).setEvaluatedByUser(solution.getEvaluatedByUser());
                                 population.get(i).setEvaluatedByUser3(solution.getEvaluatedByUser3());
@@ -206,7 +205,7 @@ public class NSGAII extends Algorithm {
                         if (population.get(i).getEvaluation() == 1) {
                             population.getSolutionSet().set(i, newRandomSolution(mutationOperator));
                             population.get(i).setId(i);
-                            population.get(i).setIdOrigem(i+1);
+                            population.get(i).setIdOrigem(i + 1);
                         }
                     }
                 }
@@ -238,7 +237,7 @@ public class NSGAII extends Algorithm {
         SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = interaction.getSubjectiveAnalyzeAlgorithm();
         if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
             try {
-                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(subfrontToReturn), false);
+                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new SolutionSet(subfrontToReturn), false);
             } catch (Exception e) {
                 e.printStackTrace();
             }

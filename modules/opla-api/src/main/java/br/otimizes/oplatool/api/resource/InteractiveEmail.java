@@ -8,7 +8,7 @@ import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
-import br.otimizes.oplatool.core.learning.Clustering;
+import br.otimizes.isearchai.learning.Clustering;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.entity.User;
 import br.otimizes.oplatool.persistence.service.EmailService;
@@ -39,17 +39,19 @@ public class InteractiveEmail {
             e.printStackTrace();
         }
         try {
-            Clustering clustering = new Clustering(solutionSet, optimizationDto.getClusteringAlgorithm());
-            clustering.setNumClusters(solutionSet.getSolutionSet().get(0).numberOfObjectives() + 1);
-            clustering.run();
-            Interactions.set(OPLAThreadScope.hash.get(), new Interaction(solutionSet));
-            System.out.println("Waiting interaction: " + !Interactions.get(OPLAThreadScope.hash.get()).updated);
-            while (!Interactions.get(OPLAThreadScope.hash.get()).updated) {
+            if (solutionSet.size() > 0) {
+                Clustering clustering = new Clustering(solutionSet, optimizationDto.getClusteringAlgorithm());
+                clustering.setNumClusters(solutionSet.getSolutionSet().get(0).numberOfObjectives() + 1);
+                clustering.run();
+                Interactions.set(OPLAThreadScope.hash.get(), new Interaction(solutionSet));
+                System.out.println("Waiting interaction: " + !Interactions.get(OPLAThreadScope.hash.get()).updated);
+                while (!Interactions.get(OPLAThreadScope.hash.get()).updated) {
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Interactions.get(OPLAThreadScope.hash.get()).solutionSet.getSolutionSet();
+        return Interactions.get(OPLAThreadScope.hash.get()).solutionSet;
     }
 
 

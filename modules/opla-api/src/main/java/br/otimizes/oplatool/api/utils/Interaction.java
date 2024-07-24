@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.api.utils;
 
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 
 import java.io.Serializable;
@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class Interaction implements Serializable {
     public boolean updated = false;
-    public OPLASolutionSet solutionSet;
+    public SolutionSet solutionSet;
 
     public Interaction(boolean updated, SolutionSet solutionSet) {
         setSolutionSet(solutionSet);
@@ -27,7 +27,7 @@ public class Interaction implements Serializable {
     }
 
     public void setSolutionSet(SolutionSet solutionSet) {
-        this.solutionSet = new OPLASolutionSet(solutionSet);
+        this.solutionSet = new SolutionSet(solutionSet);
     }
 
     @Override

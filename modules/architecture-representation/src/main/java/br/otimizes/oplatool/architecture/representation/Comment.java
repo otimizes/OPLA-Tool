@@ -1,5 +1,7 @@
 package br.otimizes.oplatool.architecture.representation;
 
+import br.otimizes.isearchai.learning.MLElement;
+
 import java.util.Collection;
 import java.util.HashSet;
 

@@ -1,5 +1,6 @@
 package br.otimizes.oplatool.architecture.representation;
 
+import br.otimizes.isearchai.learning.MLElement;
 import br.otimizes.oplatool.architecture.exceptions.ConcernNotFoundException;
 import com.rits.cloning.Cloner;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
-public abstract class Element implements Serializable {
+public abstract class Element implements Serializable, br.otimizes.isearchai.learning.MLElement {
 
     private static final long serialVersionUID = 4736685073967472613L;
 
@@ -265,6 +266,7 @@ public abstract class Element implements Serializable {
         return isFreezeByDM();
     }
 
+
     public boolean setFreezeFromDM(boolean bool) {
         return bool ? setFreezeFromDM() : unsetFreezeFromDM();
     }
@@ -335,7 +337,8 @@ public abstract class Element implements Serializable {
         } else return namespace.equals(other.namespace);
     }
 
-    public boolean totalyEquals(Element other) {
+    @Override
+    public boolean totalyEquals(MLElement other) {
         boolean doesEqual = this.getNumberId() == other.getNumberId();
         if (this instanceof Class && other instanceof Class) {
             doesEqual &= ((Class) this).getAllAttributes().equals(((Class) other).getAllAttributes());

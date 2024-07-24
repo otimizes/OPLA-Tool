@@ -64,5 +64,10 @@
 			<artifactId>opla-persistence</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>br.otimizes</groupId>
+			<artifactId>isearchai</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -9,7 +9,7 @@ import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
 import br.otimizes.oplatool.architecture.representation.Architecture;
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
@@ -61,7 +61,7 @@ public class OptimizationService {
 
 
     File downloadAlternative(String token, String hash, Integer id) {
-        SolutionSet solutionSet = Interactions.get(token, hash).solutionSet.getSolutionSet();
+        SolutionSet solutionSet = Interactions.get(token, hash).solutionSet;
         Solution solution = solutionSet.get(id);
 
         OptimizationInfo first = OPLALogs.getFirst(token, hash);
@@ -74,7 +74,7 @@ public class OptimizationService {
         new File(dirOnAnalysis).mkdirs();
 
         String plaName = "interaction-" + first.currentGeneration + ".solution-" + id + ".smty";
-        new OPLASolutionSet(solutionSet1).saveVariablesToFile(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + hash + FileConstants.FILE_SEPARATOR + "interaction/" + plaName);
+        new SolutionSet(solutionSet1).saveVariablesToFile(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + hash + FileConstants.FILE_SEPARATOR + "interaction/" + plaName);
         return new File(dirOnAnalysis);
     }
 
@@ -113,12 +113,12 @@ public class OptimizationService {
     }
 
     public File downloadAllAlternative(String token, String hash) {
-        SolutionSet solutionSet = Interactions.get(token, hash).solutionSet.getSolutionSet();
+        SolutionSet solutionSet = Interactions.get(token, hash).solutionSet;
         String plaNameOnAnalyses = "Interaction_" + token + "_" + hash + "_" + "_" + solutionSet.get(0).getAlternativeArchitecture().getName();
         String dirOnAnalyses = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + "interaction/";
         boolean delete = deleteDirectory(new File(dirOnAnalyses));
         boolean create = new File(dirOnAnalyses).mkdir();
-        new OPLASolutionSet(solutionSet).saveVariablesToFile(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + "interaction/" + plaNameOnAnalyses);
+        new SolutionSet(solutionSet).saveVariablesToFile(OPLAThreadScope.token.get() + FileConstants.FILE_SEPARATOR + "interaction/" + plaNameOnAnalyses);
         File file = new File(dirOnAnalyses);
         return file;
     }

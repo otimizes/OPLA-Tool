@@ -8,7 +8,7 @@ import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
 import br.otimizes.oplatool.common.exceptions.JMException;
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Operator;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
@@ -301,7 +301,7 @@ public class NSGAIII {
         // evaluate final solution set
         if (interactive != null) {
             try {
-                interactive.subjectiveAnalyzeSolutionSet(new OPLASolutionSet(toSet(result())));
+                interactive.subjectiveAnalyzeSolutionSet(new SolutionSet(toSet(result())));
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new JMException(e);

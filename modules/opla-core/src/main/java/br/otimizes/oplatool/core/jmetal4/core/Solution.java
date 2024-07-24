@@ -4,8 +4,8 @@
 //       Antonio J. Nebro <antonio@lcc.uma.es>
 //       Juan J. Durillo <durillo@lcc.uma.es>
 //
-//  Description: 
-// 
+//  Description:
+//
 //  Copyright (c) 2011 Antonio J. Nebro, Juan J. Durillo
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -17,12 +17,13 @@
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package br.otimizes.oplatool.core.jmetal4.core;
 
+import br.otimizes.isearchai.learning.MLSolution;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.common.Variable;
@@ -30,11 +31,13 @@ import br.otimizes.oplatool.core.jmetal4.encodings.variable.Binary;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Class representing a solution for a problem.
  */
-public class Solution implements Serializable {
+public class Solution implements Serializable, MLSolution<Element> {
     /**
      *
      */
@@ -487,8 +490,8 @@ public class Solution implements Serializable {
      * @param decisionVariables The <code>DecisionVariables</code> object representing the
      *                          decision variables of the solution.
      */
-    public void setDecisionVariables(Variable[] variables) {
-        variable_ = variables;
+    public void setDecisionVariables(Variable[] decisionVariables) {
+        variable_ = decisionVariables;
     } // setDecisionVariables
 
     /**
@@ -652,6 +655,7 @@ public class Solution implements Serializable {
      *
      * @return The number of bits if the case of binary variables, 0 otherwise
      */
+    @JsonIgnore
     public int getNumberOfBits() {
         int bits = 0;
 
@@ -678,8 +682,31 @@ public class Solution implements Serializable {
         return userEvaluation;
     }
 
+    @Override
+    @JsonIgnore
+    public List<Element> getFreezedElements() {
+        return getAlternativeArchitecture().getFreezedElements();
+    }
+
+    @Override
+    @JsonIgnore
+    public List<Element> getAllElements() {
+        return getAlternativeArchitecture().getElementsWithPackages();
+    }
+
+    @Override
+    public List<Element> findElementByNumberId(Double id) {
+        return Collections.emptyList();
+    }
+
     public void setEvaluation(int userEvaluation) {
         this.userEvaluation = userEvaluation;
+    }
+
+    @Override
+    @JsonIgnore
+    public List<Element> getElements() {
+        return getAlternativeArchitecture().getElementsWithPackages();
     }
 
     public String getExecutionId() {
@@ -698,6 +725,7 @@ public class Solution implements Serializable {
         this.clusterNoise_ = clusterNoise_;
     }
 
+    @JsonIgnore
     public boolean containsArchitecturalEvaluation() {
         for (Element element : getAlternativeArchitecture().getElementsWithPackages()) {
             if (element.isFreezeByDM()) {

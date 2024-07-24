@@ -15,7 +15,7 @@
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -74,7 +74,7 @@ public class NonDominatedSolutionList extends SolutionSet {
      * that case, the domination tests are omitted
      */
     public boolean add(Solution solution) {
-        Iterator<Solution> iterator = solutionsList_.iterator();
+        Iterator<Solution> iterator = solutions.iterator();
 
         if (solution.getDecisionVariables() != null) {
             while (iterator.hasNext()) {
@@ -95,7 +95,7 @@ public class NonDominatedSolutionList extends SolutionSet {
         } // if
 
         //At this point, the solution is inserted into the list
-        solutionsList_.add(solution);
+        solutions.add(solution);
 
         return true;
     } // add

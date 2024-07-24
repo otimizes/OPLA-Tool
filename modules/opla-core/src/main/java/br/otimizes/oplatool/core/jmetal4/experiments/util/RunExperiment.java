@@ -23,7 +23,7 @@ package br.otimizes.oplatool.core.jmetal4.experiments.util;
 
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.experiments.settings.Settings;
@@ -183,8 +183,8 @@ public class RunExperiment extends Thread {
                     }
 
                     // STEP 8: put the br.otimizes.oplatool.core.jmetal4.results in the output directory
-                    new OPLASolutionSet(resultFront).printObjectivesToFile(directory + FileConstants.FILE_SEPARATOR + outputParetoFrontFile_ + "." + runs);
-                    new OPLASolutionSet(resultFront).printVariablesToFile(directory + FileConstants.FILE_SEPARATOR + outputParetoSetFile_ + "." + runs);
+                    new SolutionSet(resultFront).printObjectivesToFile(directory + FileConstants.FILE_SEPARATOR + outputParetoFrontFile_ + "." + runs);
+                    new SolutionSet(resultFront).printVariablesToFile(directory + FileConstants.FILE_SEPARATOR + outputParetoSetFile_ + "." + runs);
 
                     // STEP 9: calculate quality indicators
                     if (indicatorList_.length > 0) {

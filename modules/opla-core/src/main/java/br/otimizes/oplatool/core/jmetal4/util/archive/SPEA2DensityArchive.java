@@ -15,7 +15,7 @@
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -85,13 +85,13 @@ public class SPEA2DensityArchive extends Archive {
         int flag = 0;
         int i = 0;
         Solution aux;
-        while (i < solutionsList_.size()) {
-            aux = solutionsList_.get(i);
+        while (i < solutions.size()) {
+            aux = solutions.get(i);
             flag = dominance_.compare(solution, aux);
             if (flag == 1) {                // The solution to add is dominated
                 return false;                 // Discard the new solution
             } else if (flag == -1) {        // A solution in the archive is dominated
-                solutionsList_.remove(i);     // Remove the dominated solution
+                solutions.remove(i);     // Remove the dominated solution
             } else {
                 if (equals_.compare(aux, solution) == 0) {
                     return false;
@@ -100,7 +100,7 @@ public class SPEA2DensityArchive extends Archive {
             }
         }
         // Insert the solution in the archive
-        solutionsList_.add(solution);
+        solutions.add(solution);
 
         if (size() > maxSize_) { // The archive is full
             (new Spea2Fitness(this)).fitnessAssign();

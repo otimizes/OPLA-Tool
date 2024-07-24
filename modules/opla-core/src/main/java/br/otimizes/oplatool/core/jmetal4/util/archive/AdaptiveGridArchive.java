@@ -15,7 +15,7 @@
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -77,7 +77,7 @@ public class AdaptiveGridArchive extends Archive {
      */
     public boolean add(Solution solution) {
         //Iterator of individuals over the list
-        Iterator<Solution> iterator = solutionsList_.iterator();
+        Iterator<Solution> iterator = solutions.iterator();
 
         while (iterator.hasNext()) {
             Solution element = iterator.next();
@@ -100,7 +100,7 @@ public class AdaptiveGridArchive extends Archive {
 
         // At this point, the solution may be inserted
         if (size() == 0) { //The archive is empty
-            solutionsList_.add(solution);
+            solutions.add(solution);
             grid_.updateGrid(this);
             return true;
         } //
@@ -110,7 +110,7 @@ public class AdaptiveGridArchive extends Archive {
             int location;
             location = grid_.location(solution); // Get the location of the solution
             grid_.addSolution(location); // Increment the density of the hypercube
-            solutionsList_.add(solution); // Add the solution to the list
+            solutions.add(solution); // Add the solution to the list
             return true;
         } // if
 
@@ -122,7 +122,7 @@ public class AdaptiveGridArchive extends Archive {
             return false; // Not inserted
         } else {
             // Remove an solution from most populated area
-            iterator = solutionsList_.iterator();
+            iterator = solutions.iterator();
             boolean removed = false;
             while (iterator.hasNext()) {
                 if (!removed) {
@@ -137,7 +137,7 @@ public class AdaptiveGridArchive extends Archive {
             // A solution from most populated hypercube has been removed,
             // insert now the solution
             grid_.addSolution(location);
-            solutionsList_.add(solution);
+            solutions.add(solution);
         } // else
         return true;
     } // add

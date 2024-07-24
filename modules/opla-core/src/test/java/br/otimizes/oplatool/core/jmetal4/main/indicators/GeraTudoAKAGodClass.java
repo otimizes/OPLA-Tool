@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.core.jmetal4.main.indicators;
 
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.indicators.Hypervolume;
@@ -56,7 +56,7 @@ public class GeraTudoAKAGodClass {
         MetricsUtil mu = new MetricsUtil();
         SolutionSet ss = mu.readNonDominatedSolutionSet(directoryPath + "FUN_All_" + pla + ".txt");
         ss = removeDominadas(ss);
-        new OPLASolutionSet(ss).printObjectivesToFile(directoryPath + "FUN_All_" + pla + ".txt");
+        new SolutionSet(ss).printObjectivesToFile(directoryPath + "FUN_All_" + pla + ".txt");
 
         double[] min = mu.getMinimumValues(ss.writeObjectivesToMatrix(), 2);
         try (FileWriter todosEds = new FileWriter(directoryPath + "ALL_ED_" + pla + ".txt")) {

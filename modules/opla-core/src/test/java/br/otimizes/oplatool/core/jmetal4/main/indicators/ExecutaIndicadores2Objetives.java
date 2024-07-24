@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.core.jmetal4.main.indicators;
 
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
 import br.otimizes.oplatool.core.jmetal4.qualityIndicator.QualityIndicator;
@@ -46,7 +46,7 @@ public class ExecutaIndicadores2Objetives {
 //				JOptionPane.showMessageDialog(null, "true");
 
                 // escreve o conjunto de pareto real em um arquivo
-                new OPLASolutionSet(ss).printObjectivesToFile(caminho + software + "/teste/" + software + "_trueParetoFront.txt");
+                new SolutionSet(ss).printObjectivesToFile(caminho + software + "/teste/" + software + "_trueParetoFront.txt");
 
                 // le o arquivo com todas as melhores solucoes geradas
                 // nas 30 runs por um algoritmo

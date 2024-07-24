@@ -15,7 +15,7 @@
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU Lesser General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -100,14 +100,14 @@ public class CrowdingArchive extends Archive {
         int flag = 0;
         int i = 0;
         Solution aux; //Store an solution temporally
-        while (i < solutionsList_.size()) {
-            aux = solutionsList_.get(i);
+        while (i < solutions.size()) {
+            aux = solutions.get(i);
 
             flag = dominance_.compare(solution, aux);
             if (flag == 1) {               // The solution to add is dominated
                 return false;                // Discard the new solution
             } else if (flag == -1) {       // A solution in the archive is dominated
-                solutionsList_.remove(i);    // Remove it from the population
+                solutions.remove(i);    // Remove it from the population
             } else {
                 if (equals_.compare(aux, solution) == 0) { // There is an equal solution
                     // in the population
@@ -117,7 +117,7 @@ public class CrowdingArchive extends Archive {
             }
         }
         // Insert the solution into the archive
-        solutionsList_.add(solution);
+        solutions.add(solution);
         if (size() > maxSize_) { // The archive is full
             distance_.crowdingDistanceAssignment(this, objectives_);
             remove(indexWorst(crowdingDistance_));

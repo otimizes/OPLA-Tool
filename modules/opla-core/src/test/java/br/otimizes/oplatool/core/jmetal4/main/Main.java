@@ -22,7 +22,7 @@
 package br.otimizes.oplatool.core.jmetal4.main;
 
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.common.Configuration;
@@ -105,9 +105,9 @@ public class Main {
         // Result messages
         logger_.info("Total execution time: " + estimatedTime + "ms");
         logger_.info("Objectives values have been writen to file FUN");
-        new OPLASolutionSet(population).printObjectivesToFile("FUN");
+        new SolutionSet(population).printObjectivesToFile("FUN");
         logger_.info("Variables values have been writen to file VAR");
-        new OPLASolutionSet(population).printVariablesToFile("VAR");
+        new SolutionSet(population).printVariablesToFile("VAR");
 
         if (indicators != null) {
             logger_.info("Quality indicators");

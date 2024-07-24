@@ -1,9 +1,9 @@
 package br.otimizes.oplatool.core.jmetal4.interactive;
 
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
-import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
+import br.otimizes.isearchai.learning.SubjectiveAnalyzeAlgorithm;
 
 import java.util.HashSet;
 
@@ -117,7 +117,7 @@ public class InteractiveHandler {
         }
     }
 
-    public void subjectiveAnalyzeSolutionSet(OPLASolutionSet population) throws Exception {
+    public void subjectiveAnalyzeSolutionSet(SolutionSet population) throws Exception {
         subjectiveAnalyzeAlgorithm = interaction.getSubjectiveAnalyzeAlgorithm();
         if (subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained())
             subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(population, false);

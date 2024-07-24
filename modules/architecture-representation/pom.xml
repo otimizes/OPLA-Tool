@@ -121,6 +121,10 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>br.otimizes</groupId>
+            <artifactId>isearchai</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <resources>

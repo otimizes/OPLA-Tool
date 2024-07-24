@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 
 import com.rits.cloning.Cloner;
 
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
-import br.otimizes.oplatool.core.learning.ClassifierAlgorithm;
-import br.otimizes.oplatool.core.learning.SubjectiveAnalyzeAlgorithm;
+import br.otimizes.isearchai.learning.ClassifierAlgorithm;
+import br.otimizes.isearchai.learning.SubjectiveAnalyzeAlgorithm;
 
 /**
  * Class containing DM interactivity procedures
@@ -37,11 +37,11 @@ public class InteractWithDM {
             newS.setSolutionSet(solutions);
             solutionSet = interactiveFunction.run(newS);
             if (subjectiveAnalyzeAlgorithm == null) {
-                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new OPLASolutionSet(solutionSet),
+                subjectiveAnalyzeAlgorithm = new SubjectiveAnalyzeAlgorithm(new SolutionSet(solutionSet),
                         ClassifierAlgorithm.CLUSTERING_MLP);
                 subjectiveAnalyzeAlgorithm.run(null, false);
             } else {
-                subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), false);
+                subjectiveAnalyzeAlgorithm.run(new SolutionSet(solutionSet), false);
             }
             bestOfUserEvaluation.addAll(solutionSet.getSolutionSet().stream().filter(p -> (p.getEvaluation() >= 5
                     && p.getEvaluatedByUser()) || (p.containsArchitecturalEvaluation() && p.getEvaluatedByUser()))
@@ -52,7 +52,7 @@ public class InteractWithDM {
         boolean inTrainingAPosteriori = currentInteraction < maxInteractions && Math.abs((currentInteraction
                 * intervalInteraction) + (intervalInteraction / 2)) == generation && generation > firstInteraction;
         if (inTrainingAPosteriori) {
-            subjectiveAnalyzeAlgorithm.run(new OPLASolutionSet(solutionSet), true);
+            subjectiveAnalyzeAlgorithm.run(new SolutionSet(solutionSet), true);
         }
 
         if (subjectiveAnalyzeAlgorithm != null) {
@@ -62,7 +62,7 @@ public class InteractWithDM {
                     currentInteraction >= maxInteractions && isOnInteraction;
             if (isTrainFinished) {
                 subjectiveAnalyzeAlgorithm
-                        .evaluateSolutionSetScoreAndArchitecturalAlgorithm(new OPLASolutionSet(solutionSet), true);
+                        .evaluateSolutionSetScoreAndArchitecturalAlgorithm(new SolutionSet(solutionSet), true);
             }
         }
         return currentInteraction;

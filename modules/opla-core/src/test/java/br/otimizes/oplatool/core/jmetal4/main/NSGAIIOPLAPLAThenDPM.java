@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.core.jmetal4.main;
 
-import br.otimizes.oplatool.core.jmetal4.core.OPLASolutionSet;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.common.exceptions.JMException;
@@ -194,12 +194,12 @@ public class NSGAIIOPLAPLAThenDPM {
             //System.out.println("Iruns: " + runs + "\tTotal time: " + estimatedTime);
             time[runs] = estimatedTime;
 
-            new OPLASolutionSet(resultFront).printObjectivesToFile(directory + "/FUN_" + plaName + "_" + runs + ".txt");
+            new SolutionSet(resultFront).printObjectivesToFile(directory + "/FUN_" + plaName + "_" + runs + ".txt");
             //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
             MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_" + plaName + "_" + runs + ".txt");
             // resultFront.saveVariablesToFile(directory + "/VAR_" + runs + "_");
             if (shouldPrintVariables) {
-                new OPLASolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_");
+                new SolutionSet(resultFront).saveVariablesToFile("VAR_" + runs + "_");
             }
 
             Hypervolume.printFormattedHyperVolumeFile(resultFront, directory + "/fitness.txt", true);
@@ -219,12 +219,12 @@ public class NSGAIIOPLAPLAThenDPM {
         todasRuns = problem.removeRepeated(todasRuns);
 
         System.out.println("------    All Runs - Non-dominated solutions --------");
-        new OPLASolutionSet(todasRuns).printObjectivesToFile(directory + "/FUN_All_" + plaName + ".txt");
+        new SolutionSet(todasRuns).printObjectivesToFile(directory + "/FUN_All_" + plaName + ".txt");
         //todasRuns.printVariablesToFile(directory + "/VAR_All");
         MainTestUtil.printInformationToFile(allSolutions, directory + "/INFO_All_" + plaName + ".txt");
         //todasRuns.saveVariablesToFile(directory + "/VAR_All_");
         if (shouldPrintVariables) {
-            new OPLASolutionSet(todasRuns).saveVariablesToFile("VAR_All_");
+            new SolutionSet(todasRuns).saveVariablesToFile("VAR_All_");
         }
 
         //Thelma - Dez2013
