@@ -100,7 +100,8 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
             Configuration.logger_.severe("The population is full");
             Configuration.logger_.severe("Capacity is : " + capacity_);
             Configuration.logger_.severe("\t Size is: " + this.size());
-            return false;
+            throw new RuntimeException();
+//            return false;
         } // if
 
         solutions.add(solution);

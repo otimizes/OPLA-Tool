@@ -2,8 +2,8 @@ package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII;
 
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.*;
-import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
-import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveHandler;
+import interactive.InteractiveFunction;
+import interactive.InteractiveHandler;
 import org.apache.log4j.Logger;
 
 import java.util.List;

@@ -31,8 +31,6 @@ import br.otimizes.oplatool.architecture.representation.Interface;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.*;
-import br.otimizes.oplatool.core.jmetal4.interactive.InteractWithDM;
-import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
 import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverUtils;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLACrossoverOperator;
@@ -43,6 +41,8 @@ import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
+import interactive.InteractWithDM;
+import interactive.InteractiveFunction;
 import org.apache.log4j.Logger;
 
 import java.io.FileWriter;

@@ -13,13 +13,13 @@ import br.otimizes.oplatool.core.jmetal4.core.Operator;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
-import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveHandler;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII.util.EnvironmentalSelection;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII.util.ReferencePoint;
 import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverUtils;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLACrossoverOperator;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
+import interactive.InteractiveHandler;
 
 // Código baseado em/obtido de: https://github.com/jMetal/jMetal (versão 6)
 // Acessado em 2023-05-31 22:54 BRT

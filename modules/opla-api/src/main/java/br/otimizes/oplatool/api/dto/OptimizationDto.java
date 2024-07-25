@@ -2,13 +2,14 @@ package br.otimizes.oplatool.api.dto;
 
 import br.otimizes.oplatool.api.gateway.OptimizationAlgorithms;
 import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
-import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
 import br.otimizes.isearchai.learning.ClusteringAlgorithm;
 import br.otimizes.isearchai.learning.Moment;
+import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfig;
 import br.otimizes.oplatool.domain.config.ApplicationYamlConfig;
 import br.otimizes.oplatool.patterns.strategies.ScopeSelection;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import interactive.InteractiveFunction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -171,7 +172,7 @@ public class OptimizationDto {
         return interactiveFunction;
     }
 
-    public void setInteractiveFunction(InteractiveFunction interactiveFunction) {
+    public void setInteractiveFunction(InteractiveFunction<SolutionSet> interactiveFunction) {
         this.interactiveFunction = interactiveFunction;
     }
 
