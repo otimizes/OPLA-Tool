@@ -6,7 +6,7 @@
 //import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 //import br.otimizes.oplatool.core.jmetal4.experiments.OPLAConfigs;
 //import br.otimizes.oplatool.core.jmetal4.experiments.base.NSGAIIConfigs;
-//import br.otimizes.oplatool.core.jmetal4.interactive.InteractiveFunction;
+//import br.otimizes.oplatool.core.jmetal4.br.otimizes.isearchai.interactive.InteractiveFunction;
 //import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 //import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
 //import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverFactory;

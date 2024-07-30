@@ -1,9 +1,10 @@
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII;
 
+import br.otimizes.isearchai.interactive.InteractiveConfig;
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.*;
-import interactive.InteractiveFunction;
-import interactive.InteractiveHandler;
+import br.otimizes.isearchai.interactive.InteractiveFunction;
+import br.otimizes.isearchai.interactive.InteractiveHandler;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class NSGAIIIAlgorithmAdapter extends Algorithm {
         // interatividade
         boolean interactive = (Boolean) getInputParameter("interactive");
         if (interactive) {
-            InteractiveHandler.InteractiveConfig options = new InteractiveHandler.InteractiveConfig();
+            InteractiveConfig options = new InteractiveConfig<>();
             options.setMaxInteractions((Integer) getInputParameter("maxInteractions"));
             options.setFirstInteraction((Integer) getInputParameter("firstInteraction"));
             options.setIntervalInteraction((Integer) getInputParameter("intervalInteraction"));

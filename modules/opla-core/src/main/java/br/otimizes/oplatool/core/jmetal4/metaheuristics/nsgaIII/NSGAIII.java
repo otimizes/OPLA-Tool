@@ -19,7 +19,7 @@ import br.otimizes.oplatool.core.jmetal4.operators.CrossoverOperators;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.CrossoverUtils;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.PLACrossoverOperator;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
-import interactive.InteractiveHandler;
+import br.otimizes.isearchai.interactive.InteractiveHandler;
 
 // Código baseado em/obtido de: https://github.com/jMetal/jMetal (versão 6)
 // Acessado em 2023-05-31 22:54 BRT

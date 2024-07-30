@@ -2,7 +2,7 @@ package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII;
 
 import br.otimizes.oplatool.core.jmetal4.core.Operator;
 import br.otimizes.oplatool.core.jmetal4.core.Problem;
-import interactive.InteractiveHandler;
+import br.otimizes.isearchai.interactive.InteractiveHandler;
 
 /** Builder class */
 public class NSGAIIIBuilder {

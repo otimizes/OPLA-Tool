@@ -4,12 +4,13 @@ import br.otimizes.oplatool.api.gateway.OptimizationAlgorithms;
 import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.isearchai.learning.ClusteringAlgorithm;
 import br.otimizes.isearchai.learning.Moment;
+import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfig;
 import br.otimizes.oplatool.domain.config.ApplicationYamlConfig;
 import br.otimizes.oplatool.patterns.strategies.ScopeSelection;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import interactive.InteractiveFunction;
+import br.otimizes.isearchai.interactive.InteractiveFunction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +37,7 @@ public class OptimizationDto {
     private Moment clusteringMoment = Moment.INTERACTIVE;
     private ArchitectureBuilders architectureBuilder = ArchitectureBuilders.SMARTY;
     @JsonIgnore
-    private InteractiveFunction interactiveFunction;
+    private InteractiveFunction<SolutionSet> interactiveFunction;
     private List<String> mutationOperators = Arrays.asList("FEATURE_DRIVEN_OPERATOR", "MOVE_METHOD_MUTATION", "MOVE_ATTRIBUTE_MUTATION", "MOVE_OPERATION_MUTATION", "ADD_CLASS_MUTATION", "ADD_MANAGER_CLASS_MUTATION");
     private List<String> crossoverOperators = new ArrayList<>();
     private List<String> patterns = new ArrayList<>();
@@ -168,7 +169,7 @@ public class OptimizationDto {
         this.clusteringMoment = clusteringMoment;
     }
 
-    public InteractiveFunction getInteractiveFunction() {
+    public InteractiveFunction<SolutionSet> getInteractiveFunction() {
         return interactiveFunction;
     }
 

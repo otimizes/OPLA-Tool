@@ -3,7 +3,7 @@ package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaIII;
 import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.DominanceComparator;
 import br.otimizes.oplatool.core.jmetal4.util.comparators.InteractiveDominanceComparator;
-import interactive.InteractiveHandler;
+import br.otimizes.isearchai.interactive.InteractiveHandler;
 
 import java.util.*;
 

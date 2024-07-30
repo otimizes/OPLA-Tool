@@ -41,8 +41,8 @@ import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
-import interactive.InteractWithDM;
-import interactive.InteractiveFunction;
+import br.otimizes.isearchai.interactive.InteractWithDM;
+import br.otimizes.isearchai.interactive.InteractiveFunction;
 import org.apache.log4j.Logger;
 
 import java.io.FileWriter;

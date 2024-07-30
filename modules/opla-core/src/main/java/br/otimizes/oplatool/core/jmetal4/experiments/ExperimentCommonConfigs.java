@@ -6,7 +6,7 @@ import br.otimizes.isearchai.learning.ClusteringAlgorithm;
 import br.otimizes.isearchai.learning.Moment;
 import br.otimizes.oplatool.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
 import br.ufpr.dinf.gres.loglog.LogLog;
-import interactive.InteractiveFunction;
+import br.otimizes.isearchai.interactive.InteractiveFunction;
 import org.apache.commons.lang.WordUtils;
 
 import java.util.ArrayList;

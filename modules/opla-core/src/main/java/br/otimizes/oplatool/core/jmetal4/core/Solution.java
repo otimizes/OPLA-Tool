@@ -739,7 +739,7 @@ public class Solution implements Serializable, MLSolution<Element> {
         return (Architecture) getDecisionVariables()[0];
     }
 
-    public Boolean getEvaluatedByUser() {
+    public boolean getEvaluatedByUser() {
         return evaluatedByUser != null && evaluatedByUser;
     }
 
