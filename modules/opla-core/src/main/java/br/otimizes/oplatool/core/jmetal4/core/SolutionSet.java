@@ -18,7 +18,6 @@
 //
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 package br.otimizes.oplatool.core.jmetal4.core;
 
 import br.otimizes.isearchai.learning.*;
@@ -39,10 +38,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
-
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
+import br.otimizes.isearchai.learning.MLSolutionSet;
 
 /**
  * Class representing a SolutionSet (a set of solutions)
@@ -52,7 +51,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     private static final Logger LOGGER = Logger.getLogger(SolutionSet.class);
 
     /**
-     *
      */
     private static final long serialVersionUID = 2100295237257916377L;
 
@@ -64,15 +62,16 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     /**
      * Stores a Solution with the maximum values for each objective.
      */
-    private double [] objectiveMax;
+    private double[] objectiveMax;
 
     /**
      * Constructor. Creates an unbounded solution set.
      */
     public SolutionSet() {
         solutions = new ArrayList<>();
-    } // SolutionSet
+    }
 
+    // SolutionSet
     /**
      * Creates a empty solutionSet with a maximum capacity.
      *
@@ -81,8 +80,9 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     public SolutionSet(int maximumSize) {
         solutions = new ArrayList<>();
         capacity_ = maximumSize;
-    } // SolutionSet
+    }
 
+    // SolutionSet
     public SolutionSet(SolutionSet resultFront) {
         this.capacity_ = resultFront.capacity_;
         this.solutions = resultFront.solutions;
@@ -101,14 +101,14 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
             Configuration.logger_.severe("Capacity is : " + capacity_);
             Configuration.logger_.severe("\t Size is: " + this.size());
             throw new RuntimeException();
-//            return false;
-        } // if
-
+            //            return false;
+        }
+        // if
         solutions.add(solution);
-
         return true;
-    } // add
+    }
 
+    // add
     public int getCapacity() {
         return capacity_;
     }
@@ -130,8 +130,9 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
             throw new IndexOutOfBoundsException("Index out of Bound " + i);
         }
         return solutions.get(i);
-    } // get
+    }
 
+    // get
     /**
      * Returns the maximum capacity of the solution set
      *
@@ -139,8 +140,9 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      */
     public int getMaxSize() {
         return capacity_;
-    } // getMaxSize
+    }
 
+    // getMaxSize
     /**
      * Sorts a SolutionSet using a <code>Comparator</code>.
      *
@@ -150,10 +152,12 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         if (comparator == null) {
             Configuration.logger_.severe("No criterium for compare exist");
             return;
-        } // if
+        }
+        // if
         Collections.sort(solutions, comparator);
-    } // sort
+    }
 
+    // sort
     /**
      * Returns the index of the best Solution using a <code>Comparator</code>.
      * If there are more than one occurrences, only the index of the first one
@@ -164,11 +168,9 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      * <code>-1<code> if the SolutionSet is empty
      */
     public int indexBest(Comparator<Solution> comparator) {
-
         if ((solutions == null) || (this.solutions.isEmpty())) {
             return -1;
         }
-
         int index = 0;
         Solution bestKnown = solutions.get(0), candidateSolution;
         int flag;
@@ -180,11 +182,10 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
                 bestKnown = candidateSolution;
             }
         }
-
         return index;
+    }
 
-    } // indexBest
-
+    // indexBest
     /**
      * Returns the best Solution using a <code>Comparator</code>. If there are
      * more than one occurrences, only the first one is returned
@@ -200,9 +201,9 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         } else {
             return solutions.get(indexBest);
         }
+    }
 
-    } // best
-
+    // best
     /**
      * Returns the index of the worst Solution using a <code>Comparator</code>.
      * If there are more than one occurrences, only the index of the first one
@@ -213,11 +214,9 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      * <code>-1<code> if the SolutionSet is empty
      */
     public int indexWorst(Comparator<Solution> comparator) {
-
         if ((solutions == null) || (this.solutions.isEmpty())) {
             return -1;
         }
-
         int index = 0;
         Solution worstKnown = solutions.get(0), candidateSolution;
         int flag;
@@ -229,11 +228,10 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
                 worstKnown = candidateSolution;
             }
         }
-
         return index;
+    }
 
-    } // indexWorst
-
+    // indexWorst
     /**
      * Returns the worst Solution using a <code>Comparator</code>. If there are
      * more than one occurrences, only the first one is returned
@@ -244,16 +242,15 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      * if the SolutionSet is empty
      */
     public Solution worst(Comparator<Solution> comparator) {
-
         int index = indexWorst(comparator);
         if (index < 0) {
             return null;
         } else {
             return solutions.get(index);
         }
+    }
 
-    } // worst
-
+    // worst
     /**
      * Returns the number of solutions in the SolutionSet.
      *
@@ -261,15 +258,17 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      */
     public int size() {
         return solutions.size();
-    } // size
+    }
 
+    // size
     /**
      * Empties the SolutionSet
      */
     public void clear() {
         solutions.clear();
-    } // clear
+    }
 
+    // clear
     /**
      * Deletes the <code>Solution</code> at position i in the set.
      *
@@ -278,10 +277,12 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     public void remove(int i) {
         if (i > solutions.size() - 1) {
             Configuration.logger_.severe("Size is: " + this.size());
-        } // if
+        }
+        // if
         solutions.remove(i);
-    } // remove
+    }
 
+    // remove
     /**
      * Returns an <code>Iterator</code> to access to the solution set list.
      *
@@ -289,8 +290,9 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      */
     public Iterator<Solution> iterator() {
         return solutions.iterator();
-    } // iterator
+    }
 
+    // iterator
     /**
      * Returns a new <code>SolutionSet</code> which is the result of the union
      * between the current solution set and the one passed as a parameter.
@@ -303,20 +305,20 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         int newSize = this.size() + solutions.size();
         if (newSize < capacity_)
             newSize = capacity_;
-
         // Create a new population
         SolutionSet union = new SolutionSet(newSize);
         for (int i = 0; i < this.size(); i++) {
             union.add(this.get(i));
-        } // for
-
+        }
+        // for
         for (int i = this.size(); i < (this.size() + solutions.size()); i++) {
             union.add(solutions.get(i - this.size()));
-        } // for
-
+        }
+        // for
         return union;
-    } // union
+    }
 
+    // union
     /**
      * Replaces a solution by a new one
      *
@@ -326,11 +328,13 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     public void replace(int position, Solution solution) {
         if (position > this.solutions.size()) {
             solutions.add(solution);
-        } // if
+        }
+        // if
         solutions.remove(position);
         solutions.add(position, solution);
-    } // replace
+    }
 
+    // replace
     public List<Solution> getSolutionSet() {
         return this.solutions;
     }
@@ -360,8 +364,10 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         SolutionSet that = (SolutionSet) o;
         return capacity_ == that.capacity_ && Objects.equals(solutions, that.solutions);
     }
@@ -370,10 +376,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     public int hashCode() {
         return Objects.hash(solutions, capacity_);
     }
-
-
-
-
 
     /**
      * Copies the objectives and Elements Number of the solution set to a matrix
@@ -398,8 +400,9 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
             doubles[i] = doublesObj;
         }
         return doubles;
-    } // writeObjectivesAndElementsNumberToMatrix
+    }
 
+    // writeObjectivesAndElementsNumberToMatrix
     /**
      * Copies the objectives and Elements Number of the solution set to a matrix
      * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
@@ -408,8 +411,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      * @return matrix containing the objectives
      */
     public double[][] writeObjectivesAndArchitecturalElementsNumberToMatrix() {
-        return reduceThreeDimensionalArray(getSolutionsWithArchitecturalEvaluations().stream()
-                .map(this::writeObjectiveWithAllElementsFromSolution).toArray(double[][][]::new));
+        return reduceThreeDimensionalArray(getSolutionsWithArchitecturalEvaluations().stream().map(this::writeObjectiveWithAllElementsFromSolution).toArray(double[][][]::new));
     }
 
     /**
@@ -434,40 +436,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     /**
-     * Generate the Solution from elements and get the objective values
-     *
-     * @param element  specific element to add in solution
-     * @param solution specific solution
-     * @return list of objectives
-     */
-    @Override
-    public double[] writeObjectiveFromElementsAndObjectives(Element element, Solution solution) {
-        Solution newSolution = null;
-        try {
-            newSolution = new Solution((Problem) solution.getProblem());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        OPLA.getLOGGER().setLevel(org.apache.log4j.Level.OFF);
-        Architecture.getLOGGER().setLevel(org.apache.log4j.Level.OFF);
-        Architecture architecture = new Architecture("pla");
-        architecture.addElement(element);
-        if (newSolution != null) {
-            newSolution.setDecisionVariables(new Architecture[]{architecture});
-            ((OPLA) newSolution.getProblem()).evaluate(newSolution);
-            try {
-                newSolution.getProblem().evaluateConstraints(newSolution);
-            } catch (JMException e) {
-                e.printStackTrace();
-            }
-            OPLA.getLOGGER().setLevel(org.apache.log4j.Level.ALL);
-            Architecture.getLOGGER().setLevel(org.apache.log4j.Level.ALL);
-            return newSolution.getObjectives();
-        }
-        return null;
-    }
-
-    /**
      * Copies the objectives and Elements Number of the solution set to a matrix
      * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
      * nrAbstractions, nrAggregations, nrAssociations, nrCompositions, nrDependencies, nrGeneralizations, nrRealizations, nrUsage
@@ -489,7 +457,8 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      * @return bi-dimensional array of objectives
      */
     public double[][] reduceThreeDimensionalArray(double[][][] treeDimensionalArray) {
-        if (treeDimensionalArray.length <= 0) return new double[][]{};
+        if (treeDimensionalArray.length <= 0)
+            return new double[][] {};
         double[][] twoDimensionalArray = treeDimensionalArray[0];
         for (int i = 1; i < treeDimensionalArray.length; i++) {
             twoDimensionalArray = (double[][]) ArrayUtils.addAll(twoDimensionalArray, treeDimensionalArray[i]);
@@ -504,7 +473,8 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      * @return one-dimensional array of objectives
      */
     public double[] reduceBiDimensionalArray(double[][] biDimensionalArray) {
-        if (biDimensionalArray.length <= 0) return new double[]{};
+        if (biDimensionalArray.length <= 0)
+            return new double[] {};
         double[] oneDimensionalArray = biDimensionalArray[0];
         for (int i = 1; i < biDimensionalArray.length; i++) {
             oneDimensionalArray = ArrayUtils.addAll(oneDimensionalArray, biDimensionalArray[i]);
@@ -537,13 +507,10 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         elementProperties[2] = element instanceof Package ? (double) ((Package) element).getAllClasses().size() : 0;
         elementProperties[3] = element instanceof Package ? (double) ((Package) element).getAllInterfaces().size() : 0;
         elementProperties[4] = element instanceof Class ? (double) ((Class) element).getAllAttributes().size() : 0;
-        elementProperties[5] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() :
-                element instanceof Interface ? (double) ((Interface) element).getMethods().size() : 0;
+        elementProperties[5] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() : element instanceof Interface ? (double) ((Interface) element).getMethods().size() : 0;
         double[] doubles = writeObjectiveFromElementsAndObjectives(element, solution);
         elementProperties = ArrayUtils.addAll(elementProperties, doubles);
-        elementProperties = ArrayUtils.addAll(elementProperties, new double[]{
-                solution.containsArchitecturalEvaluation() ? 1 : 0
-        });
+        elementProperties = ArrayUtils.addAll(elementProperties, new double[] { solution.containsArchitecturalEvaluation() ? 1 : 0 });
         return elementProperties;
     }
 
@@ -568,10 +535,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      * @return List of elements. If startFrom > 0, then specify the objectives number
      */
     public String toStringObjectivesAndElementsNumber(int startFrom) {
-        return Arrays.stream(writeObjectivesAndElementsNumberToMatrix()).map(p -> Arrays
-                .asList(ArrayUtils.toObject(Arrays.copyOfRange(p, startFrom, p.length))).toString()
-                .replace("]", "\n").replace("[", "").replaceAll("\\.0", "")
-                .replaceAll(" ", "")).collect(Collectors.joining());
+        return Arrays.stream(writeObjectivesAndElementsNumberToMatrix()).map(p -> Arrays.asList(ArrayUtils.toObject(Arrays.copyOfRange(p, startFrom, p.length))).toString().replace("]", "\n").replace("[", "").replaceAll("\\.0", "").replaceAll(" ", "")).collect(Collectors.joining());
     }
 
     /**
@@ -581,10 +545,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      * @return list of objectives
      */
     public String toStringObjectives(String interaction) {
-        return Arrays.stream(writeObjectivesToMatrix()).map(p -> Arrays.asList(ArrayUtils.toObject(p))
-                .toString().replace("]", interaction + "," + interaction + "\n").replace(",", "|")
-                .replace("[", interaction + "," + interaction + ",").replaceAll("\\.0", "")
-                .replaceAll(" ", "")).collect(Collectors.joining());
+        return Arrays.stream(writeObjectivesToMatrix()).map(p -> Arrays.asList(ArrayUtils.toObject(p)).toString().replace("]", interaction + "," + interaction + "\n").replace(",", "|").replace("[", interaction + "," + interaction + ",").replaceAll("\\.0", "").replaceAll(" ", "")).collect(Collectors.joining());
     }
 
     /**
@@ -622,7 +583,8 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     public boolean hasUserEvaluation() {
         double[] doubles = writeUserEvaluationsToMatrix();
         for (double aDouble : doubles) {
-            if (aDouble > 0) return true;
+            if (aDouble > 0)
+                return true;
         }
         return false;
     }
@@ -651,10 +613,13 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      * @return average of values
      */
     public int getMedia(Set<Integer> values) {
-        if (values == null) return 0;
+        if (values == null)
+            return 0;
         values = values.stream().filter(v -> v > 0).collect(Collectors.toSet());
-        if (values.size() == 0) return 0;
-        if (values.size() == 1) return values.stream().findFirst().get();
+        if (values.size() == 0)
+            return 0;
+        if (values.size() == 1)
+            return values.stream().findFirst().get();
         int soma = 0;
         for (Integer value : values) {
             soma += value;
@@ -662,19 +627,16 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         return soma / values.size();
     }
 
-
     @Override
     public List<Element> getArchitecturalElementsEvaluatedByClusterId(Double clusterId) {
         List<Element> elements = new ArrayList<>();
-        List<List<Element>> collect = getSolutionsWithArchitecturalEvaluations().stream()
-                .filter(solution -> clusterId.equals(solution.getClusterId()))
-                .map(solution -> solution.getAllElements()
-                        .stream().filter(Element::isFreezeByDM).collect(Collectors.toList())).collect(Collectors.toList());
+        List<List<Element>> collect = getSolutionsWithArchitecturalEvaluations().stream().filter(solution -> clusterId.equals(solution.getClusterId())).map(solution -> solution.getAllElements().stream().filter(Element::isFreezeByDM).collect(Collectors.toList())).collect(Collectors.toList());
         for (List<Element> elementList : collect) {
             elements.addAll(elementList);
         }
         return elements;
     }
+
     /**
      * Freeze the architectural elements according the solution
      *
@@ -685,8 +647,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         List<Element> evaluatedElements = solution.getFreezedElements();
         if (evaluatedElements.size() > 0) {
             for (Solution aSolution : solutions) {
-                List<MLElement> collect = aSolution.getAllElements().stream()
-                        .filter(e -> evaluatedElements.stream().anyMatch(ee -> ee.totalyEquals(e))).collect(Collectors.toList());
+                List<MLElement> collect = aSolution.getAllElements().stream().filter(e -> evaluatedElements.stream().anyMatch(ee -> ee.totalyEquals(e))).collect(Collectors.toList());
                 if (collect.size() > 0) {
                     for (MLElement element : collect) {
                         element.setFreezedByCluster();
@@ -703,8 +664,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      * @return filtered elements
      */
     public List<Element> findElementWithNumberId(Double id) {
-        List<List<Element>> collect = solutions.stream().map(s -> s
-                .findElementByNumberId(id)).collect(Collectors.toList());
+        List<List<Element>> collect = solutions.stream().map(s -> s.findElementByNumberId(id)).collect(Collectors.toList());
         List<Element> objects = new ArrayList<>();
         for (List<Element> elements : collect) {
             objects.addAll(elements);
@@ -720,14 +680,12 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      */
     public void saveVariableToFile(Solution solution, String path) {
         int numberOfVariables = solution.getDecisionVariables().length;
-
         for (int j = 0; j < numberOfVariables; j++) {
             Architecture arch = (Architecture) solution.getDecisionVariables()[j];
             arch.setName(solution.getAlternativeArchitecture().getName());
             arch.save(arch, path, "");
         }
     }
-
 
     /**
      * Writes the objective function values of the <code>Solution</code> objects
@@ -752,8 +710,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
             BufferedWriter bw = new BufferedWriter(osw);
             String executionId = solutions.get(0).getExecutionId();
             for (int i = 0; i < solutions.size(); i++) {
-                bw.write(Arrays.toString(getNormalizedSolution(i)).trim().replaceAll("]", "")
-                        .replaceAll("\\[", "").replaceAll(", ", "\t"));
+                bw.write(Arrays.toString(getNormalizedSolution(i)).trim().replaceAll("]", "").replaceAll("\\[", "").replaceAll(", ", "\t"));
                 bw.newLine();
                 if (executionId != null && !executionId.equals(solutions.get(i).getExecutionId())) {
                     executionId = solutions.get(i).getExecutionId();
@@ -777,7 +734,8 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
             BufferedWriter bw = new BufferedWriter(osw);
             String executionId = solutions.get(0).getExecutionId();
             for (int i = 0; i < solutions.size(); i++) {
-                bw.write(Arrays.toString(getNormalizedSolution(i)).trim().replaceAll("]", "").replaceAll("\\[", "").replaceAll(", ", "\t")); // returns something
+                // returns something
+                bw.write(Arrays.toString(getNormalizedSolution(i)).trim().replaceAll("]", "").replaceAll("\\[", "").replaceAll(", ", "\t"));
                 bw.newLine();
             }
             bw.close();
@@ -806,7 +764,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
             bw.newLine();
             bw.write("GD:" + qualityIndicator.getGD(this));
             bw.newLine();
-
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
@@ -821,9 +778,9 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
-
             for (int i = 0; i < solutions.size(); i++) {
-                bw.write(solutions.get(i).toString().trim().replaceAll(" ", ", ")); // returns something
+                // returns something
+                bw.write(solutions.get(i).toString().trim().replaceAll(" ", ", "));
                 bw.newLine();
             }
             bw.close();
@@ -844,7 +801,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
             FileOutputStream fos = new FileOutputStream(path);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter bw = new BufferedWriter(osw);
-
             int numberOfVariables = solutions.get(0).getDecisionVariables().length;
             for (int i = 0; i < solutions.size(); i++) {
                 for (int j = 0; j < numberOfVariables; j++) {
@@ -852,14 +808,14 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
                 }
                 bw.newLine();
             }
-
             bw.close();
         } catch (IOException e) {
             Configuration.logger_.severe("Error acceding to the file");
             e.printStackTrace();
         }
-    } // printVariablesToFile
+    }
 
+    // printVariablesToFile
     /**
      * Save variables in a file
      *
@@ -871,8 +827,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     public void saveVariablesToFile(String path, List<Info> funResults, LogLog logger, boolean generate) {
         int numberOfVariables = solutions.get(0).getDecisionVariables().length;
         SaveStringToFile.getInstance().createLogDir();
-        String logPath = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR
-                + "logs" + FileConstants.FILE_SEPARATOR + "link_fitness.txt";
+        String logPath = ApplicationFileConfigThreadScope.getDirectoryToExportModels() + FileConstants.FILE_SEPARATOR + "logs" + FileConstants.FILE_SEPARATOR + "link_fitness.txt";
         if (logger != null)
             logger.putLog("Number of solutions: " + solutions.size(), Level.INFO);
         for (int i = 0; i < solutions.size(); i++) {
@@ -882,11 +837,10 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
                 String originalName = ((OPLA) solutions.get(i).getProblem()).getArchitecture_().getName();
                 funResults.get(i).setName(pathToSave + originalName);
                 if (generate) {
-                    if (funResults.get(i).getId() == null) funResults.get(i).setId(funResults.get(i).getObjectives()
-                            .replace("|", "-") + "-" + RandomStringUtils.randomNumeric(3));
+                    if (funResults.get(i).getId() == null)
+                        funResults.get(i).setId(funResults.get(i).getObjectives().replace("|", "-") + "-" + RandomStringUtils.randomNumeric(3));
                     arch.save(arch, pathToSave, "-" + funResults.get(i).getId());
-                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n" + pathToSave + arch.getName()
-                            + funResults.get(i).getId() + "\t" + solutions.get(i).toString());
+                    SaveStringToFile.getInstance().appendStrToFile(logPath, "\n" + pathToSave + arch.getName() + funResults.get(i).getId() + "\t" + solutions.get(i).toString());
                 }
             }
         }
@@ -909,11 +863,12 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         Solution max = getMax();
         Solution min = getMin();
         double[] doubles = new double[solution.getObjectives().length];
-        if (solutions.size() == 1) return doubles;
+        if (solutions.size() == 1)
+            return doubles;
         for (int j = 0; j < solution.getObjectives().length; j++) {
-            doubles[j] = (max.getObjective(j) - min.getObjective(j)) == 0 ? 0 :
-                    (solution.getObjective(j) - min.getObjective(j)) / (max.getObjective(j) - min.getObjective(j));
-            if (doubles[j] == -0.0) doubles[j] = 0.0;
+            doubles[j] = (max.getObjective(j) - min.getObjective(j)) == 0 ? 0 : (solution.getObjective(j) - min.getObjective(j)) / (max.getObjective(j) - min.getObjective(j));
+            if (doubles[j] == -0.0)
+                doubles[j] = 0.0;
         }
         return doubles;
     }
@@ -952,5 +907,39 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     @JsonIgnore
     public List<Solution> getSolutionsWithArchitecturalEvaluations() {
         return super.getSolutionsWithArchitecturalEvaluations();
+    }
+
+    /**
+     * Generate the Solution from elements and get the objective values
+     *
+     * @param element  specific element to add in solution
+     * @param solution specific solution
+     * @return list of objectives
+     */
+    @Override
+    public double[] writeObjectiveFromElementsAndObjectives(Element element, Solution solution) {
+        Solution newSolution = null;
+        try {
+            newSolution = new Solution((Problem) solution.getProblem());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        OPLA.getLOGGER().setLevel(org.apache.log4j.Level.OFF);
+        Architecture.getLOGGER().setLevel(org.apache.log4j.Level.OFF);
+        Architecture architecture = new Architecture("pla");
+        architecture.addElement(element);
+        if (newSolution != null) {
+            newSolution.setDecisionVariables(new Architecture[] { architecture });
+            ((OPLA) newSolution.getProblem()).evaluate(newSolution);
+            try {
+                newSolution.getProblem().evaluateConstraints(newSolution);
+            } catch (JMException e) {
+                e.printStackTrace();
+            }
+            OPLA.getLOGGER().setLevel(org.apache.log4j.Level.ALL);
+            Architecture.getLOGGER().setLevel(org.apache.log4j.Level.ALL);
+            return newSolution.getObjectives();
+        }
+        return null;
     }
 }

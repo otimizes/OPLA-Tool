@@ -20,7 +20,6 @@
 //
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 package br.otimizes.oplatool.core.jmetal4.core;
 
 import br.otimizes.isearchai.learning.MLSolution;
@@ -29,7 +28,6 @@ import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.core.jmetal4.encodings.variable.Binary;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
@@ -38,11 +36,10 @@ import java.util.List;
  * Class representing a solution for a problem.
  */
 public class Solution implements Serializable, MLSolution<Element> {
+
     /**
-     *
      */
     private static final long serialVersionUID = 2508217794094374887L;
-
 
     String solutionName;
 
@@ -65,13 +62,14 @@ public class Solution implements Serializable, MLSolution<Element> {
      * Stores the objectives values of the solution.
      */
     private double[] objective_;
+
     // para guardar os valores de cada metrica quando executar o GA
     private double[] objective_temp_;
 
     /**
      * Stores a list of maximum values for each objective.
      */
-    public double [] objectiveMax;
+    public double[] objectiveMax;
 
     /**
      * Stores the number of objective values of the solution
@@ -146,6 +144,7 @@ public class Solution implements Serializable, MLSolution<Element> {
     private Boolean clusterNoise_;
 
     public Boolean evaluatedByUser;
+
     private double[] normalizedObjective_;
 
     public Boolean evaluatedByUser3;
@@ -156,6 +155,7 @@ public class Solution implements Serializable, MLSolution<Element> {
      * Constructor.
      */
     private int clusterIDForMetaHeuristics;
+
     private double vDistance_;
 
     public Solution() {
@@ -166,10 +166,10 @@ public class Solution implements Serializable, MLSolution<Element> {
         type_ = null;
         variable_ = null;
         objective_ = null;
-
         objectiveMax = null;
-    } // Solution
+    }
 
+    // Solution
     /**
      * Constructor
      *
@@ -182,9 +182,7 @@ public class Solution implements Serializable, MLSolution<Element> {
     public Solution(int numberOfObjectives) {
         numberOfObjectives_ = numberOfObjectives;
         objective_ = new double[numberOfObjectives];
-
         normalizedObjective_ = new double[numberOfObjectives_];
-
         objectiveMax = new double[numberOfObjectives];
     }
 
@@ -199,10 +197,10 @@ public class Solution implements Serializable, MLSolution<Element> {
         distanceToSolutionSet_ = Double.POSITIVE_INFINITY;
         normalizedObjective_ = new double[numberOfObjectives_];
         variable_ = type_.createVariables();
-
         objectiveMax = new double[numberOfObjectives_];
-    } // Solution
+    }
 
+    // Solution
     public Solution(Problem problem, Variable[] variables) {
         problem_ = problem;
         type_ = problem.getSolutionType();
@@ -214,11 +212,10 @@ public class Solution implements Serializable, MLSolution<Element> {
         distanceToSolutionSet_ = Double.POSITIVE_INFINITY;
         normalizedObjective_ = new double[numberOfObjectives_];
         variable_ = variables;
-
         objectiveMax = new double[numberOfObjectives_];
+    }
 
-    } // Constructor
-
+    // Constructor
     /**
      * Copy constructor.
      *
@@ -230,15 +227,13 @@ public class Solution implements Serializable, MLSolution<Element> {
         numberOfObjectives_ = solution.numberOfObjectives();
         objective_ = new double[numberOfObjectives_];
         normalizedObjective_ = new double[numberOfObjectives_];
-        for (int i = 0; i < objective_.length; i++)
-        {
+        for (int i = 0; i < objective_.length; i++) {
             objective_[i] = solution.getObjective(i);
             normalizedObjective_[i] = solution.getNormalizedObjective(i);
-        } // for
+        }
+        // for
         // <-
-
         objectiveMax = new double[numberOfObjectives_];
-
         for (int i = 0; i < objective_.length; i++) {
             objective_[i] = solution.getObjective(i);
         }
@@ -258,8 +253,9 @@ public class Solution implements Serializable, MLSolution<Element> {
         marked_ = solution.isMarked();
         rank_ = solution.getRank();
         location_ = solution.getLocation();
-    } // Solution
+    }
 
+    // Solution
     static public Solution getNewSolution(Problem problem) throws ClassNotFoundException {
         return new Solution(problem);
     }
@@ -273,8 +269,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public double getDistanceToSolutionSet() {
         return distanceToSolutionSet_;
-    } // getDistanceToSolutionSet
+    }
 
+    // getDistanceToSolutionSet
     /**
      * Sets the distance between this solution and a <code>SolutionSet</code>.
      * The value is stored in <code>distanceToSolutionSet_</code>.
@@ -283,8 +280,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setDistanceToSolutionSet(double distance) {
         distanceToSolutionSet_ = distance;
-    } // SetDistanceToSolutionSet
+    }
 
+    // SetDistanceToSolutionSet
     /**
      * Gets the distance from the solution to his k-nearest nighbor in a
      * <code>SolutionSet</code>. Returns the value stored in
@@ -295,8 +293,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public double getKDistance() {
         return kDistance_;
-    } // getKDistance
+    }
 
+    // getKDistance
     /**
      * Sets the distance between the solution and its k-nearest neighbor in a
      * <code>SolutionSet</code>. The value is stored in <code>kDistance_</code>.
@@ -305,8 +304,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setKDistance(double distance) {
         kDistance_ = distance;
-    } // setKDistance
+    }
 
+    // setKDistance
     /**
      * Gets the crowding distance of the solution into a
      * <code>SolutionSet</code>. Returns the value stored in
@@ -317,8 +317,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public double getCrowdingDistance() {
         return crowdingDistance_;
-    } // getCrowdingDistance
+    }
 
+    // getCrowdingDistance
     /**
      * Sets the crowding distance of a solution in a <code>SolutionSet</code>.
      * The value is stored in <code>crowdingDistance_</code>.
@@ -327,8 +328,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setCrowdingDistance(double distance) {
         crowdingDistance_ = distance;
-    } // setCrowdingDistance
+    }
 
+    // setCrowdingDistance
     /**
      * Gets the fitness of the solution. Returns the value of stored in the
      * variable <code>fitness_</code>. <b> REQUIRE </b>: This method has to be
@@ -338,8 +340,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public double getFitness() {
         return fitness_;
-    } // getFitness
+    }
 
+    // getFitness
     /**
      * Sets the fitness of a solution. The value is stored in
      * <code>fitness_</code>.
@@ -348,8 +351,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setFitness(double fitness) {
         fitness_ = fitness;
-    } // setFitness
+    }
 
+    // setFitness
     /**
      * Sets the value of the i-th objective.
      *
@@ -358,8 +362,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setObjective(int i, double value) {
         objective_[i] = value;
-    } // setObjective
+    }
 
+    // setObjective
     /**
      * Returns the value of the i-th objective.
      *
@@ -367,8 +372,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public double getObjective(int i) {
         return objective_[i];
-    } // getObjective
+    }
 
+    // getObjective
     public double[] getObjectives() {
         return objective_;
     }
@@ -386,24 +392,25 @@ public class Solution implements Serializable, MLSolution<Element> {
         objective_temp_ = new double[numberOfObjectives];
     }
 
-   /* public void createObjectiveMax(int numberOfObjectives) {
+    /* public void createObjectiveMax(int numberOfObjectives) {
         objectiveMax = new double[numberOfObjectives];
     }
 
     */
-
     public void createObjective(int numberOfObjectives) {
         objective_ = new double[numberOfObjectives];
     }
 
     public void setObjectiveTemp(int i, double value) {
         objective_temp_[i] = value;
-    } // setObjective
+    }
 
+    // setObjective
     public double getObjectiveTemp(int i) {
         return objective_temp_[i];
-    } // getObjective
+    }
 
+    // getObjective
     /**
      * Returns the number of objectives.
      *
@@ -414,8 +421,9 @@ public class Solution implements Serializable, MLSolution<Element> {
             return 0;
         else
             return numberOfObjectives_;
-    } // numberOfObjectives
+    }
 
+    // numberOfObjectives
     public void setNumberOfObjectives(int numberOfObjectives_) {
         this.numberOfObjectives_ = numberOfObjectives_;
     }
@@ -427,8 +435,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public int numberOfVariables() {
         return problem_.getNumberOfVariables();
-    } // numberOfVariables
+    }
 
+    // numberOfVariables
     /**
      * Returns a string representing the solution.
      *
@@ -436,40 +445,34 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public String toString() {
         String aux = "";
-        for (int i = 0; i < this.numberOfObjectives_; i++)
-            aux = aux + this.getObjective(i) + " ";
-
+        for (int i = 0; i < this.numberOfObjectives_; i++) aux = aux + this.getObjective(i) + " ";
         if (objective_temp_ != null) {
             aux = aux + " -> ";
             for (int i = 0; i < objective_temp_.length; i++) {
                 aux = aux + this.getObjectiveTemp(i) + " ";
             }
         }
-
         return aux;
-    } // toString
+    }
 
+    // toString
     public String toStringObjectivesTemp() {
         String aux = "";
-
         if (objective_temp_ != null) {
             for (int i = 0; i < objective_temp_.length; i++) {
                 aux = aux + this.getObjectiveTemp(i) + " ";
             }
         }
-
         return aux;
     }
 
     public String toStringObjectives() {
         String aux = "";
-
         if (objective_ != null) {
             for (int i = 0; i < objective_.length; i++) {
                 aux = aux + this.getObjective(i) + " ";
             }
         }
-
         return aux;
     }
 
@@ -482,8 +485,9 @@ public class Solution implements Serializable, MLSolution<Element> {
     @JsonIgnore
     public Variable[] getDecisionVariables() {
         return variable_;
-    } // getDecisionVariables
+    }
 
+    // getDecisionVariables
     /**
      * Sets the decision variables for the solution.
      *
@@ -492,8 +496,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setDecisionVariables(Variable[] decisionVariables) {
         variable_ = decisionVariables;
-    } // setDecisionVariables
+    }
 
+    // setDecisionVariables
     /**
      * Indicates if the solution is marked.
      *
@@ -503,22 +508,25 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public boolean isMarked() {
         return this.marked_;
-    } // isMarked
+    }
 
+    // isMarked
     /**
      * Establishes the solution as marked.
      */
     public void marked() {
         this.marked_ = true;
-    } // marked
+    }
 
+    // marked
     /**
      * Established the solution as unmarked.
      */
     public void unMarked() {
         this.marked_ = false;
-    } // unMarked
+    }
 
+    // unMarked
     /**
      * Gets the rank of the solution. <b> REQUIRE </b>: This method has to be
      * invoked after calling <code>setRank()</code>.
@@ -527,8 +535,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public int getRank() {
         return this.rank_;
-    } // getRank
+    }
 
+    // getRank
     /**
      * Sets the rank of a solution.
      *
@@ -536,8 +545,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setRank(int value) {
         this.rank_ = value;
-    } // setRank
+    }
 
+    // setRank
     /**
      * Gets the overall constraint violated by the solution. <b> REQUIRE </b>:
      * This method has to be invoked after calling
@@ -547,8 +557,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public double getOverallConstraintViolation() {
         return this.overallConstraintViolation_;
-    } // getOverallConstraintViolation
+    }
 
+    // getOverallConstraintViolation
     /**
      * Sets the overall constraints violated by the solution.
      *
@@ -556,8 +567,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setOverallConstraintViolation(double value) {
         this.overallConstraintViolation_ = value;
-    } // setOverallConstraintViolation
+    }
 
+    // setOverallConstraintViolation
     /**
      * Gets the number of constraint violated by the solution. <b> REQUIRE </b>:
      * This method has to be invoked after calling
@@ -567,8 +579,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public int getNumberOfViolatedConstraint() {
         return this.numberOfViolatedConstraints_;
-    } // getNumberOfViolatedConstraint
+    }
 
+    // getNumberOfViolatedConstraint
     /**
      * Sets the number of constraints violated by the solution.
      *
@@ -576,8 +589,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setNumberOfViolatedConstraint(int value) {
         this.numberOfViolatedConstraints_ = value;
-    } // setNumberOfViolatedConstraint
+    }
 
+    // setNumberOfViolatedConstraint
     /**
      * Gets the location of this solution in a <code>SolutionSet</code>. <b>
      * REQUIRE </b>: This method has to be invoked after calling
@@ -587,8 +601,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public int getLocation() {
         return this.location_;
-    } // getLocation
+    }
 
+    // getLocation
     /**
      * Sets the location of the solution into a solutionSet.
      *
@@ -596,8 +611,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setLocation(int location) {
         this.location_ = location;
-    } // setLocation
+    }
 
+    // setLocation
     /**
      * Sets the type of the variable.
      *
@@ -607,7 +623,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     // public void setType(String type) {
     // type_ = Class.forName("") ;
     // } // setType
-
     /**
      * Gets the type of the variable
      *
@@ -616,8 +631,9 @@ public class Solution implements Serializable, MLSolution<Element> {
     @JsonIgnore
     public SolutionType getType() {
         return type_;
-    } // getType
+    }
 
+    // getType
     /**
      * Sets the type of the variable.
      *
@@ -625,8 +641,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setType(SolutionType type) {
         type_ = type;
-    } // setType
+    }
 
+    // setType
     /**
      * Returns the aggregative value of the solution
      *
@@ -638,9 +655,9 @@ public class Solution implements Serializable, MLSolution<Element> {
             value += getObjective(i);
         }
         return value;
-    } // getAggregativeValue
+    }
 
-
+    // getAggregativeValue
     public String getSolutionName() {
         return solutionName;
     }
@@ -658,18 +675,16 @@ public class Solution implements Serializable, MLSolution<Element> {
     @JsonIgnore
     public int getNumberOfBits() {
         int bits = 0;
-
-        for (int i = 0; i < variable_.length; i++)
-            try {
-                if ((variable_[i].getVariableType() == Class.forName("br.otimizes.oplatool.core.jmetal4.encodings.variable.Binary"))
-                        || (variable_[i].getVariableType() == Class.forName("br.otimizes.oplatool.core.jmetal4.encodings.variable.BinaryReal")))
-                    bits += ((Binary) (variable_[i])).getNumberOfBits();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+        for (int i = 0; i < variable_.length; i++) try {
+            if ((variable_[i].getVariableType() == Class.forName("br.otimizes.oplatool.core.jmetal4.encodings.variable.Binary")) || (variable_[i].getVariableType() == Class.forName("br.otimizes.oplatool.core.jmetal4.encodings.variable.BinaryReal")))
+                bits += ((Binary) (variable_[i])).getNumberOfBits();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return bits;
-    } // getNumberOfBits
+    }
 
+    // getNumberOfBits
     public Double getClusterId() {
         return clusterId_;
     }
@@ -779,36 +794,29 @@ public class Solution implements Serializable, MLSolution<Element> {
         this.id = id;
     }
 
-    public void setNormalizedObjective(int i, double value)
-    {
+    public void setNormalizedObjective(int i, double value) {
         normalizedObjective_[i] = value;
     }
 
-    public double getNormalizedObjective(int i)
-    {
+    public double getNormalizedObjective(int i) {
         return normalizedObjective_[i];
     }
 
-    public void setClusterIDForMetaHeuristics(int id)
-    {
+    public void setClusterIDForMetaHeuristics(int id) {
         this.clusterIDForMetaHeuristics = id;
     }
 
-    public int getClusterIDForMetaHeuristics()
-    {
+    public int getClusterIDForMetaHeuristics() {
         return this.clusterIDForMetaHeuristics;
     }
 
-    public void setVDistance(double val)
-    {
+    public void setVDistance(double val) {
         this.vDistance_ = val;
     }
 
-    public double getVDistance()
-    {
+    public double getVDistance() {
         return this.vDistance_;
     }
-
 
     public int getIdOrigem() {
         return idOrigem;
@@ -824,16 +832,13 @@ public class Solution implements Serializable, MLSolution<Element> {
      * @param objective     The objective value that will be weighted.
      * @param evaluation    The value of evaluation (3 or 4).
      */
-    public double getObjectiveWithWeight (double objective, int evaluation) {
+    public double getObjectiveWithWeight(double objective, int evaluation) {
         double weightsEvaluate4 = 0.14;
         double weightsEvaluate3 = 0.06;
-
         double value = objective;
-
         if (evaluation == 4) {
             value = (objective - objective * weightsEvaluate4);
         }
-
         if (evaluation == 3) {
             value = (objective - objective * weightsEvaluate3);
         }
@@ -848,8 +853,9 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public void setObjectiveMax(int i, double value) {
         objectiveMax[i] = value;
-    } // setObjective
+    }
 
+    // setObjective
     /**
      * Returns the maximum value of the i-th objective.
      *
@@ -857,24 +863,24 @@ public class Solution implements Serializable, MLSolution<Element> {
      */
     public double getObjectiveMax(int i) {
         return objectiveMax[i];
-    } // getObjective
+    }
 
+    // getObjective
     /**
      * run through all objectives to check the biggest
      *
      * @return returns a solution with the highest objective values
      */
-
     public void checkMajorObjective(SolutionSet solutionSet) {
         for (int i = 0; i < solutionSet.get(0).numberOfObjectives(); i++) {
             double maxObjective = 0;
-            for (int j = 0; j < solutionSet.size(); j++ ) {
+            for (int j = 0; j < solutionSet.size(); j++) {
                 if (maxObjective < solutionSet.get(j).getObjective(i)) {
-                    maxObjective =  solutionSet.get(j).getObjective(i);
+                    maxObjective = solutionSet.get(j).getObjective(i);
                 }
             }
-            setObjectiveMax(i,maxObjective);
+            setObjectiveMax(i, maxObjective);
         }
     }
-
-} // Solution
+}
+// Solution

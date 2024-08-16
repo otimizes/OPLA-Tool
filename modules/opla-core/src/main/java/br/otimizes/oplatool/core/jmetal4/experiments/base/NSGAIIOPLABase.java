@@ -1,11 +1,10 @@
 package br.otimizes.oplatool.core.jmetal4.experiments.base;
 
+import br.otimizes.isearchai.learning.Moment;
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
-import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
 import br.otimizes.oplatool.core.jmetal4.database.Result;
-import br.otimizes.oplatool.core.jmetal4.experiments.CommonOPLAFeatMut;
 import br.otimizes.oplatool.core.jmetal4.experiments.EdCalculation;
 import br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII.NSGAII;
 import br.otimizes.oplatool.core.jmetal4.operators.crossover.Crossover;
@@ -15,14 +14,11 @@ import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
-import br.otimizes.isearchai.learning.Moment;
 import br.otimizes.oplatool.core.persistence.ExperimentConfigurations;
 import br.otimizes.oplatool.core.persistence.Persistence;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.entity.Execution;
 import br.otimizes.oplatool.domain.entity.Experiment;
-import br.otimizes.oplatool.domain.entity.Info;
-import br.otimizes.oplatool.domain.entity.objectivefunctions.ObjectiveFunctionDomain;
 import br.ufpr.dinf.gres.loglog.Level;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -30,7 +26,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class NSGAIIOPLABase implements AlgorithmBase<NSGAIIConfigs> {

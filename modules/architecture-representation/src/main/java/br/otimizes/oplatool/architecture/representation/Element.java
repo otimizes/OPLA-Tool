@@ -5,7 +5,6 @@ import br.otimizes.oplatool.architecture.exceptions.ConcernNotFoundException;
 import com.rits.cloning.Cloner;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.eclipse.uml2.uml.Interface;
-
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,28 +14,46 @@ import java.util.stream.Collectors;
  *
  * @author edipofederle<edipofederle @ gmail.com>
  */
-public abstract class Element implements Serializable, br.otimizes.isearchai.learning.MLElement {
+public abstract class Element implements Serializable, MLElement {
 
     private static final long serialVersionUID = 4736685073967472613L;
 
     protected String id;
+
     private String name;
+
     private VariationPoint variationPoint;
+
     private Variant variant;
+
     private final Set<Concern> concerns = new HashSet<>();
+
     private Set<Comment> comments = new HashSet<>();
+
     private String typeElement;
+
     private String namespace;
+
     private boolean belongsToGeneralization;
+
     private boolean freezedByCluster = false;
+
     private String posX = "0";
+
     private String posY = "0";
+
     private String globalPosX = "0";
+
     private String globalPosY = "0";
+
     private String height = "0";
+
     private String width = "0";
+
     private boolean mandatory = true;
+
     private boolean isStatic;
+
     private boolean isFinal;
 
     public Element(String name, Variant variant, String typeElement, String namespace, String id) {
@@ -144,9 +161,8 @@ public abstract class Element implements Serializable, br.otimizes.isearchai.lea
     public float getNumberId() {
         int minValue = Integer.MIN_VALUE;
         int maxValue = Integer.MAX_VALUE;
-        int numberId = (this.getNamespace() + ":" + this.getTypeElement() +
-                ":" + this.getName()).hashCode();
-//        return (numberId - minValue) / (maxValue - minValue);
+        int numberId = (this.getNamespace() + ":" + this.getTypeElement() + ":" + this.getName()).hashCode();
+        //        return (numberId - minValue) / (maxValue - minValue);
         return numberId * 0.0000001f;
     }
 
@@ -202,8 +218,7 @@ public abstract class Element implements Serializable, br.otimizes.isearchai.lea
     }
 
     public void addConcerns(List<String> concernsNames) throws ConcernNotFoundException {
-        for (String name : concernsNames)
-            addConcern(name);
+        for (String name : concernsNames) addConcern(name);
     }
 
     public void addExternalConcern(Concern concern) {
@@ -245,8 +260,7 @@ public abstract class Element implements Serializable, br.otimizes.isearchai.lea
     }
 
     public boolean isFreezeByDM() {
-        return this.comments != null && this.comments.stream().anyMatch(c -> (c.getValue() != null && c.getValue().contains("freeze"))
-                || (c.getName() != null && c.getName().contains("freeze")));
+        return this.comments != null && this.comments.stream().anyMatch(c -> (c.getValue() != null && c.getValue().contains("freeze")) || (c.getName() != null && c.getName().contains("freeze")));
     }
 
     public boolean hasComments() {
@@ -254,8 +268,7 @@ public abstract class Element implements Serializable, br.otimizes.isearchai.lea
     }
 
     public boolean unsetFreezeFromDM() {
-        this.comments = this.comments.stream().filter(c -> c.getValue() != null && !c.getValue().contains("freeze"))
-                .collect(Collectors.toSet());
+        this.comments = this.comments.stream().filter(c -> c.getValue() != null && !c.getValue().contains("freeze")).collect(Collectors.toSet());
         return this.isFreezeByDM();
     }
 
@@ -265,7 +278,6 @@ public abstract class Element implements Serializable, br.otimizes.isearchai.lea
         }
         return isFreezeByDM();
     }
-
 
     public boolean setFreezeFromDM(boolean bool) {
         return bool ? setFreezeFromDM() : unsetFreezeFromDM();
@@ -320,7 +332,8 @@ public abstract class Element implements Serializable, br.otimizes.isearchai.lea
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) return false;
+        if (obj == null)
+            return false;
         String objClass = obj.getClass().toString();
         if (this == obj)
             return true;
@@ -334,7 +347,8 @@ public abstract class Element implements Serializable, br.otimizes.isearchai.lea
             return false;
         if (namespace == null) {
             return other.namespace == null;
-        } else return namespace.equals(other.namespace);
+        } else
+            return namespace.equals(other.namespace);
     }
 
     @Override
@@ -348,7 +362,8 @@ public abstract class Element implements Serializable, br.otimizes.isearchai.lea
         } else if (this instanceof Package && other instanceof Package) {
             Set<Element> collect = ((Package) this).getElements();
             Set<Element> collect1 = ((Package) other).getElements();
-            if (collect.size() != collect1.size()) return false;
+            if (collect.size() != collect1.size())
+                return false;
             for (Element element : collect) {
                 doesEqual &= element.totalyEquals(other);
             }

@@ -21,7 +21,8 @@
 
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII;
 
-import br.otimizes.isearchai.learning.SubjectiveAnalyzeAlgorithm;
+import br.otimizes.isearchai.interactive.InteractWithDM;
+import br.otimizes.isearchai.interactive.InteractiveFunction;
 import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
@@ -41,8 +42,6 @@ import br.otimizes.oplatool.core.jmetal4.util.comparators.CrowdingComparator;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
-import br.otimizes.isearchai.interactive.InteractWithDM;
-import br.otimizes.isearchai.interactive.InteractiveFunction;
 import org.apache.log4j.Logger;
 
 import java.io.FileWriter;
@@ -81,12 +80,15 @@ public class NSGAII extends Algorithm {
         Distance distance = new Distance();
         int populationSize = (Integer) getInputParameter("populationSize");
         int maxEvaluations = (Integer) getInputParameter("maxEvaluations");
-        int maxInteractions = (Integer) getInputParameter("maxInteractions");
-        int firstInteraction = (Integer) getInputParameter("firstInteraction");
-        int intervalInteraction = (Integer) getInputParameter("intervalInteraction");
-        Boolean interactive = (Boolean) getInputParameter("interactive");
-        InteractiveFunction interactiveFunction = ((InteractiveFunction) getInputParameter("interactiveFunction"));
-        int currentInteraction = 0;
+
+        this.interaction.setMaxInteractions((Integer) getInputParameter("maxInteractions"));
+        this.interaction.setFirstInteraction((Integer) getInputParameter("firstInteraction"));
+        this.interaction.setIntervalInteraction((Integer) getInputParameter("intervalInteraction"));
+        this.interaction.setInteractive((Boolean) getInputParameter("interactive"));
+        this.interaction.setCurrentInteraction(0);
+        this.interaction.setInteractiveFunction(((InteractiveFunction) getInputParameter("interactiveFunction")));
+
+
         QualityIndicator indicators = (QualityIndicator) getInputParameter("indicators");
         HashSet<Solution> bestOfUserEvaluation = new HashSet<>();
         SolutionSet population = new SolutionSet(populationSize);
@@ -185,30 +187,7 @@ public class NSGAII extends Algorithm {
                 int generation = evaluations / populationSize;
                 OPLAThreadScope.currentGeneration.set(generation);
                 OPLALogs.add(new OptimizationInfo(Thread.currentThread().getId(), "Generation " + generation, OptimizationInfoStatus.RUNNING));
-                if (interactive) {
-                    currentInteraction = interaction.interactWithDM(generation, offspringPopulation, maxInteractions,
-                            firstInteraction, intervalInteraction, interactiveFunction, currentInteraction,
-                            bestOfUserEvaluation);
-                    //assign offSpring grades to solutions in the population that have the same source solution
-                    for (Solution solution : offspringPopulation.getSolutionSet()) {
-
-                        for (int i = 0; i < population.getSolutionSet().size(); i++) {
-                            if (population.get(i).getEvaluation() == 0 && solution.getIdOrigem() != 0 && solution.getIdOrigem() == population.get(i).getIdOrigem()) {
-                                population.get(i).setEvaluation(solution.getEvaluation());
-                                population.get(i).setEvaluatedByUser(solution.getEvaluatedByUser());
-                                population.get(i).setEvaluatedByUser3(solution.getEvaluatedByUser3());
-                            }
-                        }
-                    }
-
-                    for (int i = 0; i < population.getSolutionSet().size(); i++) {
-                        if (population.get(i).getEvaluation() == 1) {
-                            population.getSolutionSet().set(i, newRandomSolution(mutationOperator));
-                            population.get(i).setId(i);
-                            population.get(i).setIdOrigem(i + 1);
-                        }
-                    }
-                }
+                interact(offspringPopulation, bestOfUserEvaluation, population, mutationOperator, generation);
 
                 if ((indicators != null) && (requiredEvaluations == 0)) {
                     double HV = indicators.getHypervolume(population);
@@ -234,15 +213,34 @@ public class NSGAII extends Algorithm {
             }
         }
 
-        SubjectiveAnalyzeAlgorithm subjectiveAnalyzeAlgorithm = interaction.getSubjectiveAnalyzeAlgorithm();
-        if (interactive && subjectiveAnalyzeAlgorithm != null && subjectiveAnalyzeAlgorithm.isTrained()) {
-            try {
-                subjectiveAnalyzeAlgorithm.evaluateSolutionSetScoreAndArchitecturalAlgorithm(new SolutionSet(subfrontToReturn), false);
-            } catch (Exception e) {
-                e.printStackTrace();
+        //ISEARCHAI::subjectiveAnalyzeAlgorithmEvaluate(new SolutionSet(subfrontToReturn))
+        interaction.subjectiveAnalyzeAlgorithmEvaluate(new SolutionSet(subfrontToReturn));
+        return subfrontToReturn;
+    }
+
+    private void interact(SolutionSet offspringPopulation,
+                          HashSet<Solution> bestOfUserEvaluation, SolutionSet population, Operator mutationOperator, int generation) throws Exception {
+        //ISEARCHAI::interactWithDMUpdatingInteraction(offspringPopulation, bestOfUserEvaluation, generation)
+        interaction.interactWithDMUpdatingInteraction(offspringPopulation, bestOfUserEvaluation, generation);
+        //assign offSpring grades to solutions in the population that have the same source solution
+        for (Solution solution : offspringPopulation.getSolutionSet()) {
+
+            for (int i = 0; i < population.getSolutionSet().size(); i++) {
+                if (population.get(i).getEvaluation() == 0 && solution.getIdOrigem() != 0 && solution.getIdOrigem() == population.get(i).getIdOrigem()) {
+                    population.get(i).setEvaluation(solution.getEvaluation());
+                    population.get(i).setEvaluatedByUser(solution.getEvaluatedByUser());
+                    population.get(i).setEvaluatedByUser3(solution.getEvaluatedByUser3());
+                }
             }
         }
-        return subfrontToReturn;
+
+        for (int i = 0; i < population.getSolutionSet().size(); i++) {
+            if (population.get(i).getEvaluation() == 1) {
+                population.getSolutionSet().set(i, newRandomSolution(mutationOperator));
+                population.get(i).setId(i);
+                population.get(i).setIdOrigem(i + 1);
+            }
+        }
     }
 
     private Solution newRandomSolution(Operator mutationOperator) throws Exception {
@@ -430,10 +428,5 @@ public class NSGAII extends Algorithm {
             return false;
         }
         return ("" + lst1.get(2)).equals("" + lst2.get(2));
-    }
-
-    // NB: this only exists so SubjectiveAnalyzeAlgorithmTest can be executed
-    public SubjectiveAnalyzeAlgorithm getSubjectiveAnalyzeAlgorithm() {
-        return interaction.getSubjectiveAnalyzeAlgorithm();
     }
 }

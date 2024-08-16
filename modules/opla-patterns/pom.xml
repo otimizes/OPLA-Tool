@@ -17,6 +17,11 @@
 	</parent>
 	<dependencies>
 		<dependency>
+			<groupId>br.otimizes</groupId>
+			<artifactId>isearchai</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
 		</dependency>
