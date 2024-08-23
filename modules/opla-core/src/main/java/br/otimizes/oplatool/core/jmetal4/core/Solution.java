@@ -697,23 +697,6 @@ public class Solution implements Serializable, MLSolution<Element> {
         return userEvaluation;
     }
 
-    @Override
-    @JsonIgnore
-    public List<Element> getFreezedElements() {
-        return getAlternativeArchitecture().getFreezedElements();
-    }
-
-    @Override
-    @JsonIgnore
-    public List<Element> getAllElements() {
-        return getAlternativeArchitecture().getElementsWithPackages();
-    }
-
-    @Override
-    public List<Element> findElementByNumberId(Double id) {
-        return Collections.emptyList();
-    }
-
     public void setEvaluation(int userEvaluation) {
         this.userEvaluation = userEvaluation;
     }
@@ -741,7 +724,7 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     @JsonIgnore
-    public boolean containsArchitecturalEvaluation() {
+    public boolean containsElementsEvaluation() {
         for (Element element : getAlternativeArchitecture().getElementsWithPackages()) {
             if (element.isFreezeByDM()) {
                 return true;

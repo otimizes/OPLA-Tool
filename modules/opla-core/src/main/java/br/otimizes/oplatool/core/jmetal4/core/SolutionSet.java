@@ -20,10 +20,10 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package br.otimizes.oplatool.core.jmetal4.core;
 
-import br.otimizes.isearchai.learning.*;
-import br.otimizes.oplatool.architecture.representation.*;
+import br.otimizes.isearchai.learning.MLSolutionSet;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Package;
+import br.otimizes.oplatool.architecture.representation.*;
 import br.otimizes.oplatool.architecture.smarty.util.SaveStringToFile;
 import br.otimizes.oplatool.common.Configuration;
 import br.otimizes.oplatool.common.exceptions.JMException;
@@ -38,10 +38,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
-import br.otimizes.isearchai.learning.MLSolutionSet;
 
 /**
  * Class representing a SolutionSet (a set of solutions)
@@ -51,6 +51,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     private static final Logger LOGGER = Logger.getLogger(SolutionSet.class);
 
     /**
+     *
      */
     private static final long serialVersionUID = 2100295237257916377L;
 
@@ -72,6 +73,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // SolutionSet
+
     /**
      * Creates a empty solutionSet with a maximum capacity.
      *
@@ -133,6 +135,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // get
+
     /**
      * Returns the maximum capacity of the solution set
      *
@@ -143,6 +146,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // getMaxSize
+
     /**
      * Sorts a SolutionSet using a <code>Comparator</code>.
      *
@@ -158,6 +162,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // sort
+
     /**
      * Returns the index of the best Solution using a <code>Comparator</code>.
      * If there are more than one occurrences, only the index of the first one
@@ -186,6 +191,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // indexBest
+
     /**
      * Returns the best Solution using a <code>Comparator</code>. If there are
      * more than one occurrences, only the first one is returned
@@ -204,6 +210,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // best
+
     /**
      * Returns the index of the worst Solution using a <code>Comparator</code>.
      * If there are more than one occurrences, only the index of the first one
@@ -232,6 +239,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // indexWorst
+
     /**
      * Returns the worst Solution using a <code>Comparator</code>. If there are
      * more than one occurrences, only the first one is returned
@@ -251,6 +259,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // worst
+
     /**
      * Returns the number of solutions in the SolutionSet.
      *
@@ -261,6 +270,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // size
+
     /**
      * Empties the SolutionSet
      */
@@ -269,6 +279,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // clear
+
     /**
      * Deletes the <code>Solution</code> at position i in the set.
      *
@@ -283,6 +294,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // remove
+
     /**
      * Returns an <code>Iterator</code> to access to the solution set list.
      *
@@ -293,6 +305,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // iterator
+
     /**
      * Returns a new <code>SolutionSet</code> which is the result of the union
      * between the current solution set and the one passed as a parameter.
@@ -319,6 +332,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // union
+
     /**
      * Replaces a solution by a new one
      *
@@ -341,25 +355,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
 
     public void setSolutionSet(List<Solution> solutions) {
         this.solutions = solutions;
-    }
-
-    /**
-     * Copies the objectives of the solution set to a matrix
-     *
-     * @return A matrix containing the objectives
-     */
-    public double[][] writeObjectivesToMatrix() {
-        if (this.size() == 0) {
-            return null;
-        }
-        double[][] objectives;
-        objectives = new double[size()][get(0).numberOfObjectives()];
-        for (int i = 0; i < size(); i++) {
-            for (int j = 0; j < get(0).numberOfObjectives(); j++) {
-                objectives[i][j] = get(i).getObjective(j);
-            }
-        }
-        return objectives;
     }
 
     @Override
@@ -402,54 +397,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         return doubles;
     }
 
-    // writeObjectivesAndElementsNumberToMatrix
-    /**
-     * Copies the objectives and Elements Number of the solution set to a matrix
-     * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
-     * nrAbstractions, nrAggregations, nrAssociations, nrCompositions, nrDependencies, nrGeneralizations, nrRealizations, nrUsage
-     *
-     * @return matrix containing the objectives
-     */
-    public double[][] writeObjectivesAndArchitecturalElementsNumberToMatrix() {
-        return reduceThreeDimensionalArray(getSolutionsWithArchitecturalEvaluations().stream().map(this::writeObjectiveWithAllElementsFromSolution).toArray(double[][][]::new));
-    }
-
-    /**
-     * Copies the objectives and All Elements of a specific set to a matrix
-     *
-     * @param solution specific solution
-     * @return Matrix with values
-     */
-    private double[][] writeObjectiveWithAllElementsFromSolution(Solution solution) {
-        double[] objectives = solution.getObjectives();
-        double[][] values = writeAllElementsFromSolution(solution);
-        double[][] newValues = new double[values.length][];
-        int i = 0;
-        for (double[] value : values) {
-            double[] newArray = new double[objectives.length + value.length];
-            System.arraycopy(objectives, 0, newArray, 0, objectives.length);
-            System.arraycopy(value, 0, newArray, objectives.length, value.length);
-            newValues[i] = newArray;
-            i++;
-        }
-        return newValues;
-    }
-
-    /**
-     * Copies the objectives and Elements Number of the solution set to a matrix
-     * Objectives, nrClasses, nrConcerns, nrInterfaces, nrPackages, nrVariationPoints, nrVariants, nrVariabilities, nrConcerns,
-     * nrAbstractions, nrAggregations, nrAssociations, nrCompositions, nrDependencies, nrGeneralizations, nrRealizations, nrUsage
-     *
-     * @return A matrix containing the objectives
-     */
-    public double[] writeArchitecturalEvaluationsToMatrix() {
-        double[][] doubles = getSolutionsWithArchitecturalEvaluations().stream().map(solution -> {
-            List<Element> allElementsFromSolution = getAllElementsFromSolution(solution);
-            return allElementsFromSolution.stream().mapToDouble(element -> element.isFreezeByDM() ? 1.0 : 0.0).toArray();
-        }).toArray(double[][]::new);
-        return reduceBiDimensionalArray(doubles);
-    }
-
     /**
      * Reduce one dimensional in three dimensional array
      *
@@ -458,7 +405,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      */
     public double[][] reduceThreeDimensionalArray(double[][][] treeDimensionalArray) {
         if (treeDimensionalArray.length <= 0)
-            return new double[][] {};
+            return new double[][]{};
         double[][] twoDimensionalArray = treeDimensionalArray[0];
         for (int i = 1; i < treeDimensionalArray.length; i++) {
             twoDimensionalArray = (double[][]) ArrayUtils.addAll(twoDimensionalArray, treeDimensionalArray[i]);
@@ -474,7 +421,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      */
     public double[] reduceBiDimensionalArray(double[][] biDimensionalArray) {
         if (biDimensionalArray.length <= 0)
-            return new double[] {};
+            return new double[]{};
         double[] oneDimensionalArray = biDimensionalArray[0];
         for (int i = 1; i < biDimensionalArray.length; i++) {
             oneDimensionalArray = ArrayUtils.addAll(oneDimensionalArray, biDimensionalArray[i]);
@@ -508,9 +455,9 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         elementProperties[3] = element instanceof Package ? (double) ((Package) element).getAllInterfaces().size() : 0;
         elementProperties[4] = element instanceof Class ? (double) ((Class) element).getAllAttributes().size() : 0;
         elementProperties[5] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() : element instanceof Interface ? (double) ((Interface) element).getMethods().size() : 0;
-        double[] doubles = writeObjectiveFromElementsAndObjectives(element, solution);
+        double[] doubles = writeObjectivesFromElements(element, solution);
         elementProperties = ArrayUtils.addAll(elementProperties, doubles);
-        elementProperties = ArrayUtils.addAll(elementProperties, new double[] { solution.containsArchitecturalEvaluation() ? 1 : 0 });
+        elementProperties = ArrayUtils.addAll(elementProperties, new double[]{solution.containsElementsEvaluation() ? 1 : 0});
         return elementProperties;
     }
 
@@ -625,51 +572,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
             soma += value;
         }
         return soma / values.size();
-    }
-
-    @Override
-    public List<Element> getArchitecturalElementsEvaluatedByClusterId(Double clusterId) {
-        List<Element> elements = new ArrayList<>();
-        List<List<Element>> collect = getSolutionsWithArchitecturalEvaluations().stream().filter(solution -> clusterId.equals(solution.getClusterId())).map(solution -> solution.getAllElements().stream().filter(Element::isFreezeByDM).collect(Collectors.toList())).collect(Collectors.toList());
-        for (List<Element> elementList : collect) {
-            elements.addAll(elementList);
-        }
-        return elements;
-    }
-
-    /**
-     * Freeze the architectural elements according the solution
-     *
-     * @param solution solution with elements
-     */
-    @Override
-    public void freezeArchitecturalElementsAccordingSolution(Solution solution) {
-        List<Element> evaluatedElements = solution.getFreezedElements();
-        if (evaluatedElements.size() > 0) {
-            for (Solution aSolution : solutions) {
-                List<MLElement> collect = aSolution.getAllElements().stream().filter(e -> evaluatedElements.stream().anyMatch(ee -> ee.totalyEquals(e))).collect(Collectors.toList());
-                if (collect.size() > 0) {
-                    for (MLElement element : collect) {
-                        element.setFreezedByCluster();
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Find elements with a id
-     *
-     * @param id hash id
-     * @return filtered elements
-     */
-    public List<Element> findElementWithNumberId(Double id) {
-        List<List<Element>> collect = solutions.stream().map(s -> s.findElementByNumberId(id)).collect(Collectors.toList());
-        List<Element> objects = new ArrayList<>();
-        for (List<Element> elements : collect) {
-            objects.addAll(elements);
-        }
-        return objects;
     }
 
     /**
@@ -816,6 +718,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // printVariablesToFile
+
     /**
      * Save variables in a file
      *
@@ -903,10 +806,9 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         return solutions;
     }
 
-    @Override
     @JsonIgnore
-    public List<Solution> getSolutionsWithArchitecturalEvaluations() {
-        return super.getSolutionsWithArchitecturalEvaluations();
+    public List<Solution> getSolutionsWithElementsEvaluations() {
+        return super.getSolutionsWithElementsEvaluations();
     }
 
     /**
@@ -917,7 +819,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      * @return list of objectives
      */
     @Override
-    public double[] writeObjectiveFromElementsAndObjectives(Element element, Solution solution) {
+    public double[] writeObjectivesFromElements(Element element, Solution solution) {
         Solution newSolution = null;
         try {
             newSolution = new Solution((Problem) solution.getProblem());
@@ -929,7 +831,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         Architecture architecture = new Architecture("pla");
         architecture.addElement(element);
         if (newSolution != null) {
-            newSolution.setDecisionVariables(new Architecture[] { architecture });
+            newSolution.setDecisionVariables(new Architecture[]{architecture});
             ((OPLA) newSolution.getProblem()).evaluate(newSolution);
             try {
                 newSolution.getProblem().evaluateConstraints(newSolution);

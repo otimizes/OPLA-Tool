@@ -350,24 +350,4 @@ public abstract class Element implements Serializable, MLElement {
         } else
             return namespace.equals(other.namespace);
     }
-
-    @Override
-    public boolean totalyEquals(MLElement other) {
-        boolean doesEqual = this.getNumberId() == other.getNumberId();
-        if (this instanceof Class && other instanceof Class) {
-            doesEqual &= ((Class) this).getAllAttributes().equals(((Class) other).getAllAttributes());
-            doesEqual &= ((Class) this).getAllMethods().equals(((Class) other).getAllMethods());
-        } else if (this instanceof Interface && other instanceof Interface) {
-            doesEqual &= ((Interface) this).getOperations().equals(((Interface) other).getOperations());
-        } else if (this instanceof Package && other instanceof Package) {
-            Set<Element> collect = ((Package) this).getElements();
-            Set<Element> collect1 = ((Package) other).getElements();
-            if (collect.size() != collect1.size())
-                return false;
-            for (Element element : collect) {
-                doesEqual &= element.totalyEquals(other);
-            }
-        }
-        return doesEqual;
-    }
 }

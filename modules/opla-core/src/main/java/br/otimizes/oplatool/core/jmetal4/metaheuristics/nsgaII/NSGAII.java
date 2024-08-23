@@ -43,12 +43,14 @@ import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
 import org.apache.log4j.Logger;
+
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+
 import br.otimizes.isearchai.interactive.InteractWithDM;
 
 /**
@@ -399,8 +401,9 @@ public class NSGAII extends Algorithm implements MLSearchAlgorithm<SolutionSet, 
 
     /**
      * Train the model
-     *
+     * <p>
      * ISEARCHAI::EXAMPLE::{interaction.subjectiveAnalyzeAlgorithmEvaluate(solutionSet);}
+     *
      * @param solutionSet
      */
     public void trainModel(SolutionSet solutionSet) {
@@ -409,8 +412,9 @@ public class NSGAII extends Algorithm implements MLSearchAlgorithm<SolutionSet, 
 
     /**
      * Interact with DM
-     *
+     * <p>
      * ISEARCHAI::EXAMPLE::{return interaction.interactWithDMUpdatingInteraction(offspringPopulation, bestOfUserEvaluation, generation);}
+     *
      * @param offspringPopulation
      * @param bestOfUserEvaluation
      * @param generation
