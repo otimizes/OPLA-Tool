@@ -20,8 +20,9 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII;
 
+import br.otimizes.isearchai.interactive.InteractWithDM;
 import br.otimizes.isearchai.interactive.InteractiveFunction;
-import br.otimizes.isearchai.learning.MLSearchAlgorithm;
+import br.otimizes.isearchai.learning.ml.MLSearchAlgorithm;
 import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
@@ -50,8 +51,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-
-import br.otimizes.isearchai.interactive.InteractWithDM;
 
 /**
  * This class implements the NSGA-II algorithm.

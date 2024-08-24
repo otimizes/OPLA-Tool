@@ -1,10 +1,9 @@
 package br.otimizes.oplatool.architecture.representation;
 
-import br.otimizes.isearchai.learning.MLElement;
+import br.otimizes.isearchai.learning.ml.MLElement;
 import br.otimizes.oplatool.architecture.exceptions.ConcernNotFoundException;
 import com.rits.cloning.Cloner;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.eclipse.uml2.uml.Interface;
+
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;

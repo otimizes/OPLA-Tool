@@ -1,10 +1,10 @@
 package br.otimizes.oplatool.core.jmetal4.experiments;
 
+import br.otimizes.isearchai.interactive.InteractiveFunction;
+import br.otimizes.isearchai.learning.ml.ClusteringAlgorithm;
+import br.otimizes.isearchai.learning.ml.Moment;
 import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.core.jmetal4.operators.MutationOperators;
-import br.otimizes.isearchai.learning.ClusteringAlgorithm;
-import br.otimizes.isearchai.learning.Moment;
-import br.otimizes.isearchai.interactive.InteractiveFunction;
 import br.otimizes.oplatool.patterns.strategies.scopeselection.impl.ElementsWithSameDesignPatternSelection;
 import br.ufpr.dinf.gres.loglog.LogLog;
 import org.apache.commons.lang.WordUtils;

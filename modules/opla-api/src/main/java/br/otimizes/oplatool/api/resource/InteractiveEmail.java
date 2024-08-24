@@ -1,15 +1,15 @@
 package br.otimizes.oplatool.api.resource;
 
+import br.otimizes.isearchai.learning.ml.Clustering;
 import br.otimizes.oplatool.api.dto.OptimizationDto;
 import br.otimizes.oplatool.api.utils.Interaction;
 import br.otimizes.oplatool.api.utils.Interactions;
-import br.otimizes.oplatool.domain.entity.EmailDto;
 import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;
-import br.otimizes.isearchai.learning.Clustering;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
+import br.otimizes.oplatool.domain.entity.EmailDto;
 import br.otimizes.oplatool.domain.entity.User;
 import br.otimizes.oplatool.persistence.service.EmailService;
 import br.otimizes.oplatool.persistence.service.UserService;
