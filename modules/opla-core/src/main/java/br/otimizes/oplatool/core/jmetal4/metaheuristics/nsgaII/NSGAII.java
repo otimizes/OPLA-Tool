@@ -22,7 +22,7 @@ package br.otimizes.oplatool.core.jmetal4.metaheuristics.nsgaII;
 
 import br.otimizes.isearchai.interactive.InteractWithDM;
 import br.otimizes.isearchai.interactive.InteractiveFunction;
-import br.otimizes.isearchai.learning.ml.MLSearchAlgorithm;
+import br.otimizes.isearchai.learning.ml.interfaces.MLSearchAlgorithm;
 import br.otimizes.oplatool.architecture.io.OPLALogs;
 import br.otimizes.oplatool.architecture.io.OptimizationInfo;
 import br.otimizes.oplatool.architecture.io.OptimizationInfoStatus;
@@ -44,7 +44,6 @@ import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationFileConfigThreadScope;
 import br.otimizes.oplatool.domain.config.FileConstants;
 import org.apache.log4j.Logger;
-
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;

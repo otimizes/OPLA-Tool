@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.api.resource;
 
-import br.otimizes.isearchai.learning.ml.Clustering;
+import br.otimizes.isearchai.learning.ml.clustering.Clustering;
 import br.otimizes.oplatool.api.dto.OptimizationDto;
 import br.otimizes.oplatool.api.utils.Interaction;
 import br.otimizes.oplatool.api.utils.Interactions;

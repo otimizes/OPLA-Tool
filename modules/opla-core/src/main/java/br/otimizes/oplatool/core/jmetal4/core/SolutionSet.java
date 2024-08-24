@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package br.otimizes.oplatool.core.jmetal4.core;
 
-import br.otimizes.isearchai.learning.ml.MLSolutionSet;
+import br.otimizes.isearchai.learning.ml.interfaces.MLSolutionSet;
 import br.otimizes.oplatool.architecture.representation.Class;
 import br.otimizes.oplatool.architecture.representation.Package;
 import br.otimizes.oplatool.architecture.representation.*;
@@ -38,7 +38,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
-
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -51,7 +50,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     private static final Logger LOGGER = Logger.getLogger(SolutionSet.class);
 
     /**
-     *
      */
     private static final long serialVersionUID = 2100295237257916377L;
 
@@ -73,7 +71,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // SolutionSet
-
     /**
      * Creates a empty solutionSet with a maximum capacity.
      *
@@ -135,7 +132,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // get
-
     /**
      * Returns the maximum capacity of the solution set
      *
@@ -146,7 +142,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // getMaxSize
-
     /**
      * Sorts a SolutionSet using a <code>Comparator</code>.
      *
@@ -162,7 +157,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // sort
-
     /**
      * Returns the index of the best Solution using a <code>Comparator</code>.
      * If there are more than one occurrences, only the index of the first one
@@ -191,7 +185,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // indexBest
-
     /**
      * Returns the best Solution using a <code>Comparator</code>. If there are
      * more than one occurrences, only the first one is returned
@@ -210,7 +203,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // best
-
     /**
      * Returns the index of the worst Solution using a <code>Comparator</code>.
      * If there are more than one occurrences, only the index of the first one
@@ -239,7 +231,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // indexWorst
-
     /**
      * Returns the worst Solution using a <code>Comparator</code>. If there are
      * more than one occurrences, only the first one is returned
@@ -259,7 +250,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // worst
-
     /**
      * Returns the number of solutions in the SolutionSet.
      *
@@ -270,7 +260,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // size
-
     /**
      * Empties the SolutionSet
      */
@@ -279,7 +268,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // clear
-
     /**
      * Deletes the <code>Solution</code> at position i in the set.
      *
@@ -294,7 +282,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // remove
-
     /**
      * Returns an <code>Iterator</code> to access to the solution set list.
      *
@@ -305,7 +292,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // iterator
-
     /**
      * Returns a new <code>SolutionSet</code> which is the result of the union
      * between the current solution set and the one passed as a parameter.
@@ -332,7 +318,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // union
-
     /**
      * Replaces a solution by a new one
      *
@@ -405,7 +390,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      */
     public double[][] reduceThreeDimensionalArray(double[][][] treeDimensionalArray) {
         if (treeDimensionalArray.length <= 0)
-            return new double[][]{};
+            return new double[][] {};
         double[][] twoDimensionalArray = treeDimensionalArray[0];
         for (int i = 1; i < treeDimensionalArray.length; i++) {
             twoDimensionalArray = (double[][]) ArrayUtils.addAll(twoDimensionalArray, treeDimensionalArray[i]);
@@ -421,7 +406,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
      */
     public double[] reduceBiDimensionalArray(double[][] biDimensionalArray) {
         if (biDimensionalArray.length <= 0)
-            return new double[]{};
+            return new double[] {};
         double[] oneDimensionalArray = biDimensionalArray[0];
         for (int i = 1; i < biDimensionalArray.length; i++) {
             oneDimensionalArray = ArrayUtils.addAll(oneDimensionalArray, biDimensionalArray[i]);
@@ -457,7 +442,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         elementProperties[5] = element instanceof Class ? (double) ((Class) element).getAllMethods().size() : element instanceof Interface ? (double) ((Interface) element).getMethods().size() : 0;
         double[] doubles = writeObjectivesFromElements(element, solution);
         elementProperties = ArrayUtils.addAll(elementProperties, doubles);
-        elementProperties = ArrayUtils.addAll(elementProperties, new double[]{solution.containsElementsEvaluation() ? 1 : 0});
+        elementProperties = ArrayUtils.addAll(elementProperties, new double[] { solution.containsElementsEvaluation() ? 1 : 0 });
         return elementProperties;
     }
 
@@ -718,7 +703,6 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
     }
 
     // printVariablesToFile
-
     /**
      * Save variables in a file
      *
@@ -831,7 +815,7 @@ public class SolutionSet extends MLSolutionSet<Solution, Element> implements Ser
         Architecture architecture = new Architecture("pla");
         architecture.addElement(element);
         if (newSolution != null) {
-            newSolution.setDecisionVariables(new Architecture[]{architecture});
+            newSolution.setDecisionVariables(new Architecture[] { architecture });
             ((OPLA) newSolution.getProblem()).evaluate(newSolution);
             try {
                 newSolution.getProblem().evaluateConstraints(newSolution);

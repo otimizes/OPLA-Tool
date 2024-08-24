@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.core.jmetal4.experiments.base;
 
-import br.otimizes.isearchai.learning.ml.Moment;
+import br.otimizes.isearchai.learning.ml.basis.Moment;
 import br.otimizes.oplatool.common.exceptions.JMException;
 import br.otimizes.oplatool.core.jmetal4.core.Algorithm;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;

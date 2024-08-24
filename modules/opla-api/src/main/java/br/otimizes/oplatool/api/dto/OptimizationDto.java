@@ -1,8 +1,8 @@
 package br.otimizes.oplatool.api.dto;
 
 import br.otimizes.isearchai.interactive.InteractiveFunction;
-import br.otimizes.isearchai.learning.ml.ClusteringAlgorithm;
-import br.otimizes.isearchai.learning.ml.Moment;
+import br.otimizes.isearchai.learning.ml.basis.Moment;
+import br.otimizes.isearchai.learning.ml.clustering.ClusteringAlgorithm;
 import br.otimizes.oplatool.api.gateway.OptimizationAlgorithms;
 import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.core.jmetal4.core.SolutionSet;

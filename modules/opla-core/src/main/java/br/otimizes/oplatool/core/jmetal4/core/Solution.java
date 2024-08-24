@@ -22,13 +22,12 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package br.otimizes.oplatool.core.jmetal4.core;
 
-import br.otimizes.isearchai.learning.ml.MLSolution;
+import br.otimizes.isearchai.learning.ml.interfaces.MLSolution;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.core.jmetal4.encodings.variable.Binary;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -38,7 +37,6 @@ import java.util.List;
 public class Solution implements Serializable, MLSolution<Element> {
 
     /**
-     *
      */
     private static final long serialVersionUID = 2508217794094374887L;
 
@@ -171,7 +169,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // Solution
-
     /**
      * Constructor
      *
@@ -218,7 +215,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // Constructor
-
     /**
      * Copy constructor.
      *
@@ -275,7 +271,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getDistanceToSolutionSet
-
     /**
      * Sets the distance between this solution and a <code>SolutionSet</code>.
      * The value is stored in <code>distanceToSolutionSet_</code>.
@@ -287,7 +282,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // SetDistanceToSolutionSet
-
     /**
      * Gets the distance from the solution to his k-nearest nighbor in a
      * <code>SolutionSet</code>. Returns the value stored in
@@ -301,7 +295,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getKDistance
-
     /**
      * Sets the distance between the solution and its k-nearest neighbor in a
      * <code>SolutionSet</code>. The value is stored in <code>kDistance_</code>.
@@ -313,7 +306,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // setKDistance
-
     /**
      * Gets the crowding distance of the solution into a
      * <code>SolutionSet</code>. Returns the value stored in
@@ -327,7 +319,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getCrowdingDistance
-
     /**
      * Sets the crowding distance of a solution in a <code>SolutionSet</code>.
      * The value is stored in <code>crowdingDistance_</code>.
@@ -339,7 +330,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // setCrowdingDistance
-
     /**
      * Gets the fitness of the solution. Returns the value of stored in the
      * variable <code>fitness_</code>. <b> REQUIRE </b>: This method has to be
@@ -352,7 +342,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getFitness
-
     /**
      * Sets the fitness of a solution. The value is stored in
      * <code>fitness_</code>.
@@ -364,7 +353,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // setFitness
-
     /**
      * Sets the value of the i-th objective.
      *
@@ -376,7 +364,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // setObjective
-
     /**
      * Returns the value of the i-th objective.
      *
@@ -423,7 +410,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getObjective
-
     /**
      * Returns the number of objectives.
      *
@@ -451,7 +437,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // numberOfVariables
-
     /**
      * Returns a string representing the solution.
      *
@@ -502,7 +487,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getDecisionVariables
-
     /**
      * Sets the decision variables for the solution.
      *
@@ -514,7 +498,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // setDecisionVariables
-
     /**
      * Indicates if the solution is marked.
      *
@@ -527,7 +510,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // isMarked
-
     /**
      * Establishes the solution as marked.
      */
@@ -536,7 +518,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // marked
-
     /**
      * Established the solution as unmarked.
      */
@@ -545,7 +526,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // unMarked
-
     /**
      * Gets the rank of the solution. <b> REQUIRE </b>: This method has to be
      * invoked after calling <code>setRank()</code>.
@@ -557,7 +537,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getRank
-
     /**
      * Sets the rank of a solution.
      *
@@ -568,7 +547,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // setRank
-
     /**
      * Gets the overall constraint violated by the solution. <b> REQUIRE </b>:
      * This method has to be invoked after calling
@@ -581,7 +559,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getOverallConstraintViolation
-
     /**
      * Sets the overall constraints violated by the solution.
      *
@@ -592,7 +569,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // setOverallConstraintViolation
-
     /**
      * Gets the number of constraint violated by the solution. <b> REQUIRE </b>:
      * This method has to be invoked after calling
@@ -605,7 +581,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getNumberOfViolatedConstraint
-
     /**
      * Sets the number of constraints violated by the solution.
      *
@@ -616,7 +591,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // setNumberOfViolatedConstraint
-
     /**
      * Gets the location of this solution in a <code>SolutionSet</code>. <b>
      * REQUIRE </b>: This method has to be invoked after calling
@@ -629,7 +603,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getLocation
-
     /**
      * Sets the location of the solution into a solutionSet.
      *
@@ -649,7 +622,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     // public void setType(String type) {
     // type_ = Class.forName("") ;
     // } // setType
-
     /**
      * Gets the type of the variable
      *
@@ -661,7 +633,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getType
-
     /**
      * Sets the type of the variable.
      *
@@ -672,7 +643,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // setType
-
     /**
      * Returns the aggregative value of the solution
      *
@@ -704,13 +674,12 @@ public class Solution implements Serializable, MLSolution<Element> {
     @JsonIgnore
     public int getNumberOfBits() {
         int bits = 0;
-        for (int i = 0; i < variable_.length; i++)
-            try {
-                if ((variable_[i].getVariableType() == Class.forName("br.otimizes.oplatool.core.jmetal4.encodings.variable.Binary")) || (variable_[i].getVariableType() == Class.forName("br.otimizes.oplatool.core.jmetal4.encodings.variable.BinaryReal")))
-                    bits += ((Binary) (variable_[i])).getNumberOfBits();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+        for (int i = 0; i < variable_.length; i++) try {
+            if ((variable_[i].getVariableType() == Class.forName("br.otimizes.oplatool.core.jmetal4.encodings.variable.Binary")) || (variable_[i].getVariableType() == Class.forName("br.otimizes.oplatool.core.jmetal4.encodings.variable.BinaryReal")))
+                bits += ((Binary) (variable_[i])).getNumberOfBits();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return bits;
     }
 
@@ -869,7 +838,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // setObjective
-
     /**
      * Returns the maximum value of the i-th objective.
      *
@@ -880,7 +848,6 @@ public class Solution implements Serializable, MLSolution<Element> {
     }
 
     // getObjective
-
     /**
      * run through all objectives to check the biggest
      *
