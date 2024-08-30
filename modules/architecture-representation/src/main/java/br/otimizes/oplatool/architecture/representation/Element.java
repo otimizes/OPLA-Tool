@@ -1,6 +1,6 @@
 package br.otimizes.oplatool.architecture.representation;
 
-import br.otimizes.isearchai.learning.ml.interfaces.MLElement;
+import br.otimizes.isearchai.core.MLElement;
 import br.otimizes.oplatool.architecture.exceptions.ConcernNotFoundException;
 import com.rits.cloning.Cloner;
 import java.io.Serializable;

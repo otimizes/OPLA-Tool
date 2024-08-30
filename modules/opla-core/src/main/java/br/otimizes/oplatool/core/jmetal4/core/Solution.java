@@ -22,19 +22,22 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package br.otimizes.oplatool.core.jmetal4.core;
 
-import br.otimizes.isearchai.learning.ml.interfaces.MLSolution;
+import br.otimizes.isearchai.core.MLSolution;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Element;
 import br.otimizes.oplatool.common.Variable;
 import br.otimizes.oplatool.core.jmetal4.encodings.variable.Binary;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class representing a solution for a problem.
  */
-public class Solution implements Serializable, MLSolution<Element> {
+public class Solution implements Serializable, MLSolution<Element, Variable> {
 
     /**
      */
@@ -863,6 +866,56 @@ public class Solution implements Serializable, MLSolution<Element> {
             }
             setObjectiveMax(i, maxObjective);
         }
+    }
+
+
+    @Override
+    public Variable getVariableValue(int i) {
+        return getVariables().get(i);
+    }
+
+    @Override
+    public List<Variable> getVariables() {
+        return Arrays.asList(getDecisionVariables());
+    }
+
+    @Override
+    public void setVariableValue(int i, Variable variable) {
+        getVariables().set(i, variable);
+    }
+
+    @Override
+    public String getVariableValueString(int i) {
+        return getVariables().get(i).toString();
+    }
+
+    @Override
+    public int getNumberOfVariables() {
+        return getVariables().size();
+    }
+
+    @Override
+    public int getNumberOfObjectives() {
+        return numberOfObjectives();
+    }
+
+    @Override
+    public org.uma.jmetal.solution.Solution<Variable> copy() {
+        return null;
+    }
+
+    @Override
+    public void setAttribute(Object o, Object o1) {
+    }
+
+    @Override
+    public Object getAttribute(Object o) {
+        return null;
+    }
+
+    @Override
+    public Map<Object, Object> getAttributes() {
+        return Collections.emptyMap();
     }
 }
 // Solution

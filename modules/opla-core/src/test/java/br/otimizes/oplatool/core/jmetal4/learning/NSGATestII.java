@@ -1,5 +1,7 @@
 package br.otimizes.oplatool.core.jmetal4.learning;
 
+import br.otimizes.isearchai.learning.ml.basis.Moment;
+import br.otimizes.isearchai.learning.ml.clustering.ClusteringAlgorithm;
 import br.otimizes.oplatool.architecture.builders.ArchitectureBuilders;
 import br.otimizes.oplatool.architecture.representation.Architecture;
 import br.otimizes.oplatool.architecture.representation.Class;
@@ -16,9 +18,6 @@ import br.otimizes.oplatool.core.jmetal4.operators.mutation.MutationFactory;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.Selection;
 import br.otimizes.oplatool.core.jmetal4.operators.selection.SelectionFactory;
 import br.otimizes.oplatool.core.jmetal4.problems.OPLA;
-import br.otimizes.isearchai.learning.ClusteringAlgorithm;
-import br.otimizes.isearchai.learning.Moment;
-import br.otimizes.isearchai.learning.SubjectiveAnalyzeAlgorithm;
 import br.otimizes.oplatool.domain.OPLAThreadScope;
 import br.otimizes.oplatool.domain.config.ApplicationYamlConfig;
 import br.otimizes.oplatool.domain.config.FileConstants;
