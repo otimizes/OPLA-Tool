@@ -8,8 +8,10 @@ import br.otimizes.oplatool.core.jmetal4.metrics.conventionalMetrics.*;
 /**
  * Conventional Function
  * <p>
- * It aims to provide indicators on basic design principles including cohesion, coupling and size.
- * CM (pla) is formed by an aggregation of various metrics extracted from (W¨ust, 2016)
+ * It aims to provide indicators on basic design principles including cohesion,
+ * coupling and size.
+ * CM (pla) is formed by an aggregation of various metrics extracted from
+ * (W¨ust, 2016)
  * (DepIn, DepOut, CDepIn, CDepOut, DepPack, NumOps, H)
  */
 public class CM extends ObjectiveFunctionImplementation {
@@ -51,7 +53,7 @@ public class CM extends ObjectiveFunctionImplementation {
             iCohesion = 1 / sumCohesion;
 
         MACFitness = meanNumOps + meanDepComps + sumClassesDepIn + sumClassesDepOut + sumDepIn + sumDepOut
-                + (1 / sumCohesion);
+                + iCohesion;
 
         this.setResults(MACFitness);
     }
