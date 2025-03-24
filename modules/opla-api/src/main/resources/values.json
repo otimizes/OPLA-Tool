@@ -1,0 +1,38 @@
+{
+  "fns": {
+    "values": [
+      "COE",
+      "FM"
+    ],
+    "suggestion": "COE (Class Overlap Elimination) reduces redundancy in class responsibilities, and FM (Feature Modularization) improves the separation of concerns between features, both of which contribute to a more maintainable and scalable architecture."
+  },
+  "settings": {
+    "algorithm": "NSGAII",
+    "runs": 1,
+    "evaluations": "3000",
+    "population": "20",
+    "suggestion": "The choice was made because NSGA-II is a well-established multi-objective evolutionary algorithm capable of balancing trade-offs between objectives like cohesion, coupling, and modularization. A smaller population size with 3000 evaluations is efficient for medium-sized PLAs, enabling quicker convergence without compromising diversity."
+  },
+  "crossover": {
+    "rate": "0.5",
+    "values": [
+      "PLA_FEATURE_DRIVEN_CROSSOVER",
+      "PLA_COMPLEMENTARY_CROSSOVER",
+      "PLA_MODULAR_CROSSOVER"
+    ],
+    "suggestion": "Combining different crossover operators—Feature-driven for modularizing features, Complementary for preserving useful combinations of components, and Modular for rearranging structural blocks—enables better exploration and exploitation of the design space."
+  },
+  "mutation": {
+    "rate": "0.6",
+    "values": [
+      "FEATURE_DRIVEN_OPERATOR",
+      "MOVE_METHOD_MUTATION",
+      "MOVE_ATTRIBUTE_MUTATION",
+      "MOVE_OPERATION_MUTATION",
+      "ADD_CLASS_MUTATION",
+      "ADD_MANAGER_CLASS_MUTATION",
+      "FEATURE_DRIVEN_OPERATOR_FOR_CLASS"
+    ],
+    "suggestion": "A 0.6 mutation rate offers a good balance between exploration and refinement. The selected mutation operators address different levels of abstraction (method, attribute, class, component), which allows for nuanced improvements in feature encapsulation, cohesion, and class responsibility distribution."
+  }
+}

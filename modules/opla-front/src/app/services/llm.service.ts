@@ -19,4 +19,9 @@ export class LLMService extends PersistenceService {
     return this.http.get(`${UserService.baseUrl}/${this.collection}/obj?q=` + q, {headers: this.createAuthorizationHeader()})
       .pipe(catchError(this.errorHandler));
   }
+
+  suggestion(q): Observable<any> {
+    return this.http.get(`${UserService.baseUrl}/${this.collection}/suggestion?q=` + q, {headers: this.createAuthorizationHeader()})
+      .pipe(catchError(this.errorHandler));
+  }
 }

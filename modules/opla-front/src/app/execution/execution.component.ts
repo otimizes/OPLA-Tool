@@ -145,7 +145,7 @@ export class ExecutionComponent implements OnInit, AfterContentChecked {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("dialoggg", result)
-      this.optimizationDto.objectiveFunctions = result
+      this.optimizationDto.objectiveFunctions = result.fns.values
     });
   }
 }

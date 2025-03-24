@@ -225,3 +225,33 @@ mat-radio-button {
     width: 97vw !important;
   }
 }
+
+
+.why-text {
+  font-size: 12px;
+}
+
+.sug-txt {
+  margin: 0 2px;
+}
+
+.help-icon {
+  font-size: 17px;
+  align-items: center;
+  display: flex !important;
+}
+
+.mutation-operator {
+  display: inline-block;
+  margin: 1px 10px;
+  font-size: 11px;
+}
+
+.fns, .crossover-operator {
+  font-size: 11px;
+  margin: 1px;
+}
+
+.cdk-overlay-pane {
+  overflow: auto;
+}

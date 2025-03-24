@@ -5,3 +5,19 @@
 .slider-number {
   font-size: 12px;
 }
+
+button.get-suggestion:hover {
+  width: 200px !important;
+  border-radius: 20px;
+  transition: width .5s ease;
+}
+
+button.get-suggestion .get-suggestion-text {
+  display: none;
+}
+
+button.get-suggestion:hover .get-suggestion-text {
+  display: inline;
+  transition: display 2s ease;
+}
+

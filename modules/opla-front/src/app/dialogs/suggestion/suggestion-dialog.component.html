@@ -1,29 +1,110 @@
-<div>
+<div *ngIf="!pla">
+  <div (click)="selectPLA()" style="cursor: pointer; border: 1px dashed rgba(0, 0, 0, .2); width: 200px; height: 100px; padding: 15px; display: flex; align-items: center; justify-content: center; flex-direction: column">
+    <mat-icon style="color: #3f51b5; opacity: 1">perm_media</mat-icon>
+    <div style="margin-top: 10px; font-size: 14px;">Drag & Drop</div>
+    <div style="margin-top: 5px; font-size: 14px;">or <span style="color: #3f51b5;">browse</span></div>
+    <div style="font-size: 10px; color: rgba(0, 0, 0, .6); margin-top: 10px">Supports SMarty</div>
+<!--    <button mat-flat-button color="primary" (click)="selectPLA()">Choose File</button>-->
+<!--    <span style="font-size: 14px; margin-left: 5px">&nbsp;No file chosen</span>-->
+  </div>
+  <div style="font-size: 12px; color: rgba(0, 0, 0, .6); margin-top: 5px; text-align: center;">* Upload your PLA</div>
+</div>
+
+<div *ngIf="pla && !suggestion">
   <mat-form-field style="min-width: 300px" appearance="outline">
     <mat-label>What are you looking for?</mat-label>
-    <textarea [disabled]="analyzing" [(ngModel)]="question" rows="7" matInput placeholder="Ex. I'd like to have less attributes in classes..."></textarea>
+    <textarea [disabled]="analyzing" [(ngModel)]="question" rows="7" matInput
+              placeholder="Ex. I'd like to have less attributes in classes..."></textarea>
   </mat-form-field>
 </div>
-<br><br>
-<div *ngIf="suggestion">
-  <div>I recommend the objective functions: <b> {{suggestion?.fns}}</b><br><br></div>
-  <div style="display: flex; align-items: center">
-    <div  style="margin: 17px; text-align: center">
-      <mat-icon>help</mat-icon>
-      <b>Why</b>
+<div *ngIf="suggestion" style="display: flex ; align-items: center;">
+  <mat-icon>settings</mat-icon>&nbsp;&nbsp;&nbsp;<b> I recommend the following parameters:</b></div>
+<br>
+<div *ngIf="suggestion" style="display: flex">
+  <div style="margin-right: 50px">
+    <div style="display: flex ; align-items: center;">&nbsp;&nbsp;&nbsp;<mat-icon>looks_one</mat-icon>
+      <span class="sug-txt">Objective functions:</span> &nbsp;&nbsp;<b [innerHTML]="getFns(suggestion?.fns.values)"></b><br><br>
     </div>
-    <div> {{suggestion?.suggestion}}</div>
+    <div style="display: flex; align-items: center;font-size: 13px; margin-top: 5px;">
+      <div style="margin: 17px; text-align: center; display: flex; align-items: center">
+        <mat-icon class="help-icon">help</mat-icon>
+        <b class="why-text">Why</b>
+      </div>
+      <div> {{ suggestion?.fns.suggestion }}</div>
+    </div>
+  </div>
+  <div>
+    <div style="display: flex ; align-items: center;">&nbsp;&nbsp;&nbsp;<mat-icon>looks_two</mat-icon>
+      <span class="sug-txt">Settings:</span> &nbsp;&nbsp;
+      <span
+        class="mat-chip mat-focus-indicator mat-primary mat-standard-chip mat-chip-selected">{{ suggestion?.settings.algorithm }}</span> &nbsp;
+      <span
+        class="mat-chip mat-focus-indicator mat-primary mat-standard-chip mat-chip-selected">{{ suggestion?.settings.runs }}
+        runs</span>&nbsp;
+      <span
+        class="mat-chip mat-focus-indicator mat-primary mat-standard-chip mat-chip-selected">{{ suggestion?.settings.evaluations }}
+        evaluations</span>&nbsp;
+      <span
+        class="mat-chip mat-focus-indicator mat-primary mat-standard-chip mat-chip-selected">{{ suggestion?.settings.population }}
+        individuals</span>
+      <br><br></div>
+    <div style="display: flex; align-items: center;font-size: 13px; margin-top: 5px;">
+      <div style="margin: 17px; text-align: center; display: flex; align-items: center">
+        <mat-icon class="help-icon">help</mat-icon>
+        <b class="why-text">Why</b>
+      </div>
+      <div> {{ suggestion?.settings.suggestion }}</div>
+    </div>
   </div>
 </div>
-<br><br>
-<div style="width: 100%;">
-  <button mat-flat-button color="primary" (click)="close(suggestion?.fns)" style="float: right; margin: 10px;" *ngIf="suggestion">
+<hr *ngIf="suggestion" style="opacity: .3">
+<div *ngIf="suggestion" style="display: flex">
+  <div style="margin-right: 50px">
+    <div style="display: flex ; align-items: center;">&nbsp;&nbsp;&nbsp;<mat-icon>looks_one</mat-icon>
+      <span class="sug-txt">Crossover:</span> <b style="margin-left: 10px; display: flex; align-items: center">
+        <span style="margin-right: 10px; width: 100px"
+              class="mat-chip mat-focus-indicator mat-accent mat-standard-chip mat-chip-selected">Rate of {{ suggestion?.crossover.rate }}</span>
+        <span style="font-size: 10px"
+              [innerHTML]="splitCrossover(suggestion?.crossover?.values)"></span></b><br><br>
+    </div>
+    <div style="display: flex; align-items: center; font-size: 13px; margin-top: 8px;">
+      <div style="margin: 17px; text-align: center; display: flex; align-items: center">
+        <mat-icon class="help-icon">help</mat-icon>
+        <b class="why-text">Why</b>
+      </div>
+      <div> {{ suggestion?.crossover.suggestion }}</div>
+    </div>
+  </div>
+</div>
+<hr *ngIf="suggestion" style="opacity: .3">
+<div *ngIf="suggestion" style="display: flex">
+  <div style="margin-right: 50px">
+    <div style="display: flex ; align-items: center;">&nbsp;&nbsp;&nbsp;<mat-icon>looks_one</mat-icon>
+      <span class="sug-txt">Mutation:</span> <b style="margin-left: 10px; display: flex; align-items: center">
+        <span style="margin-right: 10px; width: 120px"
+              class="mat-chip mat-focus-indicator mat-accent mat-standard-chip mat-chip-selected">Rate of {{ suggestion?.mutation.rate }}</span>
+        <span style="font-size: 10px"
+              [innerHTML]="splitMutation(suggestion?.mutation?.values)"></span></b><br><br>
+    </div>
+    <div style="display: flex; align-items: center">
+      <div style="margin: 17px; text-align: center; display: flex; align-items: center">
+        <mat-icon class="help-icon">help</mat-icon>
+        <b class="why-text">Why</b>
+      </div>
+      <div style="font-size: 13px"> {{ suggestion?.mutation.suggestion }}</div>
+    </div>
+  </div>
+</div>
+<div style="width: 100%;" *ngIf="pla">
+  <button mat-flat-button color="primary" (click)="close(suggestion?.fns.values)" style="float: right; margin: 10px;"
+          *ngIf="suggestion">
     <mat-icon>done</mat-icon>
     That's it
   </button>
-  <button [disabled]="analyzing" mat-flat-button [color]="suggestion ? null : 'primary'" (click)="getSuggestion(question)" style="float: right; margin: 10px">
+  <button [disabled]="analyzing" mat-flat-button [color]="suggestion ? null : 'primary'"
+          (click)="getSuggestion(question)" style="float: right; margin: 10px">
     <mat-icon>lightbulb</mat-icon>
-    <span *ngIf="!analyzing">Get {{suggestion ? 'New' : ''}} suggestion</span>
+    <span *ngIf="!analyzing">Get {{ suggestion ? 'New' : '' }} suggestion</span>
     <span *ngIf="analyzing">Analysing, Hold on...</span>
   </button>
 </div>

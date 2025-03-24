@@ -7,15 +7,15 @@
             <mat-card>
               <h5>Settings</h5>
               <div>
-                <mat-form-field>
+                <mat-form-field appearance="outline">
                   <mat-label>Select the Optimization Algorithm</mat-label>
                   <mat-select [(value)]="optimizationDto.algorithm">
                     <mat-option *ngFor="let alg of optimizationOptions?.algorithms" [value]="alg">
-                      {{alg | replaceall:'_':' '}}
+                      {{ alg | replaceall:'_':' ' }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
                   <mat-label>Number of runs</mat-label>
                   <input matInput placeholder="30..." [(ngModel)]="optimizationDto.numberRuns"
                          formControlName="numberRuns">
@@ -23,7 +23,7 @@
                     Number of runs is <strong>required</strong>
                   </mat-error>
                 </mat-form-field>
-                <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
                   <mat-label>Number of fitness evaluations</mat-label>
                   <input matInput placeholder="30000..." [(ngModel)]="optimizationDto.maxEvaluations"
                          formControlName="maxEvaluations">
@@ -31,7 +31,7 @@
                     Number of fitness evaluations is <strong>required</strong>
                   </mat-error>
                 </mat-form-field>
-                <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
                   <mat-label>Population Size</mat-label>
                   <input matInput placeholder="200..." [(ngModel)]="optimizationDto.populationSize"
                          formControlName="populationSize">
@@ -60,14 +60,8 @@
                   <mat-checkbox [checked]="isObjFunctionChecked(obj)"
                                 [oplaI18n]="obj"
                                 (change)="changeObjFunction(obj, $event.checked)">
-                    <span>{{obj}}</span>
+                    <span>{{ obj }}</span>
                   </mat-checkbox>
-                </opla-grid-tile>
-              </opla-grid-list>
-              <br>
-              <opla-grid-list>
-                <opla-grid-tile style="justify-content: center">
-                  <button (click)="getSuggestion()" style="width: 60%" mat-flat-button color="primary"><mat-icon>lightbulb</mat-icon>&nbsp;Get a suggestion</button>
                 </opla-grid-tile>
               </opla-grid-list>
             </mat-card>
@@ -80,14 +74,14 @@
                               (change)="optimizationDto.interactive = $event.checked; emit(optimizationDto); setInteractionParams($event.checked, optimizationDto); ">
                   Interact during the optimization
                 </mat-checkbox>
-                <mat-form-field>
+                <mat-form-field appearance="outline">
                   <mat-label>Select the clustering algorithm</mat-label>
                   <mat-select [(value)]="optimizationDto.clusteringAlgorithm">
                     <mat-option value="KMEANS">KMEANS</mat-option>
                     <mat-option value="DBSCAN">DBSCAN</mat-option>
                   </mat-select>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field appearance="outline">
                   <mat-label>Select the clustering moment</mat-label>
                   <mat-select [(value)]="optimizationDto.clusteringMoment">
                     <mat-option value="INTERACTIVE">INTERACTIVE</mat-option>
@@ -98,21 +92,21 @@
                 </mat-form-field>
                 <opla-grid-list class="operators-functions">
                   <opla-grid-tile>
-                    <mat-form-field [floatLabel]="floatLabelControl.value">
+                    <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
                       <mat-label>Max interactions</mat-label>
                       <input matInput placeholder="3..." [(ngModel)]="optimizationDto.maxInteractions"
                              formControlName="maxInteractions">
                     </mat-form-field>
                   </opla-grid-tile>
                   <opla-grid-tile>
-                    <mat-form-field [floatLabel]="floatLabelControl.value">
+                    <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
                       <mat-label>First interaction</mat-label>
                       <input matInput placeholder="3..." [(ngModel)]="optimizationDto.firstInteraction"
                              formControlName="firstInteraction">
                     </mat-form-field>
                   </opla-grid-tile>
                   <opla-grid-tile>
-                    <mat-form-field [floatLabel]="floatLabelControl.value">
+                    <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
                       <mat-label>Interval</mat-label>
                       <input matInput placeholder="3..." [(ngModel)]="optimizationDto.intervalInteraction"
                              formControlName="intervalInteraction">
@@ -149,11 +143,11 @@
               </opla-grid-list>
               <opla-grid-list>
                 <opla-grid-tile *ngFor="let fmo of optimizationOptions?.crossoverOperators">
-                    <mat-checkbox
-                      [disabled]="!optimizationDto.crossover"
-                      (change)="changeOperators('crossoverOperators', fmo, $event.checked)">
-                      {{fmo | replaceall:'_':' '}}
-                    </mat-checkbox>
+                  <mat-checkbox
+                    [disabled]="!optimizationDto.crossover"
+                    (change)="changeOperators('crossoverOperators', fmo, $event.checked)">
+                    {{ fmo | replaceall:'_':' ' }}
+                  </mat-checkbox>
                 </opla-grid-tile>
               </opla-grid-list>
             </mat-card>
@@ -196,7 +190,7 @@
                                 [disabled]="!optimizationDto.mutation"
                                 [checked]="fmo !== 'DESIGN_PATTERNS'"
                                 *ngIf="fmo !== 'DESIGN_PATTERNS'">
-                    {{fmo | replaceall:'_':' ' | titlecase}}
+                    {{ fmo | replaceall:'_':' ' | titlecase }}
                   </mat-checkbox>
                 </opla-grid-tile>
               </opla-grid-list>
@@ -205,15 +199,16 @@
           <opla-grid-tile>
             <mat-card>
               <h5>Paths</h5>
-              <mat-form-field>
+              <mat-form-field appearance="outline">
                 <mat-label>Select the builder</mat-label>
                 <mat-select [(value)]="optimizationDto.architectureBuilder">
                   <mat-option *ngFor="let alg of optimizationOptions?.architectureBuilders"
-                              [value]="alg">{{alg}}</mat-option>
+                              [value]="alg">{{ alg }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
               <div>
-                <mat-form-field [floatLabel]="floatLabelControl.value">
+                <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
                   <mat-label>Select the input PLA</mat-label>
                   <input matInput placeholder="/home/..." [(ngModel)]="optimizationDto.inputArchitecture"
                          formControlName="inputArchitecture">
@@ -243,3 +238,18 @@
     </div>
   </opla-grid-tile>
 </opla-grid-list>
+
+
+<!--<opla-grid-list>-->
+<!--  <opla-grid-tile style="justify-content: center">-->
+<!--    <button (click)="getSuggestion()" style="width: 60%" mat-flat-button color="primary"><mat-icon>lightbulb</mat-icon>&nbsp;Get a suggestion</button>-->
+<!--  </opla-grid-tile>-->
+<!--</opla-grid-list>-->
+
+<button fixedVicButton2=""
+        style="margin-right: 10px"
+        class="get-suggestion"
+        color="primary" mat-fab aria-label="Get a suggestion" (click)="getSuggestion()">
+  <span class="get-suggestion-text">Get a suggestion</span>
+  <mat-icon>lightbulb</mat-icon>
+</button>
