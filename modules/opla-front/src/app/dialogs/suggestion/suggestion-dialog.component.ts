@@ -53,13 +53,13 @@ export class SuggestionDialogComponent implements OnInit {
   splitCrossover(values: any) {
     if (!values)
       return ''
-    return values.map(v => '<div class="crossover-operator mat-chip mat-focus-indicator mat-warn mat-standard-chip mat-chip-selected">' + v.replace(/_/g, ' ') + '</div>').join('\n');
+    return values.map(v => '<div class="crossover-operator mat-chip mat-focus-indicator mat-warn mat-standard-chip mat-chip-selected">' + v.replace(/_/g, ' ').replace('CROSSOVER','') + '</div>').join('\n');
   }
 
   splitMutation(values: any) {
     if (!values)
       return ''
-    return values.map(v => '<div class="mutation-operator mat-chip mat-focus-indicator mat-warn mat-standard-chip mat-chip-selected">' + v.replace(/_/g, ' ') + '</div>').join('\n');
+    return values.map(v => '<div class="mutation-operator mat-chip mat-focus-indicator mat-warn mat-standard-chip mat-chip-selected">' + v.replace(/_/g, ' ').replace('MUTATION','').replace('OPERATOR','') + '</div>').join('\n');
   }
 
   selectPLA() {

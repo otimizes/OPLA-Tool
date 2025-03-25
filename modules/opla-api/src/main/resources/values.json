@@ -8,7 +8,7 @@
   },
   "settings": {
     "algorithm": "NSGAII",
-    "runs": 1,
+    "runs": 30,
     "evaluations": "3000",
     "population": "20",
     "suggestion": "The choice was made because NSGA-II is a well-established multi-objective evolutionary algorithm capable of balancing trade-offs between objectives like cohesion, coupling, and modularization. A smaller population size with 3000 evaluations is efficient for medium-sized PLAs, enabling quicker convergence without compromising diversity."

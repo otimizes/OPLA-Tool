@@ -60,7 +60,7 @@
 <hr *ngIf="suggestion" style="opacity: .3">
 <div *ngIf="suggestion" style="display: flex">
   <div style="margin-right: 50px">
-    <div style="display: flex ; align-items: center;">&nbsp;&nbsp;&nbsp;<mat-icon>looks_one</mat-icon>
+    <div style="display: flex ; align-items: center;">&nbsp;&nbsp;&nbsp;<mat-icon>looks_3</mat-icon>
       <span class="sug-txt">Crossover:</span> <b style="margin-left: 10px; display: flex; align-items: center">
         <span style="margin-right: 10px; width: 100px"
               class="mat-chip mat-focus-indicator mat-accent mat-standard-chip mat-chip-selected">Rate of {{ suggestion?.crossover.rate }}</span>
@@ -79,7 +79,7 @@
 <hr *ngIf="suggestion" style="opacity: .3">
 <div *ngIf="suggestion" style="display: flex">
   <div style="margin-right: 50px">
-    <div style="display: flex ; align-items: center;">&nbsp;&nbsp;&nbsp;<mat-icon>looks_one</mat-icon>
+    <div style="display: flex ; align-items: center;">&nbsp;&nbsp;&nbsp;<mat-icon>looks_4</mat-icon>
       <span class="sug-txt">Mutation:</span> <b style="margin-left: 10px; display: flex; align-items: center">
         <span style="margin-right: 10px; width: 120px"
               class="mat-chip mat-focus-indicator mat-accent mat-standard-chip mat-chip-selected">Rate of {{ suggestion?.mutation.rate }}</span>
@@ -104,7 +104,7 @@
   <button [disabled]="analyzing" mat-flat-button [color]="suggestion ? null : 'primary'"
           (click)="getSuggestion(question)" style="float: right; margin: 10px">
     <mat-icon>lightbulb</mat-icon>
-    <span *ngIf="!analyzing">Get {{ suggestion ? 'New' : '' }} suggestion</span>
+    <span *ngIf="!analyzing">Get {{ suggestion ? 'new' : '' }} suggestion</span>
     <span *ngIf="analyzing">Analysing, Hold on...</span>
   </button>
 </div>
