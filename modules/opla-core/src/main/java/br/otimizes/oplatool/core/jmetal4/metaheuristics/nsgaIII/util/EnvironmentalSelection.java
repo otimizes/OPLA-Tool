@@ -11,7 +11,6 @@ import br.otimizes.oplatool.core.jmetal4.core.Solution;
 import br.otimizes.oplatool.core.jmetal4.util.PseudoRandom;
 
 public class EnvironmentalSelection {
-
     private List<List<Solution>> fronts;
     private int solutionsToSelect;
     private List<ReferencePoint> referencePoints;
@@ -68,9 +67,9 @@ public class EnvironmentalSelection {
     // ----------------------------------------------------------------------
     private double ASF(Solution s, int index) {
         double max_ratio = Double.NEGATIVE_INFINITY;
-        for (int i = 0; i < s.getObjectives().length; i++) {
+        for (int i = 0; i < getAttribute(s).size(); i++) {
             double weight = (index == i) ? 1.0 : 0.000001;
-            max_ratio = Math.max(max_ratio, s.getObjectives()[i] / weight);
+            max_ratio = Math.max(max_ratio, getAttribute(s).get(i) / weight);
         }
         return max_ratio;
     }
@@ -123,6 +122,18 @@ public class EnvironmentalSelection {
         return x;
     }
 
+    private List<Double> findMaxObjectives(List<Solution> population) {
+        List<Double> maxObjectives = new ArrayList<>();
+        for (int f = 0; f < numberOfObjectives; f += 1) {
+            double max = Double.NEGATIVE_INFINITY;
+            for (Solution s : population) {
+                max = Math.max(max, s.getObjectives()[f]);
+            }
+            maxObjectives.add(max);
+        }
+        return maxObjectives;
+    }
+
     public List<Double> constructHyperplane(List<Solution> population, List<Solution> extreme_points) {
         // Check whether there are duplicate extreme points.
         // This might happen but the original paper does not mention how to deal with
@@ -136,15 +147,8 @@ public class EnvironmentalSelection {
 
         List<Double> intercepts = new ArrayList<>();
 
-        if (duplicate) // cannot construct the unique hyperplane (this is a casual method to deal with
-                       // the condition)
-        {
-            for (int f = 0; f < numberOfObjectives; f += 1) {
-                // extreme_points[f] stands for the individual with the largest value of
-                // objective f
-                intercepts.add(extreme_points.get(f).getObjectives()[f]);
-            }
-        } else {
+        boolean negativeIntercept = false;
+        if (!duplicate) {
             // Find the equation of the hyperplane
             List<Double> b = new ArrayList<>(); // (pop[0].objs().size(), 1.0);
             for (int i = 0; i < numberOfObjectives; i++)
@@ -154,7 +158,7 @@ public class EnvironmentalSelection {
             for (Solution s : extreme_points) {
                 List<Double> aux = new ArrayList<>();
                 for (int i = 0; i < numberOfObjectives; i++)
-                    aux.add(s.getObjectives()[i]);
+                    aux.add(getAttribute(s).get(i));
                 A.add(aux);
             }
             List<Double> x = guassianElimination(A, b);
@@ -162,8 +166,22 @@ public class EnvironmentalSelection {
             // Find intercepts
             for (int f = 0; f < numberOfObjectives; f += 1) {
                 intercepts.add(1.0 / x.get(f));
+
+                if (x.get(f) < 0.0) {
+                    negativeIntercept = true;
+                    break;
+                }
             }
         }
+
+        if (duplicate || negativeIntercept) {
+            List<Double> maxObjectives = findMaxObjectives(population);
+            intercepts.clear();
+            for (int f = 0; f < numberOfObjectives; f += 1) {
+                intercepts.add(maxObjectives.get(f));
+            }
+        }
+
         return intercepts;
     }
 
@@ -174,8 +192,8 @@ public class EnvironmentalSelection {
 
                 for (int f = 0; f < numberOfObjectives; f++) {
                     List<Double> conv_obj = (List<Double>) getAttribute(s);
-                    if (Math.abs(intercepts.get(f) - ideal_point.get(f)) > 10e-10) {
-                        conv_obj.set(f, conv_obj.get(f) / (intercepts.get(f) - ideal_point.get(f)));
+                    if (Math.abs(intercepts.get(f)) > 10e-10) {
+                        conv_obj.set(f, conv_obj.get(f) / (intercepts.get(f)));
                     } else {
                         conv_obj.set(f, conv_obj.get(f) / (10e-10));
                     }
@@ -190,12 +208,14 @@ public class EnvironmentalSelection {
             numerator += direction.get(i) * point.get(i);
             denominator += Math.pow(direction.get(i), 2.0);
         }
+
         double k = numerator / denominator;
 
         double d = 0;
         for (int i = 0; i < direction.size(); i += 1) {
             d += Math.pow(k * direction.get(i) - point.get(i), 2.0);
         }
+
         return Math.sqrt(d);
     }
 
@@ -213,6 +233,7 @@ public class EnvironmentalSelection {
                         min_rp = r;
                     }
                 }
+
                 if (t + 1 != fronts.size()) {
                     this.referencePoints.get(min_rp).AddMember();
                 } else {
