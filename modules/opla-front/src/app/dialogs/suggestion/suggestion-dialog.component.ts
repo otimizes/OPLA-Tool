@@ -42,6 +42,8 @@ export class SuggestionDialogComponent implements OnInit {
   getSuggestion(question) {
     this.analyzing = true;
     this.llmService.obj(question).subscribe(result => {
+      if (!result.content.endsWith("}"))
+        result.content += "}"
       this.suggestion = JSON.parse(result.content.replace('jsonCopy code', ''));
       this.analyzing = false;
       console.log("result---", result)
